@@ -4,6 +4,17 @@ import { defineParameterType } from "cypress-cucumber-preprocessor/steps";
 /**
  * @module Interactions
  * @author Adam De Fouw <aldefouw@medicine.wisc.edu>
+ * @example I click on the button labeled exactly {string}
+ * @param {string} text - the EXACT text on the button element you want to click
+ * @description Clicks on a button element with a EXACT text label.
+ */
+Given("I click on the button labeled exactly {string}", (text) => {
+    cy.get('button').contains(new RegExp("^" + text + "$", "g")).click()
+})
+
+/**
+ * @module Interactions
+ * @author Adam De Fouw <aldefouw@medicine.wisc.edu>
  * @example I click on the button labeled {string}
  * @param {string} text - the text on the button element you want to click
  * @description Clicks on a button element with a specific text label.
@@ -178,7 +189,7 @@ defineParameterType({
  * @param {string} selector - the selector of the element to click on
  * @description Clicks on an element identified by specific selector
  */
-Given("I click on the {element_type} identified by {string}", (selector) => {
+Given("I click on the {element_type} identified by {string}", (type, selector) => {
     cy.get(selector).click()
 })
 
