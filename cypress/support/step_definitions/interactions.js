@@ -269,16 +269,50 @@ Given('after the next step, I will {confirmation} a confirmation window containi
 })
 
 /**
-
 * @module Interactions
 * @author Mintoo Xavier <min2xavier@gmail.com>
-* @example I click on the button labeled {string} next to field with input value
+* @example I click on the button labeled {string} next to the text {string}
 * @param {string} text - the text on the button element you want to click
-* @param {string} label - the input value in the field next to the button you want to click
-* @description Clicks on a button element with a specific text next to the input value label
+* @param {string} label - the value in the field next to the button you want to click
+* @description Clicks on a button element with a specific text next to the value
 */
 Given("I click on the button labeled {string} next to the text {string}", (text, label) =>{
     cy.get('div').contains(label).parent().within(() => {
         cy.get('button').contains(text).click()
+    })
+})
+
+/**
+ * @module Interactions
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I select {string} from the dropdown identified by {string} labeled {string}
+ * @param {string} value - the option to select from the dropdown
+ * @param {string} selector - the selector of the dropdown to choose an option from
+ * @param {string} label - the label of the dropdown to choose and option from
+ * @description Selects a dropdown by its div, label, and the option via a specific string.
+ */
+ Given("I select the value {string} from the dropdown identified by {string} labeled {string}", (value, selector, label) => {
+    // Find the div that contains the label and find the parent
+    cy.get('div').contains(label).parents().within(() => {
+        cy.contains(selector, value).then(($label) => {
+            cy.wrap($label).select(value, {force: true})
+        })
+    })
+})
+
+/**
+ * @module Interactions
+*  @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I enter {string} into the field identified by {string} for the label {string}
+ * @param {string} text - the text to enter into the field
+ * @param {string} selector - the selector of the element to enter the text into
+ * @param {string} label - the label associated with the field
+ * @description Selects an input field by its label and then by selector
+ */
+ Given('I enter the value {string} into the field identified by {string} labeled {string}', (text, selector, label) => {
+    // Method is because the input on Add Fields doesn't have a label
+    // Find the div that contains the label and find the parent
+    cy.get('div').contains(label).parents().within(() => {
+        cy.get(selector).type(text)
     })
 })
