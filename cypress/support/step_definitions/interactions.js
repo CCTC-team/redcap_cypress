@@ -118,7 +118,7 @@ Given('I enter {string} into the field labeled {string}', (text, label) => {
     //We locate the label element first.  This isn't always a label which is unfortunate, but this approach seems to work so far.
     cy.contains(label).then(($label) => {
         //We are finding the parent of the label element and then looking for nearest input
-        cy.wrap($label).parent().find('input').type(text)
+        cy.wrap($label).parent().find('input').force.type(text)
     })
 })
 
@@ -265,5 +265,20 @@ Given('after the next step, I will {confirmation} a confirmation window containi
     cy.on('window:confirm', (str) => {
         expect(str).to.contain(window_text)
         action === "accept"
+    })
+})
+
+/**
+
+* @module Interactions
+* @author Mintoo Xavier <min2xavier@gmail.com>
+* @example I click on the button labeled {string} next to field with input value
+* @param {string} text - the text on the button element you want to click
+* @param {string} label - the input value in the field next to the button you want to click
+* @description Clicks on a button element with a specific text next to the input value label
+*/
+Given("I click on the button labeled {string} next to the text {string}", (text, label) =>{
+    cy.get('div').contains(label).parent().within(() => {
+        cy.get('button').contains(text).click()
     })
 })

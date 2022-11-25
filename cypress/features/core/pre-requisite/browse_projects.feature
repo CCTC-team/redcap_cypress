@@ -20,6 +20,10 @@ Feature: Browse Projects
     When I click on the button labeled "View all projects"
     Then I should see projects sorted correctly when I click on "Project Title" to sort in either direction
 
+  Scenario: Sort the projects by "PID" column
+    When I click on the button labeled "View all projects"
+    Then I should see projects sorted correctly when I click on "PID" to sort in either direction
+
   Scenario: Sort the projects by "Records" column
     When I click on the button labeled "View all projects"
     Then I should see projects sorted correctly when I click on "Records" to sort in either direction
