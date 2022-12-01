@@ -35,7 +35,7 @@ Given("I click on the button labeled {string} for the row labeled {string}", (te
     // Find the cell that contains the label and find the parent
     cy.get('td').contains(label).parents('tr').within(() => {
         // Find the button element
-        cy.get('button[title="' + text +'"]').click()
+        cy.get('button[title="' + text + '"]').click()
     })
 })
 
@@ -50,7 +50,7 @@ Given("I click on the button labeled {string} in the dialog box", (text) => {
     cy.get('div[role="dialog"]').within(() => {
         cy.get('button').contains(text).click()
     })
-    
+
 })
 
 /**
@@ -61,7 +61,7 @@ Given("I click on the button labeled {string} in the dialog box", (text) => {
  * @description Clicks on an anchor element with a specific text label.
  */
 Given("I click on the link labeled {string}", (text) => {
-    cy.get('a').contains(text).should('be.visible').click({force:true})
+    cy.get('a').contains(text).should('be.visible').click({ force: true })
 })
 
 /**
@@ -118,7 +118,7 @@ Given('I enter {string} into the field labeled {string}', (text, label) => {
     //We locate the label element first.  This isn't always a label which is unfortunate, but this approach seems to work so far.
     cy.contains(label).then(($label) => {
         //We are finding the parent of the label element and then looking for nearest input
-        cy.wrap($label).parent().find('input').force.type(text)
+        cy.wrap($label).parent().find('input').type(text)
     })
 })
 
@@ -154,7 +154,7 @@ Given('I click on the table cell containing a link labeled {string}', (text) => 
  * @param {string} label - the label of the dropdown to choose an option from
  * @description Selects a dropdown by its label and the option via a specific string.
  */
-Given('I select {string} from the dropdown identified by {string}', (value,label) => {
+Given('I select {string} from the dropdown identified by {string}', (value, label) => {
     cy.get(label).select(value, { force: true })
 })
 
@@ -172,7 +172,7 @@ Given("I select {string} from the dropdown identified by {string} labeled {strin
     cy.get('td').contains(label).parents('tr').within(() => {
         //cy.get(sel).contains(value).parents("select").select(value, { force: true })
         cy.contains(selector, value).then(($label) => {
-            cy.wrap($label).select(value, {force: true})
+            cy.wrap($label).select(value, { force: true })
         })
     })
 })
@@ -275,44 +275,56 @@ Given('after the next step, I will {confirmation} a confirmation window containi
 * @param {string} text - the text on the button element you want to click
 * @param {string} label - the value in the field next to the button you want to click
 * @description Clicks on a button element with a specific text next to the value
-*/
+
+//This is to create a new instrument from scratch
 Given("I click on the button labeled {string} next to the text {string}", (text, label) =>{
+    // Find the div that contains the label and find the parent
     cy.get('div').contains(label).parent().within(() => {
         cy.get('button').contains(text).click()
     })
 })
+*/
 
 /**
  * @module Interactions
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I select {string} from the dropdown identified by {string} labeled {string}
+ * @example I select the value {string} from the dropdown identified by {string} labeled {string}
  * @param {string} value - the option to select from the dropdown
  * @param {string} selector - the selector of the dropdown to choose an option from
  * @param {string} label - the label of the dropdown to choose and option from
  * @description Selects a dropdown by its div, label, and the option via a specific string.
  */
- Given("I select the value {string} from the dropdown identified by {string} labeled {string}", (value, selector, label) => {
+Given("I select the value {string} from the dropdown identified by {string} labeled {string}", (value, selector, label) => {
     // Find the div that contains the label and find the parent
-    cy.get('div').contains(label).parents().within(() => {
-        cy.contains(selector, value).then(($label) => {
-            cy.wrap($label).select(value, {force: true})
-        })
+    cy.get('div').contains(label).parent().within(() => {
+        cy.get(selector).select(value)
     })
 })
 
 /**
  * @module Interactions
 *  @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I enter {string} into the field identified by {string} for the label {string}
+ * @example I enter the value {string} into the field identified by {string} labeled {string}
  * @param {string} text - the text to enter into the field
  * @param {string} selector - the selector of the element to enter the text into
  * @param {string} label - the label associated with the field
  * @description Selects an input field by its label and then by selector
  */
- Given('I enter the value {string} into the field identified by {string} labeled {string}', (text, selector, label) => {
+Given('I enter the value {string} into the field identified by {string} labeled {string}', (text, selector, label) => {
     // Method is because the input on Add Fields doesn't have a label
     // Find the div that contains the label and find the parent
     cy.get('div').contains(label).parents().within(() => {
         cy.get(selector).type(text)
     })
+})
+
+/**
+ * @module Interactions
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I click on the first input button labeled {string}
+ * @param {string} text - the text value of the input element you want to click
+ * @description Clicks on the first input element with a specific text label.
+ */
+Given("I click on the first input button labeled {string}", (text) => {
+    cy.get('input[value="' + text + '"]').first().click()
 })
