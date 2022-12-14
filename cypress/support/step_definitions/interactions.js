@@ -328,3 +328,39 @@ Given('I enter the value {string} into the field identified by {string} labeled 
 Given("I click on the first input button labeled {string}", (text) => {
     cy.get('input[value="' + text + '"]').first().click()
 })
+
+/**
+ * @module Interactions
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I enter {string} into the last field identified by {string}
+ * @param {string} text - the text to enter into the field
+ * @param {string} selector - the selector of the element to enter the text into
+ * @description Enter text into the last field identified by a particular text
+ */
+ Given("I enter {string} into the last field identified by {string}", (text, sel) => {
+    cy.get(sel).last().type(text)
+})
+
+/**
+ * @module Interactions
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I clear the field identified by {string}
+ * @param {string} sel - the selector of the element to clear
+ * @description Clears the text from an input field based upon its selector
+ */
+ Given("I clear the field identified by {string}", (sel) => {
+    cy.get(sel).clear()
+})
+
+/**
+ * @module Interactions - not completed
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I click on the table cell with text {string} containing a link with title {string}
+ * @param {string} text - the text in the table cell
+ * @param {string} title - the title of the link
+ * @description Clicks on the link with the specified title in table cell that is identified by a particular text string specified.
+ */
+ Given('I click on the table cell with text {string} containing a link with title {string}', (text, title) => {
+    cy.get('td').contains(text).parent().prev().find('a').contains(title).click()
+})
+
