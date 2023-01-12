@@ -14,7 +14,7 @@ Feature: Branching Logic
   When I click on the button labeled "Disable" in the dialog box
   #Then I should see that longitudinal mode is disabled
   And I click on the element identified by "button[id=setupEnableSurveysBtn]"
-  And I should see that surveys are enabled
+  Then I should see that surveys are enabled
   And I click on the button labeled "Online Designer"
   # Refactor this line to abstract css selector
   And I click on the element identified by "#row_2 > :nth-child(5) > .fc"
@@ -43,7 +43,7 @@ Feature: Branching Logic
   And I click on the button labeled exactly "Save"
   And I close popup
 
-  #refactor out into a function as this logic is repeated
+  #refactor out into a function as this logic is repeated for each field except the calculated field
 
   #the following two lines are repeated to reset the DOM after each drag'n'drop
 
@@ -56,4 +56,58 @@ Feature: Branching Logic
   And I enter "999" into the input identified by ".brDrag > input"
   And I click on the button labeled exactly "Save"
 
-  #need to assert that branching logic exists for this field
+  And I click on the button labeled "Return to list of instruments"
+  And I click on the element identified by "#formlabel-data_types"
+  And I click on the branching logic icon for the field with name "Text Box"
+  And I select the Drag-N-Drop Logic Builder
+  And I drag a field from "record_id" to "(define criteria)"
+  And I select "=" from the dropdown identified by ".brDrag > select"
+  And I enter "999" into the input identified by ".brDrag > input"
+  And I click on the button labeled exactly "Save"
+
+  #NB typo in manual script - Caculated rather than Calculated
+  Then Every field contains the branching logic "[record_id] = '999'" except the Record ID field and the field with the label "Caculated Field"
+
+  Scenario: 2
+  Given I click on the link labeled "Survey Distribution Tools"
+  #doesn't work as opens a new tab. Therefore a possible workaround is to directly open the link and bypass the button
+  #And I click on the button labeled "Open public survey"
+
+  #And I visit the public survey URL for Project ID 14
+  #Then The number of rows in the table identified by "#questiontable > tbody" equals 1
+
+  #currently can't close as not opened in new tab
+
+  Scenario: 3
+  Given I click on the link labeled "Add / Edit Records"
+  And I click on the button labeled "Add new record"
+  #Then The number of rows in the table identified by "#questiontable > tbody" equals 3
+  #NB typo in manual script - Caculated rather than Calculated
+  And I should see "Caculated Field"
+
+  Scenario: 4
+  #does 'leave' need adding to the step definition regular expression?
+  #Given after the next step, I will <leave> a confirmation window containing the text "Changes that you made may not be saved."
+  #for now manually click on leave unless running in dev tools mode
+  Given I click on the button labeled "Modify instrument"
+
+  Scenario: 5
+  Given I click on the branching logic icon for the field with name "Name"
+  And I click on the link labeled "Clear logic"
+  And I click on the element identified by "#advBranchingBox"
+  And I enter "[record_id] <> '999'" into the field identified by ".ace_content"
+  And I click on the button labeled "Update & Close Editor"
+  And I click on the button labeled exactly "Save"
+  And I click on the button labeled "No"
+  #duplicated logic
+  And I click on the branching logic icon for the field with name "Text2"
+  And I click on the link labeled "Clear logic"
+  And I click on the element identified by "#advBranchingBox"
+  And I enter "[record_id] <> '999'" into the field identified by ".ace_content"
+  And I click on the button labeled "Update & Close Editor"
+  And I click on the button labeled exactly "Save"
+  And I click on the button labeled "Yes"
+  #NB typo in manual script - Caculated rather than Calculated
+  Then Every field contains the branching logic "[record_id] <> '999'" except the Record ID field and the field with the label "Caculated Field"
+
+

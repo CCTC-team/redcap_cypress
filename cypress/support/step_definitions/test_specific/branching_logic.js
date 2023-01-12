@@ -58,3 +58,26 @@ Given('I select {string} from the dropdown identified by {string}', (option, sel
 Given('I enter {string} into the input identified by {string}', (text, selector) => {
     cy.get(selector).type(text)
 })
+
+/**
+ * @module TestSpecific/BranchingLogic
+ * @author David Phillips <david.phillips22@nhs.net>
+ * @example The number of rows in the table identified by {string} equals {int}
+ * @param {string} selector - the selector
+ * @param {int} expectedCount - the expected count
+ * @description Verifies that there are the expected number of rows in a table with a specific identifier.
+ */
+Given('The number of rows in the table identified by {string} equals {int}', (selector, expectedCount) => {
+    cy.get(selector).children('tr').should('have.length', expectedCount)
+})
+
+Given('Every field contains the branching logic {string} except the Record ID field and the field with the label {string}', (expectedBranchingLogic, excludedFieldLabel) => {
+    let recordIdSelector = 'div:contains("Record ID")'
+    let exclusionSelector = `div:contains("${excludedFieldLabel}")`
+    cy.get('div[data-kind="field-label"]').not(recordIdSelector).not(exclusionSelector).its('length').then((numFields) => {
+        let branchingLogicSelector = `.designVarName span:contains("${expectedBranchingLogic}")`
+        cy.get(branchingLogicSelector).its('length').then((numFieldsWithExpBranchingLogic) => {
+            expect(numFields).equal(numFieldsWithExpBranchingLogic)
+        })
+    })
+})
