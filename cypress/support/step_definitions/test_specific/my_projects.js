@@ -1,0 +1,89 @@
+/**
+ * @module my_projects
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I should see {string} in column {int} next to the link {string}
+ * @param {string} text the text that should be visible
+ * @param {int} num the column number where the text should be visible
+ * @param {string} label the label on an anchor tag
+ * @description Visibility - Visually verifies that the text is visible in column next to the link
+ */
+Given('I should see {string} in column {int} next to the link {string}', (text, num, label) => {
+    cy.get('a').contains(label).parents('tr').find(':nth-child(' + num +')').contains(text)
+})
+
+/**
+ * @module my_projects
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I should see the icon {string} in column {int} next to the link {string}
+ * @param {string} text the text that should be visible
+ * @param {int} num the column number where the text should be visible
+ * @param {string} label the label on an anchor tag
+ * @description Visibility - Visually verifies that the text is visible in column next to the link
+ */
+Given('I should see the icon {string} in column {int} next to the link {string}', (text, num, label) => {
+    cy.get('a').contains(label).parents('tr').find(':nth-child(' + num + ') > div').children('[title="' + text + '"]')
+
+})
+
+/**
+ * @module my_projects
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I should see {int} records in the Record Status Dashboard
+ * @param {int} num the number that should be visible
+ * @description Visibility - Visually verifies the total no:of records
+ */
+Given('I should see {int} records in the Record Status Dashboard', (num) => { 
+    cy.get('div').contains('Displaying record').children('span').contains(num)
+})
+
+
+/**
+ * @module my_projects
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I should see a total number of {int} instruments
+ * @param {int} count - the number of instrument rows seen
+ * @description Visibility - Verifies the correct number of instrument rows are present
+ */
+Given('I should see a total number of {int} instruments', (count) => {
+
+    cy.get('table[id="table-forms_surveys"]').children('tbody').find('tr').as('iRow')
+    cy.get('@iRow').then(iRow => {
+        expect(iRow.length).to.equal(count)
+    })
+})
+
+/**
+ * @module my_projects
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example The sum of field count of all the instruments should equal to {int}
+ * @param {int} count - the total field count
+ * @description Visibility - Verifies the sum of field count
+ */
+Given('The sum of field count of all the instruments should equal to {int}', (count) => {
+
+    let fCount = 0
+    cy.wrap(fCount).as("fCount")
+    cy.get('table[id="table-forms_surveys"]').children('tbody').find('tr').each(($tr) => {
+        cy.get('@fCount').then(fCount => {
+            let fieldCount = parseInt($tr.find(':nth-child(3)  > div').text())
+            if(fieldCount){
+                fCount = fCount + fieldCount
+                cy.wrap(fCount).as('fCount')  
+            }
+       })
+    })
+    cy.get('@fCount').then(fCount => {
+        expect(fCount).to.equal(count)
+   })
+})
+
+/**
+ * @module my_projects
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I confirm to {string} the longitudinal data collection
+ * @param {string} text the text on button
+ * @description Confirm to Disable/Cancel/Close the longitudinal data collection by clicking button
+ */
+Given("I confirm to {string} the longitudinal data collection", (text) => {
+    cy.get('div[aria-describedby="longiConfirmDialog"]').find('button').contains(text).click()
+ })
