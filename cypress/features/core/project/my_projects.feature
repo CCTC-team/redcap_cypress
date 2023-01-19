@@ -212,6 +212,7 @@ Scenario: 13 - Delete a field and ensure it reflects in the My Projects Dashboar
     And I click on the link labeled "My Projects"
     Then I should see "2" in column 4 next to the link "13_MyProjects_v1115"
 
+# Manual testing document does not say to login as admin while moving to Production
   Scenario: 16 - Move to Production and mark Project as complete and ensure the project no longer appears on the My Projects Dashboard
     Given I am an "admin" user who logs into REDCap
     And I visit Project ID 14
@@ -258,7 +259,6 @@ Scenario: 13 - Delete a field and ensure it reflects in the My Projects Dashboar
     Then I should see "Do you wish to set the status of the project to ANALYSIS/CLEANUP?"
     And I click on the button labeled "YES, Move to Analysis/Cleanup Status" 
     Then I should see "The project has now been set to ANALYSIS/CLEANUP status." in an alert box
-    # And I close popup
     And I scroll the Other Functionality tab to the top
     And I click on the link labeled "My Projects"
     Then I should see "13_MyProjects_v1115"
@@ -270,7 +270,7 @@ Scenario: 13 - Delete a field and ensure it reflects in the My Projects Dashboar
     And I click on the link labeled "Other Functionality"
     And I click on the button labeled "Move back to Production status"
     And I click on the button labeled "YES, Move to Production Status" 
-    Then I should see "AAThe project has now been moved back to PRODUCTION status." in an alert box
+    Then I should see "The project has now been moved back to PRODUCTION status." in an alert box
     When I am an "standard" user who logs into REDCap
     And I click on the link labeled "My Projects"
     Then I should see "13_MyProjects_v1115"
