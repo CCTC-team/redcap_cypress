@@ -100,10 +100,10 @@ Given("I confirm to mark project as complete", (text) => {
 
 
 /**
- * @module UserRights
- * @author Rushi Patel <rushi.patel@uhnresearch.ca>
- * @example I scroll the user rights page to the bottom
- * @description scroll user rights pop up page to the bottom
+ * @module my_projects
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I scroll the Other Functionality tab to the top
+ * @description Scroll the Other Functionality tab to the top
  */
 Given('I scroll the Other Functionality tab to the top', () => {
     cy.get('button[id="modify-data-locked"]').scrollIntoView()
