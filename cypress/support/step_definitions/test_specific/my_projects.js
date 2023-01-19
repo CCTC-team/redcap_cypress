@@ -82,8 +82,29 @@ Given('The sum of field count of all the instruments should equal to {int}', (co
  * @author Mintoo Xavier <min2xavier@gmail.com>
  * @example I confirm to {string} the longitudinal data collection
  * @param {string} text the text on button
- * @description Confirm to Disable/Cancel/Close the longitudinal data collection by clicking button
+ * @description Confirm to Disable the longitudinal data collection by clicking button
  */
-Given("I confirm to {string} the longitudinal data collection", (text) => {
-    cy.get('div[aria-describedby="longiConfirmDialog"]').find('button').contains(text).click()
+Given("I confirm to disable the longitudinal data collection", (text) => {
+    cy.get('div[aria-describedby="longiConfirmDialog"]').find('button').contains('Disable').click()
  })
+
+/**
+ * @module my_projects
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I confirm to mark project as complete
+ * @description Confirm to mark project as complete
+ */
+Given("I confirm to mark project as complete", (text) => {
+    cy.get('div[aria-describedby="completed_time_dialog"]').find('button').contains('Mark project as Complete').click()
+ })
+
+
+/**
+ * @module UserRights
+ * @author Rushi Patel <rushi.patel@uhnresearch.ca>
+ * @example I scroll the user rights page to the bottom
+ * @description scroll user rights pop up page to the bottom
+ */
+Given('I scroll the Other Functionality tab to the top', () => {
+    cy.get('button[id="modify-data-locked"]').scrollIntoView()
+})
