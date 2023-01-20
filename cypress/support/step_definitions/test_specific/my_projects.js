@@ -112,9 +112,9 @@ Given('I scroll the Other Functionality tab to the top', () => {
 /**
  * @module my_projects
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example The sum of field count of all the instruments should equal to {int}
- * @param {int} count - the total field count
- * @description Visibility - Verifies the sum of field count
+ * @example I should see all the projects containing {string}
+ * @param {string} text - the text that should be visible
+ * @description Visibility - Visually verifies that the project title contains text
  */
 Given('I should see all the projects containing {string}', (text) => {
     cy.get('table[id="table-proj_table"]').find('tr').each(($tr) => {
