@@ -108,3 +108,17 @@ Given("I confirm to mark project as complete", (text) => {
 Given('I scroll the Other Functionality tab to the top', () => {
     cy.get('button[id="modify-data-locked"]').scrollIntoView()
 })
+
+/**
+ * @module my_projects
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example The sum of field count of all the instruments should equal to {int}
+ * @param {int} count - the total field count
+ * @description Visibility - Verifies the sum of field count
+ */
+Given('I should see all the projects containing {string}', (text) => {
+    cy.get('table[id="table-proj_table"]').find('tr').each(($tr) => {
+        expect($tr.find('div[class="projtitle"]').children('a').text()).to.contain(text) 
+       })
+    })
+    
