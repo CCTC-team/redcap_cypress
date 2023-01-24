@@ -247,10 +247,11 @@ Scenario: 13 - Delete a field and ensure it reflects in the My Projects Dashboar
   Scenario: 19 - Project is restored back to production and ensure it reflects in the My Projects Dashboard
     Given I am an "admin" user who logs into REDCap
     And I visit Project ID 14
-    And the AJAX "GET" request at "ProjectGeneral/project_stats.php*" tagged by "render" is being monitored
+    # And the AJAX "GET" request at "ProjectGeneral/project_stats.php*" tagged by "render" is being monitored
     Then I should see "Please note that this project has been marked as 'Completed' and is no longer accessible."
     And I click on the button labeled "Restore Project"
     And the AJAX "POST" request at "ProjectGeneral/change_project_status.php*" tagged by "render" is being monitored
+    And the AJAX request tagged by "render" has completed
     Then I should see "The project has now been restored. The page will now reload to reflect the changes"
     And I close popup
     When I am an "standard" user who logs into REDCap
@@ -280,7 +281,8 @@ Scenario: 13 - Delete a field and ensure it reflects in the My Projects Dashboar
     And I click on the button labeled "Move back to Production status"
     And I click on the button labeled "YES, Move to Production Status" 
     And the AJAX "POST" request at "ProjectGeneral/change_project_status.php*" tagged by "render" is being monitored
-    # Then I should see "The project has now been moved back to PRODUCTION status." in an alert box
+    And the AJAX request tagged by "render" has completed
+     # Then I should see "The project has now been moved back to PRODUCTION status." in an alert box
     When I am an "standard" user who logs into REDCap
     And I click on the link labeled "My Projects"
     Then I should see "13_MyProjects_v1115"
