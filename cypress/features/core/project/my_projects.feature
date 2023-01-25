@@ -6,7 +6,6 @@ Feature: My Projects
 # We can add projects with the same name
 # Scenario 11 - Not able to delete record 2. Link containing 2 does not point to Record 2 but points to Arm 2. 
 # Hence added 2 records for Scenario 10. So Scenario 11 could work
-# Scenario 12 and 13 works when some of the Scenarios above it are commented out. But it doesn't work when all the scenarios are run together.
 
   Scenario: Project Setup 1 - Create Project 13_MyProjects_v1115 and assign userrights to delete a record
     Given I am a "standard" user who logs into REDCap
@@ -147,12 +146,10 @@ Feature: My Projects
     And I click on the link labeled "My Projects"
     Then I should see "2" in column 2 next to the link "13_MyProjects_v1115"
 
-# Scenario 12 works when some of the above scenarios are commented out.Error: I can see the the link "Text Validation"
-# is visible but it gives an error saying it has display:none
 Scenario: 12 - Add a field and ensure it reflects in the My Projects Dashboard
     Given I visit Project ID 14
     And I click on the link labeled "Designer"
-    And I click on the link labeled "Text Validation"
+    And I click on the table cell containing a link labeled "Text Validation"
     And I click on the Add Field input button below the field named "Email"
     And I select "textarea" from the dropdown identified by "select[name=field_type]"
     And I enter "Notes Box" into the field identified by "textarea[name=field_label]"
@@ -169,12 +166,10 @@ Scenario: 12 - Add a field and ensure it reflects in the My Projects Dashboard
     Then I should see "24" in column 3 next to the link "13_MyProjects_v1115"
     # No:of instruments + field count = 2+22=24. Which matches the Field Count in My Projects Dashboard
 
-# Scenario 13 works when some of the above scenarios are commented out. Error: I can see the link "Text Validation"
-# is visible but it gives an error saying it has display:none
 Scenario: 13 - Delete a field and ensure it reflects in the My Projects Dashboard
     Given I visit Project ID 14
     And I click on the link labeled "Designer"
-    And I click on the link labeled "Text Validation"
+    And I click on the table cell containing a link labeled "Text Validation"
     And I click on the Delete Field image for the field named "notesbox1"
     And the AJAX "GET" request at "Design/delete_field.php?*" tagged by "delete" is being monitored
     And the AJAX "GET" request at "Design/online_designer_render_fields.php*" tagged by "render" is being monitored
@@ -273,7 +268,6 @@ Scenario: 13 - Delete a field and ensure it reflects in the My Projects Dashboar
     And I should see the icon "Analysis/Cleanup" in column 6 next to the link "13_MyProjects_v1115"
 
   # Alert boxes doesn't show up always. I get the alert - The project has now been set to ANALYSIS/CLEANUP status. below (when I move to production)
-  #  This fails at time
   Scenario: 21 - Move the project to back to Production and ensure it reflects in the My Projects Dashboard
     Given I visit Project ID 14
     Then I should see "Analysis/Cleanup"
