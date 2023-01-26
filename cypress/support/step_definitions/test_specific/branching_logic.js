@@ -8,7 +8,7 @@ import {Given} from "cypress-cucumber-preprocessor/steps";
  * @description Clicks on the branching logic icon for a field with a specific name.
  */
 Given('I click on the branching logic icon for the field with name {string}', (field_name) => {
-    cy.find_online_designer_field(field_name).parent().parentsUntil('tr').find('img[title="Branching Logic"]').click()
+    cy.click_on_design_field_function("Branching Logic", field_name)
 })
 
 /**
@@ -71,12 +71,59 @@ Given('The number of rows in the table identified by {string} equals {int}', (se
     cy.get(selector).children('tr').should('have.length', expectedCount)
 })
 
+/**
+ * @module TestSpecific/BranchingLogic
+ * @author David Phillips <david.phillips22@nhs.net>
+ * @example Every field contains the branching logic {string} except the Record ID field and the field with the label {string}
+ * @param {string} expectedBranchingLogic - the branching logic to check
+ * @param {string} excludedFieldLabel - the name of the field to exclude from the check
+ * @description Verifies that every field contains the same specified branching logic except the Record ID and the field with the specified name
+ */
 Given('Every field contains the branching logic {string} except the Record ID field and the field with the label {string}', (expectedBranchingLogic, excludedFieldLabel) => {
+    
+    cy.intercept({
+        method: 'POST',
+        url: '/redcap_v' + Cypress.env('redcap_version') + "/Design/branching_logic_builder.php?*"
+    }).as('builder')
+
+    cy.get('button').contains('Save').click()
+    cy.wait('@builder')
+
     let recordIdSelector = 'div:contains("Record ID")'
     let exclusionSelector = `div:contains("${excludedFieldLabel}")`
+    let branchingLogicSelector = `span[data-kind="branching-logic"]:contains("${expectedBranchingLogic}")`
+
     cy.get('div[data-kind="field-label"]').not(recordIdSelector).not(exclusionSelector).its('length').then((numFields) => {
-        let branchingLogicSelector = `.designVarName span:contains("${expectedBranchingLogic}")`
-        cy.get(branchingLogicSelector).its('length').then((numFieldsWithExpBranchingLogic) => {
+        cy.get('span[data-kind="branching-logic"]').filter(branchingLogicSelector).its('length').then((numFieldsWithExpBranchingLogic) => {
+            expect(numFields).equal(numFieldsWithExpBranchingLogic)
+        })
+    })
+})
+
+/**
+ * @module TestSpecific/BranchingLogic
+ * @author David Phillips <david.phillips22@nhs.net>
+ * @example I can successfully apply the same branching logic {string} to all fields containing the same original branching logic except the Record ID field and the field with the label {string}
+ * @param {string} branchingLogic - the branching logic to apply and check
+ * @param {string} excludedFieldLabel - the name of the field to exclude from the check
+ * @description Applies the same branching logic to all fields containing the same original branching logic except the Record ID and the field with the specified name. Also verifies that the action was successful
+ */
+Given('I can successfully apply the same branching logic {string} to all fields containing the same original branching logic except the Record ID field and the field with the label {string}', (branchingLogic, excludedFieldLabel) => {
+    
+    cy.intercept({
+        method: 'GET',
+        url: '/redcap_v' + Cypress.env('redcap_version') + "/Design/online_designer_render_fields.php?*"
+    }).as('render_fields')
+
+    cy.get('button').contains('Yes').click()
+    cy.wait('@render_fields')
+
+    let recordIdSelector = 'div:contains("Record ID")'
+    let exclusionSelector = `div:contains("${excludedFieldLabel}")`
+    let branchingLogicSelector = `span[data-kind="branching-logic"]:contains("${branchingLogic}")`
+
+    cy.get('div[data-kind="field-label"]').not(recordIdSelector).not(exclusionSelector).its('length').then((numFields) => {
+        cy.get('span[data-kind="branching-logic"]').filter(branchingLogicSelector).its('length').then((numFieldsWithExpBranchingLogic) => {
             expect(numFields).equal(numFieldsWithExpBranchingLogic)
         })
     })
