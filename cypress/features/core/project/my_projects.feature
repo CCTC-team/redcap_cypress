@@ -104,7 +104,7 @@ Feature: My Projects
 
  Scenario: 10 - Add a new record and ensure it reflects in the My Projects Dashboard
     Given I visit Project ID 14
-    And I click on the link labeled 'Add / Edit Records'
+    And I click on the link labeled "Add / Edit Records"
     And I click on the button labeled "Add new record"
     Then I click on the image "circle_gray" link for the row containing "Text Validation"
     And I enter "John" into the field identified by "input[name=ptname_v2_v2]"
@@ -120,7 +120,7 @@ Feature: My Projects
 # Hence added 2 records for Scenario 10. So Scenario 11 could work
    Scenario: 10 Duplicate - Add a new record and ensure it reflects in the My Projects Dashboard
     Given I visit Project ID 14
-    And I click on the link labeled 'Add / Edit Records'
+    And I click on the link labeled "Add / Edit Records"
     And I click on the button labeled "Add new record"
     Then I click on the image "circle_gray" link for the row containing "Text Validation"
     And I enter "JohnDup" into the field identified by "input[name=ptname_v2_v2]"
@@ -134,7 +134,7 @@ Feature: My Projects
 
   Scenario: 11 - Delete the last record and ensure it reflects in the My Projects Dashboard
     Given I visit Project ID 14
-    And I click on the link labeled 'Record Status Dashboard'
+    And I click on the link labeled "Record Status Dashboard"
     And I click on the link labeled "3"
     And I click on the button labeled "Choose action for record"
     And I click on the link labeled "Delete record"
@@ -154,8 +154,8 @@ Scenario: 12 - Add a field and ensure it reflects in the My Projects Dashboard
     And I select "textarea" from the dropdown identified by "select[name=field_type]"
     And I enter "Notes Box" into the field identified by "textarea[name=field_label]"
     And I enter "notesbox1" into the field identified by "input[name=field_name]"
-    And I click on the button labeled "Save"
     And the AJAX "GET" request at "Design/online_designer_render_fields.php*" tagged by "render" is being monitored
+    And I click on the button labeled "Save"
     And the AJAX request tagged by "render" has completed
     Then I should see "notesbox1"
     And I should see the element identified by "textarea[id=notesbox1]"
@@ -244,8 +244,8 @@ Scenario: 13 - Delete a field and ensure it reflects in the My Projects Dashboar
     And I visit Project ID 14
     # And the AJAX "GET" request at "ProjectGeneral/project_stats.php*" tagged by "render" is being monitored
     Then I should see "Please note that this project has been marked as 'Completed' and is no longer accessible."
-    And I click on the button labeled "Restore Project"
     And the AJAX "POST" request at "ProjectGeneral/change_project_status.php*" tagged by "render" is being monitored
+    And I click on the button labeled "Restore Project"
     And the AJAX request tagged by "render" has completed
     Then I should see "The project has now been restored. The page will now reload to reflect the changes"
     And I close popup
@@ -273,8 +273,8 @@ Scenario: 13 - Delete a field and ensure it reflects in the My Projects Dashboar
     Then I should see "Analysis/Cleanup"
     And I click on the link labeled "Other Functionality"
     And I click on the button labeled "Move back to Production status"
-    And I click on the button labeled "YES, Move to Production Status" 
     And the AJAX "POST" request at "ProjectGeneral/change_project_status.php*" tagged by "render" is being monitored
+    And I click on the button labeled "YES, Move to Production Status" 
     And the AJAX request tagged by "render" has completed
      # Then I should see "The project has now been moved back to PRODUCTION status." in an alert box
     When I am an "standard" user who logs into REDCap

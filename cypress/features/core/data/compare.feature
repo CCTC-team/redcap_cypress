@@ -79,3 +79,7 @@ Feature: Data Comparison Tool / DDE Module
     And I should NOT see "text2"
     And I should NOT see "multiple_dropdown_manual"
     And I should NOT see "Checkbox"
+
+  Scenario: 2 - Print page
+    Given I click on the button labeled "Print page"
+    Then I see the pop up window for print
