@@ -1,8 +1,61 @@
 import { defineParameterType, Given } from "cypress-cucumber-preprocessor/steps";
 
 defineParameterType({
+    name: 'toggleAction',
+    regexp: /enable|disable/
+})
+
+defineParameterType({
     name: 'status',
     regexp: /enabled|disabled/
+})
+
+/**
+ * @module ProjectSetup
+ * @author Corey Debacker <debacker@wisc.edu>
+ * @example I <disable/enable> surveys
+ * @param {string} toggleAction disable or enable
+ * @description Disables or enables surveys for the project in view.
+ */
+Given("I {toggleAction} surveys", (action) => {
+    let want_enabled = action === 'enable'
+    let expected_text = want_enabled ? 'Enable' : 'Disable'
+    cy.get('#setupEnableSurveysBtn').then(($button) => {
+        if ($button.text().trim() === expected_text) { //action needed
+            cy.wrap($button).click().then(() => {
+                cy.get('#setupEnableSurveysBtn').should('contain.text', want_enabled ? 'Disable' : 'Enable')
+            })
+        } else {
+            cy.log("Warning: Surveys are already " + expected_text.toLowerCase() + "d!")
+        }
+    })
+})
+
+/**
+ * @module ProjectSetup
+ * @author Corey Debacker <debacker@wisc.edu>
+ * @example I <disable/enable> logitudinal mode
+ * @param {string} toggleAction disable or enable
+ * @description Disables or enables longitudinal mode for the project in view.
+ */
+ Given("I {toggleAction} longitudinal mode", (action) => {
+    let want_enabled = action === 'enable'
+    let expected_text = want_enabled ? 'Enable' : 'Disable'
+    cy.get('#setupLongiBtn').then(($button) => {
+        if ($button.text().trim() === expected_text) { //action needed
+            cy.wrap($button).click().then(() => {
+                if(want_enabled) {
+                    cy.get('#setupLongiBtn').should('contain.text', 'Disable')
+                } else { //need to confirm disabling within dialog box
+                    cy.get('[role=dialog] button:contains("Disable")').click().then(() => {
+                        cy.get('#setupLongiBtn').should('contain.text', 'Enable')
+                    })
+                }
+            })
+        } else {
+            cy.log("Warning: Longitudinal mode is already " + expected_text.toLowerCase() + "d!")
+        }
+    })
 })
 
 /**
@@ -56,6 +109,21 @@ Given("I should see that repeatable instruments are {repeatability}", (state) =>
     }
 
     cy.get('#enableRepeatingFormsEventsBtn').should('contain.text', expected_text);
+})
+
+defineParameterType({
+    name: 'repeatability_click',
+    regexp: /enable|disable|modify/
+})
+
+/**
+ * @module ProjectSetup
+ * @author Adam De Fouw <aldefouw@medicine.wisc.edu>
+ * @example I open the dialog box for the Repeatable Instruments and Events module
+ * @description Opens the dialog box for the Repeatable Instruments and Events module on the Project Setup page.
+ */
+Given("I open the dialog box for the Repeatable Instruments and Events module", () => {
+    cy.get('#enableRepeatingFormsEventsBtn').click();
 })
 
 /**
@@ -120,7 +188,6 @@ Given("I should see that the designate an email field for communications setting
  * @example I move the project to production by selection option {string}
  * @param {string} text - option - keep all data or delete all data
  * @description Move project to production
- *
  */
  Given("I move the project to production by selection option {string}", (text) => {
     cy.get(text).click()

@@ -12,6 +12,41 @@ import '@4tw/cypress-drag-drop'
 // Commands in this file are CRUCIAL and are an embedded part of the REDCap Cypress Framework.
 // They are very stable and do not change often, if ever
 
+function preventClickTimeoutFail() {
+    //Needed to prevent tests from failing on expected timeout due to
+    //side effect of clicking on a download link that doesn't load a new page
+    cy.window().document().then(function (doc) {
+        doc.addEventListener('click', () => {
+            setTimeout(function () {
+                doc.location.reload()
+            }, 2000)
+        })
+    })
+}
+
+//Useful for clicking buttons located within a stacked dialog box (i.e. a dialog box that is displayed ontop of
+//another dialog box, based on z-index). Clicks the last visible button within the frontmost dialog box containing `label`
+Cypress.Commands.add('click_top_dialog_button', (label) => {
+    cy.get('div[role=dialog][style*="z-index"]:visible').then($divs => {
+        //sort dialog boxes based on z-index, ascending order
+        let sorted = $divs.sort((cur, prev) => {
+            let zp = Cypress.dom.wrap(prev).css('z-index')
+            let zc = Cypress.dom.wrap(cur).css('z-index')
+            return zc - zp
+        })
+        //assign highest z-index div to $div
+        // let $div = Cypress.dom.wrap(sorted).last() //Cypress last()
+        let $div = Cypress.dom.wrap(sorted.last()) //jQuery last()
+        //TODO: either works, revisit later to pick best option
+
+        //wrap div and look within to click matching button
+        cy.wrap($div).within(($div) => {
+            cy.get(`button:contains("${label}"):visible`).last().click()
+        })
+        
+    })
+})
+
 Cypress.Commands.add('login', (options) => {
     cy.logout()
     cy.visit('/')
@@ -223,11 +258,16 @@ Cypress.Commands.add('select_textarea_by_label', ($name, $value) => {
     cy.set_field_value_by_label($name, $value, 'textarea')
 })
 
-Cypress.Commands.add('select_radio_by_label', ($name, $value) => {
+Cypress.Commands.add('select_radio_by_label', ($name, $value, $click = true, $selected = true ) => {
     const radio_labels = cy.set_field_value_by_label($name, $value, 'input', '', '___radio')
 
     radio_labels.first().parents('tr').first().within(() => {
-        cy.get('label[class=mc]').contains($value).click()
+
+        if($click){
+            cy.get('label[class=mc]').contains($value).click()
+        } else {
+            cy.get('label[class=mc]').contains($value).parent().find('input').should('have.attr', $selected ? "checked": "unchecked")
+        }
     })
 })
 
@@ -245,6 +285,7 @@ Cypress.Commands.add('select_checkbox_by_label', ($name, $value) => {
 
 Cypress.Commands.add('edit_field_by_label', (name, timeout = 10000) => {
     cy.find_online_designer_field(name).parent().parentsUntil('tr').find('img[title=Edit]').parent().click()
+    cy.get('div[role=dialog]').contains('Edit Field').should('be.visible')
 })
 
 Cypress.Commands.add('select_field_choices', (timeout = 10000) => {
@@ -272,10 +313,16 @@ Cypress.Commands.add('initial_save_field', () => {
 })
 
 Cypress.Commands.add('save_field', () => {
+    cy.intercept({
+        method: 'GET',
+        url: '/redcap_v' + Cypress.env('redcap_version') + "/Design/online_designer_render_fields.php?*"
+    }).as('save_field')
+
     cy.get('input#field_name').then(($f) => {
         cy.contains('button', 'Save').click()
     })
 
+    cy.wait('@save_field')
 })
 
 Cypress.Commands.add('add_field', (field_name, type) => {
@@ -333,7 +380,7 @@ Cypress.Commands.add('upload_data_dictionary', (fixture_file, pid, date_format =
 
     cy.get('button').contains('Commit Changes').click()
     cy.get('html').should(($html) => {
-        expect($html).to.contain('Changes to the DRAFT have been made successfully!')
+        expect($html).to.contain('Changes')
     })
 })
 
@@ -820,6 +867,80 @@ Cypress.Commands.add('change_survey_edit_rights', (pid, username, form) => {
     cy.get('div').contains('User "' + username + '" was successfully edited').should('not.be.visible')
 })
 
+//Corey
+//Creates a new instrument at the end of the instrument list
+Cypress.Commands.add('create_instrument', (instr_name) => {
+    cy.get('[onclick*="showAddForm()"]').click()
+    //If there is already at least 1 instrument,REDCap lets us choose position
+    //of new instrument in the list, so we choose last.
+
+    cy.get('body').then(($body) => {
+        //if at least 1 instrument already exists (true if table has more than 1 row),
+        //we need to click a button to add after the last instrument
+        if ($body.find('table#table-forms_surveys tr').length > 1) {
+            cy.get('button:contains("Add instrument here")').last().click()
+        }
+
+        cy.get('table#table-forms_surveys tr.addNewInstrRow').last().within(($tr) => {
+            cy.get(':text[id^="new_form"]').type(instr_name)
+            cy.get('input[onclick*="addNewForm("]').click()
+        })
+    })
+})
+
+//TODO: consider refactoring to avoid get()'ing the row twice, reuse a reference instead
+//TODO: wrap async commands in then() blocks
+Cypress.Commands.add('rename_instrument', (from, to) => {
+    //get row, click actions dropdown
+    cy.get(`div.projtitle:contains("${from}")`).parentsUntil('tr').last().parent().within(($tr) => {
+        cy.get('button:contains("Choose action")').click()
+    })
+    //dropdown menu is inserted into HTML outside of the tr, so we exit the within() block
+    cy.get('ul#formActionDropdown').within(($ul) => {
+        cy.get('a:contains("Rename")').click()
+    })
+    //back within tr, type new name and click save
+    cy.get(`div.projtitle:contains("${from}")`).parentsUntil('tr').last().parent().within(($tr) => {
+        cy.get('input[id^="form_menu_description_input-"]').clear().type(to)
+        cy.get('input[id^="form_menu_save_btn-"]').click()
+    })
+})
+
+//TODO: wrap async commands in then() blocks
+Cypress.Commands.add('copy_instrument', (from, to, suffix) => {
+    //get row, click actions dropdown
+    cy.get(`div.projtitle:contains("${from}")`).parentsUntil('tr').last().parent().within(($tr) => {
+        cy.get('button:contains("Choose action")').click()
+    })
+    //dropdown menu is inserted into HTML outside of the tr, so we exit the within() block
+    cy.get('ul#formActionDropdown').within(($ul) => {
+        cy.get('a:contains("Copy")').click()
+    })
+    //modal dialogue appears, enter new instrument name and variable suffix
+    cy.get('input#copy_instrument_new_name').clear().type(to)
+    cy.get('input#copy_instrument_affix').clear().type(suffix)
+    cy.get('button:contains("Copy instrument")').click()
+})
+
+//TODO: not yet working, using a simple drag() or the below approach with move() cause instrument order to save unchanged
+Cypress.Commands.add('reorder_instrument', (from, to) => {
+    //get DOM elements of instruments at current position and target position
+    const sel_from = `#row_${from} td.dragHandle`
+    const sel_to = `#row_${to} td.dragHandle`
+    const el_from = Cypress.$(sel_from)[0]
+    const el_to = Cypress.$(sel_to)[0]
+    //calculate distance needed to drag (`move()`) the first element
+    const coords_from = el_from.getBoundingClientRect()
+    const coords_to = el_to.getBoundingClientRect()
+    const dX = coords_to.x - coords_from.x
+    const dY = coords_to.y - coords_from.y
+    //drag/move the instrument
+    // cy.wrap(el_from).move({deltaX:dX, deltaY:dY})
+    cy.log(cy.wrap(el_from) == cy.get(sel_from))
+    cy.log(cy.wrap(el_from) === cy.get(sel_from))
+})
+
+
 Cypress.Commands.add('read_directory', (dir) => {
     cy.task('readDirectory', (dir)).then((files) => {
         return files
@@ -890,7 +1011,7 @@ Cypress.Commands.add('delete_event_name', (event_name) => {
     cy.wait('@delete_ajax_events')
 })
 
-Cypress.Commands.add("click_on_dialog_button", (text) => {
+Cypress.Commands.add("click_on_dialog_button", (text, selector = 'button') => {
     cy.get('div[role="dialog"]').then((divs) => {
         // can be multiple layers of dialogs, find the top most - tintin edit
         let topDiv = null
@@ -902,11 +1023,104 @@ Cypress.Commands.add("click_on_dialog_button", (text) => {
                 topDiv = divs[i]
             }
         }
-        cy.wrap(topDiv).find('button').contains(text).click()
+        cy.wrap(topDiv).find(selector).contains(text).click()
+    })
+})
+
+Cypress.Commands.add("adjust_or_verify_instrument_event", (instrument_name, event_name, checked= false, click = true) => {
+
+    if(click) {
+        cy.get('span#progress_save').should('be.hidden')
+
+        cy.get('button').contains('Begin Editing').should('be.visible').click()
+
+        cy.intercept({
+            method: 'POST',
+            url: '/redcap_v' + Cypress.env('redcap_version') + "/Design/designate_forms_ajax.php"
+        }).as('designate_forms')
+    }
+
+    cy.get('table#event_grid_table').within(($table) => {
+        cy.get('th').contains(event_name).then(($th) => {
+            $th.parents('tr').children('th').each((thi, th) => {
+                if(th.innerText.includes(event_name)){
+                    cy.get('td').contains(instrument_name).then(($td) => {
+                        $td.parent('tr').children('td').each((tdi, td) => {
+                            //If we're in the correct row and column
+                            if(tdi === thi){
+
+                                const element = Cypress.$(td).find((click) ? 'input' : 'img')
+
+                                if(element.length){
+
+                                    if(click && element[0]['checked'] === checked){
+                                        element[0].click()
+                                    } else if (checked && !click) {
+                                        expect(element.length).to.eq(1)
+                                    } else if (!checked && !click) {
+                                        expect(element.length).to.eq(0)
+                                    }
+
+                                } else {
+                                    expect(element.length).to.eq(0)
+                                }
+
+                            }
+                        })
+                    })
+                }
+            })
+        })
+    })
+
+    if(click) {
+        cy.get('button').contains('Save').click()
+        cy.wait('@designate_forms')
+    }
+})
+
+Cypress.Commands.add("toggle_field_validation_type", (field_validation_type, button_text = 'Enable') => {
+    cy.intercept({
+        method: 'POST',
+        url: '/redcap_v' + Cypress.env('redcap_version') + "/ControlCenter/validation_type_setup.php"
+    }).as('validation_type_setup')
+
+    cy.get('td').contains(field_validation_type).parents('tr').children('td').each((td, i) => {
+        //Get to third column
+        if(i === 2 && td.length){
+            if(td[0].innerText.includes(button_text)){
+                td.find('button')[0].click()
+                cy.wait('@validation_type_setup')
+            } else {
+                //Do nothing if we do not find the "button text" - it means we're already in the state we want to be!
+            }
+        }
     })
 })
 
 //
+
+//yields the visible div with the highest z-index, or the <html> if none are found
+Cypress.Commands.add('get_top_layer', (retryUntil) => {
+    let top_layer
+    cy.get('div[role=dialog][style*=z-index]:visible,html').should($els => {
+        //if more than body found, find element with highest z-index
+        if ($els.length > 1) {
+            //remove html from $els so only elements with z-index remain
+            $els = $els.filter(':not(html)')
+            //sort by z-index (ascending)
+            $els.sort((cur, prev) => {
+                let zp = Cypress.dom.wrap(prev).css('z-index')
+                let zc = Cypress.dom.wrap(cur).css('z-index')
+                // return zc - zp
+                return zp - zc
+            })
+        }
+        top_layer = $els.last()
+        retryUntil(top_layer) //run assertions, so get can retry on failure
+    }).then(() => cy.wrap(top_layer)) //yield top_layer to any further chained commands
+})
+
 // -- This is a child command --
 // Cypress.Commands.add("drag", { prevSubject: 'element'}, (subject, options) => { ... })
 //

@@ -14,7 +14,7 @@ Given("I click on the button labeled exactly {string}", (text) => {
 
 defineParameterType({
     name: 'instrument_save_options',
-    regexp: /Save & Stay|Save & Exit Record|Save & Go To Next Record|Save & Exit Form|Save & Go To Next Form/
+    regexp: /Save & Stay|Save & Exit Record|Save & Go To Next Record|Save & Exit Form|Save & Go To Next Form|Save & Go To Next Instance/
 })
 
 /**
@@ -101,6 +101,17 @@ Given("I click on the button labeled {string} in the dialog box", (text) => {
 /**
  * @module Interactions
  * @author Adam De Fouw <aldefouw@medicine.wisc.edu>
+ * @example I click on the radio labeled {string} in the dialog box
+ * @param {string} text - the text on the button element you want to click
+ * @description Clicks on a radio element with a specific text label in a dialog box.
+ */
+Given("I click on the radio labeled {string} in the dialog box", (text) => {
+    cy.click_on_dialog_button(text, 'span')
+})
+
+/**
+ * @module Interactions
+ * @author Adam De Fouw <aldefouw@medicine.wisc.edu>
  * @example I click on the link labeled {string}
  * @param {string} text - the text on the anchor element you want to click
  * @description Clicks on an anchor element with a specific text label.
@@ -144,11 +155,26 @@ Given("I mark the field required", () => {
 /**
  * @module Interactions
  * @author Adam De Fouw <aldefouw@medicine.wisc.edu>
+ * @example I mark the field as not required
+ * @description Marks a field as NOT required within the Online Designer.
+ */
+Given("I mark the field as not required", () => {
+    cy.get('input#field_req0').click()
+})
+
+/**
+ * @module Interactions
+ * @author Adam De Fouw <aldefouw@medicine.wisc.edu>
  * @example I save the field
  * @description Saves a Field within the Online Designer.
  */
 Given("I save the field", () => {
     cy.save_field()
+})
+
+defineParameterType({
+    name: 'enter_type',
+    regexp: /enter|clear field and enter/
 })
 
 /**
@@ -159,10 +185,17 @@ Given("I save the field", () => {
  * @param {string} label - the label of the field
  * @description Enters a specific text string into a field identified by a label.  (NOTE: The field is not automatically cleared.)
  */
-Given('I enter {string} into the input field labeled {string}', (text, label) => {
-    //We locate the label element first.  This isn't always a label which is unfortunate, but this approach seems to work so far.
-    cy.contains(label).then(($label) => {
-        cy.wrap($label).parent().find('input').type(text)
+Given('I {enter_type} {string} into the input field labeled {string}', (enter_type, text, label) => {
+    let sel = `:contains("${label}")`
+
+    cy.get_top_layer(($el) => { expect($el.find(sel)).length.to.be.above(0)} ).within(() => {
+        cy.contains(label).then(($label) => {
+            if(enter_type === "enter"){
+                cy.wrap($label).parent().find('input').type(text)
+            } else if (enter_type === "clear field and enter") {
+                cy.wrap($label).parent().find('input').clear().type(text)
+            }
+        })
     })
 })
 
@@ -189,15 +222,27 @@ Given('I enter {string} into the textarea field labeled {string}', (text, label)
  * @param {string} label - the label of the field
  * @description Enters a specific text string into a field identified by a label.  (NOTE: The field is not automatically cleared.)
  */
-Given('I enter {string} into the data entry form field labeled {string}', (text, label) => {
-    cy.contains('label', label)
-        .invoke('attr', 'id')
-        .then(($id) => {
-            cy.get('[name="' + $id.split('label-')[1] + '"]')
-        })
-        .type(text)
+Given('I {enter_type} {string} into the data entry form field labeled {string}', (enter_type, text, label) => {
+    //Note that we CLICK on the field (to select it) BEFORE we type in it - otherwise the text ends up somewhere else!
+    if(enter_type === "clear field and enter"){
+        cy.contains('label', label)
+            .invoke('attr', 'id')
+            .then(($id) => {
+                cy.get('[name="' + $id.split('label-')[1] + '"]')
+            })
+            .click()
+            .clear()
+            .type(text)
+    } else {
+        cy.contains('label', label)
+            .invoke('attr', 'id')
+            .then(($id) => {
+                cy.get('[name="' + $id.split('label-')[1] + '"]')
+            })
+            .click()
+            .type(text)
+    }
 })
-
 
 /**
  * @module Interactions
@@ -295,6 +340,11 @@ Given("I enter {string} into the hidden field identified by {string}", (text, se
     cy.get(sel).type(text, {force: true})
 })
 
+defineParameterType({
+    name: 'click_type',
+    regexp: /click on|check|uncheck/
+})
+
 /**
  * @module Interactions
  * @author Adam De Fouw <aldefouw@medicine.wisc.edu>
@@ -302,10 +352,25 @@ Given("I enter {string} into the hidden field identified by {string}", (text, se
  * @param {string} label - the label associated with the checkbox field
  * @description Selects a checkbox field by its label
  */
-Given("I click on the checkbox labeled {string}", (label) => {
-    cy.contains(label).then(($label) => {
-        cy.wrap($label).parent().find('input').click()
+Given("I {click_type} the checkbox labeled {string}", (check, label) => {
+    let sel = `:contains("${label}"):visible`
+
+    cy.get_top_layer(($el) => { expect($el.find(sel)).length.to.be.above(0)} ).within(() => {
+        cy.contains(label).then(($label) => {
+            if(check === "click on"){
+                cy.wrap($label).parentsUntil(':has(:has(input[type=checkbox]))').first().parent().find('input[type=checkbox]').click()
+            } else if (check === "check"){
+                cy.wrap($label).parentsUntil(':has(:has(input[type=checkbox]))').first().parent().find('input[type=checkbox]').check()
+            } else if (check === "uncheck"){
+                cy.wrap($label).parentsUntil(':has(:has(input[type=checkbox]))').first().parent().find('input[type=checkbox]').uncheck()
+            }
+        })
     })
+})
+
+defineParameterType({
+    name: 'elm_type',
+    regexp: /input|list item|checkbox|span/
 })
 
 /**
@@ -315,9 +380,23 @@ Given("I click on the checkbox labeled {string}", (label) => {
  * @param {string} label - the label associated with the checkbox field
  * @description Selects a checkbox field by its label
  */
-Given("I click on the input element labeled {string}", (label) => {
+Given("I {click_type} the {elm_type} element labeled {string}", (click_type, element_type, label) => {
     cy.contains(label).then(($label) => {
-        cy.wrap($label).parent().find('input').click()
+        if(element_type === 'input'){
+            cy.wrap($label).parent().find('input').click()
+        } else if(element_type === 'checkbox'){
+            if(click_type === "click on"){
+                cy.wrap($label).parent().find('input[type=checkbox]').click()
+            } else if (click_type === "check"){
+                cy.wrap($label).parent().find('input[type=checkbox]').check()
+            } else if (click_type === "uncheck"){
+                cy.wrap($label).parent().find('input[type=checkbox]').uncheck()
+            }
+        } else if (element_type === "list item"){
+            cy.get('li').contains(label).click()
+        } else if (element_type === "span"){
+            cy.get('span').contains(label).click()
+        }
     })
 })
 
@@ -387,11 +466,11 @@ Given('after the next step, I will {confirmation} a confirmation window containi
  * @module Interactions
  * @author Rushi Patel <rushi.patel@uhnresearch.ca>
  * @example I export all data in {string} format and expect {int} record
- * @param {string} value - the option to select from the dropdown
+ * @param {string} value - type of export
  * @param {int} num - expect this many records
- * @description Selects the option via a specific string.
+ * @description Exports all data in selected export type
  */
- Given('I export all data in {string} format and expect {int} record', (value, num) => {
+ Given('I export all data in {string} format and expect {int} record(s)', (value, num) => {
     cy.get('tr#reprow_ALL').find('button.data_export_btn').should('be.visible').contains('Export Data').click()
     cy.get('input[value='+value+']').click()
     cy.export_csv_report().should((csv) => {
@@ -417,11 +496,22 @@ Given('after the next step, I will {confirmation} a confirmation window containi
  * @module Interactions
  * @author Rushi Patel <rushi.patel@uhnresearch.ca>
  * @example I check the checkbox identified by {string}
- * @param {string} value - the option to select from the dropdown
- * @description Selects the option via a specific string.
+ * @param {string} value - input element
+ * @description Checks the checkbox identified by its element 
  */
  Given('I check the checkbox identified by {string}', (value) => {
     cy.get(value).check()
+})
+
+/**
+ * @module Interactions
+ * @author Rushi Patel <rushi.patel@uhnresearch.ca>
+ * @example I uncheck the checkbox identified by {string}
+ * @param {string} value - input element
+ * @description Unchecks the checkbox identified by its element 
+ */
+ Given('I uncheck the checkbox identified by {string}', (value) => {
+    cy.get(value).uncheck()
 })
 
 /**
@@ -438,15 +528,25 @@ Given('after the next step, I will {confirmation} a confirmation window containi
 /**
  * @module Interactions
  * @author Rushi Patel <rushi.patel@uhnresearch.ca>
- * @example I create a new instrument from scratch
- * @description Clicks the button to create new instrument and prompts the user to add instrument
+ * @example I create a new data collection instrument called {string}
+ * @param {string} instrument_name - the name of the instrument to create
+ * @description Clicks the button to create new instrument and enters the instrument name into the text box
  */
- Given('I create a new instrument from scratch', () => {
+ Given('I create a new data collection instrument called {string}', (instrument_name) => {
     cy.get('div').
     contains('a new instrument from scratch').
     parent().
     within(($div) => {
         cy.get('button').contains('Create').click()
+    })
+
+    cy.get('body').contains('Add instrument here')
+    cy.get('button').contains("Add instrument here").click()
+    cy.get('span').contains('New instrument name') //Make sure this exists first
+
+    cy.get('td').contains('New instrument name').parent().within(($td) => {
+        cy.get('input[type=text]').type(instrument_name)
+        cy.get('input[value=Create]').click()
     })
 })
 
@@ -465,7 +565,7 @@ Given('after the next step, I will {confirmation} a confirmation window containi
  * @module Interactions
  * @author Rushi Patel <rushi.patel@uhnresearch.ca>
  * @example I click the input element identified by {string}
- * @param {string} value - input element
+ * @param {string} value - input element that you want to click
  * @description Clicks the input field
  */
  Given('I click the input element identified by {string}', (value) => {
@@ -567,13 +667,37 @@ Given('I enter {string} into the Field Label of the open "Edit Field" dialog box
     cy.get('textarea#field_label').clear().type(field_label)
 })
 
-
 /**
  * @module Interactions
  * @author Adam De Fouw <aldefouw@medicine.wisc.edu>
  * @example I edit the Data Collection Instrument field labeled {string}
  * @param {string} label - the label of the field to edit
  * @description Opens the edit window for the field with the specified label
+ */
+Given('I enter {string} into the Field Label of the open "Edit Field" dialog box', (field_label) => {
+    cy.get('textarea#field_label').clear().type(field_label)
+})
+
+/**
+ * @module Interactions
+ * @author Adam De Fouw <aldefouw@medicine.wisc.edu>
+ * @example I enter the equation {string} into Calculation Equation of the open "Edit Field" dialog box
+ * @param {string} equation - the equation to enter
+ * @description Enters specified equation into a Calculated Field within an open "Edit Field" dialog box
+ */
+Given('I enter the equation {string} into Calculation Equation of the open "Edit Field" dialog box', (equation) => {
+    cy.get('textarea#element_enum').click()
+    cy.get('div.ace_content').type("{shift}{home}{del}" + equation)
+    cy.get('button').contains('Update & Close Editor').click()
+})
+
+
+/**
+ * @module Interactions
+ * @author Adam De Fouw <aldefouw@medicine.wisc.edu>
+ * @example I select {string} from the Field Type dropdown of the open "Edit Field" dialog box
+ * @param {string} label - the label of the field to edit
+ * @description Selects option from the Field Type dropdown in open "Edit Field" dialog box
  */
 Given('I select {string} from the Field Type dropdown of the open "Edit Field" dialog box', (dropdown_option) => {
     cy.get('select#field_type').select(dropdown_option)
@@ -582,13 +706,53 @@ Given('I select {string} from the Field Type dropdown of the open "Edit Field" d
 /**
  * @module Interactions
  * @author Adam De Fouw <aldefouw@medicine.wisc.edu>
- * @example I enter {string} into the field labeled {string}
+ * @example I select {string} from the Validation dropdown of the open "Edit Field" dialog box
+ * @param {string} label - the label of the field to edit
+ * @description Selects option from the Validation dropdown in open "Edit Field" dialog box
+ */
+Given('I select {string} from the Validation dropdown of the open "Edit Field" dialog box', (dropdown_option) => {
+    cy.get('select#val_type').select(dropdown_option)
+})
+
+
+defineParameterType({
+    name: 'dropdown_type',
+    regexp: /field|table field/
+})
+
+/**
+ * @module Interactions
+ * @author Adam De Fouw <aldefouw@medicine.wisc.edu>
+ * @example I select {string} on the dropdown field labeled {string}
  * @param {string} text - the text to enter into the field
  * @param {string} label - the label of the field
- * @description Enters a specific text string into a field identified by a label.  (NOTE: The field is not automatically cleared.)
+ * @description Selects a specific item from a dropdown
  */
-Given('I select {string} on the dropdown field labeled {string}', (text, label) => {
-    cy.contains(label).then(($label) => {
-        cy.wrap($label).parent().find('select').select(text)
+Given('I select {string} on the dropdown {dropdown_type} labeled {string}', (text, type, label) => {
+    let sel = `:contains("${label}"):visible`
+
+    cy.get_top_layer(($el) => { expect($el.find(sel)).length.to.be.above(0)} ).within(() => {
+        if(type === "table field") {
+            cy.contains(label).then(($label) => {
+                cy.wrap($label).parentsUntil(':has(:has(:has(:has(select))))').first().parent().parent().within(($elm) => {
+                    cy.wrap($elm).find('select').select(text)
+                })
+            })
+        } else if (type === "field"){
+            cy.contains(label).then(($label) => {
+                cy.wrap($label).parent().find('select').select(text)
+            })
+        }
     })
+})
+
+/**
+ * @module Interactions
+ * @author Adam De Fouw <aldefouw@medicine.wisc.edu>
+ * @example I wait for {decimal} seconds
+ * @param {string} seconds - the number of seconds to wait - can be an integer or decimal
+ * @description Waits for a specific amount of time before moving on
+ */
+Given(/^I wait for (\d+(?:\.\d+)?) seconds$/, (seconds) => {
+    cy.wait(seconds * 1000)
 })

@@ -3,21 +3,27 @@ Feature: Draft Mode
   As a REDCap end user
   I want to see that Draft Mode is functioning as expected
 
-Scenario: Add from Email Address
+Scenario: Project Setup - 1
     Given I am an "admin" user who logs into REDCap
+    And I create a project named "20_DraftMode_v1115" with project purpose Practice / Just for fun via CDISC XML import from fixture location "cdisc_files/core/07_DesignForms_v1115.xml"
+    
+Scenario: Project Setup - 2, 3
+    And I click on the button labeled exactly "Move project to production"
+    And I click on the input element labeled "Keep ALL data saved so far"
+    And I click on the button labeled exactly "YES, Move to Production Status"
+    And I assign the "Project Design and Setup" user right to the user named "Test User" with the username of "test_user" on project ID 14
+
+Scenario: Project Setup - 4
     And I visit the "Control Center" page
     And I click on the link labeled "General Configuration"
     And I enter "no-reply@test.com" into the input field labeled "Set a Universal FROM Email address"
     And I click on the input button labeled "Save Changes"
     Then I should see "Your system configuration values have now been changed!"
 
-Scenario: Project Setup - 1
+Scenario: 1 - Log into Project
     Given I am an "admin" user who logs into REDCap
-    And I create a project named "20_DraftMode_v1115" with project purpose Practice / Just for fun via CDISC XML import from fixture location "cdisc_files/core/07_DesignForms_v1115.xml"
-    And I click on the button labeled exactly "Move project to production"
-    And I click on the input element labeled "Keep ALL data saved so far"
-    And I click on the button labeled exactly "YES, Move to Production Status"
-    And I assign the "Project Design and Setup" user right to the user named "Test User" with the username of "test_user" on project ID 14
+    And I click on the link labeled "My Projects"
+    And I click on the link labeled "20_DraftMode_v1115"
 
 Scenario: 2 - Control Center
     Given I click on the link labeled "Control Center"
@@ -76,7 +82,6 @@ Scenario: 7 - Submit changes
     Then I should see "Your changes were made automatically either because your project currently contains no records OR because it was found that the"
     When I click on the button labeled "Close"
     Then I should see "Would you like to enter DRAFT MODE to begin drafting changes to the project?"
-    #asks to check for an input button
 
 Scenario: 8 - Draft Changes
     Given I logout
@@ -187,7 +192,9 @@ Scenario: 10 - Draft Changes
     And I should see "Deleted fields that contain data: 1"
     And I should see "Potentially critical issues in modified fields that contain data: 3"
 
-    #And I should see ... table changes 
+    And I should see "*Possible label mismatch because of label changes. Check if okay."
+    And I should see "*Data MIGHT be lost due to deleted choice(s)"
+    And I should see "*Possible data loss if field type changes. Check if okay."
 
 Scenario: 11 - Submit Changes 
     When I click on the button labeled "RETURN TO PREVIOUS PAGE"
@@ -301,19 +308,19 @@ Scenario: 20 - Draft Changes
     Given I am an "admin" user who logs into REDCap
     And I click on the link labeled "My Projects"
     And I click on the link labeled "20_DraftMode_v1115"
-
     When I click on the link labeled "Project Setup"
     And I click on the button labeled "Define My Events"
     Then I should see "Deleting any events below will result in data loss. Please proceed with caution."
 
     Given I change the current Event Name from "Event 2" to "Event B"
+    And I click on the link labeled "Designate Instruments for My Events"
+    And I enable the Data Collection Instrument named "Text Validation" for the Event named "Event B"
+    And I verify the Data Collection Instrument named "Text Validation" is enabled for the Event named "Event B"
+    And I verify the Data Collection Instrument named "Data Types" is enabled for the Event named "Event 1"
+    And I verify the Data Collection Instrument named "Data Types" is disabled for the Event named "Event B"
 
-    When I click on the link labeled "Designate Instruments for My Events"
-    And I click on the button labeled "Begin Editing"
-    And I click on the checkbox identified by "[id=text_validation--42]"
-    And I click on the button labeled "Save"
+    Then I logout
 
-    Given I logout
 
 Scenario: 21 - Review Events and Form Designations
     Given I am a "standard" user who logs into REDCap
@@ -324,8 +331,11 @@ Scenario: 21 - Review Events and Form Designations
     Then I should see "Event B"
     And I should NOT see "Event 2"
     When I click on the link labeled "Designate Instruments for My Events"
-    #Then I should see "[id=img--text_validation--42]"
-    #this doesnt find the check mark for Event 2 Text Validation - not sure if we have a way to "see" the check mark
+
+    Then I verify the Data Collection Instrument named "Text Validation" is enabled for the Event named "Event 1"
+    And I verify the Data Collection Instrument named "Text Validation" is enabled for the Event named "Event B"
+    And I verify the Data Collection Instrument named "Data Types" is enabled for the Event named "Event 1"
+    And I verify the Data Collection Instrument named "Data Types" is disabled for the Event named "Event B"
     
     
 
