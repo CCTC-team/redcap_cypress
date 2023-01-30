@@ -18,6 +18,11 @@ Feature: Data Quality
     And I enter "0" into the field identified by "#val_min"
     And I enter "10" into the field identified by "#val_max"
     And I click on the button labeled "Save"
+    And I click on the link labeled "Record Status Dashboard"
+    And I click on the link labeled exactly "1"
+    And I click on the button labeled "Choose action for record"
+    And I click on the link labeled "Delete record (all forms/events)"
+    And I click on the button labeled "DELETE RECORD"
     And I click on the link labeled "Data Quality"
     And I click on the link labeled "User Rights"
     And I enter "Test_user" into the field identified by "#new_username"
@@ -72,7 +77,7 @@ Feature: Data Quality
  Scenario: 10 
     Given I click on the link labeled "Add / Edit Records"
     And I click on the button labeled "Add new record for the arm selected above"
-    Then I should see 'Record "3" is a new Record ID'
+    Then I should see 'Record "2" is a new Record ID'
 
 Scenario: 11
     Given I click on a bubble with instrument named "Data Types" and event named "Event 1"
@@ -81,13 +86,14 @@ Scenario: 12 and 13
     Given I enter "213" into the field identified by "Input[name=integer_field]" 
     Given I click on the element identified by "Input[name=textbox]"    
     Then I should see "The value you provided is outside the suggested range (0 - 10). " in an alert box
-    And I click " Close" on the popup
+    And I click " Close" in the popup
     Then I see the field identified by "Input[name=integer_field]" turns red
     And I scroll the page to the field identified by "select[name=data_types_complete]"
     And I select "Complete" from the dropdown identified by "select[name=data_types_complete]"
     And I click on the button labeled "Save & Exit Form"
-    Then  I click "Ignore and leave record" on the popup
+    Then  I click "Ignore and leave record" in the popup
     Then I see a "circle_green" bubble for instrument named "Data Types" and event named "Event 1"
     
-    
+    Given I click on the link labeled "Data Quality"
+    And I click on the button labeled exactly "All"
    

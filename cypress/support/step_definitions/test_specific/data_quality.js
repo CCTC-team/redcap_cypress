@@ -48,9 +48,9 @@ Given("I see a {string} bubble for instrument named {string} and event named {st
  * module DataQuality
  * @author Coreen D'Souza <coreen.dsouza1@nhs.net>
  * @example I close popup
- * @description Closes popup with button labeled "Close"
+ * @description Clicks on the given popup button
  */
-Given("I click {string} on the popup", (text) => {
+Given("I click {string} in the popup", (text) => {
     cy.focused().should('have.text', text).click()
  })
 
@@ -58,14 +58,43 @@ Given("I click {string} on the popup", (text) => {
  /**
  * module DataQuality
  * @author Coreen D'Souza <coreen.dsouza1@nhs.net>
- * @example I scroll the user rights page to the bottom
- * @description scroll user rights pop up page to the bottom
+ * @example I scroll the page to the field identified by {string}
+ * @description scroll the page till given field is in view
  */
  Given("I scroll the page to the field identified by {string}", (label) => {
     cy.get(label).scrollIntoView()
 })
 
-
+/**
+ * module DataQuality
+ * @author Coreen D'Souza <coreen.dsouza1@nhs.net>
+ * @example I scroll page to the given field
+ * @description scroll user rights pop up page to the bottom
+ */
  Given ("I see the field identified by {string} turns red", (sel) => {
- cy.get(sel).should('have.css', 'background','/*rgb(255, 183, 190) none repeat scroll 0% 0% / auto padding-box border-box')
+ cy.get(sel).should('have.css', 'background','rgb(255, 183, 190) none repeat scroll 0% 0% / auto padding-box border-box')
+})
+
+
+
+// /**
+//  * @module Interactions
+//  * @author Adam De Fouw <aldefouw@medicine.wisc.edu>
+//  * @example I click on the table cell containing a link labeled {string}
+//  * @param {string} text - the text in the table cell
+//  * @description Clicks on a table cell that is identified by a particular text string specified.
+//  */
+// Given('I click on the table cell containing a link labeled exactly {string}', (text) => {
+//     cy.get('td').contains(new RegExp("^" + text + "$", "g")).parent().find('a').click()
+// })
+
+/**
+ * @module Interactions
+ * @author Adam De Fouw <aldefouw@medicine.wisc.edu>
+ * @example I click on the link labeled {string}
+ * @param {string} text - the text on the anchor element you want to click
+ * @description Clicks on an anchor element with a specific text label.
+ */
+Given("I click on the link labeled exactly {string}", (text) => {
+    cy.get('a').contains(new RegExp("^" + text + "$", "g")).click()
 })
