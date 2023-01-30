@@ -14,7 +14,7 @@ Feature: My Projects
     And  I click on the element identified by "a[title='Edit user privileges or assign to role']"
     And I click on the button labeled "Edit user privileges"
     And I scroll the user rights page to the bottom
-    And I check the user right identified by "input[name=record_delete]"
+    And I check the User Right named 'Delete Records'
     And I click on the button labeled "Save Changes"
 
   Scenario: Project Setup 2 - Longitudinal Data Collection is enabled and Project is in development
@@ -110,7 +110,7 @@ Feature: My Projects
     And I enter "John" into the field identified by "input[name=ptname_v2_v2]"
     And I enter "John@gmail.com" into the field identified by "input[name=email_v2]"
     And I click on the button labeled "Save & Exit Form"
-    Then I should see "successfully added."
+    Then I should see "successfully added"
     And I click on the link labeled "Record Status Dashboard"
     Then I should see 2 records in the Record Status Dashboard
     And I click on the link labeled "My Projects"
@@ -126,7 +126,7 @@ Feature: My Projects
     And I enter "JohnDup" into the field identified by "input[name=ptname_v2_v2]"
     And I enter "JohnDup@gmail.com" into the field identified by "input[name=email_v2]"
     And I click on the button labeled "Save & Exit Form"
-    Then I should see "successfully added."
+    Then I should see "successfully added"
     And I click on the link labeled "Record Status Dashboard"
     Then I should see 3 records in the Record Status Dashboard
     And I click on the link labeled "My Projects"
@@ -170,10 +170,10 @@ Scenario: 13 - Delete a field and ensure it reflects in the My Projects Dashboar
     Given I visit Project ID 14
     And I click on the link labeled "Designer"
     And I click on the table cell containing a link labeled "Text Validation"
-    And I click on the Delete Field image for the field named "notesbox1"
     And the AJAX "GET" request at "Design/delete_field.php?*" tagged by "delete" is being monitored
     And the AJAX "GET" request at "Design/online_designer_render_fields.php*" tagged by "render" is being monitored
-    And I click on the button labeled "Delete" in the dialog box
+    # And I click on the button labeled "Delete" in the dialog box
+    And I delete the field named "notesbox1"
     And the AJAX request tagged by "delete" has completed
     And the AJAX request tagged by "render" has completed
     Then I should NOT see "notesbox1"
@@ -187,12 +187,12 @@ Scenario: 13 - Delete a field and ensure it reflects in the My Projects Dashboar
   Scenario: 14 - Add an instrument and ensure it reflects in the My Projects Dashboard
     Given I visit Project ID 14
     And I click on the link labeled "Designer"
-    And I click on the button labeled exactly " Create"
+    And I click on the button labeled exactly "Create"
     Then I should see a button labeled "Add instrument here"
     And I add an instrument below the instrument named "Data Types"
     And I enter "Test" into the field identified by "input[id=new_form-data_types]"
     And I click on the element identified by "input[value=Create]"
-    And I close popup
+    # And I close popup
     Then I should see "Test"
     And I should see a total number of 3 instruments
     And I click on the link labeled "My Projects"
