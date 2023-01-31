@@ -86,14 +86,20 @@ Scenario: 12 and 13
     Given I enter "213" into the field identified by "Input[name=integer_field]" 
     Given I click on the element identified by "Input[name=textbox]"    
     Then I should see "The value you provided is outside the suggested range (0 - 10). " in an alert box
-    And I click " Close" in the popup
+    And I click "Close" in the popup
     Then I see the field identified by "Input[name=integer_field]" turns red
     And I scroll the page to the field identified by "select[name=data_types_complete]"
     And I select "Complete" from the dropdown identified by "select[name=data_types_complete]"
     And I click on the button labeled "Save & Exit Form"
     Then  I click "Ignore and leave record" in the popup
     Then I see a "circle_green" bubble for instrument named "Data Types" and event named "Event 1"
-    
+
+Scenario: 14 and 15  
     Given I click on the link labeled "Data Quality"
-    And I click on the button labeled exactly "All"
+   
+    And the AJAX "POST" request at "DataQuality/execute_ajax.php?*" tagged by "DataQuality" is being monitored
+     And I click on the button labeled exactly "All"
+    And the AJAX request tagged by "DataQuality" has completed
+    
+    Then I see "29" Total Discrepancies under Rule "A"
    

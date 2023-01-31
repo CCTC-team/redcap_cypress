@@ -98,3 +98,21 @@ Given("I click {string} in the popup", (text) => {
 Given("I click on the link labeled exactly {string}", (text) => {
     cy.get('a').contains(new RegExp("^" + text + "$", "g")).click()
 })
+
+/**
+ * @module DataQuality
+ * @author Coreen D'Souza <coreen.dsouza1@nhs.net>
+ * @example I see a {string} bubble for instrument named {string} and event named {string}
+ * @param {string} instrument - the name of the instrument you are adding to an event
+ * @param {string} event - the name of the event you are adding an instrument to
+ * @description Interacations - Checks a specfic checkbox for an  instrument and event name
+ */
+Given("I see {string} Total Discrepancies under Rule {string}", ( num , Rulename) => {
+    
+   // cy.get('table[id=table-rules]').find('th').contains(event).parents('th').invoke('index').then((index) => {
+        cy.get('table[id=table-rules]')
+              
+                .contains(Rulename).parents('tr').within(() => cy.get('td').should('have.value', num) )           
+            
+    
+})
