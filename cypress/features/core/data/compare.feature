@@ -81,5 +81,35 @@ Feature: Data Comparison Tool / DDE Module
     And I should NOT see "Checkbox"
 
   Scenario: 2 - Print page
-    Given I click on the button labeled "Print page"
-    Then I see the pop up window for print
+    Given I print the page
+
+  Scenario: 3 - Change Required field from 75 to 57 and compare
+    Given I click on the text "75" of Record ID "2"
+    # And I scroll the page to the field identified by "input[name=required]"
+    Then I should see " Required"
+    And I clear the field identified by "input[name=required]"
+    Then I enter "57" into the field identified by "input[name=required]"
+    And I click on the button labeled "Save & Exit Form"
+    #  Compare the records
+    Then I click on the link labeled "Data Comparison Tool"
+    And I select "2" from the dropdown identified by "select[id=record1]"
+    And I select "3" from the dropdown identified by "select[id=record2]"
+    And I click on the input button labeled "Compare"
+    Then I should NOT see "required"
+
+ Scenario: 4 - Delete the name and compare
+    #  Compare the records
+    Given I click on the link labeled "Data Comparison Tool"
+    And I select "2" from the dropdown identified by "select[id=record1]"
+    And I select "3" from the dropdown identified by "select[id=record2]"
+    And I click on the input button labeled "Compare"
+    And I click on the text "Guns N' Roses" of Record ID "3"
+    Then I should see "Name"
+    And I clear the field identified by "input[name=ptname_v2_v2]"
+    And I click on the button labeled "Save & Exit Form"
+    #  Compare the records
+    Given I click on the link labeled "Data Comparison Tool"
+    And I select "2" from the dropdown identified by "select[id=record1]"
+    And I select "3" from the dropdown identified by "select[id=record2]"
+    And I click on the input button labeled "Compare"
+    Then I should see "ptname_v2_v2"
