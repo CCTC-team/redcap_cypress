@@ -96,18 +96,6 @@ Given('I enter {string} into the input identified by {string}', (text, selector)
 /**
  * @module TestSpecific/BranchingLogic
  * @author David Phillips <david.phillips22@nhs.net>
- * @example The number of rows in the table identified by {string} equals {int}
- * @param {string} selector - the selector
- * @param {int} expectedCount - the expected count
- * @description Verifies that there are the expected number of rows in a table with a specific identifier.
- */
-Given('The number of rows in the table identified by {string} equals {int}', (selector, expectedCount) => {
-    cy.get(selector).children('tr').should('have.length', expectedCount)
-})
-
-/**
- * @module TestSpecific/BranchingLogic
- * @author David Phillips <david.phillips22@nhs.net>
  * @example Every field contains the branching logic {string} except the Record ID field and the field with the label {string}
  * @param {string} expectedBranchingLogic - the branching logic to check
  * @param {string} excludedFieldLabel - the name of the field to exclude from the check
@@ -142,6 +130,92 @@ Given('I can successfully apply the same branching logic {string} to all fields 
     cy.wait('@render_fields')
 
     assertOnBranchingLogic(branchingLogic, excludedFieldLabel)
+})
+
+/**
+ * @module TestSpecific/BranchingLogic
+ * @author David Phillips <david.phillips22@nhs.net>
+ * @example I open the public survey
+ * @description Opens the public survey in the main tab.
+ */
+Given('I open the public survey', () => {
+    cy.window().then((win) => {
+        cy.stub(win, 'open').as('open')
+    })
+
+    cy.contains('Open public survey').click()
+    cy.get('@open').should('have.been.calledOnce')
+    cy.get('#longurl').then(($url) => {
+        cy.visit($url.val())
+    })
+})
+
+/**
+ * @module TestSpecific/BranchingLogic
+ * @author David Phillips <david.phillips22@nhs.net>
+ * @example The fields shown on the public survey are {string}
+ * @param {string} expectedFieldNames - the expected field names (pipe separated e.g. fieldName1|fieldName2|fieldName3)
+ * @description Verifies that only the specified fields are shown on the public survey.
+ */
+Given('The fields shown on the public survey are {string}', (expectedFieldNames) => {
+    const expectedFields = expectedFieldNames.split("|")
+    const actualFields = []
+    const selector = "#questiontable td.labelrc > label, td.labelrc.col-11"
+    cy.get(selector).each(($field) => {
+        actualFields.push($field.html().trim())
+    })
+    .then(() => {
+        expect(actualFields).to.include.members(expectedFields)
+    })
+
+    //TODO: change expected length to 1
+    cy.get(selector).should('have.length', 18)
+})
+
+/**
+ * @module TestSpecific/BranchingLogic
+ * @author David Phillips <david.phillips22@nhs.net>
+ * @example The fields shown on the instrument are {string}
+ * @param {string} expectedFieldNames - the expected field names (pipe separated e.g. fieldName1|fieldName2|fieldName3)
+ * @description Verifies that only the specified fields are shown on the instrument.
+ */
+Given('The fields shown on the instrument are {string}', (expectedFieldNames) => {
+    const expectedFields = expectedFieldNames.split("|")
+    const actualFields = []
+    const selector = "td.labelrc tr > td:first-child, td.label-rc.col-12"
+    cy.get(selector).each(($field) => {
+        actualFields.push($field.html().trim())
+    })
+    .then(() => {
+        expect(actualFields).to.include.members(expectedFields)
+    })
+
+    //TODO: change expected length to 1
+    cy.get(selector).should('have.length', 17)
+})
+
+/**
+ * @module TestSpecific/BranchingLogic
+ * @author David Phillips <david.phillips22@nhs.net>
+ * @example I close the public survey
+ * @description Closes the public survey.
+ */
+Given('I close the public survey', () => {
+    cy.window().then((win) => {
+        cy.stub(win, 'close').as('close')
+        win.close()
+    })
+})
+
+/**
+ * @module TestSpecific/BranchingLogic
+ * @author David Phillips <david.phillips22@nhs.net>
+ * @example The survey closes
+ * @description Verifies that the survey was closed and navigates back to the Survey Distribution Tools page.
+ */
+Given('The survey closes', () => {
+    cy.get('@close').should('have.been.calledOnce')
+    cy.visit('/redcap_v' + Cypress.env('redcap_version') + "/Surveys/invite_participants.php?pid=14")
 })
 
 function assertOnBranchingLogic(branchingLogic, excludedFieldLabel) {

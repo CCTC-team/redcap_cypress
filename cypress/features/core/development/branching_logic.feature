@@ -62,22 +62,18 @@ Feature: Branching Logic
 
   Scenario: 2
   Given I click on the link labeled "Survey Distribution Tools"
-  #doesn't work as opens a new tab. Therefore a possible workaround is to directly open the link and bypass the button
-  #alternatively use a stub
-  #And I click on the button labeled "Open public survey"
-
-  #And I visit the public survey URL for Project ID 14
-  #Then The number of rows in the table identified by "#questiontable > tbody" equals 1
-
-  #currently can't close as not opened in new tab
+  When I open the public survey
+  Then The fields shown on the public survey are "Caculated Field"
+  When I close the public survey
+  #alert doesn't appear. Is this because close occurs in the close stub? We don't actually want to close the main browser tab
+  Then The survey closes
 
   Scenario: 3
   Given I click on the link labeled "Add / Edit Records"
-  And I click on the button labeled "Add new record"
-  #Then The number of rows in the table identified by "#questiontable > tbody" equals 3
+  When I click on the button labeled "Add new record"
   #NB typo in manual script - Caculated rather than Calculated
-  And I should see "Caculated Field"
-
+  Then The fields shown on the instrument are "Caculated Field"
+  
   Scenario: 4
   #does 'leave' need adding to the step definition regular expression?
   #Given after the next step, I will <leave> a confirmation window containing the text "Changes that you made may not be saved."
