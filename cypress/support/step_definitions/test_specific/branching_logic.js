@@ -160,16 +160,30 @@ Given('I open the public survey', () => {
 Given('The fields shown on the public survey are {string}', (expectedFieldNames) => {
     const expectedFields = expectedFieldNames.split("|")
     const actualFields = []
-    const selector = "#questiontable td.labelrc > label, td.labelrc.col-11"
-    cy.get(selector).each(($field) => {
-        actualFields.push($field.html().trim())
+    //field selector may be easier in v12 if data attributes are available
+    const selector = "td.labelrc > label, td.labelrc.col-11"
+
+    //fields restricted with branching logic are hidden using css but are present in the DOM
+    cy.get('#questiontable tr').not(function() {
+        return Cypress.$(this).css("display") == "none"
+    })
+    .find(selector)
+    .each(($field) => {
+        if ($field.text().includes("\n")) {
+            actualFields.push(cleanText($field.text(), "\n"))
+        }
+        else if ($field.text().includes("*")) {
+            actualFields.push(cleanText($field.text(), "*"))
+        }
+        else {
+            actualFields.push($field.text().trim())
+        }
     })
     .then(() => {
         expect(actualFields).to.include.members(expectedFields)
     })
 
-    //TODO: change expected length to 1
-    cy.get(selector).should('have.length', 18)
+    cy.get(selector).should('have.length', expectedFields.length)
 })
 
 /**
@@ -184,13 +198,13 @@ Given('The fields shown on the instrument are {string}', (expectedFieldNames) =>
     const actualFields = []
     const selector = "td.labelrc tr > td:first-child, td.label-rc.col-12"
     cy.get(selector).each(($field) => {
-        actualFields.push($field.html().trim())
+        actualFields.push($field.text().trim())
     })
     .then(() => {
         expect(actualFields).to.include.members(expectedFields)
     })
 
-    //TODO: change expected length to 1
+    //TODO: change to use expectedFields.length
     cy.get(selector).should('have.length', 17)
 })
 
@@ -240,6 +254,11 @@ function assertOnBranchingLogic(branchingLogic, excludedFieldLabel) {
     //         expect(numFields).equal(numFieldsWithExpBranchingLogic)
     //     })
     // })
+}
+
+function cleanText(text, separator) {
+    let split = text.split(separator)
+    return split[0].trim()
 }
 
 
