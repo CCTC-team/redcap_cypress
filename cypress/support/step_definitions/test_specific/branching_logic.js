@@ -179,11 +179,10 @@ Given('The fields shown on the public survey are {string}', (expectedFieldNames)
             actualFields.push($field.text().trim())
         }
     })
+    .should('have.length', expectedFields.length)
     .then(() => {
         expect(actualFields).to.include.members(expectedFields)
     })
-
-    cy.get(selector).should('have.length', expectedFields.length)
 })
 
 /**
@@ -196,16 +195,27 @@ Given('The fields shown on the public survey are {string}', (expectedFieldNames)
 Given('The fields shown on the instrument are {string}', (expectedFieldNames) => {
     const expectedFields = expectedFieldNames.split("|")
     const actualFields = []
-    const selector = "td.labelrc tr > td:first-child, td.label-rc.col-12"
-    cy.get(selector).each(($field) => {
-        actualFields.push($field.text().trim())
+    //field selector may be easier in v12 if data attributes are available
+    const selector = "td.labelrc tr > td:first-child, td.labelrc.col-12"
+
+    //fields restricted with branching logic are hidden using css but are present in the DOM
+    cy.get('#questiontable tr').not(function() {
+        return Cypress.$(this).css("display") == "none" ||
+            cleanText(Cypress.$(this).text(), "?") == "Complete"
     })
+    .find(selector)
+    .each(($field) => {
+        if ($field.text().includes("*")) {
+            actualFields.push(cleanText($field.text(), "*"))
+        }
+        else if ($field.text().startsWith("\n")) {
+            actualFields.push($field.text().trim())
+        }
+    })
+    .should('have.length', expectedFields.length)
     .then(() => {
         expect(actualFields).to.include.members(expectedFields)
     })
-
-    //TODO: change to use expectedFields.length
-    cy.get(selector).should('have.length', 17)
 })
 
 /**
