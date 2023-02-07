@@ -86,7 +86,8 @@ Scenario: 12 and 13
     Given I enter "213" into the field identified by "Input[name=integer_field]" 
     Given I click on the element identified by "Input[name=textbox]"    
     Then I should see "The value you provided is outside the suggested range (0 - 10). " in an alert box
-    And I click "Close" in the popup
+    #And I click "Close" in the popup
+    And I close popup
     Then I see the field identified by "Input[name=integer_field]" turns red
     And I scroll the page to the field identified by "select[name=data_types_complete]"
     And I select "Complete" from the dropdown identified by "select[name=data_types_complete]"
@@ -96,10 +97,19 @@ Scenario: 12 and 13
 
 Scenario: 14 and 15  
     Given I click on the link labeled "Data Quality"
-   
-    And the AJAX "POST" request at "DataQuality/execute_ajax.php?*" tagged by "DataQuality" is being monitored
-     And I click on the button labeled exactly "All"
-    And the AJAX request tagged by "DataQuality" has completed
+    And Should have the ability to execute all data quality rules at the same time
+
+  
+
+ Scenario: 16
     
-    Then I see "29" Total Discrepancies under Rule "A"
-   
+ Given I see "29" Total Discrepancies under Rule "A"
+ And I see "1" Total Discrepancies under Rule "B"
+ And I see "0" Total Discrepancies under Rule "C"
+ And I click "view" Total Discrepancies under Rule "A"
+ And I click on "exclude" for the top "3" rows
+ And I click on the button labeled "Close"
+ And I click "view" Total Discrepancies under Rule "B"
+ And Iaa click on the button labeled "Close"
+ #And I click "Close" in the popup
+ 

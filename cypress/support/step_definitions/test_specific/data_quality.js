@@ -51,7 +51,7 @@ Given("I see a {string} bubble for instrument named {string} and event named {st
  * @description Clicks on the given popup button
  */
 Given("I click {string} in the popup", (text) => {
-    cy.focused().should('have.text', text).click()
+    cy.focused().should('have.text', text).click({force: true})
  })
 
 
@@ -77,16 +77,6 @@ Given("I click {string} in the popup", (text) => {
 
 
 
-// /**
-//  * @module Interactions
-//  * @author Adam De Fouw <aldefouw@medicine.wisc.edu>
-//  * @example I click on the table cell containing a link labeled {string}
-//  * @param {string} text - the text in the table cell
-//  * @description Clicks on a table cell that is identified by a particular text string specified.
-//  */
-// Given('I click on the table cell containing a link labeled exactly {string}', (text) => {
-//     cy.get('td').contains(new RegExp("^" + text + "$", "g")).parent().find('a').click()
-// })
 
 /**
  * @module Interactions
@@ -99,20 +89,97 @@ Given("I click on the link labeled exactly {string}", (text) => {
     cy.get('a').contains(new RegExp("^" + text + "$", "g")).click()
 })
 
+
+
+
+Given ("I click button named Execute for Rule {string}", (Rulename) => {
+    cy.get('table[id=table-rules]')
+    .contains(new RegExp("^" + Rulename + "$", "g")).parents('tr').within(() => cy.get('button').contains('Execute').click() )
+})
+
+Given ("Should have the ability to execute all data quality rules at the same time", () => {
+    cy.intercept({  method: 'POST',
+        url: '/redcap_v' + Cypress.env('redcap_version') + '/DataQuality/execute_ajax.php?pid=14'
+    }).as('execute_rule')
+
+    //Execute all of the rules
+    cy.get('button').contains('All').click()
+
+    //Cycle through number of rows
+    cy.get('table#table-rules').find('tr').each(($tr, index, $list) => {
+
+        cy.wrap($tr).within((tr) => {
+
+            if(index < ($list.length - 1)) {
+                //Check that the AJAX request is done on every single instance of execution
+                cy.wait('@execute_rule')
+
+                //Make sure the execute button goes away and is replaced by the number of detected quality issues
+                cy.get('div.exebtn').should(($d) => {
+                    expect($d).not.to.contain('Execute')
+                    //expect($d).to.contain('0')
+                })
+            }
+
+        })
+    })
+
+})
+
 /**
  * @module DataQuality
  * @author Coreen D'Souza <coreen.dsouza1@nhs.net>
  * @example I see a {string} bubble for instrument named {string} and event named {string}
- * @param {string} instrument - the name of the instrument you are adding to an event
- * @param {string} event - the name of the event you are adding an instrument to
+ * @param {string} num - the name of the instrument you are adding to an event
+ * @param {string} Rulename - the name of the event you are adding an instrument to
  * @description Interacations - Checks a specfic checkbox for an  instrument and event name
  */
 Given("I see {string} Total Discrepancies under Rule {string}", ( num , Rulename) => {
-    
-   // cy.get('table[id=table-rules]').find('th').contains(event).parents('th').invoke('index').then((index) => {
-        cy.get('table[id=table-rules]')
-              
-                .contains(Rulename).parents('tr').within(() => cy.get('td').should('have.value', num) )           
-            
-    
+   
+    cy.get('table[id=table-rules]')
+       
+         .contains(new RegExp("^" + Rulename + "$", "g")).parents('tr').within(() => cy.get('div.exebtn')
+         .should(($d) => {expect($d).to.contain(num)} )  )         
 })
+
+
+
+Given("I click {string} Total Discrepancies under Rule {string}", ( item , Rulename) => {
+   
+    cy.get('table[id=table-rules]')
+       
+         .contains(new RegExp("^" + Rulename + "$", "g")).parents('tr').within(() => cy.get('div.exebtn')
+         .children().contains(item).should('be.visible').click())
+         //.should(($d) => {expect($d).to.contain(num)} ))
+         
+         //cy.get('a').contains('view').should('be.visible').click()      
+})
+
+
+
+                
+Given("I click on {string} for the top {string} rows", (record, num) => {
+
+    cy.get('table[id="table-results_table_pd-3"]').find('tr').each(($tr, index , $list) => {
+        cy.wrap($tr).within((tr) => {
+            if(index < (num))     
+                cy.get('div.fc').children().contains(record).click()})}
+            )})
+
+
+            /**
+ * @module Interactions
+ * @author Adam De Fouw <aldefouw@medicine.wisc.edu>
+ * @example I click on the button labeled {string}
+ * @param {string} text - the text on the button element you want to click
+ * @description Clicks on a button element with a specific text label.
+ */
+Given("Iaa click on the button labeled {string}", (text) => {
+   
+   // cy.get('button').contains(text).invoke('show').should('be.visible').click({force: true})
+   cy.get('.ui-dialog-buttonset').contains(text).should('exist').click({force: true})
+  
+  // cy.get('button').contains(text).invoke('show').should('be.visible').click()
+   
+})
+
