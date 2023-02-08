@@ -30,14 +30,15 @@ Feature: Data Comparison Tool / DDE Module
 
   Scenario: 1 - Add 2 records and compare
     Given I visit Project ID 14 
+    # Add first record
     And I click on the link labeled "Add / Edit Records"
     And I click on the button labeled "Add new record"
-    # Add first record
     Then I click on the image "circle_gray" link for the row containing "Text Validation"
     And I enter "Rolling Stones" into the field identified by "input[name=ptname_v2_v2]"
     And I enter "rs@noreply.edu" into the field identified by "input[name=email_v2]"
     And I select "Complete" from the dropdown identified by "select[name=text_validation_complete]"
     Then I click on the button labeled "Save & Exit Form"
+    Then I should see "successfully added"
     Then I click on the image "circle_gray" link for the row containing "Data Types"
     And I enter "Mick Jagger" into the field identified by "input[name=ptname]"
     And I enter "singer" into the field identified by "input[name=text2]"
@@ -48,6 +49,7 @@ Feature: Data Comparison Tool / DDE Module
     And I enter "75" into the field identified by "input[name=required]"
     And I select "Complete" from the dropdown identified by "select[name=data_types_complete]"
     Then I click on the button labeled "Save & Exit Form"
+    Then I should see "successfully edited"
     # Add second record
     Then I click on the link labeled "Add / Edit Records"
     And I click on the button labeled "Add new record"
@@ -56,6 +58,7 @@ Feature: Data Comparison Tool / DDE Module
     And I enter "gnr@noreply.edu" into the field identified by "input[name=email_v2]"
     And I select "Complete" from the dropdown identified by "select[name=text_validation_complete]"
     Then I click on the button labeled "Save & Exit Form"
+    Then I should see "successfully added"
     Then I click on the image "circle_gray" link for the row containing "Data Types"
     And I enter "Axl Rose" into the field identified by "input[name=ptname]"
     And I enter "singer" into the field identified by "input[name=text2]"
@@ -65,9 +68,10 @@ Feature: Data Comparison Tool / DDE Module
     And I check the checkbox identified by "input[id='id-__chk__checkbox_RC_1']"
     And I enter "57" into the field identified by "input[name=required]"
     And I select "Complete" from the dropdown identified by "select[name=data_types_complete]"
-    And I click on the button labeled "Save & Exit Form"
+    Then I click on the button labeled "Save & Exit Form"
+    Then I should see "successfully edited"
     # Compare the records
-    Then I click on the link labeled "Data Comparison Tool"
+    When I click on the link labeled "Data Comparison Tool"
     And I select "2" from the dropdown identified by "select[id=record1]"
     And I select "3" from the dropdown identified by "select[id=record2]"
     And I click on the input button labeled "Compare"
@@ -85,19 +89,19 @@ Feature: Data Comparison Tool / DDE Module
 
   Scenario: 3 - Change Required field from 75 to 57 and compare
     Given I click on the text "75" of Record ID "2"
-    # And I scroll the page to the field identified by "input[name=required]"
     Then I should see " Required"
     And I clear the field identified by "input[name=required]"
     Then I enter "57" into the field identified by "input[name=required]"
     And I click on the button labeled "Save & Exit Form"
+    Then I should see "successfully edited"
     #  Compare the records
-    Then I click on the link labeled "Data Comparison Tool"
+    When I click on the link labeled "Data Comparison Tool"
     And I select "2" from the dropdown identified by "select[id=record1]"
     And I select "3" from the dropdown identified by "select[id=record2]"
     And I click on the input button labeled "Compare"
     Then I should NOT see "required"
 
- Scenario: 4 - Delete the name and compare
+  Scenario: 4 - Delete the name of Record ID 3 and compare
     #  Compare the records
     Given I click on the link labeled "Data Comparison Tool"
     And I select "2" from the dropdown identified by "select[id=record1]"
@@ -107,9 +111,272 @@ Feature: Data Comparison Tool / DDE Module
     Then I should see "Name"
     And I clear the field identified by "input[name=ptname_v2_v2]"
     And I click on the button labeled "Save & Exit Form"
+    Then I should see "successfully edited"
+    #  Compare the records
+    When I click on the link labeled "Data Comparison Tool"
+    And I select "2" from the dropdown identified by "select[id=record1]"
+    And I select "3" from the dropdown identified by "select[id=record2]"
+    And I click on the input button labeled "Compare"
+    Then I should see the value "" in the field name "ptname_v2_v2" for Record ID "3"
+
+  Scenario: 5 - Make the data of Record ID 3 the same as that of Record ID 2 and compare.
     #  Compare the records
     Given I click on the link labeled "Data Comparison Tool"
     And I select "2" from the dropdown identified by "select[id=record1]"
     And I select "3" from the dropdown identified by "select[id=record2]"
     And I click on the input button labeled "Compare"
-    Then I should see "ptname_v2_v2"
+    And I click on the text "gnr@noreply.edu" of Record ID "3"
+    Then I enter "Rolling Stones" into the field identified by "input[name=ptname_v2_v2]"
+    And I clear the field identified by "input[name=email_v2]"
+    Then I enter "rs@noreply.edu" into the field identified by "input[name=email_v2]" 
+    And I click on the button labeled "Save & Exit Form"
+    Then I should see "successfully edited"
+    Then I click on the image "circle_green" link for the row containing "Data Types"
+    Then I clear the field identified by "input[name=ptname]"
+    And I enter "Mick Jagger" into the field identified by "input[name=ptname]"
+    Then I clear the field identified by "input[name=text2]"
+    And I enter "singer" into the field identified by "input[name=text2]"
+    Then I clear the field identified by "input[name=textbox]"
+    And I enter "07/26/1943" into the field identified by "input[name=textbox]"
+    And I click on the element identified by "input[id=opt-radio_button_auto_1]"
+    And I click on the button labeled "Save & Exit Form"
+    Then I should see "successfully edited"
+    When I click on the link labeled "Data Comparison Tool"
+    And I select "2" from the dropdown identified by "select[id=record1]"
+    And I select "3" from the dropdown identified by "select[id=record2]"
+    And I click on the input button labeled "Compare"
+    Then I should see "No differences were found."
+    Then I logout
+
+  Scenario: 6 - Enable Double Data Entry Module
+    Given I am an "admin" user who logs into REDCap
+    When I visit Project ID 14 
+    And I click on the link labeled "Edit project settings"
+    Then I should see "Edit a Project's Settings"
+    And I scroll the page to the field identified by "select[name=double_data_entry]"
+    Then I select "Enabled" from the dropdown identified by "select[name=double_data_entry]"
+    And I click on the input button labeled "Save Changes"
+    Then I should see "Your changes have been saved!"
+    When I click on the link labeled "17_DataComparisonTool_DDE_v1115"
+    Then I should see "Project Home"
+    And I should see "17_DataComparisonTool_DDE_v1115"
+
+  Scenario: 7a - Assign Double Data Entry roles to users - test_user and test_user2
+    Given I visit Project ID 14 
+    # Make test_user as Person1
+    And I click on the link labeled "User Rights"
+    And the AJAX "POST" request at "Messenger/messenger.php*" tagged by "render" is being monitored
+    And I click on the link labeled "test_user"
+    Then I click on the button labeled "Edit user privileges"
+    And I click on the element identified by "input[name=double_data][value=1]"
+    And I click on the button labeled "Save Changes"
+    Then I should see "was successfully edited"
+    # Make test_user2 as Person2
+    Then I enter "test_user2" into the field identified by "input[id=new_username]"
+    And the AJAX "POST" request at "UserRights/edit_user.php*" tagged by "render" is being monitored
+    And I click on the button labeled "Add with custom rights"
+    And the AJAX request tagged by "render" has completed
+    And I click on the element identified by "input[name=double_data][value=2]"
+    Then I click on the button labeled "Add user"
+    Then I should see "was successfully added"
+    
+    # Add 3rd user and assign as reviewer
+  Scenario: 7b - Assign Double Data Entry roles to users - test_admin
+    Then I enter "test_admin" into the field identified by "input[id=new_username]"
+    And the AJAX "POST" request at "UserRights/edit_user.php*" tagged by "render" is being monitored
+    And I click on the button labeled "Add with custom rights"
+    And the AJAX request tagged by "render" has completed
+    And I click on the element identified by "input[name=double_data][value=0]"
+    And I click on the element identified by "input[name=data_comparison_tool]"
+    And the AJAX "POST" request at "UserRights/edit_user.php*" tagged by "render" is being monitored
+    Then I click on the button labeled "Add user"
+    Then I should see "was successfully added"
+    Then I logout
+    # Then I click on the link labeled "Control Center"
+    # And I click on the link labeled "Add Users (Table-based Only)"
+    # Then I enter "test_user3" into the field identified by "input[name=username]" 
+    # And I enter "Test" into the field identified by "input[name=user_firstname]" 
+    # And I enter "User" into the field identified by "input[name=user_lastname]" 
+    # And I enter "test_user3@example.com" into the field identified by "input[name=user_email]" 
+    # And I click on the input button labeled "Save"
+    # Then I should see "User has been successfully saved."
+    # Then I visit Project ID 14
+    # And I click on the link labeled "User Rights"
+    # Then I enter "test_user3" into the field identified by "input[id=new_username]"
+    # And the AJAX "POST" request at "UserRights/edit_user.php*" tagged by "render" is being monitored
+    # And I click on the button labeled "Add with custom rights"
+    # And the AJAX request tagged by "render" has completed
+    # # And I click on the element identified by "input[name=double_data][value=0]"
+    # And I click on the element identified by "input[name=data_comparison_tool]"
+    # Then I click on the button labeled "Add user"
+    # Then I should see "was successfully added"
+    # Then I logout
+  
+  Scenario: 8a - Login as test_user and create record 5
+    # Add first record as user1
+    Given I am a "standard" user who logs into REDCap
+    Then I visit Project ID 14 
+    And I click on the link labeled "Add / Edit Records"
+    And the AJAX "GET" request at "DataEntry/record_home.php*" tagged by "render" is being monitored
+    Then I enter "5" into the field identified by "input[id=inputString]"
+    # The below step is to get the focus away from the above step
+    And I click on the element identified by "input[id=search_query]"
+    And the AJAX request tagged by "render" has completed
+    Then I click on the image "circle_gray" link for the row containing "Text Validation"
+    And I enter "Beatles" into the field identified by "input[name=ptname_v2_v2]"
+    And I enter "beatles@noreply.edu" into the field identified by "input[name=email_v2]"
+    And I select "Complete" from the dropdown identified by "select[name=text_validation_complete]"
+    Then I click on the button labeled "Save & Exit Form"
+    Then I should see "successfully added"
+    Then I click on the image "circle_gray" link for the row containing "Data Types"
+    And I enter "Paul McCartney" into the field identified by "input[name=ptname]"
+    And I enter "singer" into the field identified by "input[name=text2]"
+    And I enter "06/18/1943" into the field identified by "input[name=textbox]"
+    And I select "DDChoice5" from the dropdown identified by "select[name=multiple_dropdown_manual]"
+    And I click on the element identified by "input[id=opt-radio_button_auto_2]"
+    And I check the checkbox identified by "input[id='id-__chk__checkbox_RC_1']"
+    And I enter "77" into the field identified by "input[name=required]"
+    And I select "Complete" from the dropdown identified by "select[name=data_types_complete]"
+    Then I click on the button labeled "Save & Exit Form"
+    Then I should see "successfully edited"
+    Then I logout
+  
+  Scenario: 8b - Login as test_user2 and create record 5
+    # Add second record as user2
+    Given I am a "standard2" user who logs into REDCap
+    Then I visit Project ID 14 
+    # Clear cookies may not be required - delete later
+    And I clear the cookies
+    And I click on the link labeled "Add / Edit Records"
+    And the AJAX "GET" request at "DataEntry/record_home.php*" tagged by "render" is being monitored
+    Then I enter "5" into the field identified by "input[id=inputString]"
+    # The below step is to get the focus away from the above step
+    And I click on the element identified by "input[id=search_query]"
+    And the AJAX request tagged by "render" has completed
+    Then I click on the image "circle_gray" link for the row containing "Text Validation"
+    And I enter "Beatles" into the field identified by "input[name=ptname_v2_v2]"
+    And I enter "beatles@noreply.edu" into the field identified by "input[name=email_v2]"
+    And I select "Complete" from the dropdown identified by "select[name=text_validation_complete]"
+    Then I click on the button labeled "Save & Exit Form"
+    Then I should see "successfully added"
+    Then I click on the image "circle_gray" link for the row containing "Data Types"
+    And I enter "Paul McCartney" into the field identified by "input[name=ptname]"
+    And I enter "singer" into the field identified by "input[name=text2]"
+    And I enter "06/18/1943" into the field identified by "input[name=textbox]"
+    And I select "DDChoice5" from the dropdown identified by "select[name=multiple_dropdown_manual]"
+    And I click on the element identified by "input[id=opt-radio_button_auto_2]"
+    And I check the checkbox identified by "input[id='id-__chk__checkbox_RC_1']"
+    And I enter "77" into the field identified by "input[name=required]"
+    And I select "Complete" from the dropdown identified by "select[name=data_types_complete]"
+    Then I click on the button labeled "Save & Exit Form"
+    Then I should see "successfully edited"
+    Then I logout
+
+  Scenario: 8c - Login as test_admin and create record 5 (combining 2 records)
+    # Review the 2 records
+    Given I am an "admin" user who logs into REDCap
+    Then I visit Project ID 14
+    # Clear cookies may not be required - delete later
+    And I clear the cookies
+    When I click on the link labeled "Data Comparison Tool"
+    And I select "5" from the dropdown identified by "select[id=record1]"
+    And I click on the input button labeled "Compare selected record"
+    Then I should see "are identical. No differences were found"
+    And the AJAX "POST" request at "/index.php*" tagged by "render" is being monitored
+    And I click on the input button labeled "Create Record 5"
+    Then I should see "RECORD CREATED!"
+    And I should see "has now been created by merging the values you selected from records 5--1 and 5--2"
+    Then I logout
+
+  Scenario: 9a - Login as test_user and create record 10
+    # Add first record as user1
+    Given I am a "standard" user who logs into REDCap
+    Then I visit Project ID 14 
+    And I click on the link labeled "Add / Edit Records"
+    And the AJAX "GET" request at "DataEntry/record_home.php*" tagged by "render" is being monitored
+    Then I enter "10" into the field identified by "input[id=inputString]"
+    # The below step is to get the focus away from the above step
+    And I click on the element identified by "input[id=search_query]"
+    And the AJAX request tagged by "render" has completed
+    Then I click on the image "circle_gray" link for the row containing "Text Validation"
+    And I enter "Beatles" into the field identified by "input[name=ptname_v2_v2]"
+    And I enter "beatles@noreply.edu" into the field identified by "input[name=email_v2]"
+    And I select "Complete" from the dropdown identified by "select[name=text_validation_complete]"
+    Then I click on the button labeled "Save & Exit Form"
+    Then I should see "successfully added"
+    Then I click on the image "circle_gray" link for the row containing "Data Types"
+    And I enter "Paul McCartney" into the field identified by "input[name=ptname]"
+    And I enter "singer" into the field identified by "input[name=text2]"
+    And I enter "06/18/1943" into the field identified by "input[name=textbox]"
+    And I select "DDChoice5" from the dropdown identified by "select[name=multiple_dropdown_manual]"
+    And I click on the element identified by "input[id=opt-radio_button_auto_2]"
+    And I check the checkbox identified by "input[id='id-__chk__checkbox_RC_1']"
+    And I enter "77" into the field identified by "input[name=required]"
+    And I select "Complete" from the dropdown identified by "select[name=data_types_complete]"
+    Then I click on the button labeled "Save & Exit Form"
+    Then I should see "successfully edited"
+    Then I logout
+  
+  Scenario: 9b - Login as test_user2 and create record 10
+    # Add second record as user2
+    Given I am a "standard2" user who logs into REDCap
+    Then I visit Project ID 14  
+    # Clear cookies may not be required - delete later   
+    And I clear the cookies
+    And I click on the link labeled "Add / Edit Records"
+    And the AJAX "GET" request at "DataEntry/record_home.php*" tagged by "render" is being monitored
+    Then I enter "10" into the field identified by "input[id=inputString]"
+    # The below step is to get the focus away from the above step
+    And I click on the element identified by "input[id=search_query]"
+    And the AJAX request tagged by "render" has completed
+    Then I click on the image "circle_gray" link for the row containing "Text Validation"
+    And I enter "Beatles" into the field identified by "input[name=ptname_v2_v2]"
+    And I enter "beatles@noreply.edu" into the field identified by "input[name=email_v2]"
+    And I select "Complete" from the dropdown identified by "select[name=text_validation_complete]"
+    Then I click on the button labeled "Save & Exit Form"
+    Then I should see "successfully added"
+    Then I click on the image "circle_gray" link for the row containing "Data Types"
+    And I enter "Paul" into the field identified by "input[name=ptname]"
+    And I enter "vocalist" into the field identified by "input[name=text2]"
+    And I enter "06/18/1943" into the field identified by "input[name=textbox]"
+    And I select "DDChoice5" from the dropdown identified by "select[name=multiple_dropdown_manual]"
+    And I click on the element identified by "input[id=opt-radio_button_auto_2]"
+    And I check the checkbox identified by "input[id='id-__chk__checkbox_RC_1']"
+    And I enter "77" into the field identified by "input[name=required]"
+    And I select "Complete" from the dropdown identified by "select[name=data_types_complete]"
+    Then I click on the button labeled "Save & Exit Form"
+    Then I should see "successfully edited"
+    Then I logout
+
+    Scenario: 9c - Login as test_admin and create record 10 (combining 2 records)
+    # Review the 2 records
+    Given I am an "admin" user who logs into REDCap
+    Then I visit Project ID 14
+    # Clear cookies may not be required - delete later
+    And I clear the cookies
+    When I click on the link labeled "Data Comparison Tool"
+    And I select "10" from the dropdown identified by "select[id=record1]"
+    And I click on the input button labeled "Compare selected record"
+    Then I should see "Differences were found between the two records named"
+    And the AJAX "POST" request at "/index.php*" tagged by "render" is being monitored
+    And I click on the link labeled "click here to merge them"
+    # And I click on the link labeled Merge Records
+    And I click on the element identified by "input[name=text2___RADradio]"
+    And I click on the input button labeled "Merge Records"
+    Then I should see "RECORD CREATED!"
+    And I should see "has now been created by merging the values you selected from records 10--1 and 10--2"
+    Then I logout
+
+   Scenario: 10 - Disable Double Data Entry Module
+    Given I am an "admin" user who logs into REDCap
+    When I visit Project ID 14 
+    And I click on the link labeled "Edit project settings"
+    Then I should see "Edit a Project's Settings"
+    And I scroll the page to the field identified by "select[name=double_data_entry]"
+    Then I select "Disabled" from the dropdown identified by "select[name=double_data_entry]"
+    And I click on the input button labeled "Save Changes"
+    Then I should see "Your changes have been saved!"
+    When I click on the link labeled "17_DataComparisonTool_DDE_v1115"
+    Then I should see "Project Home"
+    And I should see "17_DataComparisonTool_DDE_v1115"
+    Then I logout
