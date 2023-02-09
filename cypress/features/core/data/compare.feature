@@ -2,7 +2,6 @@ Feature: Data Comparison Tool / DDE Module
 
   As a REDCap end user
   I want to see that the Data Comparison Tool and DDE Module are functioning as expected
-
   
   Scenario: Project Setup 1 - Create Project 17_DataComparisonTool_DDE_v1115
     Given I am a "standard" user who logs into REDCap
@@ -12,7 +11,7 @@ Feature: Data Comparison Tool / DDE Module
     Given I visit Project ID 14
     And I click on the link labeled "Project Setup"
     And I click on the element identified by "button[id=setupLongiBtn]"
-    And I confirm to disable the longitudinal data collection
+    And I click on the button labeled "Disable" in the dialog box
     Then I should see that longitudinal mode is "disabled"
     And I click on the element identified by "button[id=enableRepeatingFormsEventsBtn]"
     And I click on the checkbox labeled "Data Types" for repeating instrument setup
@@ -77,6 +76,7 @@ Feature: Data Comparison Tool / DDE Module
     And I click on the input button labeled "Compare"
     Then I see "ptname_v2_v2"
     And I see "email_v2"
+    And I see "ptname"
     And I see "textbox"
     And I see "radio_button_auto"
     And I see "required"
@@ -84,14 +84,14 @@ Feature: Data Comparison Tool / DDE Module
     And I should NOT see "multiple_dropdown_manual"
     And I should NOT see "Checkbox"
 
-  Scenario: 2 - Print page
-    Given I print the page
+  # Not required for ATS testing. Not a core feature.
+  # Scenario: 2 - Print page
+  #   Given I print the page
 
   Scenario: 3 - Change Required field from 75 to 57 and compare
     Given I click on the text "75" of Record ID "2"
     Then I should see " Required"
-    And I clear the field identified by "input[name=required]"
-    Then I enter "57" into the field identified by "input[name=required]"
+    And I clear the field and enter "57" into the "required" text input field
     And I click on the button labeled "Save & Exit Form"
     Then I should see "successfully edited"
     #  Compare the records
@@ -118,6 +118,7 @@ Feature: Data Comparison Tool / DDE Module
     And I select "3" from the dropdown identified by "select[id=record2]"
     And I click on the input button labeled "Compare"
     Then I should see the value "" in the field name "ptname_v2_v2" for Record ID "3"
+    And I should see the value "Rolling Stones" in the field name "ptname_v2_v2" for Record ID "2"
 
   Scenario: 5 - Make the data of Record ID 3 the same as that of Record ID 2 and compare.
     #  Compare the records
@@ -127,17 +128,13 @@ Feature: Data Comparison Tool / DDE Module
     And I click on the input button labeled "Compare"
     And I click on the text "gnr@noreply.edu" of Record ID "3"
     Then I enter "Rolling Stones" into the field identified by "input[name=ptname_v2_v2]"
-    And I clear the field identified by "input[name=email_v2]"
-    Then I enter "rs@noreply.edu" into the field identified by "input[name=email_v2]" 
+    And I clear the field and enter "rs@noreply.edu" into the "email_v2" text input field
     And I click on the button labeled "Save & Exit Form"
     Then I should see "successfully edited"
     Then I click on the image "circle_green" link for the row containing "Data Types"
-    Then I clear the field identified by "input[name=ptname]"
-    And I enter "Mick Jagger" into the field identified by "input[name=ptname]"
-    Then I clear the field identified by "input[name=text2]"
-    And I enter "singer" into the field identified by "input[name=text2]"
-    Then I clear the field identified by "input[name=textbox]"
-    And I enter "07/26/1943" into the field identified by "input[name=textbox]"
+    And I clear the field and enter "Mick Jagger" into the "ptname" text input field
+    And I clear the field and enter "singer" into the "text2" text input field
+    And I clear the field and enter "07/26/1943" into the "textbox" text input field
     And I click on the element identified by "input[id=opt-radio_button_auto_1]"
     And I click on the button labeled "Save & Exit Form"
     Then I should see "successfully edited"
@@ -180,8 +177,8 @@ Feature: Data Comparison Tool / DDE Module
     Then I click on the button labeled "Add user"
     Then I should see "was successfully added"
     
-    # Add 3rd user and assign as reviewer
   Scenario: 7b - Assign Double Data Entry roles to users - test_admin
+    # Make test_admin as reviewer
     Then I enter "test_admin" into the field identified by "input[id=new_username]"
     And the AJAX "POST" request at "UserRights/edit_user.php*" tagged by "render" is being monitored
     And I click on the button labeled "Add with custom rights"
@@ -192,25 +189,6 @@ Feature: Data Comparison Tool / DDE Module
     Then I click on the button labeled "Add user"
     Then I should see "was successfully added"
     Then I logout
-    # Then I click on the link labeled "Control Center"
-    # And I click on the link labeled "Add Users (Table-based Only)"
-    # Then I enter "test_user3" into the field identified by "input[name=username]" 
-    # And I enter "Test" into the field identified by "input[name=user_firstname]" 
-    # And I enter "User" into the field identified by "input[name=user_lastname]" 
-    # And I enter "test_user3@example.com" into the field identified by "input[name=user_email]" 
-    # And I click on the input button labeled "Save"
-    # Then I should see "User has been successfully saved."
-    # Then I visit Project ID 14
-    # And I click on the link labeled "User Rights"
-    # Then I enter "test_user3" into the field identified by "input[id=new_username]"
-    # And the AJAX "POST" request at "UserRights/edit_user.php*" tagged by "render" is being monitored
-    # And I click on the button labeled "Add with custom rights"
-    # And the AJAX request tagged by "render" has completed
-    # # And I click on the element identified by "input[name=double_data][value=0]"
-    # And I click on the element identified by "input[name=data_comparison_tool]"
-    # Then I click on the button labeled "Add user"
-    # Then I should see "was successfully added"
-    # Then I logout
   
   Scenario: 8a - Login as test_user and create record 5
     # Add first record as user1
@@ -245,8 +223,6 @@ Feature: Data Comparison Tool / DDE Module
     # Add second record as user2
     Given I am a "standard2" user who logs into REDCap
     Then I visit Project ID 14 
-    # Clear cookies may not be required - delete later
-    And I clear the cookies
     And I click on the link labeled "Add / Edit Records"
     And the AJAX "GET" request at "DataEntry/record_home.php*" tagged by "render" is being monitored
     Then I enter "5" into the field identified by "input[id=inputString]"
@@ -276,14 +252,13 @@ Feature: Data Comparison Tool / DDE Module
     # Review the 2 records
     Given I am an "admin" user who logs into REDCap
     Then I visit Project ID 14
-    # Clear cookies may not be required - delete later
-    And I clear the cookies
     When I click on the link labeled "Data Comparison Tool"
     And I select "5" from the dropdown identified by "select[id=record1]"
     And I click on the input button labeled "Compare selected record"
     Then I should see "are identical. No differences were found"
     And the AJAX "POST" request at "/index.php*" tagged by "render" is being monitored
-    And I click on the input button labeled "Create Record 5"
+    Then the form should have a redcap_csrf_token
+    And I click on the input button labeled "Create Record 5" 
     Then I should see "RECORD CREATED!"
     And I should see "has now been created by merging the values you selected from records 5--1 and 5--2"
     Then I logout
@@ -321,8 +296,6 @@ Feature: Data Comparison Tool / DDE Module
     # Add second record as user2
     Given I am a "standard2" user who logs into REDCap
     Then I visit Project ID 14  
-    # Clear cookies may not be required - delete later   
-    And I clear the cookies
     And I click on the link labeled "Add / Edit Records"
     And the AJAX "GET" request at "DataEntry/record_home.php*" tagged by "render" is being monitored
     Then I enter "10" into the field identified by "input[id=inputString]"
@@ -352,16 +325,14 @@ Feature: Data Comparison Tool / DDE Module
     # Review the 2 records
     Given I am an "admin" user who logs into REDCap
     Then I visit Project ID 14
-    # Clear cookies may not be required - delete later
-    And I clear the cookies
     When I click on the link labeled "Data Comparison Tool"
     And I select "10" from the dropdown identified by "select[id=record1]"
     And I click on the input button labeled "Compare selected record"
     Then I should see "Differences were found between the two records named"
     And the AJAX "POST" request at "/index.php*" tagged by "render" is being monitored
+    And the form should have a redcap_csrf_token
     And I click on the link labeled "click here to merge them"
-    # And I click on the link labeled Merge Records
-    And I click on the element identified by "input[name=text2___RADradio]"
+    And I click on the radio option labeled "vocalist" in the data comparison tool
     And I click on the input button labeled "Merge Records"
     Then I should see "RECORD CREATED!"
     And I should see "has now been created by merging the values you selected from records 10--1 and 10--2"

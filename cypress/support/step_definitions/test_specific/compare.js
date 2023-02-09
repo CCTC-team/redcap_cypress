@@ -9,19 +9,19 @@ Given('I click on the checkbox labeled {string} for repeating instrument setup',
     cy.get('table[id=table-repeat_setup]').contains('td', label).parents('tr').find('input[type=checkbox]').click()   
 })
 
-/**
- * @module Compare
- * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I print the page
- * @description Prints the page
- */
-Given('I print the page', (label) => {
-    cy.window().then((win) => {
-      cy.stub(win, 'print').as('print')
-    })
-    cy.contains('button', 'Print page').click()
-    cy.get('@print').should('have.been.calledOnce')
-})
+// /**
+//  * @module Compare
+//  * @author Mintoo Xavier <min2xavier@gmail.com>
+//  * @example I print the page
+//  * @description Prints the page
+//  */
+// Given('I print the page', (label) => {
+//     cy.window().then((win) => {
+//       cy.stub(win, 'print').as('print')
+//     })
+//     cy.contains('button', 'Print page').click()
+//     cy.get('@print').should('have.been.calledOnce')
+// })
 
 /**
  * @module Compare
@@ -82,38 +82,10 @@ Given('I scroll the page to the field identified by {string}', (selector) => {
 /**
  * @module Compare
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I clear the cookies
- * @description Clear the cookies
+ * @example I click on the radio option labeled {string} in the data comparison tool
+ * @param {string} text the label of the radio button
+ * @description Click on the radio option in the data comparison tool to merge the records
  */
-Given('I clear the cookies', () => {
-  cy.clearCookies()
-})
-
-/**
- * @module Compare
- * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I click on the link labeled Merge Records
- * @description Click on the link labeled Merge Records to merge them
- */
-Given('I click on the link labeled Merge Records', () => {
-  // confirm the page has a cookie named "_csrf"
-  cy.getCookie('redcap_csrf_token')
-    .should('exist')
-    .its('value')
-    .should('be.a', 'string')
-    .then((csrf) => {
-      cy.intercept('POST', '/redcap_v11.1.5/index.php?pid=14&route=DataComparisonController:index&merge=1').as(
-        'submit',
-      )
-      cy.contains('a', 'click here to merge them').click()
-      cy.location('pathname').should(
-        'equal',
-        '/redcap_v11.1.5/index.php?pid=14&route=DataComparisonController:index&merge=1',
-      )
-      // get the network "submit" intercept
-      // and confirm its request has the CSRF cookie sent
-      cy.wait('@submit')
-        .its('request.headers.cookie')
-        .should('include', `_csrf=${csrf}`)
-    })
+Given('I click on the radio option labeled {string} in the data comparison tool', (label) => {
+  cy.get('.compare').contains(label).parents('td').find('input[name=text2___RADradio]').click()
 })
