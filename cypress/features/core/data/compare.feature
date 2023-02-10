@@ -8,8 +8,7 @@ Feature: Data Comparison Tool / DDE Module
     And I create a project named "17_DataComparisonTool_DDE_v1115" with project purpose Operational Support via CDISC XML import from fixture location "cdisc_files/core/07_DesignForms_v1115.xml"
    
   Scenario: Project Setup 2 - Disable Longitudinal data collection and Repeating instruments and change Validation type of textbox
-    Given I visit Project ID 14
-    And I click on the link labeled "Project Setup"
+    Given I click on the link labeled "Project Setup"
     And I click on the element identified by "button[id=setupLongiBtn]"
     And I click on the button labeled "Disable" in the dialog box
     Then I should see that longitudinal mode is "disabled"
@@ -28,9 +27,8 @@ Feature: Data Comparison Tool / DDE Module
     Then I click on the button labeled "Save"
 
   Scenario: 1 - Add 2 records and compare
-    Given I visit Project ID 14 
     # Add first record
-    And I click on the link labeled "Add / Edit Records"
+    Given I click on the link labeled "Add / Edit Records"
     And I click on the button labeled "Add new record"
     Then I click on the image "circle_gray" link for the row containing "Text Validation"
     And I enter "Rolling Stones" into the field identified by "input[name=ptname_v2_v2]"
@@ -147,7 +145,11 @@ Feature: Data Comparison Tool / DDE Module
 
   Scenario: 6 - Enable Double Data Entry Module
     Given I am an "admin" user who logs into REDCap
-    When I visit Project ID 14 
+    And  I click on the link labeled "Control Center"
+    And  I click on the link labeled "Browse Projects"
+    And I enter "17_DataComparisonTool_DDE_v1115" into the field identified by "input[id=project_search]"
+    And I click on the button labeled "Search project title"
+    Then I click on the link labeled "17_DataComparisonTool_DDE_v1115"
     And I click on the link labeled "Edit project settings"
     Then I should see "Edit a Project's Settings"
     And I scroll the page to the field identified by "select[name=double_data_entry]"
@@ -159,9 +161,8 @@ Feature: Data Comparison Tool / DDE Module
     And I should see "17_DataComparisonTool_DDE_v1115"
 
   Scenario: 7a - Assign Double Data Entry roles to users - test_user and test_user2
-    Given I visit Project ID 14 
     # Make test_user as Person1
-    And I click on the link labeled "User Rights"
+    Given I click on the link labeled "User Rights"
     And the AJAX "POST" request at "Messenger/messenger.php*" tagged by "render" is being monitored
     And I click on the link labeled "test_user"
     Then I click on the button labeled "Edit user privileges"
@@ -193,7 +194,8 @@ Feature: Data Comparison Tool / DDE Module
   Scenario: 8a - Login as test_user and create record 5
     # Add first record as user1
     Given I am a "standard" user who logs into REDCap
-    Then I visit Project ID 14 
+    And I click on the link labeled "My Projects"
+    And I click on the link labeled "17_DataComparisonTool_DDE_v1115"
     And I click on the link labeled "Add / Edit Records"
     And the AJAX "GET" request at "DataEntry/record_home.php*" tagged by "render" is being monitored
     Then I enter "5" into the field identified by "input[id=inputString]"
@@ -222,7 +224,8 @@ Feature: Data Comparison Tool / DDE Module
   Scenario: 8b - Login as test_user2 and create record 5
     # Add second record as user2
     Given I am a "standard2" user who logs into REDCap
-    Then I visit Project ID 14 
+    And I click on the link labeled "My Projects"
+    And I click on the link labeled "17_DataComparisonTool_DDE_v1115"
     And I click on the link labeled "Add / Edit Records"
     And the AJAX "GET" request at "DataEntry/record_home.php*" tagged by "render" is being monitored
     Then I enter "5" into the field identified by "input[id=inputString]"
@@ -251,7 +254,11 @@ Feature: Data Comparison Tool / DDE Module
   Scenario: 8c - Login as test_admin and create record 5 (combining 2 records)
     # Review the 2 records
     Given I am an "admin" user who logs into REDCap
-    Then I visit Project ID 14
+    And  I click on the link labeled "Control Center"
+    And  I click on the link labeled "Browse Projects"
+    And I enter "17_DataComparisonTool_DDE_v1115" into the field identified by "input[id=project_search]"
+    And I click on the button labeled "Search project title"
+    Then I click on the link labeled "17_DataComparisonTool_DDE_v1115"
     When I click on the link labeled "Data Comparison Tool"
     And I select "5" from the dropdown identified by "select[id=record1]"
     And I click on the input button labeled "Compare selected record"
@@ -266,7 +273,8 @@ Feature: Data Comparison Tool / DDE Module
   Scenario: 9a - Login as test_user and create record 10
     # Add first record as user1
     Given I am a "standard" user who logs into REDCap
-    Then I visit Project ID 14 
+    And I click on the link labeled "My Projects"
+    And I click on the link labeled "17_DataComparisonTool_DDE_v1115"
     And I click on the link labeled "Add / Edit Records"
     And the AJAX "GET" request at "DataEntry/record_home.php*" tagged by "render" is being monitored
     Then I enter "10" into the field identified by "input[id=inputString]"
@@ -295,7 +303,8 @@ Feature: Data Comparison Tool / DDE Module
   Scenario: 9b - Login as test_user2 and create record 10
     # Add second record as user2
     Given I am a "standard2" user who logs into REDCap
-    Then I visit Project ID 14  
+    And I click on the link labeled "My Projects"
+    And I click on the link labeled "17_DataComparisonTool_DDE_v1115"
     And I click on the link labeled "Add / Edit Records"
     And the AJAX "GET" request at "DataEntry/record_home.php*" tagged by "render" is being monitored
     Then I enter "10" into the field identified by "input[id=inputString]"
@@ -324,7 +333,11 @@ Feature: Data Comparison Tool / DDE Module
     Scenario: 9c - Login as test_admin and create record 10 (combining 2 records)
     # Review the 2 records
     Given I am an "admin" user who logs into REDCap
-    Then I visit Project ID 14
+    And  I click on the link labeled "Control Center"
+    And  I click on the link labeled "Browse Projects"
+    And I enter "17_DataComparisonTool_DDE_v1115" into the field identified by "input[id=project_search]"
+    And I click on the button labeled "Search project title"
+    Then I click on the link labeled "17_DataComparisonTool_DDE_v1115"
     When I click on the link labeled "Data Comparison Tool"
     And I select "10" from the dropdown identified by "select[id=record1]"
     And I click on the input button labeled "Compare selected record"
@@ -340,7 +353,11 @@ Feature: Data Comparison Tool / DDE Module
 
    Scenario: 10 - Disable Double Data Entry Module
     Given I am an "admin" user who logs into REDCap
-    When I visit Project ID 14 
+    And  I click on the link labeled "Control Center"
+    And  I click on the link labeled "Browse Projects"
+    And I enter "17_DataComparisonTool_DDE_v1115" into the field identified by "input[id=project_search]"
+    And I click on the button labeled "Search project title"
+    Then I click on the link labeled "17_DataComparisonTool_DDE_v1115"
     And I click on the link labeled "Edit project settings"
     Then I should see "Edit a Project's Settings"
     And I scroll the page to the field identified by "select[name=double_data_entry]"
