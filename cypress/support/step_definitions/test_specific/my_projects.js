@@ -77,16 +77,16 @@ Given('The sum of field count of all the instruments should equal to {int}', (co
    })
 })
 
-/**
- * @module my_projects
- * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I confirm to {string} the longitudinal data collection
- * @param {string} text the text on button
- * @description Confirm to Disable the longitudinal data collection by clicking button
- */
-Given("I confirm to disable the longitudinal data collection", (text) => {
-    cy.get('div[aria-describedby="longiConfirmDialog"]').find('button').contains('Disable').click()
- })
+// /**
+//  * @module my_projects
+//  * @author Mintoo Xavier <min2xavier@gmail.com>
+//  * @example I confirm to {string} the longitudinal data collection
+//  * @param {string} text the text on button
+//  * @description Confirm to Disable the longitudinal data collection by clicking button
+//  */
+// Given("I confirm to disable the longitudinal data collection", (text) => {
+//     cy.get('div[aria-describedby="longiConfirmDialog"]').find('button').contains('Disable').click()
+//  })
 
 /**
  * @module my_projects
