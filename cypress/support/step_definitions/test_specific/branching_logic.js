@@ -3,19 +3,36 @@ import {Given} from "cypress-cucumber-preprocessor/steps";
 /**
  * @module TestSpecific/BranchingLogic
  * @author David Phillips <david.phillips22@nhs.net>
+ * @example I set the branching logic of every field to record_id = {string} except the field named {string}
+ * @param {string} branchingLogicValue - the branching logic value
+ * @param {string} excludedFieldLabel - the name of the field to exclude
+ * @description Sets the branching logic of every field with the exception of the specified field.
+ */
+Given('I set the branching logic of every field to record_id = {string} except the field named {string}', (branchingLogicValue, excludedFieldLabel) => {  
+    getAllFieldsExcept("Record ID", excludedFieldLabel)
+    .each(($field, index) => {
+        clickOnBranchingLogicIcon($field.text())
+        selectDragNDropLogicBuilder()
+        dragNDrop("record_id", "(define criteria)")
+        selectOption("=", ".brDrag > select")
+        typeInput(branchingLogicValue, ".brDrag > input")
+        saveBranchingLogic()
+
+        if (index == 0) {
+            cy.focused().should('have.text', 'Close').click()
+        }
+    })
+})
+
+/**
+ * @module TestSpecific/BranchingLogic
+ * @author David Phillips <david.phillips22@nhs.net>
  * @example I click on the branching logic icon for the field with name {string}
  * @param {string} field_name - the name of the field
  * @description Clicks on the branching logic icon for a field with a specific name.
  */
 Given('I click on the branching logic icon for the field with name {string}', (field_name) => {
-    
-    cy.intercept({
-        method: 'POST',
-        url: '/redcap_v' + Cypress.env('redcap_version') + "/Design/branching_logic_builder.php?*"
-    }).as('builder')
-    
-    cy.click_on_design_field_function("Branching Logic", field_name)
-    cy.wait('@builder')
+    clickOnBranchingLogicIcon(field_name)
 })
 
 /**
@@ -25,15 +42,7 @@ Given('I click on the branching logic icon for the field with name {string}', (f
  * @description Selects the Drag-N-Drop Logic Builder.
  */
 Given('I select the Drag-N-Drop Logic Builder', () => {
-
-    cy.intercept({
-        method: 'POST',
-        url: '/redcap_v' + Cypress.env('redcap_version') + "/Design/branching_logic_builder.php?*"
-    }).as('builder')
-
-    cy.get('#logic_builder').should('be.visible')
-    cy.get('#logic_builder').find('tr:nth-child(4)').find('td > input').first().click()
-    cy.wait('@builder')
+    selectDragNDropLogicBuilder()    
 })
 
 /**
@@ -45,11 +54,7 @@ Given('I select the Drag-N-Drop Logic Builder', () => {
  * @description Drags and drops a field choice with a specific variable name and criteria in the Drag-N-Drop Logic Builder
  */
 Given('I drag a field choice with variable name {string} and criteria {string}', (variableName, criteria) => {
-    
-    cy.get(`[val="[${variableName}] = ${criteria}"].ui-draggable-disabled`).should('not.exist')
-    cy.get(`[val="[${variableName}] = ${criteria}"]`).drag('#dropZone1').then((success) => {
-        assert.isTrue(success)
-    })
+    dragNDrop(variableName, criteria)
 })
 
 /**
@@ -59,14 +64,7 @@ Given('I drag a field choice with variable name {string} and criteria {string}',
  * @description Clicks the branching logic save button.
  */
 Given("I click on the branching logic save button", () => {
-
-    cy.intercept({
-        method: 'POST',
-        url: '/redcap_v' + Cypress.env('redcap_version') + "/Design/branching_logic_builder.php?*"
-    }).as('builder')
-
-    cy.get('button').contains('Save').click()
-    cy.wait('@builder')
+    saveBranchingLogic()
 })
 
 /**
@@ -78,7 +76,7 @@ Given("I click on the branching logic save button", () => {
  * @description Selects an option from a dropdown with a specific identifier.
  */
 Given('I select {string} from the dropdown identified by {string}', (option, selector) => {
-    cy.get(selector).select(option)
+    selectOption(option, selector)
 })
 
 /**
@@ -90,7 +88,7 @@ Given('I select {string} from the dropdown identified by {string}', (option, sel
  * @description Enters text into a input element with a specific identifier.
  */
 Given('I enter {string} into the input identified by {string}', (text, selector) => {
-    cy.get(selector).type(text)
+    typeInput(text, selector)
 })
 
 /**
@@ -242,24 +240,78 @@ Given('The survey closes', () => {
     cy.visit('/redcap_v' + Cypress.env('redcap_version') + "/Surveys/invite_participants.php?pid=14")
 })
 
+function clickOnBranchingLogicIcon(fieldName) {
+    cy.intercept({
+        method: 'POST',
+        url: '/redcap_v' + Cypress.env('redcap_version') + "/Design/branching_logic_builder.php?*"
+    }).as('builder')
+    
+    cy.click_on_design_field_function("Branching Logic", fieldName)
+    cy.wait('@builder')
+}
+
+function selectDragNDropLogicBuilder() {
+    cy.intercept({
+        method: 'POST',
+        url: '/redcap_v' + Cypress.env('redcap_version') + "/Design/branching_logic_builder.php?*"
+    }).as('builder')
+
+    cy.get('#logic_builder').should('be.visible')
+    cy.get('#logic_builder').find('tr:nth-child(4)').find('td > input').first().click()
+    cy.wait('@builder')
+}
+
+function dragNDrop(variableName, criteria) {
+    cy.get(`[val="[${variableName}] = ${criteria}"].ui-draggable-disabled`).should('not.exist')
+    cy.get('.ui-droppable').should('exist')
+    cy.get(`[val="[${variableName}] = ${criteria}"]`).drag('#dropZone1').then((success) => {
+        assert.isTrue(success)
+    })
+}
+function selectOption(option, selector) {
+    cy.get(selector).select(option)
+}
+
+function typeInput(text, selector) {
+    cy.get(selector).type(text)
+}
+
+function saveBranchingLogic() {
+    cy.intercept({
+        method: 'POST',
+        url: '/redcap_v' + Cypress.env('redcap_version') + "/Design/branching_logic_builder.php?*"
+    }).as('builder')
+
+    cy.get('button').contains('Save').click()
+    cy.wait('@builder')
+}
+
+function getAllFieldsExcept(firstExcludedFieldLabel, secondExcludedFieldLabel) {
+    //v11.1.5
+    let firstExcludedFieldSelector = `td:contains("${firstExcludedFieldLabel}")`
+    let secondExcludedFieldSelector = `td:contains("${secondExcludedFieldLabel}")`
+    return cy.get('td.labelrc').not(firstExcludedFieldSelector).not(secondExcludedFieldSelector)
+
+    //v12.4.14
+    // let firstExcludedFieldSelector = `div:contains("${firstExcludedFieldLabel}")`
+    // let secondExcludedFieldSelector = `div:contains("${secondExcludedFieldLabel}")`
+    // return cy.get('div[data-kind="field-label"]').not(firstExcludedFieldSelector).not(secondExcludedFieldSelector)
+}
+
 function assertOnBranchingLogic(branchingLogic, excludedFieldLabel) {
     cy.get('.ui-dialog').should('not.be.visible')
 
-    //functioning in v11.1.5 - replace with commented out code (below) when we move to version 12.4.14
-    let recordIdSelector = 'td:contains("Record ID")'
-    let exclusionSelector = `td:contains("${excludedFieldLabel}")`
+    //v11.1.5
     let branchingLogicSelector = `span[id^="bl-label_"]:contains("${branchingLogic}")`
-    cy.get('td.labelrc').not(recordIdSelector).not(exclusionSelector).its('length').then((numFields) => {       
+    getAllFieldsExcept("Record ID", excludedFieldLabel).its('length').then((numFields) => {       
         cy.get('span[id^="bl-label_"]').filter(branchingLogicSelector).its('length').then((numFieldsWithExpBranchingLogic) => {
             expect(numFields).equal(numFieldsWithExpBranchingLogic)
         })
     })
 
-    //functioning in v12.4.14. These data-kind attributes are not present in v11.1.5
-    //let recordIdSelector = 'div:contains("Record ID")'
-    //let exclusionSelector = `div:contains("${excludedFieldLabel}")`
+    //v12.4.14
     //let branchingLogicSelector = `span[data-kind="branching-logic"]:contains("${branchingLogic}")`
-    // cy.get('div[data-kind="field-label"]').not(recordIdSelector).not(exclusionSelector).its('length').then((numFields) => {
+    // getAllFieldsExcept("Record ID", excludedFieldLabel).its('length').then((numFields) => {
     //     cy.get('span[data-kind="branching-logic"]').filter(branchingLogicSelector).its('length').then((numFieldsWithExpBranchingLogic) => {
     //         expect(numFields).equal(numFieldsWithExpBranchingLogic)
     //     })

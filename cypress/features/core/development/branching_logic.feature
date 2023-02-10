@@ -35,29 +35,8 @@ Feature: Branching Logic
   And I click on the link labeled "Project Setup"
   And I click on the button labeled "Online Designer"
   And I click on the element identified by "#formlabel-data_types"
-  And I click on the branching logic icon for the field with name "Name"
-  And I select the Drag-N-Drop Logic Builder
-  And I drag a field choice with variable name "record_id" and criteria "(define criteria)"
-  And I select "=" from the dropdown identified by ".brDrag > select"
-  And I enter "999" into the input identified by ".brDrag > input"
-  And I click on the branching logic save button
-  And I close popup
-
-  #refactor out into a function as this logic is repeated for each field except the calculated field
-  And I click on the branching logic icon for the field with name "Text2"
-  And I select the Drag-N-Drop Logic Builder
-  And I drag a field choice with variable name "record_id" and criteria "(define criteria)"
-  And I select "=" from the dropdown identified by ".brDrag > select"
-  And I enter "999" into the input identified by ".brDrag > input"
-  And I click on the branching logic save button
-
-  And I click on the branching logic icon for the field with name "Text Box"
-  And I select the Drag-N-Drop Logic Builder
-  And I drag a field choice with variable name "record_id" and criteria "(define criteria)"
-  And I select "=" from the dropdown identified by ".brDrag > select"
-  And I enter "999" into the input identified by ".brDrag > input"
-  And I click on the branching logic save button
   #NB typo in manual script - Caculated rather than Calculated
+  And I set the branching logic of every field to record_id = "999" except the field named "Caculated Field"
   Then Every field contains the branching logic "[record_id] = '999'" except the Record ID field and the field with the label "Caculated Field"
 
   Scenario: 2
