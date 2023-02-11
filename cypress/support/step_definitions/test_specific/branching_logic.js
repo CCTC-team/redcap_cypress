@@ -3,23 +3,26 @@ import {Given} from "cypress-cucumber-preprocessor/steps";
 /**
  * @module TestSpecific/BranchingLogic
  * @author David Phillips <david.phillips22@nhs.net>
- * @example I set the branching logic of every field to record_id = {string} except the field named {string}
+ * @example I set the branching logic of every field to record_id = {string} except the Record ID field and the field with the label {string}
  * @param {string} branchingLogicValue - the branching logic value
- * @param {string} excludedFieldLabel - the name of the field to exclude
- * @description Sets the branching logic of every field with the exception of the specified field.
+ * @param {string} excludedFieldLabel - the label of the field to exclude
+ * @description Sets the branching logic of every field except the Record ID and the field with the specified label.
  */
-Given('I set the branching logic of every field to record_id = {string} except the field named {string}', (branchingLogicValue, excludedFieldLabel) => {  
-    getAllFieldsExcept("Record ID", excludedFieldLabel)
+Given('I set the branching logic of every field to record_id = {string} except the Record ID field and the field with the label {string}', (branchingLogicValue, excludedFieldLabel) => {  
+    getAllFieldsExcept("Record ID", excludedFieldLabel).parentsUntil('table').find('.designVarName')
     .each(($field, index) => {
-        clickOnBranchingLogicIcon($field.text())
-        selectDragNDropLogicBuilder()
-        dragNDrop("record_id", "(define criteria)")
-        selectOption("=", ".brDrag > select")
-        typeInput(branchingLogicValue, ".brDrag > input")
-        saveBranchingLogic()
-
-        if (index == 0) {
-            cy.focused().should('have.text', 'Close').click()
+        let variableName = cleanTextAfter($field.html().split("<span")[0], "</i>")
+        if (!fieldHasBranchingLogic(variableName)) {
+            clickOnBranchingLogicIcon(variableName)
+            selectDragNDropLogicBuilder()
+            dragNDrop("record_id", "(define criteria)")
+            selectOption("=", ".brDrag > select")
+            typeInput(branchingLogicValue, ".brDrag > input")
+            saveBranchingLogic()
+    
+            if (index == 0) {
+                cy.focused().should('have.text', 'Close').click()
+            }
         }
     })
 })
@@ -27,12 +30,18 @@ Given('I set the branching logic of every field to record_id = {string} except t
 /**
  * @module TestSpecific/BranchingLogic
  * @author David Phillips <david.phillips22@nhs.net>
- * @example I click on the branching logic icon for the field with name {string}
- * @param {string} field_name - the name of the field
- * @description Clicks on the branching logic icon for a field with a specific name.
+ * @example I click on the branching logic icon for the field with label {string}
+ * @param {string} field_name - the field label
+ * @description Clicks on the branching logic icon for a field with a specific label.
  */
-Given('I click on the branching logic icon for the field with name {string}', (field_name) => {
-    clickOnBranchingLogicIcon(field_name)
+Given('I click on the branching logic icon for the field with label {string}', (fieldLabel) => {
+    cy.intercept({
+        method: 'POST',
+        url: '/redcap_v' + Cypress.env('redcap_version') + "/Design/branching_logic_builder.php?*"
+    }).as('builder')
+    
+    cy.click_on_design_field_function("Branching Logic", fieldLabel)
+    cy.wait('@builder')
 })
 
 /**
@@ -96,8 +105,8 @@ Given('I enter {string} into the input identified by {string}', (text, selector)
  * @author David Phillips <david.phillips22@nhs.net>
  * @example Every field contains the branching logic {string} except the Record ID field and the field with the label {string}
  * @param {string} expectedBranchingLogic - the branching logic to check
- * @param {string} excludedFieldLabel - the name of the field to exclude from the check
- * @description Verifies that every field contains the same specified branching logic except the Record ID and the field with the specified name
+ * @param {string} excludedFieldLabel - the label of the field to exclude from the check
+ * @description Verifies that every field contains the same specified branching logic except the Record ID and the field with the specified label
  */
 Given('Every field contains the branching logic {string} except the Record ID field and the field with the label {string}', (expectedBranchingLogic, excludedFieldLabel) => {
     assertOnBranchingLogic(expectedBranchingLogic, excludedFieldLabel)
@@ -108,8 +117,8 @@ Given('Every field contains the branching logic {string} except the Record ID fi
  * @author David Phillips <david.phillips22@nhs.net>
  * @example I can successfully apply the same branching logic {string} to all fields containing the same original branching logic except the Record ID field and the field with the label {string}
  * @param {string} branchingLogic - the branching logic to apply and check
- * @param {string} excludedFieldLabel - the name of the field to exclude from the check
- * @description Applies the same branching logic to all fields containing the same original branching logic except the Record ID and the field with the specified name. Also verifies that the action was successful
+ * @param {string} excludedFieldLabel - the label of the field to exclude from the check
+ * @description Applies the same branching logic to all fields containing the same original branching logic except the Record ID and the field with the specified label. Also verifies that the action was successful
  */
 Given('I can successfully apply the same branching logic {string} to all fields containing the same original branching logic except the Record ID field and the field with the label {string}', (branchingLogic, excludedFieldLabel) => {
     
@@ -168,10 +177,10 @@ Given('The fields shown on the public survey are {string}', (expectedFieldNames)
     .find(selector)
     .each(($field) => {
         if ($field.text().includes("\n")) {
-            actualFields.push(cleanText($field.text(), "\n"))
+            actualFields.push(cleanTextBefore($field.text(), "\n"))
         }
         else if ($field.text().includes("*")) {
-            actualFields.push(cleanText($field.text(), "*"))
+            actualFields.push(cleanTextBefore($field.text(), "*"))
         }
         else {
             actualFields.push($field.text().trim())
@@ -199,12 +208,12 @@ Given('The fields shown on the instrument are {string}', (expectedFieldNames) =>
     //fields restricted with branching logic are hidden using css but are present in the DOM
     cy.get('#questiontable tr').not(function() {
         return Cypress.$(this).css("display") == "none" ||
-            cleanText(Cypress.$(this).text(), "?") == "Complete"
+            cleanTextBefore(Cypress.$(this).text(), "?") == "Complete"
     })
     .find(selector)
     .each(($field) => {
         if ($field.text().includes("*")) {
-            actualFields.push(cleanText($field.text(), "*"))
+            actualFields.push(cleanTextBefore($field.text(), "*"))
         }
         else if ($field.text().startsWith("\n")) {
             actualFields.push($field.text().trim())
@@ -240,13 +249,24 @@ Given('The survey closes', () => {
     cy.visit('/redcap_v' + Cypress.env('redcap_version') + "/Surveys/invite_participants.php?pid=14")
 })
 
-function clickOnBranchingLogicIcon(fieldName) {
+function fieldHasBranchingLogic(variableName) {
+    cy.get(`span[id="bl-label_${variableName}"]`).then(function(ele) {
+        return Cypress.$(ele).css("visibility") != "hidden"
+    })
+}
+
+function clickOnBranchingLogicIcon(variableName) {
     cy.intercept({
         method: 'POST',
         url: '/redcap_v' + Cypress.env('redcap_version') + "/Design/branching_logic_builder.php?*"
     }).as('builder')
     
-    cy.click_on_design_field_function("Branching Logic", fieldName)
+    cy.get(`.designVarName:contains(${variableName})`)
+    .parent()
+    .find('img[title="Branching Logic"]')
+    .first()
+    .click()
+
     cy.wait('@builder')
 }
 
@@ -265,7 +285,11 @@ function dragNDrop(variableName, criteria) {
     cy.get(`[val="[${variableName}] = ${criteria}"].ui-draggable-disabled`).should('not.exist')
     cy.get('.ui-droppable').should('exist')
     cy.get(`[val="[${variableName}] = ${criteria}"]`).drag('#dropZone1').then((success) => {
-        assert.isTrue(success)
+        if (!success) {
+            //may need to try the drop again
+            cy.get('div#dropZone1.listBox.ui-droppable').trigger('drop')
+            .trigger('mouseup').trigger('pointerup')
+        }
     })
 }
 function selectOption(option, selector) {
@@ -288,13 +312,13 @@ function saveBranchingLogic() {
 
 function getAllFieldsExcept(firstExcludedFieldLabel, secondExcludedFieldLabel) {
     //v11.1.5
-    let firstExcludedFieldSelector = `td:contains("${firstExcludedFieldLabel}")`
-    let secondExcludedFieldSelector = `td:contains("${secondExcludedFieldLabel}")`
+    let firstExcludedFieldSelector = `td:contains(${firstExcludedFieldLabel})`
+    let secondExcludedFieldSelector = `td:contains(${secondExcludedFieldLabel})`
     return cy.get('td.labelrc').not(firstExcludedFieldSelector).not(secondExcludedFieldSelector)
 
     //v12.4.14
-    // let firstExcludedFieldSelector = `div:contains("${firstExcludedFieldLabel}")`
-    // let secondExcludedFieldSelector = `div:contains("${secondExcludedFieldLabel}")`
+    // let firstExcludedFieldSelector = `div:contains(${firstExcludedFieldLabel})`
+    // let secondExcludedFieldSelector = `div:contains(${secondExcludedFieldLabel})`
     // return cy.get('div[data-kind="field-label"]').not(firstExcludedFieldSelector).not(secondExcludedFieldSelector)
 }
 
@@ -302,7 +326,7 @@ function assertOnBranchingLogic(branchingLogic, excludedFieldLabel) {
     cy.get('.ui-dialog').should('not.be.visible')
 
     //v11.1.5
-    let branchingLogicSelector = `span[id^="bl-label_"]:contains("${branchingLogic}")`
+    let branchingLogicSelector = `span[id^="bl-label_"]:contains(${branchingLogic})`
     getAllFieldsExcept("Record ID", excludedFieldLabel).its('length').then((numFields) => {       
         cy.get('span[id^="bl-label_"]').filter(branchingLogicSelector).its('length').then((numFieldsWithExpBranchingLogic) => {
             expect(numFields).equal(numFieldsWithExpBranchingLogic)
@@ -310,7 +334,7 @@ function assertOnBranchingLogic(branchingLogic, excludedFieldLabel) {
     })
 
     //v12.4.14
-    //let branchingLogicSelector = `span[data-kind="branching-logic"]:contains("${branchingLogic}")`
+    //let branchingLogicSelector = `span[data-kind="branching-logic"]:contains(${branchingLogic})`
     // getAllFieldsExcept("Record ID", excludedFieldLabel).its('length').then((numFields) => {
     //     cy.get('span[data-kind="branching-logic"]').filter(branchingLogicSelector).its('length').then((numFieldsWithExpBranchingLogic) => {
     //         expect(numFields).equal(numFieldsWithExpBranchingLogic)
@@ -318,9 +342,15 @@ function assertOnBranchingLogic(branchingLogic, excludedFieldLabel) {
     // })
 }
 
-function cleanText(text, separator) {
+function cleanTextBefore(text, separator) {
     let split = text.split(separator)
     return split[0].trim()
 }
+
+function cleanTextAfter(text, separator) {
+    let split = text.split(separator)
+    return split[1].trim()
+}
+
 
 
