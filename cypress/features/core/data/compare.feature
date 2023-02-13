@@ -12,7 +12,7 @@ Feature: Data Comparison Tool / DDE Module
     And I click on the element identified by "button[id=setupLongiBtn]"
     And I click on the button labeled "Disable" in the dialog box
     Then I should see that longitudinal mode is "disabled"
-    And I click on the element identified by "button[id=enableRepeatingFormsEventsBtn]"
+    And I open the dialog box for the Repeatable Instruments and Events module
     And I click on the checkbox labeled "Data Types" for repeating instrument setup
     And I click on the button labeled "Save"
     Then I should see "Your settings for repeating instruments and/or events have been successfully saved. (The page will now reload.)"
@@ -89,6 +89,7 @@ Feature: Data Comparison Tool / DDE Module
   Scenario: 3 - Change Required field from 75 to 57 and compare
     Given I click on the text "75" of Record ID "2"
     Then I should see " Required"
+    # Need to add .focus to the step definition
     And I clear the field and enter "57" into the "required" text input field
     And I click on the button labeled "Save & Exit Form"
     Then I should see "successfully edited"
