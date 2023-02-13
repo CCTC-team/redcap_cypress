@@ -9,9 +9,7 @@ Feature: Data Comparison Tool / DDE Module
    
   Scenario: Project Setup 2 - Disable Longitudinal data collection and Repeating instruments and change Validation type of textbox
     Given I click on the link labeled "Project Setup"
-    And I click on the element identified by "button[id=setupLongiBtn]"
-    And I click on the button labeled "Disable" in the dialog box
-    Then I should see that longitudinal mode is "disabled"
+    And I disable longitudinal mode
     And I open the dialog box for the Repeatable Instruments and Events module
     And I click on the checkbox labeled "Data Types" for repeating instrument setup
     And I click on the button labeled "Save"
