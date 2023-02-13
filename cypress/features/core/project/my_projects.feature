@@ -69,9 +69,7 @@ Feature: My Projects
   Scenario: 6 - Disable Longitudinal Data Collection and ensure it reflects in the My Projects Dashboard
     Given I click on the link labeled "13_MyProjects_v1115"
     And I click on the link labeled "Project Setup"
-    And I click on the element identified by "button[id=setupLongiBtn]"
-    And I click on the button labeled "Disable" in the dialog box
-    Then I should see that longitudinal mode is "disabled"
+    And I disable longitudinal mode
     And I click on the link labeled "My Projects"
     Then I should see the icon "Classic" in column 5 next to the link "13_MyProjects_v1115"
    
