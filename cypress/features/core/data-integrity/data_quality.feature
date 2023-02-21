@@ -97,19 +97,177 @@ Scenario: 12 and 13
 
 Scenario: 14 and 15  
     Given I click on the link labeled "Data Quality"
-    And Should have the ability to execute all data quality rules at the same time
+    And I click on the button labeled "All"
+    Then All data quality rules are executed at the same time
+    And I see "29" Total Discrepancies under Rule "A"
+    And I see "1" Total Discrepancies under Rule "B"
+    And I see "0" Total Discrepancies under Rule "C"
 
-  
 
- Scenario: 16
-    
- Given I see "29" Total Discrepancies under Rule "A"
- And I see "1" Total Discrepancies under Rule "B"
- And I see "0" Total Discrepancies under Rule "C"
- And I click "view" Total Discrepancies under Rule "A"
- And I click on "exclude" for the top "3" rows
+ Scenario: 16 and 17 View discrapancies and Exclude discrepancies.  
+ Given I click "view" Total Discrepancies under Rule "A"
+ And I click on "exclude" for the top "3" rows of descrepancies table
+Then Iaa should see "remove exclusion" in the top "3" rows of table identified by "table#table-results_table_pd-3"
+ #Then I should see "remove exclusion" in the top "3" rows of descrepancies table
  And I click on the button labeled "Close"
- And I click "view" Total Discrepancies under Rule "B"
- And Iaa click on the button labeled "Close"
- #And I click "Close" in the popup
+
+ Scenario: 18 Window opens up with Record 2 that did not have the “Required” field populated
+ Given I click "view" Total Discrepancies under Rule "B"
+ Then I should see "Blank values* (required fields only)"
+ #A new step defination had to be written as the button 'Close' was hidden due to a parent css property
+ And I click on the button labeled "Close" in discrepancies window
+
+ Scenario: 19 Window opens up with Record 2 that had 213 entered as the Integer field
+ Given  I click "view" Total Discrepancies under Rule "D"
+ Then I should see "Field validation errors (out of range)"
+ And I click on the button labeled "Close" in discrepancies window
+
+ Scenario: 20 Reset Rules
+ Given I click on the button labeled "Clear"
+ Then All rules are reset and I see Execute button available
  
+ Scenario: 21 Click on “All Except A&B”.Rules C-I are executed and Rules A&B show “Execute” 
+ Given I click on the button labeled "All except A&B"
+ Then Iaa should see "Execute" in the top "2" rows of table identified by "table[id=table-rules]"
+ 
+ Scenario: 22 Execute Rules A and B separately 
+ And I click "Execute" Total Discrepancies under Rule "A"
+ And I see "26" Total Discrepancies under Rule "A"
+ And I click "Execute" Total Discrepancies under Rule "B"
+ And I see "1" Total Discrepancies under Rule "B"
+
+ Scenario: 23 Reset Rules
+ Given I click on the button labeled "Clear"
+ Then All rules are reset and I see Execute button available
+
+ Scenario: 24 Execute  all rules separately 
+ And I click "Execute" Total Discrepancies under Rule "C"
+ And I see "0" Total Discrepancies under Rule "C"
+ And I click "Execute" Total Discrepancies under Rule "D"
+ And I see "1" Total Discrepancies under Rule "D"
+
+Scenario: 25 Reset Rules
+ Given I click on the button labeled "Clear"
+ Then All rules are reset and I see Execute button available
+
+Scenario: 26 Under the “Apply To” drop box select the Record 2 
+And Iaa select dropdown value "2" from list with value "2"
+And I click on the button labeled "All"
+Then All data quality rules are executed at the same time
+
+Scenario: 27 Reset Rules
+ Given I click on the button labeled "Clear"
+ Then All rules are reset and I see Execute button available
+
+Scenario: 28 Select the Record 2 and click All Except A & B
+And Iaa select dropdown value "2" from list with value "2"
+Given I click on the button labeled "All except A&B"
+Then Iaa should see "Execute" in the top "2" rows of table identified by "table[id=table-rules]"
+
+Scenario: 29 Reset Rules
+Given I click on the button labeled "Clear"
+Then All rules are reset and I see Execute button available
+
+Scenario: 30 Select the Record 2 and execute rules separately
+And Iaa select dropdown value "2" from list with value "2"
+And I click "Execute" Total Discrepancies under Rule "A"
+And I see "17" Total Discrepancies under Rule "A"
+And I click "Execute" Total Discrepancies under Rule "B"
+And I see "1" Total Discrepancies under Rule "B"
+
+Scenario: 31 Reset Rules
+Given I click on the button labeled "Clear"
+Then All rules are reset and I see Execute button available
+
+Scenario: 32 Add new rule
+Given I enter "Test" into the field identified by "#input_rulename_id_0"  
+And I click the input element identified by "#input_rulelogic_id_0"
+And I enter "[event_1_arm_1][integer_field]>200" into the field identified by "#rc-ace-editor"
+And I click on the button labeled "Update & Close Editor" 
+And the AJAX "POST" request at "DataQuality/edit_rule_ajax*" tagged by "data_quality" is being monitored
+And I click on the button labeled "Add"
+And the AJAX request tagged by "data_quality" has completed
+
+Scenario: 33 Execute and view new rule
+Given I click "Execute" Total Discrepancies under new rule named "Test"  
+Then I see "1" Total Discrepancies under Rule "Test"
+Given  I click "view" Total Discrepancies under Rule "Test"
+Then I should see "Test"
+And I click on the button labeled "Close" in discrepancies window
+
+Scenario: 34 Reset Rules
+Given I click on the button labeled "Clear"
+Then All rules are reset and I see Execute button available
+
+Scenario: 35 Edit new rule
+
+Given hover element "Click to enable editing"
+And I clear text in field identified by "#rc-ace-editor"
+#And I clear text in field identified by "#rc-ace-editor"
+#I click on the link labeled "Click to enable editing"
+And I enter "[event_1_arm_1][integer_field]>201" into the field identified by "#rc-ace-editor"
+And I click on the button labeled "Update & Close Editor" 
+And the AJAX "POST" request at "DataQuality/edit_rule_ajax*" tagged by "data_quality" is being monitored
+And I click on the button labeled "Save"
+And the AJAX request tagged by "data_quality" has completed
+
+Scenario: 36 Execute all rules
+Given I click on the button labeled "All"
+Then All data quality rules are executed at the same time
+
+Scenario: 37 Reset Rules
+Given I click on the button labeled "Clear"
+Then All rules are reset and I see Execute button available
+
+Scenario: 38 and 39 Execute All Except A & B
+Given I click on the button labeled "All except A&B"
+Then Iaa should see "Execute" in the top "2" rows of table identified by "table[id=table-rules]"
+Given I click on the button labeled "Clear"
+Then All rules are reset and I see Execute button available
+
+Scenario: 40 Execute All custom rules
+Given I click on the button labeled "All custom"
+Then Iaa should see "Execute" in the top "9" rows of table identified by "table[id=table-rules]"
+
+Scenario: 41 Add new rule
+Given I enter "Test2" into the field identified by "#input_rulename_id_0"  
+And I click the input element identified by "#input_rulelogic_id_0"
+And I enter "[event_1_arm_1][integer_field]>300" into the field identified by "#rc-ace-editor"
+And I click on the button labeled "Update & Close Editor" 
+And the AJAX "POST" request at "DataQuality/edit_rule_ajax*" tagged by "data_quality" is being monitored
+And I click on the button labeled "Add"
+And the AJAX request tagged by "data_quality" has completed
+
+Scenario: 42 and 43 Execute Test2
+
+Given I click "Execute" Total Discrepancies under new rule named "Test2"  
+Then I see "0" Total Discrepancies under Rule "Test2"
+And I click on the button labeled "Clear"
+Then All rules are reset and I see Execute button available
+
+Scenario: 44 and 45 Execute Test2 (Scenario 40 repeated)
+
+Scenario: 46, 47 and 48 Delete New rule Test2 and run custom rule Test
+
+Given I click X under new rule named "Test2" to delete it
+And the AJAX "POST" request at "DataQuality/edit_rule_ajax*" tagged by "data_quality" is being monitored
+Given I click on the button labeled "All custom"
+And the AJAX request tagged by "data_quality" has completed
+And I see "1" Total Discrepancies under Rule "Test"
+Given I click on the button labeled "Clear"
+Then All rules are reset and I see Execute button available
+
+Scenario: 49 Click Add / Edit Records and add New record for the arm selected
+
+Given I click on the link labeled "Add / Edit Records"
+And I click on the button labeled "Add new record for the arm selected above"
+Given I click on a bubble with instrument named "Data Types" and event named "Event 1"
+Then I should see " Adding new Record ID " 
+And I click on the button labeled "Save & Exit Form"
+And  I click "Ignore and leave record" in the popup
+Then I see a "circle_red" bubble for instrument named "Data Types" and event named "Event 1"
+
+Scenario: 50
+Given I click on the link labeled "Data Quality"
+And I click "Execute" Total Discrepancies under Rule "H"
+#And I see "1" Total Discrepancies under Rule "H"
