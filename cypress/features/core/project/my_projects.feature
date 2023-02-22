@@ -221,7 +221,8 @@ Scenario: 13 - Delete a field and ensure it reflects in the My Projects Dashboar
     Then I click on the link labeled "13_MyProjects_v1115"
     And I click on the link labeled "Project Setup"
     And I click on the button labeled "Move project to production"
-    Then I move the project to production by selection option 'input#keep_data'
+    And I click on the radio labeled "Keep ALL data saved so far." in the dialog box
+    And I click on the button labeled "YES, Move to Production Status" in the dialog box
     Then I should see "Success! The project is now in production."
     When I am an "standard" user who logs into REDCap
     And I click on the link labeled "My Projects"
@@ -269,7 +270,8 @@ Scenario: 13 - Delete a field and ensure it reflects in the My Projects Dashboar
     Then I should see "Do you wish to set the status of the project to ANALYSIS/CLEANUP?"
     And I click on the button labeled "YES, Move to Analysis/Cleanup Status" 
     Then I should see "The project has now been set to ANALYSIS/CLEANUP status." in an alert box
-    And I scroll the Other Functionality tab to the top
+    # And I scroll the Other Functionality tab to the top
+    And I scroll the page to the field identified by "button[id=modify-data-locked]"
     And I click on the link labeled "My Projects"
     Then I should see "13_MyProjects_v1115"
     And I should see the icon "Analysis/Cleanup" in column 6 next to the link "13_MyProjects_v1115"

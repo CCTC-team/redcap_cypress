@@ -99,15 +99,15 @@ Given("I confirm to mark project as complete", (text) => {
  })
 
 
-/**
- * @module my_projects
- * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I scroll the Other Functionality tab to the top
- * @description Scroll the Other Functionality tab to the top
- */
-Given('I scroll the Other Functionality tab to the top', () => {
-    cy.get('button[id="modify-data-locked"]').scrollIntoView()
-})
+// /**
+//  * @module my_projects
+//  * @author Mintoo Xavier <min2xavier@gmail.com>
+//  * @example I scroll the Other Functionality tab to the top
+//  * @description Scroll the Other Functionality tab to the top
+//  */
+// Given('I scroll the Other Functionality tab to the top', () => {
+//     cy.get('button[id="modify-data-locked"]').scrollIntoView()
+// })
 
 /**
  * @module my_projects
