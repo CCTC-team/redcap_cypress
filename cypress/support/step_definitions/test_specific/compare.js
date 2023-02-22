@@ -82,10 +82,10 @@ Given('I scroll the page to the field identified by {string}', (selector) => {
 /**
  * @module Compare
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I click on the radio option labeled {string} in the data comparison tool
+ * @example I click on the radio option labeled {string} in the data comparison tool to merge records
  * @param {string} text the label of the radio button
  * @description Click on the radio option in the data comparison tool to merge the records
  */
-Given('I click on the radio option labeled {string} in the data comparison tool', (label) => {
+Given('I click on the radio option labeled {string} in the data comparison tool to merge records', (label) => {
   cy.get('.compare').contains(label).parents('td').find('input[name=text2___RADradio]').click()
 })

@@ -344,7 +344,7 @@ Feature: Data Comparison Tool / DDE Module
     And the AJAX "POST" request at "/index.php*" tagged by "render" is being monitored
     And the form should have a redcap_csrf_token
     And I click on the link labeled "click here to merge them"
-    And I click on the radio option labeled "vocalist" in the data comparison tool
+    And I click on the radio option labeled "vocalist" in the data comparison tool to merge records
     And I click on the input button labeled "Merge Records"
     Then I should see "RECORD CREATED!"
     And I should see "has now been created by merging the values you selected from records 10--1 and 10--2"
