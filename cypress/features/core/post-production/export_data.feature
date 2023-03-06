@@ -56,11 +56,17 @@ Feature: Export Data
     And I click on the link labeled "My Projects"
     And I click on the link labeled "21_ExportDataExtraction_v1115"
     And I click on the link labeled "Record Status Dashboard"
-    # And I click on the link
-    # Getting the Event wrong
-    And I locate the bubble for the "Survey" instrument on event "Event 1" for record ID "1" and click the repeating instrument bubble for the first instance
-    And I click on the button labeled "Survey options"
-    When I open the survey from Survey Options and submit it
+    # # Getting the Event wrong
+    # And I locate the bubble for the "Survey" instrument on event "Event 1" for record ID "1" and click the repeating instrument bubble for the first instance
+    # And I click on the button labeled "Survey options"
+    # # And I click on the survey option label containing "Open survey" label and want to track the response with a tag of "Open_Survey"
+    # # And I click on the button labeled "Submit"
+    # # And I click on the button labeled "Close survey"
+    # And I open the survey from Survey options and submit it
+    # And I locate the bubble for the "Survey" instrument on event "Event 1" for record ID "2" and click the repeating instrument bubble for the first instance
+    # And I wait for 0.5 seconds
+    # And I click on the button labeled "Survey options"
+    # And I open the survey from Survey options and submit it
         
   Scenario: 1 - Login
     Given I am a "standard" user who logs into REDCap
@@ -119,95 +125,109 @@ Feature: Export Data
     Then I click on the button labeled "Cancel" in the dialog box
     Then I should see "My Reports & Exports"
 
-  Scenario: 5b - Verify export option - CSV / Microsoft Excel (labels)
-    Given I click on the button labeled "Export Data"
-    Then I should see "Exporting \"All data (all records and fields)\""
-    And I click on the radio labeled "CSV / Microsoft Excel (labels)" in the dialog box
-    Then I should see "Remove all tagged Identifier fields"
-    And I should see "Hash the Record ID field"
-    And I should see "Remove unvalidated Text fields"
-    And I should see "Remove Notes/Essay box fields"
-    And I should see "Remove all date and datetime fields"
-    And I should see "Shift all dates by value between 0 and 364 days"
-    And I should see "Also shift all survey completion timestamps by value between 0 and 364 days"
-    Then I click on the button labeled "Cancel" in the dialog box
-    Then I should see "My Reports & Exports"
-
-  Scenario: 5c - Verify export option - SPSS Statistical Software
-    Given I click on the button labeled "Export Data"
-    Then I should see "Exporting \"All data (all records and fields)\""
-    And I click on the radio labeled "SPSS Statistical Software" in the dialog box
-    Then I should see "Remove all tagged Identifier fields"
-    And I should see "Hash the Record ID field"
-    And I should see "Remove unvalidated Text fields"
-    And I should see "Remove Notes/Essay box fields"
-    And I should see "Remove all date and datetime fields"
-    And I should see "Shift all dates by value between 0 and 364 days"
-    And I should see "Also shift all survey completion timestamps by value between 0 and 364 days"
-    Then I click on the button labeled "Cancel" in the dialog box
-    Then I should see "My Reports & Exports"
-
-  Scenario: 5d - Verify export option - SAS Statistical Software
-    Given I click on the button labeled "Export Data"
-    Then I should see "Exporting \"All data (all records and fields)\""
-    And I click on the radio labeled "SAS Statistical Software" in the dialog box
-    Then I should see "Remove all tagged Identifier fields"
-    And I should see "Hash the Record ID field"
-    And I should see "Remove unvalidated Text fields"
-    And I should see "Remove Notes/Essay box fields"
-    And I should see "Remove all date and datetime fields"
-    And I should see "Shift all dates by value between 0 and 364 days"
-    And I should see "Also shift all survey completion timestamps by value between 0 and 364 days"
-    Then I click on the button labeled "Cancel" in the dialog box
-    Then I should see "My Reports & Exports"
-
-  Scenario: 5e - Verify export option - R Statistical Software
-    Given I click on the button labeled "Export Data"
-    Then I should see "Exporting \"All data (all records and fields)\""
-    And I click on the radio labeled "R Statistical Software" in the dialog box
-    Then I should see "Remove all tagged Identifier fields"
-    And I should see "Hash the Record ID field"
-    And I should see "Remove unvalidated Text fields"
-    And I should see "Remove Notes/Essay box fields"
-    And I should see "Remove all date and datetime fields"
-    And I should see "Shift all dates by value between 0 and 364 days"
-    And I should see "Also shift all survey completion timestamps by value between 0 and 364 days"
-    Then I click on the button labeled "Cancel" in the dialog box
-    Then I should see "My Reports & Exports"
-
-  Scenario: 5f - Verify export option - Stata Statistical Software
-    Given I click on the button labeled "Export Data"
-    Then I should see "Exporting \"All data (all records and fields)\""
-    And I click on the radio labeled "Stata Statistical Software" in the dialog box
-    Then I should see "Remove all tagged Identifier fields"
-    And I should see "Hash the Record ID field"
-    And I should see "Remove unvalidated Text fields"
-    And I should see "Remove Notes/Essay box fields"
-    And I should see "Remove all date and datetime fields"
-    And I should see "Shift all dates by value between 0 and 364 days"
-    And I should see "Also shift all survey completion timestamps by value between 0 and 364 days"
-    Then I click on the button labeled "Cancel" in the dialog box
-    Then I should see "My Reports & Exports"
-
-  Scenario: 5g - Verify export option - CDISC ODM (XML)
-    Given I click on the button labeled "Export Data"
-    Then I should see "Exporting \"All data (all records and fields)\""
-    And I click on the radio labeled "CDISC ODM (XML)" in the dialog box
-    Then I should see "Remove all tagged Identifier fields"
-    And I should see "Hash the Record ID field"
-    And I should see "Remove unvalidated Text fields"
-    And I should see "Remove Notes/Essay box fields"
-    And I should see "Remove all date and datetime fields"
-    And I should see "Shift all dates by value between 0 and 364 days"
-    And I should see "Also shift all survey completion timestamps by value between 0 and 364 days"
-    Then I click on the button labeled "Cancel" in the dialog box
-    Then I should see "My Reports & Exports"
-
-  # Scenario: 6 -
-  #   # Given I click on the button labeled "Export Data"
+  # Scenario: 5b - Verify export option - CSV / Microsoft Excel (labels)
+  #   Given I click on the button labeled "Export Data"
   #   Then I should see "Exporting \"All data (all records and fields)\""
-  #   # And I click on the radio labeled "CSV / Microsoft Excel (labels)" in the dialog box
-  #   # Then I click on the button labeled "Export" in the dialog box
-  #   And I export all data in "csvlabels" format and expect 8 records
-  #   And I download a file by clicking on the link labeled "FileRepository"
+  #   And I click on the radio labeled "CSV / Microsoft Excel (labels)" in the dialog box
+  #   Then I should see "Remove all tagged Identifier fields"
+  #   And I should see "Hash the Record ID field"
+  #   And I should see "Remove unvalidated Text fields"
+  #   And I should see "Remove Notes/Essay box fields"
+  #   And I should see "Remove all date and datetime fields"
+  #   And I should see "Shift all dates by value between 0 and 364 days"
+  #   And I should see "Also shift all survey completion timestamps by value between 0 and 364 days"
+  #   Then I click on the button labeled "Cancel" in the dialog box
+  #   Then I should see "My Reports & Exports"
 
+  # Scenario: 5c - Verify export option - SPSS Statistical Software
+  #   Given I click on the button labeled "Export Data"
+  #   Then I should see "Exporting \"All data (all records and fields)\""
+  #   And I click on the radio labeled "SPSS Statistical Software" in the dialog box
+  #   Then I should see "Remove all tagged Identifier fields"
+  #   And I should see "Hash the Record ID field"
+  #   And I should see "Remove unvalidated Text fields"
+  #   And I should see "Remove Notes/Essay box fields"
+  #   And I should see "Remove all date and datetime fields"
+  #   And I should see "Shift all dates by value between 0 and 364 days"
+  #   And I should see "Also shift all survey completion timestamps by value between 0 and 364 days"
+  #   Then I click on the button labeled "Cancel" in the dialog box
+  #   Then I should see "My Reports & Exports"
+
+  # Scenario: 5d - Verify export option - SAS Statistical Software
+  #   Given I click on the button labeled "Export Data"
+  #   Then I should see "Exporting \"All data (all records and fields)\""
+  #   And I click on the radio labeled "SAS Statistical Software" in the dialog box
+  #   Then I should see "Remove all tagged Identifier fields"
+  #   And I should see "Hash the Record ID field"
+  #   And I should see "Remove unvalidated Text fields"
+  #   And I should see "Remove Notes/Essay box fields"
+  #   And I should see "Remove all date and datetime fields"
+  #   And I should see "Shift all dates by value between 0 and 364 days"
+  #   And I should see "Also shift all survey completion timestamps by value between 0 and 364 days"
+  #   Then I click on the button labeled "Cancel" in the dialog box
+  #   Then I should see "My Reports & Exports"
+
+  # Scenario: 5e - Verify export option - R Statistical Software
+  #   Given I click on the button labeled "Export Data"
+  #   Then I should see "Exporting \"All data (all records and fields)\""
+  #   And I click on the radio labeled "R Statistical Software" in the dialog box
+  #   Then I should see "Remove all tagged Identifier fields"
+  #   And I should see "Hash the Record ID field"
+  #   And I should see "Remove unvalidated Text fields"
+  #   And I should see "Remove Notes/Essay box fields"
+  #   And I should see "Remove all date and datetime fields"
+  #   And I should see "Shift all dates by value between 0 and 364 days"
+  #   And I should see "Also shift all survey completion timestamps by value between 0 and 364 days"
+  #   Then I click on the button labeled "Cancel" in the dialog box
+  #   Then I should see "My Reports & Exports"
+
+  # Scenario: 5f - Verify export option - Stata Statistical Software
+  #   Given I click on the button labeled "Export Data"
+  #   Then I should see "Exporting \"All data (all records and fields)\""
+  #   And I click on the radio labeled "Stata Statistical Software" in the dialog box
+  #   Then I should see "Remove all tagged Identifier fields"
+  #   And I should see "Hash the Record ID field"
+  #   And I should see "Remove unvalidated Text fields"
+  #   And I should see "Remove Notes/Essay box fields"
+  #   And I should see "Remove all date and datetime fields"
+  #   And I should see "Shift all dates by value between 0 and 364 days"
+  #   And I should see "Also shift all survey completion timestamps by value between 0 and 364 days"
+  #   Then I click on the button labeled "Cancel" in the dialog box
+  #   Then I should see "My Reports & Exports"
+
+  # Scenario: 5g - Verify export option - CDISC ODM (XML)
+  #   Given I click on the button labeled "Export Data"
+  #   Then I should see "Exporting \"All data (all records and fields)\""
+  #   And I click on the radio labeled "CDISC ODM (XML)" in the dialog box
+  #   Then I should see "Remove all tagged Identifier fields"
+  #   And I should see "Hash the Record ID field"
+  #   And I should see "Remove unvalidated Text fields"
+  #   And I should see "Remove Notes/Essay box fields"
+  #   And I should see "Remove all date and datetime fields"
+  #   And I should see "Shift all dates by value between 0 and 364 days"
+  #   And I should see "Also shift all survey completion timestamps by value between 0 and 364 days"
+  #   Then I click on the button labeled "Cancel" in the dialog box
+  #   Then I should see "My Reports & Exports"
+
+  Scenario: 6 - Export Data in csvlabels format and verify the exported data
+    When I export data for the report named "All data" in "csvlabels" format
+    Then I should see "Data export was successful!"
+    Then I should receive a download to a "csv" file
+    Then I should have a "csv" file that contains the headings below
+    # | record_id | redcap_event_name | redcap_repeat_instrument | redcap_repeat_instance | redcap_survey_identifier | lname | fname | dob | reminder | export_complete | survey_timestamp | description | survey_complete |
+    | "Record ID" | "Event Name" | "Repeat Instrument" | "Repeat Instance" | "Survey Identifier" | "Last name" | "First name" | DOB | Reminder | Complete? | "Survey Timestamp" | Description | Complete? |
+    Then I should have a "csv" file that contains the data '"Event 1"' for record ID "1" and fieldname '"Event Name"'
+    Then I should have a "csv" file that contains 8 distinct records
+    Then I should have a "csv" file that contains 20 rows
+    Then I should have a "csv" file that contains 11 repeating instrument rows
+    Then I should have a "csv" file that contains the data "2019-06-17" for record ID "1" and fieldname "DOB"
+    Then I should have a "csv" file that contains record ID "1" listed on 4 rows
+    Then I should have a "csv" file that contains 2 repeating instances of the event '"Event 1"' for record ID "1"
+    Then I should have a "csv" file that contains 2 repeating instances of the event '"Event 2"' for record ID "1"
+    Then I should have a "csv" file that contains record ID "2" listed on 3 rows
+    Then I should have a "csv" file that contains 1 repeating instances of the event '"Event 1"' for record ID "2"
+    Then I should have a "csv" file that contains 2 repeating instances of the event '"Event 2"' for record ID "2"
+
+
+# | record_id | redcap_event_name | redcap_repeat_instrument | redcap_repeat_instance | redcap_survey_identifier | lname | fname | dob | reminder | export_complete | survey_timestamp | description | survey_complete |
+   
