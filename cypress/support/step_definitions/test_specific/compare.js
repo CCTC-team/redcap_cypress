@@ -39,13 +39,10 @@ Given('I click on the text {string} of Record ID {string}', (text, id) => {
     cy.get('.compare').contains(text).click()
     cy.get('@windowOpen').should('be.called')
     cy.get('@page').then(page => {
-      // cy.log(page.trim())
-      if (page.trim().localeCompare("Data Types") == 0)
+      if (page.trim() === "Data Types")
         page = "data_types"
       else
         page = "text_validation"
-      // cy.log(page)
-      // cy.log(page.trim().localeCompare("Data Types"))
       cy.visit_version({page: 'DataEntry/index.php', params: 'pid=14&id=' + id + '&page=' + page})
     })
 })
