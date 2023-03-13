@@ -42,6 +42,7 @@ Feature: Branching Logic
   Scenario: 2
   Given I click on the link labeled "Survey Distribution Tools"
   When I open the public survey
+  #NB typo in manual script - Caculated rather than Calculated
   Then The fields shown on the public survey are "Caculated Field"
   When I close the public survey
   #alert doesn't appear. Is this because close occurs in the close stub? We don't actually want to close the main browser tab
@@ -80,6 +81,34 @@ Feature: Branching Logic
   #NB typo in manual script - Caculated rather than Calculated
   Then I can successfully apply the same branching logic "[record_id] <> '999'" to all fields containing the same original branching logic except the Record ID field and the field with the label "Caculated Field"
 
+  Scenario: 6
+  Given I click on the link labeled "Survey Distribution Tools"
+  When I open the public survey
+  #NB typo in manual script - Caculated rather than Calculated
+  Then The fields shown on the public survey are "Name|Text2|Text Box|Notes Box|Caculated Field|Multiple Choice Dropdown Auto|Multiple Choice Dropdown Manual|Radio Button Auto|Radio Button Manual|Checkbox|Signature|File Upload|Descriptive Text with File|Required|Identifier|Identifier|Edit Field|Descriptive Text"
+  When I close the public survey
+  Then The survey closes
 
+  Scenario: 7
+  Given I click on the link labeled "Add / Edit Records"
+  When I click on the button labeled "Add new record"
+  #NB typo in manual script - Caculated rather than Calculated
+  Then The fields shown on the instrument are "Name|Text2|Text Box|Notes Box|Caculated Field|Multiple Choice Dropdown Auto|Multiple Choice Dropdown Manual|Radio Button Auto|Radio Button Manual|Checkbox|Signature|File Upload|Descriptive Text with File|Required|Identifier|Identifier|Edit Field|Descriptive Text"
 
+  Scenario: 8
+  #does 'leave' need adding to the step definition regular expression?
+  #Given after the next step, I will <leave> a confirmation window containing the text "Changes that you made may not be saved."
+  #for now manually click on leave unless running in dev tools mode
+  Given I click on the button labeled "Modify instrument"
 
+  Scenario: 9
+  #Could create a step definition to change and verify the branching logic of a single field
+  Given I click on the branching logic icon for the field with label "Descriptive Text"
+  And I click on the link labeled "Clear logic"
+  And I select the Drag-N-Drop Logic Builder
+  And I drag a field choice with variable name "radio_button_manual" and criteria "'101'"
+  And I click on the branching logic save button
+  And I check the "Do not show this message again." checkbox
+  And I click on the button labeled "No"
+  #Need a step definition to check the branching logic of a single field
+  #Then ...

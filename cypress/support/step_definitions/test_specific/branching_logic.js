@@ -218,6 +218,9 @@ Given('The fields shown on the instrument are {string}', (expectedFieldNames) =>
         else if ($field.text().startsWith("\n")) {
             actualFields.push($field.text().trim())
         }
+        else {
+            actualFields.push(cleanTextBefore($field.text(), "\n"))
+        }
     })
     .should('have.length', expectedFields.length)
     .then(() => {
@@ -247,6 +250,16 @@ Given('I close the public survey', () => {
 Given('The survey closes', () => {
     cy.get('@close').should('have.been.calledOnce')
     cy.visit('/redcap_v' + Cypress.env('redcap_version') + "/Surveys/invite_participants.php?pid=14")
+})
+
+/**
+ * @module TestSpecific/BranchingLogic
+ * @author David Phillips <david.phillips22@nhs.net>
+ * @example I check the "Do not show this message again." checkbox
+ * @description Checks the "Do not show this message again." checkbox
+ */
+Given('I check the "Do not show this message again." checkbox', () => {
+    cy.get('#branching_update_chk').check()
 })
 
 function fieldHasBranchingLogic(variableName) {
