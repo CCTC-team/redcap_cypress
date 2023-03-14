@@ -11,7 +11,7 @@ Feature: My Projects
     Given I am a "standard" user who logs into REDCap
     And I create a project named "13_MyProjects_v1115" with project purpose Operational Support via CDISC XML import from fixture location "cdisc_files/core/07_DesignForms_v1115.xml"
     Then I click on the link labeled "User Rights"
-    And  I click on the element identified by "a[title='Edit user privileges or assign to role']"
+    And I click to edit username "test_user (Test User)"
     And I click on the button labeled "Edit user privileges"
     And I scroll the user rights page to the bottom
     And I check the User Right named 'Delete Records'
@@ -89,7 +89,7 @@ Feature: My Projects
     And I click on the link labeled "My Projects"
     Then I should see "13_MyProjects_v1115ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789Validation"
 
- Scenario: 9 - Change the Project Title back and ensure it reflects in the My Projects Dashboard
+  Scenario: 9 - Change the Project Title back and ensure it reflects in the My Projects Dashboard
     Given I click on the link labeled "13_MyProjects_v1115ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789Validation"
     Then I should see "13_MyProjects_v1115ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789Validation"
     And I click on the link labeled "Project Setup"
@@ -101,7 +101,7 @@ Feature: My Projects
     And I click on the link labeled "My Projects"
     Then I should see "13_MyProjects_v1115"
 
- Scenario: 10 - Add a new record and ensure it reflects in the My Projects Dashboard
+  Scenario: 10 - Add a new record and ensure it reflects in the My Projects Dashboard
     Given I click on the link labeled "13_MyProjects_v1115"
     And I click on the link labeled "Add / Edit Records"
     And I click on the button labeled "Add new record"
@@ -115,9 +115,9 @@ Feature: My Projects
     And I click on the link labeled "My Projects"
     Then I should see "2" in column 2 next to the link "13_MyProjects_v1115"
 
-# Not able to delete record 2. Link containing 2 does not point to Record 2 but points to Arm 2. 
-# Hence added 2 records for Scenario 10. So Scenario 11 could work
-   Scenario: 10 Duplicate - Add a new record and ensure it reflects in the My Projects Dashboard
+  # Not able to delete record 2. Link containing 2 does not point to Record 2 but points to Arm 2. 
+  # Hence added 2 records for Scenario 10. So Scenario 11 could work
+  Scenario: 10 Duplicate - Add a new record and ensure it reflects in the My Projects Dashboard
     Given I click on the link labeled "13_MyProjects_v1115"
     And I click on the link labeled "Add / Edit Records"
     And I click on the button labeled "Add new record"
@@ -145,7 +145,7 @@ Feature: My Projects
     And I click on the link labeled "My Projects"
     Then I should see "2" in column 2 next to the link "13_MyProjects_v1115"
 
-Scenario: 12 - Add a field and ensure it reflects in the My Projects Dashboard
+  Scenario: 12 - Add a field and ensure it reflects in the My Projects Dashboard
     Given I click on the link labeled "13_MyProjects_v1115"
     And I click on the link labeled "Designer"
     And I click on the table cell containing a link labeled "Text Validation"
@@ -165,7 +165,7 @@ Scenario: 12 - Add a field and ensure it reflects in the My Projects Dashboard
     Then I should see "24" in column 3 next to the link "13_MyProjects_v1115"
     # No:of instruments + field count = 2+22=24. Which matches the Field Count in My Projects Dashboard
 
-Scenario: 13 - Delete a field and ensure it reflects in the My Projects Dashboard
+  Scenario: 13 - Delete a field and ensure it reflects in the My Projects Dashboard
     Given I click on the link labeled "13_MyProjects_v1115"
     And I click on the link labeled "Designer"
     And I click on the table cell containing a link labeled "Text Validation"
@@ -211,7 +211,7 @@ Scenario: 13 - Delete a field and ensure it reflects in the My Projects Dashboar
     And I click on the link labeled "My Projects"
     Then I should see "2" in column 4 next to the link "13_MyProjects_v1115"
 
-# Manual testing document does not say to login as admin while moving to Production
+  # Manual testing document does not say to login as admin while moving to Production
   Scenario: 16 - Move to Production and mark Project as complete and ensure the project no longer appears on the My Projects Dashboard
     Given I am an "admin" user who logs into REDCap
     And  I click on the link labeled "Control Center"
@@ -291,7 +291,7 @@ Scenario: 13 - Delete a field and ensure it reflects in the My Projects Dashboar
     Then I should see "13_MyProjects_v1115"
     And I should see the icon "Production" in column 6 next to the link "13_MyProjects_v1115"
     
-Scenario: 22 - Filter Projects by title
+  Scenario: 22 - Filter Projects by title
     Given I am an "admin" user who logs into REDCap
     And  I click on the link labeled "Control Center"
     And  I click on the link labeled "Browse Projects"
