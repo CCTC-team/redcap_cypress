@@ -163,7 +163,7 @@ Feature: Data Comparison Tool / DDE Module
     # Make test_user as Person1
     Given I click on the link labeled "User Rights"
     And the AJAX "POST" request at "Messenger/messenger.php*" tagged by "render" is being monitored
-    And I click on the link labeled "test_user"
+    And I click to edit username "test_user (Test User)"
     Then I click on the button labeled "Edit user privileges"
     And I click on the element identified by "input[name=double_data][value=1]"
     And I click on the button labeled "Save Changes"
@@ -184,7 +184,7 @@ Feature: Data Comparison Tool / DDE Module
     And I click on the button labeled "Add with custom rights"
     And the AJAX request tagged by "render" has completed
     And I click on the element identified by "input[name=double_data][value=0]"
-    And I click on the element identified by "input[name=data_comparison_tool]"
+    And I check the User Right named "Data Comparison Tool"
     And the AJAX "POST" request at "UserRights/edit_user.php*" tagged by "render" is being monitored
     Then I click on the button labeled "Add user"
     Then I should see "was successfully added"
