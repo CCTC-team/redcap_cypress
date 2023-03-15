@@ -8,8 +8,8 @@ Feature: Export Data
     And I create a project named "21_ExportDataExtraction_v1115" with project purpose Practice / Just for fun via CDISC XML import from fixture location "cdisc_files/core/07_DesignForms_v1115.xml"
     
   Scenario: Project setup 2 - Upload Data Dictionary
-    # Remove PID
-    Given I upload a data dictionary located at "core/21_ExportDataExtractionDD_v1115.csv" to project ID 14
+    Given I click on the link labeled "Dictionary"
+    And I upload the data dictionary located at "core/21_ExportDataExtractionDD_v1115.csv"
 
   Scenario: Project setup 3 -Setting up Events
     Given I click on the link labeled "Project Setup"
@@ -19,8 +19,7 @@ Feature: Export Data
     Then I should see "All data has now been deleted from the project!"
     When I close popup
     And I click on the link labeled "Project Setup"
-    # Remove PID
-    And I enable surveys for Project ID 14
+    And I enable surveys for the project
     And I enable longitudinal mode
     # Have to click the below link twice for it to work.. Not sure why
     And I click on the link labeled "Designer"
@@ -52,21 +51,27 @@ Feature: Export Data
     And I should see that the designate an email field for communications setting is "disabled"
 
   Scenario: Project Setup 4 - Import Data File
+    # Given I am an "admin" user who logs into REDCap
+    # And  I click on the link labeled "Control Center"
+    # And  I click on the link labeled "Browse Projects"
+    # And I enter "21_ExportDataExtraction_v1115" into the field identified by "input[id=project_search]"
+    # And I click on the button labeled "Search project title"
+    # Then I click on the link labeled "21_ExportDataExtraction_v1115"
     Given I upload import data from the data import file located at "core/21_ExportDataExtractionIMP_v1115.csv" to project ID 14
     And I click on the link labeled "My Projects"
     And I click on the link labeled "21_ExportDataExtraction_v1115"
-    And I click on the link labeled "Record Status Dashboard"
-    # # # Getting the Event wrong
-    # And I locate the bubble for the "Survey" instrument on event "Event 1" for record ID "1" and click the repeating instrument bubble for the first instance
-    # And I click on the button labeled "Survey options"
-    # # And I click on the survey option label containing "Open survey" label and want to track the response with a tag of "Open_Survey"
-    # # And I click on the button labeled "Submit"
-    # # And I click on the button labeled "Close survey"
-    # And I open the survey from Survey options and submit it
-    # And I locate the bubble for the "Survey" instrument on event "Event 1" for record ID "2" and click the repeating instrument bubble for the first instance
-    # And I wait for 0.5 seconds
-    # And I click on the button labeled "Survey options"
-    # And I open the survey from Survey options and submit it
+  #   And I click on the link labeled "Record Status Dashboard"
+  #   # # # Getting the Event wrong
+  #   # And I locate the bubble for the "Survey" instrument on event "Event 1" for record ID "1" and click the repeating instrument bubble for the first instance
+  #   # And I click on the button labeled "Survey options"
+  #   # # And I click on the survey option label containing "Open survey" label and want to track the response with a tag of "Open_Survey"
+  #   # # And I click on the button labeled "Submit"
+  #   # # And I click on the button labeled "Close survey"
+  #   # And I open the survey from Survey options and submit it
+  #   # And I locate the bubble for the "Survey" instrument on event "Event 1" for record ID "2" and click the repeating instrument bubble for the first instance
+  #   # And I wait for 0.5 seconds
+  #   # And I click on the button labeled "Survey options"
+  #   # And I open the survey from Survey options and submit it
         
   Scenario: 1 - Login
     Given I am a "standard" user who logs into REDCap
