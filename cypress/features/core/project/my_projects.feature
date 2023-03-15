@@ -51,7 +51,6 @@ Feature: My Projects
     Then I should see "23" in column 3 next to the link "13_MyProjects_v1115"
     # No:of instruments + field count = 2+21=23. Which matches the Field Count in My Projects Dashboard
     
-
   Scenario: 4 - The number in Instruments column in the My Projects dashboard should match the no:of instruments in a project
     Given I click on the link labeled "13_MyProjects_v1115"
     And I click on the link labeled "Designer"
@@ -171,7 +170,6 @@ Feature: My Projects
     And I click on the table cell containing a link labeled "Text Validation"
     And the AJAX "GET" request at "Design/delete_field.php?*" tagged by "delete" is being monitored
     And the AJAX "GET" request at "Design/online_designer_render_fields.php*" tagged by "render" is being monitored
-    # And I click on the button labeled "Delete" in the dialog box
     And I delete the field named "notesbox1"
     And the AJAX request tagged by "delete" has completed
     And the AJAX request tagged by "render" has completed
@@ -191,7 +189,6 @@ Feature: My Projects
     And I add an instrument below the instrument named "Data Types"
     And I enter "Test" into the field identified by "input[id=new_form-data_types]"
     And I click on the element identified by "input[value=Create]"
-    # And I close popup
     Then I should see "Test"
     And I should see a total number of 3 instruments
     And I click on the link labeled "My Projects"
@@ -224,13 +221,18 @@ Feature: My Projects
     And I click on the radio labeled "Keep ALL data saved so far." in the dialog box
     And I click on the button labeled "YES, Move to Production Status" in the dialog box
     Then I should see "Success! The project is now in production."
+    Then I logout
     When I am an "standard" user who logs into REDCap
     And I click on the link labeled "My Projects"
     And I click on the link labeled "13_MyProjects_v1115"
+    Then I should see "13_MyProjects_v1115"
     And I click on the link labeled "Other Functionality"
     And I click on the button labeled "Mark project as Completed"
     And I confirm to mark project as complete
     Then I should see "The project has now been marked as COMPLETED" in an alert box
+    # Added wait due to DOM detachment error
+    And I wait for 3 seconds
+    Then I should see "My Projects"
     And I click on the link labeled "My Projects"
     Then I should NOT see "13_MyProjects_v1115"
     
@@ -262,7 +264,6 @@ Feature: My Projects
     Then I should see "13_MyProjects_v1115"
     And I should see the icon "Production" in column 6 next to the link "13_MyProjects_v1115"
     
-  # Alert boxes doesn't show up always
   Scenario: 20 - Move the project to Analysis/Cleanup and ensure it reflects in the My Projects Dashboard
     Given I click on the link labeled "13_MyProjects_v1115"
     And I click on the link labeled "Other Functionality"
@@ -270,13 +271,11 @@ Feature: My Projects
     Then I should see "Do you wish to set the status of the project to ANALYSIS/CLEANUP?"
     And I click on the button labeled "YES, Move to Analysis/Cleanup Status" 
     Then I should see "The project has now been set to ANALYSIS/CLEANUP status." in an alert box
-    # And I scroll the Other Functionality tab to the top
     And I scroll the page to the field identified by "button[id=modify-data-locked]"
     And I click on the link labeled "My Projects"
     Then I should see "13_MyProjects_v1115"
     And I should see the icon "Analysis/Cleanup" in column 6 next to the link "13_MyProjects_v1115"
 
-  # Alert boxes doesn't show up always. I get the alert - The project has now been set to ANALYSIS/CLEANUP status. below (when I move to production)
   Scenario: 21 - Move the project to back to Production and ensure it reflects in the My Projects Dashboard
     Given I click on the link labeled "13_MyProjects_v1115"
     Then I should see "Analysis/Cleanup"
@@ -285,7 +284,7 @@ Feature: My Projects
     And the AJAX "POST" request at "ProjectGeneral/change_project_status.php*" tagged by "render" is being monitored
     And I click on the button labeled "YES, Move to Production Status" 
     And the AJAX request tagged by "render" has completed
-    # Then I should see "The project has now been moved back to PRODUCTION status." in an alert box
+    Then I should see "The project has now been moved back to PRODUCTION status." in an alert box
     When I am an "standard" user who logs into REDCap
     And I click on the link labeled "My Projects"
     Then I should see "13_MyProjects_v1115"
