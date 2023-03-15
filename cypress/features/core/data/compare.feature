@@ -69,7 +69,7 @@ Feature: Data Comparison Tool / DDE Module
     When I click on the link labeled "Data Comparison Tool"
     And I select "2" from the dropdown identified by "select[id=record1]"
     And I select "3" from the dropdown identified by "select[id=record2]"
-    And I click on the input button labeled "Compare"
+    And I click on the button labeled "Compare"
     Then I see "ptname_v2_v2"
     And I see "email_v2"
     And I see "ptname"
@@ -80,7 +80,7 @@ Feature: Data Comparison Tool / DDE Module
     And I should NOT see "multiple_dropdown_manual"
     And I should NOT see "Checkbox"
 
-  # Not required for ATS testing. Not a core feature.
+  # ATS Comment: Not required for ATS testing. Not a core feature.
   # Scenario: 2 - Print page
   #   Given I print the page
 
@@ -95,7 +95,7 @@ Feature: Data Comparison Tool / DDE Module
     When I click on the link labeled "Data Comparison Tool"
     And I select "2" from the dropdown identified by "select[id=record1]"
     And I select "3" from the dropdown identified by "select[id=record2]"
-    And I click on the input button labeled "Compare"
+    And I click on the button labeled "Compare"
     Then I should NOT see "required"
 
   Scenario: 4 - Delete the name of Record ID 3 and compare
@@ -103,7 +103,7 @@ Feature: Data Comparison Tool / DDE Module
     Given I click on the link labeled "Data Comparison Tool"
     And I select "2" from the dropdown identified by "select[id=record1]"
     And I select "3" from the dropdown identified by "select[id=record2]"
-    And I click on the input button labeled "Compare"
+    And I click on the button labeled "Compare"
     And I click on the text "Guns N' Roses" of Record ID "3"
     Then I should see "Name"
     And I clear the field identified by "input[name=ptname_v2_v2]"
@@ -113,7 +113,7 @@ Feature: Data Comparison Tool / DDE Module
     When I click on the link labeled "Data Comparison Tool"
     And I select "2" from the dropdown identified by "select[id=record1]"
     And I select "3" from the dropdown identified by "select[id=record2]"
-    And I click on the input button labeled "Compare"
+    And I click on the button labeled "Compare"
     Then I should see the value "" in the field name "ptname_v2_v2" for Record ID "3"
     And I should see the value "Rolling Stones" in the field name "ptname_v2_v2" for Record ID "2"
 
@@ -122,7 +122,7 @@ Feature: Data Comparison Tool / DDE Module
     Given I click on the link labeled "Data Comparison Tool"
     And I select "2" from the dropdown identified by "select[id=record1]"
     And I select "3" from the dropdown identified by "select[id=record2]"
-    And I click on the input button labeled "Compare"
+    And I click on the button labeled "Compare"
     And I click on the text "gnr@noreply.edu" of Record ID "3"
     Then I enter "Rolling Stones" into the field identified by "input[name=ptname_v2_v2]"
     And I clear the field and enter "rs@noreply.edu" into the "email_v2" text input field
@@ -138,7 +138,7 @@ Feature: Data Comparison Tool / DDE Module
     When I click on the link labeled "Data Comparison Tool"
     And I select "2" from the dropdown identified by "select[id=record1]"
     And I select "3" from the dropdown identified by "select[id=record2]"
-    And I click on the input button labeled "Compare"
+    And I click on the button labeled "Compare"
     Then I should see "No differences were found."
     Then I logout
 
@@ -153,7 +153,7 @@ Feature: Data Comparison Tool / DDE Module
     Then I should see "Edit a Project's Settings"
     And I scroll the page to the field identified by "select[name=double_data_entry]"
     Then I select "Enabled" from the dropdown identified by "select[name=double_data_entry]"
-    And I click on the input button labeled "Save Changes"
+    And I click on the button labeled "Save Changes"
     Then I should see "Your changes have been saved!"
     When I click on the link labeled "17_DataComparisonTool_DDE_v1115"
     Then I should see "Project Home"
@@ -260,11 +260,11 @@ Feature: Data Comparison Tool / DDE Module
     Then I click on the link labeled "17_DataComparisonTool_DDE_v1115"
     When I click on the link labeled "Data Comparison Tool"
     And I select "5" from the dropdown identified by "select[id=record1]"
-    And I click on the input button labeled "Compare selected record"
+    And I click on the button labeled "Compare selected record"
     Then I should see "are identical. No differences were found"
     And the AJAX "POST" request at "/index.php*" tagged by "render" is being monitored
     Then the form should have a redcap_csrf_token
-    And I click on the input button labeled "Create Record 5" 
+    And I click on the button labeled "Create Record 5"
     Then I should see "RECORD CREATED!"
     And I should see "has now been created by merging the values you selected from records 5--1 and 5--2"
     Then I logout
@@ -339,13 +339,13 @@ Feature: Data Comparison Tool / DDE Module
     Then I click on the link labeled "17_DataComparisonTool_DDE_v1115"
     When I click on the link labeled "Data Comparison Tool"
     And I select "10" from the dropdown identified by "select[id=record1]"
-    And I click on the input button labeled "Compare selected record"
+    And I click on the button labeled "Compare selected record"
     Then I should see "Differences were found between the two records named"
     And the AJAX "POST" request at "/index.php*" tagged by "render" is being monitored
     And the form should have a redcap_csrf_token
     And I click on the link labeled "click here to merge them"
     And I click on the radio option labeled "vocalist" in the data comparison tool to merge records
-    And I click on the input button labeled "Merge Records"
+    And I click on the button labeled "Merge Records"
     Then I should see "RECORD CREATED!"
     And I should see "has now been created by merging the values you selected from records 10--1 and 10--2"
     Then I logout
@@ -361,7 +361,7 @@ Feature: Data Comparison Tool / DDE Module
     Then I should see "Edit a Project's Settings"
     And I scroll the page to the field identified by "select[name=double_data_entry]"
     Then I select "Disabled" from the dropdown identified by "select[name=double_data_entry]"
-    And I click on the input button labeled "Save Changes"
+    And I click on the button labeled "Save Changes"
     Then I should see "Your changes have been saved!"
     When I click on the link labeled "17_DataComparisonTool_DDE_v1115"
     Then I should see "Project Home"
