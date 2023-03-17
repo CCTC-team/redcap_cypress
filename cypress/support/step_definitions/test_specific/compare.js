@@ -33,8 +33,11 @@ Given('I click on the checkbox labeled {string} for repeating instrument setup',
  */
 Given('I click on the text {string} of Record ID {string}', (text, id) => {
     cy.get('.compare').contains(text).parents('tr').find('td:nth-child(2)').invoke('text').as('page')
+    let pid = ''
     cy.window().then((win) => {     
       cy.stub(win,'open').as('windowOpen')
+      pid = win.pid
+      
     })
     cy.get('.compare').contains(text).click()
     cy.get('@windowOpen').should('be.called')
@@ -43,7 +46,7 @@ Given('I click on the text {string} of Record ID {string}', (text, id) => {
         page = "data_types"
       else
         page = "text_validation"
-      cy.visit_version({page: 'DataEntry/index.php', params: 'pid=14&id=' + id + '&page=' + page})
+      cy.visit_version({page: 'DataEntry/index.php', params: 'pid=' + pid + '&id=' + id + '&page=' + page})
     })
 })
   
