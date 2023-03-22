@@ -20,7 +20,7 @@ Feature: Export Data
     When I close popup
     And I click on the link labeled "Project Setup"
     And I enable surveys for the project
-    And I enable longitudinal mode
+    And I should see that longitudinal mode is "enabled"
     # Have to click the below link twice for it to work.. Not sure why
     And I click on the link labeled "Designer"
     And I click on the link labeled "Designer"
@@ -30,8 +30,7 @@ Feature: Export Data
     And I click on the button labeled "Define My Events"
     And I click on the link labeled "Arm 2:"
     And I click on the link labeled "Delete Arm 2"
-    # Then I should see "DELETE ARM 2? Deleting Arm 2 will also delete ALL events associated with Arm 2. Are you sure you wish to do this?"
-    # And I click on the button labeled "Ok" in the dialog box
+    Then I should see "DELETE ARM 2? Deleting Arm 2 will also delete ALL events associated with Arm 2. Are you sure you wish to do this?" in an alert box
     And I click on the link labeled "Arm 1:"
     And I delete the Event Name of "Event Three"
     Then I click on the link labeled "Designate Instruments for My Events"
@@ -45,39 +44,35 @@ Feature: Export Data
     And I select "Repeat Instruments (repeat independently of each other)" on the dropdown table field labeled "Event 2"
     And I check the checkbox labeled "Survey"
     And I click on the button labeled "Save"
+    Then I should see "Your settings for repeating instruments and/or events have been successfully saved. (The page will now reload.)" in an alert box
     And I should see that auto-numbering is "enabled"
     And I should see that the scheduling module is "disabled"
     And I should see that the randomization module is "disabled"
     And I should see that the designate an email field for communications setting is "disabled"
 
   Scenario: Project Setup 4 - Import Data File
-    # Given I am an "admin" user who logs into REDCap
-    # And  I click on the link labeled "Control Center"
-    # And  I click on the link labeled "Browse Projects"
-    # And I enter "21_ExportDataExtraction_v1115" into the field identified by "input[id=project_search]"
-    # And I click on the button labeled "Search project title"
-    # Then I click on the link labeled "21_ExportDataExtraction_v1115"
-    Given I upload import data from the data import file located at "core/21_ExportDataExtractionIMP_v1115.csv" to project ID 14
+    Given I upload import data from the data import file located at "core/21_ExportDataExtractionIMP_v1115.csv" to project ID 13
     And I click on the link labeled "My Projects"
     And I click on the link labeled "21_ExportDataExtraction_v1115"
-  #   And I click on the link labeled "Record Status Dashboard"
-  #   # # # Getting the Event wrong
-  #   # And I locate the bubble for the "Survey" instrument on event "Event 1" for record ID "1" and click the repeating instrument bubble for the first instance
-  #   # And I click on the button labeled "Survey options"
-  #   # # And I click on the survey option label containing "Open survey" label and want to track the response with a tag of "Open_Survey"
-  #   # # And I click on the button labeled "Submit"
-  #   # # And I click on the button labeled "Close survey"
-  #   # And I open the survey from Survey options and submit it
-  #   # And I locate the bubble for the "Survey" instrument on event "Event 1" for record ID "2" and click the repeating instrument bubble for the first instance
-  #   # And I wait for 0.5 seconds
-  #   # And I click on the button labeled "Survey options"
-  #   # And I open the survey from Survey options and submit it
+    And I click on the link labeled "Record Status Dashboard"
+    # Getting the Event wrong
+    # And I locate the bubble for the "Survey" instrument on event "Event 1" for record ID "1" and click the repeating instrument bubble for the first instance
+    # And I click on the button labeled "Survey options"
+    # And I open the survey from Survey options and submit it
+    # And I click on the survey option label containing "Open survey" label
+    # And I click on the button labeled "Submit"
+    # # And I click on the button labeled "Close survey"
+    # And I locate the bubble for the "Survey" instrument on event "Event 1" for record ID "2" and click the repeating instrument bubble for the first instance
+    # And I wait for 0.5 seconds
+    # And I click on the button labeled "Survey options"
+    # And I open the survey from Survey options and submit it
         
   Scenario: 1 - Login
     Given I am a "standard" user who logs into REDCap
     Then I should see "My Projects"
 
   Scenario: 2 - Open project
+    Given I am a "standard" user who logs into REDCap
     Given I click on the link labeled "My Projects"
     And I click on the link labeled "21_ExportDataExtraction_v1115"
     Then I should see "21_ExportDataExtraction_v1115"

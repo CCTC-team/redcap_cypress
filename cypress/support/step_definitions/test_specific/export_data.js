@@ -1,7 +1,7 @@
 /**
  * @module export_data
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I enable the survey labeled {string}
+ * @example I enable the Data Collection Instrument labeled {string} as survey
  * @param {string} label the name of the survey
  * @description Enable the survey
  */
@@ -19,27 +19,34 @@ Given('I enable the Data Collection Instrument labeled {string} as survey', (lab
  * @description Open the survey from Survey Options and submit it
  */
 Given('I open the survey from Survey options and submit it', () => {
-    // let newurl = "http://"
+    let newurl = ''
+    let pid = ''
     //cy.wrap(newurl).as('newurl')
     cy.window().then((win) => {     
-        cy.stub(win,'surveyOpen').callsFake((url) => {
-            // newurl = url
-            return win.open.wrappedMethod.call(win, url, '_self')
+        cy.stub(win,'surveyOpen').callsFake(url => {
+            newurl = url
+            pid = win.pid
+            // return win.open.wrappedMethod.call(win, url, '_self')
             // cy.visit(newurl)
-            // return location.href = url
-        //    cy.wrap(newurl).as("newurl")
+            // return win.location.href = url
+            // cy.wrap(newurl).as('newurl')
             
         }).as('surveyOpen')
       })
+
     cy.get('a').contains('Open survey').click()
-    cy.get('@surveyOpen').should('be.called')
+    cy.get('@surveyOpen').should('be.called').then(() => {
+        cy.visit(newurl)
+    })
+    
     // cy.get("@newurl").then(newurl => {
         // cy.visit(newurl)
     // })
-    //location.href = newurl
+
+    // cy.visit(newurl)
     cy.get('button').contains('Submit').click()
     cy.get('button').contains('Close survey').click()
-    cy.visit_version({page: '/DataEntry/record_status_dashboard.php', params: 'pid=14'})
+    cy.visit_version({page: '/DataEntry/record_status_dashboard.php', params: 'pid=' + pid})
 })
 
 /**
@@ -124,13 +131,13 @@ Given("I should have a {string} file that contains today's date for the fieldnam
 /**
  * @module export_data
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I should have a {string} file that contains data in {string} listed on {int} rows
+ * @example I should have a {string} file that contains data in {string} listed on {int} row(s)
  * @param {string} format the text format of the data export you are looking to receive
  * @param {string} fieldname Field name which contains data
  * @param {string} num the number of rows that contain the record ID
  * @description Verifies data is listed in a given field name for the given number of rows
  */
-Given("I should have a {string} file that contains data in field {string} listed on {int} rows", (format, fieldname, num) => {
+Given("I should have a {string} file that contains data in field {string} listed on {int} row(s)", (format, fieldname, num) => {
     cy.readFile("cypress/downloads" + '/test_file.' + format).then( ($text) => {
         let lines = $text.trim().split('\n')
         let recCount = 0
@@ -156,13 +163,13 @@ Given("I should have a {string} file that contains data in field {string} listed
 /**
  * @module export_data
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I should have a {string} file that contains record ID {string} listed on {int} rows
+ * @example I should have a {string} file that contains record ID {string} listed on {int} row(s)
  * @param {string} format the text format of the data export you are looking to receive
  * @param {string} recordId The Record ID of the record
  * @param {string} num the number of rows that contain the record ID
  * @description Verifies the record ID is listed in the given number of rows
  */
-Given("I should have a {string} file that contains record ID {string} listed on {int} rows", (format, recordId, num) => {
+Given("I should have a {string} file that contains record ID {string} listed on {int} row(s)", (format, recordId, num) => {
     cy.readFile("cypress/downloads" + '/test_file.' + format).then( ($text) => {
         let lines = $text.trim().split('\n')
         let recCount = 0
@@ -179,14 +186,14 @@ Given("I should have a {string} file that contains record ID {string} listed on 
 /**
  * @module export_data
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I should have a {string} file that contains {int} repeating instances of the event {string} for record ID {string}
+ * @example I should have a {string} file that contains {int} repeating instance(s) of the event {string} for record ID {string}
  * @param {string} format the text format of the data export you are looking to receive
  * @param {string} num the number of repeating instances of the event
  * @param {string} eventName the event name that repeats
  * @param {string} recordId The Record ID of the record
  * @description Verifies the event repeats a given number of times in a record
  */
-Given("I should have a {string} file that contains {int} repeating instances of the event {string} for record ID {string}", (format, num, eventName, recordId) => {
+Given("I should have a {string} file that contains {int} repeating instance(s) of the event {string} for record ID {string}", (format, num, eventName, recordId) => {
     cy.readFile("cypress/downloads" + '/test_file.' + format).then( ($text) => {
         let lines = $text.trim().split('\n')
         let recCount = 0
