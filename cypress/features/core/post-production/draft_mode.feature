@@ -3,21 +3,37 @@ Feature: Draft Mode
   As a REDCap end user
   I want to see that Draft Mode is functioning as expected
 
-Scenario: Project Setup - 1
+Scenario: 0 - Project Setup - 1
     Given I am an "admin" user who logs into REDCap
     And I create a project named "20_DraftMode_v1115" with project purpose Practice / Just for fun via CDISC XML import from fixture location "cdisc_files/core/07_DesignForms_v1115.xml"
     
-Scenario: Project Setup - 2, 3
-    And I click on the button labeled exactly "Move project to production"
-    And I click on the input element labeled "Keep ALL data saved so far"
-    And I click on the button labeled exactly "YES, Move to Production Status"
-    And I assign the "Project Design and Setup" user right to the user named "Test User" with the username of "test_user" on project ID 14
+Scenario: 0 - Project Setup - 2, 3
+    And I should see a link labeled "User Rights"
+    And I click on the link labeled "User Rights"
+    And I click to edit username "test_user (Test User)"
+    And I click on the button labeled "Edit user privileges"
+    And I check the User Right named 'Project Setup & Design'
+    And I save changes within the context of User Rights
 
-Scenario: Project Setup - 4
-    And I visit the "Control Center" page
+    And I should see a link labeled "Designer"
+    And I click on the link labeled "Designer"
+
+    And I should see a link labeled "Data Types"
+    And I click on the link labeled "Data Types"
+
+    And I delete the field named "Required"
+
+    And I should see a link labeled "Project Setup"
+    And I click on the link labeled "Project Setup"
+
+    And I click on the button labeled exactly "Move project to production"
+    And I move the project to production by selection option "Keep ALL data saved so far"
+
+Scenario: 0 - Project Setup - 4
+    And I click on the link labeled "Control Center"
     And I click on the link labeled "General Configuration"
     And I enter "no-reply@test.com" into the input field labeled "Set a Universal FROM Email address"
-    And I click on the input button labeled "Save Changes"
+    And I click on the button labeled "Save Changes"
     Then I should see "Your system configuration values have now been changed!"
 
 Scenario: 1 - Log into Project
@@ -33,7 +49,7 @@ Scenario: 2 - Control Center
 
 Scenario: 3- Save settings
     And I select "No, only Administrators can add/modify events in production" on the dropdown field labeled "Allow normal users to add or modify events and arms on the Define My Events page"
-    And I click on the input button labeled "Save Changes"
+    And I click on the button labeled "Save Changes"
     And I should see "Your system configuration values have now been changed!"
 
 Scenario: 4 - Verify Project is in Production
@@ -74,7 +90,7 @@ Scenario: 6 - Draft Changes
 
 Scenario: 7 - Submit changes
     When I click on the button labeled "RETURN TO PREVIOUS PAGE"
-    And I click on the input button labeled "Submit Changes for Review"
+    And I click on the button labeled "Submit Changes for Review"
     And I click on the button labeled "Submit"
     Then I should see "SUCCESS! The changes you just submitted were made"
     And I should see "AUTOMATICALLY"
@@ -89,7 +105,7 @@ Scenario: 8 - Draft Changes
     Given I click on the link labeled "Control Center"
     And I click on the link labeled "User Settings"
     And I select "Never (always require an admin to approve changes)" on the dropdown field labeled "Allow production Draft Mode changes to be approved automatically"
-    And I click on the input button labeled "Save Changes"
+    And I click on the button labeled "Save Changes"
     Given I logout
     And I am a "standard" user who logs into REDCap
     And I click on the link labeled "My Projects"
@@ -104,7 +120,7 @@ Scenario: 8 - Draft Changes
     When I click on the link labeled "View detailed summary of all drafted changes"
     Then I should see "Details regarding all changes made in Draft Mode"
     When I click on the button labeled "RETURN TO PREVIOUS PAGE"
-    And I click on the input button labeled "Submit Changes for Review"
+    And I click on the button labeled "Submit Changes for Review"
     And I click on the button labeled "Submit"
 
     Then I should see "Your assistance is required to review the drafted changes for the production project"
@@ -133,7 +149,7 @@ Scenario: 9 - Reject changes
     When I click on the link labeled "Control Center"
     And I click on the link labeled "User Settings"
     And I select "Yes, if project has no records OR if has records and no critical issues exist" on the dropdown field labeled "Allow production Draft Mode changes to be approved automatically"
-    And I click on the input button labeled "Save Changes"
+    And I click on the button labeled "Save Changes"
     Given I logout
 
 Scenario: 10 - Draft Changes
@@ -156,7 +172,7 @@ Scenario: 10 - Draft Changes
     And I select the radio option "Choice99" for the field labeled "Radio Button Manual"
     And I select the checkbox option "Checkbox" for the field labeled "Checkbox"
 
-    And I click on the button labeled "Save & Exit Form"
+    And I select the submit option labeled "Save & Exit Form" on the Data Collection Instrument
 
     When I click on the link labeled "Designer"
     And I click on the link labeled "Remove all drafted changes"
@@ -198,7 +214,7 @@ Scenario: 10 - Draft Changes
 
 Scenario: 11 - Submit Changes 
     When I click on the button labeled "RETURN TO PREVIOUS PAGE"
-    And I click on the input button labeled "Submit Changes for Review"
+    And I click on the button labeled "Submit Changes for Review"
     And I click on the button labeled "Submit"
     
     Then I should see "Your assistance is required to review the drafted changes for the production project"
@@ -253,14 +269,16 @@ Scenario: 14 - Download and Edit Data Dictionary
 
 Scenario: 15 - Upload Revised Data Dictionary
     When I click on the link labeled "Designer"
-    When I enter draft mode
-    And I upload a data dictionary located at "core/20_DraftMode_DD_Modified.csv" to project ID 14
+    And I click on the link labeled "Dictionary"
+    And I enter draft mode
+    And I upload the data dictionary located at "core/20_DraftMode_DD_Modified.csv"
+
     Then I should see "Since the project is still in Draft Mode, these changes will not officially take effect until the drafted changes are submitted for review."
     And I should see a link labeled "Remove all drafted changes"
     And I should see a link labeled "view a detailed summary of all drafted changes"
 
 Scenario: 16 - Send Confirmation Email 
-    When I click on the input button labeled "Submit Changes for Review"
+    When I click on the button labeled "Submit Changes for Review"
     And I click on the button labeled "Submit" in the dialog box
 
     Given I logout

@@ -3,17 +3,10 @@ import { Given } from "cypress-cucumber-preprocessor/steps";
 /**
  * @module Survey
  * @author Adam De Fouw <aldefouw@medicine.wisc.edu>
- * @example I visit the public survey URL for Project ID {int}
- * @param {string} pid - the Project ID of the Public Survey you want to visit
- * @description Visits the Public Survey URL of a specif project identified by a Project ID.
+ * @example I visit the public survey URL for this project
+ * @description Visits the Public Survey URL of the current project we are in.
  */
-Given("I visit the public survey URL for Project ID {int}", (pid) => {
-    //Get the public survey URL as an admin so we know survey tools are available
-    cy.set_user_type('admin')
-
-    //Visit the project ID specified
-    cy.visit_version({page: 'index.php', params: 'pid=' + pid})
-
+Given("I visit the public survey URL for this project", () => {
     //Look for the name of the Distribution Tools for a Survey
     cy.get('a').contains('Survey Distribution Tools').click()
 
@@ -111,48 +104,53 @@ Given("I enter {string} into the {string} survey text input field", (text, field
 /**
  * @module Survey
  * @author Adam De Fouw <aldefouw@medicine.wisc.edu>
- * @example I disable surveys for Project ID {int}
- * @param {string} pid - the text you want to enter into the survey field
- * @description Disables surveys on a particular Project ID.
+ * @example I enable surveys for the project
+ * @description Enables surveys for the current project
  */
-Given("I disable surveys for Project ID {int}", (pid) => {
+Given("I enable surveys for the project", () => {
     cy.intercept({
         method: 'POST',
         url: '/redcap_v' + Cypress.env('redcap_version') + '/ProjectSetup/modify_project_setting_ajax.php?pid=*'
-    }).as('projectSettings')
-
-    //Re-enable surveys before proceeding
-    cy.visit_version({page: 'ProjectSetup/index.php', params: 'pid=' + pid})
-
-    cy.get('div').contains('Use surveys in this project?').parent().within(($div) => {
-        cy.get('button').contains('Disable').click()
-    })
-
-    //Wait to make sure that the AJAX request has completed before we move onto checking data
-    cy.wait('@projectSettings')
-})
-
-/**
- * @module Survey
- * @author Adam De Fouw <aldefouw@medicine.wisc.edu>
- * @example I enable surveys for Project ID {int}
- * @param {string} pid - the text you want to enter into the survey field
- * @description Enables surveys on a particular Project ID.
- */
-Given("I enable surveys for Project ID {int}", (project_id) => {
-    cy.intercept({
-        method: 'POST',
-        url: '/redcap_v' + Cypress.env('redcap_version') + '/ProjectSetup/modify_project_setting_ajax.php?pid=*'
-    }).as('projectSettings')
-
-    //Re-enable surveys before proceeding
-    cy.visit_version({page: 'ProjectSetup/index.php', params: 'pid=' + project_id})
+    }).as('enable_survey')
 
     cy.get('div').contains('Use surveys in this project?').parent().within(($div) => {
         cy.get('button').contains('Enable').click()
     })
 
     //Wait to make sure that the AJAX request has completed before we move onto next test
+    cy.wait('@enable_survey')
+    cy.get('#setupEnableSurveysBtn').should('contain.text', 'Disable')
+})
+
+/**
+ * @module Survey
+ * @author Adam De Fouw <aldefouw@medicine.wisc.edu>
+ * @example I disable surveys for the project
+ * @description Disables surveys for the current project
+ */
+Given("I disable surveys for the project", () => {
+    cy.intercept({
+        method: 'POST',
+        url: '/redcap_v' + Cypress.env('redcap_version') + '/ProjectSetup/modify_project_setting_ajax.php?pid=*'
+    }).as('projectSettings')
+
+    cy.get('div').contains('Use surveys in this project?').within(($div) => {
+        cy.get('button').contains('Disable').then(($btn) => {
+
+            //First click the button
+            $btn[0].click()
+
+            //If the onclick attribute includes firing a confirmation window
+            if($btn[0].getAttribute('onclick') === "confirmUndoEnableSurveys()") {
+                cy.document().its('body').find('div[role=dialog]').within(() => {
+                    //Click to disable this too
+                    cy.get('button').contains('Disable').click()
+                })
+            }
+        })
+    })
+
+    //Wait to make sure that the AJAX request has completed before we move onto checking data
     cy.wait('@projectSettings')
 })
 
@@ -221,20 +219,6 @@ Then("I should see the survey open exactly once by watching the tag of {string}"
     cy.get('td').contains('New instrument name').parent().within(($td) => {
         cy.get('input[type=text]', {force: true}).type(formname)
         cy.get('input[value=Create]', {force: true}).click()
-    })
-})
-
-/**
- * @module Survey
- * @author Rushi Patel <rushi.patel@uhnresearch.ca>
- * @example I enter draft mode
- * @description Enters draft mode
- */
- Given("I enter draft mode", () => {
-    cy.get('input[value="Enter Draft Mode"]').click()
-    //Check to see that REDCap indicates we're in DRAFT mode
-    cy.get('div#actionMsg').should(($alert) => {
-        expect($alert).to.contain('The project is now in Draft Mode.')
     })
 })
 

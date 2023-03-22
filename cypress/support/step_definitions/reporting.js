@@ -66,7 +66,7 @@ Given("I should see the report with {int} repeating instrument rows", (count) =>
     cy.get('table[id="report_table"]').children('tbody').find('tr').each( (tr, index) => {
         cy.get('@rCount').then(rCount => {
             let repeat = tr.children('td')[2].textContent
-            if(repeat != ""){
+            if(repeat !== ""){
                 rCount++
                 cy.wrap(rCount).as('rCount')
             }
@@ -86,11 +86,6 @@ Given("I should see the report with {int} repeating instrument rows", (count) =>
  * @param {string} order the order of the record IDs.
  * @description Visibility - Visually verifies that the report has record IDs in correct order
  */
-defineParameterType({
-    name: 'ordering',
-    regexp: /ascending|descending/
-})
-
 Given("I should see the report with the column named {string} {ordering}", (name, order) => {
 
     let column = null
@@ -100,7 +95,7 @@ Given("I should see the report with the column named {string} {ordering}", (name
         }
     }).then(function() {
         cy.get('table[id="report_table"]').children('tbody').find('tr').each( (tr, index) => {
-            if(index == 0){
+            if(index === 0){
                 let previousRow = tr.children('td')[column].textContent
                 cy.wrap(previousRow).as('previousRow')
             } else {
@@ -110,7 +105,7 @@ Given("I should see the report with the column named {string} {ordering}", (name
                     let [currM, currD, currY] = currentRow.split('-')
                     let prevDate = new Date(prevY, prevM - 1, prevD)
                     let currDate = new Date(currY, currM - 1, currD)
-                    if(order == "ascending"){
+                    if(order === "ascending"){
                         expect(prevDate).to.be.lessThan(currDate)
                     } else {
                         expect(prevDate).to.be.greaterThan(currDate)
@@ -283,23 +278,23 @@ Given("I should receive a download to a {string} file", (format) => {
 
         switch (ext) {
             case "bat":
-                if (format == sps) {
-                    hyperlink = 'a[href*="/DataExport/spss_pathway_mapper.php"]:visible'
+                if (format === sps) {
+                    hyperlink = 'a:has(img[src*="spss"]:visible):visible'
                 } else {
-                    hyperlink = 'a[href*="/DataExport/sas_pathway_mapper.php"]:visible'
+                    hyperlink = 'a:has(img[src*="pathway"]:visible):visible'
                 }
                 content_type = "application/bat"
                 break;
             case "csv":
                 content_type = "application/csv"
-                hyperlink = 'a[href*="/FileRepository/file_download.php"]:visible'
+                hyperlink = 'a:has(img[src*="csv"]:visible):visible'
                 break;
             default:
                 content_type = "application/octet-stream"
-                hyperlink = 'a[href*="/FileRepository/file_download.php"]:visible'
+                hyperlink = 'a:has(img[src*="Resources/images/download"]):visible'
         }
 
-        if(ext == ".bat"){
+        if(ext === ".bat"){
 
             cy.get(hyperlink).then((anchor) => {
                 const url = anchor.prop('href');
@@ -312,8 +307,8 @@ Given("I should receive a download to a {string} file", (format) => {
 
                     cy.writeFile("cypress/downloads" + '/test_file.' + ext, $response.body)
 
-                });
-            });
+                })
+            })
 
         } else {
             cy.get(hyperlink).eq(i).then((anchor) => {
@@ -327,11 +322,10 @@ Given("I should receive a download to a {string} file", (format) => {
 
                     cy.writeFile("cypress/downloads" + '/test_file.' + ext, $response.body)
 
-                });
-            });
+                })
+            })
         }
     }
-
 })
 
 /**
@@ -416,7 +410,7 @@ Given("I should have a {string} file that contains {int} repeating instrument ro
         for(let i = 1; i < lines.length; i++){
             let columns = lines[i].trim().split(',')
             let recordId = columns[0]
-            if(columns[2] != ""){
+            if(columns[2] !== ""){
                 rCount++
             }
         }

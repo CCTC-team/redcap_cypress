@@ -7,7 +7,7 @@ Scenario: 1- Login as admin1115
     Given I am an "admin" user who logs into REDCap
 
 Scenario: 2- Visible Pages
-    Given I visit the "Control Center" page
+    Given I click on the link labeled "Control Center"
     When I click on the link labeled "User Settings"
     Then I should see "System-level User Settings" 
 
@@ -16,7 +16,7 @@ Scenario: 3- Save User Settings System Configurations
     Then I should see "System-level User Settings"
     When I select "No, only Administrators can create new projects" on the dropdown field labeled "Allow normal users to create new projects?"
     And I select "No" on the dropdown field labeled "By default, allow new users to create projects"
-    When I click on the input button labeled "Save Changes"
+    When I click on the button labeled "Save Changes"
     Then I should see "Your system configuration values have now been changed!"
 
 Scenario: 4- Display User Management for Table-based Authentication Page 
@@ -30,7 +30,7 @@ Scenario: 5- Create a user
     And I enter "1115_1" into the input field labeled "Last name:"
     And I enter "user1115@redcap.edu" into the input field labeled "Primary email:"
     And I click on the input element labeled "Allow this user to request that projects be created for them by a REDCap administrator?"
-    And I click on the input button labeled "Save"
+    And I click on the button labeled "Save"
     Then I should see "User has been successfully saved."
     And I should see "An email with login information was sent to: user1115@redcap.edu"
 
@@ -60,7 +60,7 @@ Scenario: 11- Prevent a Second User with the Same Username
     And I enter "User12" into the input field labeled "First name:"
     And I enter "1115_12" into the input field labeled "Last name:"
     And I enter "user11115@redcap.edu" into the input field labeled "Primary email:"
-    And I click on the input button labeled "Save"
+    And I click on the button labeled "Save"
     Then I should see "ERROR: The user could not be added! A user already exists named" 
 
 Scenario: 12- Find user1115_1 Under Browse Users Page 
@@ -70,18 +70,25 @@ Scenario: 12- Find user1115_1 Under Browse Users Page
     And I click on the button labeled "Search"
     Then I should see "User1"
 
-Scenario: 13 & 14 - Cancel and Suspend test_user Account
+Scenario: 13 - Cancel Suspend test_user Account
+    Given for this scenario, I will cancel a confirmation window containing the text "Do you wish to suspend this user's REDCap account?"
     When I click on the link labeled "Browse Users"
     And I enter "test_user" into the input field labeled "User Search: Search for user by username, first name, last name, or primary email"
     And I click on the button labeled "Search"
     And I should see "User information for"
-    And after the next step, I will cancel a confirmation window containing the text "Do you wish to suspend this user's REDCap account?"
-    When I click on the input button labeled "Suspend user account"
-    Then I should NOT see "Success! The user has now been suspended from REDCap"
-    And I should NOT see "unsuspend user"  
 
-    But after the next step, I will accept a confirmation window containing the text "Do you wish to suspend this user's REDCap account?"
-    Then I click on the input button labeled "Suspend user account"
+    Then I click on the button labeled "Suspend user account"
+    Then I should NOT see "Success! The user has now been suspended from REDCap"
+    And I should NOT see "unsuspend user"
+
+Scenario: 14 - Suspend test_user Account
+    Given for this scenario, I will accept a confirmation window containing the text "Do you wish to suspend this user's REDCap account?"
+    When I click on the link labeled "Browse Users"
+    And I enter "test_user" into the input field labeled "User Search: Search for user by username, first name, last name, or primary email"
+    And I click on the button labeled "Search"
+    And I should see "User information for"
+
+    Then I click on the button labeled "Suspend user account"
     And I should see "Success! The user has now been suspended from REDCap"
     And I should see "unsuspend user"
 
@@ -94,7 +101,7 @@ Scenario: 15- Login with Suspended User Account
 
 Scenario: 16- View test_user in Suspended Users List
     Given I am an "admin" user who logs into REDCap
-    And I visit the "Control Center" page
+    And I click on the link labeled "Control Center"
     When I click on the link labeled "Browse Users"
     Then I should see "User Search: Search for user by username, first name, last name, or primary email"
     When I click on the link labeled "View User List By Criteria"
@@ -143,7 +150,7 @@ Scenario: 20- Confirm test_user can log in
 
 Scenario: 21- Find test_user2 Under Browse Users Page
     Given I am an "admin" user who logs into REDCap
-    And I visit the "Control Center" page
+    And I click on the link labeled "Control Center"
     And I click on the link labeled "Browse Users"
     And I enter "test_user2" into the input field labeled "User Search: Search for user by username, first name, last name, or primary email"
     And I click on the button labeled "Search"
@@ -153,7 +160,7 @@ Scenario: 21- Find test_user2 Under Browse Users Page
     And I should see "test_user2@example.com"
 
 Scenario: 22- Find test_user2 Under Browse Users Page by email
-    And I visit the "Control Center" page
+    And I click on the link labeled "Control Center"
     And I click on the link labeled "Browse Users"
     And I enter "test_user2@example.com" into the input field labeled "User Search: Search for user by username, first name, last name, or primary email"
     And I click on the input element labeled "User Search: Search for user by username, first name, last name, or primary email"
@@ -164,23 +171,30 @@ Scenario: 22- Find test_user2 Under Browse Users Page by email
     And I should see "Test User"
     And I should see "test_user2@example.com"
 
-Scenario: 23 & 24 - Find test_user2 Under Browse Users Page by Last name and Cancel Delete User from System
-    And I visit the "Control Center" page
+Scenario: 23 - Find test_user2 Under Browse Users Page by Last name and Cancel Delete User from System
+    Given for this scenario, I will cancel a confirmation window containing the text "Are you sure you wish to delete the user from REDCap?"
+    And I click on the link labeled "Control Center"
     And I click on the link labeled "Browse Users"
     And I enter "test_user2" into the input field labeled "User Search: Search for user by username, first name, last name, or primary email"
     And I click on the button labeled "Search"
     Then I should see "Editable user attributes"
     Then I should see "test_user2"
-    But after the next step, I will cancel a confirmation window containing the text "Are you sure you wish to delete the user from REDCap?"
     When I click on the button labeled "Delete user from system"
     Then I should NOT see "The user 'test_user2' has now been removed and deleted from all REDCap projects"
 
-    But after the next step, I will accept a confirmation window containing the text "Are you sure you wish to delete the user from REDCap?"
+Scenario: 24 - Find test_user2 Under Browse Users Page by Last name and Delete User from System
+    Given for this scenario, I will accept a confirmation window containing the text "Are you sure you wish to delete the user from REDCap?"
+    And I click on the link labeled "Control Center"
+    And I click on the link labeled "Browse Users"
+    And I enter "test_user2" into the input field labeled "User Search: Search for user by username, first name, last name, or primary email"
+    And I click on the button labeled "Search"
+    Then I should see "Editable user attributes"
+    Then I should see "test_user2"
     And I click on the button labeled "Delete user from system"
     Then I should see "The user 'test_user2' has now been removed and deleted from all REDCap projects"
 
 Scenario: 25- Confirm test_user2 Does Not Exist
-    And I visit the "Control Center" page
+    And I click on the link labeled "Control Center"
     And I click on the link labeled "Browse Users"
     And I enter "test_user2" into the input field labeled "User Search: Search for user by username, first name, last name, or primary email"
     And I click on the button labeled "Search"
@@ -207,7 +221,7 @@ Scenario: 28- Confirm test_user Does Not Have Access to Control Center or Create
 
 Scenario: 29- Cancel Change password for user1115_4 through Browse Users
     Given I am an "admin" user who logs into REDCap
-    And I visit the "Control Center" page
+    And I click on the link labeled "Control Center"
     When I click on the link labeled "Browse Users"
     And I click on the link labeled "View User List By Criteria"
     And I click on the button labeled "Display User List"
@@ -240,6 +254,7 @@ Scenario: 30- Change password for user1115_4 through Browse Users
 
     When I click on the button labeled "Reset password" in the dialog box
     Then I should see "The changes have been made successfully to the selected users!"
+    And I close the popup
 
 #Scenario: 31- Log Into user1115_4 with Old Password
         #aldefouw will handle 
@@ -254,15 +269,15 @@ Scenario: 33- Change primary Email for user1115_4
     Then I should see "User information for"
     When I click on the button labeled "Edit user info"
     And I enter "tester@test.edu" into the input field labeled "Primary email:"
-    And I click on the input button labeled "Save"
+    And I click on the button labeled "Save"
     Then I should see "The user's primary email was changed, and the user was notified about this change."
-    And I should see "tester@test.edu" 
+    And I should see "tester@test.edu"
 
 Scenario: 34- Update User Settings 
     When I click on the link labeled "User Settings"
     And I select "Yes, normal users can create new projects" on the dropdown field labeled "Allow normal users to create new projects?"
     And I select "Yes" on the dropdown field labeled "By default, allow new users to create projects or request that projects be created for them?"
-    When I click on the input button labeled "Save Changes"
+    When I click on the button labeled "Save Changes"
     Then I should see "Your system configuration values have now been changed!"
 
 Scenario: 35- Add user1115_5
@@ -272,7 +287,7 @@ Scenario: 35- Add user1115_5
     And I enter "1115_5" into the input field labeled "Last name:"
     And I enter "user1115.5@redcap.edu" into the input field labeled "Primary email:"
     And I check the checkbox labeled "Allow this user to create or copy projects?"
-    And I click on the input button labeled "Save"
+    And I click on the button labeled "Save"
     Then I should see "User has been successfully saved."
     And I should see "An email with login information was sent to: user1115.5@redcap.edu"
 
@@ -286,12 +301,13 @@ Scenario: 37- Edit Security & Authentication settings
     And I enter "1" into the input field labeled "Number of failed login attempts before user is locked out for a specified amount of time, which is set below."
     And I clear the field labeled "Amount of time user will be locked out after having failed login attempts exceeding the limit set above."
     And I enter "1" into the input field labeled "Amount of time user will be locked out after having failed login attempts exceeding the limit set above."
-    And I click on the input button labeled "Save Changes"
+    And I click on the button labeled "Save Changes"
     Then I should see "Your system configuration values have now been changed!"
+    And I logout
 
+#This scenario exists so that 39 is one too many attempts at logging in
 Scenario: 38- Log in test_user with Old Password
-    #This scenario exists so that 39 is one too many attempts at logging in
-    Given I logout
+    Then I should see "Log In"
     And I enter "test_user" into the input field labeled "Username:"
     And I enter "test" into the input field labeled "Password:" 
     And I click on the button labeled "Log In"
@@ -307,7 +323,7 @@ Scenario: 39- Log in test_user with Too Many Attempts
 
     Scenario: 40- Log in test_user with Correct Password after Buffer Period
     Given I wait for one minute
-    And I visit the version URL "/"    
+    And I visit the REDCap login page
     And I enter "test_user" into the input field labeled "Username:"
     And I enter "Testing123" into the input field labeled "Password:" 
     And I click on the button labeled "Log In"

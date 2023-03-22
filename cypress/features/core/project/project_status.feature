@@ -3,7 +3,7 @@ Feature: Project Status
   As a REDCap end user
   I want to see that Project Status is functioning as expected
 
-  Scenario: Project Setup - 1
+  Scenario: 0 - Project Setup
     Given I am an "admin" user who logs into REDCap
     And I create a project named "11_ProjectStatus_v1115" with project purpose Practice / Just for fun via CDISC XML import from fixture location "cdisc_files/core/07_DesignForms_v1115.xml"
     When I click on the link labeled "User Rights"
@@ -12,7 +12,7 @@ Feature: Project Status
     And I check the User Right named 'Project Setup & Design'
     And I check the User Right named 'User Rights'
     And I check the User Right named 'Data Access Groups'
-    And I click on the button labeled "Add user"
+    And I save changes within the context of User Rights
 
   Scenario: 1 -  Login as test user
     Given I am an "standard" user who logs into REDCap
@@ -35,7 +35,7 @@ Feature: Project Status
     When I click on the link labeled "Control Center"
     And I click on the link labeled "User Settings"
     And I select "Yes, normal users can move projects to production" on the dropdown field labeled "Allow normal users to move projects to production?"
-    And I click on the input button labeled "Save Changes"
+    And I click on the button labeled "Save Changes"
     Then I should see "Your system configuration values have now been changed!"
 
   Scenario: 6  - Login as test user
@@ -48,7 +48,7 @@ Feature: Project Status
 
   Scenario: 8 - Move Project to Production
     When I click on the button labeled "Move project to production"
-    And I move the project to production by selection option "input#keep_data"
+    And I move the project to production by selection option "Keep ALL data saved so far"
     When I click on the link labeled "Add / Edit Records"
     Then I should see the dropdown identified by "[id=record]" labeled "-- select record --" with the options below
     | 1 |
@@ -77,7 +77,7 @@ Feature: Project Status
     Given I click on the link labeled "My Projects"
     And I click on the link labeled "11_ProjectStatus_v1115"
     When I click on the button labeled "Move project to production"
-    And I move the project to production by selection option "input#delete_data"
+    And I move the project to production by selection option "Delete ALL data"
     When I click on the link labeled "Add / Edit Records"
     Then I should see the dropdown identified by "[id=record]" labeled "-- select record --" with the options below
     | |
@@ -104,13 +104,15 @@ Feature: Project Status
     And I click on the link labeled "11_ProjectStatus_v1115" 
     And I click on the link labeled "Other Functionality"
     When I click on the button labeled "Mark project as Completed"
-    And I click on the button labeled "Mark project as Completed" in the dialog box
-    Then I should see 1 row displayed in the projects table
-    #there is a popup but not a "close" button. it closes on its own but takes too long which causes a timing issue
+    When I click on the button labeled "Mark project as Completed" in the dialog box
+    Then I should see "My Projects"
+    Then I should see 0 rows displayed in the projects table
 
   Scenario: 18 - Show Completed Projects
     When I click on the link labeled "Show Completed Projects"
-    Then I should see a link labeled "11_ProjectStatus_v1115"
+    Then I should see 1 row displayed in the projects table
+    And I should see a link labeled "11_ProjectStatus_v1115"
+
     When I click on the link labeled "11_ProjectStatus_v1115"
     Then I should see "NOTICE: Project was marked as Completed" 
     Then I should NOT see "Restore Project"
@@ -129,7 +131,7 @@ Feature: Project Status
     Then I should see "NOTICE: Project was marked as Completed"
     When I click on the button labeled "Restore Project"
     Then I should see "PROJECT RESTORED!"
-    And I close popup
+    And I close the popup
 
   Scenario: 22 - Login as test user
     Given I logout
@@ -139,25 +141,25 @@ Feature: Project Status
     Given I click on the link labeled "My Projects"
     And I click on the link labeled "11_ProjectStatus_v1115"
     When I click on the button labeled "Move project to production"
-    And I move the project to production by selection option "input#keep_data"
+    And I move the project to production by selection option "Keep ALL data saved so far"
 
   Scenario: 24 - Move Project to Analysis/Cleanup Status
     When I click on the link labeled "Other Functionality"
     And I click on the button labeled "Move to Analysis/Cleanup status"
-    And I click on the button labeled "YES, Move to Analysis/Cleanup Status" in the dialog box
-    Then I should see "This project is currently in Analysis/Cleanup status"
+    And I click on the button labeled "YES, Move to Analysis/Cleanup Status" in the project status dialog box
+    Then I should see "Project status:  Analysis/Cleanup"
 
   Scenario: 25 - Lock Entire Record
     When I click on the link labeled "Other Functionality"
     And I click on the button labeled "Modify"
-    And I click on the button labeled "Set all project data as Read-only / Locked" in the dialog box
+    And I click on the button labeled "Set all project data as Read-only / Locked" in the project status dialog box
     Then I should see "The data in this project is currently:"
-    Then I should see "Read-only / Locked"
+    And I should see "Read-only / Locked"
 
   Scenario: 26 - Set to Editable
-    When I click on the link labeled "Other Functionality"
+    Given I should see a button labeled "Modify"
     And I click on the button labeled "Modify"
-    And I click on the button labeled "Set to Editable (existing records only)" in the dialog box
+    And I click on the button labeled "Set to Editable (existing records only)" in the project status dialog box
     Then I should see "Editable (existing records only)"
 
   Scenario: 27 - Move Back to Production Status
@@ -181,13 +183,10 @@ Feature: Project Status
     Given I click on the link labeled "Other Functionality"
     When I click on the button labeled "Move back to Production status"
     And I click on the button labeled "YES, Move to Production Status" in the dialog box
-    Then I should see "Project Status Management"
-    When I click on the link labeled "Project Home"
-    Then I should see "Project status:"
-    And I should see "Production"
+    Then I should see "Project status:  Production"
 
   Scenario: 31 -  Mark Project as Completed
-    Given I click on the link labeled "Other Functionality"
+    Given I should see a button labeled "Mark project as Completed"
     When I click on the button labeled "Mark project as Completed"
     And I click on the button labeled "Mark project as Completed" in the dialog box
     Then I should see 0 rows displayed in the projects table
@@ -199,6 +198,6 @@ Feature: Project Status
     Then I should see "NOTICE: Project was marked as Completed" 
     When I click on the button labeled "Restore Project"
     Then I should see "PROJECT RESTORED!"
-    And I close popup
+    And I close the popup
 
 

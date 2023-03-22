@@ -5,10 +5,11 @@ Feature: Data Entry through the Data Collection Instrument
 
   Scenario: 0 - Create the Project
     Given I am an "admin" user who logs into REDCap
-    And I create a project named "14_DirectDataEntrywithDataCollectionInstrument_v1115" with project purpose Operational Support via CDISC XML import from fixture location "cdisc_files/core/07_DesignForms_v1115.xml"
+    And I create a project named "Entry Via Instrument" with project purpose Operational Support via CDISC XML import from fixture location "cdisc_files/core/07_DesignForms_v1115.xml"
 
   Scenario: 0 - Add user
-    Given I visit Project ID 14
+    Given I click on the link labeled "My Projects"
+    And I click on the link labeled "Entry Via Instrument"
     And I click on the link labeled "User Rights"
     And I enter "test_user" into the username input field
     And I click on the button labeled "Add with custom rights"
@@ -34,10 +35,10 @@ Feature: Data Entry through the Data Collection Instrument
     And I click on the button labeled 'Define My Events'
     And I click on the link labeled "Arm 2:"
     And I enter "Event 2" into the input field labeled "Descriptive name for this event"
-    And I click on the input button labeled "Add new event"
+    And I click on the button labeled "Add new event"
     Then I should see "Event 2"
     When I enter "Event 3" into the input field labeled "Descriptive name for this event"
-    And I click on the input button labeled "Add new event"
+    And I click on the button labeled "Add new event"
     Then I should see "Event 3"
 
   Scenario: 0 - Project Setup - Designate Instruments to Events
@@ -70,20 +71,23 @@ Feature: Data Entry through the Data Collection Instrument
     Given I click on the link labeled 'Project Setup'
     And I should see that repeatable instruments are modifiable
     And I open the dialog box for the Repeatable Instruments and Events module
-    And I select "Repeat Instruments (repeat independently of each other)" on the dropdown table field labeled "Event 1 (Arm 1: Arm 1)"
+    And I select "Repeat Instruments (repeat independently of each other)" on the dropdown field labeled "Event 1 (Arm 1: Arm 1)"
     And I check the checkbox labeled "Data Dictionary"
     And I uncheck the checkbox labeled "Data Types"
-    And I select "-- not repeating --" on the dropdown table field labeled "Event 2 (Arm 1: Arm 1)"
-    And I select "Repeat Entire Event (repeat all instruments together)" on the dropdown table field labeled "Event 1 (Arm 2: Arm Two)"
+    And I select "-- not repeating --" on the dropdown field labeled "Event 2 (Arm 1: Arm 1)"
+    And I select "Repeat Entire Event (repeat all instruments together)" on the dropdown field labeled "Event 1 (Arm 2: Arm Two)"
     And I click on the button labeled "Save"
+    Then I should see a dialog containing the following text: "Successfully saved"
+    And I click on the button labeled "Close" in the dialog box
 
   Scenario: 0 - Erase data
-    Given I click on the link labeled 'Other Functionality'
+    Given I should see a link labeled "Other Functionality"
+    When I click on the link labeled "Other Functionality"
     And I click on the button labeled "Erase all data"
     And I click on the button labeled "Erase all data" in the dialog box
     Then I should see "All data has now been deleted from the project!"
 
-    When I close popup
+    When I close the popup
     Then I should see "Data Management"
 
   Scenario: 0 - Project modifications to the Data Types form
@@ -98,7 +102,8 @@ Feature: Data Entry through the Data Collection Instrument
 
   Scenario: 1 to 4 - Add/Edit Records
     Given I am a "standard" user who logs into REDCap
-    And I visit Project ID 14
+    Given I click on the link labeled "My Projects"
+    And I click on the link labeled "Entry Via Instrument"
     And I click on the link labeled "Add / Edit Records"
     And I click on the button labeled "Add new record"
     And I click the bubble to add a record for the "Data Types" longitudinal instrument on event "Event 1"
@@ -261,7 +266,7 @@ Feature: Data Entry through the Data Collection Instrument
     And I click on the button labeled "Choose action for record"
     And I select the option labeled "Delete record (all forms/events)"
     And I click on the button labeled "DELETE RECORD" in the dialog box
-    And I close popup
+    And I close the popup
     And I click on the link labeled "Record Status Dashboard"
     Then I should see "Arm 1:"
 
@@ -308,7 +313,7 @@ Feature: Data Entry through the Data Collection Instrument
 
   Scenario: 29 to 31 - Delete Event
     When I click on the link labeled "Record Status Dashboard"
-    And I click on the link labeled "3"
+    Then I click on the link labeled exactly "3"
     Then I should see "Record Home Page"
 
     When I click the X to delete all data related to the event named "Event 1"
@@ -324,7 +329,7 @@ Feature: Data Entry through the Data Collection Instrument
     And I click on the button labeled "DELETE RECORD" in the dialog box
     Then I should see 'Record ID "3" was successfully deleted.'
 
-    When I close popup
+    When I close the popup
     And I click on the link labeled "Record Status Dashboard"
     Then I should see "Arm 2:"
     And I should see "No records exist yet"
