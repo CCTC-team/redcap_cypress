@@ -56,12 +56,13 @@ Feature: Export Data
     And I click on the link labeled "21_ExportDataExtraction_v1115"
     And I click on the link labeled "Record Status Dashboard"
     # Getting the Event wrong
-    # And I locate the bubble for the "Survey" instrument on event "Event 1" for record ID "1" and click the repeating instrument bubble for the first instance
-    # And I click on the button labeled "Survey options"
+    And I locate the bubble for the "Survey" instrument on event "Event 1" for record ID "1" and click the repeating instrument bubble for the first instance
+    And I click on the button labeled "Survey options"
+    # The survey opens in a new tab
+    And I click on the survey option label containing "Open survey" label
+    And I click on the button labeled "Submit"
+    And I click on the button labeled "Close survey"
     # And I open the survey from Survey options and submit it
-    # And I click on the survey option label containing "Open survey" label
-    # And I click on the button labeled "Submit"
-    # # And I click on the button labeled "Close survey"
     # And I locate the bubble for the "Survey" instrument on event "Event 1" for record ID "2" and click the repeating instrument bubble for the first instance
     # And I wait for 0.5 seconds
     # And I click on the button labeled "Survey options"
