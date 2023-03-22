@@ -36,7 +36,7 @@ Feature: My Projects
   Scenario: 2 - The number in Records column in the My Projects dashboard should match the no:of records in a project
     Given I click on the link labeled "13_MyProjects_v1115"
     And I click on the link labeled "Record Status Dashboard"
-    Then I should see 1 records in the Record Status Dashboard
+    Then I should see 1 record in the Record Status Dashboard
     And I click on the link labeled "Arm 2:"
     Then I should see 0 records in the Record Status Dashboard
     And I click on the link labeled "My Projects"
@@ -45,7 +45,7 @@ Feature: My Projects
   Scenario: 3 - The number in Fields column in the My Projects dashboard should match the sum of fields and instruments in a project
     Given I click on the link labeled "13_MyProjects_v1115"
     And I click on the link labeled "Designer"
-    Then I should see a total number of 2 instruments
+    Then I should see 2 instruments
     And The sum of field count of all the instruments should equal to 21
     And I click on the link labeled "My Projects"
     Then I should see "23" in column 3 next to the link "13_MyProjects_v1115"
@@ -54,7 +54,7 @@ Feature: My Projects
   Scenario: 4 - The number in Instruments column in the My Projects dashboard should match the no:of instruments in a project
     Given I click on the link labeled "13_MyProjects_v1115"
     And I click on the link labeled "Designer"
-    Then I should see a total number of 2 instruments
+    Then I should see 2 instruments
     And I click on the link labeled "My Projects"
     Then I should see "2" in column 4 next to the link "13_MyProjects_v1115"
    
@@ -158,7 +158,7 @@ Feature: My Projects
     Then I should see "notesbox1"
     And I should see the element identified by "textarea[id=notesbox1]"
     And I click on the link labeled "Designer"
-    Then I should see a total number of 2 instruments
+    Then I should see 2 instruments
     And The sum of field count of all the instruments should equal to 22
     And I click on the link labeled "My Projects"
     Then I should see "24" in column 3 next to the link "13_MyProjects_v1115"
@@ -175,7 +175,7 @@ Feature: My Projects
     And the AJAX request tagged by "render" has completed
     Then I should NOT see "notesbox1"
     And I click on the link labeled "Designer"
-    Then I should see a total number of 2 instruments
+    Then I should see 2 instruments
     And The sum of field count of all the instruments should equal to 21
     And I click on the link labeled "My Projects"
     Then I should see "23" in column 3 next to the link "13_MyProjects_v1115"
@@ -190,7 +190,7 @@ Feature: My Projects
     And I enter "Test" into the field identified by "input[id=new_form-data_types]"
     And I click on the element identified by "input[value=Create]"
     Then I should see "Test"
-    And I should see a total number of 3 instruments
+    And I should see 3 instruments
     And I click on the link labeled "My Projects"
     Then I should see "3" in column 4 next to the link "13_MyProjects_v1115"
   
@@ -204,7 +204,7 @@ Feature: My Projects
     Then I should see "Deleted!"
     And I should see "The data collection instrument and all its fields have been successfully deleted!"
     Then I should no longer see the element identified by "tr[id=row_3]"
-    And I should see a total number of 2 instruments
+    And I should see 2 instruments
     And I click on the link labeled "My Projects"
     Then I should see "2" in column 4 next to the link "13_MyProjects_v1115"
 

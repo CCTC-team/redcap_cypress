@@ -22,17 +22,16 @@ Given('I should see {string} in column {int} next to the link {string}', (text, 
  */
 Given('I should see the icon {string} in column {int} next to the link {string}', (text, num, label) => {
     cy.get('a').contains(label).parents('tr').find(':nth-child(' + num + ') > div').children('[title="' + text + '"]')
-
 })
 
 /**
  * @module my_projects
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I should see {int} records in the Record Status Dashboard
+ * @example I should see {int} record(s) in the Record Status Dashboard
  * @param {int} num the number that should be visible
  * @description Visibility - Visually verifies the total no:of records
  */
-Given('I should see {int} records in the Record Status Dashboard', (num) => { 
+Given('I should see {int} record(s) in the Record Status Dashboard', (num) => { 
     cy.get('div').contains('Displaying record').children('span').contains(num)
 })
 
@@ -40,11 +39,11 @@ Given('I should see {int} records in the Record Status Dashboard', (num) => {
 /**
  * @module my_projects
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I should see a total number of {int} instruments
+ * @example I should see {int} instrument(s)
  * @param {int} count - the number of instrument rows seen
  * @description Visibility - Verifies the correct number of instrument rows are present
  */
-Given('I should see a total number of {int} instruments', (count) => {
+Given('I should see {int} instrument(s)', (count) => {
 
     cy.get('table[id="table-forms_surveys"]').children('tbody').find('tr').as('iRow')
     cy.get('@iRow').then(iRow => {
