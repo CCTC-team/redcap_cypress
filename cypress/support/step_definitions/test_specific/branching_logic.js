@@ -3,6 +3,19 @@ import {Given} from "cypress-cucumber-preprocessor/steps";
 /**
  * @module TestSpecific/BranchingLogic
  * @author David Phillips <david.phillips22@nhs.net>
+ * @example I set the branching logic of the field with the variable name {string} to {string}
+ * @param {string} variableName - the field variable name
+ * @param {string} branchingLogic - the branching logic
+ * @description Sets the branching logic of the field with the specified variable name to the provided value.
+ */
+Given('I set the branching logic of the field with the variable name {string} to {string}', (variableName, branchingLogic) => {
+    setBranchingLogic(variableName, branchingLogic)
+    saveBranchingLogic()    
+})
+
+/**
+ * @module TestSpecific/BranchingLogic
+ * @author David Phillips <david.phillips22@nhs.net>
  * @example I set the branching logic of the field with the variable name {string} to {string} and {string} updating fields containing shared branching logic
  * @param {string} variableName - the field variable name
  * @param {string} branchingLogic - the branching logic
@@ -90,7 +103,7 @@ Given('Every field contains the branching logic {string} except the Record ID fi
  * @description Opens the public survey in the main tab.
  */
 Given('I open the public survey', () => {
-    cy.url().as("survey_distribution-url")
+    cy.url().as("url-prior-survey")
     cy.window().then((win) => {
         cy.stub(win, 'open').as('open')
     })
@@ -190,12 +203,53 @@ Given('I close the public survey', () => {
  * @module TestSpecific/BranchingLogic
  * @author David Phillips <david.phillips22@nhs.net>
  * @example The survey closes
- * @description Verifies that the survey was closed and navigates back to the My Projects page.
+ * @description Verifies that the survey was closed and navigates back to the url prior to opening the survey.
  */
 Given('The survey closes', () => {
     cy.get('@close').should('have.been.calledOnce')
-    cy.get('@survey_distribution-url').then(($url) => {
+    cy.get('@url-prior-survey').then(($url) => {
         cy.visit($url)
+    })
+})
+
+/**
+ * @module TestSpecific/BranchingLogic
+ * @author David Phillips <david.phillips22@nhs.net>
+ * @example I select the survey radio option {string} for the field labeled {string}
+ * @param {string} radioOption - the radio option
+ * @param {string} fieldLabel - the field label
+ * @description Selects the survey radio option {string} for the field labeled {string}.
+ */
+Given('I select the survey radio option {string} for the field labeled {string}', (radioOption, fieldLabel) => {
+    cy.get(`td > label:contains(${fieldLabel})`)
+    .parentsUntil('tbody')
+    .find(`label:contains(${radioOption})`)
+    .parent()
+    .find('input[type="radio"]')
+    .check()
+})
+
+/**
+ * @module TestSpecific/BranchingLogic
+ * @author David Phillips <david.phillips22@nhs.net>
+ * @example I {string} select the survey checkbox option {string} for the field labeled {string}
+ * @param {string} checkMode - the check mode <check|uncheck>
+ * @param {string} checkboxOption - the checkbox option
+ * @param {string} fieldLabel - the field label
+ * @description Checks or unchecks the survey checkbox option {string} for the field labeled {string}.
+ */
+Given('I {string} the survey checkbox option {string} for the field labeled {string}', (checkMode, checkboxOption, fieldLabel) => {
+    cy.get(`td > label:contains(${fieldLabel})`)
+    .parentsUntil('tbody')
+    .find(`label:contains(${checkboxOption})`)
+    .parent()
+    .find('input[type="checkbox"]').then(($ele) => {
+        if (checkMode == "check") {
+            cy.wrap($ele).check()
+        }
+        else {
+            cy.wrap($ele).uncheck()
+        }
     })
 })
 
