@@ -3,101 +3,72 @@ import {Given} from "cypress-cucumber-preprocessor/steps";
 /**
  * @module TestSpecific/BranchingLogic
  * @author David Phillips <david.phillips22@nhs.net>
- * @example I set the branching logic of every field to record_id = {string} except the Record ID field and the field with the label {string}
- * @param {string} branchingLogicValue - the branching logic value
- * @param {string} excludedFieldLabel - the label of the field to exclude
- * @description Sets the branching logic of every field except the Record ID and the field with the specified label.
+ * @example I set the branching logic of the field with the variable name {string} to {string} and {string} updating fields containing shared branching logic
+ * @param {string} variableName - the field variable name
+ * @param {string} branchingLogic - the branching logic
+ * @param {string} autoUpdateOption - <temporarily decline|permanently decline|temporarily accept|permanently accept>
+ * @description Sets the branching logic of the field with the specified variable name to the provided value and temporarily decline|permanently decline|temporarily accept|permanently accept updating fields containing shared branching logic.
  */
-Given('I set the branching logic of every field to record_id = {string} except the Record ID field and the field with the label {string}', (branchingLogicValue, excludedFieldLabel) => {  
-    getAllFieldsExcept("Record ID", excludedFieldLabel).parentsUntil('table').find('.designVarName')
-    .each(($field, index) => {
-        let variableName = cleanTextAfter($field.html().split("<span")[0], "</i>")
-        if (!fieldHasBranchingLogic(variableName)) {
-            clickOnBranchingLogicIcon(variableName)
-            selectDragNDropLogicBuilder()
-            dragNDrop("record_id", "(define criteria)")
-            selectOption("=", ".brDrag > select")
-            typeInput(branchingLogicValue, ".brDrag > input")
-            saveBranchingLogic()
-    
-            if (index == 0) {
-                cy.focused().should('have.text', 'Close').click()
-            }
-        }
-    })
-})
+Given('I set the branching logic of the field with the variable name {string} to {string} and {string} updating fields containing shared branching logic', (variableName, branchingLogic, autoUpdateOption) => {
+    setBranchingLogic(variableName, branchingLogic)
 
-/**
- * @module TestSpecific/BranchingLogic
- * @author David Phillips <david.phillips22@nhs.net>
- * @example I click on the branching logic icon for the field with label {string}
- * @param {string} field_name - the field label
- * @description Clicks on the branching logic icon for a field with a specific label.
- */
-Given('I click on the branching logic icon for the field with label {string}', (fieldLabel) => {
     cy.intercept({
         method: 'POST',
         url: '/redcap_v' + Cypress.env('redcap_version') + "/Design/branching_logic_builder.php?*"
     }).as('builder')
-    
-    cy.click_on_design_field_function("Branching Logic", fieldLabel)
-    cy.wait('@builder')
+
+    cy.intercept({
+        method: 'GET',
+        url: '/redcap_v' + Cypress.env('redcap_version') + "/Design/online_designer_render_fields.php?*"
+    }).as('render_fields')
+
+    if (autoUpdateOption == "temporarily decline") {
+        cy.get('button').contains('Save').click()
+        cy.get('button:contains("No")').click()
+        cy.wait('@builder')
+    }
+    else if (autoUpdateOption == "temporarily accept") {
+        cy.get('button').contains('Save').click()
+        cy.get('button:contains("Yes")').click()
+        cy.wait('@builder')
+        cy.wait('@render_fields')
+    }
+    else if (autoUpdateOption == "permanently decline") {
+        cy.get('button').contains('Save').click()
+        cy.get('#branching_update_chk').check()
+        cy.get('button:contains("No")').click()
+        cy.wait('@builder')
+    }
+    else {
+        cy.get('button').contains('Save').click()
+        cy.get('#branching_update_chk').check()
+        cy.get('button:contains("Yes")').click()
+        cy.wait('@builder')
+        cy.wait('@render_fields')
+    }
 })
 
 /**
  * @module TestSpecific/BranchingLogic
  * @author David Phillips <david.phillips22@nhs.net>
- * @example I select the Drag-N-Drop Logic Builder
- * @description Selects the Drag-N-Drop Logic Builder.
+ * @example I set the branching logic of every field to {string} except the Record ID field and the field with the label {string}
+ * @param {string} branchingLogicValue - the branching logic value
+ * @param {string} excludedFieldLabel - the label of the field to exclude
+ * @description Sets the branching logic of every field except the Record ID and the field with the specified label.
  */
-Given('I select the Drag-N-Drop Logic Builder', () => {
-    selectDragNDropLogicBuilder()    
-})
+Given('I set the branching logic of every field to {string} except the Record ID field and the field with the label {string}', (branchingLogicValue, excludedFieldLabel) => {  
+    getAllFieldsExcept("Record ID", excludedFieldLabel).parentsUntil('table').find('.designVarName')
+    .each(($field, index) => {
+        let variableName = cleanTextAfter($field.html().split("<span")[0], "</i>")
+        if (!fieldHasBranchingLogic(variableName)) {
+            setBranchingLogic(variableName, branchingLogicValue)
+            saveBranchingLogic()
 
-/**
- * @module TestSpecific/BranchingLogic
- * @author David Phillips <david.phillips22@nhs.net>
- * @example I drag a field choice with variable name {string} and criteria {string}
- * @param {string} variableName - the variable name
- * @param {string} criteria - the criteria
- * @description Drags and drops a field choice with a specific variable name and criteria in the Drag-N-Drop Logic Builder
- */
-Given('I drag a field choice with variable name {string} and criteria {string}', (variableName, criteria) => {
-    dragNDrop(variableName, criteria)
-})
-
-/**
- * @module TestSpecific/BranchingLogic
- * @author David Phillips <david.phillips22@nhs.net>
- * @example I click on the branching logic save button
- * @description Clicks the branching logic save button.
- */
-Given("I click on the branching logic save button", () => {
-    saveBranchingLogic()
-})
-
-/**
- * @module TestSpecific/BranchingLogic
- * @author David Phillips <david.phillips22@nhs.net>
- * @example I select {string} from the dropdown identified by {string}
- * @param {string} option - the option text
- * @param {string} selector - the selector
- * @description Selects an option from a dropdown with a specific identifier.
- */
-Given('I select {string} from the dropdown identified by {string}', (option, selector) => {
-    selectOption(option, selector)
-})
-
-/**
- * @module TestSpecific/BranchingLogic
- * @author David Phillips <david.phillips22@nhs.net>
- * @example I enter {string} into the input identified by {string}
- * @param {string} text - the text to enter
- * @param {string} selector - the selector
- * @description Enters text into a input element with a specific identifier.
- */
-Given('I enter {string} into the input identified by {string}', (text, selector) => {
-    typeInput(text, selector)
+            if (index == 0) {
+                cy.click_on_dialog_button('Close')
+            }
+        }
+    })
 })
 
 /**
@@ -115,37 +86,11 @@ Given('Every field contains the branching logic {string} except the Record ID fi
 /**
  * @module TestSpecific/BranchingLogic
  * @author David Phillips <david.phillips22@nhs.net>
- * @example I can successfully apply the same branching logic {string} to all fields containing the same original branching logic except the Record ID field and the field with the label {string}
- * @param {string} branchingLogic - the branching logic to apply and check
- * @param {string} excludedFieldLabel - the label of the field to exclude from the check
- * @description Applies the same branching logic to all fields containing the same original branching logic except the Record ID and the field with the specified label. Also verifies that the action was successful
- */
-Given('I can successfully apply the same branching logic {string} to all fields containing the same original branching logic except the Record ID field and the field with the label {string}', (branchingLogic, excludedFieldLabel) => {
-    
-    cy.intercept({
-        method: 'POST',
-        url: '/redcap_v' + Cypress.env('redcap_version') + "/Design/branching_logic_builder.php?*"
-    }).as('builder')
-
-    cy.intercept({
-        method: 'GET',
-        url: '/redcap_v' + Cypress.env('redcap_version') + "/Design/online_designer_render_fields.php?*"
-    }).as('render_fields')
-
-    cy.get('button').contains('Yes').click()
-    cy.wait('@builder')
-    cy.wait('@render_fields')
-
-    assertOnBranchingLogic(branchingLogic, excludedFieldLabel)
-})
-
-/**
- * @module TestSpecific/BranchingLogic
- * @author David Phillips <david.phillips22@nhs.net>
  * @example I open the public survey
  * @description Opens the public survey in the main tab.
  */
 Given('I open the public survey', () => {
+    cy.url().as("survey_distribution-url")
     cy.window().then((win) => {
         cy.stub(win, 'open').as('open')
     })
@@ -245,22 +190,22 @@ Given('I close the public survey', () => {
  * @module TestSpecific/BranchingLogic
  * @author David Phillips <david.phillips22@nhs.net>
  * @example The survey closes
- * @description Verifies that the survey was closed and navigates back to the Survey Distribution Tools page.
+ * @description Verifies that the survey was closed and navigates back to the My Projects page.
  */
 Given('The survey closes', () => {
     cy.get('@close').should('have.been.calledOnce')
-    cy.visit('/redcap_v' + Cypress.env('redcap_version') + "/Surveys/invite_participants.php?pid=14")
+    cy.get('@survey_distribution-url').then(($url) => {
+        cy.visit($url)
+    })
 })
 
-/**
- * @module TestSpecific/BranchingLogic
- * @author David Phillips <david.phillips22@nhs.net>
- * @example I check the "Do not show this message again." checkbox
- * @description Checks the "Do not show this message again." checkbox
- */
-Given('I check the "Do not show this message again." checkbox', () => {
-    cy.get('#branching_update_chk').check()
-})
+function setBranchingLogic(variableName, branchingLogic) {
+    clickOnBranchingLogicIcon(variableName)
+    cy.get('a:visible:contains("Clear logic")').click()
+    cy.get('#advBranchingBox').click()
+    cy.get('.ace_content').type(branchingLogic)
+    cy.get('button:contains("Update & Close Editor")').click()
+}
 
 function fieldHasBranchingLogic(variableName) {
     cy.get(`span[id="bl-label_${variableName}"]`).then(function(ele) {
@@ -273,7 +218,7 @@ function clickOnBranchingLogicIcon(variableName) {
         method: 'POST',
         url: '/redcap_v' + Cypress.env('redcap_version') + "/Design/branching_logic_builder.php?*"
     }).as('builder')
-    
+
     cy.get(`.designVarName:contains(${variableName})`)
     .parent()
     .find('img[title="Branching Logic"]')
@@ -283,35 +228,6 @@ function clickOnBranchingLogicIcon(variableName) {
     cy.wait('@builder')
 }
 
-function selectDragNDropLogicBuilder() {
-    cy.intercept({
-        method: 'POST',
-        url: '/redcap_v' + Cypress.env('redcap_version') + "/Design/branching_logic_builder.php?*"
-    }).as('builder')
-
-    cy.get('#logic_builder').should('be.visible')
-    cy.get('#logic_builder').find('tr:nth-child(4)').find('td > input').first().click()
-    cy.wait('@builder')
-}
-
-function dragNDrop(variableName, criteria) {
-    cy.get(`[val="[${variableName}] = ${criteria}"].ui-draggable-disabled`).should('not.exist')
-    cy.get('.ui-droppable').should('exist')
-    cy.get(`[val="[${variableName}] = ${criteria}"]`).drag('#dropZone1').then((success) => {
-        if (!success) {
-            //may need to try the drop again
-            cy.get('div#dropZone1.listBox.ui-droppable').trigger('drop')
-            .trigger('mouseup').trigger('pointerup')
-        }
-    })
-}
-function selectOption(option, selector) {
-    cy.get(selector).select(option)
-}
-
-function typeInput(text, selector) {
-    cy.get(selector).type(text)
-}
 
 function saveBranchingLogic() {
     cy.intercept({

@@ -7,7 +7,8 @@ Feature: Branching Logic
   Given I am a "standard" user who logs into REDCap
   # And I create a project named "FirstProject_1115" with project purpose Operational Support via CDISC XML import from fixture location "cdisc_files/projects/FirstProject_1115.xml"
   And I create a project named "BranchingLogic_v1115" with project purpose Operational Support via CDISC XML import from fixture location "cdisc_files/projects/DesignForms_v1115.xml"
-  And I visit Project ID 14
+  And I click on the link labeled "My Projects"
+  And I click on the link labeled "BranchingLogic_v1115"
   Then I should see "Development"
   And I click on the link labeled "Project Setup"
   And I click on the element identified by "button[id=setupLongiBtn]"
@@ -31,12 +32,13 @@ Feature: Branching Logic
 
   Scenario: 1
   Given I am a "standard" user who logs into REDCap
-  And I visit Project ID 14
+  And I click on the link labeled "My Projects"
+  And I click on the link labeled "BranchingLogic_v1115"
   And I click on the link labeled "Project Setup"
   And I click on the button labeled "Online Designer"
   And I click on the element identified by "#formlabel-data_types"
   #NB typo in manual script - Caculated rather than Calculated
-  And I set the branching logic of every field to record_id = "999" except the Record ID field and the field with the label "Caculated Field"
+  And I set the branching logic of every field to "[record_id] = '999'" except the Record ID field and the field with the label "Caculated Field"
   Then Every field contains the branching logic "[record_id] = '999'" except the Record ID field and the field with the label "Caculated Field"
 
   Scenario: 2
@@ -60,26 +62,12 @@ Feature: Branching Logic
   #for now manually click on leave unless running in dev tools mode
   Given I click on the button labeled "Modify instrument"
 
-  #need to call a single step definition which applies the same branching logic to all fields and asserts that this has been successful
-  #may need to create helper functions for the update steps and call these from common step definitions
   Scenario: 5
-  Given I click on the branching logic icon for the field with label "Name"
-  And I click on the link labeled "Clear logic"
-  And I click on the element identified by "#advBranchingBox"
-  And I enter "[record_id] <> '999'" into the field identified by ".ace_content"
-  And I click on the button labeled "Update & Close Editor"
-  And I click on the button labeled exactly "Save"
-  And I click on the button labeled "No"
+  Given I set the branching logic of the field with the variable name "ptname" to "[record_id] <> '999'" and "temporarily decline" updating fields containing shared branching logic
   #verify that on one field has been updated
-  #duplicated logic
-  And I click on the branching logic icon for the field with label "Text2"
-  And I click on the link labeled "Clear logic"
-  And I click on the element identified by "#advBranchingBox"
-  And I enter "[record_id] <> '999'" into the field identified by ".ace_content"
-  And I click on the button labeled "Update & Close Editor"
-  And I click on the button labeled exactly "Save"
+  And  I set the branching logic of the field with the variable name "text2" to "[record_id] <> '999'" and "temporarily accept" updating fields containing shared branching logic
   #NB typo in manual script - Caculated rather than Calculated
-  Then I can successfully apply the same branching logic "[record_id] <> '999'" to all fields containing the same original branching logic except the Record ID field and the field with the label "Caculated Field"
+  Then Every field contains the branching logic "[record_id] <> '999'" except the Record ID field and the field with the label "Caculated Field"
 
   Scenario: 6
   Given I click on the link labeled "Survey Distribution Tools"
@@ -102,13 +90,6 @@ Feature: Branching Logic
   Given I click on the button labeled "Modify instrument"
 
   Scenario: 9
-  #Could create a step definition to change and verify the branching logic of a single field
-  Given I click on the branching logic icon for the field with label "Descriptive Text"
-  And I click on the link labeled "Clear logic"
-  And I select the Drag-N-Drop Logic Builder
-  And I drag a field choice with variable name "radio_button_manual" and criteria "'101'"
-  And I click on the branching logic save button
-  And I check the "Do not show this message again." checkbox
-  And I click on the button labeled "No"
+  Given I set the branching logic of the field with the variable name "descriptive_text" to "[radio_button_manual] = '101'" and "permanently decline" updating fields containing shared branching logic
   #Need a step definition to check the branching logic of a single field
   #Then ...
