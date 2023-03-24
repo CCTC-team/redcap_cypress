@@ -49,15 +49,14 @@ Feature: Branching Logic
   Then The fields shown on the instrument are "Caculated Field"
   
   Scenario: 4
-  #does 'leave' need adding to the step definition regular expression?
-  #Given after the next step, I will <leave> a confirmation window containing the text "Changes that you made may not be saved."
   #for now manually click on leave (although the leave dialog doesn't always show) unless running in dev tools mode
   Given I click on the button labeled "Modify instrument"
 
   Scenario: 5
   Given I set the branching logic of the field with the variable name "ptname" to "[record_id] <> '999'" and "temporarily decline" updating fields containing shared branching logic
+  Then The field with the variable name "ptname" contains the branching logic "[record_id] <> '999'"
   #verify that only one field has been updated
-  And  I set the branching logic of the field with the variable name "text2" to "[record_id] <> '999'" and "temporarily accept" updating fields containing shared branching logic
+  When I set the branching logic of the field with the variable name "text2" to "[record_id] <> '999'" and "temporarily accept" updating fields containing shared branching logic
   Then Every field contains the branching logic "[record_id] <> '999'" except the Record ID field and the field with the label "Caculated Field"
 
   Scenario: 6
@@ -73,18 +72,16 @@ Feature: Branching Logic
   Then The fields shown on the instrument are "Name|Text2|Text Box|Notes Box|Caculated Field|Multiple Choice Dropdown Auto|Multiple Choice Dropdown Manual|Radio Button Auto|Radio Button Manual|Checkbox|Signature|File Upload|Descriptive Text with File|Required|Identifier|Identifier|Edit Field|Descriptive Text"
 
   Scenario: 8
-  #does 'leave' need adding to the step definition regular expression?
-  #Given after the next step, I will <leave> a confirmation window containing the text "Changes that you made may not be saved."
   #for now manually click on leave (although the leave dialog doesn't always show) unless running in dev tools mode
   Given I click on the button labeled "Modify instrument"
 
   Scenario: 9
   Given I set the branching logic of the field with the variable name "descriptive_text" to "[radio_button_manual] = '101'" and "permanently decline" updating fields containing shared branching logic
-  #Need a step definition to check the branching logic of a single field
-  #Then ...
+  Then The field with the variable name "descriptive_text" contains the branching logic "[radio_button_manual] = '101'"
 
   Scenario: 10
   Given I set the branching logic of the field with the variable name "required" to "[checkbox(3)] = '1'"
+  Then The field with the variable name "required" contains the branching logic "[checkbox(3)] = '1'"
 
   Scenario: 11
   Given I click on the link labeled "Survey Distribution Tools"
@@ -99,4 +96,20 @@ Feature: Branching Logic
   Then The fields shown on the public survey are "Name|Text2|Text Box|Notes Box|Caculated Field|Multiple Choice Dropdown Auto|Multiple Choice Dropdown Manual|Radio Button Auto|Radio Button Manual|Checkbox|Signature|File Upload|Descriptive Text with File|Identifier|Identifier|Edit Field"
   When I close the public survey
   Then The survey closes
+
+  Scenario: 12
+  Given I click on the link labeled "Add / Edit Records"
+  And I click on the button labeled "Add new record"
+  When I select the radio option "Choice101" for the field labeled "Radio Button Manual"
+  Then The fields shown on the instrument are "Name|Text2|Text Box|Notes Box|Caculated Field|Multiple Choice Dropdown Auto|Multiple Choice Dropdown Manual|Radio Button Auto|Radio Button Manual|Checkbox|Signature|File Upload|Descriptive Text with File|Identifier|Identifier|Edit Field|Descriptive Text"
+  When I select the radio option "Choice99" for the field labeled "Radio Button Manual"
+  Then The fields shown on the instrument are "Name|Text2|Text Box|Notes Box|Caculated Field|Multiple Choice Dropdown Auto|Multiple Choice Dropdown Manual|Radio Button Auto|Radio Button Manual|Checkbox|Signature|File Upload|Descriptive Text with File|Identifier|Identifier|Edit Field"
+  When I check the checkbox labeled "Checkbox3"
+  Then The fields shown on the instrument are "Name|Text2|Text Box|Notes Box|Caculated Field|Multiple Choice Dropdown Auto|Multiple Choice Dropdown Manual|Radio Button Auto|Radio Button Manual|Checkbox|Signature|File Upload|Descriptive Text with File|Required|Identifier|Identifier|Edit Field"
+  When I uncheck the checkbox labeled "Checkbox3"
+  Then The fields shown on the instrument are "Name|Text2|Text Box|Notes Box|Caculated Field|Multiple Choice Dropdown Auto|Multiple Choice Dropdown Manual|Radio Button Auto|Radio Button Manual|Checkbox|Signature|File Upload|Descriptive Text with File|Identifier|Identifier|Edit Field"
+
+  Scenario: 13
+  When I logout
+
   

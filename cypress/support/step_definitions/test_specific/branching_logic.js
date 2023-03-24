@@ -212,6 +212,8 @@ Given('The survey closes', () => {
     })
 })
 
+//Note that the existing Interactions step definition 'I select the radio option {string} for the field labeled {string}' can't currently be used as the DOM structure
+//of surveys is different to instruments
 /**
  * @module TestSpecific/BranchingLogic
  * @author David Phillips <david.phillips22@nhs.net>
@@ -229,6 +231,8 @@ Given('I select the survey radio option {string} for the field labeled {string}'
     .check()
 })
 
+//Note that the existing Interactions step definition 'I select the checkbox option {string} for the field labeled {string}' can't currently be used as the DOM structure
+//of surveys is different to instruments. Also the current step definition doesn't currently allow unchecking of the checkbox
 /**
  * @module TestSpecific/BranchingLogic
  * @author David Phillips <david.phillips22@nhs.net>
@@ -251,6 +255,22 @@ Given('I {string} the survey checkbox option {string} for the field labeled {str
             cy.wrap($ele).uncheck()
         }
     })
+})
+
+/**
+ * @module TestSpecific/BranchingLogic
+ * @author David Phillips <david.phillips22@nhs.net>
+ * @example The field with the variable name {string} contains the branching logic {string}
+ * @param {string} variableName - the variable name
+ * @param {string} expectedBranchingLogic - the branching logic to check
+ * @description Verifies that the field with the variable name {string} contains the branching logic {string}.
+ */
+Given('The field with the variable name {string} contains the branching logic {string}', (variableName, expectedBranchingLogic) => {
+    //v11.1.5
+    cy.get(`span[id^="bl-label_${variableName}"]:contains(${expectedBranchingLogic})`).should('have.length', 1)
+
+    //v12.4.14
+    //May be able to use data-kind attributes to select branching logic span
 })
 
 function setBranchingLogic(variableName, branchingLogic) {
