@@ -64,19 +64,23 @@ Given('I set the branching logic of the field with the variable name {string} to
 /**
  * @module TestSpecific/BranchingLogic
  * @author David Phillips <david.phillips22@nhs.net>
- * @example I set the branching logic of every field to {string} except the Record ID field and the field with the label {string}
+ * @example I set the branching logic of every field to {string} excluding the fields with variable names {string}
  * @param {string} branchingLogicValue - the branching logic value
- * @param {string} excludedFieldLabel - the label of the field to exclude
- * @description Sets the branching logic of every field except the Record ID and the field with the specified label.
+ * @param {string} excludedVariableNames - the excluded variable names (pipe separated e.g. variableName1|variableName2|variableName3)
+ * @description Sets the branching logic of every field excluding the fields with variable names {string}.
  */
-Given('I set the branching logic of every field to {string} except the Record ID field and the field with the label {string}', (branchingLogicValue, excludedFieldLabel) => {  
-    getAllFieldsExcept("Record ID", excludedFieldLabel).parentsUntil('table').find('.designVarName')
-    .each(($field, index) => {
-        let variableName = cleanTextAfter($field.html().split("<span")[0], "</i>")
+Given('I set the branching logic of every field to {string} excluding the fields with variable names {string}', (branchingLogicValue, excludedVariableNames) => {  
+    getAllFieldsExcept(excludedVariableNames)
+    .each(($variableName, index) => {
+        let variableNameNodeIndex = 2
+        let variableName = getElementText($variableName[0], variableNameNodeIndex).trim()
+
         if (!fieldHasBranchingLogic(variableName)) {
             setBranchingLogic(variableName, branchingLogicValue)
             saveBranchingLogic()
 
+            //dismisses the alert about question numbering in surveys
+            //will cause an error if saving the branching logic of the first field doesn't trigger the alert
             if (index == 0) {
                 cy.click_on_dialog_button('Close')
             }
@@ -87,13 +91,13 @@ Given('I set the branching logic of every field to {string} except the Record ID
 /**
  * @module TestSpecific/BranchingLogic
  * @author David Phillips <david.phillips22@nhs.net>
- * @example Every field contains the branching logic {string} except the Record ID field and the field with the label {string}
+ * @example Every field contains the branching logic {string} excluding the fields with variable names {string}
  * @param {string} expectedBranchingLogic - the branching logic to check
- * @param {string} excludedFieldLabel - the label of the field to exclude from the check
- * @description Verifies that every field contains the same specified branching logic except the Record ID and the field with the specified label
+ * @param {string} excludedVariableNames - the excluded variable names (pipe separated e.g. variableName1|variableName2|variableName3)
+ * @description Verifies that every field contains the branching logic {string} excluding the fields with variable names {string}.
  */
-Given('Every field contains the branching logic {string} except the Record ID field and the field with the label {string}', (expectedBranchingLogic, excludedFieldLabel) => {
-    assertOnBranchingLogic(expectedBranchingLogic, excludedFieldLabel)
+Given('Every field contains the branching logic {string} excluding the fields with variable names {string}', (expectedBranchingLogic, excludedVariableNames) => {
+    assertOnBranchingLogic(expectedBranchingLogic, excludedVariableNames)
 })
 
 /**
@@ -313,32 +317,35 @@ function saveBranchingLogic() {
     cy.wait('@builder')
 }
 
-function getAllFieldsExcept(firstExcludedFieldLabel, secondExcludedFieldLabel) {
-    //v11.1.5
-    let firstExcludedFieldSelector = `td:contains(${firstExcludedFieldLabel})`
-    let secondExcludedFieldSelector = `td:contains(${secondExcludedFieldLabel})`
-    return cy.get('td.labelrc').not(firstExcludedFieldSelector).not(secondExcludedFieldSelector)
+function getAllFieldsExcept(excludedVariableNames) {
+    if (excludedVariableNames != "") {
+        let variableNames = excludedVariableNames.split("|")
 
-    //v12.4.14
-    // let firstExcludedFieldSelector = `div:contains(${firstExcludedFieldLabel})`
-    // let secondExcludedFieldSelector = `div:contains(${secondExcludedFieldLabel})`
-    // return cy.get('div[data-kind="field-label"]').not(firstExcludedFieldSelector).not(secondExcludedFieldSelector)
+        return cy.get('span.designVarName').not(function() {
+            let variableNameNodeIndex = 2
+            let elementText = getElementText(this, variableNameNodeIndex)
+            return variableNames.some((variableName) => elementText.includes(variableName))
+        })
+    }
+    else {
+        return cy.get('span.designVarName')
+    }
 }
 
-function assertOnBranchingLogic(branchingLogic, excludedFieldLabel) {
+function assertOnBranchingLogic(branchingLogic, excludedVariableNames) {
     cy.get('.ui-dialog').should('not.be.visible')
 
     //v11.1.5
     let branchingLogicSelector = `span[id^="bl-label_"]:contains(${branchingLogic})`
-    getAllFieldsExcept("Record ID", excludedFieldLabel).its('length').then((numFields) => {       
+    getAllFieldsExcept(excludedVariableNames).its('length').then((numFields) => {       
         cy.get('span[id^="bl-label_"]').filter(branchingLogicSelector).its('length').then((numFieldsWithExpBranchingLogic) => {
             expect(numFields).equal(numFieldsWithExpBranchingLogic)
         })
     })
 
-    //v12.4.14
+    //v12.4.14 - makes use of data-kind attributes for clearer selectors
     //let branchingLogicSelector = `span[data-kind="branching-logic"]:contains(${branchingLogic})`
-    // getAllFieldsExcept("Record ID", excludedFieldLabel).its('length').then((numFields) => {
+    // getAllFieldsExcept(excludedVariableNames).its('length').then((numFields) => {
     //     cy.get('span[data-kind="branching-logic"]').filter(branchingLogicSelector).its('length').then((numFieldsWithExpBranchingLogic) => {
     //         expect(numFields).equal(numFieldsWithExpBranchingLogic)
     //     })
@@ -350,10 +357,6 @@ function cleanTextBefore(text, separator) {
     return split[0].trim()
 }
 
-function cleanTextAfter(text, separator) {
-    let split = text.split(separator)
-    return split[1].trim()
+function getElementText(element, nodeIndex) {
+    return Array.from(element.childNodes)[nodeIndex].textContent
 }
-
-
-

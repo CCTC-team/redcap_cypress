@@ -32,8 +32,8 @@ Feature: Branching Logic
   And I click on the link labeled "Project Setup"
   And I click on the button labeled "Online Designer"
   And I click on the link labeled "Data Types"
-  And I set the branching logic of every field to "[record_id] = '999'" except the Record ID field and the field with the label "Caculated Field"
-  Then Every field contains the branching logic "[record_id] = '999'" except the Record ID field and the field with the label "Caculated Field"
+  And I set the branching logic of every field to "[record_id] = '999'" excluding the fields with variable names "record_id|calculated_field"
+  Then Every field contains the branching logic "[record_id] = '999'" excluding the fields with variable names "record_id|calculated_field"
 
   Scenario: 2
   Given I click on the link labeled "Survey Distribution Tools"
@@ -55,9 +55,9 @@ Feature: Branching Logic
   Scenario: 5
   Given I set the branching logic of the field with the variable name "ptname" to "[record_id] <> '999'" and "temporarily decline" updating fields containing shared branching logic
   Then The field with the variable name "ptname" contains the branching logic "[record_id] <> '999'"
-  #verify that only one field has been updated
+  And Every field contains the branching logic "[record_id] = '999'" excluding the fields with variable names "record_id|calculated_field|ptname"
   When I set the branching logic of the field with the variable name "text2" to "[record_id] <> '999'" and "temporarily accept" updating fields containing shared branching logic
-  Then Every field contains the branching logic "[record_id] <> '999'" except the Record ID field and the field with the label "Caculated Field"
+  Then Every field contains the branching logic "[record_id] <> '999'" excluding the fields with variable names "record_id|calculated_field"
 
   Scenario: 6
   Given I click on the link labeled "Survey Distribution Tools"
@@ -78,6 +78,7 @@ Feature: Branching Logic
   Scenario: 9
   Given I set the branching logic of the field with the variable name "descriptive_text" to "[radio_button_manual] = '101'" and "permanently decline" updating fields containing shared branching logic
   Then The field with the variable name "descriptive_text" contains the branching logic "[radio_button_manual] = '101'"
+  And Every field contains the branching logic "[record_id] <> '999'" excluding the fields with variable names "record_id|calculated_field|descriptive_text"
 
   Scenario: 10
   Given I set the branching logic of the field with the variable name "required" to "[checkbox(3)] = '1'"
