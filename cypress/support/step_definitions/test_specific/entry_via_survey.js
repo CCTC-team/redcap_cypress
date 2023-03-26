@@ -31,9 +31,19 @@ Given('I should see the instrument labeled {string} is a survey', (label) => {
  * @description Visibility - Verifies the correct number of participants are present
  */
 Given('I should see {int} participant(s) are listed in the Participant List', (count) => {
-
     cy.get('table[id="table-participant_table"]').children('tbody').find('tr').as('iRow')
     cy.get('@iRow').then(iRow => {
         expect(iRow.length).to.equal(count)
     })
+})
+
+/**
+ * @module entry_via_survey
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I select the option {string} for the Participant List
+ * @param {int} instrument - the instrument-event name to select
+ * @description select the instrument-event for the Participant List in Survey Distribution Tools
+ */
+Given('I select the option {string} for the Participant List', (instrument) => {
+    cy.get('td').contains('Participant List').find('select').select(instrument)
 })

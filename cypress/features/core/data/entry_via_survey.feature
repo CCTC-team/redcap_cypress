@@ -88,14 +88,12 @@ Feature: Data Entry through the Survey
     Then I should see "15_DirectDataEntry (Survey) v1115"
     And I click on the link labeled "Project Setup"
     Then I should see "Use surveys in this project?"
-    # Manual test says surveys are enabled and in green
     And I enable surveys for the project
     Then I should see that surveys are enabled
 
   Scenario: 7 - Enable instrument as survey
     Given I click on the link labeled "Designer"
     And I should see the instrument labeled "Survey" is not a survey
-    # And I enable the Data Collection Instrument labeled "Survey" as survey
     And I enable surveys for the data instrument named "Survey"
     Then I should see "Your survey settings were successfully saved!"
     Then I should see the instrument labeled "Survey" is a survey
@@ -146,8 +144,9 @@ Feature: Data Entry through the Survey
     # Given I click on the link labeled "Dictionary"
     # And I upload the data dictionary located at "core/15_DirectDataEntry_SurveyDD.csv"
     And I click on the link labeled "Project Setup"
-    # Below Step is not mentioned in Manual test but is needed
-    # Enable designation of an email field for communications setting and assign Email to field
+    # Below 6 Steps are not mentioned in Manual test but is needed .
+    # Enable designation of an email field for communications setting and assign Email to field. Else Participant List (in Scenario 12) is empty
+    # This is mentioned in Scenario 13 but is needed for the viewing Participant List in Scenario 12
     And I enable designation of an email field for communications setting
     Then I should see "Choose an email field to use for invitations to survey participants:"
     When I select "email" on the dropdown field labeled "Choose an email field to use for invitations to survey participants:"
@@ -164,19 +163,177 @@ Feature: Data Entry through the Survey
     And I should see "records were created or modified during the import"
 
   Scenario: 12 - Checking columns in Participant List in Survey Distribution Tools
-  Given I click on the link labeled "Survey Distribution Tools"
-  Then I click on the link labeled "Participant List"
-  And I should see "Email"
-  And I should see "Record"
-  And I should see "Participant Identifier"
-  And I should see "Responded?"
-  And I should see "Invitation Scheduled?"
-  And I should see "Invitation Sent?"
-  And I should see "Link"
-  And I should see "Survey Access Code and"
-  And I should see "QR Code"
-  Then I should see 2 participants are listed in the Participant List
-   
+    Given I click on the link labeled "Survey Distribution Tools"
+    Then I click on the link labeled "Participant List"
+    And I should see "Email"
+    And I should see "Record"
+    And I should see "Participant Identifier"
+    And I should see "Responded?"
+    And I should see "Invitation Scheduled?"
+    And I should see "Invitation Sent?"
+    And I should see "Link"
+    And I should see "Survey Access Code and"
+    And I should see "QR Code"
+    # Enable designation of an email field for communications setting and assign Email to field. Else Participant List is empty
+    And I select the option '"Survey" - Event 1' for the Participant List
+    Then I should see 2 participants are listed in the Participant List
+    And I select the option '"Survey" - Event 2' for the Participant List
+    Then I should see 2 participants are listed in the Participant List
+  
+  Scenario: 13 - Enable designation of an email field for communications setting and assign Email to field
+    # Done in Scenario 11
+
+  Scenario: 14 - Verify Demographics doesn't have Survey Options
+    Given I click on the link labeled "Add / Edit Records"
+    And I select "1" from the dropdown identified by "[id=record]"
+    And I click the bubble to select a record for the "Demographics" longitudinal instrument on event "Event 1"
+    Then I should NOT see a button labeled "Survey options"
+    And I click on the button labeled "-- Cancel --"
+
+  Scenario: 15 - Open survey and enter email - Not working - To Do
+    # Given I click on the link labeled "Add / Edit Records"
+    # And I select "1" from the dropdown identified by "[id=record]"
+    # # Not able to click on survey using the below step definition
+    # And I click the bubble to select a record for the "Survey" longitudinal instrument on event "Event 2"
+
+    # Not able to click on survey from "Add / Edit Records", hence opening it from "Record Status Dashboard"
+    Given I click on the link labeled "Record Status Dashboard"
+    # Getting wrong Event. To open Event 2, I have to give Event 1 in the below step
+    And I locate the bubble for the "Survey" instrument on event "Event 1" for record ID "1" and click on the bubble
+    Then I should see a button labeled "Survey options"
+    # And I click on the button labeled "Survey options"
+    # # The survey opens in a new tab
+    # And I click on the survey option label containing "Open survey" label
+    # And I enter "test1@test.com" into the field identified by "input[name=email]"
+    # And I click on the button labeled "Submit"    
+    # And I click on the button labeled "Close survey"
+    # Then I should see "Leave without saving changes"
+    # And I should see "Stay on page"
+
+    # verify checkmark in green circle indicating survey is complete. Can this be incorporated into the step definition below in record_status_dashboard.js
+    # I locate the bubble for the {string} instrument on event {string} for record ID {string} <and click the new instance link | and click on the bubble|and click the repeating instrument bubble for the (first | second | third) instance>
+
+  Scenario: 16 - Log out & Open survey and enter email - To Do
+
+  Scenario: 17 - To Do
+    Given I click on the link labeled "Survey Distribution Tools"
+    And I click on the link labeled "Participant List"
+     
+
+  Scenario: 18 - 
+    Given I click on the link labeled "Add / Edit Records"
+    Then I should see the dropdown identified by "[id=record]" with the options below
+    | 1 | 2 |
+
+  Scenario: 19 - Enable Demographics as survey
+    Given I click on the link labeled "Designer"
+    And I should see the instrument labeled "Demographics" is not a survey
+    And I enable surveys for the data instrument named "Demographics"
+    Then I should see "Your survey settings were successfully saved!"
+    Then I should see the instrument labeled "Demographics" is a survey
+
+  Scenario: 20 - Open Public Survey Demographics
+    Given I click on the link labeled "Survey Distribution Tools" 
+    And I click on the link labeled "Public Survey Link"
+    Then I should see "Using a public survey link is the simplest and fastest way to collect responses for your survey"
+    And I visit the public survey URL for this project
+    Then I should see "Demographics"
+
+  Scenario: 21 - Add 2 more email ids to Participant List and verify count
+    Given I am a "standard" user who logs into REDCap
+    And I click on the link labeled "My Projects"
+    And I click on the link labeled "15_DirectDataEntry (Survey) v1115"
+    Then I click on the link labeled "Survey Distribution Tools"
+    And I click on the link labeled "Participant List"
+    And I select the option '[Initial survey] "Demographics" - Event 1' for the Participant List
+    Then I should see 2 participants are listed in the Participant List
+    And I click on the button labeled "Add participants"
+    And I enter "test3@test.com{enter}test3@test.com" into the field identified by "textarea[id=newPart]"
+    And the AJAX "GET" request at "Surveys/participant_list.php*" tagged by "participant_list" is being monitored
+    Then I click on the button labeled "Add participants"
+    And the AJAX request tagged by "participant_list" has completed   
+    Then I should see "PARTICIPANTS ADDED!"
+    And I should see 4 participants are listed in the Participant List
+    Then I logout
+
+  Scenario: 22 - In Control Center - Disable users to edit survey responses
+    Given I am an "admin" user who logs into REDCap
+    Then I click on the link labeled "Control Center"
+    And I click on the link labeled "User Settings"
+    Then I scroll the page to the field identified by "[name=enable_edit_survey_response]"
+    And I select "Disabled" from the dropdown identified by "[name=enable_edit_survey_response]"
+    Then I scroll the page to the field identified by "input[value='Save Changes']"
+    And I click on the button labeled "Save Changes"
+    Then I should see "Your system configuration values have now been changed!"
+    And I logout
+
+  Scenario: 23 - User cannot Edit survey response - Would work after SCenario 15 is fixed
+    Given I am a "standard" user who logs into REDCap
+    And I click on the link labeled "My Projects"
+    And I click on the link labeled "15_DirectDataEntry (Survey) v1115"
+    # Not able to click on survey from "Add / Edit Records", hence opening it from "Record Status Dashboard"
+    Then I click on the link labeled "Record Status Dashboard"
+    # Getting wrong Event. To open Event 2, I have to give Event 1 in the below step
+    And I locate the bubble for the "Survey" instrument on event "Event 1" for record ID "1" and click on the bubble
+    Then I should see "Survey response is read-only"
+    And I should NOT see a button labeled "Edit response"
+ 
+  Scenario: 24 - User Rights - 'Edit survey responses' checkbox is not visible
+    Given I click on the link labeled "User Rights"
+    And the AJAX "POST" request at "Messenger/messenger.php*" tagged by "render" is being monitored
+    And I click to edit username "test_user (Test User)"
+    Then I click on the button labeled "Edit user privileges"
+    And I should no longer see the element identified by "input[id=form-editresp-survey]"
+    And I click on the button labeled "Save Changes"
+    Then I should see "was successfully edited"
+
+  Scenario: 25
+    # Not able to click on survey from "Add / Edit Records", hence opening it from "Record Status Dashboard"
+    Then I click on the link labeled "Record Status Dashboard"
+    # Getting wrong Event. To open Event 2, I have to give Event 1 in the below step
+    And I locate the bubble for the "Survey" instrument on event "Event 1" for record ID "1" and click on the bubble
+    Then I should see "Survey response is read-only"
+    # Manual test says 'Edit button is not enabled' but I cannot see Edit button
+    And I should NOT see a button labeled "Edit response"
+    And I logout
+    Given I am an "admin" user who logs into REDCap
+    Then I click on the link labeled "Control Center"
+    And I click on the link labeled "User Settings"
+    Then I scroll the page to the field identified by "[name=enable_edit_survey_response]"
+    And I select "Enabled" from the dropdown identified by "[name=enable_edit_survey_response]"
+    Then I scroll the page to the field identified by "input[value='Save Changes']"
+    And I click on the button labeled "Save Changes"
+    Then I should see "Your system configuration values have now been changed!"
+    And I logout
+    Given I am a "standard" user who logs into REDCap
+    And I click on the link labeled "My Projects"
+    And I click on the link labeled "15_DirectDataEntry (Survey) v1115"
+    Then I click on the link labeled "User Rights"
+    And the AJAX "POST" request at "Messenger/messenger.php*" tagged by "render" is being monitored
+    And I click to edit username "test_user (Test User)"
+    Then I click on the button labeled "Edit user privileges"
+    And I should see the element identified by "input[id=form-editresp-survey]"
+    # The checkbox (Edit survey responses) is not checked. I am checking it in the below step
+    And I check the checkbox identified by "input[id=form-editresp-survey]"
+    # And saving it (not cancelling as in manual script)
+    And I click on the button labeled "Save Changes"
+    Then I should see "was successfully edited"
+     # Not able to click on survey from "Add / Edit Records", hence opening it from "Record Status Dashboard"
+    Then I click on the link labeled "Record Status Dashboard"
+    # Getting wrong Event. To open Event 2, I have to give Event 1 in the below step
+    And I locate the bubble for the "Survey" instrument on event "Event 1" for record ID "1" and click on the bubble
+    Then I should see "Survey response is editable"
+    And I should see a button labeled "Edit response"
+    And I click on the button labeled "Edit response"
+    And I enter "reminder" into the field identified by "input[name=reminder]"
+    And I select the submit option labeled "Save & Stay" on the Data Collection Instrument
+    Then I should see "successfully edited"
+    
+
+    # And I enter "User Name Here" into the "Name" survey text input field
+    # And I click on the button labeled "Submit"
+    # Then I should see "Thank you"
+
 
 #     And I enable surveys for the project
 #     And I enable longitudinal mode
