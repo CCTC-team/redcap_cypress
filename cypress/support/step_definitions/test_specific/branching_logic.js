@@ -50,7 +50,10 @@ Given('I set the branching logic of the field with the variable name {string} to
         cy.get('button').contains('Save').click()
         cy.get('#branching_update_chk').check()
         cy.get('button:contains("No")').click()
-        cy.wait(['@builder', '@builder'])
+        //v11.1.5
+        //cy.wait(['@builder', '@builder'])
+        //v12.4.14
+        cy.wait(['@builder'])
     }
     else {
         cy.get('button').contains('Save').click()
@@ -72,18 +75,19 @@ Given('I set the branching logic of the field with the variable name {string} to
 Given('I set the branching logic of every field to {string} excluding the fields with variable names {string}', (branchingLogicValue, excludedVariableNames) => {  
     getAllFieldsExcept(excludedVariableNames)
     .each(($variableName, index) => {
-        let variableNameNodeIndex = 2
+        //v11.1.5
+        //let variableNameNodeIndex = 2
+        //v12.4.14
+        let variableNameNodeIndex = 0
         let variableName = getElementText($variableName[0], variableNameNodeIndex).trim()
 
-        if (!fieldHasBranchingLogic(variableName)) {
-            setBranchingLogic(variableName, branchingLogicValue)
-            saveBranchingLogic()
+        setBranchingLogic(variableName, branchingLogicValue)
+        saveBranchingLogic()
 
-            //dismisses the alert about question numbering in surveys
-            //will cause an error if saving the branching logic of the first field doesn't trigger the alert
-            if (index == 0) {
-                cy.click_on_dialog_button('Close')
-            }
+        //dismisses the alert about question numbering in surveys
+        //will cause an error if saving the branching logic of the first field doesn't trigger the alert
+        if (index == 0) {
+            cy.click_on_dialog_button('Close')
         }
     })
 })
@@ -129,11 +133,13 @@ Given('I open the public survey', () => {
 Given('The fields shown on the public survey are {string}', (expectedFieldNames) => {
     const expectedFields = expectedFieldNames.split("|")
     const actualFields = []
-    //field selector may be easier in v12 if data attributes are available
-    const selector = "td.labelrc > label, td.labelrc.col-11"
+    //v11.1.5
+    //const selector = "td.labelrc > label, td.labelrc.col-11"
+    //v12.4.14
+    const selector = 'div[data-kind="field-label"]'
 
     //fields restricted with branching logic are hidden using css but are present in the DOM
-    cy.get('#questiontable tr').not(function() {
+    cy.get('#questiontable > tbody > tr').not(function() {
         return Cypress.$(this).css("display") == "none"
     })
     .find(selector)
@@ -158,13 +164,17 @@ Given('The fields shown on the public survey are {string}', (expectedFieldNames)
 Given('The fields shown on the instrument are {string}', (expectedFieldNames) => {
     const expectedFields = expectedFieldNames.split("|")
     const actualFields = []
-    //field selector may be easier in v12 if data attributes are available
-    const selector = "td.labelrc tr > td:first-child, td.labelrc.col-12"
+    //v11.1.5
+    //const selector = "td.labelrc tr > td:first-child, td.labelrc.col-12"
+    //v12.4.14
+    const selector = 'div[data-kind="field-label"]'
 
     //fields restricted with branching logic are hidden using css but are present in the DOM
-    cy.get('#questiontable tr').not(function() {
+    cy.get('#questiontable > tbody > tr').not(function() {
         return Cypress.$(this).css("display") == "none" ||
             cleanTextBefore(Cypress.$(this).text(), "?") == "Complete"
+            //v12.4.14
+            || getElementText(this, 0) == "Record ID"
     })
     .find(selector)
     .each(($fieldName) => {
@@ -259,11 +269,7 @@ Given('I {string} the survey checkbox option {string} for the field labeled {str
  */
 Given('The field with the variable name {string} contains the branching logic {string}', (variableName, expectedBranchingLogic) => {
     cy.get('.ui-dialog').should('not.be.visible')
-    //v11.1.5
-    cy.get(`span[id^="bl-label_${variableName}"]:contains(${expectedBranchingLogic})`).should('have.length', 1)
-
-    //v12.4.14
-    //May be able to use data-kind attributes to select branching logic span
+    cy.get(`span[id="bl-label_${variableName}"]:contains(${expectedBranchingLogic})`).should('have.length', 1)
 })
 
 function setBranchingLogic(variableName, branchingLogic) {
@@ -272,12 +278,6 @@ function setBranchingLogic(variableName, branchingLogic) {
     cy.get('#advBranchingBox').click()
     cy.get('.ace_content').type(branchingLogic)
     cy.get('button:contains("Update & Close Editor")').click()
-}
-
-function fieldHasBranchingLogic(variableName) {
-    cy.get(`span[id="bl-label_${variableName}"]`).then(function(ele) {
-        return Cypress.$(ele).css("visibility") != "hidden"
-    })
 }
 
 function clickOnBranchingLogicIcon(variableName) {
@@ -310,14 +310,25 @@ function getAllFieldsExcept(excludedVariableNames) {
     if (excludedVariableNames != "") {
         let variableNames = excludedVariableNames.split("|")
 
-        return cy.get('span.designVarName').not(function() {
-            let variableNameNodeIndex = 2
+        //v11.1.5
+        // return cy.get('span.designVarName').not(function() {
+        //     let variableNameNodeIndex = 2
+        //     let elementText = getElementText(this, variableNameNodeIndex)
+        //     return variableNames.some((variableName) => elementText.includes(variableName))
+        // })
+
+        //v12.4.14
+        return cy.get('span[data-kind="variable-name"]').not(function() {
+            let variableNameNodeIndex = 0
             let elementText = getElementText(this, variableNameNodeIndex)
             return variableNames.some((variableName) => elementText.includes(variableName))
         })
     }
     else {
-        return cy.get('span.designVarName')
+        //v11.1.5
+        //return cy.get('span.designVarName')
+        //v12.4.14
+        return cy.get('span[data-kind="variable-name"]')
     }
 }
 
@@ -325,20 +336,20 @@ function assertOnBranchingLogic(branchingLogic, excludedVariableNames) {
     cy.get('.ui-dialog').should('not.be.visible')
 
     //v11.1.5
-    let branchingLogicSelector = `span[id^="bl-label_"]:contains(${branchingLogic})`
-    getAllFieldsExcept(excludedVariableNames).its('length').then((numFields) => {       
-        cy.get('span[id^="bl-label_"]').filter(branchingLogicSelector).its('length').then((numFieldsWithExpBranchingLogic) => {
-            expect(numFields).equal(numFieldsWithExpBranchingLogic)
-        })
-    })
-
-    //v12.4.14 - makes use of data-kind attributes for clearer selectors
-    //let branchingLogicSelector = `span[data-kind="branching-logic"]:contains(${branchingLogic})`
-    // getAllFieldsExcept(excludedVariableNames).its('length').then((numFields) => {
-    //     cy.get('span[data-kind="branching-logic"]').filter(branchingLogicSelector).its('length').then((numFieldsWithExpBranchingLogic) => {
+    // let branchingLogicSelector = `span[id^="bl-label_"]:contains(${branchingLogic})`
+    // getAllFieldsExcept(excludedVariableNames).its('length').then((numFields) => {       
+    //     cy.get('span[id^="bl-label_"]').filter(branchingLogicSelector).its('length').then((numFieldsWithExpBranchingLogic) => {
     //         expect(numFields).equal(numFieldsWithExpBranchingLogic)
     //     })
     // })
+
+    //v12.4.14 - makes use of data-kind attributes for clearer selectors
+    let branchingLogicSelector = `span[data-kind="branching-logic"]:contains(${branchingLogic})`
+    getAllFieldsExcept(excludedVariableNames).its('length').then((numFields) => {
+        cy.get('span[data-kind="branching-logic"]').filter(branchingLogicSelector).its('length').then((numFieldsWithExpBranchingLogic) => {
+            expect(numFields).equal(numFieldsWithExpBranchingLogic)
+        })
+    })
 }
 
 function cleanTextBefore(text, separator) {

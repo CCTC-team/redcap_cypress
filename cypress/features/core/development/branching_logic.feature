@@ -40,7 +40,7 @@ Feature: Branching Logic
   When I open the public survey
   Then The fields shown on the public survey are "Caculated Field"
   When I close the public survey
-  #alert doesn't always appear. Is this because close occurs in the close stub? We don't actually want to close the main browser tab
+  #leave site prompt doesn't always appear and therefore this is not currently checked
   Then The survey closes
 
   Scenario: 3
@@ -49,7 +49,7 @@ Feature: Branching Logic
   Then The fields shown on the instrument are "Caculated Field"
   
   Scenario: 4
-  #for now manually click on leave (although the leave dialog doesn't always show) unless running in dev tools mode
+  #for now manually click on leave site prompt (although the leave dialog doesn't always show) unless running in dev tools mode
   Given I click on the button labeled "Modify instrument"
 
   Scenario: 5
@@ -72,7 +72,7 @@ Feature: Branching Logic
   Then The fields shown on the instrument are "Name|Text2|Text Box|Notes Box|Caculated Field|Multiple Choice Dropdown Auto|Multiple Choice Dropdown Manual|Radio Button Auto|Radio Button Manual|Checkbox|Signature|File Upload|Descriptive Text with File|Required|Identifier|Identifier|Edit Field|Descriptive Text"
 
   Scenario: 8
-  #for now manually click on leave (although the leave dialog doesn't always show) unless running in dev tools mode
+  #for now manually click on leave site prompt (although the leave dialog doesn't always show) unless running in dev tools mode
   Given I click on the button labeled "Modify instrument"
 
   Scenario: 9
