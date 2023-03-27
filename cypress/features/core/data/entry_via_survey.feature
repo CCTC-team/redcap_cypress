@@ -18,7 +18,7 @@ Feature: Data Entry through the Survey
     And I click on the button labeled "Erase all data"
     And I click on the button labeled "Erase all data" in the dialog box
     Then I should see "All data has now been deleted from the project!"
-    When I close popup
+    When I close the popup
     And I click on the link labeled "Project Setup"
     And I disable designation of an email field for communications setting
     And the AJAX "GET" request at "ProjectSetup/index.php?*" tagged by "projsetup" is being monitored
@@ -42,8 +42,8 @@ Feature: Data Entry through the Survey
     Then I click on the link labeled "Project Setup"
     And I should see that repeatable instruments are modifiable
     And I open the dialog box for the Repeatable Instruments and Events module
-    And I select "-- not repeating --" on the dropdown table field labeled "Event 1"
-    And I select "-- not repeating --" on the dropdown table field labeled "Event 2"
+    And I select "-- not repeating --" on the dropdown field labeled "Event 1"
+    And I select "-- not repeating --" on the dropdown field labeled "Event 2"
     And I click on the button labeled "Save"
     Then I should see "Your settings for repeating instruments and/or events have been successfully saved. (The page will now reload.)" in an alert box
     And I should see that auto-numbering is "enabled"
@@ -154,7 +154,7 @@ Feature: Data Entry through the Survey
     Then I should see "Field currently designated: email"
     And I should see that the designate an email field for communications setting is "enabled"
     Given I click on the link labeled "Data Import Tool"
-    And I upload a "csv" format file located at "import_files/core/15_DirectDataEntry_SurveyIMP.csv", by clicking "input[name=uploadedfile]" to select the file, and clicking "button[name=submit]" to upload the file
+    And I upload a "csv" format file located at "import_files/core/15_DirectDataEntry_SurveyIMP.csv", by clicking the button near "Upload your CSV file:" to browse for the file, and clicking the button labeled "Upload File" to upload the file
     Then I should see "DATA DISPLAY TABLE"
     And I should see "(new record)"
     When I click on the button labeled "Import Data"
@@ -287,7 +287,7 @@ Feature: Data Entry through the Survey
     And I click on the button labeled "Save Changes"
     Then I should see "was successfully edited"
 
-  Scenario: 25
+  Scenario: 25 - Enable users to edit response, edit the response and save it
     # Not able to click on survey from "Add / Edit Records", hence opening it from "Record Status Dashboard"
     Then I click on the link labeled "Record Status Dashboard"
     # Getting wrong Event. To open Event 2, I have to give Event 1 in the below step
@@ -324,11 +324,124 @@ Feature: Data Entry through the Survey
     And I locate the bubble for the "Survey" instrument on event "Event 1" for record ID "1" and click on the bubble
     Then I should see "Survey response is editable"
     And I should see a button labeled "Edit response"
+    And the AJAX "GET" request at "DataEntry/index.php*" tagged by "edit" is being monitored
     And I click on the button labeled "Edit response"
+    And the AJAX request tagged by "edit" has completed
+    Then I should see "(now editing)"
+    And I wait for 3 seconds
     And I enter "reminder" into the field identified by "input[name=reminder]"
     And I select the submit option labeled "Save & Stay" on the Data Collection Instrument
+    # And I close the popup
     Then I should see "successfully edited"
+
+  Scenario: 26 - Modify survey settings - Allow 'Save & Return Later' option = Yes
+    Given I click on the link labeled "Designer"
+    And I click on the button labeled "Survey settings" for the instrument named "Survey"
+    And I select "Yes" from the dropdown identified by "[name=save_and_return]"
+    And I click on the button labeled "Save Changes"
+
+  Scenario: 27 - To Do
+    Given I click on the link labeled "Survey Distribution Tools"
+    And I click on the link labeled "Participant List"
+    And I select the option '[Initial survey] "Demographics" - Event 1' for the Participant List
+    # And I click on the link labeled "2"
+
+  Scenario: 28 - To Do
+    Given I click on the link labeled "Survey Distribution Tools"
+    And I click on the link labeled "Participant List"
+    And I select the option '"Survey" - Event 1' for the Participant List
+    # And I click on the link labeled "2"
+
+  Scenario: 29 - To Do
+
+  Scenario: 30 - To Do
+  
+  Scenario: 31 - To Do
+  
+  Scenario: 32 - Verify Survey Invitation Log - Past invitations
+    Given I click on the link labeled "Survey Distribution Tools"
+    And I click on the link labeled "Survey Invitation Log"
+    And I click on the button labeled "View past invitations"
+    Then I should see "Invitation send time"
+    Then I should see "View Invite"
+    Then I should see "Participant Email"
+    Then I should see "Record"
+    Then I should see "Participant Identifier"
+    Then I should see "Survey"
+    Then I should see "Survey Link"
+    Then I should see "Responded?"
+    Then I should see "Errors (if any)"
+    # Row exists for previous record sent - To Do
+
+  Scenario: 33 - Undesignate email for communications setting and check past invitations
+    Given I click on the link labeled "Project Setup"
+    And I disable designation of an email field for communications setting
+    And the AJAX "GET" request at "ProjectSetup/index.php?*" tagged by "projsetup" is being monitored
+    Then I click on the button labeled "Undesignate field"
+    And the AJAX request tagged by "projsetup" has completed
+    Then I should see that the designate an email field for communications setting is "disabled"
+    Then I click on the link labeled "Survey Distribution Tools"
+    And I click on the link labeled "Survey Invitation Log"
+    And I click on the button labeled "View past invitations"
+    # No email is listed - To Do
+
+  Scenario: 34 - Export Raw Data and check file header - Check data - To Do
+    Given I click on the link labeled "Data Exports, Reports, and Stats"
+    Then I should see "Export Data"
+    When I export data for the report named "All data" in "csvraw" format
+    Then I should see "Data export was successful!"
+    Then I should receive a download to a "csv" file
+    Then I should have a "csv" file that contains the headings below
+    | record_id | redcap_event_name | redcap_survey_identifier | demographics_timestamp | lname | fname | demographics_complete | survey_timestamp | email | reminder | description | survey_complete |
+    Then I should have a "csv" file that contains 2 distinct records
+    Then I should have a "csv" file that contains 3 rows
+    And I click on the button labeled "Close" in the dialog box
+    Then I should see "My Reports & Exports"
+
+  Scenario: 35 - 
+    Given I click on the link labeled "Designer"
+    And I click on the button labeled "Survey settings" for the instrument named "Survey"
+    Then I should see "Modify survey settings for data collection instrument"
+    When I click on the button labeled "Delete Survey Settings"
+    Then I should see "Delete this instrument's survey settings"
+    And I click on the button labeled "Delete Survey Settings" in the dialog box
+    Then I should see "Survey successfully deleted!"
+    And I close the popup
+    Then I should see "Data Collection Instruments"
+    Then I should see the instrument labeled "Survey" is not a survey
     
+  Scenario: 36 - Export Raw Data and check file header - check data - To Do
+    Given I click on the link labeled "Data Exports, Reports, and Stats"
+    Then I should see "Export Data"
+    When I export data for the report named "All data" in "csvraw" format
+    Then I should see "Data export was successful!"
+    Then I should receive a download to a "csv" file
+    Then I should have a "csv" file that contains the headings below
+    | record_id | redcap_event_name | redcap_survey_identifier | demographics_timestamp | lname | fname | demographics_complete | email | reminder | description | survey_complete |
+    Then I should have a "csv" file that contains 2 distinct records
+    Then I should have a "csv" file that contains 3 rows
+    And I click on the button labeled "Close" in the dialog box
+    Then I should see "My Reports & Exports"
+
+  Scenario: 37 - No survey-related information is listed on the instrument
+    Given I click on the link labeled "Add / Edit Records"
+    And I select "2" from the dropdown identified by "[id=record]"
+    And I click the bubble to select a record for the "Survey" longitudinal instrument on event "Event 2"
+    Then I should NOT see a button labeled "Survey options"
+    And I click on the button labeled "-- Cancel --"
+
+  Scenario: 38 - Only the Demographics Event 1 is in the Participant List dropdown - To Do
+    Given I click on the link labeled "Survey Distribution Tools"
+    And I click on the link labeled "Participant List"
+    # Then I should see the dropdown identified by "[id=record]" with the options below
+    # | 1 | 2 |
+
+  Scenario: 39 - Logout
+    Then I logout
+
+
+
+
 
     # And I enter "User Name Here" into the "Name" survey text input field
     # And I click on the button labeled "Submit"

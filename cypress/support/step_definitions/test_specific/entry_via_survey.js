@@ -41,9 +41,22 @@ Given('I should see {int} participant(s) are listed in the Participant List', (c
  * @module entry_via_survey
  * @author Mintoo Xavier <min2xavier@gmail.com>
  * @example I select the option {string} for the Participant List
- * @param {int} instrument - the instrument-event name to select
+ * @param {string} instrument - the instrument-event name to select
  * @description select the instrument-event for the Participant List in Survey Distribution Tools
  */
 Given('I select the option {string} for the Participant List', (instrument) => {
     cy.get('td').contains('Participant List').find('select').select(instrument)
+})
+
+/**
+ * @module entry_via_survey
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I click on the button labeled {string} for the instrument named {string}
+ * @param {string} label the label of the button
+ * @param {string} instrument - the instrument name
+ * @description Click on the button for the instrument named
+ */
+Given('I click on the button labeled {string} for the instrument named {string}', (label, instrument) => {
+    cy.get('td:nth-child(2)').contains(instrument).parents('tr').find('button').contains(label).click()
+
 })
