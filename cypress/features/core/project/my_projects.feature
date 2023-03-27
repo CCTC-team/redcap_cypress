@@ -138,7 +138,7 @@ Feature: My Projects
     And I click on the link labeled "Delete record"
     And I click on the button labeled "DELETE RECORD"
     Then I should see 'Record ID "3" was successfully deleted.'
-    And I close popup
+    And I close the popup
     And I click on the link labeled "Record Status Dashboard"
     Then I should see 2 records in the Record Status Dashboard
     And I click on the link labeled "My Projects"
@@ -258,7 +258,7 @@ Feature: My Projects
     And I click on the button labeled "Restore Project"
     And the AJAX request tagged by "render" has completed
     Then I should see "The project has now been restored. The page will now reload to reflect the changes"
-    And I close popup
+    And I close the popup
     When I am an "standard" user who logs into REDCap
     And I click on the link labeled "My Projects"
     Then I should see "13_MyProjects_v1115"
