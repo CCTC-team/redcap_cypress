@@ -50,7 +50,7 @@ Given('I set the branching logic of the field with the variable name {string} to
         cy.get('button').contains('Save').click()
         cy.get('#branching_update_chk').check()
         cy.get('button:contains("No")').click()
-        cy.wait('@builder')
+        cy.wait(['@builder', '@builder'])
     }
     else {
         cy.get('button').contains('Save').click()
@@ -137,16 +137,10 @@ Given('The fields shown on the public survey are {string}', (expectedFieldNames)
         return Cypress.$(this).css("display") == "none"
     })
     .find(selector)
-    .each(($field) => {
-        if ($field.text().includes("\n")) {
-            actualFields.push(cleanTextBefore($field.text(), "\n"))
-        }
-        else if ($field.text().includes("*")) {
-            actualFields.push(cleanTextBefore($field.text(), "*"))
-        }
-        else {
-            actualFields.push($field.text().trim())
-        }
+    .each(($fieldName) => {
+        let fieldNameIndex = 0
+        let fieldName = getElementText($fieldName[0], fieldNameIndex).trim()
+        actualFields.push(fieldName)
     })
     .should('have.length', expectedFields.length)
     .then(() => {
@@ -173,16 +167,10 @@ Given('The fields shown on the instrument are {string}', (expectedFieldNames) =>
             cleanTextBefore(Cypress.$(this).text(), "?") == "Complete"
     })
     .find(selector)
-    .each(($field) => {
-        if ($field.text().includes("*")) {
-            actualFields.push(cleanTextBefore($field.text(), "*"))
-        }
-        else if ($field.text().startsWith("\n")) {
-            actualFields.push($field.text().trim())
-        }
-        else {
-            actualFields.push(cleanTextBefore($field.text(), "\n"))
-        }
+    .each(($fieldName) => {
+        let fieldNameIndex = 0
+        let fieldName = getElementText($fieldName[0], fieldNameIndex).trim()
+        actualFields.push(fieldName)
     })
     .should('have.length', expectedFields.length)
     .then(() => {
@@ -270,6 +258,7 @@ Given('I {string} the survey checkbox option {string} for the field labeled {str
  * @description Verifies that the field with the variable name {string} contains the branching logic {string}.
  */
 Given('The field with the variable name {string} contains the branching logic {string}', (variableName, expectedBranchingLogic) => {
+    cy.get('.ui-dialog').should('not.be.visible')
     //v11.1.5
     cy.get(`span[id^="bl-label_${variableName}"]:contains(${expectedBranchingLogic})`).should('have.length', 1)
 
