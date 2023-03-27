@@ -35,15 +35,15 @@ Given("I see a {string} bubble for instrument named {string} and event named {st
     })
  })
 
-/**
- * module DataQuality
- * @author Coreen D'Souza <coreen.dsouza1@nhs.net>
- * @example I close popup
- * @description Clicks on the given popup button
- */
-Given("I click {string} in the popup", (text) => {
-    cy.focused().should('have.text', text).click({force: true})
- })
+// /**
+//  * module DataQuality
+//  * @author Coreen D'Souza <coreen.dsouza1@nhs.net>
+//  * @example I close popup
+//  * @description Clicks on the given popup button
+//  */
+// Given("I click {string} in the popup", (text) => {
+//     cy.focused().should('have.text', text).click({force: true})
+//  })
 
 
  /**
@@ -153,17 +153,17 @@ Given("I exclude the top {string} rows of discrepancies table identified by {str
     })
 })           
     
-/**
- * @module DataQuality
- * @author Coreen D'Souza <coreen.dsouza1@nhs.net>
- * @example I close the discrepancies window
- * @description Data Quality - The two close buttons on the window clash, so had to write a new step definition
- */
-Given("I close the discrepancies window", () => {
-    cy.get('.ui-dialog-buttonset').each(($e1) => {
-        $e1.find('button').click(); 
-    })
-})
+// /**
+//  * @module DataQuality
+//  * @author Coreen D'Souza <coreen.dsouza1@nhs.net>
+//  * @example I close the discrepancies window
+//  * @description Data Quality - The two close buttons on the window clash, so had to write a new step definition
+//  */
+// Given("I close the discrepancies window", () => {
+//     cy.get('.ui-dialog-buttonset').each(($e1) => {
+//         $e1.find('button').click(); 
+//     })
+// })
 
 /**
  * @module DataQuality
@@ -285,19 +285,20 @@ Given("I click on the hidden button labeled {string}", (text) => {
     cy.get('button').contains(text).invoke('show').should('be.visible').click({force: true})
 })    
                 
-/**
- * @module DataQuality
- * @author Coreen D'Souza <coreen.dsouza1@nhs.net>
- * @example I save the edited Rule {string}
- * @param {string} Rulename - Rule name
- * @description Data Quality - Saves a custom Rule after editing
- */                
-Given("I save the edited Rule {string}",(Rulename) => {
-    cy.get('table#table-rules')
-        .contains(new RegExp("^" + Rulename + "$", "g"))
-            .parents('tr').within(() => cy.get('div.editlogic').contains('button','Save'))
-                .should('be.visible').trigger('mousedown')
-})
+// /**
+//  * @module DataQuality
+//  * @author Coreen D'Souza <coreen.dsouza1@nhs.net>
+//  * @example I save the edited Rule {string}
+//  * @param {string} Rulename - Rule name
+//  * @description Data Quality - Saves a custom Rule after editing
+//  */                
+// Given("I save the edited Rule {string}",(Rulename) => {
+//     cy.get('table#table-rules')
+//         .contains(new RegExp("^" + Rulename + "$", "g"))
+//             .parents('tr').within(() => cy.get('div.editlogic').contains('button','Save'))
+//                 .should('be.visible').trigger('mousedown')
+// })
+
 
 
 /**
@@ -309,18 +310,19 @@ Given("I save the edited Rule {string}",(Rulename) => {
  * @description Data Quality - Records to which the user does not have acces to, or are excluded from Data Quality rules, 
  *              should not appear
  */ 
-Given("I should not see Record {string} in the top {string} rows of discrepancies table {string}", (record, num, tablename) => {
+     
+Given("I should not see Record {string} in the discrepancies table identified by {string}", (record, tablename) => {
     cy.get(tablename).find('tr').each(($tr, index , $list) => {
         cy.wrap($tr).within(() => {
-            if(index < ($list.length - 1))       
-                cy.get('td').first().should(($d) => {
-                    expect($d).not.to.contain(new RegExp("^" + record + "$", "g"))
-                }
-            )
-        })
-    })
-})
+            if(index < ($list.length))     
+            cy.get('td').first().contains(new RegExp("^" + record , "g")).should('not.exist')
+            })
+          }
+        )
+  })
+
      
+
 /**
  * @module DataQuality
  * @author Coreen D'Souza <coreen.dsouza1@nhs.net>
@@ -330,6 +332,7 @@ Given("I should not see Record {string} in the top {string} rows of discrepancie
  */      
 Given("Discrepancies for Record {string}, under Rule A should appear in the table identified by {string}", (record, tablename) => {
     cy.get('table[id="table-results_table_pd-3"]>tbody>tr td:nth-child(1)').within(() =>
+   // cy.get(tablename >tbody>tr td:nth-child(1)).within(() =>
         cy.get('div').should('contain', record) 
     )
 })                         
