@@ -17,7 +17,7 @@ Feature: Export Data
     And I click on the button labeled "Erase all data"
     And I click on the button labeled "Erase all data" in the dialog box
     Then I should see "All data has now been deleted from the project!"
-    When I close popup
+    When I close the popup
     And I click on the link labeled "Project Setup"
     And I enable surveys for the project
     And I should see that longitudinal mode is "enabled"
@@ -40,8 +40,8 @@ Feature: Export Data
     Then I click on the link labeled "Project Setup"
     And I should see that repeatable instruments are modifiable
     And I open the dialog box for the Repeatable Instruments and Events module
-    And I select "Repeat Entire Event (repeat all instruments together)" on the dropdown table field labeled "Event 1"
-    And I select "Repeat Instruments (repeat independently of each other)" on the dropdown table field labeled "Event 2"
+    And I select "Repeat Entire Event (repeat all instruments together)" on the dropdown field labeled "Event 1"
+    And I select "Repeat Instruments (repeat independently of each other)" on the dropdown field labeled "Event 2"
     And I check the checkbox labeled "Survey"
     And I click on the button labeled "Save"
     Then I should see "Your settings for repeating instruments and/or events have been successfully saved. (The page will now reload.)" in an alert box
@@ -51,9 +51,12 @@ Feature: Export Data
     And I should see that the designate an email field for communications setting is "disabled"
 
   Scenario: Project Setup 4 - Import Data File
-    Given I upload import data from the data import file located at "core/21_ExportDataExtractionIMP_v1115.csv" to project ID 13
-    And I click on the link labeled "My Projects"
-    And I click on the link labeled "21_ExportDataExtraction_v1115"
+    Given I click on the link labeled "Data Import Tool"
+    And I upload a "csv" format file located at "import_files/core/21_ExportDataExtractionIMP_v1115.csv", by clicking the button near "Upload your CSV file:" to browse for the file, and clicking the button labeled "Upload File" to upload the file
+    Then I should see "DATA DISPLAY TABLE"
+    And I should see "(new record)"
+    When I click on the button labeled "Import Data"
+    Then I should see "Import Successful!"
     And I click on the link labeled "Record Status Dashboard"
     # Getting the Event wrong
     And I locate the bubble for the "Survey" instrument on event "Event 1" for record ID "1" and click the repeating instrument bubble for the first instance
@@ -62,6 +65,7 @@ Feature: Export Data
     And I click on the survey option label containing "Open survey" label
     And I click on the button labeled "Submit"
     And I click on the button labeled "Close survey"
+
     # And I open the survey from Survey options and submit it
     # And I locate the bubble for the "Survey" instrument on event "Event 1" for record ID "2" and click the repeating instrument bubble for the first instance
     # And I wait for 0.5 seconds
