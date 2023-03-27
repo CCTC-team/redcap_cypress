@@ -14,7 +14,7 @@ Feature: Data Comparison Tool / DDE Module
     And I click on the checkbox labeled "Data Types" for repeating instrument setup
     And I click on the button labeled "Save"
     Then I should see "Your settings for repeating instruments and/or events have been successfully saved. (The page will now reload.)"
-    And I close popup
+    And I close the popup
     Then I should see that repeatable instruments are disabled
     And I click on the link labeled "Designer"
     And I click on the table cell containing a link labeled "Data Types"
