@@ -65,6 +65,7 @@ Feature: Export Data
     And I click on the survey option label containing "Open survey" label
     And I click on the button labeled "Submit"
     And I click on the button labeled "Close survey"
+    And I logout
 
     # And I open the survey from Survey options and submit it
     # And I locate the bubble for the "Survey" instrument on event "Event 1" for record ID "2" and click the repeating instrument bubble for the first instance
@@ -76,9 +77,9 @@ Feature: Export Data
     Given I am a "standard" user who logs into REDCap
     Then I should see "My Projects"
 
-  Scenario: 2 - Open project
-    Given I am a "standard" user who logs into REDCap
-    Given I click on the link labeled "My Projects"
+  # Scenario: 2 - Open project
+    # Given I am a "standard" user who logs into REDCap
+    And I click on the link labeled "My Projects"
     And I click on the link labeled "21_ExportDataExtraction_v1115"
     Then I should see "21_ExportDataExtraction_v1115"
     And I should see "Record Status Dashboard"
