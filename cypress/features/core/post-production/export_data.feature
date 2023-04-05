@@ -58,14 +58,14 @@ Feature: Export Data
     When I click on the button labeled "Import Data"
     Then I should see "Import Successful!"
     And I click on the link labeled "Record Status Dashboard"
-    # Getting the Event wrong
-    And I locate the bubble for the "Survey" instrument on event "Event 1" for record ID "1" and click the repeating instrument bubble for the first instance
-    And I click on the button labeled "Survey options"
-    # The survey opens in a new tab
-    And I click on the survey option label containing "Open survey" label
-    And I click on the button labeled "Submit"
-    And I click on the button labeled "Close survey"
-    And I logout
+    # # Getting the Event wrong
+    # And I locate the bubble for the "Survey" instrument on event "Event 1" for record ID "1" and click the repeating instrument bubble for the first instance
+    # And I click on the button labeled "Survey options"
+    # # The survey opens in a new tab
+    # And I click on the survey option label containing "Open survey" label
+    # And I click on the button labeled "Submit"
+    # And I click on the button labeled "Close survey"
+    # And I logout
 
     # And I open the survey from Survey options and submit it
     # And I locate the bubble for the "Survey" instrument on event "Event 1" for record ID "2" and click the repeating instrument bubble for the first instance
@@ -77,9 +77,8 @@ Feature: Export Data
     Given I am a "standard" user who logs into REDCap
     Then I should see "My Projects"
 
-  # Scenario: 2 - Open project
-    # Given I am a "standard" user who logs into REDCap
-    And I click on the link labeled "My Projects"
+  Scenario: 2 - Open project
+    Given I click on the link labeled "My Projects"
     And I click on the link labeled "21_ExportDataExtraction_v1115"
     Then I should see "21_ExportDataExtraction_v1115"
     And I should see "Record Status Dashboard"
@@ -230,11 +229,9 @@ Feature: Export Data
     # 11 rows show the Repeat Instrument name “Survey” - do I need to verify this? 
     # I am verifying 11 repeating instruments in the above step; 
     # and also verifying Repeat instrument has Survey as name for Record ID 1
-    # Verify below with number (2)
-    Then I should have a "csv" file that contains data in field "Survey Timestamp" listed on 0 rows
+    Then I should have a "csv" file that contains data in field '"Survey Timestamp"' listed on 2 rows
     Then I should have a "csv" file that contains the data "2019-06-17" for record ID "1" and fieldname "DOB"
-    # Cannot verify below now
-    # Then I should have a "csv" file that contains today's date for the fieldname "Survey Timestamp" for record ID "1" 
+    Then I should have a "csv" file that contains today's date for the fieldname '"Survey Timestamp"' for record ID "1" 
     Then I should have a "csv" file that contains record ID "1" listed on 4 rows
     Then I should have a "csv" file that contains 2 repeating instances of the event '"Event 1"' for record ID "1"
     Then I should have a "csv" file that contains 2 repeating instances of the event '"Event 2"' for record ID "1"
@@ -259,8 +256,7 @@ Feature: Export Data
     # 11 rows show the Repeat Instrument name “survey” - do I need to verify this? 
     # I am verifying 11 repeating instruments in the above step; 
     # and also verifying redcap_repeat_instrument has survey as name for Record ID 1
-    # Verify below with number (2)
-    Then I should have a "csv" file that contains data in field "survey_timestamp" listed on 0 rows
+    Then I should have a "csv" file that contains data in field "survey_timestamp" listed on 2 rows
     Then I should have a "csv" file that contains record ID "1" listed on 4 rows
     Then I should have a "csv" file that contains record ID "2" listed on 3 rows
     And I click on the button labeled "Close" in the dialog box
@@ -282,7 +278,7 @@ Feature: Export Data
     Then I should have a "csv" file that contains the data 'survey' for record ID "1" and fieldname 'redcap_repeat_instrument'
     Then I should have a "csv" file that contains 8 distinct records
     Then I should have a "csv" file that contains 11 rows
-    # Then I should have a "csv" file that contains data in field "survey_timestamp" listed on 0 rows
+    Then I should have a "csv" file that contains data in field "survey_timestamp" listed on 2 rows
     And I click on the button labeled "Close" in the dialog box
     Then I should see "My Reports & Exports"
 
@@ -306,8 +302,7 @@ Feature: Export Data
     Then I should have a "csv" file that contains 8 distinct records
     Then I should have a "csv" file that contains 20 rows
     And I should have a "csv" file that contains hashed record ID of length 32
-    # Verify below with number (2)
-    Then I should have a "csv" file that contains data in field "survey_timestamp" listed on 0 rows
+    Then I should have a "csv" file that contains data in field "survey_timestamp" listed on 2 rows
     Then I should have a "csv" file that does not contain the fieldname "lname"
     Then I should have a "csv" file that does not contain the fieldname "fname"
     Then I should have a "csv" file that does not contain the fieldname "redcap_survey_identifier"
@@ -333,11 +328,9 @@ Feature: Export Data
     # Data is raw.. Have to check this with hashed Record ID.. Is that needed? Heading is raw, meand data is raw.
     # Then I should have a "csv" file that contains the data 'survey' for record ID "1" and fieldname 'redcap_repeat_instrument'
     Then I should have a "csv" file that contains 20 rows
-    # Verify below with number (2)
-    Then I should have a "csv" file that contains data in field "survey_timestamp" listed on 0 rows
+    Then I should have a "csv" file that contains data in field "survey_timestamp" listed on 2 rows
     Then I should have a "csv" file that does not contain the data "2019-06-17" for record ID "1" and fieldname "dob"
-    # Have to check below step definition later
-    # Then I should have a "csv" file that does not contain today's date for the fieldname "survey_timestamp" for record ID "1"
+    Then I should have a "csv" file that does not contain today's date for the fieldname "survey_timestamp" for record ID "1"
     And I click on the button labeled "Close" in the dialog box
     Then I should see "My Reports & Exports"
 
@@ -380,11 +373,9 @@ Feature: Export Data
     # Data is raw.. Have to check this with hashed Record ID.. Is that needed? Heading is raw, meand data is raw.
     # Then I should have a "csv" file that contains the data 'survey' for record ID "1" and fieldname 'redcap_repeat_instrument'
     Then I should have a "csv" file that contains 20 rows
-    # Verify below with number
-    Then I should have a "csv" file that contains data in field "survey_timestamp" listed on 0 rows
+    Then I should have a "csv" file that contains data in field "survey_timestamp" listed on 2 rows
     Then I should have a "csv" file that does not contain the data "2019-06-17" for record ID "1" and fieldname "dob"
-    # Have to check below step definition later
-    # Then I should have a "csv" file that does not contain today's date for the fieldname "survey_timestamp" for record ID "1"
+    Then I should have a "csv" file that does not contain today's date for the fieldname "survey_timestamp" for record ID "1"
     Then I should have a "csv" file that does not contain the fieldname "lname"
     Then I should have a "csv" file that does not contain the fieldname "fname"
     Then I should have a "csv" file that does not contain the fieldname "redcap_survey_identifier"

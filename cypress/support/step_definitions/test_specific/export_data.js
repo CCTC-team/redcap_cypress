@@ -36,7 +36,7 @@ Given('I open the survey from Survey options and submit it', () => {
 
     cy.get('a').contains('Open survey').click()
     cy.get('@surveyOpen').should('be.called').then(() => {
-        cy.visit(newurl)
+        cy.visit_base(newurl)
     })
     
     // cy.get("@newurl").then(newurl => {
@@ -47,6 +47,16 @@ Given('I open the survey from Survey options and submit it', () => {
     cy.get('button').contains('Submit').click()
     cy.get('button').contains('Close survey').click()
     cy.visit_version({page: '/DataEntry/record_status_dashboard.php', params: 'pid=' + pid})
+
+    // cy.get('div').contains('Public Survey URL').parent().find('input').then(($input) => {
+    //     return $input[0].value
+    // }).then(($url) => {
+    //     //Make sure we aren't logged in
+    //     cy.logout()
+
+    //     //Now we can visit the URL as an external user
+    //     cy.visit_base({ url: $url })
+    // })
 })
 
 /**
@@ -66,14 +76,14 @@ Given("I should have a {string} file that contains the data {string} for record 
         let dataCount = 0
         let columns = lines[0].trim().split(',')
         for(let i = 0; i < columns.length; i++) {
-            if(columns[i] === fieldName)
+            if(columns[i] == fieldName)
                 columnNum = i
         }
         
         for(let i = 1; i < lines.length; i++){
             let columns = lines[i].trim().split(',')
-            if(columns[0] === recordId) {
-                if(columns[columnNum] === data) {
+            if(columns[0] == recordId) {
+                if(columns[columnNum] == data) {
                    dataCount++
                 }
             }       
@@ -102,23 +112,19 @@ Given("I should have a {string} file that contains today's date for the fieldnam
         var yyyy = today.getFullYear()
 
         today = yyyy + '-' + mm + '-' + dd
-        cy.log(today)
-
+    
         let header = lines[0].trim().split(',')
         for(let i = 0; i < header.length; i++) {
-            if(header[i] === fieldName)
+            if(header[i] == fieldName)
                 columnNum = i
         }
-        cy.log(header[columnNum])
-
+        
         for(let i = 1; i < lines.length; i++){
             let columns = lines[i].trim().split(',')
-            if(columns[0] === recordId) {
-                cy.log(columns[columnNum])
-                if(columns[columnNum]) {
-                    if(columns[columnNum].substr(0,10) === today) {
+            if(columns[0] == recordId) {
+                if(columns[columnNum]) {               
+                    if(columns[columnNum].substr(1,10) == today) {
                         dataCount++
-                        cy.log(columns[columnNum].substr(0,10))
                     }
                 }
             }       
@@ -145,8 +151,9 @@ Given("I should have a {string} file that contains data in field {string} listed
 
         let header = lines[0].trim().split(',')
         for(let i = 0; i < header.length; i++){
-            if(header[i] == fieldname)
+            if(header[i] == fieldname){
                 colNum = i
+            }
         }
 
         for(let i = 1; i < lines.length; i++){
@@ -155,7 +162,6 @@ Given("I should have a {string} file that contains data in field {string} listed
                 recCount++
             }       
         }
-
         expect(recCount).to.equal(num)
     })
 })
@@ -175,7 +181,7 @@ Given("I should have a {string} file that contains record ID {string} listed on 
         let recCount = 0
         for(let i = 1; i < lines.length; i++){
             let columns = lines[i].trim().split(',')
-            if(columns[0] === recordId) {
+            if(columns[0] == recordId) {
                 recCount++
             }       
         }
@@ -199,7 +205,7 @@ Given("I should have a {string} file that contains {int} repeating instance(s) o
         let recCount = 0
         for(let i = 1; i < lines.length; i++){
             let columns = lines[i].trim().split(',')
-            if(columns[0] === recordId && columns[1] === eventName) {
+            if(columns[0] == recordId && columns[1] == eventName) {
                 recCount++
             }       
         }
@@ -222,7 +228,7 @@ defineParameterType({
 
 Given("I select the option {string} from the list of {fieldLabel} in the custom selection option", (option, label) => {
     let selectId = ""
-    if(label === "Events")
+    if(label == "Events")
         selectId = "export_selected_events"
     else 
         selectId = "export_selected_instruments"
@@ -266,7 +272,7 @@ Given("I should have a {string} file that does not contain the fieldname {string
         let headings = lines[0].trim().split(',')
         let fieldCount = 0
         for(let i = 0; i < headings.length; i++){
-            if(headings[i] === fieldName)
+            if(headings[i] == fieldName)
                 fieldCount++
         }
         expect(fieldCount).to.equal(0)
@@ -292,14 +298,14 @@ Given("I should have a {string} file that does not contain the data {string} for
 
         let columns = lines[0].trim().split(',')
         for(let i = 0; i < columns.length; i++) {
-            if(columns[i] === fieldName)
+            if(columns[i] == fieldName)
                 columnNum = i
         }
         
         for(let i = 1; i < lines.length; i++){
             let columns = lines[i].trim().split(',')
-            if(columns[0] === recordId) {
-                if(columns[columnNum] === data) {
+            if(columns[0] == recordId) {
+                if(columns[columnNum] == data) {
                    dataCount++
                 }
             }       
@@ -329,23 +335,19 @@ Given("I should have a {string} file that does not contain today's date for the 
         var yyyy = today.getFullYear()
 
         today = yyyy + '-' + mm + '-' + dd
-        cy.log(today)
-
+    
         let header = lines[0].trim().split(',')
         for(let i = 0; i < header.length; i++) {
-            if(header[i] === fieldName)
+            if(header[i] == fieldName)
                 columnNum = i
         }
-        cy.log(header[columnNum])
-
+        
         for(let i = 1; i < lines.length; i++){
             let columns = lines[i].trim().split(',')
-            if(columns[0] === recordId) {
-                cy.log(columns[columnNum])
-                if(columns[columnNum]) {
-                    if(columns[columnNum].substr(0,10) === today) {
+            if(columns[0] == recordId) {
+                if(columns[columnNum]) {               
+                    if(columns[columnNum].substr(1,10) == today) {
                         dataCount++
-                        cy.log(columns[columnNum].substr(0,10))
                     }
                 }
             }       
