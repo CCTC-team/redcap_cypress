@@ -58,14 +58,14 @@ Feature: Export Data
     When I click on the button labeled "Import Data"
     Then I should see "Import Successful!"
     And I click on the link labeled "Record Status Dashboard"
-    # # Getting the Event wrong
-    # And I locate the bubble for the "Survey" instrument on event "Event 1" for record ID "1" and click the repeating instrument bubble for the first instance
-    # And I click on the button labeled "Survey options"
-    # # The survey opens in a new tab
-    # And I click on the survey option label containing "Open survey" label
-    # And I click on the button labeled "Submit"
-    # And I click on the button labeled "Close survey"
-    # And I logout
+    # Getting the Event wrong
+    And I locate the bubble for the "Survey" instrument on event "Event 1" for record ID "1" and click the repeating instrument bubble for the first instance
+    And I click on the button labeled "Survey options"
+    # The survey opens in a new tab
+    And I click on the survey option label containing "Open survey" label
+    And I click on the button labeled "Submit"
+    And I click on the button labeled "Close survey"
+    And I logout
 
     # And I open the survey from Survey options and submit it
     # And I locate the bubble for the "Survey" instrument on event "Event 1" for record ID "2" and click the repeating instrument bubble for the first instance
