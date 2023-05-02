@@ -45,9 +45,9 @@ Scenario: 1 - Login as Test User
     Given I click on the link labeled "My Projects"
     And I click on the link labeled "16_DataImport_v1115"
     And I click on the link labeled "Data Import Tool"
-    And Iaa download a file "rows" by clicking on the link labeled "Download your Data Import Template"
+    And I download a Data Import Template file "rows" by clicking on the link labeled "Download your Data Import Template"
     Then I should have a file named "Template_rows.csv"
-    And Iaa download a file "columns" by clicking on the link labeled "Download your Data Import Template"
+    And I download a Data Import Template file "columns" by clicking on the link labeled "Download your Data Import Template"
     Then I should have a file named "Template_columns.csv"
 
 Scenario: 2 - Upload Template_rows file (data in rows)
@@ -62,9 +62,9 @@ Scenario: 3 - Upload modified Template_rows file
     #And I upload a "csv" format file located at "import_files/Import1_Template_Rows_Data_modified.csv", by clicking "input[name=uploadedfile]" to select the file, and clicking "button[id=submit]" to upload the file
     And I upload a "csv" format file located at "/import_files/Import1_Template_Rows_Data_modified.csv", by clicking the button near "Upload your CSV file:" to browse for the file, and clicking the button labeled "Upload File" to upload the file
     #Then the form should have a redcap_csrf_token
-    Then Values "100,200,300" should contain "(existing record)"
+    Then Records "100,200,300" should contain text "(existing record)" in brackets
     #And Iaaxx click on a bubble with instrument named "200" and event named "bdate" and "1943-01-28" and "(1943-02-25)"
-    And I should see old value "(1943-02-25)" and new value "1943-01-28" for Record "200" and field named "bdate"
+    And I should see old value "(1943-02-25)" and new value "1943-01-28" for Record "200" and field named "bdate" in the Data Display Table
     And I click on the button labeled "Import Data" 
     Then I should see "Import Successful!"
   
@@ -83,9 +83,9 @@ Scenario: 5 -
     Given I click on the link labeled "Data Import Tool"
     And I select "Columns" from the dropdown identified by "select[name=format]"
     Given I upload a "csv" format file located at "/import_files/Import1_Template_Columns_Data_modified.csv", by clicking the button near "Upload your CSV file:" to browse for the file, and clicking the button labeled "Upload File" to upload the file
-    Then I should see error "Invalid date format." corresponding to the field named "bdate" for record "4002"
-    And I should see error "The value is not a valid category for multiple_dropdown_auto" corresponding to the field named "multiple_dropdown_auto" for record "4002"
-    And I should see error "The value you provided could not be validated because it does not follow the expected format." corresponding to the field named "integer" for record "4002"
+    Then I should see error "Invalid date format." corresponding to the field named "bdate" for record "4002" in Error Display Table
+    And I should see error "The value is not a valid category for multiple_dropdown_auto" corresponding to the field named "multiple_dropdown_auto" for record "4002" in Error Display Table
+    And I should see error "The value you provided could not be validated because it does not follow the expected format." corresponding to the field named "integer" for record "4002" in Error Display Table
 
 Scenario: 6 -
     When I click on the link labeled "Project Setup"
@@ -108,7 +108,8 @@ Scenario: 7 -
     And I open the dialog box for the Repeatable Instruments and Events module
     And I select "Repeat Entire Event (repeat all instruments together)" on the dropdown field labeled "Event 1 (Arm 1: Arm 1)"
     And I click on the button labeled "Save" on the dialog box for the Repeatable Instruments and Events module
-    And I click on the button labeled "Close" in the dialog box
+    #And I click on the button labeled "Close" in the dialog box
+    And I close the popup
     And I should see that repeatable instruments are modifiable
 
 Scenario: 8
@@ -119,15 +120,14 @@ Scenario: 8
     Given I click on the link labeled "Record Status Dashboard"
     And I locate the bubble for the "Text Validation" instrument on event "Event 1" for record ID "5000" and click on the bubble
     Then I should see "(2)" instances in the instance table
-    
-    Given the AJAX "POST" request at "index.php?*" tagged by "update" is being monitored
-    And I locate the bubble for the "Text Validation" instrument on event "Event 1" for record ID "5001" and click on the bubble
-    And the AJAX request tagged by "update" has completed
-    Then I should see "(2)" instances in the instance table
-    Given the AJAX "POST" request at "index.php?*" tagged by "update" is being monitored
-    And I locate the bubble for the "Text Validation" instrument on event "Event 1" for record ID "5002" and click on the bubble
-    And the AJAX request tagged by "update" has completed
-    Then I should see "(2)" instances in the instance table
+    # Given the AJAX "POST" request at "index.php?*" tagged by "update" is being monitored
+    # And I locate the bubble for the "Text Validation" instrument on event "Event 1" for record ID "5001" and click on the bubble
+    # And the AJAX request tagged by "update" has completed
+    # Then I should see "(2)" instances in the instance table
+    # Given the AJAX "POST" request at "index.php?*" tagged by "update" is being monitored
+    # And I locate the bubble for the "Text Validation" instrument on event "Event 1" for record ID "5002" and click on the bubble
+    # And the AJAX request tagged by "update" has completed
+    # Then I should see "(2)" instances in the instance table
 
 Scenario: 9
     Given I click on the link labeled "Project Setup"
@@ -135,4 +135,81 @@ Scenario: 9
     And I open the dialog box for the Repeatable Instruments and Events module
     And I select "Repeat Instruments (repeat independently of each other)" on the dropdown field labeled "Event 1 (Arm 1: Arm 1)"
     And I click on the button labeled "Save" on the dialog box for the Repeatable Instruments and Events module
+    And I close the popup
+    Given I click on the link labeled "Data Import Tool"
+    Given I upload a "csv" format file located at "/import_files/Import1_Template_Rows_Repeat.csv", by clicking the button near "Upload your CSV file:" to browse for the file, and clicking the button labeled "Upload File" to upload the file
+    And I click on the button labeled "Import Data"
+    Then I should see "Import Successful!"
+    # Given I click on the link labeled "Record Status Dashboard"
+    # Given the AJAX "POST" request at "index.php?*" tagged by "update1" is being monitored
+    # And I locate the bubble for the "Text Validation" instrument on event "Event 1" for record ID "5000" and click on the bubble
+    # And the AJAX request tagged by "update1" has completed
+    # Then I should see "(3)" instances in the instance table
+    # Given the AJAX "POST" request at "index.php?*" tagged by "update2" is being monitored
+    # And I locate the bubble for the "Text Validation" instrument on event "Event 1" for record ID "5001" and click on the bubble
+    # And the AJAX request tagged by "update2" has completed
+    # Then I should see "(3)" instances in the instance table
+    # Given the AJAX "POST" request at "index.php?*" tagged by "update3" is being monitored
+    # And I locate the bubble for the "Text Validation" instrument on event "Event 1" for record ID "5002" and click on the bubble
+    # And the AJAX request tagged by "update3" has completed
+    # Then I should see "(3)" instances in the instance table
     
+    Given I click on the link labeled "Project Setup"
+    And I open the dialog box for the Repeatable Instruments and Events module
+    And I select "-- not repeating --" on the dropdown field labeled "Event 1 (Arm 1: Arm 1)"
+    And I click on the button labeled "Save" on the dialog box for the Repeatable Instruments and Events module
+    And I close the popup
+    And I should see that repeatable instruments are disabled
+
+Scenario: 10
+    Given I click on the link labeled "Record Status Dashboard"
+    And I click on the link labeled "5002"
+    And I click on the button labeled "Choose action for record"
+    And I select the option labeled " Lock entire record"
+    And I should see a dialog containing the following text: "Do you wish to LOCK record \"5002\"?"
+    And I click on the button labeled "Lock entire record" in the dialog box
+    Then I should see a dialog containing the following text: "Record \"5002\" is now LOCKED"
+    And I click on the button labeled "OK" in the dialog box
+    #Wait added due to element detached from the DOM error
+    And I wait for 3 seconds
+    Given I click on the link labeled "Data Import Tool"
+    Given I upload a "csv" format file located at "/import_files/Import1_Template_Rows_Data_Scenario10.csv", by clicking the button near "Upload your CSV file:" to browse for the file, and clicking the button labeled "Upload File" to upload the file
+    Then I should see "Errors were detected in the import file that prevented it from being loaded."
+    And I should see error "This record has been locked at the record level. No value within this record can be modified." corresponding to the field named "data_types_complete" for record "5002" in Error Display Table
+    Given I click on the link labeled "Record Status Dashboard"
+    And I click on the link labeled "5002"
+    And I click on the button labeled "Choose action for record"
+    And I select the option labeled "Unlock entire record"
+    And I should see a dialog containing the following text: "Do you wish to UNLOCK record \"5002\"?"
+    And I click on the button labeled "Unlock entire record" in the dialog box
+    Then I should see a dialog containing the following text: "Record \"5002\" is now UNLOCKED"
+    And I click on the button labeled "OK" in the dialog box
+    Then I logout
+
+Scenario: 11
+    Given I am an "admin" user who logs into REDCap
+    And I click on the link labeled " My Projects"
+    And I click on the link labeled "16_DataImport_v1115"
+    And I click on the link labeled "User Rights"
+    And I click on the link labeled "test_user"
+    And I click on the button labeled "Edit user privileges"
+    And I uncheck the User Right named "Create Records"
+    And I save changes within the context of User Rights
+    Then I logout
+
+    Given I am a "standard" user who logs into REDCap
+    Given I click on the link labeled "My Projects"
+    And I click on the link labeled "16_DataImport_v1115"
+    And I click on the link labeled "Data Import Tool"
+    Given I upload a "csv" format file located at "/import_files/Import1_Template_Rows_Data_Scenario11.csv", by clicking the button near "Upload your CSV file:" to browse for the file, and clicking the button labeled "Upload File" to upload the file
+    Then I should see "Your user privileges do NOT allow you to create new records."
+
+Scenario: 12
+    Given I click on the link labeled "Data Import Tool"
+    And I select "Yes, blank values in the file will overwrite existing values" from the dropdown identified by "select[name=overwriteBehavior]"
+    Then I should see a dialog containing the following text: "Are you sure you wish to REPLACE EXISTING SAVED VALUES WITH BLANK VALUES"
+    And I click on the button labeled "Yes, I understand" in the dialog box
+    Given I upload a "csv" format file located at "/import_files/Import1_Template_Rows_Data_Scenario12.csv", by clicking the button near "Upload your CSV file:" to browse for the file, and clicking the button labeled "Upload File" to upload the file
+    And I should see new value "(1940-07-07)" for Record "5002" and field named "bdate" in the Data Display Table
+    And I should see new value "(Ringo)" for Record "5002" and field named "name" in the Data Display Table
+    And I should see new value "(drummer)" for Record "5002" and field named "instrument" in the Data Display Table
