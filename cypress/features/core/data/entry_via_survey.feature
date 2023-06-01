@@ -201,12 +201,15 @@ Feature: Data Entry through the Survey
     # Getting wrong Event. To open Event 2, I have to give Event 1 in the below step
     And I locate the bubble for the "Survey" instrument on event "Event 1" for record ID "1" and click on the bubble
     Then I should see a button labeled "Survey options"
-    # And I click on the button labeled "Survey options"
+    And I click on the button labeled "Survey options"
     # # The survey opens in a new tab
-    # And I click on the survey option label containing "Open survey" label
-    # And I enter "test1@test.com" into the field identified by "input[name=email]"
-    # And I click on the button labeled "Submit"    
-    # And I click on the button labeled "Close survey"
+    And I click on the survey option label containing "Open survey" label
+    And I enter "test1@test.com" into the field identified by "input[name=email]"
+    And I click on the button labeled "Submit"    
+    And I click on the button labeled "Close survey"
+    Given I am a "standard" user who logs into REDCap
+    And I click on the link labeled "My Projects"
+    And I click on the link labeled "15_DirectDataEntry (Survey) v1115"
     # Then I should see "Leave without saving changes"
     # And I should see "Stay on page"
 
@@ -214,6 +217,7 @@ Feature: Data Entry through the Survey
     # I locate the bubble for the {string} instrument on event {string} for record ID {string} <and click the new instance link | and click on the bubble|and click the repeating instrument bubble for the (first | second | third) instance>
 
   Scenario: 16 - Log out & Open survey and enter email - To Do
+    
 
   Scenario: 17 - To Do
     Given I click on the link labeled "Survey Distribution Tools"

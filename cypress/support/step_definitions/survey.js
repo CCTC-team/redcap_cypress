@@ -58,7 +58,7 @@ Given("I enter {string} into the {string} survey text input field", (text, field
  * @description Enters text into a survey field specified by entire selector value
  */
  Given("I enter {string} into the field identified by {string}", (text, sel) => {
-    cy.get(sel).type(text)
+    cy.get(sel).focus().type(text)
 })
 
 /**
@@ -70,7 +70,7 @@ Given("I enter {string} into the {string} survey text input field", (text, field
  * @description Clear text from field and enter new text into a survey field.
  */
  Given("I clear the field and enter {string} into the {string} text input field", (text, variable) => {
-    cy.get('input[name='+variable+']').clear().type(text)
+    cy.get('input[name='+variable+']').focus().clear().type(text)
 })
 
 /**

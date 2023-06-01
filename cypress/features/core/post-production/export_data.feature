@@ -57,28 +57,48 @@ Feature: Export Data
     And I should see "(new record)"
     When I click on the button labeled "Import Data"
     Then I should see "Import Successful!"
+
+  # Scenario: Temp setup - delete next 2 lines
+  #   Given I am a "standard" user who logs into REDCap
+  #   And I create a project named "21_ExportDataExtraction_v1115" with project purpose Practice / Just for fun via CDISC XML import from fixture location "cdisc_files/core/21ExportDataExtracti_temp.xml"
+   
     And I click on the link labeled "Record Status Dashboard"
     # Getting the Event wrong
     And I locate the bubble for the "Survey" instrument on event "Event 1" for record ID "1" and click the repeating instrument bubble for the first instance
     And I click on the button labeled "Survey options"
-    # The survey opens in a new tab
+    And I click on the survey option label containing "Open survey" label
+    And I click on the button labeled "Submit"
+    And I click on the button labeled "Close survey"
+    And I logout
+    # This is for Event 2 for Record ID 2
+    Given I am a "standard" user who logs into REDCap
+    And I wait for 2 seconds
+    Then I click on the link labeled "My Projects"
+    And I wait for 2 seconds
+    And I click on the link labeled "21_ExportDataExtraction_v1115"
+    And I wait for 2 seconds
+    And I click on the link labeled "Record Status Dashboard"
+    # Getting the Event wrong
+    And I locate the bubble for the "Survey" instrument on event "Event 1" for record ID "2" and click the repeating instrument bubble for the first instance
+    And I click on the button labeled "Survey options"
     And I click on the survey option label containing "Open survey" label
     And I click on the button labeled "Submit"
     And I click on the button labeled "Close survey"
     And I logout
 
-    # And I open the survey from Survey options and submit it
-    # And I locate the bubble for the "Survey" instrument on event "Event 1" for record ID "2" and click the repeating instrument bubble for the first instance
-    # And I wait for 0.5 seconds
-    # And I click on the button labeled "Survey options"
-    # And I open the survey from Survey options and submit it
+    # # And I locate the bubble for the "Survey" instrument on event "Event 1" for record ID "2" and click the repeating instrument bubble for the first instance
+    # # And I wait for 0.5 seconds
+    # # And I click on the button labeled "Survey options"
+    # # And I open the survey from Survey options and submit it
         
   Scenario: 1 - Login
     Given I am a "standard" user who logs into REDCap
     Then I should see "My Projects"
 
   Scenario: 2 - Open project
+    And I wait for 2 seconds
     Given I click on the link labeled "My Projects"
+    And I wait for 2 seconds
     And I click on the link labeled "21_ExportDataExtraction_v1115"
     Then I should see "21_ExportDataExtraction_v1115"
     And I should see "Record Status Dashboard"
@@ -100,6 +120,7 @@ Feature: Export Data
     Given I am an "admin" user who logs into REDCap
     And  I click on the link labeled "Control Center"
     And  I click on the link labeled "Browse Projects"
+    And I wait for 0.5 seconds
     And I enter "21_ExportDataExtraction_v1115" into the field identified by "input[id=project_search]"
     And I click on the button labeled "Search project title"
     Then I click on the link labeled "21_ExportDataExtraction_v1115"

@@ -193,7 +193,7 @@ Given('I clear the field identified by {string}', (selector) => {
  * @description Enter text into a specific field
  */
 Given("I enter {string} into the field identified by {string}", (text, sel) => {
-    cy.get(sel).type(text)
+    cy.get(sel).focus().type(text)
 })
 
 /**

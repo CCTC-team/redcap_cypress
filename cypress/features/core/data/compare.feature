@@ -146,6 +146,7 @@ Feature: Data Comparison Tool / DDE Module
     Given I am an "admin" user who logs into REDCap
     And  I click on the link labeled "Control Center"
     And  I click on the link labeled "Browse Projects"
+    And I wait for 0.5 seconds
     And I enter "17_DataComparisonTool_DDE_v1115" into the field identified by "input[id=project_search]"
     And I click on the button labeled "Search project title"
     Then I click on the link labeled "17_DataComparisonTool_DDE_v1115"
@@ -255,6 +256,7 @@ Feature: Data Comparison Tool / DDE Module
     Given I am an "admin" user who logs into REDCap
     And  I click on the link labeled "Control Center"
     And  I click on the link labeled "Browse Projects"
+    And I wait for 0.5 seconds
     And I enter "17_DataComparisonTool_DDE_v1115" into the field identified by "input[id=project_search]"
     And I click on the button labeled "Search project title"
     Then I click on the link labeled "17_DataComparisonTool_DDE_v1115"
@@ -334,6 +336,7 @@ Feature: Data Comparison Tool / DDE Module
     Given I am an "admin" user who logs into REDCap
     And  I click on the link labeled "Control Center"
     And  I click on the link labeled "Browse Projects"
+    And I wait for 0.5 seconds
     And I enter "17_DataComparisonTool_DDE_v1115" into the field identified by "input[id=project_search]"
     And I click on the button labeled "Search project title"
     Then I click on the link labeled "17_DataComparisonTool_DDE_v1115"
@@ -354,6 +357,7 @@ Feature: Data Comparison Tool / DDE Module
     Given I am an "admin" user who logs into REDCap
     And  I click on the link labeled "Control Center"
     And  I click on the link labeled "Browse Projects"
+    And I wait for 0.5 seconds
     And I enter "17_DataComparisonTool_DDE_v1115" into the field identified by "input[id=project_search]"
     And I click on the button labeled "Search project title"
     Then I click on the link labeled "17_DataComparisonTool_DDE_v1115"

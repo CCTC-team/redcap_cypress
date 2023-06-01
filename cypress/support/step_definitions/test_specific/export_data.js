@@ -27,7 +27,7 @@ Given('I open the survey from Survey options and submit it', () => {
             newurl = url
             pid = win.pid
             // return win.open.wrappedMethod.call(win, url, '_self')
-            // cy.visit(newurl)
+            cy.visit(url)
             // return win.location.href = url
             // cy.wrap(newurl).as('newurl')
             
@@ -35,18 +35,17 @@ Given('I open the survey from Survey options and submit it', () => {
       })
 
     cy.get('a').contains('Open survey').click()
-    cy.get('@surveyOpen').should('be.called').then(() => {
-        cy.visit_base(newurl)
-    })
+    cy.get('@surveyOpen').should('be.called')
+   
+            
     
     // cy.get("@newurl").then(newurl => {
         // cy.visit(newurl)
     // })
 
     // cy.visit(newurl)
-    cy.get('button').contains('Submit').click()
-    cy.get('button').contains('Close survey').click()
-    cy.visit_version({page: '/DataEntry/record_status_dashboard.php', params: 'pid=' + pid})
+    
+    // cy.visit_version({page: '/DataEntry/record_status_dashboard.php', params: 'pid=' + pid})
 
     // cy.get('div').contains('Public Survey URL').parent().find('input').then(($input) => {
     //     return $input[0].value
