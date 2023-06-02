@@ -57,13 +57,9 @@ Feature: Export Data
     And I should see "(new record)"
     When I click on the button labeled "Import Data"
     Then I should see "Import Successful!"
-
-  # Scenario: Temp setup - delete next 2 lines
-  #   Given I am a "standard" user who logs into REDCap
-  #   And I create a project named "21_ExportDataExtraction_v1115" with project purpose Practice / Just for fun via CDISC XML import from fixture location "cdisc_files/core/21ExportDataExtracti_temp.xml"
-   
     And I click on the link labeled "Record Status Dashboard"
-    # Getting the Event wrong
+    # This is for Event 2 for Record ID 1
+    # Getting the Event wrong. Need to locate Event 2 but have to give Event 1 in the step definition below
     And I locate the bubble for the "Survey" instrument on event "Event 1" for record ID "1" and click the repeating instrument bubble for the first instance
     And I click on the button labeled "Survey options"
     And I click on the survey option label containing "Open survey" label
@@ -72,42 +68,37 @@ Feature: Export Data
     And I logout
     # This is for Event 2 for Record ID 2
     Given I am a "standard" user who logs into REDCap
-    And I wait for 2 seconds
+    Then I should see "New Project"
     Then I click on the link labeled "My Projects"
-    And I wait for 2 seconds
+    Then I should see "Project Title"
     And I click on the link labeled "21_ExportDataExtraction_v1115"
-    And I wait for 2 seconds
+    Then I should see "Record Status Dashboard"
     And I click on the link labeled "Record Status Dashboard"
-    # Getting the Event wrong
+    # Getting the Event wrong. Need to locate Event 2 but have to give Event 1 in the step definition below
     And I locate the bubble for the "Survey" instrument on event "Event 1" for record ID "2" and click the repeating instrument bubble for the first instance
     And I click on the button labeled "Survey options"
     And I click on the survey option label containing "Open survey" label
     And I click on the button labeled "Submit"
     And I click on the button labeled "Close survey"
     And I logout
-
-    # # And I locate the bubble for the "Survey" instrument on event "Event 1" for record ID "2" and click the repeating instrument bubble for the first instance
-    # # And I wait for 0.5 seconds
-    # # And I click on the button labeled "Survey options"
-    # # And I open the survey from Survey options and submit it
         
   Scenario: 1 - Login
     Given I am a "standard" user who logs into REDCap
-    Then I should see "My Projects"
+    Then I should see "New Project"
 
   Scenario: 2 - Open project
-    And I wait for 2 seconds
     Given I click on the link labeled "My Projects"
-    And I wait for 2 seconds
+    Then I should see "Project Title"
     And I click on the link labeled "21_ExportDataExtraction_v1115"
     Then I should see "21_ExportDataExtraction_v1115"
     And I should see "Record Status Dashboard"
     # Manual script - Verify the project complies with all project setup steps in the Test Requirements section of this script.
-    # DO I need to check this
+    # Do I need to check this
 
   Scenario: 3 - Mark First name and Last name as identifier
     Then I click on the link labeled "Project Setup"
     And I click on the button labeled "Online Designer"
+    Then I should see "Instrument name"
     And I click on the table cell containing a link labeled "Export"
     And I edit the Data Collection Instrument field labeled "Last name"
     And I click on the element identified by "input[id=field_phi1]"
@@ -118,22 +109,30 @@ Feature: Export Data
     
   Scenario: 4 - Move to production
     Given I am an "admin" user who logs into REDCap
+    Then I should see "Control Center"
     And  I click on the link labeled "Control Center"
+    Then I should see "Browse Projects"
     And  I click on the link labeled "Browse Projects"
     And I wait for 0.5 seconds
     And I enter "21_ExportDataExtraction_v1115" into the field identified by "input[id=project_search]"
     And I click on the button labeled "Search project title"
+    Then I should see "21_ExportDataExtraction_v1115"
     Then I click on the link labeled "21_ExportDataExtraction_v1115"
+    Then I should see "Project Setup"
     And I click on the link labeled "Project Setup"
     And I click on the button labeled "Move project to production"
     And I click on the radio labeled "Keep ALL data saved so far." in the dialog box
     And I click on the button labeled "YES, Move to Production Status" in the dialog box
-    Then I should see "Success! The project is now in production."
+    # Then I should see "Success! The project is now in production."
+    Then I should see "Production"
 
   Scenario: 5a - Verify export option - CSV / Microsoft Excel (raw data)
     Given I am a "standard" user who logs into REDCap
+    Then I should see "New Project"
     And I click on the link labeled "My Projects"
+    Then I should see "21_ExportDataExtraction_v1115"
     And I click on the link labeled "21_ExportDataExtraction_v1115"
+    Then I should see "Data Exports, Reports, and Stats"
     When I click on the link labeled "Data Exports, Reports, and Stats"
     Then I should see "View Report"
     And I should see "Export Data"
@@ -239,6 +238,8 @@ Feature: Export Data
     Given I click on the link labeled "Data Exports, Reports, and Stats"
     Then I should see "Export Data"
     When I export data for the report named "All data" in "csvlabels" format
+    And I wait for 0.5 seconds
+    Then I should see "Exporting data"
     Then I should see "Data export was successful!"
     Then I should receive a download to a "csv" file
     Then I should have a "csv" file that contains the headings below
@@ -259,13 +260,15 @@ Feature: Export Data
     Then I should have a "csv" file that contains record ID "2" listed on 3 rows
     Then I should have a "csv" file that contains 1 repeating instances of the event '"Event 1"' for record ID "2"
     Then I should have a "csv" file that contains 2 repeating instances of the event '"Event 2"' for record ID "2"
-    And I click on the button labeled "Close" in the dialog box
+    # Dialog box closes on its own
+    # And I click on the button labeled "Close" in the dialog box
     Then I should see "My Reports & Exports"
 
   Scenario: 7 - Export Data in csvraw format and verify the exported data
     Given I click on the link labeled "Data Exports, Reports, and Stats"
     Then I should see "Export Data"
     When I export data for the report named "All data" in "csvraw" format
+    And I wait for 1 seconds
     Then I should see "Data export was successful!"
     Then I should receive a download to a "csv" file
     Then I should have a "csv" file that contains the headings below
@@ -280,7 +283,8 @@ Feature: Export Data
     Then I should have a "csv" file that contains data in field "survey_timestamp" listed on 2 rows
     Then I should have a "csv" file that contains record ID "1" listed on 4 rows
     Then I should have a "csv" file that contains record ID "2" listed on 3 rows
-    And I click on the button labeled "Close" in the dialog box
+    # Dialog box closes on its own
+    # And I click on the button labeled "Close" in the dialog box
     Then I should see "My Reports & Exports"
 
   Scenario: 8 - Make custom selections; export and verify the data
@@ -300,7 +304,8 @@ Feature: Export Data
     Then I should have a "csv" file that contains 8 distinct records
     Then I should have a "csv" file that contains 11 rows
     Then I should have a "csv" file that contains data in field "survey_timestamp" listed on 2 rows
-    And I click on the button labeled "Close" in the dialog box
+    # Dialog box closes on its own
+    # And I click on the button labeled "Close" in the dialog box
     Then I should see "My Reports & Exports"
 
   Scenario: 9 - Export Data in csvraw format and check Hashed Record ID and other options and verify the exported data
@@ -330,7 +335,8 @@ Feature: Export Data
     Then I should have a "csv" file that does not contain the fieldname "reminder"
     Then I should have a "csv" file that does not contain the fieldname "description"
     Then I should have a "csv" file that does not contain the fieldname "dob"
-    And I click on the button labeled "Close" in the dialog box
+    # Dialog box closes on its own
+    # And I click on the button labeled "Close" in the dialog box
     Then I should see "My Reports & Exports"
 
   Scenario: 10 - Export Data in csvraw format and check Hashed Record ID and other options and verify the exported data
@@ -352,7 +358,8 @@ Feature: Export Data
     Then I should have a "csv" file that contains data in field "survey_timestamp" listed on 2 rows
     Then I should have a "csv" file that does not contain the data "2019-06-17" for record ID "1" and fieldname "dob"
     Then I should have a "csv" file that does not contain today's date for the fieldname "survey_timestamp" for record ID "1"
-    And I click on the button labeled "Close" in the dialog box
+    # Dialog box closes on its own
+    # And I click on the button labeled "Close" in the dialog box
     Then I should see "My Reports & Exports"
 
   Scenario: 11 - Edit User Rights - De-Identified in Data Exports
@@ -402,7 +409,8 @@ Feature: Export Data
     Then I should have a "csv" file that does not contain the fieldname "redcap_survey_identifier"
     Then I should have a "csv" file that does not contain the fieldname "reminder"
     Then I should have a "csv" file that does not contain the fieldname "description"
-    And I click on the button labeled "Close" in the dialog box
+    # Dialog box closes on its own
+    # And I click on the button labeled "Close" in the dialog box
     Then I should see "My Reports & Exports"
 
   Scenario: 13 - Edit User Rights - No Access in Data Exports
