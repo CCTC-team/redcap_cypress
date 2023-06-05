@@ -52,6 +52,7 @@ Feature: Export Data
 
   Scenario: Project Setup 4 - Import Data File
     Given I click on the link labeled "Data Import Tool"
+    And I should see "Instructions"
     And I upload a "csv" format file located at "import_files/core/21_ExportDataExtractionIMP_v1115.csv", by clicking the button near "Upload your CSV file:" to browse for the file, and clicking the button labeled "Upload File" to upload the file
     Then I should see "DATA DISPLAY TABLE"
     And I should see "(new record)"
@@ -123,7 +124,7 @@ Feature: Export Data
     And I click on the button labeled "Move project to production"
     And I click on the radio labeled "Keep ALL data saved so far." in the dialog box
     And I click on the button labeled "YES, Move to Production Status" in the dialog box
-    # Then I should see "Success! The project is now in production."
+    Then I should see "Success! The project is now in production."
     Then I should see "Production"
 
   Scenario: 5a - Verify export option - CSV / Microsoft Excel (raw data)
@@ -237,9 +238,11 @@ Feature: Export Data
   Scenario: 6 - Export Data in csvlabels format and verify the exported data
     Given I click on the link labeled "Data Exports, Reports, and Stats"
     Then I should see "Export Data"
+    # And the AJAX "POST" request at "DataExport/data_export.php*" tagged by "render" is being monitored
     When I export data for the report named "All data" in "csvlabels" format
-    And I wait for 0.5 seconds
+    # And I wait for 0.5 seconds
     Then I should see "Exporting data"
+    And I wait for 1 seconds
     Then I should see "Data export was successful!"
     Then I should receive a download to a "csv" file
     Then I should have a "csv" file that contains the headings below
@@ -261,14 +264,13 @@ Feature: Export Data
     Then I should have a "csv" file that contains 1 repeating instances of the event '"Event 1"' for record ID "2"
     Then I should have a "csv" file that contains 2 repeating instances of the event '"Event 2"' for record ID "2"
     # Dialog box closes on its own
-    # And I click on the button labeled "Close" in the dialog box
+    And I click on the button labeled "Close" in the dialog box
     Then I should see "My Reports & Exports"
 
   Scenario: 7 - Export Data in csvraw format and verify the exported data
     Given I click on the link labeled "Data Exports, Reports, and Stats"
     Then I should see "Export Data"
     When I export data for the report named "All data" in "csvraw" format
-    And I wait for 1 seconds
     Then I should see "Data export was successful!"
     Then I should receive a download to a "csv" file
     Then I should have a "csv" file that contains the headings below
@@ -283,8 +285,7 @@ Feature: Export Data
     Then I should have a "csv" file that contains data in field "survey_timestamp" listed on 2 rows
     Then I should have a "csv" file that contains record ID "1" listed on 4 rows
     Then I should have a "csv" file that contains record ID "2" listed on 3 rows
-    # Dialog box closes on its own
-    # And I click on the button labeled "Close" in the dialog box
+    And I click on the button labeled "Close" in the dialog box
     Then I should see "My Reports & Exports"
 
   Scenario: 8 - Make custom selections; export and verify the data
@@ -304,8 +305,7 @@ Feature: Export Data
     Then I should have a "csv" file that contains 8 distinct records
     Then I should have a "csv" file that contains 11 rows
     Then I should have a "csv" file that contains data in field "survey_timestamp" listed on 2 rows
-    # Dialog box closes on its own
-    # And I click on the button labeled "Close" in the dialog box
+    And I click on the button labeled "Close" in the dialog box
     Then I should see "My Reports & Exports"
 
   Scenario: 9 - Export Data in csvraw format and check Hashed Record ID and other options and verify the exported data
@@ -335,8 +335,7 @@ Feature: Export Data
     Then I should have a "csv" file that does not contain the fieldname "reminder"
     Then I should have a "csv" file that does not contain the fieldname "description"
     Then I should have a "csv" file that does not contain the fieldname "dob"
-    # Dialog box closes on its own
-    # And I click on the button labeled "Close" in the dialog box
+    And I click on the button labeled "Close" in the dialog box
     Then I should see "My Reports & Exports"
 
   Scenario: 10 - Export Data in csvraw format and check Hashed Record ID and other options and verify the exported data
@@ -358,8 +357,7 @@ Feature: Export Data
     Then I should have a "csv" file that contains data in field "survey_timestamp" listed on 2 rows
     Then I should have a "csv" file that does not contain the data "2019-06-17" for record ID "1" and fieldname "dob"
     Then I should have a "csv" file that does not contain today's date for the fieldname "survey_timestamp" for record ID "1"
-    # Dialog box closes on its own
-    # And I click on the button labeled "Close" in the dialog box
+    And I click on the button labeled "Close" in the dialog box
     Then I should see "My Reports & Exports"
 
   Scenario: 11 - Edit User Rights - De-Identified in Data Exports
@@ -409,8 +407,7 @@ Feature: Export Data
     Then I should have a "csv" file that does not contain the fieldname "redcap_survey_identifier"
     Then I should have a "csv" file that does not contain the fieldname "reminder"
     Then I should have a "csv" file that does not contain the fieldname "description"
-    # Dialog box closes on its own
-    # And I click on the button labeled "Close" in the dialog box
+    And I click on the button labeled "Close" in the dialog box
     Then I should see "My Reports & Exports"
 
   Scenario: 13 - Edit User Rights - No Access in Data Exports
