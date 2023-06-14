@@ -26,11 +26,11 @@ Given('I should see the instrument labeled {string} is a survey', (label) => {
 /**
  * @module entry_via_survey
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I should see {int} participant(s) are listed in the Participant List
- * @param {int} count - the number of participants seen
- * @description Visibility - Verifies the correct number of participants are present
+ * @example I should see {int} participant(s) listed in the Participant List
+ * @param {int} count - the number of participants present
+ * @description Visibility - Verifies the correct number of participants are present in the Participant List
  */
-Given('I should see {int} participant(s) are listed in the Participant List', (count) => {
+Given('I should see {int} participant(s) listed in the Participant List', (count) => {
     cy.get('table[id="table-participant_table"]').children('tbody').find('tr').as('iRow')
     cy.get('@iRow').then(iRow => {
         expect(iRow.length).to.equal(count)
@@ -54,9 +54,56 @@ Given('I select the option {string} for the Participant List', (instrument) => {
  * @example I click on the button labeled {string} for the instrument named {string}
  * @param {string} label the label of the button
  * @param {string} instrument - the instrument name
- * @description Click on the button for the instrument named
+ * @description Click on the button for the instrument in the Designer window
  */
 Given('I click on the button labeled {string} for the instrument named {string}', (label, instrument) => {
     cy.get('td:nth-child(2)').contains(instrument).parents('tr').find('button').contains(label).click()
 
+})
+
+/**
+ * @module entry_via_survey
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I should see a {string} bubble for record ID {string}
+ * @param color - color of the survey
+ * @param recID - Record ID
+ * @description Visibility - Verifies the status of the survey for a given record ID
+ */
+defineParameterType({
+    name: 'imagetype',
+    regexp: /(bubble|icon)/
+})
+
+Given('I should see a {string} {imagetype} for record ID {string}', (color, type, recID) => {
+    cy.get('table[id="table-participant_table"]').find('a').contains(recID).parents('tr').within(() =>
+        cy.get('img[src*=' + color + ']')
+    )
+})
+
+/**
+ * @module entry_via_survey
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I should see {int} email(s) listed in the Participant List
+ * @param {int} count - the number of participants displayed
+ * @description Visibility - Verifies the number of emails in the participant list table
+ */
+Given('I should see {int} email(s) listed in the Participant List', (count) => {
+    cy.get('table[id="table-participant_table_email"]').children('tbody').find('tr').as('iRow')
+        cy.get('@iRow').then(iRow => {
+            expect(iRow.length).to.equal(count)
+        })
+})
+
+/**
+ * @module entry_via_survey
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I should see {int} email(s) listed in the Survey Invitation Log
+ * @param {int} count - the number of surveys displayed
+ * @description Visibility - Verifies the number of surveys in the Survey Invitation Log
+ */
+Given('I should see {int} email(s) listed in the Survey Invitation Log', (count) => {
+    cy.get('table[id="table-email_log_table"]').children('tbody').find('tr').as('iRow')
+        cy.get('@iRow').then(iRow => {
+            expect(iRow.length).to.equal(count)
+        })
 })
