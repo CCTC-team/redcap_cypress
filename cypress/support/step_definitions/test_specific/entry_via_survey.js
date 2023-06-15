@@ -89,21 +89,49 @@ Given('I should see a {string} {imagetype} for record ID {string}', (color, type
  */
 Given('I should see {int} email(s) listed in the Participant List', (count) => {
     cy.get('table[id="table-participant_table_email"]').children('tbody').find('tr').as('iRow')
-        cy.get('@iRow').then(iRow => {
-            expect(iRow.length).to.equal(count)
-        })
+    cy.get('@iRow').then(iRow => {
+        expect(iRow.length).to.equal(count)
+    })
+})
+
+/**
+ * @module entry_via_survey
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I enable the cron job
+ * @description Enable the cron job
+ */
+Given('I enable the cron job', () => {
+    cy.visit('http://localhost:8080/cron.php')     
 })
 
 /**
  * @module entry_via_survey
  * @author Mintoo Xavier <min2xavier@gmail.com>
  * @example I should see {int} email(s) listed in the Survey Invitation Log
- * @param {int} count - the number of surveys displayed
- * @description Visibility - Verifies the number of surveys in the Survey Invitation Log
+ * @param {string} text - the text displayed
+ * @description Visibility - Verifies the number of emails in the Survey Invitation Log
  */
 Given('I should see {int} email(s) listed in the Survey Invitation Log', (count) => {
     cy.get('table[id="table-email_log_table"]').children('tbody').find('tr').as('iRow')
-        cy.get('@iRow').then(iRow => {
-            expect(iRow.length).to.equal(count)
-        })
+    cy.get('@iRow').then(iRow => {
+        expect(iRow.length).to.equal(count)
+    })
+})
+
+/**
+ * @module entry_via_survey
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I should Event List with options below
+ * @param {DataTable} options the Data Table of selectable options
+ * @description Visibility - Visually verifies that the Event List has the options listed
+ */
+Given('I should Event List with options below', (options) => {
+    cy.get('table[id="partListTitle"]').children('tbody').find('td').contains('Participant List').within(() => {
+        for(let i = 0; i < options.rawTable[0].length; i++){
+            let element_selector = `select:has(option:contains("${options.rawTable[0][i]}")):visible`
+            let dropdown = cy.get('select')
+            dropdown.should('contain', options.rawTable[0][i])
+            cy.wait(500)
+        }
+    })
 })

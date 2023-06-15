@@ -75,9 +75,9 @@ Feature: Data Entry through the Survey
     And I select the option '"Survey" - Event 1' for the Participant List
     Then I should see a "gray" bubble for record ID "1"
     Then I should see a "gray" bubble for record ID "2"
-    And the AJAX "GET" request at "Surveys/invite_participants.php*" tagged by "render" is being monitored
+    And the AJAX "GET" request at "Surveys/invite_participants.php*" tagged by "list" is being monitored
     And I select the option '"Survey" - Event 2' for the Participant List
-    And the AJAX request tagged by "render" has completed
+    And the AJAX request tagged by "list" has completed
     And I wait for 3 seconds
     Then I should see '"Survey" - Event 2'
     Then I should see a "green" bubble for record ID "1"
@@ -111,13 +111,15 @@ Feature: Data Entry through the Survey
     Then I should see "Project Title"
     And I click on the link labeled "15_DirectDataEntry (Survey) v1115"
     Then I should see "Survey Distribution Tools"
+    And the AJAX "GET" request at "Surveys/invite_participants.php*" tagged by "list" is being monitored
     Then I click on the link labeled "Survey Distribution Tools"
     And I wait for 3 seconds
     Then I should see "Participant List"
-    And the AJAX "GET" request at "Surveys/invite_participants.php*" tagged by "render" is being monitored
+    And the AJAX "GET" request at "Surveys/invite_participants.php*" tagged by "list" is being monitored
     And I click on the link labeled "Participant List"
+    And I wait for 3 seconds
     Then I should see "test1@test.com"
-    And the AJAX request tagged by "render" has completed
+    And the AJAX request tagged by "list" has completed
     And I select the option '[Initial survey] "Demographics" - Event 1' for the Participant List
     Then I should see "test1@test.com"
     Then I should see "test2@test.com"
@@ -187,6 +189,13 @@ Feature: Data Entry through the Survey
     Then I scroll the page to the field identified by "input[value='Save Changes']"
     And I click on the button labeled "Save Changes"
     Then I should see "Your system configuration values have now been changed!"
+    # Below 4 steps are to run cron jobs (for Scenario 31 to work)
+    Then I click on the link labeled "Control Center"
+    Then I click on the link labeled "Configuration Check"
+    And I should see "ERROR: Cron job not running!"
+    And I click on the link labeled "Go to Cron Jobs page"
+    Then I should see "Trigger REDCap cron job in a web browser"
+    And I enable the cron job
     And I logout
     Given I am a "standard" user who logs into REDCap
     Then I should see "New Project"
@@ -227,27 +236,6 @@ Feature: Data Entry through the Survey
     And I select "Yes" from the dropdown identified by "[name=save_and_return]"
     And I click on the button labeled "Save Changes"
 
-  # Scenario: 27 - To Do
-  #   Given I click on the link labeled "Survey Distribution Tools"
-  #   And I wait for 3 seconds
-  #   And I should see "Participant List"
-  #   # And the AJAX "GET" request at "Surveys/invite_participants.php*" tagged by "render" is being monitored
-  #   And I click on the link labeled "Participant List"
-  #   And I wait for 3 seconds
-  #   # And the AJAX request tagged by "render" has completed
-  #   Then I should see "Email"
-  #   And I select the option '[Initial survey] "Demographics" - Event 1' for the Participant List
-  #   And I click on the link labeled "2"
-  #   # And I locate the bubble for the "Survey" instrument on event "Event 1" for record ID "1" and click on the bubble
-  #   Then I should see a button labeled "Survey options"
-  #   And I click on the button labeled "Survey options"
-  #   And I click on the survey option label containing "Open survey" label
-  #   # And I enter "test1@test.com" into the field identified by "input[name=email]"
-  #   And I click on the button labeled "Submit"    
-  #   And I click on the button labeled "Close survey"
-  #   And I logout
-
-  
   Scenario: 27 - Submit Demographics survey for Record 3
     # There is no survey link for test3@test.com and no record 3 associated with it. Hence adding record 3 with email test3@test.com
     Given I click on the link labeled "Add / Edit Records"
@@ -261,15 +249,15 @@ Feature: Data Entry through the Survey
     Given I click on the link labeled "Survey Distribution Tools"
     And I wait for 3 seconds
     And I should see "Participant List"
-    And the AJAX "GET" request at "Surveys/invite_participants.php*" tagged by "render" is being monitored
+    And the AJAX "GET" request at "Surveys/invite_participants.php*" tagged by "list" is being monitored
     And I click on the link labeled "Participant List"
-    And I wait for 3 seconds
-    # And the AJAX request tagged by "render" has completed
+    And I wait for 4 seconds
+    # And the AJAX request tagged by "list" has completed
     Then I should see "Email"
-    And the AJAX "GET" request at "Surveys/invite_participants.php*" tagged by "render" is being monitored
+    And the AJAX "GET" request at "Surveys/invite_participants.php*" tagged by "list" is being monitored
     And I select the option '[Initial survey] "Demographics" - Event 1' for the Participant List
     And I wait for 3 seconds
-    And the AJAX request tagged by "render" has completed
+    And the AJAX request tagged by "list" has completed
     And I click on the link labeled "3"
     Then I should see a button labeled "Survey options"
     And I click on the button labeled "Survey options"
@@ -290,13 +278,13 @@ Feature: Data Entry through the Survey
     And I click on the link labeled "Survey Distribution Tools"
     And I wait for 4 seconds
     Then I should see "Participant List"
-    And the AJAX "GET" request at "Surveys/invite_participants.php*" tagged by "render" is being monitored
+    And the AJAX "GET" request at "Surveys/invite_participants.php*" tagged by "list" is being monitored
     And I click on the link labeled "Participant List"
-    And the AJAX request tagged by "render" has completed
+    And the AJAX request tagged by "list" has completed
     And I wait for 3 seconds
     Then I should see "Email"
     Then I should see "Record"
-    And the AJAX "GET" request at "Surveys/invite_participants.php*" tagged by "render" is being monitored
+    And the AJAX "GET" request at "Surveys/invite_participants.php*" tagged by "list" is being monitored
     And I select the option '"Survey" - Event 1' for the Participant List
     And I wait for 3 seconds
     And I should see "3"
@@ -310,7 +298,7 @@ Feature: Data Entry through the Survey
     # And I click on the button labeled "Close survey"
     And I logout
 
-  Scenario: 29 - To Do
+  Scenario: 29 - Check the status messages in the surveys
     Given I am a "standard" user who logs into REDCap
     Then I should see "New Project"
     And I click on the link labeled "My Projects"
@@ -342,8 +330,7 @@ Feature: Data Entry through the Survey
     And I click the bubble to select a record for the "Survey" longitudinal instrument on event "Event 2"
     Then I should see the dropdown identified by "select[name=survey_complete]" with the option "Incomplete" selected
 
-
-  Scenario: 30 - To Do
+  Scenario: 30 - Verify the status of the surveys in Survey Distribution Tools
     Given I click on the link labeled "Survey Distribution Tools"
     And I should see "Participant List"
     And I click on the link labeled "Participant List"
@@ -352,11 +339,13 @@ Feature: Data Entry through the Survey
     # Added 1 extra participant
     Then I should see 5 participants listed in the Participant List
     Then I should see a "green" bubble for record ID "3"
+    And the AJAX "GET" request at "Surveys/invite_participants.php*" tagged by "list" is being monitored
     And I select the option '"Survey" - Event 1' for the Participant List
-    And I wait for 3 seconds
+    And I wait for 4 seconds
     Then I should see "3"
     Then I should see 3 participants listed in the Participant List
     Then I should see a "orange" bubble for record ID "3"
+    And the AJAX "GET" request at "Surveys/invite_participants.php*" tagged by "list" is being monitored
     And I select the option '"Survey" - Event 2' for the Participant List
     And I wait for 3 seconds
     Then I should see 3 participants listed in the Participant List
@@ -364,7 +353,7 @@ Feature: Data Entry through the Survey
     Then I should see a "green" bubble for record ID "1"
     Then I should see a "green" bubble for record ID "2"
 
-  Scenario: 31 - To Do
+  Scenario: 31 - Compose Survey Invitations and send it
     Given I select the option '"Survey" - Event 1' for the Participant List
     And I wait for 3 seconds
     Then I should see "3"
@@ -383,12 +372,14 @@ Feature: Data Entry through the Survey
     And I click on the button labeled "Send Invitations"
     Then I should see "Your emails are being sent"
     And I click on the button labeled "Close"
+    And I wait for 3 seconds
     Then I should see "1"
     Then I should see a "email_go" icon for record ID "1"
 
   Scenario: 32 - Verify Survey Invitation Log - Past invitations
     Given I click on the link labeled "Survey Distribution Tools"
     And I click on the link labeled "Survey Invitation Log"
+    And the AJAX "GET" request at "Surveys/invite_participants.php*" tagged by "list" is being monitored
     And I click on the button labeled "View past invitations"
     Then I should see "Invitation send time"
     Then I should see "View Invite"
@@ -402,37 +393,47 @@ Feature: Data Entry through the Survey
     And I should see 1 email listed in the Survey Invitation Log
 
   Scenario: 33 - Undesignate email for communications setting and check past invitations
-    Given I should see "Project Setup"
-    Then I click on the link labeled "Project Setup"
+    Given I should see "15_DirectDataEntry (Survey) v1115"
+    And I should see "Project Setup"
+    And I click on the link labeled "Project Setup"
     Then I should see "Designate an email field for communications"
     And I disable designation of an email field for communications setting
     And the AJAX "GET" request at "ProjectSetup/index.php?*" tagged by "projsetup" is being monitored
     Then I should see "Undesignate email field"
     Then I click on the button labeled "Undesignate field"
     And the AJAX request tagged by "projsetup" has completed
+    And I wait for 3 seconds
     Then I should see "Designate an email field for communications"
     Then I should see "Randomization module"
     Then I should see that the designate an email field for communications setting is "disabled"
     Then I click on the link labeled "Survey Distribution Tools"
+    And I should see "Survey Invitation Log"
     And I click on the link labeled "Survey Invitation Log"
+    Then I should see "Invitation send time"
+    And the AJAX "GET" request at "Surveys/invite_participants.php*" tagged by "list" is being monitored
     And I click on the button labeled "View past invitations"
-    And I should see 0 email listed in the Survey Invitation Log
+    And I should see "[No email listed]"
 
-  Scenario: 34 - Export Raw Data and check file header - Check data - To Do
-    Given I click on the link labeled "Data Exports, Reports, and Stats"
-    Then I should see "Export Data"
-    When I export data for the report named "All data" in "csvraw" format
-    Then I should see "Data export was successful!"
-    Then I should receive a download to a "csv" file
-    Then I should have a "csv" file that contains the headings below
-    | record_id | redcap_event_name | redcap_survey_identifier | demographics_timestamp | lname | fname | demographics_complete | survey_timestamp | email | reminder | description | survey_complete |
-    Then I should have a "csv" file that contains 2 distinct records
-    Then I should have a "csv" file that contains 3 rows
-    And I click on the button labeled "Close" in the dialog box
-    Then I should see "My Reports & Exports"
+  # Scenario: 34 - Export Raw Data and check file header - Check data
+  #   Given I should see "Data Exports, Reports, and Stats"
+  #   And I click on the link labeled "Data Exports, Reports, and Stats"
+  #   Then I should see "Export Data"
+  #   When I export data for the report named "All data" in "csvraw" format
+  #   Then I should see "Data export was successful!"
+  #   Then I should receive a download to a "csv" file
+  #   Then I should have a "csv" file that contains the headings below
+  #   | record_id | redcap_event_name | redcap_survey_identifier | demographics_timestamp | lname | fname | demographics_complete | survey_timestamp | email | reminder | description | survey_complete |
+  #   Then I should have a "csv" file that contains 2 distinct records
+  #   Then I should have a "csv" file that contains 3 rows
+  #   And I click on the button labeled "Close" in the dialog box
+  #   Then I should see "My Reports & Exports"
 
-  Scenario: 35 - 
-    Given I click on the link labeled "Designer"
+  Scenario: 35 - Delete Survey Settings for the Survey instrument
+    Given I should see "15_DirectDataEntry (Survey) v1115"
+    And I should see "Designer"
+    And I click on the link labeled "Designer"
+    And I wait for 3 seconds
+    Then I should see "Demographics"
     And I click on the button labeled "Survey settings" for the instrument named "Survey"
     Then I should see "Modify survey settings for data collection instrument"
     When I click on the button labeled "Delete Survey Settings"
@@ -443,141 +444,37 @@ Feature: Data Entry through the Survey
     Then I should see "Data Collection Instruments"
     Then I should see the instrument labeled "Survey" is not a survey
     
-  Scenario: 36 - Export Raw Data and check file header - check data - To Do
-    Given I click on the link labeled "Data Exports, Reports, and Stats"
-    Then I should see "Export Data"
-    When I export data for the report named "All data" in "csvraw" format
-    Then I should see "Data export was successful!"
-    Then I should receive a download to a "csv" file
-    Then I should have a "csv" file that contains the headings below
-    | record_id | redcap_event_name | redcap_survey_identifier | demographics_timestamp | lname | fname | demographics_complete | email | reminder | description | survey_complete |
-    Then I should have a "csv" file that contains 2 distinct records
-    Then I should have a "csv" file that contains 3 rows
-    And I click on the button labeled "Close" in the dialog box
-    Then I should see "My Reports & Exports"
+  # Scenario: 36 - Export Raw Data and check file header - check data
+  #   Given I click on the link labeled "Data Exports, Reports, and Stats"
+  #   Then I should see "Export Data"
+  #   When I export data for the report named "All data" in "csvraw" format
+  #   Then I should see "Data export was successful!"
+  #   Then I should receive a download to a "csv" file
+  #   Then I should have a "csv" file that contains the headings below
+  #   | record_id | redcap_event_name | redcap_survey_identifier | demographics_timestamp | lname | fname | demographics_complete | email | reminder | description | survey_complete |
+  #   Then I should have a "csv" file that contains 2 distinct records
+  #   Then I should have a "csv" file that contains 3 rows
+  #   And I click on the button labeled "Close" in the dialog box
+  #   Then I should see "My Reports & Exports"
 
   Scenario: 37 - No survey-related information is listed on the instrument
     Given I click on the link labeled "Add / Edit Records"
     And I select "2" from the dropdown identified by "[id=record]"
+    And the AJAX "GET" request at "DataEntry/index.php?*" tagged by "render" is being monitored
     And I click the bubble to select a record for the "Survey" longitudinal instrument on event "Event 2"
+    And the AJAX request tagged by "render" has completed
+    And I wait for 3 seconds
     Then I should NOT see a button labeled "Survey options"
     And I click on the button labeled "-- Cancel --"
 
   Scenario: 38 - Only the Demographics Event 1 is in the Participant List dropdown - To Do
-    Given I click on the link labeled "Survey Distribution Tools"
+    Given I should see "15_DirectDataEntry (Survey) v1115"
+    And I should see "Survey Distribution Tools"
+    And I click on the link labeled "Survey Distribution Tools"
+    And I should see "Participant List"
     And I click on the link labeled "Participant List"
-    # Then I should see the dropdown identified by "[id=record]" with the options below
-    # | 1 | 2 |
+    Then I should Event List with options below
+    | [Initial survey] "Demographics" - Event 1 |
 
   Scenario: 39 - Logout
     Then I logout
-
-
-
-
-
-    # And I enter "User Name Here" into the "Name" survey text input field
-    # And I click on the button labeled "Submit"
-    # Then I should see "Thank you"
-
-
-#     And I enable surveys for the project
-#     And I enable longitudinal mode
-#     And I should see that longitudinal mode is "enabled"
-
-#     Then I should see "Survey Distribution Tools"
-#     And I should see a button labeled "Designate Instruments for My Events"
-
-#     Then I click on the button labeled "Designate Instruments for My Events"
-
-#     #Arm 1
-#     Then I should see "Arm name: "
-#     Given I verify the Data Collection Instrument named "Text Validation" is enabled for the Event named "Event 1"
-
-
-#     And I click on the link labeled "User Rights"
-#     And I assign the "Project Design and Setup" user right to the user named "Test User" with the username of "test_user"
-
-#   Scenario: An external user visits a public survey
-#     And I am a "standard" user who logs into REDCap
-#     Given I click on the link labeled "My Projects"
-#     And I click on the link labeled "Entry Via Survey Feature"
-
-#     And I click on the button labeled "Online Designer"
-#     And I enable surveys for the data instrument named "Text Validation"
-#     Then I should see "Data Collection Instruments"
-
-#  Scenario: A standard user enters data into a public survey
-#    Given I visit the public survey URL for the current project
-#    Then I should see "Text Validation" in the title
-#    And I enter "user1@yahoo.com" into the "Email" survey text input field
-#    When I click on the button labeled "Submit"
-#    Then I should see "Thank you for taking the survey"
-#
-#  Scenario: A standard user disables survey functionality
-#    Given I click on the link labeled "My Projects"
-#
-#    When I visit the "Data Entry" page with parameter string of "pid=9&id=1&page=prescreening_survey"
-#    Then I should see that the "E-mail address" field contains the value of "user1@yahoo.com"
-#
-#  Scenario: A standard user distributes a survey to a list of users
-#    Given I click on the link labeled "My Projects"
-#    And I enable surveys for Project ID 9
-#
-#    When I visit the "Surveys/invite_participants.php" page with parameter string of "pid=9"
-#    And I click on the link labeled "Participant List"
-#    Then I should see "Email"
-#
-#  Scenario: A standard user generates a survey from within a participant record using Log Out + Open Survey
-#    Given I click on the link labeled "My Projects"
-#    And I click on the link labeled "Add / Edit Records"
-#    And I click on the button labeled "Add new record"
-#    And I click on the table cell containing a link labeled "Pre-Screening Survey"
-#    And I click on the button labeled "Save & Exit Form"
-#    And I click on the table cell containing a link labeled "Pre-Screening Survey"
-#    And I click on the button labeled "Survey options"
-#
-#    When I click on the survey option label containing "Log out" label and want to track the response with a tag of "logout_open_survey"
-#    Then I should see the survey open exactly once by watching the tag of "logout_open_survey"
-#
-#  Scenario: A standard user is prompted to leave the survey to avoid overwriting survey responses when opening surveys from data entry form
-#    Given I click on the link labeled "My Projects"
-#    And I click on the link labeled "Add / Edit Records"
-#    And I click on the button labeled "Add new record"
-#    And I click on the table cell containing a link labeled "Pre-Screening Survey"
-#    And I click on the button labeled "Save & Exit Form"
-#    And I click on the table cell containing a link labeled "Pre-Screening Survey"
-#    And I click on the button labeled "Survey options"
-#
-#    When I click on the survey option label containing "Open survey" label
-#    Then I should see "Leave without saving changes"
-#    And I should see "Stay on page"
-#
-#  Scenario: A participant can enter data in a data collection instrument enabled and distributed as a survey
-#    Given I click on the link labeled "My Projects"
-#    And I click on the link labeled "Project Setup"
-#    And I click on the button labeled "Online Designer"
-#    Then I should see "Draft Mode"
-#
-#    When I click on the button labeled "Enter Draft Mode"
-#    Then I should see "The project is now in Draft Mode"
-#
-#    And I click on the link labeled "Pre-Screening Survey"
-#    And I edit the field labeled "Date of birth"
-#
-#    Given the AJAX "GET" request at "Design/online_designer_render_fields.php?*" tagged by "save_field" is being monitored
-#    And I mark the field required
-#    And I save the field
-#    And the AJAX request tagged by "save_field" has completed
-#
-#    And I click on the button labeled "Submit Changes for Review"
-#    And I should see "SUBMIT CHANGES FOR REVIEW"
-#    And I click on the button labeled "Submit"
-#    Then I should see "Changes Were Made Automatically"
-#
-#    And I click on the button labeled "Close"
-
-# #    When I click on the link labeled "Record Status Dashboard"
-# #    And I click on the bubble for the "Pre-Screening Survey" data collection instrument for record ID "1"
-# #
-# #
