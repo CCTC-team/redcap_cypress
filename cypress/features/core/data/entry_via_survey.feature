@@ -333,7 +333,7 @@ Feature: Data Entry through the Survey
     Then I should see "Your system configuration values have now been changed!"
     And I logout
 
-  Scenario: 23 - User cannot Edit survey response - Would work after SCenario 15 is fixed
+  Scenario: 23 - User cannot Edit survey response
     Given I am a "standard" user who logs into REDCap
     Then I should see "New Project"
     And I click on the link labeled "My Projects"
@@ -376,7 +376,7 @@ Feature: Data Entry through the Survey
     Then I scroll the page to the field identified by "input[value='Save Changes']"
     And I click on the button labeled "Save Changes"
     Then I should see "Your system configuration values have now been changed!"
-    # Below 4 steps are to run cron jobs (for Scenario 31 to work)
+    # Below 6 steps are to run cron jobs (for Scenario 31 to work)
     Then I click on the link labeled "Control Center"
     Then I click on the link labeled "Configuration Check"
     And I should see "Check if REDCap Cron Job is running"
@@ -413,7 +413,6 @@ Feature: Data Entry through the Survey
     And I wait for 3 seconds
     And I enter "reminder" into the field identified by "input[name=reminder]"
     And I select the submit option labeled "Save & Stay" on the Data Collection Instrument
-    # And I close the popup
     Then I should see "successfully edited"
 
   Scenario: 26 - Modify survey settings - Allow 'Save & Return Later' option = Yes
@@ -422,6 +421,7 @@ Feature: Data Entry through the Survey
     And I click on the button labeled "Survey settings" for the instrument named "Survey"
     And I select "Yes" from the dropdown identified by "[name=save_and_return]"
     And I click on the button labeled "Save Changes"
+    And I should see "Your survey settings were successfully saved"
 
   Scenario: 27 - Submit Demographics survey for Record 3
     # There is no survey link for test3@test.com and no record 3 associated with it. Hence adding record 3 with email test3@test.com
@@ -439,7 +439,6 @@ Feature: Data Entry through the Survey
     And the AJAX "GET" request at "Surveys/invite_participants.php*" tagged by "list" is being monitored
     And I click on the link labeled "Participant List"
     And I wait for 4 seconds
-    # And the AJAX request tagged by "list" has completed
     Then I should see "Email"
     And the AJAX "GET" request at "Surveys/invite_participants.php*" tagged by "list" is being monitored
     And I select the option '[Initial survey] "Demographics" - Event 1' for the Participant List
@@ -481,8 +480,7 @@ Feature: Data Entry through the Survey
     And I click on the button labeled "Survey options"
     And I click on the survey option label containing "Open survey" label
     And I click on the button labeled "Save & Return Later"
-    Then I should see "'Return Code' needed to return" 
-    # And I click on the button labeled "Close survey"
+    Then I should see "'Return Code' needed to return"
     And I logout
 
   Scenario: 29 - Check the status messages in the surveys
@@ -551,8 +549,6 @@ Feature: Data Entry through the Survey
     Then I should see 3 emails listed in the Participant List
     And I should see the checkbox identified by "input[value=IMMEDIATELY]", checked
     And I should see the checkbox identified by "input[id=enable_reminders_chk]", unchecked
-    # And I check the checkbox labeled "Immediately"
-    # And I uncheck the checkbox labeled "Re-send invitation as a reminder if participant has not responded by a specified time?"
     And I enter "Test" into the field identified by "input[name=emailTitle]"
     And I uncheck the checkbox labeled "test2@test.com"
     And the AJAX "GET" request at "Surveys/participant_list.php*" tagged by "list" is being monitored
