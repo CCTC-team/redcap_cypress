@@ -115,7 +115,7 @@ Given("I click on the {string} icon for the instrument labeled {string}", (icon,
  * @param {string} icon icon displayed
  * @param {string} text name of instrument
  * @param {string} id Record ID
- * @description Visually verify the instrument has the icon
+ * @description Visually verify the instrument does not have the icon
  */
 Given('I should not see {icon} icon for the instrument labeled {string} for record ID {string}', (icon, text, id) => {
     cy.get('table[id="esignLockList"]').children('tbody').find('td').contains(text).parent().contains(id).parent().within(() =>
@@ -126,15 +126,78 @@ Given('I should not see {icon} icon for the instrument labeled {string} for reco
 /**
  * @module record_locking_e_sig
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I should see {icon} icon for the instrument labeled {string} for record ID {string}
- * @param {string} icon icon displayed
- * @param {string} text name of instrument
- * @param {string} id Record ID
- * @description Visually verify the instrument has the icon
+ * @example I should see today's date in the column labeled Locked
+ * @description Visually verify today's date in the column labeled Locked
  */
-Given("I should see today's date for the instrument labeled {string} for record ID {string}", (icon, text, id) => {
-    cy.get('table[id="esignLockList"]').children('tbody').find('td').contains(id).parent().contains(text).parent().within(() => {
-        let today = new Date()
-        cy.get(today)
+Given("I should see today's date in the column labeled Locked", () => {
+    let today = new Date()
+    var dd = String(today.getDate()).padStart(2, '0')
+    var mm = String(today.getMonth() + 1).padStart(2, '0')
+    var yyyy = today.getFullYear()
+    today = mm + '/' + dd + '/' + yyyy
+
+    cy.get('table[id="esignLockList"]').children('tbody').find('td[class="data lock"]').contains(today)
+})
+
+/**
+ * @module record_locking_e_sig
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I should see today's date in the column labeled E-signed
+ * @description Visually verify today's date in the column labeled E-signed
+ */
+Given("I should see today's date in the column labeled E-signed", () => {
+    let today = new Date()
+    var dd = String(today.getDate()).padStart(2, '0')
+    var mm = String(today.getMonth() + 1).padStart(2, '0')
+    var yyyy = today.getFullYear()
+    today = mm + '/' + dd + '/' + yyyy
+
+    cy.get('table[id="esignLockList"]').children('tbody').find('td[class="data esign"]').contains(today)
+})
+
+/**
+ * @module record_locking_e_sig
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I should not see today's date in the column labeled Locked
+ * @description Visually verify today's date is not visible in the column labeled Locked
+ */
+Given("I should not see today's date in the column labeled Locked", () => {
+    let today = new Date()
+    var dd = String(today.getDate()).padStart(2, '0')
+    var mm = String(today.getMonth() + 1).padStart(2, '0')
+    var yyyy = today.getFullYear()
+    today = mm + '/' + dd + '/' + yyyy
+
+    cy.get('table[id="esignLockList"]').children('tbody').find('td[class="data lock"]').contains(today).should('not.be.visible')
+})
+
+/**
+ * @module record_locking_e_sig
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I should not see today's date in the column labeled E-signed
+ * @description Visually verify today's date is not visible in the column labeled E-signed
+ */
+Given("I should not see today's date in the column labeled E-signed", () => {
+    let today = new Date()
+    var dd = String(today.getDate()).padStart(2, '0')
+    var mm = String(today.getMonth() + 1).padStart(2, '0')
+    var yyyy = today.getFullYear()
+    today = mm + '/' + dd + '/' + yyyy
+
+    cy.get('table[id="esignLockList"]').children('tbody').find('td[class="data esign"]').contains(today).should('not.be.visible')
+})
+
+/**
+ * @module my_projects
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I should see {int} row(s)
+ * @param {int} count - the number of rows seen
+ * @description Visibility - Verifies the correct number of rows are present
+ */
+Given('I should see {int} row(s) containing {icon} icon', (count, icon) => {
+
+    cy.get('img[src*=' + icon + ']').as('iRow')
+    cy.get('@iRow').then(iRow => {
+        expect(iRow.length).to.equal(count)
     })
 })

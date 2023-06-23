@@ -187,6 +187,7 @@ Feature: Record Locking and E-Signatures
   Scenario: 17 - Edit the custom text
     Given I click on the link labeled "Customize & Manage Locking/E-signatures"
     And I click on the "pencil" icon for the instrument labeled "Text Validation"
+    And I clear the field identified by "textarea[id=label-text_validation]"
     Then I enter "My dated signature confirms that I have personally reviewed and approved the data entered on this Case Report Form." into the field identified by "textarea[id=label-text_validation]"
     And I save the option for the instrument labeled "Text Validation"
 
@@ -281,3 +282,70 @@ Feature: Record Locking and E-Signatures
     And I should see a link labeled "Show both locked and e-signed"
     And I should see a link labeled "Show neither locked nor e-signed (excludes N/A)"
     And I should see a link labeled "Show locked but not e-signed (excludes N/A)"
+
+  Scenario: 28 - Verify excel download
+    # Should I verify this?
+    # Given I click on the button labeled "Export all (CSV)"
+
+  Scenario: 29 - Verify date is displayed for the column Locked and E-signed
+    # Difficult to verify date/time hence verifying date only
+    Given I click on the link labeled "Show timestamp / user"
+    Then I should see today's date in the column labeled Locked
+    And I should see today's date in the column labeled E-signed
+
+  Scenario: 30 - Verify date is hidden for the column Locked and E-signed
+    # Difficult to verify date/time hence verifying date only
+    Given I click on the link labeled "Hide timestamp / user"
+    Then I should not see today's date in the column labeled Locked
+    And I should not see today's date in the column labeled E-signed
+
+  Scenario: 31 - Show locked
+    Given I click on the link labeled "Show locked"
+    Then I should see lock icon for the instrument labeled "Text Validation" for record ID "1"
+    # And I should see lock icon for the instrument labeled "Text Validation" for record ID "2"
+    And I should see 3 rows containing lock icon
+
+  Scenario: 32 - Show not locked
+    Given I click on the link labeled "Show not locked"
+    # Manuel script says 2 rows for record ID 1 and 2 rows for record ID 2. I can only see 1
+    Then I should not see lock icon for the instrument labeled "Data Types" for record ID "1"
+    # And I should not see lock icon for the instrument labeled "Data Types" for record ID "2"
+    
+  Scenario: 33 - Show e-signed
+    Given I click on the link labeled "Show e-signed"
+    Then I should see tick_shield icon for the instrument labeled "Text Validation" for record ID "1"
+    # And I should see tick_shield icon for the instrument labeled "Text Validation" for record ID "2"
+    And I should see 2 rows containing tick_shield icon
+
+  Scenario: 34 - Show not e-signed (excludes N/A)
+    # Not sure how to verify this
+    Given I click on the link labeled "Show not e-signed (excludes N/A)"
+    Then I should NOT see "Text Validation"
+    And I should NOT see "Data Types"
+
+  Scenario: 35 - Show both locked and e-signed
+    Given I click on the link labeled "Show both locked and e-signed"
+    Then I should see lock icon for the instrument labeled "Text Validation" for record ID "1"
+    Then I should see tick_shield icon for the instrument labeled "Text Validation" for record ID "1"
+    # Then I should see lock icon for the instrument labeled "Text Validation" for record ID "2"
+    # Then I should see tick_shield icon for the instrument labeled "Text Validation" for record ID "2"
+    And I should see 2 rows containing lock icon
+    And I should see 2 rows containing tick_shield icon
+    
+  Scenario: 36 - Show neither locked nor e-signed (excludes N/A)
+    # Not sure how to verify this
+    Given I click on the link labeled "Show neither locked nor e-signed (excludes N/A)"
+    Then I should NOT see "Text Validation"
+    And I should NOT see "Data Types"
+
+  Scenario: 37 - Show locked but not e-signed (excludes N/A)
+    # Not sure how to verify this
+    Given I click on the link labeled "Show locked but not e-signed (excludes N/A)"
+    Then I should NOT see "Text Validation"
+    And I should NOT see "Data Types"
+    
+  Scenario: 38 - SHOW ALL ROWS
+    # Not sure how to verify this
+    Given I click on the link labeled "SHOW ALL ROWS"
+    Then I should NOT see "Text Validation"
+    And I should NOT see "Data Types"
