@@ -75,7 +75,7 @@ Feature: Record Locking and E-Signatures
   Scenario: 5 - Verify if locked on Dashboard
     Given I click on the link labeled "Customize & Manage Locking/E-signatures"
     And I click on the link labeled "E-signature and Locking Management"
-    Then I should see the instrument labeled "Data Types" locked
+    Then I should see lock icon for the instrument labeled "Data Types" for record ID "1"
 
   Scenario: 6 - Unlock the instrument 'Data Types' for record ID 1
     Given I click on the link labeled "Record Status Dashboard"
@@ -103,6 +103,7 @@ Feature: Record Locking and E-Signatures
   Scenario: 9 - Enter data into the instrument 'Text Validation' and lock and e-sign
     Given I click on the link labeled "Add / Edit Records"
     And I select "1" from the dropdown identified by "[id=record]"
+    Then I should see "Record Home Page"
     And the AJAX "GET" request at "DataEntry/index.php*" tagged by "render" is being monitored
     And I click the bubble to select a record for the "Text Validation" longitudinal instrument on event "Event 1"
     And the AJAX request tagged by "render" has completed
@@ -153,9 +154,130 @@ Feature: Record Locking and E-Signatures
 
   Scenario: 13 - Uncheck 'Display the Lock' for instrument 'Data Types'
     Given I click on the link labeled "Customize & Manage Locking/E-signatures"
+    And I uncheck the checkbox identified by "input[id=dispchk-data_types]"
+    Then I should see "saved"
+
+  Scenario: 14 - Verify the instrument status
+    Given I click on the link labeled "Record Status Dashboard"
+    And I locate the bubble for the "Text Validation" instrument on event "Event 1" for record ID "1" and click on the bubble
+    Then I should see "custom text"
+    And I should see the checkbox identified by "input[id=__LOCKRECORD__]", checked
+    And I should see the checkbox identified by "input[id=__ESIGNATURE__]", checked
+    Then I click on the link labeled "Data Types"
+    And I should NOT see "custom text"
+    And I should NOT see "Lock this instrument"
+    And I should no longer see the element identified by "__LOCKRECORD__"
+
+  Scenario: 15 - Check 'Display the Lock' for instrument 'Data Types'
+    Given I click on the link labeled "Customize & Manage Locking/E-signatures"
     And I check the checkbox identified by "input[id=dispchk-data_types]"
     Then I should see "saved"
 
-  Scenario: 14 - 
+  Scenario: 16 - Verify the instrument status
     Given I click on the link labeled "Record Status Dashboard"
+    And I locate the bubble for the "Text Validation" instrument on event "Event 1" for record ID "1" and click on the bubble
+    Then I should see "custom text"
+    And I should see the checkbox identified by "input[id=__LOCKRECORD__]", checked
+    And I should see the checkbox identified by "input[id=__ESIGNATURE__]", checked
+    Then I click on the link labeled "Data Types"
+    And I should NOT see "custom text"
+    And I should see "Lock this instrument"
+    And I should see the element identified by "input[id=__LOCKRECORD__]"
+
+  Scenario: 17 - Edit the custom text
+    Given I click on the link labeled "Customize & Manage Locking/E-signatures"
+    And I click on the "pencil" icon for the instrument labeled "Text Validation"
+    Then I enter "My dated signature confirms that I have personally reviewed and approved the data entered on this Case Report Form." into the field identified by "textarea[id=label-text_validation]"
+    And I save the option for the instrument labeled "Text Validation"
+
+  Scenario: 18 - verify updated custom text
+    Given I click on the link labeled "Add / Edit Records"
+    And I select "1" from the dropdown identified by "[id=record]"
+    Then I should see "Record Home Page"
+    And the AJAX "GET" request at "DataEntry/index.php*" tagged by "render" is being monitored
     And I click the bubble to select a record for the "Text Validation" longitudinal instrument on event "Event 1"
+    And the AJAX request tagged by "render" has completed
+    Then I should see "My dated signature confirms that I have personally reviewed and approved the data entered on this Case Report Form."
+    Then I click on the link labeled "Data Types"
+    And I should NOT see "My dated signature confirms that I have personally reviewed and approved the data entered on this Case Report Form."
+    And I should see "Lock this instrument"
+    And I should see the element identified by "input[id=__LOCKRECORD__]"
+
+  Scenario: 19 - Add a new record
+    Given I click on the link labeled "Add / Edit Records"
+    And the AJAX "GET" request at "DataEntry/record_home.php*" tagged by "render" is being monitored
+    And I click on the button labeled "Add new record for the arm selected above"
+    And the AJAX request tagged by "render" has completed
+    Then I should see 'Record "2" is a new Record ID'
+    And the AJAX "GET" request at "DataEntry/index.php*" tagged by "render" is being monitored
+    And I click the bubble to select a record for the "Text Validation" longitudinal instrument on event "Event 1"
+    And the AJAX request tagged by "render" has completed
+    And I enter "Clay Pigeons" into the data entry form field labeled "Name"
+    And I check the checkbox identified by "input[id=__ESIGNATURE__]"
+    And I click on the button labeled "Save"
+    Then I should see 'WARNING: The "Lock Record" option must be checked before the e-signature can be saved. Please check the "Lock Record" check box and try again' in an alert box
+    Then I click on the button labeled "Close"
+
+  Scenario: 20 - Lock and Save the new record
+    Given I check the checkbox identified by "input[id=__LOCKRECORD__]"
+    And I select the submit option labeled "Save & Stay" on the Data Collection Instrument
+    And I enter "Testing123" into the field identified by "input[id=esign_password]"
+    Then I click on the button labeled "Save"
+    Then I should see "E-signed by test_user"
+    And I should see "Instrument locked by test_user"
+    Then I click on the link labeled "2"
+    Then I should see the instrument labeled "Text Validation" with icon "lock"
+    And I should see the instrument labeled "Text Validation" with icon "tick_shield"
+
+  Scenario: 21 - Delete the custom text
+    Given I click on the link labeled "Customize & Manage Locking/E-signatures"
+    And I click on the "cross" icon for the instrument labeled "Text Validation"
+    Then I should see "DELETE CUSTOM LOCKING TEXT?"
+
+  Scenario: 22 - Verify the custom text is deleted
+    Given I click on the link labeled "Record Status Dashboard"
+    And I locate the bubble for the "Text Validation" instrument on event "Event 1" for record ID "1" and click on the bubble
+    And I should NOT see "My dated signature confirms that I have personally reviewed and approved the data entered on this Case Report Form."
+    And I should see "Lock this instrument"
+    
+  Scenario: 23 - Verify E-signature and Locking Management tab
+    Given I click on the link labeled "Customize & Manage Locking/E-signatures"
+    And I click on the link labeled " E-signature and Locking Management"
+    Then I should see a button labeled "Export all (CSV)"
+    And I should see "Actions"
+    And I should see "All Records"
+   
+  Scenario: 24 - Verify the columns of the table 'E-signature and Locking Management'
+    Given I click on the link labeled " E-signature and Locking Management"
+    Given I should see "Record"
+    And I should see "Event Name"
+    And I should see "Form Name"
+    And I should see "Locked?"
+    And I should see "E-signed?"
+    # And I should see a link labeled "View&nbsp;record"
+
+  Scenario: 25 - Verify Record ID 1
+    Then I should see lock icon for the instrument labeled "Text Validation" for record ID "1"
+    And I should see tick_shield icon for the instrument labeled "Text Validation" for record ID "1"
+    Then I should not see lock icon for the instrument labeled "Data Types" for record ID "1"
+    # No Demo Branching instrument and instead of N/A I am checking for no e-sign icon
+    And I should not see tick_shield icon for the instrument labeled "Data Types" for record ID "1"
+
+  Scenario: 26 - Verify Record ID 2
+    # Then I should see lock icon for the instrument labeled "Text Validation" for record ID "2"
+    # And I should see tick_shield icon for the instrument labeled "Text Validation" for record ID "2"
+    # Then I should not see lock icon for the instrument labeled "Data Types" for record ID "2"
+    # # No Demo Branching instrument and instead of N/A I am checking for no e-sign icon
+    # And I should not see tick_shield icon for the instrument labeled "Data Types" for record ID "2"
+
+  Scenario: 27 - Verify the following actions are available
+    Then I should see a link labeled "SHOW ALL ROWS"
+    And I should see a link labeled "Show timestamp / user"
+    And I should see a link labeled "Hide timestamp / user"
+    And I should see a link labeled "Show locked"
+    And I should see a link labeled "Show not locked"
+    And I should see a link labeled "Show e-signed"
+    And I should see a link labeled "Show not e-signed (excludes N/A)"
+    And I should see a link labeled "Show both locked and e-signed"
+    And I should see a link labeled "Show neither locked nor e-signed (excludes N/A)"
+    And I should see a link labeled "Show locked but not e-signed (excludes N/A)"
