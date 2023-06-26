@@ -105,12 +105,12 @@ Given("I should have a {string} file that contains today's date for the fieldnam
         let lines = $text.trim().split('\n')
         let columnNum = -1
         let dataCount = 0
-        // let today = new Date()
+        let today = new Date()
         var dd = String(today.getDate()).padStart(2, '0')
         var mm = String(today.getMonth() + 1).padStart(2, '0')
         var yyyy = today.getFullYear()
 
-        let today = yyyy + '-' + mm + '-' + dd
+        today = yyyy + '-' + mm + '-' + dd
     
         let header = lines[0].trim().split(',')
         for(let i = 0; i < header.length; i++) {
@@ -328,12 +328,12 @@ Given("I should have a {string} file that does not contain today's date for the 
         let lines = $text.trim().split('\n')
         let columnNum = -1
         let dataCount = 0
-        // let today = new Date()
+        let today = new Date()
         var dd = String(today.getDate()).padStart(2, '0')
         var mm = String(today.getMonth() + 1).padStart(2, '0')
         var yyyy = today.getFullYear()
 
-        let today = yyyy + '-' + mm + '-' + dd
+        today = yyyy + '-' + mm + '-' + dd
     
         let header = lines[0].trim().split(',')
         for(let i = 0; i < header.length; i++) {
