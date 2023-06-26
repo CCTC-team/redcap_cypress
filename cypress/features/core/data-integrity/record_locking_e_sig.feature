@@ -75,7 +75,7 @@ Feature: Record Locking and E-Signatures
   Scenario: 5 - Verify if locked on Dashboard
     Given I click on the link labeled "Customize & Manage Locking/E-signatures"
     And I click on the link labeled "E-signature and Locking Management"
-    Then I should see lock icon for the instrument labeled "Data Types" for record ID "1"
+    Then I should see lock_small icon for the instrument labeled "Data Types" for record ID "1"
 
   Scenario: 6 - Unlock the instrument 'Data Types' for record ID 1
     Given I click on the link labeled "Record Status Dashboard"
@@ -258,16 +258,16 @@ Feature: Record Locking and E-Signatures
     # And I should see a link labeled "View&nbsp;record"
 
   Scenario: 25 - Verify Record ID 1
-    Then I should see lock icon for the instrument labeled "Text Validation" for record ID "1"
+    Then I should see lock_small icon for the instrument labeled "Text Validation" for record ID "1"
     And I should see tick_shield icon for the instrument labeled "Text Validation" for record ID "1"
-    Then I should not see lock icon for the instrument labeled "Data Types" for record ID "1"
+    Then I should not see lock_small icon for the instrument labeled "Data Types" for record ID "1"
     # No Demo Branching instrument and instead of N/A I am checking for no e-sign icon
     And I should not see tick_shield icon for the instrument labeled "Data Types" for record ID "1"
 
   Scenario: 26 - Verify Record ID 2
-    # Then I should see lock icon for the instrument labeled "Text Validation" for record ID "2"
+    # Then I should see lock_small icon for the instrument labeled "Text Validation" for record ID "2"
     # And I should see tick_shield icon for the instrument labeled "Text Validation" for record ID "2"
-    # Then I should not see lock icon for the instrument labeled "Data Types" for record ID "2"
+    # Then I should not see lock_small icon for the instrument labeled "Data Types" for record ID "2"
     # # No Demo Branching instrument and instead of N/A I am checking for no e-sign icon
     # And I should not see tick_shield icon for the instrument labeled "Data Types" for record ID "2"
 
@@ -301,51 +301,95 @@ Feature: Record Locking and E-Signatures
 
   Scenario: 31 - Show locked
     Given I click on the link labeled "Show locked"
-    Then I should see lock icon for the instrument labeled "Text Validation" for record ID "1"
-    # And I should see lock icon for the instrument labeled "Text Validation" for record ID "2"
-    And I should see 3 rows containing lock icon
+    Then I should see lock_small icon for the instrument labeled "Text Validation" for record ID "1"
+    # And I should see lock_small icon for the instrument labeled "Text Validation" for record ID "2"
+    And I should see 2 rows containing lock_small icon
+    # And I should see 3 rows
+    # Manual script says 1 row for record ID 1. But I have 2 rows for record ID 1. 1 for entire record locking and 1 for instrument locking
+    Then I should see 2 row containing record ID "1"
+    And I should see 1 row containing record ID "2"
 
   Scenario: 32 - Show not locked
     Given I click on the link labeled "Show not locked"
     # Manuel script says 2 rows for record ID 1 and 2 rows for record ID 2. I can only see 1
-    Then I should not see lock icon for the instrument labeled "Data Types" for record ID "1"
-    # And I should not see lock icon for the instrument labeled "Data Types" for record ID "2"
+    Then I should not see lock_small icon for the instrument labeled "Data Types" for record ID "1"
+    # And I should not see lock_small icon for the instrument labeled "Data Types" for record ID "2"
+    # Then I should see 2 rows
+    # Maunual script says 'You should see two rows for Record ID1 and two rows for Record ID 2. But I can see only 1 row each'
+    Then I should see 1 row containing record ID "1"
+    And I should see 1 row containing record ID "2"
     
   Scenario: 33 - Show e-signed
     Given I click on the link labeled "Show e-signed"
     Then I should see tick_shield icon for the instrument labeled "Text Validation" for record ID "1"
     # And I should see tick_shield icon for the instrument labeled "Text Validation" for record ID "2"
-    And I should see 2 rows containing tick_shield icon
+    # And I should see 2 rows
+    Then I should see 1 row containing record ID "1"
+    And I should see 1 row containing record ID "2"
 
   Scenario: 34 - Show not e-signed (excludes N/A)
     # Not sure how to verify this
     Given I click on the link labeled "Show not e-signed (excludes N/A)"
-    Then I should NOT see "Text Validation"
-    And I should NOT see "Data Types"
+    Then I should see 0 rows containing record ID "1"
+    And I should see 0 rows containing record ID "2"
 
   Scenario: 35 - Show both locked and e-signed
     Given I click on the link labeled "Show both locked and e-signed"
-    Then I should see lock icon for the instrument labeled "Text Validation" for record ID "1"
+    Then I should see lock_small icon for the instrument labeled "Text Validation" for record ID "1"
     Then I should see tick_shield icon for the instrument labeled "Text Validation" for record ID "1"
-    # Then I should see lock icon for the instrument labeled "Text Validation" for record ID "2"
+    # Then I should see lock_small icon for the instrument labeled "Text Validation" for record ID "2"
     # Then I should see tick_shield icon for the instrument labeled "Text Validation" for record ID "2"
-    And I should see 2 rows containing lock icon
+    And I should see 2 rows containing lock_small icon
     And I should see 2 rows containing tick_shield icon
+    Then I should see 1 row containing record ID "1"
+    And I should see 1 row containing record ID "2"
     
   Scenario: 36 - Show neither locked nor e-signed (excludes N/A)
-    # Not sure how to verify this
     Given I click on the link labeled "Show neither locked nor e-signed (excludes N/A)"
-    Then I should NOT see "Text Validation"
-    And I should NOT see "Data Types"
+    Then I should see 0 rows containing record ID "1"
+    And I should see 0 rows containing record ID "2"
 
   Scenario: 37 - Show locked but not e-signed (excludes N/A)
-    # Not sure how to verify this
     Given I click on the link labeled "Show locked but not e-signed (excludes N/A)"
-    Then I should NOT see "Text Validation"
-    And I should NOT see "Data Types"
+    Then I should see 0 rows containing record ID "1"
+    And I should see 0 rows containing record ID "2"
     
   Scenario: 38 - SHOW ALL ROWS
-    # Not sure how to verify this
     Given I click on the link labeled "SHOW ALL ROWS"
-    Then I should NOT see "Text Validation"
-    And I should NOT see "Data Types"
+    Then I should see 3 row containing record ID "1"
+    And I should see 2 row containing record ID "2"
+    And I logout
+  
+  Scenario: 39 - Move project to production and Keep ALL Data
+    Given I am an "admin" user who logs into REDCap
+    And I click on the link labeled "My Projects"
+    Then I click on the link labeled "19_RecordLockingEsigs_v1115"
+    And I click on the link labeled "Project Setup"
+    And I click on the button labeled "Move project to production"
+    And I click on the radio labeled "Keep ALL data saved so far." in the dialog box
+    And I click on the button labeled "YES, Move to Production Status" in the dialog box
+    Then I should see "Success! The project is now in production."
+    Then I click on the link labeled "Customize & Manage Locking/E-signatures"
+    And I should see "While in production, any changes made on this page, such as disabling"
+    Then I click on the button labeled "No thanks. Leave it the way it is."
+    And I cannot edit the field identified by "textarea[id=label-text_validation]"
+
+  Scenario: 40 - Change Locking/E-signatures while in production
+    Given I click on the link labeled "Customize & Manage Locking/E-signatures"
+    Then I should see "While in production, any changes made on this page, such as disabling"
+    Then I click on the button labeled "I understand. Let me make changes."
+    And I uncheck the checkbox identified by "input[id=dispchk-data_types]"
+    Then I should see "saved"
+    And I logout
+
+  Scenario: 41 - Login as standard user
+    Given I am a "standard" user who logs into REDCap
+    And I click on the link labeled "My Projects"
+    Then I click on the link labeled "19_RecordLockingEsigs_v1115"
+    And I click on the link labeled "Customize & Manage Locking/E-signatures"
+    Then I should see "While in production, any changes made on this page, such as disabling"
+    And I click on the button labeled "No thanks. Leave it the way it is."
+    Then I should see "Record Locking Customization"
+    # Manual script says "User can see the 'Record Locking Customization page' but cannot see the 'E-signature and Locking Mgmt' page. But i can see/click both"
+    # And I should NOT see "E-signature and Locking Management"
+    And I logout

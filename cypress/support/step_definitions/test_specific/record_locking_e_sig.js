@@ -10,6 +10,7 @@ Given('I cannot edit the field identified by {string}', (selector) => {
 
 })
 
+
 /**
  * @module record_locking_e_sig
  * @author Mintoo Xavier <min2xavier@gmail.com>
@@ -21,7 +22,7 @@ Given('I cannot edit the field identified by {string}', (selector) => {
  */
 defineParameterType({
     name: 'icon',
-    regexp: /(lock|tick_shield)/
+    regexp: /(lock_small|tick_shield)/
 })
 
 Given('I should see {icon} icon for the instrument labeled {string} for record ID {string}', (icon, text, id) => {
@@ -52,6 +53,7 @@ Given('I should see {icon} icon for the instrument labeled {string} for record I
 //     )
 // })
 
+
 /**
  * @module record_locking_e_sig
  * @author Mintoo Xavier <min2xavier@gmail.com>
@@ -63,6 +65,7 @@ Given('I should see {icon} icon for the instrument labeled {string} for record I
 Given("I check the checkbox to display E-signature option for the instrument labeled {string}", (text) => {
     cy.get('td').contains(text).next('td').find('input').check()
 })
+
 
 /**
  * @module record_locking_e_sig
@@ -77,6 +80,7 @@ Given("I save the option for the instrument labeled {string}", (text) => {
         cy.get('input[type=button]').click()
     )   
 })
+
 
 /**
  * @module record_locking_e_sig
@@ -93,6 +97,7 @@ Given("I should see the instrument labeled {string} with icon {string}", (text, 
     )
 })
 
+
 /**
  * @module record_locking_e_sig
  * @author Mintoo Xavier <min2xavier@gmail.com>
@@ -107,6 +112,7 @@ Given("I click on the {string} icon for the instrument labeled {string}", (icon,
         cy.get('img[src*=' + icon + ']').click()
     )
 })
+
 
 /**
  * @module record_locking_e_sig
@@ -123,69 +129,50 @@ Given('I should not see {icon} icon for the instrument labeled {string} for reco
     )
 })
 
+
 /**
  * @module record_locking_e_sig
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I should see today's date in the column labeled Locked
- * @description Visually verify today's date in the column labeled Locked
+ * @example I should see today's date in the column labeled {label}
+ * @description Visually verify today's date in the column labeled Locked/E-signed
  */
-Given("I should see today's date in the column labeled Locked", () => {
+defineParameterType({
+    name: 'label',
+    regexp: /(Locked|E-signed)/
+})
+Given("I should see today's date in the column labeled {label}", (label) => {
     let today = new Date()
     var dd = String(today.getDate()).padStart(2, '0')
     var mm = String(today.getMonth() + 1).padStart(2, '0')
     var yyyy = today.getFullYear()
     today = mm + '/' + dd + '/' + yyyy
 
-    cy.get('table[id="esignLockList"]').children('tbody').find('td[class="data lock"]').contains(today)
+    if(label == 'Locked')
+        cy.get('table[id="esignLockList"]').children('tbody').find('td[class="data lock"]').contains(today)
+    else
+        cy.get('table[id="esignLockList"]').children('tbody').find('td[class="data esign"]').contains(today)
 })
 
+
 /**
  * @module record_locking_e_sig
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I should see today's date in the column labeled E-signed
- * @description Visually verify today's date in the column labeled E-signed
+ * @example I should not see today's date in the column labeled {label}
+ * @description Visually verify today's date is not visible in the column labeled Locked/E-signed
  */
-Given("I should see today's date in the column labeled E-signed", () => {
+Given("I should not see today's date in the column labeled {label}", (label) => {
     let today = new Date()
     var dd = String(today.getDate()).padStart(2, '0')
     var mm = String(today.getMonth() + 1).padStart(2, '0')
     var yyyy = today.getFullYear()
     today = mm + '/' + dd + '/' + yyyy
 
-    cy.get('table[id="esignLockList"]').children('tbody').find('td[class="data esign"]').contains(today)
-})
-
-/**
- * @module record_locking_e_sig
- * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I should not see today's date in the column labeled Locked
- * @description Visually verify today's date is not visible in the column labeled Locked
- */
-Given("I should not see today's date in the column labeled Locked", () => {
-    let today = new Date()
-    var dd = String(today.getDate()).padStart(2, '0')
-    var mm = String(today.getMonth() + 1).padStart(2, '0')
-    var yyyy = today.getFullYear()
-    today = mm + '/' + dd + '/' + yyyy
-
-    cy.get('table[id="esignLockList"]').children('tbody').find('td[class="data lock"]').contains(today).should('not.be.visible')
-})
-
-/**
- * @module record_locking_e_sig
- * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I should not see today's date in the column labeled E-signed
- * @description Visually verify today's date is not visible in the column labeled E-signed
- */
-Given("I should not see today's date in the column labeled E-signed", () => {
-    let today = new Date()
-    var dd = String(today.getDate()).padStart(2, '0')
-    var mm = String(today.getMonth() + 1).padStart(2, '0')
-    var yyyy = today.getFullYear()
-    today = mm + '/' + dd + '/' + yyyy
-
+    if(label == 'Locked')
+        cy.get('table[id="esignLockList"]').children('tbody').find('td[class="data lock"]').contains(today).should('not.be.visible')
+    else
     cy.get('table[id="esignLockList"]').children('tbody').find('td[class="data esign"]').contains(today).should('not.be.visible')
 })
+
 
 /**
  * @module my_projects
@@ -201,3 +188,41 @@ Given('I should see {int} row(s) containing {icon} icon', (count, icon) => {
         expect(iRow.length).to.equal(count)
     })
 })
+
+
+// /**
+//  * @module my_projects
+//  * @author Mintoo Xavier <min2xavier@gmail.com>
+//  * @example I should see {int} row(s)
+//  * @param {int} count - the number of rows seen
+//  * @description Visibility - Verifies the correct number of rows are present
+//  */
+// Given('I should see {int} row(s)', (count) => {
+//     count = count + 2
+//     cy.get('table[id="esignLockList"]').children('tbody').find('tr').should('be.visible').as('iRow')
+//     cy.get('@iRow').then(iRow => {
+//         expect(iRow.length).to.equal(count)
+//     })
+// })
+
+
+/**
+ * @module my_projects
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I should see {int} row(s)
+ * @param {int} count - the number of rows seen
+ * @description Visibility - Verifies the correct number of rows are present
+ */
+// Given('I should see {int} row(s) containing record ID {string}', (count,recID) => {
+//     cy.get('tr').children('td:nth-child(1)').contains(recID).as('iRow')
+//     cy.get('@iRow').then(iRow => {
+//         expect(iRow.length).to.equal(count)
+//     })
+// })
+Given('I should see {int} row(s) containing record ID {string}', (count,recID) => {
+    cy.get('table[id="esignLockList"]').find('tr').contains(recID).as('iRow')
+    cy.get('@iRow').then(iRow => {
+        expect(iRow.length).to.equal(count)
+    })
+})
+
