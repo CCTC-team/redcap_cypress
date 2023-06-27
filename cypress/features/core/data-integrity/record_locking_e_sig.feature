@@ -303,35 +303,28 @@ Feature: Record Locking and E-Signatures
     Given I click on the link labeled "Show locked"
     Then I should see lock_small icon for the instrument labeled "Text Validation" for record ID "1"
     # And I should see lock_small icon for the instrument labeled "Text Validation" for record ID "2"
-    And I should see 2 rows containing lock_small icon
-    # And I should see 3 rows
     # Manual script says 1 row for record ID 1. But I have 2 rows for record ID 1. 1 for entire record locking and 1 for instrument locking
-    Then I should see 2 row containing record ID "1"
-    And I should see 1 row containing record ID "2"
-
+    And I should see 2 rows containing lock_small icon
+    And I should see 1 row containing lock_big icon
+    And I should see 3 rows locked
+    
   Scenario: 32 - Show not locked
     Given I click on the link labeled "Show not locked"
-    # Manuel script says 2 rows for record ID 1 and 2 rows for record ID 2. I can only see 1
+    # Maunual script says 'You should see two rows for Record ID1 and two rows for Record ID 2. But I can see only 1 row each'
     Then I should not see lock_small icon for the instrument labeled "Data Types" for record ID "1"
     # And I should not see lock_small icon for the instrument labeled "Data Types" for record ID "2"
-    # Then I should see 2 rows
-    # Maunual script says 'You should see two rows for Record ID1 and two rows for Record ID 2. But I can see only 1 row each'
-    Then I should see 1 row containing record ID "1"
-    And I should see 1 row containing record ID "2"
+    Then I should see 2 rows unlocked
     
   Scenario: 33 - Show e-signed
     Given I click on the link labeled "Show e-signed"
     Then I should see tick_shield icon for the instrument labeled "Text Validation" for record ID "1"
     # And I should see tick_shield icon for the instrument labeled "Text Validation" for record ID "2"
-    # And I should see 2 rows
-    Then I should see 1 row containing record ID "1"
-    And I should see 1 row containing record ID "2"
+    And I should see 2 rows containing tick_shield icon
+    And I should see 2 rows e-signed
 
   Scenario: 34 - Show not e-signed (excludes N/A)
-    # Not sure how to verify this
     Given I click on the link labeled "Show not e-signed (excludes N/A)"
-    Then I should see 0 rows containing record ID "1"
-    And I should see 0 rows containing record ID "2"
+    And I should see no rows not e-signed
 
   Scenario: 35 - Show both locked and e-signed
     Given I click on the link labeled "Show both locked and e-signed"
@@ -341,23 +334,19 @@ Feature: Record Locking and E-Signatures
     # Then I should see tick_shield icon for the instrument labeled "Text Validation" for record ID "2"
     And I should see 2 rows containing lock_small icon
     And I should see 2 rows containing tick_shield icon
-    Then I should see 1 row containing record ID "1"
-    And I should see 1 row containing record ID "2"
-    
+    And I should see 2 rows locked and e-signed
+
   Scenario: 36 - Show neither locked nor e-signed (excludes N/A)
     Given I click on the link labeled "Show neither locked nor e-signed (excludes N/A)"
-    Then I should see 0 rows containing record ID "1"
-    And I should see 0 rows containing record ID "2"
+    And I should see no rows unlocked and not e-signed
 
   Scenario: 37 - Show locked but not e-signed (excludes N/A)
     Given I click on the link labeled "Show locked but not e-signed (excludes N/A)"
-    Then I should see 0 rows containing record ID "1"
-    And I should see 0 rows containing record ID "2"
+    And I should see no rows locked and not e-signed
     
   Scenario: 38 - SHOW ALL ROWS
     Given I click on the link labeled "SHOW ALL ROWS"
-    Then I should see 3 row containing record ID "1"
-    And I should see 2 row containing record ID "2"
+    And I should see 5 rows in total
     And I logout
   
   Scenario: 39 - Move project to production and Keep ALL Data

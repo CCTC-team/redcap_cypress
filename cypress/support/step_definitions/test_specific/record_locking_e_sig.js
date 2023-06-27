@@ -22,7 +22,7 @@ Given('I cannot edit the field identified by {string}', (selector) => {
  */
 defineParameterType({
     name: 'icon',
-    regexp: /(lock_small|tick_shield)/
+    regexp: /(lock_small|lock_big|tick_shield)/
 })
 
 Given('I should see {icon} icon for the instrument labeled {string} for record ID {string}', (icon, text, id) => {
@@ -190,39 +190,70 @@ Given('I should see {int} row(s) containing {icon} icon', (count, icon) => {
 })
 
 
-// /**
-//  * @module my_projects
-//  * @author Mintoo Xavier <min2xavier@gmail.com>
-//  * @example I should see {int} row(s)
-//  * @param {int} count - the number of rows seen
-//  * @description Visibility - Verifies the correct number of rows are present
-//  */
-// Given('I should see {int} row(s)', (count) => {
-//     count = count + 2
-//     cy.get('table[id="esignLockList"]').children('tbody').find('tr').should('be.visible').as('iRow')
-//     cy.get('@iRow').then(iRow => {
-//         expect(iRow.length).to.equal(count)
-//     })
-// })
+/**
+ * @module my_projects
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I should see {int} row(s) {lock_status}
+ * @param {int} count - the number of rows seen
+ * @param {lock_status} count - lock status of record
+ * @description Visibility - Verifies the number of rows with the status
+ */
+defineParameterType({
+    name: 'lock_status',
+    regexp: /(locked|e-signed|unlocked|not e-signed|locked and e-signed|locked and not e-signed|unlocked and not e-signed|in total)/
+})
+Given('I should see {int} row(s) {lock_status}', (count, text) => {
+    let class_name = ''
+    if(text == "locked")
+        class_name = ".locked"
+    else if(text == "e-signed")
+        class_name = ".esigned"
+    else if(text == "unlocked")
+        class_name = ".unlocked"
+    else if(text == "not e-signed")
+        class_name = ".aesigned"
+    else if(text == "locked and e-signed")
+        class_name = ".locked.esigned"
+    else if(text == "locked and not e-signed")
+        class_name = ".locked.aesigned"
+    else if(text == "unlocked and not e-signed")
+        class_name = ".unlocked.aesigned"
+    else // Show All
+        class_name = ".rowl"
+
+    cy.get('table[id="esignLockList"]').find(class_name).as('iRow')
+    cy.get('@iRow').then(iRow => {
+        expect(iRow.length).to.equal(count)
+    })
+})
 
 
 /**
  * @module my_projects
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I should see {int} row(s)
- * @param {int} count - the number of rows seen
- * @description Visibility - Verifies the correct number of rows are present
+ * @example I should see {int} row(s) {lock_status}
+ * @param {lock_status} count - lock status of record
+ * @description Visibility - Verifies the number of rows with the status
  */
-// Given('I should see {int} row(s) containing record ID {string}', (count,recID) => {
-//     cy.get('tr').children('td:nth-child(1)').contains(recID).as('iRow')
-//     cy.get('@iRow').then(iRow => {
-//         expect(iRow.length).to.equal(count)
-//     })
-// })
-Given('I should see {int} row(s) containing record ID {string}', (count,recID) => {
-    cy.get('table[id="esignLockList"]').find('tr').contains(recID).as('iRow')
-    cy.get('@iRow').then(iRow => {
-        expect(iRow.length).to.equal(count)
-    })
+Given('I should see no rows {lock_status}', (text) => {
+    let class_name = ''
+    if(text == "locked")
+        class_name = ".locked"
+    else if(text == "e-signed")
+        class_name = ".esigned"
+    else if(text == "unlocked")
+        class_name = ".unlocked"
+    else if(text == "not e-signed")
+        class_name = ".aesigned"
+    else if(text == "locked and e-signed")
+        class_name = ".locked.esigned"
+    else if(text == "locked and not e-signed")
+        class_name = ".locked.aesigned"
+    else if(text == "unlocked and not e-signed")
+        class_name = ".unlocked.aesigned"
+    else // Show All
+        class_name = ".rowl"
+
+    cy.get('table[id="esignLockList"]').find(class_name).should('not.be.visible')
 })
 
