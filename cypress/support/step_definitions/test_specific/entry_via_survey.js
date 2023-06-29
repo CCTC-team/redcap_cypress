@@ -40,12 +40,12 @@ Given('I should see {int} participant(s) listed in the Participant List', (count
 /**
  * @module entry_via_survey
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I select the option {string} for the Participant List
- * @param {string} instrument - the instrument-event name to select
+ * @example I select the Participant List belonging to option {string}
+ * @param {string} name - the instrument-event name to select
  * @description select the instrument-event for the Participant List in Survey Distribution Tools
  */
-Given('I select the option {string} for the Participant List', (instrument) => {
-    cy.get('td').contains('Participant List').find('select').select(instrument)
+Given('I select the Participant List belonging to option {string}', (name) => {
+    cy.get('td').contains('Participant List').find('select').select(name)
 })
 
 /**
@@ -64,7 +64,7 @@ Given('I click on the button labeled {string} for the instrument named {string}'
 /**
  * @module entry_via_survey
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I should see a {string} bubble for record ID {string}
+ * @example I should see a {string} {imagetype} for record ID {string}
  * @param color - color of the survey
  * @param recID - Record ID
  * @description Visibility - Verifies the status of the survey for a given record ID
@@ -121,11 +121,11 @@ Given('I should see {int} email(s) listed in the Survey Invitation Log', (count)
 /**
  * @module entry_via_survey
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I should Event List with options below
+ * @example I should see the Event List with the options below
  * @param {DataTable} options the Data Table of selectable options
  * @description Visibility - Visually verifies that the Event List has the options listed
  */
-Given('I should Event List with options below', (options) => {
+Given('I should see the Event List with the options below', (options) => {
     cy.get('table[id="partListTitle"]').children('tbody').find('td').contains('Participant List').within(() => {
         for(let i = 0; i < options.rawTable[0].length; i++){
             let element_selector = `select:has(option:contains("${options.rawTable[0][i]}")):visible`

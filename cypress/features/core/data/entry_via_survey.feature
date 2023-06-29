@@ -178,9 +178,9 @@ Feature: Data Entry through the Survey
     And I should see "Survey Access Code and"
     And I should see "QR Code"
     # Enable designation of an email field for communications setting and assign Email to field. Else Participant List is empty
-    And I select the option '"Survey" - Event 1' for the Participant List
+    And I select the Participant List belonging to option '"Survey" - Event 1'
     Then I should see 2 participants listed in the Participant List
-    And I select the option '"Survey" - Event 2' for the Participant List
+    And I select the Participant List belonging to option '"Survey" - Event 2'
     Then I should see 2 participants listed in the Participant List
   
   Scenario: 13 - Enable designation of an email field for communications setting and assign Email to field
@@ -259,11 +259,11 @@ Feature: Data Entry through the Survey
     And I should see "Participant List"
     And I click on the link labeled "Participant List"
     Then I should see "test1@test.com"
-    And I select the option '"Survey" - Event 1' for the Participant List
+    And I select the Participant List belonging to option '"Survey" - Event 1'
     Then I should see a "gray" bubble for record ID "1"
     Then I should see a "gray" bubble for record ID "2"
     And the AJAX "GET" request at "Surveys/invite_participants.php*" tagged by "list" is being monitored
-    And I select the option '"Survey" - Event 2' for the Participant List
+    And I select the Participant List belonging to option '"Survey" - Event 2'
     And the AJAX request tagged by "list" has completed
     And I wait for 3 seconds
     Then I should see '"Survey" - Event 2'
@@ -307,7 +307,7 @@ Feature: Data Entry through the Survey
     And I wait for 3 seconds
     Then I should see "test1@test.com"
     And the AJAX request tagged by "list" has completed
-    And I select the option '[Initial survey] "Demographics" - Event 1' for the Participant List
+    And I select the Participant List belonging to option '[Initial survey] "Demographics" - Event 1'
     Then I should see "test1@test.com"
     Then I should see "test2@test.com"
     Then I should see 2 participants listed in the Participant List
@@ -441,7 +441,7 @@ Feature: Data Entry through the Survey
     And I wait for 4 seconds
     Then I should see "Email"
     And the AJAX "GET" request at "Surveys/invite_participants.php*" tagged by "list" is being monitored
-    And I select the option '[Initial survey] "Demographics" - Event 1' for the Participant List
+    And I select the Participant List belonging to option '[Initial survey] "Demographics" - Event 1'
     And I wait for 3 seconds
     And the AJAX request tagged by "list" has completed
     And I click on the link labeled "3"
@@ -471,7 +471,7 @@ Feature: Data Entry through the Survey
     Then I should see "Email"
     Then I should see "Record"
     And the AJAX "GET" request at "Surveys/invite_participants.php*" tagged by "list" is being monitored
-    And I select the option '"Survey" - Event 1' for the Participant List
+    And I select the Participant List belonging to option '"Survey" - Event 1'
     And I wait for 3 seconds
     And I should see "3"
     And I should see "test3@test.com"
@@ -520,18 +520,18 @@ Feature: Data Entry through the Survey
     And I should see "Participant List"
     And I click on the link labeled "Participant List"
     Then I should see "test1@test.com"
-    And I select the option '[Initial survey] "Demographics" - Event 1' for the Participant List
+    And I select the Participant List belonging to option '[Initial survey] "Demographics" - Event 1'
     # Added 1 extra participant
     Then I should see 5 participants listed in the Participant List
     Then I should see a "green" bubble for record ID "3"
     And the AJAX "GET" request at "Surveys/invite_participants.php*" tagged by "list" is being monitored
-    And I select the option '"Survey" - Event 1' for the Participant List
+    And I select the Participant List belonging to option '"Survey" - Event 1'
     And I wait for 4 seconds
     Then I should see "3"
     Then I should see 3 participants listed in the Participant List
     Then I should see a "orange" bubble for record ID "3"
     And the AJAX "GET" request at "Surveys/invite_participants.php*" tagged by "list" is being monitored
-    And I select the option '"Survey" - Event 2' for the Participant List
+    And I select the Participant List belonging to option '"Survey" - Event 2'
     And I wait for 3 seconds
     Then I should see 3 participants listed in the Participant List
     Then I should see "1"
@@ -539,7 +539,7 @@ Feature: Data Entry through the Survey
     Then I should see a "green" bubble for record ID "2"
 
   Scenario: 31 - Compose Survey Invitations and send it
-    Given I select the option '"Survey" - Event 1' for the Participant List
+    Given I select the Participant List belonging to option '"Survey" - Event 1'
     And I wait for 3 seconds
     Then I should see "3"
     And the AJAX "GET" request at "Surveys/participant_list.php*" tagged by "list" is being monitored
@@ -660,7 +660,7 @@ Feature: Data Entry through the Survey
     And I click on the link labeled "Survey Distribution Tools"
     And I should see "Participant List"
     And I click on the link labeled "Participant List"
-    Then I should Event List with options below
+    Then I should see the Event List with the options below
     | [Initial survey] "Demographics" - Event 1 |
 
   Scenario: 39 - Logout
