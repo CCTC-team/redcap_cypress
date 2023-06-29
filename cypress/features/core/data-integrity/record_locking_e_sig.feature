@@ -87,7 +87,6 @@ Feature: Record Locking and E-Signatures
     Then I should see "UNLOCK SUCCESSFUL!"
     And I should see "This form has now been unlocked. Users can now modify the data again on this form."
     And I click on the button labeled "Close" in the dialog box
-    # Then I enter "1" into the input field labeled "Text2"
 
   Scenario: 7 - Verify the instrument is unlocked
     Given I click on the link labeled "Record Status Dashboard"
@@ -255,7 +254,7 @@ Feature: Record Locking and E-Signatures
     And I should see "Form Name"
     And I should see "Locked?"
     And I should see "E-signed?"
-    # And I should see a link labeled "View&nbsp;record"
+    # And I should see a link labeled "View record"
 
   Scenario: 25 - Verify Record ID 1
     Then I should see lock_small icon for the instrument labeled "Text Validation" for record ID "1"
@@ -265,11 +264,11 @@ Feature: Record Locking and E-Signatures
     And I should not see tick_shield icon for the instrument labeled "Data Types" for record ID "1"
 
   Scenario: 26 - Verify Record ID 2
-    # Then I should see lock_small icon for the instrument labeled "Text Validation" for record ID "2"
-    # And I should see tick_shield icon for the instrument labeled "Text Validation" for record ID "2"
-    # Then I should not see lock_small icon for the instrument labeled "Data Types" for record ID "2"
-    # # No Demo Branching instrument and instead of N/A I am checking for no e-sign icon
-    # And I should not see tick_shield icon for the instrument labeled "Data Types" for record ID "2"
+    Then I should see lock_small icon for the instrument labeled "Text Validation" for record ID "2"
+    And I should see tick_shield icon for the instrument labeled "Text Validation" for record ID "2"
+    Then I should not see lock_small icon for the instrument labeled "Data Types" for record ID "2"
+    # No Demo Branching instrument and instead of N/A I am checking for no e-sign icon
+    And I should not see tick_shield icon for the instrument labeled "Data Types" for record ID "2"
 
   Scenario: 27 - Verify the following actions are available
     Then I should see a link labeled "SHOW ALL ROWS"

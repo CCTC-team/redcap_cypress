@@ -26,32 +26,37 @@ defineParameterType({
 })
 
 Given('I should see {icon} icon for the instrument labeled {string} for record ID {string}', (icon, text, id) => {
-    cy.get('table[id="esignLockList"]').children('tbody').find('td').contains(text).parent().contains(id).parent().within(() =>
-        cy.get('img[src*=' + icon + ']')
-    )
+    cy.get('table[id="esignLockList"]').children('tbody').within(() => {
+        let found = 0
+        cy.wrap(found).as('found')
+        cy.get('tr').each((tr, index, list) =>{
+            if(index > 1){
+                cy.wrap(tr).within(() => {
+                    let count = 0
+                    cy.get('td').each((td, index, list) => {
+                        if(td.text() == id)
+                            count++
+                        if(td.text() == text)
+                            count++
+                        if (count == 2) {
+                            cy.get('img[src*=' + icon + ']')
+                            cy.get('@found').then(() => {
+                                found = 1
+                                cy.wrap(found).as('found')
+                                return false
+                            })
+                        }       
+                    })
+                })
+            }
+        })  
+        cy.get('@found').then(() => {
+            cy.log(found)
+            expect(found).to.equal(1)
+        })        
+    })
+   
 })
-// Given('I should see {icon} icon for the instrument labeled {string} for record ID {string}', (icon, text, id) => {
-//     cy.get('tbody td').contains(text).parent().contains(id).parent().get('img[src*=' + icon + ']')
-
-// })
-// Given('I should see {icon} icon for the instrument labeled {string} for record ID {string}', (icon, text, id) => {
-//     cy.get('table[id="esignLockList"]').children('tbody').find('tr').each(() =>
-        
-//         cy.get('td').contains(text).parent().contains(id).parent().within(() => {
-//             cy.get('img[src*=' + icon + ']')  
-//         })
-    
-//     )
-// })
-
-// Given('I should see {icon} icon for the instrument labeled {string} for record ID {string}', (icon, text, id) => {
-//     cy.get('tbody tr').each(($el) =>
-//         cy.wrap($el).within(() => {
-//             cy.get('td').should('contain.text', text)
-//             // .parent().should('contain.text', id).parent().find('img[src*=' + icon + ']') 
-//         }) 
-//     )
-// })
 
 
 /**
@@ -124,9 +129,35 @@ Given("I click on the {string} icon for the instrument labeled {string}", (icon,
  * @description Visually verify the instrument does not have the icon
  */
 Given('I should not see {icon} icon for the instrument labeled {string} for record ID {string}', (icon, text, id) => {
-    cy.get('table[id="esignLockList"]').children('tbody').find('td').contains(text).parent().contains(id).parent().within(() =>
-        cy.get('img[src*=' + icon + ']').should('not.exist')
-    )
+    cy.get('table[id="esignLockList"]').children('tbody').within(() => {
+        let found = 0
+        cy.wrap(found).as('found')
+        cy.get('tr').each((tr, index, list) =>{
+            if(index > 1){
+                cy.wrap(tr).within(() => {
+                    let count = 0
+                    cy.get('td').each((td, index, list) => {
+                        if(td.text() == id)
+                            count++
+                        if(td.text() == text)
+                            count++
+                        if (count == 2) {
+                            cy.get('img[src*=' + icon + ']').should('not.exist')
+                            cy.get('@found').then(() => {
+                                found = 1
+                                cy.wrap(found).as('found')
+                                return false
+                            })
+                        }       
+                    })
+                })
+            }
+        })  
+        cy.get('@found').then(() => {
+            expect(found).to.equal(1)
+        }) 
+    })
+   
 })
 
 
