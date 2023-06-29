@@ -242,13 +242,13 @@ Feature: Record Locking and E-Signatures
     
   Scenario: 23 - Verify E-signature and Locking Management tab
     Given I click on the link labeled "Customize & Manage Locking/E-signatures"
-    And I click on the link labeled " E-signature and Locking Management"
+    And I click on the link labeled "E-signature and Locking Management"
     Then I should see a button labeled "Export all (CSV)"
     And I should see "Actions"
     And I should see "All Records"
    
   Scenario: 24 - Verify the columns of the table 'E-signature and Locking Management'
-    Given I click on the link labeled " E-signature and Locking Management"
+    Given I click on the link labeled "E-signature and Locking Management"
     Given I should see "Record"
     And I should see "Event Name"
     And I should see "Form Name"
