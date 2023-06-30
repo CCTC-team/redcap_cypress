@@ -29,33 +29,39 @@ Given('I should see {icon} icon for the instrument labeled {string} for record I
     cy.get('table[id="esignLockList"]').children('tbody').within(() => {
         let found = 0
         cy.wrap(found).as('found')
-        cy.get('tr').each((tr, index, list) =>{
+        cy.get('tr').each((tr, index) =>{
+            // // This was to stop the iteration when found = 1 but doesn't work as expected
+            // cy.get('@found').then(found => { 
+            //     if(found == 1){
+            //         cy.log("tr-found:" + found)
+            //         return false
+            //     }
+            // })
             if(index > 1){
                 cy.wrap(tr).within(() => {
                     let count = 0
-                    cy.get('td').each((td, index, list) => {
+                    cy.get('td').each((td) => {
+                        if(count == 2)
+                            return false
                         if(td.text() == id)
                             count++
                         if(td.text() == text)
                             count++
                         if (count == 2) {
                             cy.get('img[src*=' + icon + ']')
-                            cy.get('@found').then(() => {
+                            cy.get('@found').then(found => {
                                 found = 1
                                 cy.wrap(found).as('found')
-                                return false
                             })
                         }       
                     })
                 })
             }
         })  
-        cy.get('@found').then(() => {
-            cy.log(found)
+        cy.get('@found').then(found => {
             expect(found).to.equal(1)
         })        
     })
-   
 })
 
 
@@ -130,34 +136,41 @@ Given("I click on the {string} icon for the instrument labeled {string}", (icon,
  */
 Given('I should not see {icon} icon for the instrument labeled {string} for record ID {string}', (icon, text, id) => {
     cy.get('table[id="esignLockList"]').children('tbody').within(() => {
-        let found = 0
+        let found = 1
         cy.wrap(found).as('found')
-        cy.get('tr').each((tr, index, list) =>{
+        cy.get('tr').each((tr, index) =>{
+            // // This was to stop the iteration when found = 0 but doesn't work as expected
+            // cy.get('@found').then(found => { 
+            //     if(found == 0){
+            //         cy.log("tr-found:" + found)
+            //         return false
+            //     }
+            // })
             if(index > 1){
                 cy.wrap(tr).within(() => {
                     let count = 0
-                    cy.get('td').each((td, index, list) => {
+                    cy.get('td').each((td) => {
+                        if(count == 2)
+                            return false
                         if(td.text() == id)
                             count++
                         if(td.text() == text)
                             count++
                         if (count == 2) {
                             cy.get('img[src*=' + icon + ']').should('not.exist')
-                            cy.get('@found').then(() => {
-                                found = 1
+                            cy.get('@found').then(found => {
+                                found = 0
                                 cy.wrap(found).as('found')
-                                return false
                             })
                         }       
                     })
                 })
             }
         })  
-        cy.get('@found').then(() => {
-            expect(found).to.equal(1)
-        }) 
+        cy.get('@found').then(found => {
+            expect(found).to.equal(0)
+        })        
     })
-   
 })
 
 
