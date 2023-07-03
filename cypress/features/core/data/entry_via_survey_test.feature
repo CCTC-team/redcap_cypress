@@ -412,6 +412,7 @@ Feature: Data Entry through the Survey
     Then I should see "Invitation send time"
     And the AJAX "GET" request at "Surveys/invite_participants.php*" tagged by "list" is being monitored
     And I click on the button labeled "View past invitations"
+    And I wait for 3 seconds
     And I should see "[No email listed]"
 
   # Scenario: 34 - Export Raw Data and check file header - Check data
@@ -432,7 +433,7 @@ Feature: Data Entry through the Survey
     Given I should see "15_DirectDataEntry (Survey) v1115"
     And I should see "Designer"
     And I click on the link labeled "Designer"
-    And I wait for 3 seconds
+    And I wait for 4 seconds
     Then I should see "Demographics"
     And I click on the button labeled "Survey settings" for the instrument named "Survey"
     Then I should see "Modify survey settings for data collection instrument"
