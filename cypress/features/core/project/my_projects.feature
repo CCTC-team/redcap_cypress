@@ -154,7 +154,7 @@ Feature: My Projects
     And I enter "notesbox1" into the field identified by "input[name=field_name]"
     And the AJAX "GET" request at "Design/online_designer_render_fields.php*" tagged by "render" is being monitored
     And I click on the button labeled "Save"
-    And the AJAX request tagged by "render" has completed
+    # And the AJAX request tagged by "render" has completed
     Then I should see "notesbox1"
     And I should see the element identified by "textarea[id=notesbox1]"
     And I click on the link labeled "Designer"
@@ -184,11 +184,13 @@ Feature: My Projects
   Scenario: 14 - Add an instrument and ensure it reflects in the My Projects Dashboard
     Given I click on the link labeled "13_MyProjects_v1115"
     And I click on the link labeled "Designer"
-    And I click on the button labeled exactly "Create"
+    And I click on the button labeled exactly " Create"
     Then I should see a button labeled "Add instrument here"
     And I add an instrument below the instrument named "Data Types"
     And I enter "Test" into the field identified by "input[id=new_form-data_types]"
     And I click on the element identified by "input[value=Create]"
+    Then I should see a dialog containing the following text: "The new instrument was successfully created. The page will be reloaded to reflect this change."
+    And I click on the button labeled "Close" in the dialog box
     Then I should see "Test"
     And I should see 3 instruments
     And I click on the link labeled "My Projects"
