@@ -95,7 +95,9 @@ Feature: Data Entry through the Survey
     Then I should see that surveys are enabled
 
   Scenario: 7 - Enable instrument as survey
-    Given I click on the link labeled "Designer"
+    Given the AJAX "GET" request at "Design/online_designer.php*" tagged by "render" is being monitored
+    And I click on the link labeled "Designer"
+    And the AJAX request tagged by "render" has completed
     And I should see the instrument labeled "Survey" is not a survey
     And I enable surveys for the data instrument named "Survey"
     Then I should see "Your survey settings were successfully saved!"
@@ -191,7 +193,7 @@ Feature: Data Entry through the Survey
     And I select "1" from the dropdown identified by "[id=record]"
     And I click the bubble to select a record for the "Demographics" longitudinal instrument on event "Event 1"
     Then I should NOT see a button labeled "Survey options"
-    And I click on the button labeled "-- Cancel --"
+    And I click on the button labeled "Cancel"
 
   Scenario: 15 - Open survey and enter email for Record ID 1
     # Given I click on the link labeled "Add / Edit Records"
@@ -573,7 +575,7 @@ Feature: Data Entry through the Survey
     Then I should see "Survey"
     Then I should see "Survey Link"
     Then I should see "Responded?"
-    Then I should see "Errors (if any)"
+    Then I should see "Errors"
     And I should see 1 email listed in the Survey Invitation Log
 
   Scenario: 33 - Undesignate email for communications setting and check past invitations
@@ -651,7 +653,7 @@ Feature: Data Entry through the Survey
     And I wait for 3 seconds
     Then I should NOT see a button labeled "Survey options"
     And the AJAX "GET" request at "DataEntry/record_home.php*" tagged by "render" is being monitored
-    And I click on the button labeled "-- Cancel --"
+    And I click on the button labeled "Cancel"
     And the AJAX request tagged by "render" has completed
 
   Scenario: 38 - Only the Demographics Event 1 is in the Participant List dropdown

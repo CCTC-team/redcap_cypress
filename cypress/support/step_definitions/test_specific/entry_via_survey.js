@@ -6,7 +6,10 @@
  * @description Visually verify the instrument is not a survey
  */
 Given('I should see the instrument labeled {string} is not a survey', (label) => {
-    cy.get('a').contains(label).parents('tr').find(':nth-child(5)').contains("Enable")
+    cy.get('table[id="table-forms_surveys"]').within(() => {
+        cy.get('a').contains(label).parents('tr').find(':nth-child(5)').contains("Enable")
+    })
+    
 
 })
 
@@ -18,9 +21,11 @@ Given('I should see the instrument labeled {string} is not a survey', (label) =>
  * @description Visually verify the instrument is a survey
  */
 Given('I should see the instrument labeled {string} is a survey', (label) => {
-    cy.get('a').contains(label).parents('tr').find(':nth-child(5)').within(() =>
-        cy.get('img[src*=tick_shield_small]')
-    )
+    cy.get('table[id="table-forms_surveys"]').within(() => {
+        cy.get('a').contains(label).parents('tr').find(':nth-child(5)').within(() =>
+            cy.get('img[src*=tick_shield_small]')
+        )
+    })
 })
 
 /**
