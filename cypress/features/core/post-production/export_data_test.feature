@@ -59,11 +59,9 @@ Feature: Export Data
   Scenario: 6 - Export Data in csvlabels format and verify the exported data
     Given I click on the link labeled "Data Exports, Reports, and Stats"
     Then I should see "Export Data"
-    And the AJAX "POST" request at "DataExport/data_export.php*" tagged by "render" is being monitored
     When I export data for the report named "All data" in "csvlabels" format
-    # And I wait for 0.5 seconds
     # Then I should see "Exporting data"
-    #  And the AJAX request tagged by "render" has completed
+    And I wait for 5 seconds
     Then I should see "Data export was successful!"
     Then I should receive a download to a "csv" file
     Then I should have a "csv" file that contains the headings below

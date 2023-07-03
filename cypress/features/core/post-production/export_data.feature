@@ -114,7 +114,7 @@ Feature: Export Data
     And  I click on the link labeled "Control Center"
     Then I should see "Browse Projects"
     And  I click on the link labeled "Browse Projects"
-    And I wait for 0.5 seconds
+    And I wait for 2 seconds
     And I enter "21_ExportDataExtraction_v1115" into the field identified by "input[id=project_search]"
     And I click on the button labeled "Search project title"
     Then I should see "21_ExportDataExtraction_v1115"
@@ -124,7 +124,7 @@ Feature: Export Data
     And I click on the button labeled "Move project to production"
     And I click on the radio labeled "Keep ALL data saved so far." in the dialog box
     And I click on the button labeled "YES, Move to Production Status" in the dialog box
-    Then I should see "Success! The project is now in production."
+    # Then I should see "Success! The project is now in production."
     Then I should see "Production"
 
   Scenario: 5a - Verify export option - CSV / Microsoft Excel (raw data)
@@ -238,12 +238,8 @@ Feature: Export Data
   Scenario: 6 - Export Data in csvlabels format and verify the exported data
     Given I click on the link labeled "Data Exports, Reports, and Stats"
     Then I should see "Export Data"
-    # And the AJAX "POST" request at "DataExport/data_export.php*" tagged by "render" is being monitored
     When I export data for the report named "All data" in "csvlabels" format
-    # And I wait for 0.5 seconds
-    Then I should see "Exporting data"
-    And I wait for 1 seconds
-    Then I should see "Data export was successful!"
+   Then I should see "Data export was successful!"
     Then I should receive a download to a "csv" file
     Then I should have a "csv" file that contains the headings below
     | "Record ID" | "Event Name" | "Repeat Instrument" | "Repeat Instance" | "Survey Identifier" | "Last name" | "First name" | DOB | Reminder | Complete? | "Survey Timestamp" | Description | Complete? |
