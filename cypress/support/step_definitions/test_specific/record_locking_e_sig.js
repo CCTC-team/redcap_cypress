@@ -103,7 +103,7 @@ Given("I save the option for the instrument labeled {string}", (text) => {
  *
  */
 Given("I should see the instrument labeled {string} with icon {string}", (text, icon) => {
-    cy.get('table[id="event_grid_table"]').children('tbody').find('td').contains(text).parent().within(() =>
+    cy.get('table[id="event_grid_table"]').children('tbody').find('td').contains(text).parents('tr').within(() =>
         cy.get('img[src*=' + icon + ']')
     )
 })
