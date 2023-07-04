@@ -141,7 +141,7 @@ Feature: Export Data
     And I click on the button labeled "Export Data"
     Then I should see "Exporting \"All data (all records and fields)\""
     And I click on the radio labeled "CSV / Microsoft Excel (raw data)" in the dialog box
-    Then I should see "Remove all tagged Identifier fields"
+    Then I should see "Remove All Identifier Fields"
     And I should see "Hash the Record ID field"
     And I should see "Remove unvalidated Text fields"
     And I should see "Remove Notes/Essay box fields"
@@ -155,7 +155,7 @@ Feature: Export Data
     Given I click on the button labeled "Export Data"
     Then I should see "Exporting \"All data (all records and fields)\""
     And I click on the radio labeled "CSV / Microsoft Excel (labels)" in the dialog box
-    Then I should see "Remove all tagged Identifier fields"
+    Then I should see "Remove All Identifier Fields"
     And I should see "Hash the Record ID field"
     And I should see "Remove unvalidated Text fields"
     And I should see "Remove Notes/Essay box fields"
@@ -169,7 +169,7 @@ Feature: Export Data
     Given I click on the button labeled "Export Data"
     Then I should see "Exporting \"All data (all records and fields)\""
     And I click on the radio labeled "SPSS Statistical Software" in the dialog box
-    Then I should see "Remove all tagged Identifier fields"
+    Then I should see "Remove All Identifier Fields"
     And I should see "Hash the Record ID field"
     And I should see "Remove unvalidated Text fields"
     And I should see "Remove Notes/Essay box fields"
@@ -183,7 +183,7 @@ Feature: Export Data
     Given I click on the button labeled "Export Data"
     Then I should see "Exporting \"All data (all records and fields)\""
     And I click on the radio labeled "SAS Statistical Software" in the dialog box
-    Then I should see "Remove all tagged Identifier fields"
+    Then I should see "Remove All Identifier Fields"
     And I should see "Hash the Record ID field"
     And I should see "Remove unvalidated Text fields"
     And I should see "Remove Notes/Essay box fields"
@@ -197,7 +197,7 @@ Feature: Export Data
     Given I click on the button labeled "Export Data"
     Then I should see "Exporting \"All data (all records and fields)\""
     And I click on the radio labeled "R Statistical Software" in the dialog box
-    Then I should see "Remove all tagged Identifier fields"
+    Then I should see "Remove All Identifier Fields"
     And I should see "Hash the Record ID field"
     And I should see "Remove unvalidated Text fields"
     And I should see "Remove Notes/Essay box fields"
@@ -211,7 +211,7 @@ Feature: Export Data
     Given I click on the button labeled "Export Data"
     Then I should see "Exporting \"All data (all records and fields)\""
     And I click on the radio labeled "Stata Statistical Software" in the dialog box
-    Then I should see "Remove all tagged Identifier fields"
+    Then I should see "Remove All Identifier Fields"
     And I should see "Hash the Record ID field"
     And I should see "Remove unvalidated Text fields"
     And I should see "Remove Notes/Essay box fields"
@@ -225,7 +225,7 @@ Feature: Export Data
     Given I click on the button labeled "Export Data"
     Then I should see "Exporting \"All data (all records and fields)\""
     And I click on the radio labeled "CDISC ODM (XML)" in the dialog box
-    Then I should see "Remove all tagged Identifier fields"
+    Then I should see "Remove All Identifier Fields"
     And I should see "Hash the Record ID field"
     And I should see "Remove unvalidated Text fields"
     And I should see "Remove Notes/Essay box fields"
@@ -359,9 +359,11 @@ Feature: Export Data
   Scenario: 11 - Edit User Rights - De-Identified in Data Exports
     Given I click on the link labeled "User Rights"
     And I click to edit username "test_user (Test User)"
+    And the AJAX "GET" request at "UserRights/edit_user.php*" tagged by "edit" is being monitored
     And I click on the button labeled "Edit user privileges"
-    # Below step definition marks De-Identified in Data Exports
-    And I click on the element identified by "input[name=data_export_tool][value=2]"
+    # Below step definition marks De-Identified in Data Exports for the instruments export and survey
+    And I click on the element identified by "input[name=export-form-export][value=2]"
+    And I click on the element identified by "input[name=export-form-survey][value=2]"
     And I click on the button labeled "Save Changes"
     Then I should see "was successfully edited"
 
@@ -410,8 +412,9 @@ Feature: Export Data
     Given I click on the link labeled "User Rights"
     And I click to edit username "test_user (Test User)"
     And I click on the button labeled "Edit user privileges"
-    # Below step definition marks No Access in Data Exports
-    And I click on the element identified by "input[name=data_export_tool][value=0]"
+    # Below step definition marks No Access in Data Exports for the instruments export and survey
+    And I click on the element identified by "input[name=export-form-export][value=0]"
+    And I click on the element identified by "input[name=export-form-survey][value=0]"
     And I click on the button labeled "Save Changes"
     Then I should see "was successfully edited"
 
