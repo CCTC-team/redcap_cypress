@@ -495,7 +495,7 @@ Given('I select {string} on the {dropdown_type} field labeled {string}{baseEleme
                 should('be.enabled').then(($t) => {
                     cy.wait(500)
                     cy.wrap($t).select(option)
-                    cy.wait(500)
+                    cy.wait(1000)
                 })
         })
     })

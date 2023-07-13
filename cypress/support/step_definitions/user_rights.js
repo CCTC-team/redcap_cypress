@@ -219,7 +219,7 @@ const single_choice_mappings = {
 //These apply to REDCap v12+
 const data_export_mappings = {
     'No Access' : '0',
-    'De-Identified' : '2',
+    'De-Identified*' : '2',
     'Remove All Identifier Fields' : '3',
     'Full Data Set' : '1'
 }
@@ -240,7 +240,7 @@ Given("I select the User Right named {string} and choose {string}", (text, optio
 
         //TODO: Possibly generate a Step Definition that allows us to configure this on a per instrument basis
         //For now, we are going to select every form to have the same option
-        cy.get(`input[type=radio][name*="export-form-"]`).then(($e) => {
+        cy.get('input[type=radio][name*="export-form-"]').then(($e) => {
             $e.each((i) => {
                 if($e[i].value === data_export_mappings[option]) {
                     cy.wrap($e[i]).click()

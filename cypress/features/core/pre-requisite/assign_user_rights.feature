@@ -75,11 +75,8 @@ Feature: Assign User Rights
     And I remove all Basic Rights within the open User Rights dialog box
     #   Unasserted: Script has expected result: "Data Entry rights remain."
     Then I save changes within the context of User Rights
-    
-    When I click on the link labeled "My Projects"
-    Then I should see "Listed below are the REDCap projects"
-
-    Given I logout
+    Then I click on the link labeled "My Projects"
+    And I logout
     Then I should see "Please log in"
     And I am a "standard" user who logs into REDCap
     Then I should see "Logged in as"
@@ -90,7 +87,7 @@ Feature: Assign User Rights
     And I should see a link labeled "Record Status Dashboard"
     And I should see a link labeled "View / Edit Records"
     And I should see "Applications"
-    Given I logout
+    And I logout
 
   Scenario: 2 - Add expiration data for test_user
     Given I am an "admin" user who logs into REDCap
@@ -154,7 +151,6 @@ Feature: Assign User Rights
     And I check the User Right named "Data Access Groups"
     And I save changes within the context of User Rights
     Then I should see a "checkmark" within the "test_user" row of the column labeled "Data Access Groups" of the User Rights table
-    
     And I click on the link labeled "User Rights"
     Then I should see a link labeled "DAGs"
 
@@ -163,8 +159,7 @@ Feature: Assign User Rights
     And I click on the button labeled "Edit user privileges"
     And I select the User Right named "Data Exports" and choose "De-Identified*"
     And I save changes within the context of User Rights
-    Then I should see "De-Identified" within the "test_user" row of the column labeled "Data Export Tool" of the User Rights table
-
+    Then I should see "De-Identified" within the "test_user" row of the column labeled "Data Export Rights" of the User Rights table
     When I click on the link labeled "User Rights"
     Then I should see a link labeled "Data Exports, Reports, and Stats"
 
@@ -174,7 +169,6 @@ Feature: Assign User Rights
     And I check the User Right named "Add/Edit/Organize Reports"
     And I save changes within the context of User Rights
     Then I should see a "checkmark" within the "test_user" row of the column labeled "Reports & Report Builder" of the User Rights table
-
     When I click on the link labeled "User Rights"
     Then I should see a link labeled "Reports"
 
@@ -184,7 +178,6 @@ Feature: Assign User Rights
     And I check the User Right named "Survey Distribution Tools"
     And I save changes within the context of User Rights
     Then I should see a "checkmark" within the "test_user" row of the column labeled "Survey Distribution Tools" of the User Rights table
-    
     When I click on the link labeled "User Rights"
     Then I should see a link labeled "Survey Distribution Tools"
 
@@ -194,7 +187,6 @@ Feature: Assign User Rights
     And I check the User Right named "Data Import Tool"
     And I save changes within the context of User Rights
     Then I should see a "checkmark" within the "test_user" row of the column labeled "Data Import Tool" of the User Rights table
-    
     When I click on the link labeled "User Rights"
     Then I should see a link labeled "Data Import Tool"
 
@@ -204,7 +196,6 @@ Feature: Assign User Rights
     And I check the User Right named "Data Comparison Tool"
     And I save changes within the context of User Rights
     Then I should see a "checkmark" within the "test_user" row of the column labeled "Data Comparison Tool" of the User Rights table
-    
     When I click on the link labeled "User Rights"
     Then I should see a link labeled "Data Comparison Tool"
 
@@ -216,11 +207,10 @@ Feature: Assign User Rights
     And I uncheck the User Right named "Data Comparison Tool"
     And I check the User Right named "Logging"
     And I save changes within the context of User Rights
-    Then I should see an "x" within the "test_user" row of the column labeled "Data Export Tool" of the User Rights table
+    Then I should see an "No Access" within the "test_user" row of the column labeled "Data Export Rights" of the User Rights table
     And I should see an "x" within the "test_user" row of the column labeled "Data Import Tool" of the User Rights table
     And I should see an "x" within the "test_user" row of the column labeled "Data Comparison Tool" of the User Rights table
     And I should see a "checkmark" within the "test_user" row of the column labeled "Logging" of the User Rights table
-    
     When I click on the link labeled "User Rights"
     Then I should NOT see a link labeled "Data Import Tool"
     And I should NOT see a link labeled "Data Comparison Tool"
@@ -238,7 +228,6 @@ Feature: Assign User Rights
     And I check the User Right named "Data Quality - Create & edit rules"
     And I save changes within the context of User Rights
     Then I should see a "checkmark" within the "test_user" row of the column labeled "Data Quality (create/edit rules)" of the User Rights table
-    
     When I click on the link labeled "User Rights"
     Then I should see a link labeled "Data Quality"
 
@@ -248,7 +237,6 @@ Feature: Assign User Rights
     And I check the User Right named "Data Quality - Execute rules"
     And I save changes within the context of User Rights
     Then I should see a "checkmark" within the "test_user" row of the column labeled "Data Quality (execute rules)" of the User Rights table
-
     When I click on the link labeled "Data Quality"
     Then I should see "Execute rules"
 
@@ -259,7 +247,6 @@ Feature: Assign User Rights
     And I check the User Right named "Create Records"
     And I save changes within the context of User Rights
     Then I should see a "checkmark" within the "test_user" row of the column labeled "Create Records" of the User Rights table
-    
     When I click on the link labeled "View / Edit Records"
     Then I should see a button labeled "Add new record"
 
@@ -270,7 +257,6 @@ Feature: Assign User Rights
     And I uncheck the User Right named "Create Records"
     And I save changes within the context of User Rights
     Then I should see an "x" within the "test_user" row of the column labeled "Create Records" of the User Rights table
-
     When I click on the link labeled "Add / Edit Records"
     Then I should NOT see a button labeled "Add new record"
 
@@ -295,7 +281,6 @@ Feature: Assign User Rights
     And I check the User Right named "Record Locking Customization"
     And I save changes within the context of User Rights
     Then I should see a "checkmark" within the "test_user" row of the column labeled "Record Locking Customization" of the User Rights table
-
     When I click on the link labeled "User Rights"
     Then I should see a link labeled "Customize & Manage Locking/E-signatures"
 
@@ -303,8 +288,7 @@ Feature: Assign User Rights
     Given I click on the link labeled "test_user"
     And I click on the button labeled "Edit user privileges"
     And I select the User Right named "Lock/Unlock Records" and choose "Locking / Unlocking with E-signature authority"
-    Then I should see "Please note that giving a user 'Locking / Unlocking with E-signature authority' privileges"
-    
+    Then I should see "Please note that giving a user 'Locking / Unlocking with E-signature authority' privileges" 
     When I click on the button labeled "Close"
     And I save changes within the context of User Rights
     Then I should see a "shield" within the "test_user" row of the column labeled "Lock/Unlock Records" of the User Rights table
@@ -313,7 +297,6 @@ Feature: Assign User Rights
     Given I click on the link labeled "test_user"
     And I click on the button labeled "Edit user privileges"
     And I select the User Right named "Lock/Unlock Records" and choose "Locking / Unlocking"
-
     When I save changes within the context of User Rights
     Then I should see a "checkmark" within the "test_user" row of the column labeled "Lock/Unlock Records" of the User Rights table
 
@@ -321,8 +304,7 @@ Feature: Assign User Rights
   Scenario: 22 - Assign Lock/Unlock *Entire* Records (Record Level) right to test_user
     Given I click on the link labeled "test_user"
     And I click on the button labeled "Edit user privileges"
-    And I check the User Right named "Lock/Unlock *Entire* Records"
-    
+    And I check the User Right named "Lock/Unlock *Entire* Records" 
     When I save changes within the context of User Rights
     Then I should see a "checkmark" within the "test_user" row of the column labeled "Record Locking Customization" of the User Rights table
 
@@ -332,7 +314,6 @@ Feature: Assign User Rights
     And I set Data Viewing Rights to No Access for the instrument "Text Validation"
     And I set Data Viewing Rights to No Access for the instrument "Data Types"
     And I save changes within the context of User Rights
-
     When I click on the link labeled "View / Edit Records"
     And I select "1" on the dropdown field labeled "Choose an existing Record ID"
     Then I should NOT see "Text Validation"
@@ -344,8 +325,7 @@ Feature: Assign User Rights
     And I click on the button labeled "Edit user privileges"
     And I set Data Viewing Rights to Read Only for the instrument "Text Validation"
     And I set Data Viewing Rights to Read Only for the instrument "Data Types"
-    And I save changes within the context of User Rights
-    
+    And I save changes within the context of User Rights 
     When I click on the link labeled "View / Edit Records"
     And I select "1" on the dropdown field labeled "Choose an existing Record ID"
     And I click the bubble to select a record for the "Text Validation" classic instrument
@@ -358,7 +338,6 @@ Feature: Assign User Rights
     And I set Data Viewing Rights to View & Edit for the instrument "Text Validation"
     And I set Data Viewing Rights to View & Edit for the instrument "Data Types"
     And I save changes within the context of User Rights
-
     When I click on the link labeled "View / Edit Records"
     And I select "1" on the dropdown field labeled "Choose an existing Record ID"
 
@@ -368,7 +347,6 @@ Feature: Assign User Rights
     And I click on the button labeled "Edit user privileges"
     And I set Data Viewing Rights to Edit survey responses for the instrument "Text Validation"
     And I save changes within the context of User Rights
-
     When I click on the link labeled "View / Edit Records"
     And I select "1" on the dropdown field labeled "Choose an existing Record ID"
     And I click the bubble to select a record for the "Text Validation" classic instrument
@@ -392,7 +370,6 @@ Feature: Assign User Rights
     And I clear field and enter "Reviewer" into the input field labeled "New role name:"
     And I click on the button labeled "Copy role" in the dialog box
     Then I should see 'Role "Reviewer" was successfully added'
-
     When I click on the button labeled "Cancel" in the dialog box
     Then I should see a link labeled "Data Entry"
     And I should see a link labeled "Reviewer"
@@ -401,10 +378,8 @@ Feature: Assign User Rights
     Given I click on the link labeled "Reviewer"
     And I click on the button labeled "Delete role" in the dialog box
     Then I should see "Delete role?"
-
     When I click on the button labeled "Cancel" in the dialog box
     Then I should see 'Editing existing user role "Reviewer"'
-
     When I click on the button labeled "Cancel" in the dialog box
     Then I should see a link labeled "Reviewer"
 
@@ -412,7 +387,6 @@ Feature: Assign User Rights
     Given I click on the link labeled "Reviewer"
     And I click on the button labeled "Delete role" in the dialog box
     Then I should see "Delete role?"
-
     When I click on the button labeled "Delete role" in the dialog box
     Then I should see 'Role "Reviewer" was successfully deleted'
     And I should NOT see a link labeled "Reviewer"
@@ -423,8 +397,7 @@ Feature: Assign User Rights
     And I select "Data Entry" on the dropdown field labeled "Select Role:" on the role selector dropdown
     And I click on the button labeled exactly "Assign" on the role selector dropdown
     Then I should see "NOTICE: User Rights mismatch"
-
-    Given I click on the button labeled "Close"
+    And I click on the button labeled "Close"
 
   Scenario: 32 - As admin, assign test_user to role without User Rights privileges
     Given I am an "admin" user who logs into REDCap
@@ -445,7 +418,6 @@ Feature: Assign User Rights
     And I click on the button labeled "Remove from role"
     Then I should see 'has been successfully REMOVED from their user role'
     And I should see "NOTICE: User's privileges will remain the same"
-
     When I click on the button labeled "Close" in the dialog box
     Then I should see "—" within the "test_user" row of the column labeled "Role name" of the User Rights table
 
