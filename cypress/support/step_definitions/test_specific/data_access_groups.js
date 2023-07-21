@@ -41,7 +41,7 @@ Given('I should see {string} in the column named {string}', (text, column) => {
  * @param {string} text the name of the user
  * @param {string} column column in the table
  * @param {string} dag DAG name
- * @description visually verify the text is present in colum and is associated to the DAG
+ * @description visually verify the text is present in column and is associated to the DAG
  */
 defineParameterType({
     name: 'column_type',

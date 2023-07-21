@@ -12,32 +12,15 @@ Scenario: Project Setup - 1
     Given I am an "admin" user who logs into REDCap
     And I create a project named "10_DataAccessGroups_v1115" with project purpose Practice / Just for fun via CDISC XML import from fixture location "cdisc_files/core/07_DesignForms_v1115.xml"
     When I click on the link labeled "User Rights"
+
     And I assign the "Project Design and Setup" user right to the user named "Test User" with the username of "test_user"
     Then I should see "was successfully edited"
-    
-    # And I click to edit username "test_user (Test User)"
-    # Then I click on the button labeled "Edit user privileges"
-    # And I check the User Right named "User Rights"
-    # And I check the User Right named "Data Access Groups"
-    # And the AJAX "POST" request at "UserRights/edit_user.php*" tagged by "render" is being monitored
-    # And I click on the button labeled "Save Changes"
-    # Then I should see "was successfully edited"
-    # And the AJAX request tagged by "render" has completed
-    
     
     And I assign the "Project Design and Setup" user right to the user named "Test User" with the username of "test_user2"
     Then I should see "was successfully edited"
     
     And I assign the "Project Design and Setup" user right to the user named "Test User" with the username of "test_user3"
     Then I should see "was successfully edited"
-
-    # Then I enter "test_user2" into the field identified by "input[id=new_username]"
-    # And the AJAX "POST" request at "UserRights/edit_user.php*" tagged by "render" is being monitored
-    # And I click on the button labeled "Add with custom rights"
-    # And the AJAX request tagged by "render" has completed
-    # And I check the User Right named "Project Setup & Design"
-    # Then I click on the button labeled "Add user"
-    # Then I should see "was successfully added"
 
 Scenario: Project Setup - 2   
     When I click on the link labeled "Project Setup"
@@ -107,13 +90,8 @@ Scenario: 7 - Create DAG Data Access 1
    And I click on the button labeled "Add Group"
    Then I should see "has been created!"
    And I should see "Data Access 1" in the column named "Data Access Groups"
-#    And I logout
 
 Scenario: 8 - Assign users to DAG Data Access 1
-    # Given I am a "standard" user who logs into REDCap
-    Then I click on the link labeled "My Projects"
-    And I click on the link labeled "10_DataAccessGroups_v1115"
-    Then I click on the link labeled "DAGs"
     Then I should see "Assign user to a group"
     And I should see "Users in group"
     And I select "Data Access 1" from the dropdown identified by "select[id=groups]"
@@ -130,9 +108,6 @@ Scenario: 8 - Assign users to DAG Data Access 1
     And I should see "test_user3 (Test User)" in the column named "Users in group"
     And I should see "test_user3 (Test User)" user in the DAG named "Data Access 1"
   
-    # Then I click on the link labeled "My Projects"
-    # And I click on the link labeled "10_DataAccessGroups_v1115"
-    # Then I click on the link labeled "DAGs"
     Then I should see "Assign user to a group"
     And I should see "Users in group"
     And I select "Data Access 1" from the dropdown identified by "select[id=groups]"
@@ -234,6 +209,7 @@ Scenario: 14 - test_user3 access of records
     Then I click on the link labeled "Participant List"
     And I should see "record1@abc.com"
     And I should NOT see "record2@abc.com"
+    Then I logout
 
 Scenario: 15 - test_user access of records
     Given I am a "standard" user who logs into REDCap
@@ -246,6 +222,7 @@ Scenario: 15 - test_user access of records
     Then I click on the link labeled "Participant List"
     And I should see "record1@abc.com"
     And I should NOT see "record2@abc.com"
+    Then I logout
 
 Scenario: 16 - Add Record3 and check if test_admin can access all records
     Given I am an "admin" user who logs into REDCap
@@ -354,7 +331,7 @@ Scenario: 22 - Try deleteling DAG1
     And I click on the button labeled "Delete"
     Then I should see "The group could not be deleted because one or more records are still assigned to it."
     
-Scenario: 23 - Delete Record1Given I click on the link labeled "Add / Edit Records"
+Scenario: 23 - Delete Record1
     Given I click on the link labeled "Add / Edit Records"
     And I select "1 Record1" from the dropdown identified by "select[id=record]"
     Then I should see "1"
@@ -393,9 +370,13 @@ Scenario: 25 -  Add new record and assign to DAG1. Assign test_user2 to DAG1 and
     Then I should see "was successfully assigned to a Data Access Group!"
     And I should see "Record4"
     And I should see "Data Access 1"
+
     Then I click on the link labeled "DAGs"
     And I check the checkbox identified by "input[title='Data Access 1 : test_user2']"
-    And I check the checkbox identified by "input[title='Data Access 2 : test_user2']"
+    And I check the checkbox identified by "input[title='Data Access 2 : test_user2']"    
+    And I wait for 2 seconds
+    And I should see the checkbox identified by "input[title='Data Access 1 : test_user2']", checked
+    And I should see the checkbox identified by "input[title='Data Access 2 : test_user2']", checked
     And I logout
 
 Scenario: 26 - Change DAGs with 'Switch' button
@@ -431,8 +412,10 @@ Scenario: 28 - Remove users and records from DAG and delete DAG
     And I should see "1" record in the DAG named "Data Access 1"
     And I should see "2" in the column named "Number of records in group"
     And I should see "2" records in the DAG named "Data Access 2"
+
     And I should see "test_user2 (Test User)" user in the DAG named "Data Access 1"
     And I should see "test_admin (Test User),test_user (Test User),test_user3 (Test User)" users in the DAG named "[Not assigned to a group]"
+
     Then I select "[No Assignment]" from the dropdown identified by "select[id=groups]"
     And I should see the dropdown identified by "select[id=groups]" with the option "[No Assignment]" selected
     Then I should see "Assign user to a group"
@@ -484,13 +467,14 @@ Scenario: 28 - Remove users and records from DAG and delete DAG
     And I should see "0" in the column named "Number of records in group"
     And I should see "0" record in the DAG named "Data Access 1"
     And I should see "0" record in the DAG named "Data Access 2"
-    And I should see "3" record in the DAG named "[Not assigned to a group]"
+    And I should see "3" records in the DAG named "[Not assigned to a group]"
 
     And I click on the image "cross" link for the row containing "Data Access 1"
     And I click on the button labeled "Delete"
     And I wait for 2 seconds
     Then I should see "has been deleted!"
-    And I wait for 2 seconds
+    And I click on the link labeled "DAGs"
+    And I should see "Data Access 2"
     And I should NOT see "Data Access 1"
 
 Scenario: 29 - Logout
