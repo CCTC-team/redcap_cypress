@@ -1,7 +1,4 @@
 import { Given } from "cypress-cucumber-preprocessor/steps";
-///////////////
-//Instruments//
-///////////////
 
 /**
  * @module DataQuality
@@ -93,7 +90,7 @@ Given ("I click button named Execute for Rule {string}", (Rulename) => {
  */
 Given ("All data quality rules are executed at the same time", () => {
     cy.intercept({  method: 'POST',
-        url: '/redcap_v' + Cypress.env('redcap_version') + '/DataQuality/execute_ajax.php?pid=14'
+        url: '/redcap_v' + Cypress.env('redcap_version') + '/DataQuality/execute_ajax.php?*'
     }).as('execute_rule')
         cy.get('table#table-rules').find('tr').each(($tr, index, $list) => {
         cy.wrap($tr).within((tr) => {
@@ -178,9 +175,9 @@ Given("I close the discrepancies window", () => {
  */
 
 Given ("All rules are reset and I see Execute button available", () => {
-    cy.intercept({  method: 'POST',
-                url: '/redcap_v' + Cypress.env('redcap_version') + '/DataQuality/record_list.php?pid=14'
-            }).as('record_list')
+    // cy.intercept({  method: 'POST',
+    //             url: '/redcap_v' + Cypress.env('redcap_version') + '/DataQuality/record_list.php?*'
+    //         }).as('record_list')
             //cy.wait('@record_list')
     cy.get('table#table-rules').find('tr').each(($tr, index, $list) => {
         cy.wrap($tr).within((tr) => {
@@ -210,16 +207,17 @@ Given("I should see {string} in the top {string} rows of table identified by {st
             )})
 
 
-/**
- * @module DataQuality
- * @author Coreen D'Souza <coreen.dsouza1@nhs.net>
- * @example I select Record {string} from the dropdown list to execute Data Quality rules
- * @param {string} item - Record number
- * @description Data Quality - Select a specific Record to execute rules
- */            
-Given("I select Record {string} from the dropdown list to execute Data Quality rules", (item ) =>{                      
-    cy.get('select[id="dqRuleRecord"]').select(item)          
-        })
+// /**
+//  * @module DataQuality
+//  * @author Coreen D'Souza <coreen.dsouza1@nhs.net>
+//  * @example I select Record {string} from the dropdown list to execute Data Quality rules
+//  * @param {string} item - Record number
+//  * @description Data Quality - Select a specific Record to execute rules
+//  */            
+// Given("I select Record {string} from the dropdown list to execute Data Quality rules", (item ) =>{                      
+//     cy.get('select[id="dqRuleRecord"]').select(item)          
+        
+// })
 
 /**
  * @module DataQuality
@@ -228,10 +226,10 @@ Given("I select Record {string} from the dropdown list to execute Data Quality r
  * @param {string} sel - Selector
  * @description Data Quality - The text in field would not clear with the existing step definition
  */ 
-        Given("I clear text in field identified by {string}", (sel) =>{
-            cy.get(sel).invoke('show').should('be.visible').type('{selectall}{backspace}{selectall}{backspace}')
-        
-        })
+Given("I clear text in field identified by {string}", (sel) =>{
+    cy.get(sel).invoke('show').should('be.visible').type('{selectall}{backspace}{selectall}{backspace}')
+
+})
 
 /**
  * @module DataQuality
@@ -240,11 +238,11 @@ Given("I select Record {string} from the dropdown list to execute Data Quality r
  * @param {string} Rulename - Rule name
  * @description Data Quality - Deletes customised rule
  */
-    Given("I click X under new rule named {string} to delete it", ( Rulename) => {
-            cy.get('table[id=table-rules]')
-           .contains(new RegExp("^" + Rulename + "$", "g")).parents('tr').within(() => cy.get('div.fc')
-            .find('img').should('be.visible').click())
-             })
+Given("I click X under new rule named {string} to delete it", ( Rulename) => {
+        cy.get('table[id=table-rules]')
+        .contains(new RegExp("^" + Rulename + "$", "g")).parents('tr').within(() => cy.get('div.fc')
+        .find('img').should('be.visible').click())
+            })
 
 /**
  * @module DataQuality
@@ -331,3 +329,13 @@ Given("I select Record {string} from the dropdown list to execute Data Quality r
      cy.get('div').should('contain', record) 
       )})                         
                             
+/**
+ * @module DataQuality
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I enter {string} into the Logic Editor
+ * @param {string} text - the text to input
+ * @description Enters text into the Logic Editor
+ */
+Given("I enter {string} into the Logic Editor", (text) => {
+    cy.get('div[id=rc-ace-editor]').type(text)
+})

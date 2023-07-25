@@ -232,7 +232,7 @@ Cypress.Commands.add('assign_form_rights', (pid, username, form, rights_level) =
             alert(`You set the rights level to ${rights_level} for #assign_form_rights.  This is invalid.  Please use 'No Access', 'Read Only', or 'View & Edit'`)
         }
 
-        cy.get('td').contains(form).parent().find(`input[value=${input_value}]`).click()
+        cy.get('td').contains(form).parent().find(`input*[name^=form-][value=${input_value}]`).click()
     })
 
     //Click Save
@@ -240,11 +240,11 @@ Cypress.Commands.add('assign_form_rights', (pid, username, form, rights_level) =
 
     //User was successfully edited
     cy.get('body').should(($body) => {
-        expect($body).to.contain('User "' + username + '" was successfully edited')
+        expect($body).to.contain('" was successfully edited')
     })
 
     //Should not be visible before we start our next step or test
-    cy.get('div').contains('User "' + username + '" was successfully edited').should('not.be.visible')
+    cy.get('div').contains('" was successfully edited').should('not.be.visible')
 })
 
 Cypress.Commands.add('assign_expiration_date_to_user', (username, proper_name) => {

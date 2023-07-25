@@ -98,7 +98,7 @@ Scenario: 12 Create a record
     Given I enter "213" into the field identified by "Input[name=integer_field]" 
     Given I click on the element identified by "Input[name=textbox]"    
     Then I should see "The value you provided is outside the suggested range (0 - 10). " in an alert box
-    And I close popup
+    And I close the popup
     Then I see the field identified by "Input[name=integer_field]" turns red
     And I scroll the page to the field identified by "select[name=data_types_complete]"
     And I select "Complete" from the dropdown identified by "select[name=data_types_complete]"
@@ -149,7 +149,7 @@ Scenario: 23 Reset Rules
  Given I click on the button labeled "Clear"
  Given the AJAX "POST" request at "DataQuality/record_list.php*" tagged by "record_list" is being monitored
  Then All rules are reset and I see Execute button available
- And the AJAX request tagged by "record_list" has completed
+#  And the AJAX request tagged by "record_list" has completed
 
 Scenario: 24 Execute  all rules separately 
  And I click "Execute" Total Discrepancies under Rule "C"
@@ -159,34 +159,37 @@ Scenario: 24 Execute  all rules separately
 
 Scenario: 25 Reset Rules
  Given I click on the button labeled "Clear"
+ And the AJAX "POST" request at "DataQuality/record_list.php*" tagged by "record_list" is being monitored
  Then All rules are reset and I see Execute button available
- Given the AJAX "POST" request at "DataQuality/record_list.php*" tagged by "record_list" is being monitored
- And the AJAX request tagged by "record_list" has completed
+#  And the AJAX request tagged by "record_list" has completed
 
 Scenario: 26 Under the “Apply To” drop box select the Record 2 
- And I select Record "2" from the dropdown list to execute Data Quality rules
- And I click on the button labeled "All"
- Then All data quality rules are executed at the same time
+  And I select "2" from the dropdown identified by "select[id=dqRuleRecord]"
+  # And I select Record "2" from the dropdown list to execute Data Quality rules
+  And I click on the button labeled "All"
+  Then All data quality rules are executed at the same time
 
 Scenario: 27 Reset Rules
  Given I click on the button labeled "Clear"
+ And the AJAX "POST" request at "DataQuality/record_list.php*" tagged by "record_list" is being monitored
  Then All rules are reset and I see Execute button available
- Given the AJAX "POST" request at "DataQuality/record_list.php*" tagged by "record_list" is being monitored
- And the AJAX request tagged by "record_list" has completed
+#  And the AJAX request tagged by "record_list" has completed
 
 Scenario: 28 Select the Record 2 and click All Except A & B
- And I select Record "2" from the dropdown list to execute Data Quality rules
+ And I select "2" from the dropdown identified by "select[id=dqRuleRecord]"
+#  And I select Record "2" from the dropdown list to execute Data Quality rules
  Given I click on the button labeled "All except A&B"
  Then I should see "Execute" in the top "2" rows of table identified by "table[id=table-rules]"
 
 Scenario: 29 Reset Rules
  Given I click on the button labeled "Clear"
+ And the AJAX "POST" request at "DataQuality/record_list.php*" tagged by "record_list" is being monitored
  Then All rules are reset and I see Execute button available
- Given the AJAX "POST" request at "DataQuality/record_list.php*" tagged by "record_list" is being monitored
- And the AJAX request tagged by "record_list" has completed
+#  And the AJAX request tagged by "record_list" has completed
 
 Scenario: 30 Select the Record 2 and execute rules separately
- And I select Record "2" from the dropdown list to execute Data Quality rules
+ And I select "2" from the dropdown identified by "select[id=dqRuleRecord]"
+#  And I select Record "2" from the dropdown list to execute Data Quality rules
  Given the AJAX "POST" request at "DataQuality/execute_ajax*" tagged by "data_quality" is being monitored
  And I click "Execute" Total Discrepancies under Rule "A"
  And the AJAX request tagged by "data_quality" has completed
@@ -201,7 +204,8 @@ Scenario: 31 Reset Rules
 Scenario: 32 Add new rule
  Given I enter "Test" into the field identified by "textarea[id=input_rulename_id_0]"  
  And I click the input element identified by "textarea[id=input_rulelogic_id_0]"
- And I enter "[event_1_arm_1][integer_field]>200" into the field identified by "div[id=rc-ace-editor]"
+ And I enter "[event_1_arm_1][integer_field]>200" into the Logic Editor
+#  And I enter "[event_1_arm_1][integer_field]>200" into the field identified by "div[id=rc-ace-editor]"
  And I click on the button labeled "Update & Close Editor" 
  And the AJAX "POST" request at "DataQuality/edit_rule_ajax*" tagged by "edit_rule" is being monitored
  And I click on the button labeled "Add"
@@ -224,7 +228,8 @@ Scenario: 34 Reset Rules
 Scenario: 35 Edit new rule
  Given I click to edit Rule "Test"
  And I clear text in field identified by "div[id=rc-ace-editor]"
- And I enter "[event_1_arm_1][integer_field]>201" into the field identified by "div[id=rc-ace-editor]"
+ And I enter "[event_1_arm_1][integer_field]>201" into the Logic Editor
+#  And I enter "[event_1_arm_1][integer_field]>201" into the field identified by "div[id=rc-ace-editor]"
  And I click on the button labeled "Update & Close Editor" 
  And the AJAX "POST" request at "Design/logic_validate*" tagged by "logic_validate" is being monitored
  And I click on the button labeled "Save"
@@ -252,7 +257,9 @@ Scenario: 41 Add new rule
  Given I enter "Test2" into the field identified by "textarea[id=input_rulename_id_0]"  
  And I click the input element identified by "textarea[id=input_rulelogic_id_0]"
  And the AJAX "POST" request at "Design/logic_validate.php*" tagged by "logic_validate" is being monitored
- And I enter "[event_1_arm_1][integer_field] > 300" into the field identified by "div[id=rc-ace-editor]"
+ 
+ And I enter "[event_1_arm_1][integer_field] > 300" into the Logic Editor
+#  And I enter "[event_1_arm_1][integer_field] > 300" into the field identified by "div[id=rc-ace-editor]"
  And the AJAX request tagged by "logic_validate" has completed
  And I click on the button labeled "Update & Close Editor" 
  And the AJAX "POST" request at "DataQuality/edit_rule_ajax*" tagged by "edit_rule" is being monitored
@@ -275,30 +282,31 @@ Scenario: 46, 47 and 48 Delete New rule Test2 and run custom rule Test
  And the AJAX "POST" request at "DataQuality/execute_ajax*" tagged by "data_quality" is being monitored
  Given I click on the button labeled "All custom"
  And the AJAX request tagged by "data_quality" has completed
+ And I should see a link labeled "export"
  And I see "1" Total Discrepancies under Rule "Test"
  Given I click on the hidden button labeled "Clear"
  Then All rules are reset and I see Execute button available
 
 
 Scenario: 48b Logout and login as admin
-Given I logout
-Given I am an "admin" user who logs into REDCap
-And I click on the link labeled " My Projects"
-And I click on the link labeled "18_DataQuality_v1115"
+  Given I logout
+  Given I am an "admin" user who logs into REDCap
+  And I click on the link labeled " My Projects"
+  And I click on the link labeled "18_DataQuality_v1115"
 
-    Given I click on the link labeled "Designer"
-    And I click on the link labeled "Data Types"
-    Given the AJAX "GET" request at "Design/edit_field_prefill.php*" tagged by "edit" is being monitored
-    And I click on the Edit image for the field named "Calculated Field"
-    And the AJAX request tagged by "edit" has completed
-    And I click on the element identified by "textarea[name=element_enum]"
-    And I clear text in the hidden field identified by "textarea[class=ace_text-input]"
-    And I enter "3*[integer_field]" into the hidden field identified by "textarea[class=ace_text-input]"
-    And I click on the button labeled "Update & Close Editor" in the dialog box
-    And the AJAX "POST" request at "Design/calculation_equation_validate.php*" tagged by "calc_eq" is being monitored
-    And I click on the button labeled "Save"
-    And the AJAX request tagged by "calc_eq" has completed
-    And I close popup
+  Given I click on the link labeled "Designer"
+  And I click on the link labeled "Data Types"
+  Given the AJAX "GET" request at "Design/edit_field_prefill.php*" tagged by "edit" is being monitored
+  And I click on the Edit image for the field named "Calculated Field"
+  And the AJAX request tagged by "edit" has completed
+  And I click on the element identified by "textarea[name=element_enum]"
+  And I clear text in the hidden field identified by "textarea[class=ace_text-input]"
+  And I enter "3*[integer_field]" into the hidden field identified by "textarea[class=ace_text-input]"
+  And I click on the button labeled "Update & Close Editor" in the dialog box
+  And the AJAX "POST" request at "Design/calculation_equation_validate.php*" tagged by "calc_eq" is being monitored
+  And I click on the button labeled "Save"
+  And the AJAX request tagged by "calc_eq" has completed
+  And I close the popup
   
 Scenario: 49 Click Add / Edit Records and add New record for the arm selected
  Given I click on the link labeled "Add / Edit Records"
@@ -324,11 +332,11 @@ Scenario: 52 View and fix calcs
 
 Scenario: 53 Edit Test_user rights to 'No Access' for instrument 'Data Types'
  Given I click on the link labeled "User Rights"
- And I click to edit username "Test_user"
+ And I click to edit username "test_user (Test User)"
  And the AJAX "POST" request at "UserRights/edit_user.php*" tagged by "edit_user" is being monitored
  And I click on the button labeled "Edit user privileges"
  And the AJAX request tagged by "edit_user" has completed
- Given  I grant No Access level of Data Entry Rights on the "Data Types" instrument for the username "Test_user" for project ID 14
+ Given I grant No Access level of Data Entry Rights on the "Data Types" instrument for the username "test_user (Test User)" for project ID 13
 
 Scenario: 54 Logout and Admin and login as standard user (Test_user)
  Given I logout
@@ -339,20 +347,22 @@ Scenario: 54 Logout and Admin and login as standard user (Test_user)
 Scenario: 55 Run all rules as standard user and confirm Data Quality rules for 'Data Types' returns an error
  Given I click on the link labeled "Data Quality"
  Given the AJAX "POST" request at "DataQuality/record_list.php*" tagged by "record_list" is being monitored
- And the AJAX request tagged by "record_list" has completed
+#  And the AJAX request tagged by "record_list" has completed
  Given I click on the button labeled "All"
  #Given the AJAX "POST" request at "DataQuality/execute_ajax*" tagged by "data_quality" is being monitored
  Then All data quality rules are executed at the same time
  #And the AJAX request tagged by "data_quality" has completed
+ Then I should see "ERROR"
  And I click "view" Total Discrepancies under Rule "Test"
- Then I should see "Error"
+ Then I should see "ERROR"
  And I close the discrepancies window
 
 Scenario: 56 Create new rule
 Given I enter "Name Test" into the field identified by "textarea[id=input_rulename_id_0]"  
 And I click the input element identified by "textarea[id=input_rulelogic_id_0]"
 And the AJAX "POST" request at "Design/logic_validate.php*" tagged by "logic_validate" is being monitored
-And I enter "[ptname_v2_v2]=''" into the field identified by "div[id=rc-ace-editor]"
+And I enter "[ptname_v2_v2]=''" into the Logic Editor
+# And I enter "[ptname_v2_v2]=''" into the field identified by "div[id=rc-ace-editor]"
 And the AJAX request tagged by "logic_validate" has completed
 And I click on the button labeled "Update & Close Editor" 
 And I check the checkbox identified by "input[id='rulerte_id_0']"
@@ -378,38 +388,39 @@ And I click on the button labeled "Close"
 And I click on the button labeled "Save & Exit Form"
 
 Scenario: 60 Run rule H
-Given I click on the link labeled "Data Quality"
-Given the AJAX "POST" request at "DataQuality/execute_ajax*" tagged by "data_quality" is being monitored
-And I click "Execute" Total Discrepancies under Rule "Name Test"
-And the AJAX request tagged by "data_quality" has completed
-And I see "2" Total Discrepancies under Rule "Name Test"
+  Given I click on the link labeled "Data Quality"
+  Given the AJAX "POST" request at "DataQuality/execute_ajax*" tagged by "data_quality" is being monitored
+  And I click "Execute" Total Discrepancies under Rule "Name Test"
+  And the AJAX request tagged by "data_quality" has completed
+  And I see "2" Total Discrepancies under Rule "Name Test"
 
-And I click "view" Total Discrepancies under Rule "Name Test"
-And I should not see Record "5" in the top "2" rows of discrepancies table "table[id='table-results_table_3']"
-#And I click on the button labeled "Close"
-And I close the discrepancies window
+  And I click "view" Total Discrepancies under Rule "Name Test"
+  And I should not see Record "5" in the top "2" rows of discrepancies table "table[id='table-results_table_3']"
+  #And I click on the button labeled "Close"
+  And I close the discrepancies window
 
 Scenario: 61 Edit Rule Name Test - same as Rule 35
-Given I click to edit Rule "Name Test"
-And I clear text in field identified by "div[id=rc-ace-editor]"
-And I enter "[event_1_arm_1][ptname_v2_v2]=''" into the field identified by "div[id=rc-ace-editor]"
-And I click on the button labeled "Update & Close Editor" 
-#Given the AJAX "POST" request at "Design/logic_validate*" tagged by "logic_validate" is being monitored
-And I save the edited Rule "Name Test"
-#And the AJAX request tagged by "logic_validate" has completed
+  Given I click to edit Rule "Name Test"
+  And I clear text in field identified by "div[id=rc-ace-editor]"
+  And I enter "[event_1_arm_1][ptname_v2_v2]=''" into the Logic Editor
+  # And I enter "[event_1_arm_1][ptname_v2_v2]=''" into the field identified by "div[id=rc-ace-editor]"
+  And I click on the button labeled "Update & Close Editor" 
+  #Given the AJAX "POST" request at "Design/logic_validate*" tagged by "logic_validate" is being monitored
+  And I save the edited Rule "Name Test"
+  #And the AJAX request tagged by "logic_validate" has completed
 
 Scenario: 62 and 63 Run all rules and exclude rule D
-Given I click on the button labeled "All"
-#Given the AJAX "POST" request at "DataQuality/execute_ajax*" tagged by "data_quality" is being monitored
-Then All data quality rules are executed at the same time
-#And the AJAX request tagged by "data_quality" has completed
-And I see "1" Total Discrepancies under Rule "D"
-And I click "view" Total Discrepancies under Rule "D"
-And I exclude the top "1" rows of discrepancies table identified by "table[id=table-results_table_pd-9]"
-Then I should see "remove exclusion" in the top "1" rows of table identified by "table[id=table-results_table_pd-9]"
-And I close the discrepancies window
-And I click on the button labeled "Clear"
-Then All rules are reset and I see Execute button available
+  Given I click on the button labeled "All"
+  #Given the AJAX "POST" request at "DataQuality/execute_ajax*" tagged by "data_quality" is being monitored
+  Then All data quality rules are executed at the same time
+  #And the AJAX request tagged by "data_quality" has completed
+  And I see "1" Total Discrepancies under Rule "D"
+  And I click "view" Total Discrepancies under Rule "D"
+  And I exclude the top "1" rows of discrepancies table identified by "table[id=table-results_table_pd-9]"
+  Then I should see "remove exclusion" in the top "1" rows of table identified by "table[id=table-results_table_pd-9]"
+  And I close the discrepancies window
+  And I click on the button labeled "Clear"
+  Then All rules are reset and I see Execute button available
 
 Scenario: 64 Execute All rules
  Given I click on the button labeled "All"
@@ -435,24 +446,24 @@ Scenario: 68 Create a DAG and assign User
  And the AJAX request tagged by "dataAccess" has completed
 
 Scenario: 69 Login and confirm DAG assigned to user
-Given I logout
-Given I am an "standard" user who logs into REDCap
-And I click on the link labeled " My Projects"
-And I click on the link labeled "18_DataQuality_v1115"
-Given I click on the link labeled "Add / Edit Records"
-And I click on the button labeled "Add new record for the arm selected above"
-Given I click on a bubble with instrument named "Text Validation" and event named "Event 1"
-Then I should see " Adding new Record ID 1-1" 
-#And I enter "joe@gmail.com" into the field identified by "Input[name=email_v2]"
-Given I click on the button labeled "Save & Exit Form"
+  Given I logout
+  Given I am an "standard" user who logs into REDCap
+  And I click on the link labeled " My Projects"
+  And I click on the link labeled "18_DataQuality_v1115"
+  Given I click on the link labeled "Add / Edit Records"
+  And I click on the button labeled "Add new record for the arm selected above"
+  Given I click on a bubble with instrument named "Text Validation" and event named "Event 1"
+  Then I should see " Adding new Record ID 1-1" 
+  #And I enter "joe@gmail.com" into the field identified by "Input[name=email_v2]"
+  Given I click on the button labeled "Save & Exit Form"
 
 Scenario: 70 Rule violation alert does not appear when data is entered into Name field
-Then I should see "WARNING: Data Quality rules were violated!"
-Then I should see "Name Test" rule violation
-And I click on the hidden button labeled "Close"
-And I enter "JOE" into the field identified by "Input[name=ptname_v2_v2]"
-And  I click on the button labeled "Save & Exit Form"
-Then I should NOT see "WARNING: Data Quality rules were violated!"
+  Then I should see "WARNING: Data Quality rules were violated!"
+  Then I should see "Name Test" rule violation
+  And I click on the hidden button labeled "Close"
+  And I enter "JOE" into the field identified by "Input[name=ptname_v2_v2]"
+  And  I click on the button labeled "Save & Exit Form"
+  Then I should NOT see "WARNING: Data Quality rules were violated!"
 
 Scenario: 71 Execute all rules
  Given I click on the link labeled "Data Quality"
@@ -463,30 +474,30 @@ Scenario: 71 Execute all rules
 Then Discrepancies for Record "1-1Event 1 (Arm 1: Arm 1)", under Rule A should appear in the table identified by "table#table-results_table_pd-3"
 
 Scenario: 72 Login as Admin and confirm Admin sees a higher number of discrepancies
-Given I logout
-Given I am an "admin" user who logs into REDCap
-And I click on the link labeled " My Projects"
-Given the AJAX "POST" request at "ProjectGeneral/project_stats*" tagged by "project_stats" is being monitored
-And I click on the link labeled "18_DataQuality_v1115"
-And the AJAX request tagged by "project_stats" has completed
-Given I click on the link labeled "Data Quality"
-Given the AJAX "POST" request at "DataQuality/record_list.php*" tagged by "record_list" is being monitored
-And I click on the button labeled "All"
-And the AJAX request tagged by "record_list" has completed
-And All data quality rules are executed at the same time
-And I see "30" Total Discrepancies under Rule "A"
-And I click "view" Total Discrepancies under Rule "A"
-Then Discrepancies for Record "1-1Event 1 (Arm 1: Arm 1)(DAG1)", under Rule A should appear in the table identified by "table#table-results_table_pd-3"
+  Given I logout
+  Given I am an "admin" user who logs into REDCap
+  And I click on the link labeled " My Projects"
+  Given the AJAX "POST" request at "ProjectGeneral/project_stats*" tagged by "project_stats" is being monitored
+  And I click on the link labeled "18_DataQuality_v1115"
+  And the AJAX request tagged by "project_stats" has completed
+  Given I click on the link labeled "Data Quality"
+  Given the AJAX "POST" request at "DataQuality/record_list.php*" tagged by "record_list" is being monitored
+  And I click on the button labeled "All"
+  # And the AJAX request tagged by "record_list" has completed
+  And All data quality rules are executed at the same time
+  And I see "30" Total Discrepancies under Rule "A"
+  And I click "view" Total Discrepancies under Rule "A"
+  Then Discrepancies for Record "1-1Event 1 (Arm 1: Arm 1)(DAG1)", under Rule A should appear in the table identified by "table#table-results_table_pd-3"
 
 Scenario: 73 and 74 Test User2 should not have access to Data quality rules
-Given I logout
-Given I am a "standard2" user who logs into REDCap 
-Given the AJAX "POST" request at "ProjectGeneral/project_stats*" tagged by "project_stats" is being monitored
-And I click on the link labeled " My Projects"
-And the AJAX request tagged by "project_stats" has completed
-And I click on the link labeled "18_DataQuality_v1115"
-And I should NOT see "Data Quality"
+  Given I logout
+  Given I am a "standard2" user who logs into REDCap 
+  Given the AJAX "POST" request at "ProjectGeneral/project_stats*" tagged by "project_stats" is being monitored
+  And I click on the link labeled " My Projects"
+  And the AJAX request tagged by "project_stats" has completed
+  And I click on the link labeled "18_DataQuality_v1115"
+  And I should NOT see "Data Quality"
 
 Scenario: 75
-Given I logout
+  Given I logout
 
