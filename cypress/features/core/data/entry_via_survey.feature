@@ -159,7 +159,7 @@ Feature: Data Entry through the Survey
     Then I should see "Field currently designated: email"
     And I should see that the designate an email field for communications setting is "enabled"
     Given I click on the link labeled "Data Import Tool"
-    And I upload a "csv" format file located at "import_files/core/15_DirectDataEntry_SurveyIMP.csv", by clicking the button near "Upload your CSV file:" to browse for the file, and clicking the button labeled "Upload File" to upload the file
+    And I upload a "csv" format file located at "import_files/core/15_DirectDataEntry_SurveyIMP.csv", by clicking the button near "Select your CSV data file" to browse for the file, and clicking the button labeled "Upload File" to upload the file
     Then I should see "DATA DISPLAY TABLE"
     And I should see "(new record)"
     When I click on the button labeled "Import Data"

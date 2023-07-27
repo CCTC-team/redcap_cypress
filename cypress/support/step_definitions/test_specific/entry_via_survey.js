@@ -106,7 +106,8 @@ Given('I should see {int} email(s) listed in the Participant List', (count) => {
  * @description Enable the cron job
  */
 Given('I enable the cron job', () => {
-    cy.visit('http://localhost:8080/cron.php')     
+    let url = Cypress.config('baseUrl') + '/cron.php'
+    cy.visit(url)     
 })
 
 /**
