@@ -111,7 +111,7 @@ Cypress.Commands.add('contains_cc_link', (link, title = '') => {
     function test_link (link, title, try_again = true) {
         cy.get('div#control_center_menu a').
         contains(link).
-        click().
+        click({force: true}).
         then(($control_center) => {
             if($control_center.find('div#control_center_window').length){
                 cy.get('div#control_center_window').then(($a) => {
