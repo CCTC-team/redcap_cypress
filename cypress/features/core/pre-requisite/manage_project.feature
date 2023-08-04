@@ -72,6 +72,7 @@ Feature: Manage Project
         Then I should see "Your system configuration values have now been changed!"
 
     Scenario: 8- Verify test_user2 can not Create or Copy Projects
+        Given I click on the link labeled "Control Center"
         When I click on the link labeled "Browse Users"
         And I enter "test_user2" into the input field labeled "User Search: Search for user by username, first name, last name, or primary email"
         And I click on the button labeled "Search"
