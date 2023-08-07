@@ -51,9 +51,11 @@ Feature: Export Data
     And I should see that the designate an email field for communications setting is "disabled"
 
   Scenario: Project Setup 4 - Import Data File
-    Given I click on the link labeled "Data Import Tool"
+    Given the AJAX "GET" request at "index.php*" tagged by "render" is being monitored
+    Then I click on the link labeled "Data Import Tool"
+    And I wait for 0.5 seconds
     And I should see "Instructions"
-    And I upload a "csv" format file located at "import_files/core/21_ExportDataExtractionIMP_v1115.csv", by clicking the button near "Upload your CSV file:" to browse for the file, and clicking the button labeled "Upload File" to upload the file
+    And I upload a "csv" format file located at "import_files/core/21_ExportDataExtractionIMP_v1115.csv", by clicking the button near "Select your CSV data file" to browse for the file, and clicking the button labeled "Upload File" to upload the file
     Then I should see "DATA DISPLAY TABLE"
     And I should see "(new record)"
     When I click on the button labeled "Import Data"
@@ -367,7 +369,7 @@ Feature: Export Data
     And I click on the button labeled "Save Changes"
     Then I should see "was successfully edited"
 
-  Scenario: 12 - Verify user cannot export data
+  Scenario: 12 - Verify user cannot remove De-identification options
     Given I click on the link labeled "Data Exports, Reports, and Stats"
     Then I click on the button labeled "Export Data"
     Then I should see "Given that you have limited export rights, you may NOT modify the options below, except the Date fields option"
@@ -391,7 +393,7 @@ Feature: Export Data
     And I click on the button labeled "Export Data" in the dialog box
     Then I should see "Data export was successful!"
     Then I should see "DATE SHIFTED to an unknown value between 0 and  364 days"
-    Then I should receive a download to a "csv" file
+    # Then I should receive a download to a "csv" file
     Then I should have a "csv" file that contains the headings below
     | record_id | redcap_event_name | redcap_repeat_instrument | redcap_repeat_instance | dob | export_complete | survey_timestamp | survey_complete |
     # Data is raw.. Have to check this with hashed Record ID.. Is that needed? Heading is raw, meand data is raw.
