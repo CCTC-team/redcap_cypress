@@ -365,7 +365,7 @@ Feature: Export Data
     And I click on the button labeled "Save Changes"
     Then I should see "was successfully edited"
 
-  Scenario: 12 - Verify user cannot export data
+  Scenario: 12 - Verify user cannot remove De-identification options
     Given I click on the link labeled "Data Exports, Reports, and Stats"
     Then I click on the button labeled "Export Data"
     Then I should see "Given that you have limited export rights, you may NOT modify the options below, except the Date fields option"
