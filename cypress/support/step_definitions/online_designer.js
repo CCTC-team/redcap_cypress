@@ -429,7 +429,7 @@ Given("I download the data dictionary and save the file as {string}", (name) => 
     })
     //.click({force: true, timeout: 0})
 
-    cy.wait("@download").then((xhr) => {
+    cy.wait("@download", 2000).then((xhr) => {
         let cd = xhr.response.headers['content-disposition']
         let filename = cd.split('filename=')[1]
 

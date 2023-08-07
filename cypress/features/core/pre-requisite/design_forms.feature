@@ -317,7 +317,7 @@ Feature: Design Forms using Data Dictionary & Online Designer
     And I enter "descriptive_file_text" into the field identified by "input[name=field_name]"
     And I click on the element identified by "textarea[name=field_label]"
     And I click on the element identified by "a[onclick='openAttachPopup();']"
-    And I set the input file field named "myfile" to the file at path "cypress/fixtures/import_files/core/7_image_v913.jpg"
+    And I set the input file field named "file" to the file at path "cypress/fixtures/import_files/core/7_image_v913.jpg"
     And I click on the button labeled "Upload file" in the dialog box
     And I should see "Upload in progress..."
     And I should see "Document was successfully uploaded"
@@ -328,7 +328,7 @@ Feature: Design Forms using Data Dictionary & Online Designer
   Scenario: 35 - Add Descriptive Text
     Given I click on the Add Field input button below the field named "Descriptive Text with File"
     And I select "descriptive" from the dropdown identified by "select[name=field_type]"
-    And I enter "Descriptive Text" into the field identified by "textarea[name=field_label]"
+    And I enter "Descriptive text" into the field identified by "textarea[name=field_label]"
     And I enter "descriptive_text" into the field identified by "input[name=field_name]"
     And I click on the element identified by "textarea[name=field_label]"
     And I click on the button labeled "Save" on the Online Designer page
@@ -341,7 +341,6 @@ Feature: Design Forms using Data Dictionary & Online Designer
     And I should see "Descriptive Text with File"
     And I should see "Attachment:"
     And I should see "7_image_v913.jpg"
-    And I should see "(0.01 MB)"
 
   Scenario: 37 - Review image upload
     Given I download a file by clicking on the link labeled "7_image_v913.jpg"
@@ -352,11 +351,14 @@ Feature: Design Forms using Data Dictionary & Online Designer
   Scenario: 38 - Add New Section
     Given I click on the link labeled "Designer"
     And I click on the link labeled "Data Types"
-    And I click on the Add Field input button below the field named "Descriptive Text"
+    And I click on the Add Field input button below the field named "Descriptive text"
     And I select "section_header" from the dropdown identified by "select[name=field_type]"
     And I enter "Section Break" into the field identified by "textarea[name=field_label]"
-    And I click on the button labeled "Save" on the Online Designer page
+    And I click on the button labeled "Save"
+    And I wait for 2 seconds
     Then I should see "Sorry, but Section Headers cannot be the last field on a data entry form." in an alert box
+    Then I should see "Signature"
+    And I should see "File Upload"
     And I should NOT see "Section Break"
 
   Scenario: 39 - Add New Section
