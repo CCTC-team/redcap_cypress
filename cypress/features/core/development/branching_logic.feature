@@ -9,29 +9,22 @@ Feature: Branching Logic
   Scenario: 0 - Project Setup
   Given I am a "standard" user who logs into REDCap
   And I create a project named "BranchingLogic_v1115" with project purpose Operational Support via CDISC XML import from fixture location "cdisc_files/projects/DesignForms_v1115.xml"
-  And I click on the link labeled "My Projects"
-  And I click on the link labeled "BranchingLogic_v1115"
-  Then I should see "Development"
   When I click on the link labeled "Project Setup"
   And I disable longitudinal mode
   Then I should see that longitudinal mode is "disabled"
   When I enable surveys for the project
   Then I should see that surveys are enabled
   When I click on the button labeled "Online Designer"
+  Then I should see "Data Types"
   And I enable surveys for the data instrument named "Data Types"
   Then I should see "Your survey settings were successfully saved!"
+  Then I should see the instrument labeled "Data Types" is a survey
   When I delete the data instrument named "Text Validation"
   Then I should see "Deleted!"
   And I should see "The data collection instrument and all its fields have been successfully deleted!"
-  Then I logout
 
   Scenario: 1
-  Given I am a "standard" user who logs into REDCap
-  And I click on the link labeled "My Projects"
-  And I click on the link labeled "BranchingLogic_v1115"
-  And I click on the link labeled "Project Setup"
-  And I click on the button labeled "Online Designer"
-  And I click on the link labeled "Data Types"
+  Given I click on the link labeled "Data Types"
   And I set the branching logic of every field to "[record_id] = '999'" excluding the fields with variable names "record_id|calculated_field"
   Then Every field contains the branching logic "[record_id] = '999'" excluding the fields with variable names "record_id|calculated_field"
 
