@@ -197,12 +197,12 @@ Given('I {enter_type} {string} into the input field labeled {string}', (enter_ty
                 }
 
                 if(enter_type === "enter"){
-                    elm.type(text)
+                    elm.focus().type(text)
                 } else if (enter_type === "clear field and enter") {
                     if(text.length > 0){
-                        elm.clear().type(text)
+                        elm.focus().clear().type(text)
                     } else {
-                        elm.clear().type(`{enter}`)
+                        elm.focus().clear().type(`{enter}`)
                     }
                 }
             })
@@ -494,7 +494,7 @@ Given('I select {string} on the {dropdown_type} field labeled {string}{baseEleme
                 should('be.visible').
                 should('be.enabled').then(($t) => {
                     cy.wait(500)
-                    cy.wrap($t).select(option)
+                    cy.wrap($t).select(option, {force: true})
                     cy.wait(1000)
                 })
         })
