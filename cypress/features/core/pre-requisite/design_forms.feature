@@ -355,8 +355,9 @@ Feature: Design Forms using Data Dictionary & Online Designer
     And I select "section_header" from the dropdown identified by "select[name=field_type]"
     And I enter "Section Break" into the field identified by "textarea[name=field_label]"
     And I click on the button labeled "Save"
-    And I wait for 2 seconds
+    And I should see "Saving..."
     Then I should see "Sorry, but Section Headers cannot be the last field on a data entry form." in an alert box
+    And I wait for 5 seconds
     Then I should see "Signature"
     And I should see "File Upload"
     And I should NOT see "Section Break"
