@@ -156,7 +156,12 @@ Feature: Data Comparison Tool / DDE Module
     Then I select "Enabled" from the dropdown identified by "select[name=double_data_entry]"
     And I click on the button labeled "Save Changes"
     Then I should see "Your changes have been saved!"
-    When I click on the link labeled "17_DataComparisonTool_DDE_v1115"
+    And  I click on the link labeled "Control Center"
+    And  I click on the link labeled "Browse Projects"
+    And I wait for 0.5 seconds
+    And I enter "17_DataComparisonTool_DDE_v1115" into the field identified by "input[id=project_search]"
+    And I click on the button labeled "Search project title"
+    Then I click on the link labeled "17_DataComparisonTool_DDE_v1115"
     Then I should see "Project Home"
     And I should see "17_DataComparisonTool_DDE_v1115"
 
@@ -367,7 +372,12 @@ Feature: Data Comparison Tool / DDE Module
     Then I select "Disabled" from the dropdown identified by "select[name=double_data_entry]"
     And I click on the button labeled "Save Changes"
     Then I should see "Your changes have been saved!"
-    When I click on the link labeled "17_DataComparisonTool_DDE_v1115"
+     And  I click on the link labeled "Control Center"
+    And  I click on the link labeled "Browse Projects"
+    And I wait for 0.5 seconds
+    And I enter "17_DataComparisonTool_DDE_v1115" into the field identified by "input[id=project_search]"
+    And I click on the button labeled "Search project title"
+    Then I click on the link labeled "17_DataComparisonTool_DDE_v1115"
     Then I should see "Project Home"
     And I should see "17_DataComparisonTool_DDE_v1115"
     Then I logout
