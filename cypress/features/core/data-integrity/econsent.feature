@@ -1,4 +1,4 @@
-Feature: Record Locking and E-Signatures
+Feature: e-Consent
 
   As a REDCap end user
   I want to see that Record Locking and E-Signatures is functioning as expected
@@ -122,13 +122,18 @@ Feature: Record Locking and E-Signatures
     And I should see "e-Consent" in the column labeled "Type" in PDF Survey Archive
     And I should see "Adult" in the column labeled "Type" in PDF Survey Archive
 
-  Scenario: 15 - PDF download
-    Then I download a file by clicking on the link labeled "F_Name_L_Name"
+  Scenario: 15 - Download PDF file
+    Then I download the file by clicking the link starting with "F_Name_L_Name" and save the file as "F_Name_L_Name"
 
-  Scenario: 16 -
+  Scenario: 16 - Check data in PDF file
+    And I should have a pdf file "F_Name_L_Name" that contains the data "F Name"
+    And I should have a pdf file "F_Name_L_Name" that contains the data "L Name"
+    And I should have a pdf file "F_Name_L_Name" that contains the data "11-12-2001"
+    And I wait for 3 seconds
 
   Scenario: 17 - Disable e-consent framework
-    Then I click on the link labeled "Designer" 
+    Given the AJAX "GET" request at "Design/online_designer.php*" tagged by "render" is being monitored
+    And I click on the link labeled "Designer"
     And I should see "Data Collection Instruments"
     And the AJAX "GET" request at "Surveys/edit_info.php*" tagged by "edit" is being monitored
     When I click on the button labeled "Survey settings"
