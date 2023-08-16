@@ -16,6 +16,20 @@ const sed_lite = require('sed-lite').sed
 const fs = require('fs')
 const csv = require('async-csv')
 
+// Added by Minto for checking PDF content
+const path = require('path')
+const pdf = require('pdf-parse');
+
+const repoRoot = path.join('./cypress/downloads/')
+
+const parsePdf = async (pdfName) => {
+  const pdfPathname = path.join(repoRoot, pdfName)
+  let dataBuffer = fs.readFileSync(pdfPathname);
+  return await pdf(dataBuffer) 
+}
+
+
+//////////////
 module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
@@ -23,6 +37,9 @@ module.exports = (on, config) => {
   on('file:preprocessor', cucumber())
 
   on('task', {
+	getPdfContent(pdfName) {
+		return parsePdf(pdfName)   
+	  },
 
 	populateStructureAndData({redcap_version, advanced_user_info, source_location}) {
 
