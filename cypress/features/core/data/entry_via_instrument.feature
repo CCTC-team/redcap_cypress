@@ -134,12 +134,14 @@ Feature: Data Entry through the Data Collection Instrument
 
     And I reset the field identified by "input[name=radio_button_manual___radio]"
 
+    #This is needed for step 8
+    And I select the radio option "Choice100" for the field labeled "Radio Button Manual"
+
     And I select the checkbox option "Checkbox" for the field labeled "Checkbox"
     And I select the checkbox option "Checkbox2" for the field labeled "Checkbox"
 
     #Add signature#   
 
-    #Upload document (word doc) in file upload field
     Then I click on the link labeled "Upload file"
     And I upload the file "UploadFile.docx"
     Then I should see "Upload in progress"
@@ -210,10 +212,11 @@ Feature: Data Entry through the Data Collection Instrument
   Scenario: 11 - Edit record
     Given I click on the link labeled "Record Status Dashboard"
     And I locate the bubble for the "Data Types" instrument on event "Event 1" for record ID "1" and click on the bubble
-    And I enter "John Smith" into the data entry form field labeled "Name"
+    And I enter " Smith" into the data entry form field labeled "Name"
     And I select the submit option labeled "Save & Go To Next Record" on the Data Collection Instrument
-    #unable to find field "Name" that contains John Smith
-    #And I should see that the "Name" field contains the value of "John Smith"
+    Given I click on the link labeled "Record Status Dashboard"
+    And I locate the bubble for the "Data Types" instrument on event "Event 1" for record ID "1" and click on the bubble
+    And I should see that the "Name" field contains the value of "John Smith"
 
   Scenario: 12 to 13 - Add data to the data dictionary instrument
     Given I click on the link labeled "Record Status Dashboard"
