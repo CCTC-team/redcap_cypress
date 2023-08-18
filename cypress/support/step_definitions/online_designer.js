@@ -469,3 +469,29 @@ Given("I add a new {fieldType} field labeled {string} with variable name {string
         })
     })
 })
+
+/**
+ * @module OnlineDesigner 
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I reset the field identified by {string}
+ * @param {string} selector - the selector of the field
+ * @description Clear options from field
+ */
+Given("I reset the field identified by {string}", (selector) => {
+    cy.get(selector).parents('td').within(() => {
+        cy.get('a').contains('reset').click()
+    })
+})
+
+/**
+ * @module OnlineDesigner 
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I upload the file {string}
+ * @param {string} fileName - name of file
+ * @description Upload the given file
+ */
+Given("I upload the file {string}", (fileName) => {
+    cy.upload_file('/import_files/' + fileName, 'docx', 'input[name="myfile"]')
+    cy.get('button').contains('Upload file').click()
+    
+})

@@ -126,23 +126,35 @@ Feature: Data Entry through the Data Collection Instrument
     And I should see "Editing existing Record ID 1"
     And I enter "This is a notes box.{enter}This is a notes box." into the data entry form field labeled "Notes"
     And I enter "5" into the data entry form field labeled "Value"
-
     #Need to Verify that Calculated Field displays accurate result (5 * 2)
+    And I should see the input field identified by "input[name=calculated_field]" with the value "10"
 
-    And I select the dropdown option "DDChoice1" for the Data Collection Instrument field labeled "Multiple Choice Dropdown Auto"
+    And I select the dropdown option "DDChoice5" for the Data Collection Instrument field labeled "Multiple Choice Dropdown Manual"
     And I select the radio option "Choice100" for the field labeled "Radio Button Manual"
 
-    #And I reset the options for field labeled "Radio Button Manual"
+    And I reset the field identified by "input[name=radio_button_manual___radio]"
 
     And I select the checkbox option "Checkbox" for the field labeled "Checkbox"
     And I select the checkbox option "Checkbox2" for the field labeled "Checkbox"
 
-    #Add signature
+    #Add signature#   
+
     #Upload document (word doc) in file upload field
+    Then I click on the link labeled "Upload file"
+    And I upload the file "UploadFile.docx"
+    Then I should see "Upload in progress"
+    And I wait for 0.5 seconds
+    And I should see "File was successfully uploaded"
+    And I click on the button labeled "Close"
+    And I should see a link labeled "UploadFile.docx"
+  
     #Open image file in descriptive text with file
-    # And I click the input element identified by "ui-datepicker-trigger"
-    # And I select '2' from the dropdown identified by 'select[data-handler="selectMonth"]'
-    # And I select '2020' from the dropdown identified by 'select[data-handler="selectYear"]'
+
+    And I click the input element identified by "img[title='Click to select a date']"
+    And I select 'Feb' from the dropdown identified by 'select[data-handler="selectMonth"]'
+    And I select '2020' from the dropdown identified by 'select[data-handler="selectYear"]'
+    And I click on the link labeled "18"
+    Then I should see the input field identified by "input[name=date_picker]" with the value "02-18-2020"
     And I click on the button labeled "Today"
     And I click on the button labeled "Now"
     And I select the submit option labeled "Save & Exit Record" on the Data Collection Instrument
