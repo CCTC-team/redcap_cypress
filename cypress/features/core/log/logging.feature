@@ -298,7 +298,6 @@ Feature: Logging
     When I click on the link labeled "Control Center"
     And I click on the link labeled "Edit a Project's Settings"
     And I select 'Logging_Feature' from the dropdown identified by 'select'
-    #And I click on the dropdown identified by 'select' and select value '14' labelled by
     Then I should see "project settings"
     And I select "Yes, delete the record's logged events when deleting the record" on the dropdown field labeled "Delete a record's logging activity when deleting the record?"
     And I click on the button labeled "Save Changes"
@@ -318,8 +317,6 @@ Feature: Logging
     And I select the option labeled "Delete record (all forms)"
     Then I should see 'DELETE RECORD "2"'
 
-    #Cannot complete the commented steps below. This is a known error in 11.1.5 and fixed in v11.1.11
-
     And I check the checkbox identified by 'input[id="allow_delete_record_from_log"]'
     Then I should see "Confirmation: Type 'DELETE'"
     And I enter 'DELETE' into the field identified by 'input[type=text]'
@@ -335,8 +332,8 @@ Feature: Logging
     Then I should see 'Update Record' in the logging table
     And I should see 'Create Record' in the logging table
     And I should see 'Delete Record' in the logging table
-    #And I should see '[*DATA REMOVED*]' in the logging table
-    #And I should see '[All data values were removed from this record's logging activity.]' in the logging table
+    And I should see '[*DATA REMOVED*]' in the logging table
+    And I should see "[All data values were removed from this record's logging activity.]" in the logging table
 
   Scenario: 36 - Login as admin
     Given I am an "admin" user who logs into REDCap
@@ -397,7 +394,7 @@ Feature: Logging
   Scenario: 40 - Logging: filter by event - Record created-updated-deleted
     Then I click on the link labeled "Logging"
     And I select the "Record created-updated-deleted" option identified by "record" from the Filter by event dropdown field
-    #Then I should see '(Event 1 - (Arm 2: Arm 2))' in the logging table
+    Then I should see '(Event 1 (Arm 2: Arm 2))' in the logging table
     And I should see "ptname = 'Arm2', text_validation_complete = '0', record_id = '2'" in the logging table
 
   Scenario: 41 - Delete Record
@@ -419,8 +416,8 @@ Feature: Logging
 
     Then I click on the link labeled "Logging"
     And I select the "Record created-updated-deleted" option identified by "record" from the Filter by event dropdown field
-    #Then I should see '[*DATA REMOVED*]' in the logging table
-    #And I should see '[All data values were removed from this record's logging activity.]' in the logging table
+    Then I should see '[*DATA REMOVED*]' in the logging table
+    And I should see "[All data values were removed from this record's logging activity.]" in the logging table
 
   Scenario: 43 - Logout
     Given I logout
