@@ -294,7 +294,7 @@ Feature: Logging
   Scenario: 31 - Login as admin
     Given I am an "admin" user who logs into REDCap
 
-  Scenario: 32 - Delete a record’s logging activity when deleting the records
+  Scenario: 32 - Delete a record's logging activity when deleting the records
     When I click on the link labeled "Control Center"
     And I click on the link labeled "Edit a Project's Settings"
     And I select 'Logging_Feature' from the dropdown identified by 'select'
@@ -302,7 +302,6 @@ Feature: Logging
     Then I should see "project settings"
     And I select "Yes, delete the record's logged events when deleting the record" on the dropdown field labeled "Delete a record's logging activity when deleting the record?"
     And I click on the button labeled "Save Changes"
-    And I click on the link labeled "Logging"
 
   Scenario: 33 - Login as test_user
     Given I am a "standard" user who logs into REDCap
