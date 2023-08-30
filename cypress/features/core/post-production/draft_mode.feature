@@ -312,6 +312,8 @@ Scenario: 18 - Project Revision History
     And I click on the link labeled "Project Revision History"
     Then I should see "Production revision #1"
     And I should see "Production revision #2 (current)"
+    And I should see "Requested by test_user (Test User)"
+    And I should see "Approved by test_admin (Test User)"
     #with the date and time it was implemented
     #as well as the person who requested the change(s) and the one who approved the request
 
