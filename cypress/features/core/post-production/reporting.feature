@@ -50,7 +50,7 @@ Feature: Reporting
 
   Scenario: Project Setup - 4
     Given I click on the link labeled "Data Import Tool"
-    And I upload a "csv" format file located at "/import_files/core/22_Reporting_IMP.csv", by clicking the button near "Upload your CSV file:" to browse for the file, and clicking the button labeled "Upload File" to upload the file
+    And I upload a "csv" format file located at "/import_files/core/22_Reporting_IMP.csv", by clicking the button near "Select your CSV data file" to browse for the file, and clicking the button labeled "Upload File" to upload the file
     Then I should see "DATA DISPLAY TABLE"
     And I should see "(new record)"
     And I should see a button labeled "Import Data"
@@ -153,7 +153,7 @@ Feature: Reporting
     And I click on the button labeled "Close"
 
     Given I see "Additional report options"
-    And I uncheck the checkbox labeled "Show data for all events or repeating instruments for each record returned"
+    And I uncheck the checkbox labeled "Show data for all events or repeating instruments/events for each record returned"
     And I click on the button labeled "Save Report"
     Then I should see a dialog containing the following text: 'Your report has been saved!'
 
@@ -235,6 +235,8 @@ Feature: Reporting
     And I click on the button labeled "View full list of fields" for the row labeled "Filter 2"
     And I should see "Filter 2"
     And I select "dob" on the dropdown field labeled "Filter 2"
+    And I should see the dropdown field labeled "Filter 2" with the options below
+    | = | not = | <  | < = | > | > = |
     And I select "<" on the dropdown field labeled "Filter 2"
     And I enter "6/20/19" into the input field labeled "Filter 2"
     And I select "OR" from the dropdown identified by "select[name='limiter_group_operator[]']" labeled "Filter 2"
