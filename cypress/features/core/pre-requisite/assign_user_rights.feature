@@ -74,6 +74,8 @@ Feature: Assign User Rights
     Then I should see 'Adding new user "test_user"'
     And I remove all Basic Rights within the open User Rights dialog box
     #   Unasserted: Script has expected result: "Data Entry rights remain."
+    And I should see the checkbox identified by "input[name=form-text_validation][value=1]", checked
+    And I should see the checkbox identified by "input[name=form-data_types][value=1]", checked
     Then I save changes within the context of User Rights
     Then I click on the link labeled "My Projects"
     And I logout
@@ -118,8 +120,6 @@ Feature: Assign User Rights
     And I click on the button labeled "Edit user privileges"
     Then I should see 'Editing existing user "test_user"'
 
-
-
     And I clear field and enter "" into the input field labeled "Expiration Date"
     When I check the User Right named "Project Setup & Design"
     And I save changes within the context of User Rights
@@ -159,7 +159,7 @@ Feature: Assign User Rights
     And I click on the button labeled "Edit user privileges"
     And I select the User Right named "Data Exports" and choose "De-Identified*"
     And I save changes within the context of User Rights
-    Then I should see "De-Identified" within the "test_user" row of the column labeled "Data Export Tool" of the User Rights table
+    Then I should see "De-Identified" within the "test_user" row of the column labeled "Data Export Rights" of the User Rights table
     When I click on the link labeled "User Rights"
     Then I should see a link labeled "Data Exports, Reports, and Stats"
 
@@ -207,7 +207,7 @@ Feature: Assign User Rights
     And I uncheck the User Right named "Data Comparison Tool"
     And I check the User Right named "Logging"
     And I save changes within the context of User Rights
-    Then I should see an "x" within the "test_user" row of the column labeled "Data Export Tool" of the User Rights table
+    Then I should see an "No Access" within the "test_user" row of the column labeled "Data Export Rights" of the User Rights table
     And I should see an "x" within the "test_user" row of the column labeled "Data Import Tool" of the User Rights table
     And I should see an "x" within the "test_user" row of the column labeled "Data Comparison Tool" of the User Rights table
     And I should see a "checkmark" within the "test_user" row of the column labeled "Logging" of the User Rights table
@@ -299,7 +299,6 @@ Feature: Assign User Rights
     And I select the User Right named "Lock/Unlock Records" and choose "Locking / Unlocking"
     When I save changes within the context of User Rights
     Then I should see a "checkmark" within the "test_user" row of the column labeled "Lock/Unlock Records" of the User Rights table
-
 
   Scenario: 22 - Assign Lock/Unlock *Entire* Records (Record Level) right to test_user
     Given I click on the link labeled "test_user"
@@ -394,7 +393,7 @@ Feature: Assign User Rights
   Scenario: 31 - Attempt to assign test_user (self) to role without User Rights privileges
     Given I click on the link labeled "test_user"
     And I click on the button labeled "Assign to role" on the tooltip
-    And I select "Data Entry" on the dropdown field labeled "Select Role:" on the role selector dropdown
+    And I select "Data Entry" from the dropdown identified by "select[id=user_role]"
     Then I should see the dropdown identified by "select[id=user_role]" with the option "Data Entry" selected
     And I click on the button labeled exactly "Assign" on the role selector dropdown
     Then I should see "NOTICE: User Rights mismatch"
@@ -407,7 +406,8 @@ Feature: Assign User Rights
     And I click on the link labeled "User Rights"
     And I click on the link labeled "test_user"
     And I click on the button labeled "Assign to role" on the tooltip
-    And I select "Data Entry" on the dropdown field labeled "Select Role:" on the role selector dropdown
+    And I select "Data Entry" from the dropdown identified by "select[id=user_role]"
+    Then I should see the dropdown identified by "select[id=user_role]" with the option "Data Entry" selected
     And I click on the button labeled exactly "Assign" on the role selector dropdown
     # Then I should see 'User "test_user" has been successfully ASSIGNED to the user role "Data Entry".'
     # ^ Full string not detected due to awkward HTML structure
@@ -421,5 +421,3 @@ Feature: Assign User Rights
     And I should see "NOTICE: User's privileges will remain the same"
     When I click on the button labeled "Close" in the dialog box
     Then I should see "—" within the "test_user" row of the column labeled "Role name" of the User Rights table
-
-# END
