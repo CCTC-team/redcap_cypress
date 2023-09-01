@@ -78,7 +78,7 @@ import { Given } from "cypress-cucumber-preprocessor/steps";
  * @module DesignForms
  * @author Tintin Nguyen <tin-tin.nguyen@nih.gov>
  * @example I drag on the instrument named {string} to the position {int}
- * @param {string} instrument - the naame of the instrument being drag-n-dropped
+ * @param {string} instrument - the name of the instrument being drag-n-dropped
  * @param {int} position - the position (index starting from 0) where the instrument should be placed
  * @description Interactions - Drag and drop the instrument to the int position
  */
@@ -89,6 +89,18 @@ import { Given } from "cypress-cucumber-preprocessor/steps";
         cy.wrap(row).find('td[class=dragHandle]').dragTo('@target')
     })
 
+})
+
+/**
+ * @module DesignForms
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I should see the instrument named {string} at position {int}
+ * @param {string} instrument - the name of the instrument
+ * @param {int} position - the position (index starting from 0)
+ * @description Verify the instrument is at the int position
+ */
+Given("I should see the instrument named {string} at position {int}", (instrument, position) => {
+    cy.get('table[id=table-forms_surveys]').find('tr').eq(position).contains(instrument)
 })
 
 ///////////

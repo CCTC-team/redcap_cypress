@@ -143,6 +143,7 @@ Feature: Design Forms using Data Dictionary & Online Designer
     #The item below always passes when Saved! is hidden
     Then I should see "Saved!"
     #Verify "Text Validation" is at the top
+    And I should see the instrument named "Text Validation" at position 0
 
   Scenario: 18 - Add all instruments to Event 1
     Given I click on the link labeled "Project Setup"
