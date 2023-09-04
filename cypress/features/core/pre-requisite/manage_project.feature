@@ -305,17 +305,13 @@ Feature: Manage Project
         When I enable surveys for the project
         Then I should see that surveys are enabled
 
-    #the following # out lines are looking for enabled/disabled surveys for specific instruments. We do not currently have a step definition for individual instrument surveys, only to check if surveys are enabled within the entire project
-    Scenario: 39 - Enable Survey for My First Instrument
+ Scenario: 39 - Enable Survey for My First Instrument
         Given I click on the button labeled "Online Designer"
-        Then I should see "The Online Designer will allow you to make project modifications"
-
-        #TODO: Convert this to an English-friendly step definition for enabling a specific survey instrument
-        When I click on the element identified by "button:contains('Enable'):first"
-
-        Then I should see "Set up my survey for data collection instrument"
-        When I click on the button labeled "Save Changes"
+        Then I should see "The Online Designer will allow you to make project modifications"  
+        And I should see the instrument labeled "Form 1" is not a survey
+        And I enable surveys for the data instrument named "Form 1"
         Then I should see "Your survey settings were successfully saved!"
+        Then I should see the instrument labeled "Form 1" is a survey
 
     Scenario: 40 - Delete Survey
         Given I click on the button labeled "Survey settings"
@@ -328,14 +324,10 @@ Feature: Manage Project
         Then I should see "Data Collection Instruments"
 
     Scenario: 41 - Enable Survey for My First Instrument
-
-        #TODO: Convert this to an English-friendly step definition for enabling a specific survey instrument
-        When I click on the element identified by "button:contains('Enable'):first"
-
-        And I click on the button labeled "Save Changes"
+        And I should see the instrument labeled "Form 1" is not a survey
+        And I enable surveys for the data instrument named "Form 1"
         Then I should see "Your survey settings were successfully saved!"
-        #Surveys are enabled for Form 1
-        #Survey symbol replaces Enable button.
+        Then I should see the instrument labeled "Form 1" is a survey
 
     Scenario: 42 - Change Survey Status to Offline
         Given I click on the button labeled "Survey settings"
@@ -433,7 +425,9 @@ Feature: Manage Project
         When I click on the button labeled "Submit Changes for Review"
         Then I should see "SUBMIT CHANGES FOR REVIEW?"
         When I click on the button labeled "Submit"
-        #Then I should see "Awaiting review of project changes"
+        Then I click on the link labeled 'Review & approve changes for "FirstProject_1115"'
+        And I click on the link labeled "Designer"
+        Then I should see "Awaiting review of project changes"
         #should see if email sends
 
     Scenario: 55 - Login as admin1115
@@ -480,9 +474,8 @@ Feature: Manage Project
         Given I click on the button labeled "Enter Draft Mode"
         Then I should see "Since this project is currently in PRODUCTION"
         When I click on the link labeled "Project Setup"
-        And I should see that repeatable instruments are modifiable
+        And I cannot edit the field identified by "button[id=enableRepeatingFormsEventsBtn]"
         When I click on the button labeled "Define My Events"
-        #And I click on the element identified by "[title=Edit]"
         Then I should see "Events cannot be modified in production status"
 
     Scenario: 61 - Verify Can Not Edit Designate Instruments Tab in Production
