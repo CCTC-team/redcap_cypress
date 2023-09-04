@@ -12,6 +12,7 @@ Scenario: 2- Visible Pages
     Then I should see "System-level User Settings"
 
 Scenario: 3- Save User Settings System Configurations
+    Given I click on the link labeled "Control Center"
     When I click on the link labeled "User Settings"
     Then I should see "System-level User Settings"
     When I select "No, only Administrators can create new projects" on the dropdown field labeled "Allow normal users to create new projects?"
@@ -20,6 +21,7 @@ Scenario: 3- Save User Settings System Configurations
     Then I should see "Your system configuration values have now been changed!"
 
 Scenario: 4- Display User Management for Table-based Authentication Page
+    Given I click on the link labeled "Control Center"
     When I click on the link labeled "Add Users (Table-based Only)"
     Then I should see "User Management for Table-based Authentication"
 
@@ -98,12 +100,14 @@ Scenario: 15- Login with Suspended User Account
     And I enter "Testing123" into the input field labeled "Password:"
     And I click on the button labeled "Log In"
     Then I should see "The following REDCap user account has been suspended:"
+    And I logout
 
 Scenario: 16- View test_user in Suspended Users List
     Given I am an "admin" user who logs into REDCap
     And I click on the link labeled "Control Center"
+    And the AJAX "GET" request at "ControlCenter/view_users.php*" tagged by "render" is being monitored
     When I click on the link labeled "Browse Users"
-    Then I should see "User Search: Search for user by username, first name, last name, or primary email"
+    And the AJAX request tagged by "render" has completed
     When I click on the link labeled "View User List By Criteria"
     And I select "Suspended users" on the dropdown field labeled "Display only:"
     And I click on the button labeled "Display User List"
@@ -138,9 +142,9 @@ Scenario: 18- Unsuspend test_user Account
     Then I should see "The changes have been made successfully to the selected users!"
 
 Scenario: 19- Log out as admin1115
+    When I click on the link labeled "Log out"
 
 Scenario: 20- Confirm test_user can log in 
-    When I click on the link labeled "Log out"
     And I enter "test_user" into the input field labeled "Username:"
     And I enter "Testing123" into the input field labeled "Password:"
     And I click on the button labeled "Log In"
@@ -267,7 +271,8 @@ Scenario: 33- Change primary Email for user1115_4
     And I enter "user1115_4" into the input field labeled "User Search: Search for user by username, first name, last name, or primary email"
     And I click on the button labeled "Search"
     Then I should see "User information for"
-    When I click on the button labeled "Edit user info"
+    When I click on the button labeled "Edit user info"    
+    And I clear text in the field identified by "input[name=user_email]"
     And I enter "tester@test.edu" into the input field labeled "Primary email:"
     And I click on the button labeled "Save"
     Then I should see "The user's primary email was changed, and the user was notified about this change."
@@ -279,8 +284,11 @@ Scenario: 34- Update User Settings
     And I select "Yes" on the dropdown field labeled "By default, allow new users to create projects or request that projects be created for them?"
     When I click on the button labeled "Save Changes"
     Then I should see "Your system configuration values have now been changed!"
+    And I logout
 
 Scenario: 35- Add user1115_5
+    Given I am an "admin" user who logs into REDCap
+    And I click on the link labeled "Control Center"
     When I click on the link labeled "Add Users (Table-based Only)" 
     And I enter "user1115_5" into the input field labeled "Username:"
     And I enter "User5" into the input field labeled "First name:"
@@ -290,17 +298,25 @@ Scenario: 35- Add user1115_5
     And I click on the button labeled "Save"
     Then I should see "User has been successfully saved."
     And I should see "An email with login information was sent to: user1115.5@redcap.edu"
+    And I logout
 
 #Scenario: 36- Change password for user 1115_5 from email link 
         #aldefouw will handle password change feature test
 
-Scenario: 37- Edit Security & Authentication settings 
+Scenario: 37- Edit Security & Authentication settings
+    Given I am an "admin" user who logs into REDCap
+    And I click on the link labeled "Control Center"
     When I click on the link labeled "Security & Authentication"
     Then I should see "Security & Authentication Configuration"
-    When I clear the field labeled "Number of failed login attempts before user is locked out for a specified amount of time, which is set below."
-    And I enter "1" into the input field labeled "Number of failed login attempts before user is locked out for a specified amount of time, which is set below."
-    And I clear the field labeled "Amount of time user will be locked out after having failed login attempts exceeding the limit set above."
-    And I enter "1" into the input field labeled "Amount of time user will be locked out after having failed login attempts exceeding the limit set above."
+    And I clear text in the field identified by "input[name=logout_fail_limit]"
+    When I enter "1" into the field identified by "input[name=logout_fail_limit]"
+    And I clear text in the field identified by "input[name=logout_fail_window]"
+    When I enter "1" into the field identified by "input[name=logout_fail_window]"
+    # The below 4 steps are commented as the element gets covered. Added steps above for this.
+    # When I clear the field labeled "Number of failed login attempts before user is locked out for a specified amount of time, which is set below."
+    # And I enter "1" into the input field labeled "Number of failed login attempts before user is locked out for a specified amount of time, which is set below."
+    # And I clear the field labeled "Amount of time user will be locked out after having failed login attempts exceeding the limit set above."
+    # And I enter "1" into the input field labeled "Amount of time user will be locked out after having failed login attempts exceeding the limit set above."
     And I click on the button labeled "Save Changes"
     Then I should see "Your system configuration values have now been changed!"
     And I logout
