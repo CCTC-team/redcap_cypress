@@ -392,7 +392,8 @@ Feature: Assign User Rights
 
   Scenario: 31 - Attempt to assign test_user (self) to role without User Rights privileges
     Given I click on the link labeled "test_user"
-    And I click on the button labeled "Assign to role" on the tooltip
+    And I click on the button labeled "Assign to role" on the tooltip 
+    And I wait for 2 seconds
     And I select "Data Entry" from the dropdown identified by "select[id=user_role]"
     Then I should see the dropdown identified by "select[id=user_role]" with the option "Data Entry" selected
     And I click on the button labeled exactly "Assign" on the role selector dropdown
