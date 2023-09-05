@@ -77,9 +77,23 @@ Given("I select {string} from the dropdown identified by {string} labeled {strin
  * @param {string} label - the label of the dropdown to choose an option from
  * @description Selects a dropdown by its label and the option via a specific string.
  */
-Given('I select {string} from the dropdown identified by {string}', (value,label) => {
-    cy.get(label).select(value, { force: true })
+Given('I select {string} from the dropdown identified by {string}', (value, label) => {
+    cy.get(label).select(value)
 })
+
+
+/**
+ * @module DevelopmentOnly
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I force select {string} from the dropdown identified by {string}
+ * @param {string} value - the option to select from the dropdown
+ * @param {string} label - the label of the dropdown to choose an option from
+ * @description Selects a dropdown by its label and the option via a specific string.
+ */
+Given('I force select {string} from the dropdown identified by {string}', (value, label) => {
+    cy.get(label).select(value, {force: true})
+})
+
 
 /**
  * @module DevelopmentOnly
