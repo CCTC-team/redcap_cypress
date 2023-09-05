@@ -71,17 +71,6 @@ Given('I should see the value {string} in the field name {string} for Record ID 
 /**
  * @module Compare
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I scroll the page to the field identified by {string}
- * @param {string} selector the selector of the field to select
- * @description Scroll the page to the field
- */
-Given('I scroll the page to the field identified by {string}', (selector) => {
-  cy.get(selector).scrollIntoView()
-})
-
-/**
- * @module Compare
- * @author Mintoo Xavier <min2xavier@gmail.com>
  * @example I click on the radio option labeled {string} in the data comparison tool to merge records
  * @param {string} text the label of the radio button
  * @description Click on the radio option in the data comparison tool to merge the records
