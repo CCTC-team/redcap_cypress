@@ -408,6 +408,9 @@ Feature: Assign User Rights
     And I click on the link labeled "test_user"
     And I click on the button labeled "Assign to role" on the tooltip
     And I select "Data Entry" from the dropdown identified by "select[id=user_role]"
+    And I wait for 2 seconds
+    # Have to do the below step twice. Not sure why
+    And I select "Data Entry" from the dropdown identified by "select[id=user_role]"
     Then I should see the dropdown identified by "select[id=user_role]" with the option "Data Entry" selected
     And I click on the button labeled exactly "Assign" on the role selector dropdown
     # Then I should see 'User "test_user" has been successfully ASSIGNED to the user role "Data Entry".'

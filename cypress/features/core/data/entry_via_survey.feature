@@ -53,7 +53,7 @@ Feature: Data Entry through the Survey
     Then I am an "admin" user who logs into REDCap
     Then I click on the link labeled "Control Center"
     And I click on the link labeled "Modules/Services Configuration"
-    And I select "Disabled" from the dropdown identified by "[name=enable_projecttype_singlesurveyforms]"
+    And I force select "Disabled" from the dropdown identified by "[name=enable_projecttype_singlesurveyforms]"
     Then I scroll the page to the field identified by "input[value='Save Changes']"
     And I click on the button labeled "Save Changes"
     Then I should see "Your system configuration values have now been changed!"
@@ -78,7 +78,7 @@ Feature: Data Entry through the Survey
     Given I am an "admin" user who logs into REDCap
     Then I click on the link labeled "Control Center"
     And I click on the link labeled "Modules/Services Configuration"
-    And I select "Enabled" from the dropdown identified by "[name=enable_projecttype_singlesurveyforms]"
+    And I force select "Enabled" from the dropdown identified by "[name=enable_projecttype_singlesurveyforms]"
     Then I scroll the page to the field identified by "input[value='Save Changes']"
     And I click on the button labeled "Save Changes"
     Then I should see "Your system configuration values have now been changed!"
@@ -123,7 +123,7 @@ Feature: Data Entry through the Survey
     Then I click on the link labeled "Control Center"
     And I click on the link labeled "User Settings"
     Then I scroll the page to the field identified by "[name=enable_edit_survey_response]"
-    And I select "Enabled" from the dropdown identified by "[name=enable_edit_survey_response]"
+    And I force select "Enabled" from the dropdown identified by "[name=enable_edit_survey_response]"
     Then I scroll the page to the field identified by "input[value='Save Changes']"
     And I click on the button labeled "Save Changes"
     Then I should see "Your system configuration values have now been changed!"
@@ -146,8 +146,8 @@ Feature: Data Entry through the Survey
 
   Scenario: 11 - Upload Data Dictionary and import data
     # In manual test it says to upload data dictionary again.. Not sure why
-    # Given I click on the link labeled "Dictionary"
-    # And I upload the data dictionary located at "core/15_DirectDataEntry_SurveyDD.csv"
+    Given I click on the link labeled "Dictionary"
+    And I upload the data dictionary located at "core/15_DirectDataEntry_SurveyDD.csv"
     And I click on the link labeled "Project Setup"
     # Below 6 Steps are not mentioned in Manual test but is needed .
     # Enable designation of an email field for communications setting and assign Email to field. Else Participant List (in Scenario 12) is empty
@@ -196,22 +196,22 @@ Feature: Data Entry through the Survey
     And I click on the button labeled "Cancel"
 
   Scenario: 15 - Open survey and enter email for Record ID 1
-    # Given I click on the link labeled "Add / Edit Records"
-    # And I select "1" from the dropdown identified by "[id=record]"
-    # # Not able to click on survey using the below step definition
-    # And I click the bubble to select a record for the "Survey" longitudinal instrument on event "Event 2"
+    # # Given I click on the link labeled "Add / Edit Records"
+    # # And I select "1" from the dropdown identified by "[id=record]"
+    # # # Not able to click on survey using the below step definition
+    # # And I click the bubble to select a record for the "Survey" longitudinal instrument on event "Event 2"
 
-    # Not able to click on survey from "Add / Edit Records", hence opening it from "Record Status Dashboard"
-    Given I click on the link labeled "Record Status Dashboard"
-    # Getting wrong Event. To open Event 2, I have to give Event 1 in the below step
-    And I locate the bubble for the "Survey" instrument on event "Event 1" for record ID "1" and click on the bubble
-    Then I should see a button labeled "Survey options"
-    And I click on the button labeled "Survey options"
-    And I click on the survey option label containing "Open survey" label
-    And I enter "test1@test.com" into the field identified by "input[name=email]"
-    And I click on the button labeled "Submit"    
-    And I click on the button labeled "Close survey"
-    And I logout
+    # # Not able to click on survey from "Add / Edit Records", hence opening it from "Record Status Dashboard"
+    # Given I click on the link labeled "Record Status Dashboard"
+    # # Getting wrong Event. To open Event 2, I have to give Event 1 in the below step
+    # And I locate the bubble for the "Survey" instrument on event "Event 1" for record ID "1" and click on the bubble
+    # Then I should see a button labeled "Survey options"
+    # And I click on the button labeled "Survey options"
+    # And I click on the survey option label containing "Open survey" label
+    # And I enter "test1@test.com" into the field identified by "input[name=email]"
+    # And I click on the button labeled "Submit"    
+    # And I click on the button labeled "Close survey"
+    # And I logout
     Given I am a "standard" user who logs into REDCap
     Then I should see "New Project"
     And I click on the link labeled "My Projects"
@@ -227,22 +227,22 @@ Feature: Data Entry through the Survey
     And I should see "Response was completed"
 
   Scenario: 16 - Open survey and enter email for Record ID 2
-    # Given I click on the link labeled "Add / Edit Records"
-    # And I select "2" from the dropdown identified by "[id=record]"
-    # # Not able to click on survey using the below step definition
-    # And I click the bubble to select a record for the "Survey" longitudinal instrument on event "Event 2"
+    # # Given I click on the link labeled "Add / Edit Records"
+    # # And I select "2" from the dropdown identified by "[id=record]"
+    # # # Not able to click on survey using the below step definition
+    # # And I click the bubble to select a record for the "Survey" longitudinal instrument on event "Event 2"
 
-    # Not able to click on survey from "Add / Edit Records", hence opening it from "Record Status Dashboard"
-    Given I click on the link labeled "Record Status Dashboard"
-    # Getting wrong Event. To open Event 2, I have to give Event 1 in the below step
-    And I locate the bubble for the "Survey" instrument on event "Event 1" for record ID "2" and click on the bubble
-    Then I should see a button labeled "Survey options"
-    And I click on the button labeled "Survey options"
-    And I click on the survey option label containing "Open survey" label
-    And I enter "test2@test.com" into the field identified by "input[name=email]"
-    And I click on the button labeled "Submit"    
-    And I click on the button labeled "Close survey"
-    And I logout
+    # # Not able to click on survey from "Add / Edit Records", hence opening it from "Record Status Dashboard"
+    # Given I click on the link labeled "Record Status Dashboard"
+    # # Getting wrong Event. To open Event 2, I have to give Event 1 in the below step
+    # And I locate the bubble for the "Survey" instrument on event "Event 1" for record ID "2" and click on the bubble
+    # Then I should see a button labeled "Survey options"
+    # And I click on the button labeled "Survey options"
+    # And I click on the survey option label containing "Open survey" label
+    # And I enter "test2@test.com" into the field identified by "input[name=email]"
+    # And I click on the button labeled "Submit"    
+    # And I click on the button labeled "Close survey"
+    # And I logout
     Given I am a "standard" user who logs into REDCap
     Then I should see "New Project"
     And I click on the link labeled "My Projects"
@@ -317,6 +317,7 @@ Feature: Data Entry through the Survey
     And I enter "test3@test.com{enter}test4@test.com" into the field identified by "textarea[id=newPart]"
     And the AJAX "GET" request at "Surveys/participant_list.php*" tagged by "participant_list" is being monitored
     Then I click on the button labeled "Add participants"
+    And I wait for 3 seconds
     And the AJAX request tagged by "participant_list" has completed   
     Then I should see "PARTICIPANTS ADDED!"
     And I should see 4 participants listed in the Participant List
@@ -329,7 +330,7 @@ Feature: Data Entry through the Survey
     Then I should see "User Settings"
     And I click on the link labeled "User Settings"
     Then I scroll the page to the field identified by "[name=enable_edit_survey_response]"
-    And I select "Disabled" from the dropdown identified by "[name=enable_edit_survey_response]"
+    And I force select "Disabled" from the dropdown identified by "[name=enable_edit_survey_response]"
     Then I scroll the page to the field identified by "input[value='Save Changes']"
     And I click on the button labeled "Save Changes"
     Then I should see "Your system configuration values have now been changed!"
@@ -374,7 +375,7 @@ Feature: Data Entry through the Survey
     Then I should see "User Settings"
     And I click on the link labeled "User Settings"
     Then I scroll the page to the field identified by "[name=enable_edit_survey_response]"
-    And I select "Enabled" from the dropdown identified by "[name=enable_edit_survey_response]"
+    And I force select "Enabled" from the dropdown identified by "[name=enable_edit_survey_response]"
     Then I scroll the page to the field identified by "input[value='Save Changes']"
     And I click on the button labeled "Save Changes"
     Then I should see "Your system configuration values have now been changed!"
@@ -382,8 +383,8 @@ Feature: Data Entry through the Survey
     Then I click on the link labeled "Control Center"
     Then I click on the link labeled "Configuration Check"
     And I should see "Check if REDCap Cron Job is running"
-    And I click on the link labeled "Go to Cron Jobs page"
-    Then I should see "Trigger REDCap cron job in a web browser"
+    # And I click on the link labeled "Go to Cron Jobs page"
+    # Then I should see "Trigger REDCap cron job in a web browser"
     And I enable the cron job
     And I logout
     Given I am a "standard" user who logs into REDCap

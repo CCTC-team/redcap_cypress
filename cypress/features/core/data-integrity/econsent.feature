@@ -77,7 +77,8 @@ Feature: e-Consent
     Then I click on the button labeled "Next Page" on the survey
     And I should see "I certify that all of my information in the document above is correct. I understand that clicking 'Submit' will electronically sign the form and that signing this form electronically is the equivalent of signing a physical document."
 
-  Scenario: 10 - Check Data
+    # # Done in Scenario: 16# Done in Scenario: 16
+  # Scenario: 10 - Check Data 
     # Then I should see "F Name"
     # And I should see "L Name"
 

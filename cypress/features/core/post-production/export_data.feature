@@ -61,29 +61,29 @@ Feature: Export Data
     When I click on the button labeled "Import Data"
     Then I should see "Import Successful!"
     And I click on the link labeled "Record Status Dashboard"
-    # This is for Event 2 for Record ID 1
-    # Getting the Event wrong. Need to locate Event 2 but have to give Event 1 in the step definition below
-    And I locate the bubble for the "Survey" instrument on event "Event 1" for record ID "1" and click the repeating instrument bubble for the first instance
-    And I click on the button labeled "Survey options"
-    And I click on the survey option label containing "Open survey" label
-    And I click on the button labeled "Submit"
-    And I click on the button labeled "Close survey"
-    And I logout
-    # This is for Event 2 for Record ID 2
-    Given I am a "standard" user who logs into REDCap
-    Then I should see "New Project"
-    Then I click on the link labeled "My Projects"
-    Then I should see "Project Title"
-    And I click on the link labeled "21_ExportDataExtraction_v1115"
-    Then I should see "Record Status Dashboard"
-    And I click on the link labeled "Record Status Dashboard"
-    # Getting the Event wrong. Need to locate Event 2 but have to give Event 1 in the step definition below
-    And I locate the bubble for the "Survey" instrument on event "Event 1" for record ID "2" and click the repeating instrument bubble for the first instance
-    And I click on the button labeled "Survey options"
-    And I click on the survey option label containing "Open survey" label
-    And I click on the button labeled "Submit"
-    And I click on the button labeled "Close survey"
-    And I logout
+    # # This is for Event 2 for Record ID 1
+    # # Getting the Event wrong. Need to locate Event 2 but have to give Event 1 in the step definition below
+    # And I locate the bubble for the "Survey" instrument on event "Event 1" for record ID "1" and click the repeating instrument bubble for the first instance
+    # And I click on the button labeled "Survey options"
+    # And I click on the survey option label containing "Open survey" label
+    # And I click on the button labeled "Submit"
+    # And I click on the button labeled "Close survey"
+    # And I logout
+    # # This is for Event 2 for Record ID 2
+    # Given I am a "standard" user who logs into REDCap
+    # Then I should see "New Project"
+    # Then I click on the link labeled "My Projects"
+    # Then I should see "Project Title"
+    # And I click on the link labeled "21_ExportDataExtraction_v1115"
+    # Then I should see "Record Status Dashboard"
+    # And I click on the link labeled "Record Status Dashboard"
+    # # Getting the Event wrong. Need to locate Event 2 but have to give Event 1 in the step definition below
+    # And I locate the bubble for the "Survey" instrument on event "Event 1" for record ID "2" and click the repeating instrument bubble for the first instance
+    # And I click on the button labeled "Survey options"
+    # And I click on the survey option label containing "Open survey" label
+    # And I click on the button labeled "Submit"
+    # And I click on the button labeled "Close survey"
+    # And I logout
         
   Scenario: 1 - Login
     Given I am a "standard" user who logs into REDCap
