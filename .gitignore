@@ -7,8 +7,6 @@ test_db/structure_and_data.sql
 /www
 /redcap_docker
 
-cypress.json
-cypress.env.json
 .DS_STORE
 
 *.tmp
