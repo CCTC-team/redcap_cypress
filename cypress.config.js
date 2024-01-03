@@ -9,7 +9,7 @@ module.exports = defineConfig({
   requestTimeout: 10000,
   chromeWebSecurity: false,
   retries: 0,
-  numTestsKeptInMemory: 0,
+  numTestsKeptInMemory: 20,
   scrollBehavior: 'bottom',
   nonGlobalStepDefinitions: false,
   step_definitions: 'cypress/support/step_definitions/',
