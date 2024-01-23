@@ -71,14 +71,13 @@ Given('I should see {string} {column_type}(s) in the DAG named {string}', (text,
                                 found = 1
                                 cy.wrap(found).as('found')
                             })
-                        }
-                            
+                            cy.get('@found').then(found => {
+                                expect(found).to.equal(1)
+                            }) 
+                        }      
                     })
                 }     
             })
         })
-    })
-    cy.get('@found').then(found => {
-        expect(found).to.equal(1)
-    })  
+    }) 
 }) 
