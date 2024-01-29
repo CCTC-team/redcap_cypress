@@ -43,10 +43,6 @@ Given('I should see {string} in the column named {string}', (text, column) => {
  * @param {string} dag DAG name
  * @description visually verify the text is present in column and is associated to the DAG
  */
-defineParameterType({
-    name: 'column_type',
-    regexp: /(user|record)/
-})
 Given('I should see {string} {column_type}(s) in the DAG named {string}', (text, column, dag) => {
     let found = 0
     cy.wrap(found).as('found')

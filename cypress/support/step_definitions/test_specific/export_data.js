@@ -220,11 +220,6 @@ Given("I should have a {string} file that contains {int} repeating instance(s) o
  * @param {string} label the string which is either Events or Instruments
  * @description Selects the given option from Events or Instruments in Custom Selection of Export Data
  */
-defineParameterType({
-    name: 'fieldLabel',
-    regexp: /(Events|Instruments)/
-})
-
 Given("I select the option {string} from the list of {fieldLabel} in the custom selection option", (option, label) => {
     let selectId = ""
     if(label == "Events")

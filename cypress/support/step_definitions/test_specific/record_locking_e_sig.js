@@ -20,10 +20,6 @@ Given('I cannot edit the field identified by {string}', (selector) => {
  * @param {string} id Record ID
  * @description Visually verify the instrument has the icon
  */
-defineParameterType({
-    name: 'icon',
-    regexp: /(lock_small|lock_big|tick_shield)/
-})
 
 Given('I should see {icon} icon for the instrument labeled {string} for record ID {string}', (icon, text, id) => {
     cy.get('table[id="esignLockList"]').children('tbody').within(() => {
@@ -112,13 +108,13 @@ Given("I should see the instrument labeled {string} with icon {string}", (text, 
 /**
  * @module record_locking_e_sig
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I click on the {string} icon for the instrument labeled {string}
+ * @example I click on the {icon} icon for the instrument labeled {string}
  * @param {string} text - Instrument name
  * @param {string} icon - icon to click
  * @description Click on the icon for the instrument
  *
  */
-Given("I click on the {string} icon for the instrument labeled {string}", (icon, text) => {
+Given("I click on the {icon} icon for the instrument labeled {string}", (icon, text) => {
     cy.get('table[id="part11_forms"]').children('tbody').find('td').contains(text).parent().within(() =>
         cy.get('img[src*=' + icon + ']').click()
     )
@@ -180,10 +176,7 @@ Given('I should not see {icon} icon for the instrument labeled {string} for reco
  * @example I should see today's date in the column labeled {label}
  * @description Visually verify today's date in the column labeled Locked/E-signed
  */
-defineParameterType({
-    name: 'label',
-    regexp: /(Locked|E-signed)/
-})
+
 Given("I should see today's date in the column labeled {label}", (label) => {
     let today = new Date()
     var dd = String(today.getDate()).padStart(2, '0')
@@ -221,7 +214,7 @@ Given("I should not see today's date in the column labeled {label}", (label) => 
 /**
  * @module my_projects
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I should see {int} row(s)
+ * @example I should see {int} row(s) containing {icon} icon
  * @param {int} count - the number of rows seen
  * @description Visibility - Verifies the correct number of rows are present
  */
@@ -242,10 +235,7 @@ Given('I should see {int} row(s) containing {icon} icon', (count, icon) => {
  * @param {lock_status} count - lock status of record
  * @description Visibility - Verifies the number of rows with the status
  */
-defineParameterType({
-    name: 'lock_status',
-    regexp: /(locked|e-signed|unlocked|not e-signed|locked and e-signed|locked and not e-signed|unlocked and not e-signed|in total)/
-})
+
 Given('I should see {int} row(s) {lock_status}', (count, text) => {
     let class_name = ''
     if(text == "locked")
@@ -275,9 +265,9 @@ Given('I should see {int} row(s) {lock_status}', (count, text) => {
 /**
  * @module my_projects
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I should see {int} row(s) {lock_status}
+ * @example I should see no rows {lock_status}
  * @param {lock_status} count - lock status of record
- * @description Visibility - Verifies the number of rows with the status
+ * @description Visibility - Verifies there are no rows with the status
  */
 Given('I should see no rows {lock_status}', (text) => {
     let class_name = ''

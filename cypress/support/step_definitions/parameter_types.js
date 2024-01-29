@@ -190,3 +190,45 @@ defineParameterType({
     name: 'baseElement',
     regexp: /| on the tooltip| on the dialog box| on the role selector dropdown| on the popup/
 })
+
+//record_locking_e_sig & file_repository
+defineParameterType({
+    name: 'icon',
+    regexp: /(lock_small|lock_big|tick_shield|circle_green_tick|pencil|cross)/
+})
+
+//record_locking_e_sig
+defineParameterType({
+    name: 'label',
+    regexp: /(Locked|E-signed)/
+})
+
+//record_locking_e_sig
+defineParameterType({
+    name: 'lock_status',
+    regexp: /(locked|e-signed|unlocked|not e-signed|locked and e-signed|locked and not e-signed|unlocked and not e-signed|in total)/
+})
+
+//file_repository
+defineParameterType({
+    name: 'optionlabel',
+    regexp: /(Restore deleted file|Permanently delete file)/
+})
+
+//data_access_groups
+defineParameterType({
+    name: 'column_type',
+    regexp: /(user|record)/
+})
+
+//entry_via_survey
+defineParameterType({
+    name: 'imagetype',
+    regexp: /(bubble|icon)/
+})
+
+//export_data
+defineParameterType({
+    name: 'fieldLabel',
+    regexp: /(Events|Instruments)/
+})

@@ -74,11 +74,6 @@ Given('I click on the button labeled {string} for the instrument named {string}'
  * @param recID - Record ID
  * @description Visibility - Verifies the status of the survey for a given record ID
  */
-defineParameterType({
-    name: 'imagetype',
-    regexp: /(bubble|icon)/
-})
-
 Given('I should see a {string} {imagetype} for record ID {string}', (color, type, recID) => {
     cy.get('table[id="table-participant_table"]').find('a').contains(recID).parents('tr').within(() =>
         cy.get('img[src*=' + color + ']')
