@@ -185,7 +185,7 @@ Feature: Record Locking and E-Signatures
 
   Scenario: 17 - Edit the custom text
     Given I click on the link labeled "Customize & Manage Locking/E-signatures"
-    And I click on the "pencil" icon for the instrument labeled "Text Validation"
+    And I click on the pencil icon for the instrument labeled "Text Validation"
     And I clear the field identified by "textarea[id=label-text_validation]"
     Then I enter "My dated signature confirms that I have personally reviewed and approved the data entered on this Case Report Form." into the field identified by "textarea[id=label-text_validation]"
     And I save the option for the instrument labeled "Text Validation"
@@ -231,7 +231,7 @@ Feature: Record Locking and E-Signatures
 
   Scenario: 21 - Delete the custom text
     Given I click on the link labeled "Customize & Manage Locking/E-signatures"
-    And I click on the "cross" icon for the instrument labeled "Text Validation"
+    And I click on the cross icon for the instrument labeled "Text Validation"
     Then I should see "DELETE CUSTOM LOCKING TEXT?"
 
   Scenario: 22 - Verify the custom text is deleted
