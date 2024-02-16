@@ -76,13 +76,21 @@ Feature: Field Validation
     When I click on the link labeled "Control Center"
     And I click on the link labeled "Field Validation Types"
     And I enable the Field Validation Type named "Date (M-D-Y)" within the Control Center
+    # And I enable the Field Validation Type named "Date (D-M-Y)" within the Control Center ## Already enabled
+    # And I enable the Field Validation Type named "Date (Y-M-D)" within the Control Center ## Already enabled
     And I enable the Field Validation Type named "Datetime (D-M-Y H:M)" within the Control Center
+    # And I enable the Field Validation Type named "Datetime (M-D-Y H:M)" within the Control Center ## Already enabled
+    # And I enable the Field Validation Type named "Datetime (Y-M-D H:M)" within the Control Center ## Already enabled
     And I enable the Field Validation Type named "Datetime w/ seconds (Y-M-D H:M:S)" within the Control Center
+    # And I enable the Field Validation Type named "Datetime w/ seconds (D-M-Y H:M:S)" within the Control Center ## Already enabled
+    # And I enable the Field Validation Type named "Datetime w/ seconds (M-D-Y H:M:S)" within the Control Center ## Already enabled
     And I enable the Field Validation Type named "Email" within the Control Center
     And I enable the Field Validation Type named "Integer" within the Control Center
+    And I enable the Field Validation Type named "Letters only" within the Control Center
     And I enable the Field Validation Type named "Number" within the Control Center
     And I enable the Field Validation Type named "Number (1 decimal place - comma as decimal)" within the Control Center
     And I enable the Field Validation Type named "Time (HH:MM)" within the Control Center
+    And I enable the Field Validation Type named "Time (HH:MM:SS)" within the Control Center
 
   Scenario: 7 - Open Text Validation Instrument
     Given I click on the link labeled "My Projects"
@@ -93,7 +101,7 @@ Feature: Field Validation
     Given I click on the Add Field input button below the field named "Record ID"
     And I select "Text Box (Short Text, Number, Date/Time, ...)" from the Field Type dropdown of the open "Edit Field" dialog box
     Then I should see the dropdown identified by "select[id=val_type]" with the options below
-      | Date (D-M-Y) | Datetime (M-D-Y H:M) | Datetime w/ seconds (Y-M-D H:M:S) | Email | Integer | Number | Number (1 decimal place - comma as decimal) | Time (HH:MM) |
+      | Date (D-M-Y) | Date (M-D-Y) | Date (Y-M-D) | Datetime (D-M-Y H:M) | Datetime (M-D-Y H:M) | Datetime (Y-M-D H:M) | Datetime w/ seconds (D-M-Y H:M:S) | Datetime w/ seconds (M-D-Y H:M:S) | Datetime w/ seconds (Y-M-D H:M:S) | Email | Integer | Letters only | Number | Number (1 decimal place - comma as decimal) | Time (HH:MM:SS) | Time (HH:MM) |
     When I click on the button labeled "Cancel"
 
   Scenario: 8 - Add A New Record
@@ -200,5 +208,169 @@ Feature: Field Validation
     And I click on the button labeled "Close" in the dialog box
     And I select the submit option labeled "Save & Stay" on the Data Collection Instrument
 
+  Scenario: 9b - Date (M-D-Y) Field
+    Given I click on the link labeled "Designer"
+    And I click on the link labeled "Text Validation"
+    And I click on the Edit image for the field named "Date (D-M-Y)"
+    And I select "Date (M-D-Y)" from the dropdown identified by "select[id=val_type]"
+    And I clear the field identified by "textarea[name=field_label]"
+    And I enter "Date (M-D-Y)" into the field identified by "textarea[name=field_label]"
+    Then I click on the button labeled "Save"
+    And I wait for 2 seconds
+    Then I should see "Date (M-D-Y)"
+
+    When I click on the link labeled "Record Status Dashboard"
+    Then I click on the link labeled "1"    
+    And I click the bubble to select a record for the "Text Validation" longitudinal instrument on event "Status"
+    When I enter "31-01-2022" into the data entry form field labeled "Date (M-D-Y)"
+    And I should see a dialog containing the following text: "The value you provided could not be validated because it does not follow the expected format. Please try again."
+    And I click on the button labeled "Close" in the dialog box
+    Given I clear field and enter "01-31-2022" into the data entry form field labeled "Date (M-D-Y)"
+    And I select the submit option labeled "Save & Stay" on the Data Collection Instrument
+
+  Scenario: 9c - Date (Y-M-D) Field
+    Given I click on the link labeled "Designer"
+    And I click on the link labeled "Text Validation"
+    And I click on the Edit image for the field named "Date (M-D-Y)"
+    And I select "Date (Y-M-D)" from the dropdown identified by "select[id=val_type]"
+    And I clear the field identified by "textarea[name=field_label]"
+    And I enter "Date (Y-M-D)" into the field identified by "textarea[name=field_label]"
+    Then I click on the button labeled "Save"
+    And I wait for 2 seconds
+    Then I should see "Date (Y-M-D)"
+
+    When I click on the link labeled "Record Status Dashboard"
+    Then I click on the link labeled "1"    
+    And I click the bubble to select a record for the "Text Validation" longitudinal instrument on event "Status"
+    When I enter "31-01-2022" into the data entry form field labeled "Date (Y-M-D)"
+    And I should see a dialog containing the following text: "The value you provided could not be validated because it does not follow the expected format. Please try again."
+    And I click on the button labeled "Close" in the dialog box
+    Given I clear field and enter "2022-01-31" into the data entry form field labeled "Date (Y-M-D)"
+    And I select the submit option labeled "Save & Stay" on the Data Collection Instrument
 
 
+  Scenario: 10b - DateTime (D-M-Y H:M) Field
+    Given I click on the link labeled "Designer"
+    And I click on the link labeled "Text Validation"
+    And I click on the Edit image for the field named "DateTime (M-D-Y H:M)"
+    And I wait for 2 seconds
+    And I select "Datetime (D-M-Y H:M)" from the dropdown identified by "select[id=val_type]"
+    And I clear the field identified by "textarea[name=field_label]"
+    And I enter "DateTime (D-M-Y H:M)" into the field identified by "textarea[name=field_label]"
+    Then I click on the button labeled "Save"
+    And I wait for 2 seconds
+    Then I should see "DateTime (D-M-Y H:M)"
+
+    When I click on the link labeled "Record Status Dashboard"
+    Then I click on the link labeled "1"   
+    And I click the bubble to select a record for the "Text Validation" longitudinal instrument on event "Status"
+    When I enter "01-31-2022" into the data entry form field labeled "DateTime (D-M-Y H:M)"
+    And I should see a dialog containing the following text: "The value you provided could not be validated because it does not follow the expected format. Please try again."
+    And I click on the button labeled "Close" in the dialog box
+    Given I clear field and enter "31-01-2022 10:00" into the data entry form field labeled "DateTime (D-M-Y H:M)"
+    And I select the submit option labeled "Save & Stay" on the Data Collection Instrument
+
+  Scenario: 10C - DateTime (Y-M-D H:M) Field
+    Given I click on the link labeled "Designer"
+    And I click on the link labeled "Text Validation"
+    And I click on the Edit image for the field named "DateTime (D-M-Y H:M)"
+    And I wait for 2 seconds
+    And I select "Datetime (Y-M-D H:M)" from the dropdown identified by "select[id=val_type]"
+    And I clear the field identified by "textarea[name=field_label]"
+    And I enter "DateTime (Y-M-D H:M)" into the field identified by "textarea[name=field_label]"
+    Then I click on the button labeled "Save"
+    And I wait for 2 seconds
+    Then I should see "DateTime (Y-M-D H:M)"
+
+    When I click on the link labeled "Record Status Dashboard"
+    Then I click on the link labeled "1"   
+    And I click the bubble to select a record for the "Text Validation" longitudinal instrument on event "Status"
+    When I enter "01-31-2022" into the data entry form field labeled "DateTime (Y-M-D H:M)"
+    And I should see a dialog containing the following text: "The value you provided could not be validated because it does not follow the expected format. Please try again."
+    And I click on the button labeled "Close" in the dialog box
+    Given I clear field and enter "2022-01-31 10:00" into the data entry form field labeled "DateTime (Y-M-D H:M)"
+    And I select the submit option labeled "Save & Stay" on the Data Collection Instrument
+
+  Scenario: 11b - DateTime with Seconds (D-M-Y H:M:S) Field
+    Given I click on the link labeled "Designer"
+    And I click on the link labeled "Text Validation"
+    And I click on the Edit image for the field named "DateTime with Seconds (Y-M-D H:M:S)"
+    And I wait for 2 seconds
+    And I select "Datetime w/ seconds (D-M-Y H:M:S)" from the dropdown identified by "select[id=val_type]"
+    And I clear the field identified by "textarea[name=field_label]"
+    And I enter "DateTime with Seconds (D-M-Y H:M:S)" into the field identified by "textarea[name=field_label]"
+    Then I click on the button labeled "Save"
+    And I wait for 2 seconds
+    Then I should see "DateTime with Seconds (D-M-Y H:M:S)"
+
+    When I click on the link labeled "Record Status Dashboard"
+    Then I click on the link labeled "1"   
+    And I click the bubble to select a record for the "Text Validation" longitudinal instrument on event "Status"
+    When I enter "01-31-2022 10:00" into the data entry form field labeled "DateTime with Seconds (D-M-Y H:M:S)"
+    And I should see a dialog containing the following text: "The value you provided could not be validated because it does not follow the expected format. Please try again."
+    And I click on the button labeled "Close" in the dialog box
+    Given I clear field and enter "31-01-2022 10:00:04" into the data entry form field labeled "DateTime with Seconds (D-M-Y H:M:S)"
+    And I select the submit option labeled "Save & Stay" on the Data Collection Instrument
+
+  Scenario: 11c - DateTime with Seconds (M-D-Y H:M:S) Field
+    Given I click on the link labeled "Designer"
+    And I click on the link labeled "Text Validation"
+    And I click on the Edit image for the field named "DateTime with Seconds (D-M-Y H:M:S)"
+    And I wait for 2 seconds
+    And I select "Datetime w/ seconds (M-D-Y H:M:S)" from the dropdown identified by "select[id=val_type]"
+    And I clear the field identified by "textarea[name=field_label]"
+    And I enter "DateTime with Seconds (M-D-Y H:M:S)" into the field identified by "textarea[name=field_label]"
+    Then I click on the button labeled "Save"
+    And I wait for 2 seconds
+    Then I should see "DateTime with Seconds (M-D-Y H:M:S)"
+
+    When I click on the link labeled "Record Status Dashboard"
+    Then I click on the link labeled "1"   
+    And I click the bubble to select a record for the "Text Validation" longitudinal instrument on event "Status"
+    When I enter "01-31-2022 10:00" into the data entry form field labeled "DateTime with Seconds (M-D-Y H:M:S)"
+    And I should see a dialog containing the following text: "The value you provided could not be validated because it does not follow the expected format. Please try again."
+    And I click on the button labeled "Close" in the dialog box
+    Given I clear field and enter "01-31-2022 10:00:04" into the data entry form field labeled "DateTime with Seconds (M-D-Y H:M:S)"
+    And I select the submit option labeled "Save & Stay" on the Data Collection Instrument
+
+  Scenario: 24 - Letters only Field
+    Given I click on the link labeled "Designer"
+    And I click on the link labeled "Text Validation"
+    And I click on the Edit image for the field named "Numbers"
+    And I wait for 2 seconds
+    And I select "Letters only" from the dropdown identified by "select[id=val_type]"
+    And I clear the field identified by "textarea[name=field_label]"
+    And I enter "Letters only" into the field identified by "textarea[name=field_label]"
+    Then I click on the button labeled "Save"
+    And I wait for 2 seconds
+    Then I should see "Letters only"
+
+    When I click on the link labeled "Record Status Dashboard"
+    Then I click on the link labeled "1"   
+    And I click the bubble to select a record for the "Text Validation" longitudinal instrument on event "Status"
+    When I enter "123" into the data entry form field labeled "Letters only"
+    And I should see a dialog containing the following text: "The value you provided could not be validated because it does not follow the expected format. Please try again."
+    And I click on the button labeled "Close" in the dialog box
+    Given I clear field and enter "abcd" into the data entry form field labeled "Letters only"
+    And I select the submit option labeled "Save & Stay" on the Data Collection Instrument
+
+  Scenario: 25 - Time (HH:MM:SS) Field
+    Given I click on the link labeled "Designer"
+    And I click on the link labeled "Text Validation"
+    And I click on the Edit image for the field named "Time (HH:MM)"
+    And I wait for 2 seconds
+    And I select "Time (HH:MM:SS)" from the dropdown identified by "select[id=val_type]"
+    And I clear the field identified by "textarea[name=field_label]"
+    And I enter "Time (HH:MM:SS)" into the field identified by "textarea[name=field_label]"
+    Then I click on the button labeled "Save"
+    And I wait for 2 seconds
+    Then I should see "Time (HH:MM:SS)"
+
+    When I click on the link labeled "Record Status Dashboard"
+    Then I click on the link labeled "1"   
+    And I click the bubble to select a record for the "Text Validation" longitudinal instrument on event "Status"
+    When I enter "17:00" into the data entry form field labeled "Time (HH:MM:SS)"
+    And I should see a dialog containing the following text: "The value you provided could not be validated because it does not follow the expected format. Please try again."
+    And I click on the button labeled "Close" in the dialog box
+    Given I clear field and enter "17:00:00" into the data entry form field labeled "Time (HH:MM:SS)"
+    And I select the submit option labeled "Save & Stay" on the Data Collection Instrument
