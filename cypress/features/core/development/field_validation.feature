@@ -348,6 +348,7 @@ Feature: Field Validation
     When I click on the link labeled "Record Status Dashboard"
     Then I click on the link labeled "1"   
     And I click the bubble to select a record for the "Text Validation" longitudinal instrument on event "Status"
+    And I wait for 2 seconds
     When I enter "123" into the data entry form field labeled "Letters only"
     And I should see a dialog containing the following text: "The value you provided could not be validated because it does not follow the expected format. Please try again."
     And I click on the button labeled "Close" in the dialog box
@@ -369,6 +370,7 @@ Feature: Field Validation
     When I click on the link labeled "Record Status Dashboard"
     Then I click on the link labeled "1"   
     And I click the bubble to select a record for the "Text Validation" longitudinal instrument on event "Status"
+    And I wait for 2 seconds
     When I enter "17:00" into the data entry form field labeled "Time (HH:MM:SS)"
     And I should see a dialog containing the following text: "The value you provided could not be validated because it does not follow the expected format. Please try again."
     And I click on the button labeled "Close" in the dialog box
