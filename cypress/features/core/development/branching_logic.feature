@@ -25,7 +25,7 @@ Feature: Branching Logic
   And I should see "The data collection instrument and all its fields have been successfully deleted!"
   Then I logout
 
-  Scenario: 1
+  Scenario: 1 - Set initial branching logic
   Given I am a "standard" user who logs into REDCap
   And I click on the link labeled "My Projects"
   And I click on the link labeled "BranchingLogic_v1115"
@@ -35,7 +35,7 @@ Feature: Branching Logic
   And I set the branching logic of every field to "[record_id] = '999'" excluding the fields with variable names "record_id|calculated_field"
   Then Every field contains the branching logic "[record_id] = '999'" excluding the fields with variable names "record_id|calculated_field"
 
-  Scenario: 2
+  Scenario: 2 - Check correct fields are shown in survey
   Given I click on the link labeled "Survey Distribution Tools"
   When I open the public survey
   Then The fields shown on the public survey are "Caculated Field"
@@ -43,48 +43,48 @@ Feature: Branching Logic
   #leave site prompt doesn't always appear and therefore this is not currently checked
   Then The survey closes
 
-  Scenario: 3
+  Scenario: 3 - Check correct fields are shown when editing a record
   Given I click on the link labeled "Add / Edit Records"
   When I click on the button labeled "Add new record"
   Then The fields shown on the instrument are "Caculated Field"
   
-  Scenario: 4
+  Scenario: 4 - Begin modifying instrument
   #for now manually click on leave site prompt (although the leave dialog doesn't always show) unless running in dev tools mode
   Given I click on the button labeled "Modify instrument"
 
-  Scenario: 5
+  Scenario: 5 - Modify branching logic on individual fields and verify shared branching logic update functionality
   Given I set the branching logic of the field with the variable name "ptname" to "[record_id] <> '999'" and "temporarily decline" updating fields containing shared branching logic
   Then The field with the variable name "ptname" contains the branching logic "[record_id] <> '999'"
   And Every field contains the branching logic "[record_id] = '999'" excluding the fields with variable names "record_id|calculated_field|ptname"
   When I set the branching logic of the field with the variable name "text2" to "[record_id] <> '999'" and "temporarily accept" updating fields containing shared branching logic
   Then Every field contains the branching logic "[record_id] <> '999'" excluding the fields with variable names "record_id|calculated_field"
 
-  Scenario: 6
+  Scenario: 6 - Check correct fields are shown in survey
   Given I click on the link labeled "Survey Distribution Tools"
   When I open the public survey
   Then The fields shown on the public survey are "Name|Text2|Text Box|Notes Box|Caculated Field|Multiple Choice Dropdown Auto|Multiple Choice Dropdown Manual|Radio Button Auto|Radio Button Manual|Checkbox|Signature|File Upload|Descriptive Text with File|Required|Identifier|Identifier|Edit Field|Descriptive Text"
   When I close the public survey
   Then The survey closes
 
-  Scenario: 7
+  Scenario: 7 - Check correct fields are shown when editing a record
   Given I click on the link labeled "Add / Edit Records"
   When I click on the button labeled "Add new record"
   Then The fields shown on the instrument are "Name|Text2|Text Box|Notes Box|Caculated Field|Multiple Choice Dropdown Auto|Multiple Choice Dropdown Manual|Radio Button Auto|Radio Button Manual|Checkbox|Signature|File Upload|Descriptive Text with File|Required|Identifier|Identifier|Edit Field|Descriptive Text"
 
-  Scenario: 8
+  Scenario: 8 - Begin modifying instrument
   #for now manually click on leave site prompt (although the leave dialog doesn't always show) unless running in dev tools mode
   Given I click on the button labeled "Modify instrument"
 
-  Scenario: 9
+  Scenario: 9 - Modify and check branching logic
   Given I set the branching logic of the field with the variable name "descriptive_text" to "[radio_button_manual] = '101'" and "permanently decline" updating fields containing shared branching logic
   Then The field with the variable name "descriptive_text" contains the branching logic "[radio_button_manual] = '101'"
   And Every field contains the branching logic "[record_id] <> '999'" excluding the fields with variable names "record_id|calculated_field|descriptive_text"
 
-  Scenario: 10
+  Scenario: 10 - Modify and check branching logic
   Given I set the branching logic of the field with the variable name "required" to "[checkbox(3)] = '1'"
   Then The field with the variable name "required" contains the branching logic "[checkbox(3)] = '1'"
 
-  Scenario: 11
+  Scenario: 11 - Verify changing survey field responses updates field display according to set branching logic
   Given I click on the link labeled "Survey Distribution Tools"
   When I open the public survey
   And I select the survey radio option "Choice101" for the field labeled "Radio Button Manual"
@@ -98,7 +98,7 @@ Feature: Branching Logic
   When I close the public survey
   Then The survey closes
 
-  Scenario: 12
+  Scenario: 12 - Verify changing record field responses updates field display according to set branching logic
   Given I click on the link labeled "Add / Edit Records"
   And I click on the button labeled "Add new record"
   When I select the radio option "Choice101" for the field labeled "Radio Button Manual"
@@ -110,7 +110,7 @@ Feature: Branching Logic
   When I uncheck the checkbox labeled "Checkbox3"
   Then The fields shown on the instrument are "Name|Text2|Text Box|Notes Box|Caculated Field|Multiple Choice Dropdown Auto|Multiple Choice Dropdown Manual|Radio Button Auto|Radio Button Manual|Checkbox|Signature|File Upload|Descriptive Text with File|Identifier|Identifier|Edit Field"
 
-  Scenario: 13
+  Scenario: 13 - Logout
   When I logout
 
   
