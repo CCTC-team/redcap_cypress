@@ -76,21 +76,17 @@ Feature: Field Validation
     When I click on the link labeled "Control Center"
     And I click on the link labeled "Field Validation Types"
     And I enable the Field Validation Type named "Date (M-D-Y)" within the Control Center
-    # And I enable the Field Validation Type named "Date (D-M-Y)" within the Control Center ## Already enabled
-    # And I enable the Field Validation Type named "Date (Y-M-D)" within the Control Center ## Already enabled
     And I enable the Field Validation Type named "Datetime (D-M-Y H:M)" within the Control Center
-    # And I enable the Field Validation Type named "Datetime (M-D-Y H:M)" within the Control Center ## Already enabled
-    # And I enable the Field Validation Type named "Datetime (Y-M-D H:M)" within the Control Center ## Already enabled
     And I enable the Field Validation Type named "Datetime w/ seconds (Y-M-D H:M:S)" within the Control Center
-    # And I enable the Field Validation Type named "Datetime w/ seconds (D-M-Y H:M:S)" within the Control Center ## Already enabled
-    # And I enable the Field Validation Type named "Datetime w/ seconds (M-D-Y H:M:S)" within the Control Center ## Already enabled
     And I enable the Field Validation Type named "Email" within the Control Center
     And I enable the Field Validation Type named "Integer" within the Control Center
+    # Code below is added by Mintoo for data type validation
     And I enable the Field Validation Type named "Letters only" within the Control Center
     And I enable the Field Validation Type named "Number" within the Control Center
     And I enable the Field Validation Type named "Number (1 decimal place - comma as decimal)" within the Control Center
     And I enable the Field Validation Type named "Time (HH:MM)" within the Control Center
-    And I enable the Field Validation Type named "Time (HH:MM:SS)" within the Control Center
+    # Code below is added by Mintoo for data type validation
+    And I enable the Field Validation Type named "Time (HH:MM:SS)" within the Control Center 
 
   Scenario: 7 - Open Text Validation Instrument
     Given I click on the link labeled "My Projects"
@@ -208,6 +204,7 @@ Feature: Field Validation
     And I click on the button labeled "Close" in the dialog box
     And I select the submit option labeled "Save & Stay" on the Data Collection Instrument
 
+    # Scenarios from 9b till the end are added by Mintoo
   Scenario: 9b - Date (M-D-Y) Field
     Given I click on the link labeled "Designer"
     And I click on the link labeled "Text Validation"
