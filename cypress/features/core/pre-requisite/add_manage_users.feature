@@ -1,5 +1,18 @@
 Feature: Add / Manage Users
 
+# User Requirements
+#        Control Center – Users 
+# 2.1 The system shall support the ability to create a single user with username, first name, last name, primary email, expiration date, and allow the user to create/copy projects. 
+# 2.2 The system shall support the ability to suspend/unsuspend individual user. 
+# 2.3 The system shall support the ability to search for individual users and view/edit user information for username, first name, last name and/or primary email. 
+# 2.4 The system shall support the ability to delete a user. 
+# 2.5 The system shall support the ability to view all users in tabular form. 
+#        Control Center – System Configuration, Security & Authentication 
+# 2.6 The system shall support the number of failed login attempts before user is locked out for a specific amount of time. 
+# 2.7 The system shall support the amount of time user will be locked out after having failed login attempts. 
+#-------------------------------------------------------------------------------------- 
+
+
   As a REDCap end user
   I want to see that Add / Manage Users is functioning as expected
 
