@@ -1,7 +1,9 @@
 Feature: Browse Projects
 
-  As a REDCap end user
-  I want to see that I have the ability to access, search, and filter projects
+As a REDCap end user, I want to see that:
+Control Center 
+5.1 The system shall support the ability to view all projects by username, first name, last name and primary email address. 
+#-------------------------------------------------------------------------------------- 
 
   Scenario: 0 - Project Setup Steps
     Given I am an "admin" user who logs into REDCap

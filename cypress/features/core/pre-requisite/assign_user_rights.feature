@@ -1,31 +1,33 @@
 Feature: Assign User Rights
 
-  As a REDCap end user, I want to see that:
-  - The system allows the ability to add, edit or delete the following core user privileges:
-  --- 2. Expiration Date
-  --- 3. Project Design and Setup
-  --- 4. User Rights
-  --- 6. Data Access Groups
-  --- 7. Data Export Tool
-  --- 8. Add/Edit Records
-  --- 9. Survey Distribution Tools
-  --- 10. Data Import Tool
-  --- 11. Data Comparison Tool
-  --- 12. Logging
-  --- 13. Data Quality Tool
-  --- 15. Create Records
-  --- 17. Rename Records
-  --- 18. Delete Records
-  --- 19. Record Locking Customization
-  --- 20. Lock/Unlock Records
-  --- 22. Allow locking of all forms at once for a given record
-  - The system allows data entry form user access to be:
-  --- 23. No Access
-  --- 24. Read Only
-  --- 25. View & Edit
-  --- 26. Edit Survey Responses
-  - 27. The system shall allow for the creation, copying and deletion of user roles.
-  - 32. The system shall support adding and removing users from user roles.
+As a REDCap end user, I want to see that:
+Project Level 
+6.1 The system shall allow the ability to add, edit or delete the following core user privileges (when all modules are enabled) for the following: 
+  6.1.1 Expiration Date 
+  6.1.2 Project Design and Setup	 
+  6.1.3 User Rights 
+  6.1.4 Data Access Groups 
+  6.1.5 Data Export Tool 
+  6.1.6 Add/Edit Reports 
+  6.1.7 Survey Distribution Tools 
+  6.1.8 Data Import Tool 
+  6.1.9 Data Comparison Tool 
+  6.1.10 Logging 
+  6.1.11 Data Quality Tool 
+  6.1.12 Create Records 
+  6.1.13 Rename Records 
+  6.1.14 Delete Records 
+  6.1.15 Record Locking Customization 
+  6.1.16 Lock/Unlock Records  
+  6.1.17 Allow locking of all forms at once for a given record 
+6.2 The system shall allow data entry form user access to be  
+  6.2.1 No Access 
+  6.2.2 Read Only 
+  6.2.3 View & Edit 
+  6.2.4 Edit survey responses 
+6.3 The system shall allow for the creation, copying and deletion of user roles. 
+6.4 The system shall support adding and removing users from user roles.	 
+#--------------------------------------------------------------------------------------
 
   # @focus
   # Scenario: Fast setup (disable when testing full script)

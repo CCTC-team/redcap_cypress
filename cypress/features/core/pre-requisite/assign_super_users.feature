@@ -1,7 +1,12 @@
 Feature: Assign Super Users / Account Managers
 
-  As a REDCap end user
-  I want to see that Assign Super Users / Account Managers is functioning as expected
+As a REDCap end user, I want to see that:
+Control Center 
+3.1 The system shall support the ability to view all current administrators and account managers. 
+3.2 The system shall support the granting and revoking of administrators' and account managers' access to the system to individual users. 
+3.3 The system shall support the granting and revoking of administrators' ability to modify system configuration pages. 
+3.4 The system shall support the granting and revoking of administrators' ability to access to all projects and data with maximum user privileges. 
+#-------------------------------------------------------------------------------------- 
 
 Scenario: 1-2 - Control Center Links Visible
     Given I am an "admin" user who logs into REDCap

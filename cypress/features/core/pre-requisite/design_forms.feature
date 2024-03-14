@@ -1,7 +1,29 @@
 Feature: Design Forms using Data Dictionary & Online Designer
 
-  As a REDCap end user
-  I want to see that Design Forms using Data Dictionary & Online Designer are functioning as expected
+As a REDCap end user, I want to see that:
+Form Creation 
+7.1 The system shall support the creation of new data collection instruments using the Data Dictionary. 
+7.2 The system shall support the creation of new data collection instruments via the Online Designer. 
+7.3 The system shall support the ability to rename data collection instruments. 
+7.4 The system shall support the ability to copy data collection instruments and add a suffix to each variable name in the new instrument. 
+7.5 The system shall support the ability to delete data collection instruments. 
+7.6 The system shall support the ability to re-order data collection instruments. 
+
+Field Creation 
+7.7 The system shall support the creation of Text box (Short Text). 
+7.8 The system shall support the creation of Notes Box (Paragraph Text). 
+7.9 The system shall support creation and customization of algorithms for calculated fields. 
+7.10 The system shall support the creation and manual coding for multiple choice dropdown list (single answer). 
+7.11 The system shall support the creation and manual coding for multiple choice radio buttons (single answer). 
+7.12 The system shall support the creation of Checkboxes (multiple answers). 
+7.13 The system shall support the creation of Signature (draw signature with mouse or finger). 
+7.14 The system shall support the creation of File upload (for users to upload file). 
+7.15 The system shall support the creation of Descriptive Text (with optional Image/File Attachment). 
+7.16 The system shall support the creation of Begin New Section (with optional text). 
+7.17 The system shall support marking a data entry field as an identifier. 
+7.18 The system shall support marking a data entry field as required.  
+7.19 The system shall support the ability to add, edit, copy, move and delete data collection fields. 
+#-------------------------------------------------------------------------------------- 
 
   Scenario: 0 - Load Design Forms Feature.xml
     Given I am a "standard" user who logs into REDCap
