@@ -1,5 +1,10 @@
 Feature: User Interface: The system shall support limiting file repository user view access and export rights.
 
+# User Requirements
+# C.3.26.200 User Interface: The system shall support limiting file repository user view
+# access and export rights.
+#--------------------------------------------------------------------------------------
+
 As a REDCap end user 
 I want to see that file repository is functioning as expected
 
