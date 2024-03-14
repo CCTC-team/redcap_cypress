@@ -144,29 +144,29 @@ Scenario: C.3.26.200.100 Limit user view and export access based on User Rights 
 
     And I logout
 
-    #SETUP Record: Create record while in DAG through eConsent framework 
-    # Given I am an "standard" user who logs into REDCap
-    # And I click on the link labeled "My Projects"  
-    # And I click on the link labeled "filerepo"  
-    # When I click on the link labeled "Add / Edit Records"
-    # And I click on the button labeled "Add new record for the arm selected above"
+    SETUP Record: Create record while in DAG through eConsent framework 
+    Given I am an "standard" user who logs into REDCap
+    And I click on the link labeled "My Projects"  
+    And I click on the link labeled "filerepo"  
+    When I click on the link labeled "Add / Edit Records"
+    And I click on the button labeled "Add new record for the arm selected above"
     
-    # And I click the bubble to select a record for the "Consent" longitudinal instrument on event "Event 1"
-    # Then I should see "Adding new Record ID"
-    # When I click on the button labeled "Save & Exit Form"
-    # And I should see "successfully added."
+    And I click the bubble to select a record for the "Consent" longitudinal instrument on event "Event 1"
+    Then I should see "Adding new Record ID"
+    When I click on the button labeled "Save & Exit Form"
+    And I should see "successfully added."
     
-    # Then I click the bubble to select a record for the "Consent" longitudinal instrument on event "Event 1"
-    # And I click on the button labeled "Survey options"
-    # And I click on the survey option label containing "Open survey" label
-    # And I click on the button labeled "Next Page" 
-    # Then I should see "I certify that all of my information in the document above is correct. I understand that clicking 'Submit' will electronically sign the form and that signing this form electronically is the equivalent of signing a physical document."
-    # When I check the checkbox identified by "input[id=econsent_confirm_checkbox]"
-    # When I click on the button labeled "Submit" on the survey
-    # Then I should see "Thank you for taking the survey."
-    # And I should see "Have a nice day!"
-    # When I click on the button labeled "Close survey" on the survey
-    # And I logout
+    Then I click the bubble to select a record for the "Consent" longitudinal instrument on event "Event 1"
+    And I click on the button labeled "Survey options"
+    And I click on the survey option label containing "Open survey" label
+    And I click on the button labeled "Next Page" 
+    Then I should see "I certify that all of my information in the document above is correct. I understand that clicking 'Submit' will electronically sign the form and that signing this form electronically is the equivalent of signing a physical document."
+    When I check the checkbox identified by "input[id=econsent_confirm_checkbox]"
+    When I click on the button labeled "Submit" on the survey
+    Then I should see "Thank you for taking the survey."
+    And I should see "Have a nice day!"
+    When I click on the button labeled "Close survey" on the survey
+    And I logout
 
     Given I am a "standard" user who logs into REDCap
     Then I should see "New Project"
@@ -229,50 +229,50 @@ Scenario: C.3.26.200.100 Limit user view and export access based on User Rights 
     Then I should see "All Files/Role1_Folder"
 
   Scenario: C.3.26.400.100 Upload more than one file at the same time using the select files to upload button
-    # # When I click the button labeled "Select files to upload" to select and upload the following files to the File Repository:
-    # #   |import_files/user_list_for_project_1.csv|
-    # #   |import_files/testusers_bulkupload.csv|
+    When I click the button labeled "Select files to upload" to select and upload the following files to the File Repository:
+      |import_files/user_list_for_project_1.csv|
+      |import_files/testusers_bulkupload.csv|
 
-    And I upload the file "import_files/user_list_for_project_1.csv" to the drag and drop area in File Repository
-    And I wait for 5 seconds
+    # And I upload the file "import_files/user_list_for_project_1.csv" to the drag and drop area in File Repository
+    # And I wait for 5 seconds
 
-    And I upload the file "import_files/testusers_bulkupload.csv" to the drag and drop area in File Repository
-    And I wait for 5 seconds
+    # And I upload the file "import_files/testusers_bulkupload.csv" to the drag and drop area in File Repository
+    # And I wait for 5 seconds
 
     ##VERIFY_FiRe uploaded in subfolder
     Then I should see "user_list_for_project_1.csv"
     And I should see "testusers_bulkupload.csv"
 
-    #FUNCTIONAL_REQUIREMENT
-    ##ACTION Auto-archive file in DAG TestGroup1
+    # #FUNCTIONAL_REQUIREMENT
+    # ##ACTION Auto-archive file in DAG TestGroup1
     When I click on the link labeled "File Repository"
     And I wait for 4 seconds
     And I click on the link labeled "PDF Survey Archive"
     Then I should see "1-1"
     And I logout
 
-    ##SETUP Record: Create record while in DAG through
-    # Given I am a "standard2" user who logs into REDCap
-    # And I click on the link labeled "My Projects"  
-    # And I click on the link labeled "filerepo" 
-    # When I click on the link labeled "Add / Edit Records"
-    # And I click on the button labeled "Add new record for the arm selected above"
-    # And I click the bubble to select a record for the "Consent" longitudinal instrument on event "Event 1"
-    # Then I should see "Adding new Record ID"
-    # When I click on the button labeled "Save & Exit Form"
-    # And I should see "successfully added."
+    #SETUP Record: Create record while in DAG through
+    Given I am a "standard2" user who logs into REDCap
+    And I click on the link labeled "My Projects"  
+    And I click on the link labeled "filerepo" 
+    When I click on the link labeled "Add / Edit Records"
+    And I click on the button labeled "Add new record for the arm selected above"
+    And I click the bubble to select a record for the "Consent" longitudinal instrument on event "Event 1"
+    Then I should see "Adding new Record ID"
+    When I click on the button labeled "Save & Exit Form"
+    And I should see "successfully added."
     
-    # Then I click the bubble to select a record for the "Consent" longitudinal instrument on event "Event 1"
-    # And I click on the button labeled "Survey options"
-    # And I click on the survey option label containing "Open survey" label
-    # And I click on the button labeled "Next Page" 
-    # Then I should see "I certify that all of my information in the document above is correct. I understand that clicking 'Submit' will electronically sign the form and that signing this form electronically is the equivalent of signing a physical document."
-    # When I check the checkbox identified by "input[id=econsent_confirm_checkbox]"
-    # When I click on the button labeled "Submit" on the survey
-    # Then I should see "Thank you for taking the survey."
-    # And I should see "Have a nice day!"
-    # When I click on the button labeled "Close survey" on the survey
-    # And I logout
+    Then I click the bubble to select a record for the "Consent" longitudinal instrument on event "Event 1"
+    And I click on the button labeled "Survey options"
+    And I click on the survey option label containing "Open survey" label
+    And I click on the button labeled "Next Page" 
+    Then I should see "I certify that all of my information in the document above is correct. I understand that clicking 'Submit' will electronically sign the form and that signing this form electronically is the equivalent of signing a physical document."
+    When I check the checkbox identified by "input[id=econsent_confirm_checkbox]"
+    When I click on the button labeled "Submit" on the survey
+    Then I should see "Thank you for taking the survey."
+    And I should see "Have a nice day!"
+    When I click on the button labeled "Close survey" on the survey
+    And I logout
 
     Given I am a "standard2" user who logs into REDCap
     Then I should see "New Project"
