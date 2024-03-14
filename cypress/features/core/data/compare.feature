@@ -1,5 +1,14 @@
 Feature: Data Comparison Tool / DDE Module
 
+# User Requirements
+# 17.1 The system shall provide the ability to compare two records within the same project and display the differences between them. 
+# 17.2 The system shall support the enabling/disabling of the Double Data Entry module. (Control Center). 
+# 17.3 The system shall allow the designation of two users or two roles as data entry persons 1 and 2 who may independently enter duplicate records while restricting their view of the other’s records. 
+# 17.4 The system shall assign Reviewer rights to all users not designated as data entry person 1 or 2. 
+# 17.5 The system shall allow Reviewers to view and adjudicate the differences between duplicate records. 
+# 17.6 The system shall allow Reviewers to merge both entries into a third, single record.
+#--------------------------------------------------------------------------------------
+
   As a REDCap end user
   I want to see that the Data Comparison Tool and DDE Module are functioning as expected
   
