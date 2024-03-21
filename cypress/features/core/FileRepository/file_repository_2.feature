@@ -1,9 +1,10 @@
 Feature: User Interface: The system shall support the storage, organization, and sharing of project files for permanent folders: (Data Export | e-Consent PDFs | Recycle Bin | Custom Create folder / Sub-folder)
 
-# User Requirements
-# C.3.26.300 User Interface: The system shall support the storage, organization, and sharing 
-# of project files for permanent folders: (Data Export | e-Consent PDFs | Recycle Bin | 
-# Custom Create folder / Sub-folder)
+#--------------------------------------------------------------------------------------
+User Requirements
+C.3.26.300 User Interface: The system shall support the storage, organization, and sharing 
+of project files for permanent folders: (Data Export | e-Consent PDFs | Recycle Bin | 
+Custom Create folder / Sub-folder)
 #--------------------------------------------------------------------------------------
 
 As a REDCap end user
