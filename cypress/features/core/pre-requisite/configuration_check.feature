@@ -1,5 +1,6 @@
 Feature: Configuration Check
-  
+
+#--------------------------------------------------------------------------------------
 As a REDCap end user, I want to see that:
 1.1 The system shall support the ability to run a configuration check test page. 
 #--------------------------------------------------------------------------------------
