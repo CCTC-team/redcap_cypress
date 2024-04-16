@@ -1,16 +1,12 @@
-Feature: User Interface: The system shall support the storage, organization, and sharing of project files for permanent folders: (Data Export | e-Consent PDFs | Recycle Bin | Custom Create folder / Sub-folder)
+Feature: File Repository
 
-#--------------------------------------------------------------------------------------
-User Requirements
-C.3.26.300 User Interface: The system shall support the storage, organization, and sharing 
-of project files for permanent folders: (Data Export | e-Consent PDFs | Recycle Bin | 
-Custom Create folder / Sub-folder)
-#--------------------------------------------------------------------------------------
+  As a REDCap end user, I want to see that:
+  The below user requirements are met
+  #--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  # C.3.26.300 User Interface: The system shall support the storage, organization, and sharing of project files for permanent folders: (Data Export | e-Consent PDFs | Recycle Bin | Custom Create folder / Sub-folder)
+  #--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-As a REDCap end user
-I want to see that file repository is functioning as expected
-
-Scenario: C.3.26.300.100 Automatic uploading of data export logs into the data export folder
+  Scenario: C.3.26.300.100 Automatic uploading of data export logs into the data export folder
 
     #SETUP 
     Given I am an "admin" user who logs into REDCap
@@ -41,10 +37,10 @@ Scenario: C.3.26.300.100 Automatic uploading of data export logs into the data e
     # Then I verify I see the csv file 
     And I should see "Data export file created by test_admin on"
 
-Scenario: C.3.26.300.200 Automatic uploading of e-Consent Framework PDFs
+  Scenario: C.3.26.300.200 Automatic uploading of e-Consent Framework PDFs
     # REDUNDANT
 
-Scenario: C.3.26.300.300 Recycle bin function - permanently force delete 
+  Scenario: C.3.26.300.300 Recycle bin function - permanently force delete 
 
     #SETUP 
     Given I am an "admin" user who logs into REDCap
@@ -148,5 +144,5 @@ Scenario: C.3.26.300.300 Recycle bin function - permanently force delete
     Then I should NOT see "testusers_bulkupload.csv"
 
 
-    Scenario: C.3.26.300.400 Custom folder / sub-folder
+  Scenario: C.3.26.300.400 Custom folder / sub-folder
     # REDUNDANT with C.3.26.200

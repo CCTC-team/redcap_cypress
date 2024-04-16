@@ -1,7 +1,42 @@
 Feature: Data Entry through the Data Collection Instrument
 
-  As a REDCap end user
-  I want to see that Data Entry through the Data Collection Instruments is functioning as expected
+  As a REDCap end user, I want to see that:
+  The below user requirements are met
+  #------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  # Creating a Record and Entering Data  
+  # 14.1 The system shall support the ability to create a record 
+  # 14.2 The system shall support data entry for the defined core field types. 
+  # 14.3 The system shall support the ability to reset a multiple choice-radio button selection. 
+  # 14.4 The system shall support the ability to use the following on date/time fields: 
+  #   14.4.1 Date picker widget 
+  #   14.4.2 Now button 
+  #   14.4.3 Today button 
+
+  # Saving Data 
+  # 14.5 The system shall support the prompt to save when a user attempts to navigate away from a data entry page without saving: 
+  #   14.5.1 Save changes and leave 
+  #   14.5.2 Leave without saving changes 
+  #   14.5.3 Stay on page 
+  # 14.6 The system shall support the ability to: 
+  #   14.6.1 Save and stay 
+  #   14.6.2 Save and exit the form  
+  #   14.6.3 Save and go to the next form  
+  #   14.6.4 Cancel the data entered and leave the record 
+  # 14.7 The system shall support the following statuses for data instruments: 
+  #   14.7.1 Incomplete (no data saved) 
+  #   14.7.2 Incomplete 
+  #   14.7.3 Unverified 
+  #   14.7.4 Complete 
+  # 14.8 The system shall support a Record Status Dashboard to display a listing of all existing records and data collection instrument form statuses. 
+
+  # Renaming a Record  
+  # 14.9 The system shall allow users to rename a record.  
+  
+  # Deleting Data  
+  # 14.10 The system shall allow users to delete all data on the current form of a given record. 
+  # 14.11 The system shall allow users to delete all data in an event for a given record. 
+  # 14.12 The system shall allow users to delete a record 
+  #------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   Scenario: 0 - Create the Project
     Given I am an "admin" user who logs into REDCap

@@ -1,58 +1,35 @@
 Feature: Assign User Rights
 
-As a REDCap end user, I want to see that:
-Project Level 
-6.1 The system shall allow the ability to add, edit or delete the following core user privileges (when all modules are enabled) for the following: 
-  6.1.1 Expiration Date 
-  6.1.2 Project Design and Setup	 
-  6.1.3 User Rights 
-  6.1.4 Data Access Groups 
-  6.1.5 Data Export Tool 
-  6.1.6 Add/Edit Reports 
-  6.1.7 Survey Distribution Tools 
-  6.1.8 Data Import Tool 
-  6.1.9 Data Comparison Tool 
-  6.1.10 Logging 
-  6.1.11 Data Quality Tool 
-  6.1.12 Create Records 
-  6.1.13 Rename Records 
-  6.1.14 Delete Records 
-  6.1.15 Record Locking Customization 
-  6.1.16 Lock/Unlock Records  
-  6.1.17 Allow locking of all forms at once for a given record 
-6.2 The system shall allow data entry form user access to be  
-  6.2.1 No Access 
-  6.2.2 Read Only 
-  6.2.3 View & Edit 
-  6.2.4 Edit survey responses 
-6.3 The system shall allow for the creation, copying and deletion of user roles. 
-6.4 The system shall support adding and removing users from user roles.	 
-#--------------------------------------------------------------------------------------
-
-  # @focus
-  # Scenario: Fast setup (disable when testing full script)
-  #   Given I am an "admin" user who logs into REDCap
-  #   And I create a project named "SecondProject_1115" with project purpose Practice / Just for fun via CDISC XML import from fixture location "cdisc_files/core/06_AssignUserRights_v1115.xml"
-  #   And I enable surveys
-  #   And I disable longitudinal mode
-  #   And I click on the button labeled "Additional customizations"
-  #   And I click on the checkbox near the text "Enable the Field Comment Log"
-  #   And I click on the button labeled "Save"
-  #   Then I should see "Success! Your changes have been saved."
-
-  #   Given I click on the link labeled "User Rights"
-  #   And I enter "test_user" into the input field near the text "Add with custom rights"
-  #   And I click on the button labeled "Add with custom rights"
-  #   Then I should see 'Adding new user "test_user"'
-    
-  #   Given I remove all Basic Rights within the open User Rights dialog box
-  #   And I check the User Right named "User Rights"
-  #   # Script has expected result: "Data Entry rights remain".
-  #   # Consider adding an assertion here.
-  #   And I save changes within the context of User Rights
-  #   And I am a "standard" user who logs into REDCap
-  #   And I click on the link labeled "My Projects"
-  #   And I click on the link labeled "SecondProject_1115"
+  As a REDCap end user, I want to see that:
+  The below user requirements are met
+  #-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+  # Project Level 
+  # 6.1 The system shall allow the ability to add, edit or delete the following core user privileges (when all modules are enabled) for the following: 
+  #   6.1.1 Expiration Date 
+  #   6.1.2 Project Design and Setup	 
+  #   6.1.3 User Rights 
+  #   6.1.4 Data Access Groups 
+  #   6.1.5 Data Export Tool 
+  #   6.1.6 Add/Edit Reports 
+  #   6.1.7 Survey Distribution Tools 
+  #   6.1.8 Data Import Tool 
+  #   6.1.9 Data Comparison Tool 
+  #   6.1.10 Logging 
+  #   6.1.11 Data Quality Tool 
+  #   6.1.12 Create Records 
+  #   6.1.13 Rename Records 
+  #   6.1.14 Delete Records 
+  #   6.1.15 Record Locking Customization 
+  #   6.1.16 Lock/Unlock Records  
+  #   6.1.17 Allow locking of all forms at once for a given record 
+  # 6.2 The system shall allow data entry form user access to be  
+  #   6.2.1 No Access 
+  #   6.2.2 Read Only 
+  #   6.2.3 View & Edit 
+  #   6.2.4 Edit survey responses 
+  # 6.3 The system shall allow for the creation, copying and deletion of user roles. 
+  # 6.4 The system shall support adding and removing users from user roles.	 
+  #-----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   Scenario: Project Setup - 1
     Given I am an "admin" user who logs into REDCap

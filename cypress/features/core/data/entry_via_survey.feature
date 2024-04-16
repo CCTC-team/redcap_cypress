@@ -1,7 +1,33 @@
 Feature: Data Entry through the Survey
 
-  As a REDCap end user
-  I want to see that Data Entry through the Survey is functioning as expected
+  As a REDCap end user, I want to see that:
+  The below user requirements are met
+  #-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
+  # Control Center 
+  # 15.1 The system shall allow the survey feature to be enabled or disabled. 
+  # 15.2 The system shall allow users to edit survey responses to be enabled or disabled. 
+  
+  # User Interface - Survey Distribution 
+  # 15.3 The system shall allow creation of a participant list automatically using a designated email field when a survey is not in the first instrument position. 
+  # 15.4 The system shall provide a survey to be generated from within a participant record using these survey options: 
+  #   15.4.1 Log out + Open survey 
+  #   15.4.2 Open Survey link 
+  # 15.5 The system shall prompt the user to leave the survey to avoid overwriting survey responses when opening surveys from a data entry form when using the Open Survey link. 
+  # 15.6 The system shall allow creation of a participant list manually where each survey is assigned a unique survey link when the survey is in the first instrument position. 
+  
+  # User Interface 
+  # 15.7 The system shall support the ability for a participant to enter data in a data collection instrument enabled and distributed as a survey. 
+  # 15.8 The system shall allow submitted survey responses to be changed by a user who has edit survey responses rights. 
+  # 15.9 The system shall support the following statuses for surveys: 
+  #   15.9.1 Incomplete (no data saved)  
+  #   15.9.2 Partial Survey Response 
+  #   15.9.3 Completed Survey Response 
+  
+  # User Interface - Survey Project Settings 
+  # 15.10 The system shall support a participant list for each survey in the project. A dropdown menu will list each survey or if a longitudinal project, each survey/event pairing from which to select the survey of interest. 
+  # 15.11 The system shall support tracking responders and non-responders to surveys when using the participant list. 
+  # 15.12 The system shall delete all survey-related information and functions including survey link, return codes and date/time stamp when disabling survey functionality.  Saved data will remain unaffected. 
+  #--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   Scenario: Project Setup 1 - Create the Project
     Given I am a "standard" user who logs into REDCap

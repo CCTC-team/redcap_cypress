@@ -1,14 +1,12 @@
-Feature: User Interface: The system shall support limiting file repository user view access and export rights.
+Feature: File Repository
 
-# User Requirements
-# C.3.26.200 User Interface: The system shall support limiting file repository user view
-# access and export rights.
-#--------------------------------------------------------------------------------------
+  As a REDCap end user, I want to see that:
+  The below user requirements are met
+  #----------------------------------------------------------------------------------------------------------------------------
+  # C.3.26.200 User Interface: The system shall support limiting file repository user view access and export rights.
+  #----------------------------------------------------------------------------------------------------------------------------
 
-As a REDCap end user 
-I want to see that file repository is functioning as expected
-
-Scenario: C.3.26.200.100 Limit user view and export access based on User Rights and DAG
+  Scenario: C.3.26.200.100 Limit user view and export access based on User Rights and DAG
     #SETUP 
     Given I am an "admin" user who logs into REDCap
     And I create a project named "filerepo" with project purpose Operational Support via CDISC XML import from fixture location "cdisc_files/core/Project_1.xml" 
@@ -149,7 +147,7 @@ Scenario: C.3.26.200.100 Limit user view and export access based on User Rights 
 
     And I logout
 
-    SETUP Record: Create record while in DAG through eConsent framework 
+    # SETUP Record: Create record while in DAG through eConsent framework 
     Given I am an "standard" user who logs into REDCap
     And I click on the link labeled "My Projects"  
     And I click on the link labeled "filerepo"  
