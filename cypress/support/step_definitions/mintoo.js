@@ -22,13 +22,35 @@ Given('I click on the {string} image for the file {string} in File Repository', 
  * @module FileRepository
  * @author Mintoo Xavier <min2xavier@gmail.com>
  * @example I upload the file {string} to the drag and drop area in File Repository
- * @param {string} format - the format of the file that is being uploaded (e.g. csv)
- * @param {string} file_location - the location of the file being uploaded (e.g. import_files/core/filename.csv)
- * @param {string} uplaod_label - text near the upload label
- * @param {string} button_label - text on the button you click to upload
- * @description Imports well-formed REDCap data import file (of specific type) to a specific project given a Project ID.
+ * @param {string} filename - name of the file
+ * @description Upload file using drag and drop area in File Repository.
  */
 Given("I upload the file {string} to the drag and drop area in File Repository", (filename) => {
     let file_location = 'cypress/fixtures/' + filename
     cy.get('input[id=file-repository-file-input]').click().selectFile(file_location)
 })
+
+/**
+ * @module DataQualityRule
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I click on the link labeled {string} for Rule {string}
+ * @param {string} label - link
+ * @param {string} rule - Rule name
+ * @description Click on the link for the rule.
+ */
+Given("I click on the link labeled {string} for Rule {string}", (label, rule) => {
+    cy.get('table[id=table-rules]').find('td:nth-child(2)').contains(rule).parents('tr').find('td:nth-child(6)').contains(label).click()
+})
+
+/**
+ * @module DataQualityRule
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I click on the link labeled {string} for the discrepant field labeled {string}
+ * @param {string} label - link
+ * @param {string} name - Descripency name
+ * @description Click on the link for the Descripency field.
+ */
+Given("I click on the link labeled {string} for the discrepant field labeled {string}", (label, name) => {
+    cy.get('table[id*=table-results_table_pd-9]').find('td:nth-child(2)>div').children().contains(name).parents('tr').find('td:nth-child(4)').contains(label).click()
+})                     
+
