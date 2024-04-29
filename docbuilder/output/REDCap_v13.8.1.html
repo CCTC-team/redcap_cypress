@@ -1,0 +1,993 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+Document
+</title>
+</head>
+<body>
+<style>
+
+    * {
+        font-family: monospace, Courier;
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+
+    th, td {
+        /* border: dashed grey 1px; */
+        padding: 0.5rem 1rem;
+    }
+
+    .feature-body > *, .js-file-line {
+        font-size: 12px;
+    }
+
+    .spec-script > * {
+        font-size: 14px;        
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .comments {
+        font-size: 12px;
+    }
+
+    .comment {
+        padding-bottom: 0.2rem;
+    }
+
+    .comment-edit {
+        font-size: 11px;        
+    }
+
+    .timeline {
+        font-size: 11px;
+    }
+
+    .index-good {
+        font-size: 12px;
+    }
+
+    .index-errors {
+        font-size: 11px;
+    }
+
+    .sub-header {
+        font-size: 10px;
+    }
+
+</style>
+<h2 id="redcap-validation-for-v13.8.1">REDCap validation for v13.8.1</h2>
+<div class="sub-header">
+<p>Generated on 29/04/2024 13:18:40</p>
+</div>
+<div class="sub-header">
+
+</div>
+<h3 id="index">Index</h3>
+<div class="index-good">
+<p><a id=index-redcap_cypress-12 href=#redcap_cypress-12>redcap_cypress-12 | 17. Data Comparison Tool / DDE Module</a></p>
+<p><a id=index-redcap_cypress-15 href=#redcap_cypress-15>redcap_cypress-15 | 16. Data Import - Data Collection and Storage</a></p>
+</div>
+<section id="the-following-features-cannot-be-retrieved-uid-title---error" class="index-errors">
+<h4>The following features cannot be retrieved (uid | title -&gt; error)</h4>
+</section>
+<p><br/></p>
+<h3 id="features">Features</h3>
+<hr />
+<div id="redcap_cypress-12">
+<strong>Feature:</strong> 17. Data Comparison Tool / DDE Module
+</div>
+<hr />
+<table>
+<colgroup>
+<col style="width: 60%" />
+<col style="width: 40%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Id:</strong> I_kwDOIaOBn86F-kpI</td>
+<td style="text-align: left;"><strong>Uid:</strong> redcap_cypress-12</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Author:</strong> MintooXavier</td>
+<td style="text-align: left;"><strong>Created:</strong> 17/04/2024 09:05:46</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Assignees:</strong> MintooXavier</td>
+<td style="text-align: left;"><strong>Resource path:</strong> <a href=https://github.com//CCTC-team/redcap_cypress/issues/12 target=_blank>/CCTC-team/redcap_cypress/issues/12</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Milestone:</strong> |none|</td>
+<td style="text-align: left;"><strong>Labels:</strong> Core feature || Gherkin || Automated</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<table>
+<colgroup>
+<col style="width: 60%" />
+<col style="width: 40%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>State:</strong> OPEN</td>
+<td style="text-align: left;"><strong>State reason</strong>: REOPENED</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Includes created edit:</strong> true</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Closed:</strong> false</td>
+<td style="text-align: left;"><strong>Closed on:</strong> |none|</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Editor:</strong> rmh54</td>
+<td style="text-align: left;"><strong>Updated on:</strong> 29/04/2024 11:18:45</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Locked:</strong> false</td>
+<td style="text-align: left;"><strong>Participants:</strong> MintooXavier || rmh54</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<strong>Project item body:</strong><br />
+
+<div class="feature-body">
+<p dir="auto">
+Feature link:<br> <a href="https://github.com/CCTC-team/redcap_cypress/blob/redcap_val/cypress/features/core/data/import.feature">https://github.com/CCTC-team/redcap_cypress/blob/redcap_val/cypress/features/core/data/import.feature</a>
+</p>
+<p dir="auto">
+Brief description:<br> This feature is used to compared two records within a project.
+</p>
+<p dir="auto">
+Pre review:
+</p>
+<ul class="contains-task-list">
+<li class="task-list-item">
+<input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> The script targets the correct feature sufficiently
+</li>
+<li class="task-list-item">
+<input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> The user requirements are met
+</li>
+</ul>
+<p dir="auto">
+Post review:
+</p>
+<ul class="contains-task-list">
+<li class="task-list-item">
+<input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> The script targets the correct feature sufficiently
+</li>
+<li class="task-list-item">
+<input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> The script matches the source manual script
+</li>
+<li class="task-list-item">
+<input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> The script appropriately tests the feature
+</li>
+</ul>
+</div>
+<hr />
+<p><strong>User specification:</strong><br />
+</p>
+<div class="spec-script">
+<div class="line-block">    # User Interface<br />
+    # 16.1 The system shall support the ability to download two versions of a data import template formatted as a CSV file, one to accommodate records in rows and one to accommodate records in columns.<br />
+    # 16.2 The system shall allow data to be uploaded with the csv template to create and modify records.<br />
+    # 16.3 The system shall highlight data modifications for user confirmation.<br />
+    # 16.4 The system shall import only valid formats for text fields with validation.<br />
+    # 16.5 The system shall import only valid choice codes for radio buttons, dropdowns, and checkboxes.<br />
+    # 16.6 The system shall ignore survey identifier and timestamp fields on all data import spreadsheets and allow all other data to be imported.<br />
+    # 16.7 The system shall require the event name in the csv file when importing data to a longitudinal study.<br />
+    # 16.8 The system shall require the repeating instrument and instance number in the csv file when importing data to a repeating event project.<br />
+    # 16.9 The system shall not allow data to be changed on locked data entry forms.<br />
+    # 16.10 The system shall not allow a new record to be imported if user does not have Create Records access.<br />
+    # 16.11 The system shall allow data to be changed only by a user who has “edit” access to the data entry form.<br />
+    # 16.12 The system shall provide the option to allow blank values to overwrite existing saved values.<br />
+    # 16.13 The system shall provide the ability to assign data instruments to a data access group with the Data Import Tool.<br />
+</div>
+</div>
+<p><strong>Test script:</strong><br />
+</p>
+<div class="spec-script">
+<div class="line-block">Feature: Data Import - Data Collection and Storage<br />
+<br />
+As a REDCap end user, I want to see that:<br />
+    The below user requirements are met<br />
+<br />
+Scenario: Project Setup 1 - Create Project 16_DataImport_v1115<br />
+        Given I am an “admin” user who logs into REDCap<br />
+        And I create a project named “16_DataImport_v1115” with project purpose Practice / Just for fun via CDISC XML import from fixture location “cdisc_files/core/07_DesignForms_v1115.xml”<br />
+        When I click on the link labeled “User Rights”<br />
+        And I enter “test_user” into the field identified by “[id=new_username]”<br />
+        And I click on the button labeled “Add with custom rights”<br />
+        And I check the checkbox identified by “[name=design]”<br />
+        And I check the checkbox identified by “[name=data_import_tool]”<br />
+        And I select the User Right named “Lock/Unlock Records” and choose “Locking / Unlocking”<br />
+        And I check the checkbox identified by “[name=lock_record_multiform]”<br />
+        And I click on the button labeled “Add user” in the dialog box<br />
+<br />
+Scenario: Project Setup - 2<br />
+        When I click on the link labeled “Project Setup”<br />
+        When I click on the link labeled “Other Functionality”<br />
+        And I click on the button labeled “Erase all data”<br />
+        And I click on the button labeled “Erase all data” in the dialog box<br />
+        And I close the popup<br />
+<br />
+Scenario: Project Setup - 3<br />
+        And I click on the link labeled “Project Setup”<br />
+        And I disable longitudinal mode<br />
+        And I open the dialog box for the Repeatable Instruments and Events module<br />
+        And I uncheck the checkbox labeled “Data Types”<br />
+        And I click on the button labeled “Save” in the dialog box<br />
+        And I should see that repeatable instruments are disabled<br />
+        And I click on the link labeled “Dictionary”<br />
+        Given I upload the data dictionary located at “core\16_DataImportDD.csv”<br />
+        Then I should see “Changes Made Successfully!”<br />
+<br />
+Scenario: 1 - Login as Test User and download Templates for both Rows and Columns<br />
+        Given I am a “standard” user who logs into REDCap<br />
+        Given I click on the link labeled “My Projects”<br />
+        And I click on the link labeled “16_DataImport_v1115”<br />
+        And I click on the link labeled “Data Import Tool”<br />
+        And I download a Data Import Template file “rows” by clicking on the link labeled “Download your Data Import Template”<br />
+        Then I should have a file named “Template_rows.csv”<br />
+        And I download a Data Import Template file “columns” by clicking on the link labeled “Download your Data Import Template”<br />
+        Then I should have a file named “Template_columns.csv”<br />
+<br />
+Scenario: 2 - Upload Template_rows file (data in rows) - Test import rows<br />
+        Given I upload a “csv” format file located at “/import_files/Import1_Template_Rows_Data.csv”, by clicking the button near “Select your CSV data file” to browse for the file, and clicking the button labeled “Upload File” to upload the file<br />
+        And I click on the button labeled “Import Data”<br />
+        Then I should see “Import Successful!”<br />
+<br />
+Scenario: 3 - Upload modified Template_rows file - Testing formatting date<br />
+        Given I select “DD/MM/YYYY or YYYY-MM-DD” from the dropdown identified by “select[name=date_format]”<br />
+        And I upload a “csv” format file located at “/import_files/Import1_Template_Rows_Data_modified.csv”, by clicking the button near “Select your CSV data file” to browse for the file, and clicking the button labeled “Upload File” to upload the file<br />
+        Then Records “100,200,300” should contain text “(existing record)” in brackets<br />
+        And I should see old value “(1943-02-25)” and new value “1943-01-28” for Record “200” and field named “bdate” in the Data Display Table<br />
+        And I click on the button labeled “Import Data”<br />
+        Then I should see “Import Successful!”<br />
+<br />
+Scenario: 4 - Test import Columns<br />
+        Given I select “Columns” from the dropdown identified by “select[name=format]”<br />
+        Given I select “MM/DD/YYYY or YYYY-MM-DD” from the dropdown identified by “select[name=date_format]”<br />
+        Given I upload a “csv” format file located at “/import_files/Import1_Template_Columns_Data.csv”, by clicking the button near “Select your CSV data file” to browse for the file, and clicking the button labeled “Upload File” to upload the file<br />
+        And I click on the button labeled “Import Data”<br />
+        Then I should see “Import Successful!”<br />
+        Given I click on the link labeled “Record Status Dashboard”<br />
+        Then I see a “circle_yellow” bubble for Record “4000” and Instrument named “Text Validation”<br />
+        And I see a “circle_green” bubble for Record “4001” and Instrument named “Text Validation”<br />
+        And I see a “circle_red” bubble for Record “4001” and Instrument named “Data Types”<br />
+<br />
+Scenario: 5 - Testing improper data format<br />
+        Given I click on the link labeled “Data Import Tool”<br />
+        And I select “Columns” from the dropdown identified by “select[name=format]”<br />
+        Given I upload a “csv” format file located at “/import_files/Import1_Template_Columns_Data_modified.csv”, by clicking the button near “Select your CSV data file” to browse for the file, and clicking the button labeled “Upload File” to upload the file<br />
+        Then I should see error “Invalid date format.” corresponding to the field named “bdate” for record “4002” in Error Display Table<br />
+        And I should see error “The value is not a valid category for multiple_dropdown_auto” corresponding to the field named “multiple_dropdown_auto” for record “4002” in Error Display Table<br />
+        And I should see error “The value you provided could not be validated because it does not follow the expected format.” corresponding to the field named “integer” for record “4002” in Error Display Table<br />
+<br />
+Scenario: 6 - Testing Repeating Events and Instruments<br />
+        When I click on the link labeled “Project Setup”<br />
+        And I enable longitudinal mode<br />
+        Then I should see that longitudinal mode is “enabled”<br />
+        And I open the dialog box for the Repeatable Instruments and Events module<br />
+        And I select “– not repeating –” on the dropdown field labeled “Event 2 (Arm 1: Arm 1)”<br />
+        And I click on the button labeled “Save” on the dialog box for the Repeatable Instruments and Events module<br />
+        And I should see that repeatable instruments are disabled<br />
+        Given I click on the link labeled “Data Import Tool”<br />
+        Given I upload a “csv” format file located at “/import_files/Import1_Template_Rows_Data_modified.csv”, by clicking the button near “Select your CSV data file” to browse for the file, and clicking the button labeled “Upload File” to upload the file<br />
+        Then I should see “ERROR: The following values for ‘redcap_event_name’ are not valid unique event names for this project,”<br />
+<br />
+Scenario: 7 - Testing Repeatable Events and Instruments<br />
+        Given I upload a “csv” format file located at “/import_files/Import1_Template_Rows_Data_Scenario7.csv”, by clicking the button near “Select your CSV data file” to browse for the file, and clicking the button labeled “Upload File” to upload the file<br />
+        And I click on the button labeled “Import Data”<br />
+        Then I should see “Import Successful!”<br />
+        And I click on the link labeled “Project Setup”<br />
+        And I open the dialog box for the Repeatable Instruments and Events module<br />
+        And I select “Repeat Entire Event (repeat all instruments together)” on the dropdown field labeled “Event 1 (Arm 1: Arm 1)”<br />
+        And I click on the button labeled “Save” on the dialog box for the Repeatable Instruments and Events module<br />
+        And I close the popup<br />
+        And I should see that repeatable instruments are modifiable<br />
+<br />
+Scenario: 8 - Testing Repeatable Instance<br />
+        Given I click on the link labeled “Data Import Tool”<br />
+        Given I upload a “csv” format file located at “/import_files/Import1_Template_Rows_Data_Scenario8.csv”, by clicking the button near “Select your CSV data file” to browse for the file, and clicking the button labeled “Upload File” to upload the file<br />
+        And I click on the button labeled “Import Data”<br />
+        Then I should see “Import Successful!”<br />
+        Given I click on the link labeled “Record Status Dashboard”<br />
+        And I locate the bubble for the “Text Validation” instrument on event “Event 1” for record ID “5000” and click on the bubble<br />
+        Then I should see “(2)” instances in the instance table<br />
+        Given the AJAX “POST” request at "index.php?*" tagged by “update” is being monitored<br />
+        And I locate the bubble for the “Text Validation” instrument on event “Event 1” for record ID “5001” and click on the bubble<br />
+        And the AJAX request tagged by “update” has completed<br />
+        Then I should see “(2)” instances in the instance table<br />
+        Given the AJAX “POST” request at "index.php?*" tagged by “update” is being monitored<br />
+        And I locate the bubble for the “Text Validation” instrument on event “Event 1” for record ID “5002” and click on the bubble<br />
+        And the AJAX request tagged by “update” has completed<br />
+        Then I should see “(2)” instances in the instance table<br />
+<br />
+Scenario: 9 - Testing Repeatable Instance<br />
+        Given I click on the link labeled “Project Setup”<br />
+        And I should see that repeatable instruments are modifiable<br />
+        And I open the dialog box for the Repeatable Instruments and Events module<br />
+        And I select “Repeat Instruments (repeat independently of each other)” on the dropdown field labeled “Event 1 (Arm 1: Arm 1)”<br />
+        And I click on the button labeled “Save” on the dialog box for the Repeatable Instruments and Events module<br />
+        And I close the popup<br />
+        Given I click on the link labeled “Data Import Tool”<br />
+        Given I upload a “csv” format file located at “/import_files/Import1_Template_Rows_Repeat.csv”, by clicking the button near “Select your CSV data file” to browse for the file, and clicking the button labeled “Upload File” to upload the file<br />
+        And I click on the button labeled “Import Data”<br />
+        Then I should see “Import Successful!”<br />
+        Given I click on the link labeled “Record Status Dashboard”<br />
+        Given the AJAX “POST” request at "index.php?*" tagged by “update1” is being monitored<br />
+        And I locate the bubble for the “Text Validation” instrument on event “Event 1” for record ID “5000” and click on the bubble<br />
+        And the AJAX request tagged by “update1” has completed<br />
+        Then I should see “(3)” instances in the instance table<br />
+        Given the AJAX “POST” request at "index.php?*" tagged by “update2” is being monitored<br />
+        And I locate the bubble for the “Text Validation” instrument on event “Event 1” for record ID “5001” and click on the bubble<br />
+        And the AJAX request tagged by “update2” has completed<br />
+        Then I should see “(3)” instances in the instance table<br />
+        Given the AJAX “POST” request at "index.php?*" tagged by “update3” is being monitored<br />
+        And I locate the bubble for the “Text Validation” instrument on event “Event 1” for record ID “5002” and click on the bubble<br />
+        And the AJAX request tagged by “update3” has completed<br />
+        Then I should see “(3)” instances in the instance table<br />
+<br />
+Given I click on the link labeled “Project Setup”<br />
+        And I open the dialog box for the Repeatable Instruments and Events module<br />
+        And I select “– not repeating –” on the dropdown field labeled “Event 1 (Arm 1: Arm 1)”<br />
+        And I click on the button labeled “Save” on the dialog box for the Repeatable Instruments and Events module<br />
+        And I close the popup<br />
+        And I should see that repeatable instruments are disabled<br />
+<br />
+Scenario: 10 - Testing Locking<br />
+        Given I click on the link labeled “Record Status Dashboard”<br />
+        And I click on the link labeled “5002”<br />
+        And I click on the button labeled “Choose action for record”<br />
+        And I select the option labeled " Lock entire record"<br />
+        And I should see a dialog containing the following text: “Do you wish to LOCK record "5002"?”<br />
+        And I click on the button labeled “Lock entire record” in the dialog box<br />
+        Then I should see a dialog containing the following text: “Record "5002" is now LOCKED”<br />
+        And I click on the button labeled “OK” in the dialog box<br />
+        #Wait added due to element detached from the DOM error<br />
+        And I wait for 3 seconds<br />
+        Given I click on the link labeled “Data Import Tool”<br />
+        Given I upload a “csv” format file located at “/import_files/Import1_Template_Rows_Data_Scenario10.csv”, by clicking the button near “Select your CSV data file” to browse for the file, and clicking the button labeled “Upload File” to upload the file<br />
+        Then I should see “Errors were detected in the import file that prevented it from being loaded.”<br />
+        And I should see error “This record has been locked at the record level. No value within this record can be modified.” corresponding to the field named “data_types_complete” for record “5002” in Error Display Table<br />
+        Given I click on the link labeled “Record Status Dashboard”<br />
+        And I click on the link labeled “5002”<br />
+        And I click on the button labeled “Choose action for record”<br />
+        And I select the option labeled “Unlock entire record”<br />
+        And I should see a dialog containing the following text: “Do you wish to UNLOCK record "5002"?”<br />
+        And I click on the button labeled “Unlock entire record” in the dialog box<br />
+        Then I should see a dialog containing the following text: “Record "5002" is now UNLOCKED”<br />
+        And I click on the button labeled “OK” in the dialog box<br />
+        Then I logout<br />
+<br />
+Scenario: 11 - Testing user privileges<br />
+        Given I am an “admin” user who logs into REDCap<br />
+        And I click on the link labeled " My Projects"<br />
+        And I click on the link labeled “16_DataImport_v1115”<br />
+        And I click on the link labeled “User Rights”<br />
+        And I click on the link labeled “test_user”<br />
+        And I click on the button labeled “Edit user privileges”<br />
+        And I uncheck the User Right named “Create Records”<br />
+        And I save changes within the context of User Rights<br />
+        Then I logout<br />
+<br />
+Given I am a “standard” user who logs into REDCap<br />
+        Given I click on the link labeled “My Projects”<br />
+        And I click on the link labeled “16_DataImport_v1115”<br />
+        And I click on the link labeled “Data Import Tool”<br />
+        Given I upload a “csv” format file located at “/import_files/Import1_Template_Rows_Data_Scenario11.csv”, by clicking the button near “Select your CSV data file” to browse for the file, and clicking the button labeled “Upload File” to upload the file<br />
+        Then I should see “Your user privileges do NOT allow you to create new records.”<br />
+<br />
+Scenario: 12 - Testing formatting date and Blank Record<br />
+        Given I click on the link labeled “Data Import Tool”<br />
+        And I select “Yes, blank values in the file will overwrite existing values” from the dropdown identified by “select[name=overwriteBehavior]”<br />
+        Then I should see a dialog containing the following text: “Are you sure you wish to REPLACE EXISTING SAVED VALUES WITH BLANK VALUES”<br />
+        And I click on the button labeled “Yes, I understand” in the dialog box<br />
+        Given I upload a “csv” format file located at “/import_files/Import1_Template_Rows_Data_Scenario12.csv”, by clicking the button near “Select your CSV data file” to browse for the file, and clicking the button labeled “Upload File” to upload the file<br />
+        And I should see new value “(1940-07-07)” for Record “5002” and field named “bdate” in the Data Display Table<br />
+        And I should see new value “(Ringo)” for Record “5002” and field named “name” in the Data Display Table<br />
+        And I should see new value “(drummer)” for Record “5002” and field named “instrument” in the Data Display Table<br />
+        And I click on the button labeled “Import Data”<br />
+        Then I should see “Import Successful!”<br />
+        Given I click on the link labeled “Record Status Dashboard”<br />
+        And I locate the bubble for the “Data Types” instrument on event “Event 1” for record ID “5002” and click on the bubble<br />
+        # Additional step definition for the below three steps had to be written for an exact match<br />
+        Then I should see that the field named exactly " Name " contains the value of ""<br />
+        Then I should see that the field named exactly " Text " contains the value of ""<br />
+        Then I should see that the field named exactly " Text Box " contains the value of ""<br />
+        Then I logout<br />
+<br />
+Scenario: 13 - Testing DAGs<br />
+        Given I am an “admin” user who logs into REDCap<br />
+        And I click on the link labeled " My Projects"<br />
+        And I click on the link labeled “16_DataImport_v1115”<br />
+        And I click on the link labeled “DAGs”<br />
+        And the AJAX “GET” request at "index.php?route=DataAccessGroupsController:getDagSwitcherTable&amp;tablerowsonly*" tagged by “dataAccess” is being monitored<br />
+        And I enter “Beatles” into the field identified by “[id=new_group]”<br />
+        And the AJAX request tagged by “dataAccess” has completed<br />
+        And the AJAX “POST” request at "index.php?route=DataAccessGroupsController:ajax&amp;pid*" tagged by “dataAccess1” is being monitored<br />
+        And I click on the button labeled " Add Group"<br />
+        And the AJAX request tagged by “dataAccess1” has completed<br />
+        And the AJAX “GET” request at "index.php?route=DataAccessGroupsController:ajax&amp;pid*" tagged by “dataAccessUser” is being monitored<br />
+        And I select “test_user (Test User)” from the dropdown identified by “select[id=group_users]”<br />
+        And the AJAX request tagged by “dataAccessUser” has completed<br />
+        And I select “Beatles” from the dropdown identified by “select[id=groups]”<br />
+        And the AJAX “POST” request at "index.php?route=DataAccessGroupsController:ajax&amp;pid*" tagged by “dataAccessAddUser” is being monitored<br />
+        And I click on the button labeled “Assign”<br />
+        And the AJAX request tagged by “dataAccessAddUser” has completed<br />
+        Then I logout<br />
+        Given I am a “standard” user who logs into REDCap<br />
+        Given I click on the link labeled “My Projects”<br />
+        And I click on the link labeled “16_DataImport_v1115”<br />
+        And I click on the link labeled “Data Import Tool”<br />
+        Given I upload a “csv” format file located at “/import_files/Import1_Template_rows_dag.csv”, by clicking the button near “Select your CSV data file” to browse for the file, and clicking the button labeled “Upload File” to upload the file<br />
+        Then I should see “ERROR: Illegal use of ‘redcap_data_access_group’ field!”<br />
+        Then I logout<br />
+<br />
+Scenario: 14 - Testing DAGs<br />
+        Given I am an “admin” user who logs into REDCap<br />
+        And I click on the link labeled " My Projects"<br />
+        And I click on the link labeled “16_DataImport_v1115”<br />
+        And I click on the link labeled “Data Import Tool”<br />
+        Given I upload a “csv” format file located at “/import_files/Import1_Template_rows_dag.csv”, by clicking the button near “Select your CSV data file” to browse for the file, and clicking the button labeled “Upload File” to upload the file<br />
+        And I click on the button labeled “Import Data”<br />
+        Then I should see “Import Successful!”<br />
+<br />
+Scenario: 15 - Testing Survey IdentifierAndTimestamp<br />
+        Given I upload a “csv” format file located at “/import_files/Import1_Template_Rows_Data_Scenario15.csv”, by clicking the button near “Select your CSV data file” to browse for the file, and clicking the button labeled “Upload File” to upload the file<br />
+        And I should see old value “(George)” and new value “George Harrison” for Record “5001” and field named “name” in the Data Display Table<br />
+        And I should see new value “04/05/2023” for Record “5000” and field named “redcap_survey_identifier” in the Data Display Table<br />
+        And I click on the button labeled “Import Data”<br />
+        Then I should see “Import Successful!”<br />
+<br />
+Scenario: 16 - Testing import of time with missing minutes or seconds<br />
+        And I click on the link labeled “Dictionary”<br />
+        # 16_DataImportv1115_DD_Date_Tests.csv is not available to download, hence 16_DataImportv1005_DD_Date_Tests.csv is used<br />
+        Given I upload the data dictionary located at “core\16_DataImportv1005_DD_Date_Tests.csv”<br />
+        Then I should see “Changes Made Successfully!”<br />
+        Given I click on the link labeled “Record Status Dashboard”<br />
+        And I locate the bubble for the “Data Types” instrument on event “Event 1” for record ID “5002” and click on the bubble<br />
+        And I should see “Record ID”<br />
+        And I should see “Date value - first two digits of the year component are missing”<br />
+        And I should see “Datetime value - first two digits of the year component are missing”<br />
+        And I should see “Datetime value - missing a minutes component”<br />
+        And I should see “Datetime_seconds value - missing a seconds component”<br />
+<br />
+Scenario: 17 - Testing import of time with missing minutes or seconds<br />
+        Given I click on the link labeled “Project Setup”<br />
+        And I disable longitudinal mode<br />
+        And I click on the link labeled “Data Import Tool”<br />
+        And I upload a “csv” format file located at “/import_files/16_DataImportv1005_DateTests.csv”, by clicking the button near “Select your CSV data file” to browse for the file, and clicking the button labeled “Upload File” to upload the file<br />
+        Then I should see “Errors were detected in the import file that prevented it from being loaded.”<br />
+        Then I should see error “Invalid date format. (NOTE: Dates must be imported here only in M/D/Y format or Y-M-D format, regardless of the specific date format designated for this field.)” corresponding to the field named “date_missing_century” for record “5002” in Error Display Table<br />
+        Then I should see error “Invalid date format. (NOTE: Dates must be imported here only in M/D/Y H:M[:S] format, regardless of the specific date format designated for this field.)” corresponding to the field named “datetime_missing_century” for record “5002” in Error Display Table<br />
+        Then I should see error “Invalid date format. (NOTE: Dates must be imported here only in M/D/Y H:M[:S] format, regardless of the specific date format designated for this field.)” corresponding to the field named “datetime_missing_mins” for record “5002” in Error Display Table<br />
+        Then I should see error “Invalid date format. (NOTE: Dates must be imported here only in M/D/Y H:M[:S] format, regardless of the specific date format designated for this field.)” corresponding to the field named “datetime_secs_missing_secs” for record “5002” in Error Display Table<br />
+<br />
+Scenario: 18 - Testing import of time with missing minutes or seconds- Missing “seconds” and missing “minutes” are appended as “00”<br />
+        Given I select “DD/MM/YYYY or YYYY-MM-DD” from the dropdown identified by “select[name=date_format]”<br />
+        And I upload a “csv” format file located at “/import_files/16_DataImportv1005_DateTests.csv”, by clicking the button near “Select your CSV data file” to browse for the file, and clicking the button labeled “Upload File” to upload the file<br />
+        And I click on the button labeled “Import Data”<br />
+        Then I should see “Import Successful!”<br />
+        Given I click on the link labeled “Data Exports, Reports, and Stats”<br />
+        And I click on the button labeled “View Report” for the report named “All data”<br />
+        Then I should see corrected value “04-14-2021 13:00” for Record “5002” and field named “Datetime value - missing a minutes component” in the Report Table<br />
+        And I should see corrected value “04-14-2021 13:55:00” for Record “5002” and field named “Datetime_seconds value - missing a seconds component” in the Report Table<br />
+<br />
+Scenario: 19 - Logout<br />
+        Then I logout</div>
+</div>
+<hr />
+<p><strong>Comments:</strong><br />
+</p>
+<div class="comments">
+<div class="comment">
+<p><strong>Comment:</strong></p>
+<p><em>Author:</em> MintooXavier <em>Updated on:</em> 17/04/2024 09:21:40</p>
+<em>Comment body:</em>
+<p dir="auto">
+Rewrite SCenario 14 <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/rmh54/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/rmh54"><span class="citation" data-cites="rmh54">@rmh54</span></a>
+</p>
+<p><em>Comment edits:</em></p>
+<div class="comment-edit">
+<p><em>Created:</em> 17/04/2024 09:21:40 <em>Edited on:</em> 17/04/2024 09:21:40 <em>Edited by:</em> MintooXavier <em>Deleted on:</em> |none| <em>Deleted by:</em> |none|</p>
+<p><em>Diff:</em></p>
+<p>Rewrite SCenario 14 <span class="citation" data-cites="rmh54">@rmh54</span></p>
+</div>
+<div class="comment-edit">
+<p><em>Created:</em> 17/04/2024 09:21:40 <em>Edited on:</em> 17/04/2024 09:21:06 <em>Edited by:</em> MintooXavier <em>Deleted on:</em> |none| <em>Deleted by:</em> |none|</p>
+<p><em>Diff:</em></p>
+<p>Rewrite SCenario 14</p>
+</div>
+</div>
+<div class="comment">
+<p><strong>Comment:</strong></p>
+<p><em>Author:</em> MintooXavier <em>Updated on:</em> 17/04/2024 09:22:40</p>
+<em>Comment body:</em>
+<p dir="auto">
+Completed rewriting Scenario 14
+</p>
+</div>
+</div>
+<hr />
+<p><strong>Timeline events:</strong><br />
+</p>
+<div class="timeline">
+<div class="timeline">
+<p>LABELLED | <em>User:</em> MintooXavier <em>Created on:</em> 17/04/2024 09:05:46 <em>Label name:</em> Automated <em>Label description:</em></p>
+<p>ASSIGNED | <em>User:</em> MintooXavier <em>Created on:</em> 17/04/2024 09:20:28 <em>Assignee:</em> MintooXavier</p>
+ISSUE COMMENT | <em>User:</em> MintooXavier <em>Created on:</em> 17/04/2024 09:21:06 <em>Issue comment body:</em>
+<p dir="auto">
+Rewrite SCenario 14 <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/rmh54/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/rmh54"><span class="citation" data-cites="rmh54">@rmh54</span></a>
+</p>
+<p>MENTIONED | <em>User:</em> rmh54 <em>Created on:</em> 17/04/2024 09:21:41</p>
+<p>SUBSCRIBED | <em>User:</em> rmh54 <em>Created on:</em> 17/04/2024 09:21:41</p>
+ISSUE COMMENT | <em>User:</em> MintooXavier <em>Created on:</em> 17/04/2024 09:22:40 <em>Issue comment body:</em>
+<p dir="auto">
+Completed rewriting Scenario 14
+</p>
+<p>MILESTONED | <em>User:</em> MintooXavier <em>Created on:</em> 17/04/2024 09:39:30 <em>Milestone:</em> v.13.8.1</p>
+<p>LABELLED | <em>User:</em> MintooXavier <em>Created on:</em> 17/04/2024 09:40:41 <em>Label name:</em> Core feature <em>Label description:</em> Part of the RSVC core feature set</p>
+<p>CLOSED | <em>User:</em> MintooXavier <em>Created on:</em> 17/04/2024 10:16:23 <em>Closed reason:</em> COMPLETED</p>
+<p>DEMILESTONED | <em>User:</em> MintooXavier <em>Created on:</em> 17/04/2024 10:22:53 <em>Milestone:</em> v.13.8.1</p>
+<p>MILESTONED | <em>User:</em> MintooXavier <em>Created on:</em> 17/04/2024 10:22:53 <em>Milestone:</em> v.14</p>
+<p>REOPENED | <em>User:</em> MintooXavier <em>Created on:</em> 17/04/2024 10:54:49 <em>Reason:</em> REOPENED</p>
+<p>DEMILESTONED | <em>User:</em> MintooXavier <em>Created on:</em> 17/04/2024 12:20:48 <em>Milestone:</em> v.14</p>
+<p>MILESTONED | <em>User:</em> MintooXavier <em>Created on:</em> 17/04/2024 12:20:48 <em>Milestone:</em> v.13.8.1</p>
+<p>CLOSED | <em>User:</em> rmh54 <em>Created on:</em> 18/04/2024 09:50:06 <em>Closed reason:</em> COMPLETED</p>
+<p>REOPENED | <em>User:</em> rmh54 <em>Created on:</em> 18/04/2024 09:50:18 <em>Reason:</em> REOPENED</p>
+<p>DEMILESTONED | <em>User:</em> rmh54 <em>Created on:</em> 19/04/2024 08:41:29 <em>Milestone:</em> v.13.8.1</p>
+<p>UNLABELLED | <em>User:</em> MintooXavier <em>Created on:</em> 22/04/2024 09:22:09 <em>Label name:</em> Core feature <em>Label description:</em> Part of the RSVC core feature set</p>
+<p>LABELLED | <em>User:</em> MintooXavier <em>Created on:</em> 22/04/2024 09:24:36 <em>Label name:</em> Gherkin <em>Label description:</em> Uses a Gherkin syntax</p>
+<p>LABELLED | <em>User:</em> MintooXavier <em>Created on:</em> 22/04/2024 09:24:42 <em>Label name:</em> Core feature <em>Label description:</em> Part of the RSVC core feature set</p>
+</div>
+</div>
+<p><br/></p>
+<p>————— feature ends —————</p>
+<p><br/></p>
+<hr />
+<div id="redcap_cypress-15">
+<strong>Feature:</strong> 16. Data Import - Data Collection and Storage
+</div>
+<hr />
+<table>
+<colgroup>
+<col style="width: 60%" />
+<col style="width: 40%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Id:</strong> I_kwDOIaOBn86F-sWg</td>
+<td style="text-align: left;"><strong>Uid:</strong> redcap_cypress-15</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Author:</strong> MintooXavier</td>
+<td style="text-align: left;"><strong>Created:</strong> 17/04/2024 09:19:15</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Assignees:</strong> CoreenDsouza</td>
+<td style="text-align: left;"><strong>Resource path:</strong> <a href=https://github.com//CCTC-team/redcap_cypress/issues/15 target=_blank>/CCTC-team/redcap_cypress/issues/15</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Milestone:</strong> |none|</td>
+<td style="text-align: left;"><strong>Labels:</strong> Core feature || Gherkin || Automated</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<table>
+<colgroup>
+<col style="width: 60%" />
+<col style="width: 40%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>State:</strong> OPEN</td>
+<td style="text-align: left;"><strong>State reason</strong>: REOPENED</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Includes created edit:</strong> true</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Closed:</strong> false</td>
+<td style="text-align: left;"><strong>Closed on:</strong> |none|</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Editor:</strong> rmh54</td>
+<td style="text-align: left;"><strong>Updated on:</strong> 29/04/2024 11:56:03</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Locked:</strong> false</td>
+<td style="text-align: left;"><strong>Participants:</strong> MintooXavier || rmh54 || CoreenDsouza</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<strong>Project item body:</strong><br />
+
+<div class="feature-body">
+<p dir="auto">
+Feature link:<br> <a href="https://github.com/CCTC-team/redcap_cypress/blob/redcap_val/cypress/features/core/data/import.feature">https://github.com/CCTC-team/redcap_cypress/blob/redcap_val/cypress/features/core/data/import.feature</a>
+</p>
+<p dir="auto">
+Brief description:<br> This feature is used to test the data import feature in REDCap.
+</p>
+<p dir="auto">
+Pre review:
+</p>
+<ul class="contains-task-list">
+<li class="task-list-item">
+<input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> The script targets the correct feature sufficiently
+</li>
+<li class="task-list-item">
+<input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> The user requirements are met
+</li>
+</ul>
+<p dir="auto">
+Post review:
+</p>
+<ul class="contains-task-list">
+<li class="task-list-item">
+<input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> The script targets the correct feature sufficiently
+</li>
+<li class="task-list-item">
+<input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> The script matches the source manual script
+</li>
+<li class="task-list-item">
+<input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> The script appropriately tests the feature
+</li>
+</ul>
+</div>
+<hr />
+<p><strong>User specification:</strong><br />
+</p>
+<div class="spec-script">
+<div class="line-block">    # User Interface<br />
+    # 16.1 The system shall support the ability to download two versions of a data import template formatted as a CSV file, one to accommodate records in rows and one to accommodate records in columns.<br />
+    # 16.2 The system shall allow data to be uploaded with the csv template to create and modify records.<br />
+    # 16.3 The system shall highlight data modifications for user confirmation.<br />
+    # 16.4 The system shall import only valid formats for text fields with validation.<br />
+    # 16.5 The system shall import only valid choice codes for radio buttons, dropdowns, and checkboxes.<br />
+    # 16.6 The system shall ignore survey identifier and timestamp fields on all data import spreadsheets and allow all other data to be imported.<br />
+    # 16.7 The system shall require the event name in the csv file when importing data to a longitudinal study.<br />
+    # 16.8 The system shall require the repeating instrument and instance number in the csv file when importing data to a repeating event project.<br />
+    # 16.9 The system shall not allow data to be changed on locked data entry forms.<br />
+    # 16.10 The system shall not allow a new record to be imported if user does not have Create Records access.<br />
+    # 16.11 The system shall allow data to be changed only by a user who has “edit” access to the data entry form.<br />
+    # 16.12 The system shall provide the option to allow blank values to overwrite existing saved values.<br />
+    # 16.13 The system shall provide the ability to assign data instruments to a data access group with the Data Import Tool.<br />
+</div>
+</div>
+<p><strong>Test script:</strong><br />
+</p>
+<div class="spec-script">
+<div class="line-block">Feature: Data Import - Data Collection and Storage<br />
+<br />
+As a REDCap end user, I want to see that:<br />
+    The below user requirements are met<br />
+<br />
+Scenario: Project Setup 1 - Create Project 16_DataImport_v1115<br />
+        Given I am an “admin” user who logs into REDCap<br />
+        And I create a project named “16_DataImport_v1115” with project purpose Practice / Just for fun via CDISC XML import from fixture location “cdisc_files/core/07_DesignForms_v1115.xml”<br />
+        When I click on the link labeled “User Rights”<br />
+        And I enter “test_user” into the field identified by “[id=new_username]”<br />
+        And I click on the button labeled “Add with custom rights”<br />
+        And I check the checkbox identified by “[name=design]”<br />
+        And I check the checkbox identified by “[name=data_import_tool]”<br />
+        And I select the User Right named “Lock/Unlock Records” and choose “Locking / Unlocking”<br />
+        And I check the checkbox identified by “[name=lock_record_multiform]”<br />
+        And I click on the button labeled “Add user” in the dialog box<br />
+<br />
+Scenario: Project Setup - 2<br />
+        When I click on the link labeled “Project Setup”<br />
+        When I click on the link labeled “Other Functionality”<br />
+        And I click on the button labeled “Erase all data”<br />
+        And I click on the button labeled “Erase all data” in the dialog box<br />
+        And I close the popup<br />
+<br />
+Scenario: Project Setup - 3<br />
+        And I click on the link labeled “Project Setup”<br />
+        And I disable longitudinal mode<br />
+        And I open the dialog box for the Repeatable Instruments and Events module<br />
+        And I uncheck the checkbox labeled “Data Types”<br />
+        And I click on the button labeled “Save” in the dialog box<br />
+        And I should see that repeatable instruments are disabled<br />
+        And I click on the link labeled “Dictionary”<br />
+        Given I upload the data dictionary located at “core\16_DataImportDD.csv”<br />
+        Then I should see “Changes Made Successfully!”<br />
+<br />
+Scenario: 1 - Login as Test User and download Templates for both Rows and Columns<br />
+        Given I am a “standard” user who logs into REDCap<br />
+        Given I click on the link labeled “My Projects”<br />
+        And I click on the link labeled “16_DataImport_v1115”<br />
+        And I click on the link labeled “Data Import Tool”<br />
+        And I download a Data Import Template file “rows” by clicking on the link labeled “Download your Data Import Template”<br />
+        Then I should have a file named “Template_rows.csv”<br />
+        And I download a Data Import Template file “columns” by clicking on the link labeled “Download your Data Import Template”<br />
+        Then I should have a file named “Template_columns.csv”<br />
+<br />
+Scenario: 2 - Upload Template_rows file (data in rows) - Test import rows<br />
+        Given I upload a “csv” format file located at “/import_files/Import1_Template_Rows_Data.csv”, by clicking the button near “Select your CSV data file” to browse for the file, and clicking the button labeled “Upload File” to upload the file<br />
+        And I click on the button labeled “Import Data”<br />
+        Then I should see “Import Successful!”<br />
+<br />
+Scenario: 3 - Upload modified Template_rows file - Testing formatting date<br />
+        Given I select “DD/MM/YYYY or YYYY-MM-DD” from the dropdown identified by “select[name=date_format]”<br />
+        And I upload a “csv” format file located at “/import_files/Import1_Template_Rows_Data_modified.csv”, by clicking the button near “Select your CSV data file” to browse for the file, and clicking the button labeled “Upload File” to upload the file<br />
+        Then Records “100,200,300” should contain text “(existing record)” in brackets<br />
+        And I should see old value “(1943-02-25)” and new value “1943-01-28” for Record “200” and field named “bdate” in the Data Display Table<br />
+        And I click on the button labeled “Import Data”<br />
+        Then I should see “Import Successful!”<br />
+<br />
+Scenario: 4 - Test import Columns<br />
+        Given I select “Columns” from the dropdown identified by “select[name=format]”<br />
+        Given I select “MM/DD/YYYY or YYYY-MM-DD” from the dropdown identified by “select[name=date_format]”<br />
+        Given I upload a “csv” format file located at “/import_files/Import1_Template_Columns_Data.csv”, by clicking the button near “Select your CSV data file” to browse for the file, and clicking the button labeled “Upload File” to upload the file<br />
+        And I click on the button labeled “Import Data”<br />
+        Then I should see “Import Successful!”<br />
+        Given I click on the link labeled “Record Status Dashboard”<br />
+        Then I see a “circle_yellow” bubble for Record “4000” and Instrument named “Text Validation”<br />
+        And I see a “circle_green” bubble for Record “4001” and Instrument named “Text Validation”<br />
+        And I see a “circle_red” bubble for Record “4001” and Instrument named “Data Types”<br />
+<br />
+Scenario: 5 - Testing improper data format<br />
+        Given I click on the link labeled “Data Import Tool”<br />
+        And I select “Columns” from the dropdown identified by “select[name=format]”<br />
+        Given I upload a “csv” format file located at “/import_files/Import1_Template_Columns_Data_modified.csv”, by clicking the button near “Select your CSV data file” to browse for the file, and clicking the button labeled “Upload File” to upload the file<br />
+        Then I should see error “Invalid date format.” corresponding to the field named “bdate” for record “4002” in Error Display Table<br />
+        And I should see error “The value is not a valid category for multiple_dropdown_auto” corresponding to the field named “multiple_dropdown_auto” for record “4002” in Error Display Table<br />
+        And I should see error “The value you provided could not be validated because it does not follow the expected format.” corresponding to the field named “integer” for record “4002” in Error Display Table<br />
+<br />
+Scenario: 6 - Testing Repeating Events and Instruments<br />
+        When I click on the link labeled “Project Setup”<br />
+        And I enable longitudinal mode<br />
+        Then I should see that longitudinal mode is “enabled”<br />
+        And I open the dialog box for the Repeatable Instruments and Events module<br />
+        And I select “– not repeating –” on the dropdown field labeled “Event 2 (Arm 1: Arm 1)”<br />
+        And I click on the button labeled “Save” on the dialog box for the Repeatable Instruments and Events module<br />
+        And I should see that repeatable instruments are disabled<br />
+        Given I click on the link labeled “Data Import Tool”<br />
+        Given I upload a “csv” format file located at “/import_files/Import1_Template_Rows_Data_modified.csv”, by clicking the button near “Select your CSV data file” to browse for the file, and clicking the button labeled “Upload File” to upload the file<br />
+        Then I should see “ERROR: The following values for ‘redcap_event_name’ are not valid unique event names for this project,”<br />
+<br />
+Scenario: 7 - Testing Repeatable Events and Instruments<br />
+        Given I upload a “csv” format file located at “/import_files/Import1_Template_Rows_Data_Scenario7.csv”, by clicking the button near “Select your CSV data file” to browse for the file, and clicking the button labeled “Upload File” to upload the file<br />
+        And I click on the button labeled “Import Data”<br />
+        Then I should see “Import Successful!”<br />
+        And I click on the link labeled “Project Setup”<br />
+        And I open the dialog box for the Repeatable Instruments and Events module<br />
+        And I select “Repeat Entire Event (repeat all instruments together)” on the dropdown field labeled “Event 1 (Arm 1: Arm 1)”<br />
+        And I click on the button labeled “Save” on the dialog box for the Repeatable Instruments and Events module<br />
+        And I close the popup<br />
+        And I should see that repeatable instruments are modifiable<br />
+<br />
+Scenario: 8 - Testing Repeatable Instance<br />
+        Given I click on the link labeled “Data Import Tool”<br />
+        Given I upload a “csv” format file located at “/import_files/Import1_Template_Rows_Data_Scenario8.csv”, by clicking the button near “Select your CSV data file” to browse for the file, and clicking the button labeled “Upload File” to upload the file<br />
+        And I click on the button labeled “Import Data”<br />
+        Then I should see “Import Successful!”<br />
+        Given I click on the link labeled “Record Status Dashboard”<br />
+        And I locate the bubble for the “Text Validation” instrument on event “Event 1” for record ID “5000” and click on the bubble<br />
+        Then I should see “(2)” instances in the instance table<br />
+        Given the AJAX “POST” request at "index.php?*" tagged by “update” is being monitored<br />
+        And I locate the bubble for the “Text Validation” instrument on event “Event 1” for record ID “5001” and click on the bubble<br />
+        And the AJAX request tagged by “update” has completed<br />
+        Then I should see “(2)” instances in the instance table<br />
+        Given the AJAX “POST” request at "index.php?*" tagged by “update” is being monitored<br />
+        And I locate the bubble for the “Text Validation” instrument on event “Event 1” for record ID “5002” and click on the bubble<br />
+        And the AJAX request tagged by “update” has completed<br />
+        Then I should see “(2)” instances in the instance table<br />
+<br />
+Scenario: 9 - Testing Repeatable Instance<br />
+        Given I click on the link labeled “Project Setup”<br />
+        And I should see that repeatable instruments are modifiable<br />
+        And I open the dialog box for the Repeatable Instruments and Events module<br />
+        And I select “Repeat Instruments (repeat independently of each other)” on the dropdown field labeled “Event 1 (Arm 1: Arm 1)”<br />
+        And I click on the button labeled “Save” on the dialog box for the Repeatable Instruments and Events module<br />
+        And I close the popup<br />
+        Given I click on the link labeled “Data Import Tool”<br />
+        Given I upload a “csv” format file located at “/import_files/Import1_Template_Rows_Repeat.csv”, by clicking the button near “Select your CSV data file” to browse for the file, and clicking the button labeled “Upload File” to upload the file<br />
+        And I click on the button labeled “Import Data”<br />
+        Then I should see “Import Successful!”<br />
+        Given I click on the link labeled “Record Status Dashboard”<br />
+        Given the AJAX “POST” request at "index.php?*" tagged by “update1” is being monitored<br />
+        And I locate the bubble for the “Text Validation” instrument on event “Event 1” for record ID “5000” and click on the bubble<br />
+        And the AJAX request tagged by “update1” has completed<br />
+        Then I should see “(3)” instances in the instance table<br />
+        Given the AJAX “POST” request at "index.php?*" tagged by “update2” is being monitored<br />
+        And I locate the bubble for the “Text Validation” instrument on event “Event 1” for record ID “5001” and click on the bubble<br />
+        And the AJAX request tagged by “update2” has completed<br />
+        Then I should see “(3)” instances in the instance table<br />
+        Given the AJAX “POST” request at "index.php?*" tagged by “update3” is being monitored<br />
+        And I locate the bubble for the “Text Validation” instrument on event “Event 1” for record ID “5002” and click on the bubble<br />
+        And the AJAX request tagged by “update3” has completed<br />
+        Then I should see “(3)” instances in the instance table<br />
+<br />
+Given I click on the link labeled “Project Setup”<br />
+        And I open the dialog box for the Repeatable Instruments and Events module<br />
+        And I select “– not repeating –” on the dropdown field labeled “Event 1 (Arm 1: Arm 1)”<br />
+        And I click on the button labeled “Save” on the dialog box for the Repeatable Instruments and Events module<br />
+        And I close the popup<br />
+        And I should see that repeatable instruments are disabled<br />
+<br />
+Scenario: 10 - Testing Locking<br />
+        Given I click on the link labeled “Record Status Dashboard”<br />
+        And I click on the link labeled “5002”<br />
+        And I click on the button labeled “Choose action for record”<br />
+        And I select the option labeled " Lock entire record"<br />
+        And I should see a dialog containing the following text: “Do you wish to LOCK record "5002"?”<br />
+        And I click on the button labeled “Lock entire record” in the dialog box<br />
+        Then I should see a dialog containing the following text: “Record "5002" is now LOCKED”<br />
+        And I click on the button labeled “OK” in the dialog box<br />
+        #Wait added due to element detached from the DOM error<br />
+        And I wait for 3 seconds<br />
+        Given I click on the link labeled “Data Import Tool”<br />
+        Given I upload a “csv” format file located at “/import_files/Import1_Template_Rows_Data_Scenario10.csv”, by clicking the button near “Select your CSV data file” to browse for the file, and clicking the button labeled “Upload File” to upload the file<br />
+        Then I should see “Errors were detected in the import file that prevented it from being loaded.”<br />
+        And I should see error “This record has been locked at the record level. No value within this record can be modified.” corresponding to the field named “data_types_complete” for record “5002” in Error Display Table<br />
+        Given I click on the link labeled “Record Status Dashboard”<br />
+        And I click on the link labeled “5002”<br />
+        And I click on the button labeled “Choose action for record”<br />
+        And I select the option labeled “Unlock entire record”<br />
+        And I should see a dialog containing the following text: “Do you wish to UNLOCK record "5002"?”<br />
+        And I click on the button labeled “Unlock entire record” in the dialog box<br />
+        Then I should see a dialog containing the following text: “Record "5002" is now UNLOCKED”<br />
+        And I click on the button labeled “OK” in the dialog box<br />
+        Then I logout<br />
+<br />
+Scenario: 11 - Testing user privileges<br />
+        Given I am an “admin” user who logs into REDCap<br />
+        And I click on the link labeled " My Projects"<br />
+        And I click on the link labeled “16_DataImport_v1115”<br />
+        And I click on the link labeled “User Rights”<br />
+        And I click on the link labeled “test_user”<br />
+        And I click on the button labeled “Edit user privileges”<br />
+        And I uncheck the User Right named “Create Records”<br />
+        And I save changes within the context of User Rights<br />
+        Then I logout<br />
+<br />
+Given I am a “standard” user who logs into REDCap<br />
+        Given I click on the link labeled “My Projects”<br />
+        And I click on the link labeled “16_DataImport_v1115”<br />
+        And I click on the link labeled “Data Import Tool”<br />
+        Given I upload a “csv” format file located at “/import_files/Import1_Template_Rows_Data_Scenario11.csv”, by clicking the button near “Select your CSV data file” to browse for the file, and clicking the button labeled “Upload File” to upload the file<br />
+        Then I should see “Your user privileges do NOT allow you to create new records.”<br />
+<br />
+Scenario: 12 - Testing formatting date and Blank Record<br />
+        Given I click on the link labeled “Data Import Tool”<br />
+        And I select “Yes, blank values in the file will overwrite existing values” from the dropdown identified by “select[name=overwriteBehavior]”<br />
+        Then I should see a dialog containing the following text: “Are you sure you wish to REPLACE EXISTING SAVED VALUES WITH BLANK VALUES”<br />
+        And I click on the button labeled “Yes, I understand” in the dialog box<br />
+        Given I upload a “csv” format file located at “/import_files/Import1_Template_Rows_Data_Scenario12.csv”, by clicking the button near “Select your CSV data file” to browse for the file, and clicking the button labeled “Upload File” to upload the file<br />
+        And I should see new value “(1940-07-07)” for Record “5002” and field named “bdate” in the Data Display Table<br />
+        And I should see new value “(Ringo)” for Record “5002” and field named “name” in the Data Display Table<br />
+        And I should see new value “(drummer)” for Record “5002” and field named “instrument” in the Data Display Table<br />
+        And I click on the button labeled “Import Data”<br />
+        Then I should see “Import Successful!”<br />
+        Given I click on the link labeled “Record Status Dashboard”<br />
+        And I locate the bubble for the “Data Types” instrument on event “Event 1” for record ID “5002” and click on the bubble<br />
+        # Additional step definition for the below three steps had to be written for an exact match<br />
+        Then I should see that the field named exactly " Name " contains the value of ""<br />
+        Then I should see that the field named exactly " Text " contains the value of ""<br />
+        Then I should see that the field named exactly " Text Box " contains the value of ""<br />
+        Then I logout<br />
+<br />
+Scenario: 13 - Testing DAGs<br />
+        Given I am an “admin” user who logs into REDCap<br />
+        And I click on the link labeled " My Projects"<br />
+        And I click on the link labeled “16_DataImport_v1115”<br />
+        And I click on the link labeled “DAGs”<br />
+        And the AJAX “GET” request at "index.php?route=DataAccessGroupsController:getDagSwitcherTable&amp;tablerowsonly*" tagged by “dataAccess” is being monitored<br />
+        And I enter “Beatles” into the field identified by “[id=new_group]”<br />
+        And the AJAX request tagged by “dataAccess” has completed<br />
+        And the AJAX “POST” request at "index.php?route=DataAccessGroupsController:ajax&amp;pid*" tagged by “dataAccess1” is being monitored<br />
+        And I click on the button labeled " Add Group"<br />
+        And the AJAX request tagged by “dataAccess1” has completed<br />
+        And the AJAX “GET” request at "index.php?route=DataAccessGroupsController:ajax&amp;pid*" tagged by “dataAccessUser” is being monitored<br />
+        And I select “test_user (Test User)” from the dropdown identified by “select[id=group_users]”<br />
+        And the AJAX request tagged by “dataAccessUser” has completed<br />
+        And I select “Beatles” from the dropdown identified by “select[id=groups]”<br />
+        And the AJAX “POST” request at "index.php?route=DataAccessGroupsController:ajax&amp;pid*" tagged by “dataAccessAddUser” is being monitored<br />
+        And I click on the button labeled “Assign”<br />
+        And the AJAX request tagged by “dataAccessAddUser” has completed<br />
+        Then I logout<br />
+        Given I am a “standard” user who logs into REDCap<br />
+        Given I click on the link labeled “My Projects”<br />
+        And I click on the link labeled “16_DataImport_v1115”<br />
+        And I click on the link labeled “Data Import Tool”<br />
+        Given I upload a “csv” format file located at “/import_files/Import1_Template_rows_dag.csv”, by clicking the button near “Select your CSV data file” to browse for the file, and clicking the button labeled “Upload File” to upload the file<br />
+        Then I should see “ERROR: Illegal use of ‘redcap_data_access_group’ field!”<br />
+        Then I logout<br />
+<br />
+Scenario: 14 - Testing DAGs<br />
+        Given I am an “admin” user who logs into REDCap<br />
+        And I click on the link labeled " My Projects"<br />
+        And I click on the link labeled “16_DataImport_v1115”<br />
+        And I click on the link labeled “Data Import Tool”<br />
+        Given I upload a “csv” format file located at “/import_files/Import1_Template_rows_dag.csv”, by clicking the button near “Select your CSV data file” to browse for the file, and clicking the button labeled “Upload File” to upload the file<br />
+        And I click on the button labeled “Import Data”<br />
+        Then I should see “Import Successful!”<br />
+<br />
+Scenario: 15 - Testing Survey IdentifierAndTimestamp<br />
+        Given I upload a “csv” format file located at “/import_files/Import1_Template_Rows_Data_Scenario15.csv”, by clicking the button near “Select your CSV data file” to browse for the file, and clicking the button labeled “Upload File” to upload the file<br />
+        And I should see old value “(George)” and new value “George Harrison” for Record “5001” and field named “name” in the Data Display Table<br />
+        And I should see new value “04/05/2023” for Record “5000” and field named “redcap_survey_identifier” in the Data Display Table<br />
+        And I click on the button labeled “Import Data”<br />
+        Then I should see “Import Successful!”<br />
+<br />
+Scenario: 16 - Testing import of time with missing minutes or seconds<br />
+        And I click on the link labeled “Dictionary”<br />
+        # 16_DataImportv1115_DD_Date_Tests.csv is not available to download, hence 16_DataImportv1005_DD_Date_Tests.csv is used<br />
+        Given I upload the data dictionary located at “core\16_DataImportv1005_DD_Date_Tests.csv”<br />
+        Then I should see “Changes Made Successfully!”<br />
+        Given I click on the link labeled “Record Status Dashboard”<br />
+        And I locate the bubble for the “Data Types” instrument on event “Event 1” for record ID “5002” and click on the bubble<br />
+        And I should see “Record ID”<br />
+        And I should see “Date value - first two digits of the year component are missing”<br />
+        And I should see “Datetime value - first two digits of the year component are missing”<br />
+        And I should see “Datetime value - missing a minutes component”<br />
+        And I should see “Datetime_seconds value - missing a seconds component”<br />
+<br />
+Scenario: 17 - Testing import of time with missing minutes or seconds<br />
+        Given I click on the link labeled “Project Setup”<br />
+        And I disable longitudinal mode<br />
+        And I click on the link labeled “Data Import Tool”<br />
+        And I upload a “csv” format file located at “/import_files/16_DataImportv1005_DateTests.csv”, by clicking the button near “Select your CSV data file” to browse for the file, and clicking the button labeled “Upload File” to upload the file<br />
+        Then I should see “Errors were detected in the import file that prevented it from being loaded.”<br />
+        Then I should see error “Invalid date format. (NOTE: Dates must be imported here only in M/D/Y format or Y-M-D format, regardless of the specific date format designated for this field.)” corresponding to the field named “date_missing_century” for record “5002” in Error Display Table<br />
+        Then I should see error “Invalid date format. (NOTE: Dates must be imported here only in M/D/Y H:M[:S] format, regardless of the specific date format designated for this field.)” corresponding to the field named “datetime_missing_century” for record “5002” in Error Display Table<br />
+        Then I should see error “Invalid date format. (NOTE: Dates must be imported here only in M/D/Y H:M[:S] format, regardless of the specific date format designated for this field.)” corresponding to the field named “datetime_missing_mins” for record “5002” in Error Display Table<br />
+        Then I should see error “Invalid date format. (NOTE: Dates must be imported here only in M/D/Y H:M[:S] format, regardless of the specific date format designated for this field.)” corresponding to the field named “datetime_secs_missing_secs” for record “5002” in Error Display Table<br />
+<br />
+Scenario: 18 - Testing import of time with missing minutes or seconds- Missing “seconds” and missing “minutes” are appended as “00”<br />
+        Given I select “DD/MM/YYYY or YYYY-MM-DD” from the dropdown identified by “select[name=date_format]”<br />
+        And I upload a “csv” format file located at “/import_files/16_DataImportv1005_DateTests.csv”, by clicking the button near “Select your CSV data file” to browse for the file, and clicking the button labeled “Upload File” to upload the file<br />
+        And I click on the button labeled “Import Data”<br />
+        Then I should see “Import Successful!”<br />
+        Given I click on the link labeled “Data Exports, Reports, and Stats”<br />
+        And I click on the button labeled “View Report” for the report named “All data”<br />
+        Then I should see corrected value “04-14-2021 13:00” for Record “5002” and field named “Datetime value - missing a minutes component” in the Report Table<br />
+        And I should see corrected value “04-14-2021 13:55:00” for Record “5002” and field named “Datetime_seconds value - missing a seconds component” in the Report Table<br />
+<br />
+Scenario: 19 - Logout<br />
+        Then I logout</div>
+</div>
+<hr />
+<p><strong>Comments:</strong><br />
+</p>
+<div class="comments">
+
+</div>
+<hr />
+<p><strong>Timeline events:</strong><br />
+</p>
+<div class="timeline">
+<div class="timeline">
+<p>LABELLED | <em>User:</em> MintooXavier <em>Created on:</em> 17/04/2024 09:19:15 <em>Label name:</em> Automated <em>Label description:</em></p>
+<p>ASSIGNED | <em>User:</em> MintooXavier <em>Created on:</em> 17/04/2024 09:38:46 <em>Assignee:</em> CoreenDsouza</p>
+<p>MILESTONED | <em>User:</em> MintooXavier <em>Created on:</em> 17/04/2024 09:39:47 <em>Milestone:</em> v.13.8.1</p>
+<p>LABELLED | <em>User:</em> MintooXavier <em>Created on:</em> 17/04/2024 09:40:25 <em>Label name:</em> Core feature <em>Label description:</em> Part of the RSVC core feature set</p>
+<p>CLOSED | <em>User:</em> MintooXavier <em>Created on:</em> 17/04/2024 10:17:16 <em>Closed reason:</em> COMPLETED</p>
+<p>DEMILESTONED | <em>User:</em> MintooXavier <em>Created on:</em> 17/04/2024 10:23:13 <em>Milestone:</em> v.13.8.1</p>
+<p>MILESTONED | <em>User:</em> MintooXavier <em>Created on:</em> 17/04/2024 10:23:13 <em>Milestone:</em> v.14</p>
+<p>REOPENED | <em>User:</em> MintooXavier <em>Created on:</em> 17/04/2024 10:55:59 <em>Reason:</em> REOPENED</p>
+<p>DEMILESTONED | <em>User:</em> MintooXavier <em>Created on:</em> 17/04/2024 12:20:50 <em>Milestone:</em> v.14</p>
+<p>MILESTONED | <em>User:</em> MintooXavier <em>Created on:</em> 17/04/2024 12:20:50 <em>Milestone:</em> v.13.8.1</p>
+<p>DEMILESTONED | <em>User:</em> rmh54 <em>Created on:</em> 19/04/2024 08:40:06 <em>Milestone:</em> v.13.8.1</p>
+<p>LABELLED | <em>User:</em> MintooXavier <em>Created on:</em> 22/04/2024 09:24:53 <em>Label name:</em> Gherkin <em>Label description:</em> Uses a Gherkin syntax</p>
+</div>
+</div>
+<p><br/></p>
+<p>————— feature ends —————</p>
+<p><br/></p>
+</body>
+</html>
