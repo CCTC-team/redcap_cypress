@@ -2,9 +2,9 @@ Feature: File Repository
 
   As a REDCap end user, I want to see that:
   The below user requirements are met
-  #--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  #-------------------------------------------------------------------------------------
   # C.3.26.300 User Interface: The system shall support the storage, organization, and sharing of project files for permanent folders: (Data Export | e-Consent PDFs | Recycle Bin | Custom Create folder / Sub-folder)
-  #--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  #-------------------------------------------------------------------------------------
 
   Scenario: C.3.26.300.100 Automatic uploading of data export logs into the data export folder
 

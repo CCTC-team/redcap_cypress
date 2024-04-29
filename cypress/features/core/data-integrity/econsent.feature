@@ -1,8 +1,29 @@
 Feature: e-Consent
 
-  As a REDCap end user
-  I want to see that Record Locking and E-Signatures is functioning as expected
-
+  As a REDCap end user, I want to see that:
+  The below user requirements are met
+  #-------------------------------------------------------------------------------------
+  # Survey Settings 
+  # 24.1 The system shall support the enabling/disabling of e-Consent framework. The framework categories are listed below: 
+    # 24.1.1 Disabled 
+    # 24.1.2 Auto-Archiver enabled 
+    # 24.1.3 Auto-Archiver +  e-Consent Framework (includes end-of-survey certification & archival of PDF consent form) 
+  
+  # User Interface 
+  # 24.2 The e-Consent framework shall support the following text validation for framework text field types automatically inserted into the footer of the PDF consent form:  
+    # 24.2.1 e-Consent version: (textbox) 
+    # 24.2.2 First name field: (select a field) 
+    # 24.2.3 Last name field:(select a field) 
+    # 24.2.4 e-Consent type: (select a field) 
+    # 24.2.5 Date of birth field: (select a field) 
+    # 24.2.6 Signature field #1: (select a field) 
+    # 24.2.7 The e-Consent framework shall support editing of responses by users. 
+    # 24.2.8 The e-Consent framework shall support a certification page at the end of the survey that displays an in-line PDF copy of their survey responses. 
+  # 24.3 The e-Consent framework will support surveys not considered as complete (submit button appears) until the certification step has been completed. 
+  # 24.4 The e-Consent framework shall support automatic archiving/storage of a PDF copy of the survey response in the project's File Repository.  
+  # 24.5 The e-Consent framework shall support download of archived PDFs 
+  #-------------------------------------------------------------------------------------
+  
   Scenario: 1 - Create 24_econsent_v1115
     Given I am a "standard" user who logs into REDCap
     And I create a project named "24_econsent_v1115" with project purpose Operational Support via CDISC XML import from fixture location "cdisc_files/core/07_DesignForms_v1115.xml"

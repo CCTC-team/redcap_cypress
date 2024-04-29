@@ -1,8 +1,8 @@
 Feature: Assign User Rights
 
-  As a REDCap end user, I want to see that:
+  REDCap end user, I want to see that:
   The below user requirements are met
-  #-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+  #-------------------------------------------------------------------------------------
   # Project Level 
   # 6.1 The system shall allow the ability to add, edit or delete the following core user privileges (when all modules are enabled) for the following: 
   #   6.1.1 Expiration Date 
@@ -29,7 +29,7 @@ Feature: Assign User Rights
   #   6.2.4 Edit survey responses 
   # 6.3 The system shall allow for the creation, copying and deletion of user roles. 
   # 6.4 The system shall support adding and removing users from user roles.	 
-  #-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+  #-------------------------------------------------------------------------------------
 
   Scenario: Project Setup - 1
     Given I am an "admin" user who logs into REDCap

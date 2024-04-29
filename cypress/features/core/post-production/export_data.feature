@@ -1,7 +1,25 @@
 Feature: Export Data
 
-  As a REDCap end user
-  I want to see that Export Data is functioning as expected
+  As a REDCap end user, I want to see that:
+  The below user requirements are met
+  #-------------------------------------------------------------------------------------
+  # 21.1 The system shall support the ability to identify data as containing a protected health information identifier. 
+  # 21.2 The system shall allow data to be exported in the following formats: CSV, SPSS, SAS, R, STATA, and CDISC ODM (XML). 
+  # 21.3 The system shall allow for exporting every field in a database. 
+  # 21.4 The system shall support the ability to select specific forms to export. 
+  # 21.5 The system shall have the following data de-identification options: 
+  #   21.5.1 Known Identifiers 
+  #     21.5.1.1 Ability to remove all known identifier fields 
+  #     21.5.1.2 Ability to hash the Record ID field 
+  #   21.5.2 Free Form Text 
+  #     21.5.2.1 Remove unvalidated text fields	 
+  #     21.5.2.2 Remove notes box fields 
+  #   21.5.3 Date and Datetime Fields 
+  #     21.5.3.1 Remove all date and datetime fields 
+  #     21.5.3.2 Shift all dates by value between 0 and 364 days 
+  #     21.5.3.3 Also shift all survey completion timestamps by value between 0 and 364 days 
+  # 21.6 The system shall support the ability to restrict users from exporting data.
+  #-------------------------------------------------------------------------------------
 
   Scenario: Project Setup 1 - Create Project 21_ExportDataExtraction_v1115
     Given I am a "standard" user who logs into REDCap

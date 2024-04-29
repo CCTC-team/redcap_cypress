@@ -2,7 +2,7 @@ Feature: Data Entry through the Data Collection Instrument
 
   As a REDCap end user, I want to see that:
   The below user requirements are met
-  #------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  #-------------------------------------------------------------------------------------
   # Creating a Record and Entering Data  
   # 14.1 The system shall support the ability to create a record 
   # 14.2 The system shall support data entry for the defined core field types. 
@@ -36,7 +36,7 @@ Feature: Data Entry through the Data Collection Instrument
   # 14.10 The system shall allow users to delete all data on the current form of a given record. 
   # 14.11 The system shall allow users to delete all data in an event for a given record. 
   # 14.12 The system shall allow users to delete a record 
-  #------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  #-------------------------------------------------------------------------------------
 
   Scenario: 0 - Create the Project
     Given I am an "admin" user who logs into REDCap

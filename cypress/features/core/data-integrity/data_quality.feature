@@ -1,7 +1,23 @@
 Feature: Data Quality
 
-  As a REDCap end user
-  I want to see that Data Collection and Storage is functioning as expected
+  As a REDCap end user, I want to see that:
+  The below user requirements are met
+  #-------------------------------------------------------------------------------------
+  # 18.1 The system shall provide default rules after installation of the application. 
+  # 18.2 The system shall support data quality rule creation.  
+  # 18.3 The system shall support executing a rule.  
+  # 18.4 The system shall support executed all rules at the same time.  
+  # 18.5 The system shall support viewing discrepancies found in rule execution.  
+  # 18.6 The system shall support excluding discrepancies found in rule execution. 
+  # 18.7 The system shall support editing of user defined rules. 
+  # 18.8 The system shall support the deletion of a user defined rule.  
+  # 18.9 The system shall support clearing discrepancies from rules executed.  
+  # 18.10 The system shall support the ability to run custom data quality rules real time.  
+  # 18.11 The system shall support validating the unique event name used in custom rules for longitudinal projects.  
+  # 18.12 The system shall support removal of exclusion of discrepancies.  
+  # 18.13 The system shall support limiting rule viewing to a Data Access Group.  
+  # 18.14 The system shall support limiting a rule viewing that references a field for which the user does not have access rights.  
+  #-------------------------------------------------------------------------------------
 
   Scenario: Project Setup 1 - Create Project 18_DataQuality_v1115
     Given I am an "admin" user who logs into REDCap

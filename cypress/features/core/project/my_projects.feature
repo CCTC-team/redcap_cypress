@@ -1,11 +1,21 @@
 Feature: My Projects
 
-  As a REDCap end user
-  I want to see that My Projects is functioning as expected
+  As a REDCap end user, I want to see that:
+  The below user requirements are met
+  #-------------------------------------------------------------------------------------
+  # 13.1 The system shall support a My Project dashboard page containing the following information: 
+  #   13.1.1 Project Title (only projects the user has access to will be displayed) 
+  #   13.1.2 Records (number of records currently in the database for a project) 
+  #   13.1.3 Fields (number of fields currently in the database for a project) 
+  #   13.1.4 Instruments (forms and/or surveys) 
+  #   13.1.5 Type (classic, longitudinal) 
+  #   13.1.6 Status (Development, Production, Inactive or Archived) 
+  # 13.2 The system shall support the ability to show or hide archived projects on the My Projects page.
+  #-------------------------------------------------------------------------------------
 
-# We can add projects with the same name
-# Scenario 11 - Not able to delete record 2. Link containing 2 does not point to Record 2 but points to Arm 2. 
-# Hence added 2 records for Scenario 10. So Scenario 11 could work
+  # We can add projects with the same name
+  # Scenario 11 - Not able to delete record 2. Link containing 2 does not point to Record 2 but points to Arm 2. 
+  # Hence added 2 records for Scenario 10. So Scenario 11 could work
 
   Scenario: Project Setup 1 - Create Project 13_MyProjects_v1115 and assign userrights to delete a record
     Given I am a "standard" user who logs into REDCap

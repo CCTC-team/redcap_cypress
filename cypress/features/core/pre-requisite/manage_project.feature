@@ -1,39 +1,41 @@
 Feature: Manage Project
 
-As a REDCap end user, I want to see that:
-Control Center 
-4.1 The system shall support the option to limit the creation of new projects to administrators. 
-4.2 The system shall support the option to limit moving projects to production to the administrators. 
-4.3 The system shall support enabling users to edit survey responses. 
-4.4 The system shall allow production Draft Mode changes to be approved automatically under certain conditions. 
-4.5 The system shall support the option to limit adding or modifying repeatable instruments while in production to administrators. 
-4.6 The system shall support the option to limit adding or modifying events and arms while in production to administrators. Note: user can add instrument to event in production. 
+    As a REDCap end user, I want to see that:
+    The below user requirements are met
+    #-------------------------------------------------------------------------------------
+    # Control Center 
+    # 4.1 The system shall support the option to limit the creation of new projects to administrators. 
+    # 4.2 The system shall support the option to limit moving projects to production to the administrators. 
+    # 4.3 The system shall support enabling users to edit survey responses. 
+    # 4.4 The system shall allow production Draft Mode changes to be approved automatically under certain conditions. 
+    # 4.5 The system shall support the option to limit adding or modifying repeatable instruments while in production to administrators. 
+    # 4.6 The system shall support the option to limit adding or modifying events and arms while in production to administrators. Note: user can add instrument to event in production. 
 
-User Interface - General 
-4.7 The system shall support the ability to create new projects from a blank slate. 
-4.8 The system shall support customization of project titles. 
-4.9 The system shall support the designation of the purpose of the project.  
-4.10 The system shall support the ability to copy the project, all users, and all data during any project status. 
-4.11 The system shall support the ability to erase all data for a project at once only in development. 
-4.12 The system shall support the ability to delete projects only in development for project users and in any status for administrators. 
+    # User Interface - General 
+    # 4.7 The system shall support the ability to create new projects from a blank slate. 
+    # 4.8 The system shall support customization of project titles. 
+    # 4.9 The system shall support the designation of the purpose of the project.  
+    # 4.10 The system shall support the ability to copy the project, all users, and all data during any project status. 
+    # 4.11 The system shall support the ability to erase all data for a project at once only in development. 
+    # 4.12 The system shall support the ability to delete projects only in development for project users and in any status for administrators. 
 
-User Interface - Longitudinal Project Settings 
-4.13 The system shall support enabling and disabling longitudinal data collection. 
-4.14 The system shall support the ability to designate data collection instruments for defined events in each arm.  
-4.15 The system shall support multiple study arms and the ability to define unique event schedules for each arm. 
-4.16 The system shall support the ability to create repeating events and instruments within events. 
-4.17 The system shall require administrators to delete events for longitudinal projects while in production.   
+    # User Interface - Longitudinal Project Settings 
+    # 4.13 The system shall support enabling and disabling longitudinal data collection. 
+    # 4.14 The system shall support the ability to designate data collection instruments for defined events in each arm.  
+    # 4.15 The system shall support multiple study arms and the ability to define unique event schedules for each arm. 
+    # 4.16 The system shall support the ability to create repeating events and instruments within events. 
+    # 4.17 The system shall require administrators to delete events for longitudinal projects while in production.   
 
-User Interface - Survey Project Settings 
-4.18 The system shall support enabling and disabling survey functionality at the project level. 
-4.19 The system shall support enabling and disabling each data collection instrument in a project as a survey. 
-4.20 The system shall support survey status as active or offline. 
-4.21 The system shall support the ability to create repeating surveys. 
+    # User Interface - Survey Project Settings 
+    # 4.18 The system shall support enabling and disabling survey functionality at the project level. 
+    # 4.19 The system shall support enabling and disabling each data collection instrument in a project as a survey. 
+    # 4.20 The system shall support survey status as active or offline. 
+    # 4.21 The system shall support the ability to create repeating surveys. 
 
-User Interface - Survey distribution 
-4.22 The system shall allow creation of a public survey link when the survey is in the first instrument position.     
-4.23 The system shall allow creation of a designated email field. 
-#-------------------------------------------------------------------------------------- 
+    # User Interface - Survey distribution 
+    # 4.22 The system shall allow creation of a public survey link when the survey is in the first instrument position.     
+    # 4.23 The system shall allow creation of a designated email field. 
+    #-------------------------------------------------------------------------------------- 
 
     Scenario: 0 - Initial Setup Requirement - Add from Email Address
         Given I am an "admin" user who logs into REDCap

@@ -2,9 +2,9 @@ Feature: Configuration Check
 
   As a REDCap end user, I want to see that:
   The below user requirements are met
-  #------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  #-------------------------------------------------------------------------------------
   # 1.1 The system shall support the ability to run a configuration check test page. 
-  #--------------------------------------------------------------------------------------
+  #-------------------------------------------------------------------------------------
  
   Scenario: 1 - Home Page - Visible Tabs
     Given I am an "admin" user who logs into REDCap

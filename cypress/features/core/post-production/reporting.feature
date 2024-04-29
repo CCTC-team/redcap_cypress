@@ -1,7 +1,20 @@
 Feature: Reporting
 
-  As a REDCap end user
-  I want to see that Reporting is functioning as expected
+  As a REDCap end user, I want to see that:
+  The below user requirements are met
+  #-------------------------------------------------------------------------------------
+  # 22.1 The system shall support the ability to build and save custom reports based on data contained in any individual database to which a given user has been given access to that include: 
+  #   22.1.1 Name of Report 
+  #   22.1.2 Field (based on fields in the CRF) 
+  #   22.1.3 Limiters include: “equal to”, “not equal to”, “greater than or equal to”, “less than or equal to”, “less than” and greater than” and are dependent on field type 
+  #   22.1.4 The ability to order results in either ascending or descending order 
+  # 22.2 The system shall support exporting the subset of data defined within a report into CSV, SPSS, SAS, R, STATA, and CDISC ODM (XML) formatted files. 
+  # 22.3 The system shall support the following for saved reports: 
+  #   22.3.1 Copying 
+  #   22.3.2 Editing 
+  #   22.3.3 Deleting 
+  #   22.3.4 Viewing 
+  #-------------------------------------------------------------------------------------
 
   Scenario: Project Setup - 1
     Given I am a "standard" user who logs into REDCap

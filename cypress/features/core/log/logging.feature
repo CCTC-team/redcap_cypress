@@ -1,7 +1,39 @@
 Feature: Logging
 
-  As a REDCap end user
-  I want to see that Logging is functioning as expected
+  As a REDCap end user, I want to see that:
+  The below user requirements are met
+  #-------------------------------------------------------------------------------------
+  # 23.1 The logging module shall record all changes to the data records with the following: 
+  #   23.1.1 Time/Date of user entries 
+  #   23.1.2 Action performed 
+  #     23.1.2.1 Created, Deleted, Updated Record 
+  #     23.1.2.2 Created, Deleted, Edited Role 
+  #     23.1.2.3 Created, Deleted, Updated User 
+  #     23.1.2.4 Data Export 
+  #     23.1.2.5 E-signature 
+  #     23.1.2.6 Lock/Unlock Record 
+  #     23.1.2.7 Manage/Design  
+  #   23.1.3 Username of the user performing the action 
+  #   23.1.4 Data changes or fields exported 
+  #     23.1.4.1 New values are recorded for update record, e-signatures, and lock/unlock actions 
+  # 23.2 The logging module shall be filterable by: 
+  #   23.2.1 Event (with the following options) 
+  #     23.2.1.1 All event types (excluding page views) 
+  #     23.2.1.2 Data export 
+  #     23.2.1.3 Manage/Design 
+  #     23.2.1.4 User or role created-updated-deleted 
+  #     23.2.1.5 Record created-updated-deleted 
+  #     23.2.1.6 Record created (only) 
+  #     23.2.1.7 Record updated (only) 
+  #     23.2.1.8 Record locking and e-signatures 
+  #     23.2.1.9 Page Views 
+  #   23.2.2 User Name 
+  #     23.2.2.1 All users for a given study will be selectable 
+  #   23.2.3 Record 
+  #     23.2.3.1 All records for a given study will be selectable 
+  # 23.3 The logging module shall provide the ability to export to csv file. 
+  # 23.4 The system shall have the option to delete all the data values and actions logged for a given record being deleted in a non-longitudinal project or in the current arm of a multi-arm longitudinal project. 
+  #-------------------------------------------------------------------------------------
 
   Scenario: 0 - Project Setup
     When I am an "admin" user who logs into REDCap
