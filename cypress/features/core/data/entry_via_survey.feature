@@ -2,7 +2,7 @@ Feature: Data Entry through the Survey
 
   As a REDCap end user, I want to see that:
   The below user requirements are met
-#---------------------------------------------------------------------------------------------------
+  #-------------------------------------------------------------------------------------
   # Control Center 
   # 15.1 The system shall allow the survey feature to be enabled or disabled. 
   # 15.2 The system shall allow users to edit survey responses to be enabled or disabled. 
@@ -27,7 +27,7 @@ Feature: Data Entry through the Survey
   # 15.10 The system shall support a participant list for each survey in the project. A dropdown menu will list each survey or if a longitudinal project, each survey/event pairing from which to select the survey of interest. 
   # 15.11 The system shall support tracking responders and non-responders to surveys when using the participant list. 
   # 15.12 The system shall delete all survey-related information and functions including survey link, return codes and date/time stamp when disabling survey functionality.  Saved data will remain unaffected. 
-  #---------------------------------------------------------------------------------------------------
+  #-------------------------------------------------------------------------------------
 
   Scenario: Project Setup 1 - Create the Project
     Given I am a "standard" user who logs into REDCap

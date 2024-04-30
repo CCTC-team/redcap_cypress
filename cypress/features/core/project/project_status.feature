@@ -1,7 +1,23 @@
 Feature: Project Status
 
-  As a REDCap end user
-  I want to see that Project Status is functioning as expected
+  As a REDCap end user, I want to see that:
+  The below user requirements are met
+  #-------------------------------------------------------------------------------------
+  # Control Center
+  # 11.1 - The system shall support limiting the ability to move projects to production to administrators. 
+
+  # User Interface 
+  # 11.2 The system shall support the ability for a user to change the following project statuses through the user interface. 
+  #   11.2.1   - From Development to Production and keep collected data 
+  #   11.2.2 - From Development to Production delete all record data, record logging, survey responses, and file uploads 
+  #   11.2.3 - From Development to Mark as Complete 
+  #   11.2.4 - From Production to Analysis/Cleanup or Mark as Complete 
+  #   11.2.5 - From Analysis/Cleanup to Production or Mark as Complete 
+  # 11.3 The system shall support the ability for an admin to change the following additional project statuses through the user interface.  
+  #   11.3.1 - From Production to Development 
+  #   11.3.2 - From Analysis/Cleanup to Production  
+  #   11.3.3 - Restore project from Marked as Complete to Production
+  #-------------------------------------------------------------------------------------
 
   Scenario: 0 - Project Setup
     Given I am an "admin" user who logs into REDCap

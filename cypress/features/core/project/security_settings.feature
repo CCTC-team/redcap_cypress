@@ -1,8 +1,11 @@
 Feature: Security Settings
 
-  As a REDCap end user
-  I want to see that Security Settings is functioning as expected
-
+  As a REDCap end user, I want to see that:
+  The below user requirements are met
+  #-------------------------------------------------------------------------------------
+  # 12.1 The system shall support changing the system status between online and offline.
+  #-------------------------------------------------------------------------------------
+  
   Scenario: Project Setup 1 - Create 12_SecuritySettings_v1115 and add admin as user to 
     Given I am an "standard" user who logs into REDCap
     And I create a project named "Security Settings Feature" with project purpose Operational Support via CDISC XML import from fixture location "cdisc_files/projects/DesignForms_v1115.xml"

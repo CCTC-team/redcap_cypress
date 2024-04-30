@@ -2,9 +2,9 @@ Feature: File Repository
 
   As a REDCap end user, I want to see that:
   The below user requirements are met
-  #----------------------------------------------------------------------------------------------------------------------------
+  #-------------------------------------------------------------------------------------
   # C.3.26.200 User Interface: The system shall support limiting file repository user view access and export rights.
-  #----------------------------------------------------------------------------------------------------------------------------
+  #-------------------------------------------------------------------------------------
 
   Scenario: C.3.26.200.100 Limit user view and export access based on User Rights and DAG
     #SETUP 

@@ -1,7 +1,31 @@
 Feature: Record Locking and E-Signatures
 
-  As a REDCap end user
-  I want to see that Record Locking and E-Signatures is functioning as expected
+  As a REDCap end user, I want to see that:
+  The below user requirements are met
+  #-------------------------------------------------------------------------------------
+  # 19.1 The E-signature and Locking Management tool shall display all records in a database with their status as locked or e-signed for all data entry forms. 
+  # 19.2 The tool shall not display forms that are not designated to be locked. 
+  # 19.3 The tool shall support the following options for filtering the record list: 
+  #   19.3.1 Show all rows 
+  #   19.3.2 Show timestamp / user 
+  #   19.3.3 Hide timestamp / user 
+  #   19.3.4 Show locked 
+  #   19.3.5 Show not locked 
+  #   19.3.6 Show e-signed 
+  #   19.3.7 Show not e-signed 
+  #   19.3.8 Show both locked and e-signed 
+  #   19.3.9 Show neither locked nor e-signed 
+  #   19.3.10 Show locked but not e-signed 
+  # 19.4 The tool shall display locked status of forms for all records. 
+  # 19.5 The tool shall display e-signature status of forms for all records. 
+  # 19.6 The tool shall support the ability to navigate directly to a selected record. 
+  # 19.7 The Record Locking Customization module shall allow the customization of: 
+  #   19.7.1 Display or not display E-Signature option on each data collection instrument 
+  #   19.7.2 Lock Record Custom Text 
+  #   19.7.3 Display or not display the Lock option for each data collection instrument 
+  # 19.8 The Record Locking Customization module shall provide the ability to edit or remove the Lock Record Custom Text.  The default text is: “Lock this record for this form? If locked, no user will be able to edit this record on this form until someone with Lock/Unlock privileges unlocks it.” 
+  # 19.9 The Record Locking Customization module shall support edits only in development for project users and in development and production for administrators.
+  #-------------------------------------------------------------------------------------
 
   Scenario: Test Requirements 1 - Create 19_RecordLockingEsigs_v1115 and add admin as a user
     Given I am an "admin" user who logs into REDCap

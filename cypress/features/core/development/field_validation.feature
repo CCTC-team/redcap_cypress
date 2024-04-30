@@ -1,7 +1,38 @@
 Feature: Field Validation
 
-  As a REDCap end user
-  I want to see that Field Validation is functioning as expected
+  As a REDCap end user, I want to see that:
+  The below user requirements are met
+  #-------------------------------------------------------------------------------------
+  # Control Center 
+  # 8.1 The system shall support the enabling/disabling of field validation types. The core validation types are listed below: 
+  #   8.1.1 Date (D-M-Y) 
+  #   8.1.2 Datetime (M-D-Y H:M) 
+  #   8.1.3 Datetime w/seconds (Y-M-D H:M:S) 
+  #   8.1.4 Email 
+  #   8.1.5 Integer 
+  #   8.1.6 Number 
+  #   8.1.7 Number (1 decimal place – comma as decimal) 
+  #   8.1.8 Time (HH:MM) 
+
+  # User Interface 
+  # 8.2 The system shall support the following text validation for text field types:  
+  #   8.2.1 Date (D-M-Y) 
+  #   8.2.2 DateTime (M-D-Y H:M) 
+  #   8.2.3 DateTime with Seconds (Y-M-D H:M:S) 
+  #   8.2.4 Email  
+  #   8.2.5 Integer 
+  #   8.2.6 Numbers 
+  #   8.2.7 Number (1 decimal place – comma as decimal) 
+  #   8.2.8 Time (HH:MM)  
+  # 8.3 The system shall support ranges for the following data types: 
+  #   8.3.1 Date (D-M-Y) 
+  #   8.3.2 DateTime (M-D-Y H:M) 
+  #   8.3.3 DateTime with Seconds (Y-M-D H:M:S)  
+  #   8.3.4 Integer 
+  #   8.3.5 Number 
+  #   8.3.6 Number (1 Decimal Place – comma as decimal) 
+  #   8.3.7 Time (HH:MM)
+  #-------------------------------------------------------------------------------------
 
   Scenario: 0 - Project Setup
     Given I am an "admin" user who logs into REDCap

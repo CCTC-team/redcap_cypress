@@ -2,7 +2,7 @@ Feature: Data Import - Data Collection and Storage
 
     As a REDCap end user, I want to see that:
     The below user requirements are met
-    #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    #-------------------------------------------------------------------------------------
     # User Interface  
     # 16.1 The system shall support the ability to download two versions of a data import template formatted as a CSV file, one to accommodate records in rows and one to accommodate records in columns. 
     # 16.2 The system shall allow data to be uploaded with the csv template to create and modify records. 
@@ -17,7 +17,7 @@ Feature: Data Import - Data Collection and Storage
     # 16.11 The system shall allow data to be changed only by a user who has “edit” access to the data entry form. 
     # 16.12 The system shall provide the option to allow blank values to overwrite existing saved values. 
     # 16.13 The system shall provide the ability to assign data instruments to a data access group with the Data Import Tool. 
-    #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    #-------------------------------------------------------------------------------------
 
     Scenario: Project Setup 1 - Create Project 16_DataImport_v1115
         Given I am an "admin" user who logs into REDCap
