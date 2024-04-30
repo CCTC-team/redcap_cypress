@@ -42,6 +42,7 @@ Given("I click on the link labeled {string} for Rule {string}", (label, rule) =>
     cy.get('table[id=table-rules]').find('td:nth-child(2)').contains(rule).parents('tr').find('td:nth-child(6)').contains(label).click()
 })
 
+
 /**
  * @module DataQualityRule
  * @author Mintoo Xavier <min2xavier@gmail.com>
@@ -54,3 +55,58 @@ Given("I click on the link labeled {string} for the discrepant field labeled {st
     cy.get('table[id*=table-results_table_pd-9]').find('td:nth-child(2)>div').children().contains(name).parents('tr').find('td:nth-child(4)').contains(label).click()
 })                     
 
+
+/**
+ * @module DataQualityRule
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I {string} the radio option {string} for the user access {string} of report
+ * @param {string} label - link
+ * @param {string} name - Descripency name
+ * @param {string} check - Descripency name
+ * @description Click on the link for the Descripency field.
+ */
+Given("I {string} the radio option {string} for the user access {string} of report", (check, option, access) => {
+    let sel = ''
+    let fieldname = ''
+    
+    if (option == 'All users')
+        sel = 'ALL'
+    else
+        sel ='SELECTED'
+
+    if (access == 'View Access')
+        fieldname = 'user_access_radio'
+    else
+        fieldname = 'user_edit_access_radio'
+
+    cy.get('table[id=create_report_table]').find('td').contains(access).parent('td').within(() => {
+        if (check = 'check')
+        cy.get('input[name=' + fieldname + '][value=' + sel + ']').check()
+        else
+            cy.get('input[name=' + fieldname + '][value=' + sel + ']').uncheck()
+        }
+        
+    )})                            
+
+    /**
+ * @module DataQualityRule
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I select the option {string} on field labeled {string} for the access {string} of report
+ * @param {string} label - link
+ * @param {string} name - Descripency name
+ * @description Click on the link for the Descripency field.
+ */
+Given("I select the option {string} on field labeled {string} for the access {string} of report", (option, field, access) => {
+    cy.get('table[id=create_report_table]').find('td').contains(access).parent('td').contains(field).within(() => {
+        cy.get('select').then(($select) => {
+            cy.wrap($select).scrollIntoView().
+            should('be.visible').
+            should('be.enabled').then(($t) => {
+                cy.wait(500)
+                cy.wrap($t).select(option)
+                cy.wait(500)
+            })
+        })
+    }
+        
+)})  
