@@ -1,0 +1,1032 @@
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 13%" />
+<col style="width: 17%" />
+<col style="width: 49%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th colspan="4"><strong>System Setup</strong> </th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>REDCap Version</strong> </td>
+<td><blockquote>
+<p>13.8.1 </p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>Application URL</strong> </p>
+</blockquote></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Browser Version</strong> </td>
+<td></td>
+<td><strong>OS Version</strong> </td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Actual Execution Time</strong> </td>
+<td></td>
+<td> </td>
+<td><blockquote>
+<p> </p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Test Summary</strong></td>
+</tr>
+<tr class="even">
+<td><p><strong>Feature Category Description:</strong> This data
+resolution workflow, often called 'data queries' in clinical trials and
+studies, can be utilized either on a data entry form or on the Data
+Quality page when finding data discrepancies.  Users will be allowed to
+open a workflow for documenting the process of resolving issues with
+data in the project (i.e. opening, responding to, and closing data
+queries). Alternatively, the ‘Field Comments’ feature allows users to
+add comments to fields</p>
+<p><strong>Test Purpose Details:</strong> This test script validates if
+Data Resolution Workflow and Field Comments log work</p>
+<p><strong>Functional Requirements:</strong></p>
+<ul class="incremental">
+<li><p>The system shall support the ability to open, close, read only,
+reopen and respond to queries based on user roles</p></li>
+<li><p>The system shall support the ability to filter queries based on
+records, fields, events and users</p></li>
+<li><p>The system shall support the ability to attach files to queries
+and make them available to download based on user roles.</p></li>
+<li><p>The system shall support the ability to email and send messages
+via REDCap messenger with a link to queries based on user roles</p></li>
+<li><p>The system shall have the ability to highlight open, closed and
+responded to queries.</p></li>
+<li><p>The system shall have the ability to verify and de-verify data
+value depending on user rights</p></li>
+<li><p>The system shall have the ability to accept User comments for
+fields</p></li>
+<li><p>The system shall have the ability to filter user comments based
+on Records, Events, Fields, Users and Keywords</p></li>
+</ul></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 17%" />
+<col style="width: 20%" />
+<col style="width: 25%" />
+<col style="width: 29%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td colspan="5"><strong>Test Requirements</strong></td>
+</tr>
+<tr class="even">
+<td colspan="5"><strong>Test Users</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>ID</strong></td>
+<td><strong>Username</strong></td>
+<td><strong>Password</strong></td>
+<td><strong>Minimum User’s Rights</strong></td>
+<td><strong>DAGs and Other Settings</strong></td>
+</tr>
+<tr class="even">
+<td><blockquote>
+<p><strong>1.</strong></p>
+</blockquote></td>
+<td>test_user</td>
+<td>Testing123</td>
+<td>Standard User</td>
+<td>User rights – Create records and Respond only to opened queries</td>
+</tr>
+<tr class="odd">
+<td><blockquote>
+<p><strong>2.</strong></p>
+</blockquote></td>
+<td>test_admin</td>
+<td>Testing123</td>
+<td>Administrator</td>
+<td>Admin User</td>
+</tr>
+<tr class="even">
+<td><blockquote>
+<p><strong>3.</strong></p>
+</blockquote></td>
+<td>test_user2</td>
+<td>Testing123</td>
+<td>Standard User</td>
+<td>User rights - Open, close, and respond to queries</td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 37%" />
+<col style="width: 55%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td colspan="3"><strong>Project Setup</strong></td>
+</tr>
+<tr class="even">
+<td><strong>ID</strong></td>
+<td><blockquote>
+<p><strong>Description</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>Instructions</strong></p>
+</blockquote></td>
+</tr>
+<tr class="odd">
+<td>1.</td>
+<td>Project: Project_CUH_v1381</td>
+<td>Project created using Project_CUH_v1381.xml</td>
+</tr>
+<tr class="even">
+<td>2.</td>
+<td><blockquote>
+<p>Project Setup</p>
+</blockquote></td>
+<td><p>Disable Repeating instruments</p>
+<p>Enable the Data Resolution Workflow (Data Queries)</p>
+<p>Enable optional modules and customizations -&gt; Additional
+customizations -&gt; Check, Enable the Field Comment Log or Data
+Resolution Workflow (Data Queries)? -&gt; Enable – Data Resolution
+Workflow</p></td>
+</tr>
+<tr class="odd">
+<td>3.</td>
+<td><blockquote>
+<p>Data Import File</p>
+</blockquote></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>4.</td>
+<td>Other Files</td>
+<td> send_it.csv</td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 30%" />
+<col style="width: 29%" />
+<col style="width: 11%" />
+<col style="width: 13%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td colspan="5"><strong>Test Steps</strong></td>
+</tr>
+<tr class="even">
+<td><strong>Step #</strong></td>
+<td><strong>Action Step</strong></td>
+<td><strong>Expected Result</strong></td>
+<td><strong>Pass / Fail</strong></td>
+<td><strong>Comments</strong></td>
+</tr>
+<tr class="odd">
+<td><blockquote>
+<p><em>Help</em></p>
+</blockquote></td>
+<td><em>You must perform the actions listed in this column.</em></td>
+<td><em>After performing the actions in the ‘Action Step’ column, you
+should see the following.</em></td>
+<td><em>Check ‘Pass’, if the actual results match the ‘Expected Result’;
+otherwise, check ‘Fail’.</em></td>
+<td><em>Include unexpected results, suggestions. etc.</em></td>
+</tr>
+<tr class="even">
+<td><ol class="incremental" type="1">
+<li></li>
+</ol></td>
+<td><p>Login as test_user</p>
+<p>Click on ‘Project_CUH_v1381’</p></td>
+<td><p>User is able to login</p>
+<p>Project opens</p></td>
+<td><p><strong>☐ Pass</strong></p>
+<p><strong>Fail ☐</strong></p></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><ol class="incremental" start="2" type="1">
+<li></li>
+</ol></td>
+<td><p>Click on ‘Record Status Dashboard’</p>
+<p>Click ‘Add new Record for this arm’</p>
+<p>Click on ‘Text Validation’ instrument for Record 1</p>
+<p>In the Name field, type ‘John’</p>
+<p>In the Email field, type ‘John@example.com’</p>
+<p>In the Complete? Field, select ‘Complete’</p>
+<p>Click ‘Save and Exit Form’</p></td>
+<td><p>Record Status Dashboard opens</p>
+<p>New Record 1 is created.</p>
+<p>The instrument opens</p>
+<p>The form is saved</p></td>
+<td><p><strong>☐ Pass</strong></p>
+<p><strong>Fail ☐</strong></p></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><ol class="incremental" start="3" type="1">
+<li></li>
+</ol></td>
+<td><p>Log out</p>
+<p>Log in as test_user2</p></td>
+<td><p>test_user is logged out</p>
+<p>test_user2 is logged in</p></td>
+<td><p><strong>☐ Pass</strong></p>
+<p><strong>Fail ☐</strong></p></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><ol class="incremental" start="4" type="1">
+<li></li>
+</ol></td>
+<td><p>Click on ‘Project_CUH_v1381’</p>
+<p>Click on ‘Record Status Dashboard’</p>
+<p>Click on ‘Text Validation’ instrument for Record 1</p></td>
+<td><p>Project opens</p>
+<p>Record Status Dashboard opens</p>
+<p>The instrument opens</p></td>
+<td><p><strong>☐ Pass</strong></p>
+<p><strong>Fail ☐</strong></p></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><ol class="incremental" start="5" type="1">
+<li></li>
+</ol></td>
+<td>Click the grey message bubble for the ‘Name’ field.</td>
+<td><p>‘Data Resolution Workflow’ window opens.</p>
+<p>The log of first entry of data, i.e</p>
+<p>Date/Time of data entry,</p>
+<p>The username of the user that entered the data (test_user) and
+details of data entry appear in the first row.</p>
+<p>The second row has options ‘Verified data value’ or ‘Open
+query’</p></td>
+<td><p><strong>☐ Pass</strong></p>
+<p><strong>Fail ☐</strong></p></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><ol class="incremental" start="6" type="1">
+<li></li>
+</ol></td>
+<td><p>Select ‘Verified data value’</p>
+<p>Click the button ‘Verified data value’</p></td>
+<td>A green tick appears in place of the grey speech bubble to mark data
+as verified.</td>
+<td><p><strong>☐ Pass</strong></p>
+<p><strong>Fail ☐</strong></p></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><ol class="incremental" start="7" type="1">
+<li></li>
+</ol></td>
+<td><p>Click the green tick</p>
+<p>Select De-verify data value and click the button ‘De-verify data
+value’</p>
+<p>Click ‘Close’ popup</p>
+<p>Enter ‘Test de-verify data’ in the comment box.</p>
+<p>Click ‘De-verify data value’ button</p></td>
+<td><p>The first two rows show data changes made by test_user and
+test_user2.</p>
+<p>Options to De-verify data value and Open query show</p>
+<p>A pop-up prompting ‘A comment is required. Please enter a comment.’
+appears</p>
+<p>The pop up is closed</p>
+<p>The comment is saved.</p>
+<p>A red exclamation mark appears next to the field to show the data is
+de-verified.</p></td>
+<td><p><strong>☐ Pass</strong></p>
+<p><strong>Fail ☐</strong></p></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><ol class="incremental" start="8" type="1">
+<li></li>
+</ol></td>
+<td><p>Click ‘Resolve Issues’ in the left navigation bar</p>
+<p>In ‘Data Resolution Dashboard’ filter, select ‘All status
+types’</p></td>
+<td><p>Data Quality page shows up with Resolve Issues tab selected</p>
+<p>The ‘ptname_v2_v2’ field shows up for Record 1 with the values
+‘test_user2’ and ‘’ for First Update Column and ‘test_user2’ and ’Test
+de-verify data’ for Last Update Column</p></td>
+<td><p><strong>☐ Pass</strong></p>
+<p><strong>Fail ☐</strong></p></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><ol class="incremental" start="9" type="1">
+<li></li>
+</ol></td>
+<td><p>Click ‘Record Status Dashboard’</p>
+<p>Click the instrument ‘Text validation’ for Record 1</p>
+<p>Click on the grey bubble next to ‘Email’ textbox</p>
+<p>Select Open query. Select ‘test_user’ in Assign query to a user
+(optional) dropdown</p>
+<p>Check ‘Email’ and ‘REDCap Messenger’ checkboxes.</p>
+<p>Type ‘Please check email’</p>
+<p>In the comments section.</p>
+<p>Click ‘Open query’</p></td>
+<td><p>Record Status Dashboard opens.</p>
+<p>The instrument opens</p>
+<p>‘Data Resolution workflow’ window opens</p>
+<p>Query is saved. A yellow message bubble with a red exclamation mark
+appears next to the email text box.</p>
+<p>Query is opened and saved. The window closes.</p>
+<p>An email and a message on Messenger is sent to test_user</p></td>
+<td><p><strong>☐ Pass</strong></p>
+<p><strong>Fail ☐</strong></p></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><ol class="incremental" start="10" type="1">
+<li></li>
+</ol></td>
+<td>Log out</td>
+<td>test_user2 is logged out</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><ol class="incremental" start="11" type="1">
+<li></li>
+</ol></td>
+<td><p>Log in as test_user</p>
+<p>On the top navigation bar, under Messenger tab, the User is notified
+of a new message. Click the Messenger tab.</p>
+<p>Open the message.</p>
+<p>Click the link in the message under ‘Open the data query assigned to
+you:’</p>
+<p>Close the window by clicking ‘Cancel’</p>
+<p>Click on ‘Project_CUH_v1381’</p>
+<p>Click on ‘Record Status Dashboard’</p>
+<p>Click on ‘Text Validation’ instrument for Record 1</p>
+<p>Click on the yellow speech bubble with the red exclamation mark next
+to ‘Email’ field</p>
+<p>Under ‘Reply with response’ select ‘Verified – Confirmed correct (no
+error)’</p>
+<p>Click ‘Upload file’. Upload file ‘Send-it.csv’</p>
+<p>‘Close’ the pop up.</p>
+<p>Click ‘Respond to query’.</p>
+<p>Close pop-up. Enter ‘The value is correct’ in the comment box. Click
+‘Respond to query’</p>
+<p>Click on the yellow speech bubble with the blue exclamation mark next
+to ‘Email’ field</p>
+<p>Close the window</p></td>
+<td><p>test_user is logged in</p>
+<p>The test_user sees a message ‘Assigned to data Query’.</p>
+<p>The message ‘You have been assigned to a data query that was just
+opened in the REDCap project "Project_CUH_v1381"’ is seen.</p>
+<p>The data resolution workflow window for the given query opens</p>
+<p>The window closes. (A similar email is also received by the
+test_user)</p>
+<p>Project opens</p>
+<p>Record Status Dashboard opens</p>
+<p>The instrument opens</p>
+<p>Data Resolution workflow window opens</p>
+<p>Pop up saying, ‘Document was successfully uploaded!’ shows.</p>
+<p>The pop up is closed</p>
+<p>A pop up ‘Error – Enter comment’ shows up</p>
+<p>The comment is saved and the window closes. A blue exclamation
+appears next to the field to indicate the query is responded to.</p>
+<p>No option to ‘Close query’ is made available as test_user does not
+have these rights. A warning message ‘Awaiting action by user with
+sufficient user privileges.’ appears at the bottom of the window</p>
+<p>The window is closed</p></td>
+<td><p><strong>☐ Pass</strong></p>
+<p><strong>Fail ☐</strong></p></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><ol class="incremental" start="12" type="1">
+<li></li>
+</ol></td>
+<td><p>Click ‘Resolve issues’ in the left navigation bar.</p>
+<p>In ‘Data Resolution Dashboard’ filter, select ‘Open responded’</p>
+<p>In ‘Data Resolution Dashboard’ filter, select ‘All status types’</p>
+<p>Click ‘Export’ button</p>
+<p>In ‘Data Resolution Dashboard’ filter, select ‘Data De-verified’</p>
+<p>Under ‘Click button to</p>
+<p>view data query’ click the button with a red exclamation mark for
+field ‘ptname_v2_v2’</p>
+<p>Close the Data Resolution workflow window.</p></td>
+<td><p>Data Quality page shows up with Resolve Issues tab selected</p>
+<p>The ‘email_v2’ field shows up for Record 1 with the values
+‘test_user2’ and ‘Please check email’ for First Update Column and
+‘test_user’ and’ The value is correct’ for Last Update Column</p>
+<p>Both, ‘ptname_v2_v2’ and ‘email_v2’</p>
+<p>entries are shown</p>
+<p>A csv file with both query information downloads</p>
+<p>An entry for ‘ptname_v2_v2’ shows as De-verified data</p>
+<p>Data Resolution workflow window opens with Record ID 1 and history of
+comments for the de-verified data field.</p>
+<p>A warning ‘Awaiting action by user with sufficient user privileges’
+is shown.</p>
+<p>‘Data Resolution Workflow’ window closes</p></td>
+<td><p><strong>☐ Pass</strong></p>
+<p><strong>Fail ☐</strong></p></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><ol class="incremental" start="13" type="1">
+<li></li>
+</ol></td>
+<td><p>In ‘Data Resolution Dashboard’ filter, select ‘All status
+types’</p>
+<p>Under ‘All fields and rules’ select ‘email_v2’</p>
+<p>Under ‘All events’ select ‘Event 1’</p>
+<p>Under ‘User assigned’ select ‘test_user’</p>
+<p>Under ‘All events’ select ‘Event 1’</p>
+<p>Under ‘User assigned’ select ‘test_user’</p>
+<p>Logout.</p></td>
+<td><p> </p>
+<p>Entry for field ‘email_v2’ appears for Record 1</p>
+<p>‘No results to display’ is seen</p>
+<p>test_user is logged out</p></td>
+<td><p><strong>☐ Pass</strong></p>
+<p><strong>Fail ☐</strong></p></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><ol class="incremental" start="14" type="1">
+<li></li>
+</ol></td>
+<td><p>Login as ‘test_user2’.</p>
+<p>Click on ‘Project_CUH_v1381’</p>
+<p>Click on ‘Record Status Dashboard’</p>
+<p>Click on ‘Text Validation’ instrument for Record 1</p>
+<p>Click the red exclamation mark next to ‘Name’ field</p>
+<p>Select ‘Verified data value’. Click ‘Verify data value’
+button</p></td>
+<td><p>test_user2 is logged in</p>
+<p>Project opens</p>
+<p>Record status Dashboard opens</p>
+<p>The instrument opens</p>
+<p>Status says Data De-verified</p>
+<p>The value is marked as verified and the window closes. A green tick
+appears next to the field</p></td>
+<td><p><strong>☐ Pass</strong></p>
+<p><strong>Fail ☐</strong></p></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><ol class="incremental" start="15" type="1">
+<li></li>
+</ol></td>
+<td><p>Click the speech bubble with the blue exclamation mark next to
+the ‘Email’ field</p>
+<p>Click the file uploaded by ‘test_user’.</p>
+<p>Select ‘Send back for further attention’.</p>
+<p>Type in a comment ‘Please clarify’ and click the button ‘Send back
+for further attention’</p>
+<p>Log out.</p></td>
+<td><p>The ‘Data Resolution workflow’ window appears. The recent
+comments from ‘test_user’, ‘The value is correct’ are shown, along with
+the uploaded file.</p>
+<p>The ‘send-it.csv’ file downloads.</p>
+<p>The comment is saved and window closes. A red exclamation mark to
+indicate an open query shows next to the text field.</p>
+<p>test_user2 is logged out</p></td>
+<td><p><strong>☐ Pass</strong></p>
+<p><strong>Fail ☐</strong></p></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><ol class="incremental" start="16" type="1">
+<li></li>
+</ol></td>
+<td><p>Login as ‘test_user’</p>
+<p>Click on ‘Project_CUH_v1381’</p>
+<p>Click ‘Resolve Issues’ in the left navigation bar</p>
+<p>Under ‘Data Resolution Dashboard’ filter, select ‘Open / unresolved
+issues’</p></td>
+<td><p>test_user is logged in</p>
+<p>Project opens</p>
+<p>The data quality page with Resolve issues tab selected</p>
+<p>The recently opened query on ‘email_v2’ field shows along with the
+latest update ‘Please clarify’ and the first update ‘Please check
+email’</p></td>
+<td><p><strong>☐ Pass</strong></p>
+<p><strong>Fail ☐</strong></p></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><ol class="incremental" start="17" type="1">
+<li></li>
+</ol></td>
+<td><p>Under ‘Click button to</p>
+<p>view data query’ click the button for record 1</p>
+<p>Select ‘Corrected – Typographical error’.</p>
+<p>Enter ‘Corrected’ under comments and click ‘Respond to
+query’</p></td>
+<td><p>‘Data Resolution Workflow’ window for ‘email_v2’ opens</p>
+<p>Response is saved. Data Resolution Workflow window closes.</p>
+<p>Under ‘Click button to</p>
+<p>view data query’ 4 comments are seen and under Last Update column,
+the most recent comment ‘Corrected’ appears with the username and time
+of comment update</p></td>
+<td><p><strong>☐ Pass</strong></p>
+<p><strong>Fail ☐</strong></p></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><ol class="incremental" start="18" type="1">
+<li></li>
+</ol></td>
+<td><p>Click ‘Record Status Dashboard’</p>
+<p>Click on ‘Text Validation’ instrument for Record 1</p>
+<p>In the Name field, delete the value and type ‘Joe’</p>
+<p>Click ‘Save and Exit Form’</p>
+<p>Click on ‘Text Validation’ instrument for Record 1</p>
+<p>Click the red exclamation mark next to ‘Name’ field</p>
+<p>Close the window and log out</p></td>
+<td><p>Record Status Dashboard opens</p>
+<p>‘Text Validation’ instrument opens</p>
+<p>The form is saved</p>
+<p>‘Text Validation’ instrument opens</p>
+<p>And a red exclamation mark appears next to Name field.</p>
+<p>Data Resolution Workflow window pops up with a new entry
+‘Action:De-verified data value (automatically via data change)’.</p>
+<p>test_user is logged out</p></td>
+<td><p><strong>☐ Pass</strong></p>
+<p><strong>Fail ☐</strong></p></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><ol class="incremental" start="19" type="1">
+<li></li>
+</ol></td>
+<td><p>Login as ‘test_user2’</p>
+<p>Click ‘Resolve Issues’</p>
+<p>In ‘Data Resolution Dashboard’ filter, select ‘Open
+responded’</p></td>
+<td><p>Logged in as ‘test_user2’</p>
+<p>Data Quality page with Resolve Issues tab opens</p>
+<p>The recently responded to query on ‘email_v2’ field shows along with
+the latest update</p></td>
+<td><p><strong>☐ Pass</strong></p>
+<p><strong>Fail ☐</strong></p></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><ol class="incremental" start="20" type="1">
+<li></li>
+</ol></td>
+<td><p>Click on the record number 1.</p>
+<p>Click the speech bubble with the blue exclamation mark next to
+‘Email’ text field.</p>
+<p>Select ‘Close the query’.</p></td>
+<td><p>Record 1 with responded query field opens</p>
+<p>Data Resolution Workflow window opens</p></td>
+<td><p><strong>☐ Pass</strong></p>
+<p><strong>Fail ☐</strong></p></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><ol class="incremental" start="21" type="1">
+<li></li>
+</ol></td>
+<td><p>Enter ‘Closed’ in the comment box and click ‘Close the query’</p>
+<p>Log out.</p></td>
+<td><p>The comment is saved and the window closes</p>
+<p>A green tick appears next to the field to indicate query is
+closed</p>
+<p>test_user2 is logged out</p></td>
+<td><p><strong>☐ Pass</strong></p>
+<p><strong>Fail ☐</strong></p></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><ol class="incremental" start="22" type="1">
+<li></li>
+</ol></td>
+<td><p>Login as ‘test_user’</p>
+<p>Click ‘My Projects’</p>
+<p>Select Project_CUH_v1381</p>
+<p>Click ‘Resolve Issues’</p>
+<p>In ‘Data Resolution Dashboard’ filter</p>
+<p>select ‘Open / unresolved issues’</p></td>
+<td><p>test_user is logged in</p>
+<p>‘My Projects’ page opens</p>
+<p>Home page for Project_CUH_v1381 opens</p>
+<p>Data Quality page with Resolve tab opens</p>
+<p>No queries are shown</p></td>
+<td><p><strong>☐ Pass</strong></p>
+<p><strong>Fail ☐</strong></p></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><ol class="incremental" start="23" type="1">
+<li></li>
+</ol></td>
+<td><p>In ‘Data Resolution Dashboard’ filter,</p>
+<p>select ‘Closed/resolved issues’</p>
+<p>Logout</p></td>
+<td><p>The recently closed query on ‘email_v2’ is shown with the latest
+comments</p>
+<p>test_user logs out</p></td>
+<td><p><strong>☐ Pass</strong></p>
+<p><strong>Fail ☐</strong></p></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><ol class="incremental" start="24" type="1">
+<li></li>
+</ol></td>
+<td><p>Login as test_admin</p>
+<p>Click ‘My Projects’</p>
+<p>Select Project_CUH_v1381</p>
+<p>Click on ‘User Rights’ in the navigation bar</p>
+<p>Click ‘test_user’ in the User right table</p>
+<p>Select ‘Edit user privileges’</p>
+<p>Under ‘Other privileges:’ select ‘No access’ for ‘Data Resolution
+Workflow’</p>
+<p>Click ‘Save Changes’</p></td>
+<td><p>Logged in as test_admin</p>
+<p>‘My Projects’ page opens</p>
+<p>Home page for Project_CUH_v1381 opens</p>
+<p>User rights page opens</p>
+<p>User actions window pops up</p>
+<p>User privileges window opens</p>
+<p>User privileges window closes and ‘User “test_user” successfully
+edited‘ message appears</p></td>
+<td><p><strong>☐ Pass</strong></p>
+<p><strong>Fail ☐</strong></p></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><ol class="incremental" start="25" type="1">
+<li></li>
+</ol></td>
+<td><p>Click ‘test_user2’</p>
+<p>Select ‘Edit user privileges’</p>
+<p>Under ‘Other privileges:’ select ‘View only’ for ‘Data Resolution
+Workflow’</p>
+<p>Click ‘Save Changes’</p>
+<p>Logout</p></td>
+<td><p>User actions window pops up</p>
+<p>User privileges window opens</p>
+<p>User privileges window closes and ‘User “test_user2” successfully
+edited ‘message appears</p>
+<p>test_admin is logged out</p></td>
+<td><p><strong>☐ Pass</strong></p>
+<p><strong>Fail ☐</strong></p></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><ol class="incremental" start="26" type="1">
+<li></li>
+</ol></td>
+<td><p>Login as ‘test_user’</p>
+<p>Click ‘My Projects’</p>
+<p>Select Project_CUH_v1381</p>
+<p>Click ‘Record Status Dashboard’</p>
+<p>Click on ‘Text Validation’ instrument for Record 1</p>
+<p>Logout</p></td>
+<td><p>Logged in as test_user</p>
+<p>‘My Projects’ page opens</p>
+<p>Home page for Project_CUH_v1381 opens</p>
+<p>Record Status Dashboard opens</p>
+<p>‘Text Validation’ instrument opens</p>
+<p>The Data resolution workflow icon next to both, Name and Email
+fields</p>
+<p>is not available.</p>
+<p>test_user is logged out</p></td>
+<td><p><strong>☐ Pass</strong></p>
+<p><strong>Fail ☐</strong></p></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><ol class="incremental" start="27" type="1">
+<li></li>
+</ol></td>
+<td><p>Login as ‘test_user2’</p>
+<p>Click ‘My Projects’</p>
+<p>Select Project_CUH_v1381</p>
+<p>Click ‘Record Status Dashboard’</p>
+<p>Click on ‘Text Validation’ instrument for Record 1</p>
+<p>Click the data resolution icon next to ‘Name’ field</p>
+<p>Close the ‘Data Resolution Workflow’ window</p>
+<p>Logout</p></td>
+<td><p>Logged in as test_user2</p>
+<p>‘My Projects’ page opens</p>
+<p>Home page for Project_CUH_v1381 opens</p>
+<p>Record Status Dashboard opens</p>
+<p>‘Text Validation’ instrument opens</p>
+<p>The ‘Data Resolution Workflow’ window opens in read only mode –
+Options to open query/respond to query/ close query are not
+available.</p>
+<p>A warning message ‘Awaiting action by user with sufficient user
+privileges.’ appears at the bottom of the window</p>
+<p>‘Data Resolution Workflow’ window closes</p>
+<p>test_user2 is logged out</p></td>
+<td><p><strong>☐ Pass</strong></p>
+<p><strong>Fail ☐</strong></p></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><ol class="incremental" start="28" type="1">
+<li></li>
+</ol></td>
+<td><p>Login as test_admin</p>
+<p>Click ‘My Projects’</p>
+<p>Select Project_CUH_v1381</p>
+<p>Click on ‘User Rights’</p>
+<p>Click ‘test_user’</p>
+<p>Select ‘Edit user privileges’</p>
+<p>Under ‘Other privileges:’ select ‘Open queries only’ under ‘Data
+Resolution Workflow’</p>
+<p>Click ‘Save Changes’</p></td>
+<td><p>Logged in as test_admin</p>
+<p>‘My Projects’ page opens</p>
+<p>Project_CUH_v1381 opens</p>
+<p>User rights page opens</p>
+<p>User actions window pops up</p>
+<p>User privileges window opens</p>
+<p>User privileges window closes and ‘User “test_user” successfully
+edited ‘ message appears</p></td>
+<td><p><strong>☐ Pass</strong></p>
+<p><strong>Fail ☐</strong></p></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><ol class="incremental" start="29" type="1">
+<li></li>
+</ol></td>
+<td><p>Click ‘test_user2’</p>
+<p>Select ‘Edit user privileges’</p>
+<p>Under ‘Other privileges:’ select ‘Open and respond to queries’ under
+‘Data Resolution Workflow’</p>
+<p>Click ‘Save Changes’</p>
+<p>Log out</p></td>
+<td><p>User actions window pops up</p>
+<p>User privileges window opens</p>
+<p>User privileges window closes and ‘User “test_user2” successfully
+edited’ message appears</p>
+<p>test_admin is logged out</p></td>
+<td><p><strong>☐ Pass</strong></p>
+<p><strong>Fail ☐</strong></p></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><ol class="incremental" start="30" type="1">
+<li></li>
+</ol></td>
+<td><p>Login as test_user</p>
+<p>Click ‘My Projects’</p>
+<p>Select Project_CUH_v1381</p>
+<p>Click ‘Record Status Dashboard’</p>
+<p>Click on ‘Text Validation’ instrument for Record 1</p>
+<p>Click the data resolution icon next to ‘Email’ field</p>
+<p>Check ‘Reopen the closed query’ checkbox.</p>
+<p>In comments box, type ‘Reopen the closed query’</p>
+<p>Click ‘Reopen query’ button</p>
+<p>Click the data resolution icon next to ‘Email’ field</p>
+<p>Close the Data Resolution Workflow window</p>
+<p>Logout</p></td>
+<td><p>Logged in as test_user</p>
+<p>‘My Projects’ page opens</p>
+<p>Project_CUH_v1381 opens</p>
+<p>Record Status Dashboard opens</p>
+<p>‘Text Validation’ instrument opens</p>
+<p>Data Resolution Workflow window opens. An option to ‘Open query’ is
+available.</p>
+<p>Query is saved and Data Resolution Workflow window closes.</p>
+<p>A red exclamation mark is seen on the ‘Data Resolution Workflow’
+icon.</p>
+<p>Data Resolution Workflow window opens. Options to close/respond to
+queries is not available. A warning message ‘Awaiting action by user
+with sufficient user privileges.’ appears</p>
+<p>Data Resolution Workflow window closes</p>
+<p>test_user is logged out</p></td>
+<td><p><strong>☐ Pass</strong></p>
+<p><strong>Fail ☐</strong></p></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><ol class="incremental" start="31" type="1">
+<li></li>
+</ol></td>
+<td><p>Login as test_user2</p>
+<p>Click ‘My Projects’</p>
+<p>Select Project_CUH_v1381</p>
+<p>Click ‘Record Status Dashboard’</p>
+<p>Click on ‘Text Validation’ instrument for Record 1</p>
+<p>Click the data resolution icon next to ‘Name’ field</p>
+<p>Select ‘Open query’.</p>
+<p>In comments box type ‘New query’</p>
+<p>Click ‘Open query’ button</p>
+<p>Click the data resolution icon next to ‘Email’ field</p>
+<p>Under ‘Reply with response:’ select</p>
+<p>‘Corrected – Data missing’</p>
+<p>In comments field, type ‘Response’</p>
+<p>Click the button ‘Respond to query’</p>
+<p>Click the data resolution icon next to ‘Email’ field</p>
+<p>Close Data Resolution Workflow window</p>
+<p>Logout</p></td>
+<td><p>Logged in as test_user2</p>
+<p>‘My Projects’ page opens</p>
+<p>Project_CUH_v1381 opens</p>
+<p>Record Status Dashboard opens</p>
+<p>‘Text Validation’ instrument opens</p>
+<p>Data Resolution Workflow window opens. An option to ‘Open query’ is
+available.</p>
+<p>Query is opened and saved. Data Resolution Workflow window closes</p>
+<p>Data Resolution Workflow window opens. An option to respond to query
+is available.</p>
+<p>Response is saved. Data Resolution Workflow window closes</p>
+<p>The query is shown as responded to with a blue exclamation mark on
+the data resolution icon.</p>
+<p>Data Resolution Workflow window opens. There is no option available
+to close the query.A message ‘Awaiting action by user with sufficient
+user privileges.’ appears at the bottom of the window.</p>
+<p>Data Resolution Workflow window closes</p>
+<p>test_user2 is logged out</p></td>
+<td><p><strong>☐ Pass</strong></p>
+<p><strong>Fail ☐</strong></p></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><blockquote>
+<p>32.</p>
+</blockquote></td>
+<td><p>Login as test_admin</p>
+<p>Click ‘My Projects’</p>
+<p>Select Project_CUH_v1381</p>
+<p>Click ‘Project Setup’</p>
+<p>Under ‘Enable optional modules and customizations’, select
+‘Additional customizations’</p>
+<p>Under ‘Enable the Field Comment Log or Data Resolution Workflow (Data
+Queries)?’, select ‘Field comment log’</p>
+<p>Click save</p>
+<p>Log out</p></td>
+<td><p>Logged in as test_admin</p>
+<p>‘My Projects’ page opens</p>
+<p>Project_CUH_v1381 opens</p>
+<p>‘Project Setup’ tab opens</p>
+<p>Additional customizations window pops up</p>
+<p>A message ‘Success! Your changes have been saved’ appears</p>
+<p>test_admin is logged out</p></td>
+<td><p><strong>☐ Pass</strong></p>
+<p><strong>Fail ☐</strong></p></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><blockquote>
+<p>33.</p>
+</blockquote></td>
+<td><p>Login as test_user</p>
+<p>Click ‘My Projects’</p>
+<p>Select Project_CUH_v1381</p>
+<p>Click ‘Record Status Dashboard’</p>
+<p>Click on ‘Record Status Dashboard’</p>
+<p>Click ‘Add new Record for this arm’</p>
+<p>Click on ‘Text Validation’ instrument for Record 1</p>
+<p>In the Name field, type ‘John’</p>
+<p>In the Email field, type ‘John@example.com’</p>
+<p>In the Complete? Field, select ‘Complete’</p>
+<p>Click ‘Save and Exit Form’</p></td>
+<td><p>Logged in as test_user</p>
+<p>‘My Projects’ page opens</p>
+<p>Project_CUH_v1381 opens</p>
+<p>Record Status Dashboard opens</p>
+<p>New Record 2 is created.</p>
+<p>The instrument opens</p>
+<p>The form is saved</p></td>
+<td><p><strong>☐ Pass</strong></p>
+<p><strong>Fail ☐</strong></p></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><blockquote>
+<p>34.</p>
+</blockquote></td>
+<td><p>In the record Dashboard, select the instrument ‘Text
+Validation’</p>
+<p>Click the speech bubble next to ‘Name’ field</p>
+<p>Type ‘Comment 1’ in the comments box</p>
+<p>Click ‘Comment’ button</p>
+<p>Click the speech bubble next to 'Email’ field</p>
+<p>Type ‘Comment 2’ in the comments box</p>
+<p>Click ‘Comment’ button</p>
+<p>Click ‘Field Comment Log’ in the left navigation bar</p>
+<p>Click the excel button to download the log</p>
+<p>Under filters, select Record ‘1’</p>
+<p>Under filters, select Record 2.</p>
+<p>Under fields, select email_V2(Email)</p>
+<p>In the users drop down field, select test_user. Click ‘Apply
+filters’</p>
+<p>Log out</p></td>
+<td><p>The instrument ‘Text Validation’ opens</p>
+<p>The ‘Field Comment Log’ opens</p>
+<p>The comment is saved</p>
+<p>The ‘Field Comment Log’ opens</p>
+<p>The comment is saved</p>
+<p>‘Field Comment Log’ page loads and shows the two field comment logs
+made by test_user</p>
+<p>A csv file with the two entries is downloaded</p>
+<p>No entries are shown</p>
+<p>The ‘Comment 2’ entry for email log appears</p>
+<p>The user is logged out</p></td>
+<td><p><strong>☐ Pass</strong></p>
+<p><strong>Fail ☐</strong></p></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><blockquote>
+<p>35.</p>
+</blockquote></td>
+<td><p>Login as test_user</p>
+<p>Click ‘My Projects’</p>
+<p>Select Project_CUH_v1381</p>
+<p>Click ‘Record Status Dashboard’</p>
+<p>Click ‘Text Validation’ instrument for Record 2</p>
+<p>Click the speech bubble next to ‘Name’ field</p>
+<p>Type ‘Comment 3 test’ in the comments box. Click ‘Comment’ button</p>
+<p>Click ‘Field Comment Log’ in the left navigation bar</p>
+<p>Under filters, select All records, Event 1(Arm 1: Arm1), All fields,
+All users and in the keyword field, type ‘test’.</p>
+<p>Click ‘Apply filters’</p>
+<p>Logout</p></td>
+<td><p>Logged in as test_user</p>
+<p>‘My Projects’ page opens</p>
+<p>Project_CUH_v1381 opens</p>
+<p>Record Status Dashboard opens</p>
+<p>Text Validation instrument opens</p>
+<p>The ‘Field Comment Log’ opens. Comment ‘Comment 1’ by test_user is
+seen along with date and time</p>
+<p>The comment is saved</p>
+<p>‘Field Comment Log’ page loads and shows the two fields with comments
+for Record 2</p>
+<p>‘Name’ field shows two comments, ‘Comment 1’ by test_user and
+‘Comment 3 test’ by test_user2, along with date and time</p>
+<p>‘Comment 3 test’ on Record 2, under name field, made by test_user2 is
+shown.</p>
+<p>The User is logged out</p></td>
+<td><p><strong>☐ Pass</strong></p>
+<p><strong>Fail ☐</strong></p></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>THIS ENDS THE TESTING FOR THIS SCRIPT</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 63%" />
+<col style="width: 6%" />
+<col style="width: 3%" />
+<col style="width: 8%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td colspan="5"><strong>Conclusion</strong></td>
+</tr>
+<tr class="even">
+<td colspan="2">Did the Actual Results for each test step match the
+Expected Results listed?</td>
+<td colspan="2"><blockquote>
+<p>Yes</p>
+</blockquote></td>
+<td><blockquote>
+<p>No</p>
+</blockquote></td>
+</tr>
+<tr class="odd">
+<td colspan="5"><blockquote>
+<p><strong>Comments/Additional Information:</strong> (Indicate the step
+number of the step you wish to comment on.)</p>
+</blockquote></td>
+</tr>
+<tr class="even">
+<td><strong>Completed By</strong></td>
+<td></td>
+<td><strong>Date:</strong></td>
+<td colspan="2"></td>
+</tr>
+</tbody>
+</table>
