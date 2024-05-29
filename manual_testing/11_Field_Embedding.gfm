@@ -1,0 +1,571 @@
++-------------+--------+-----------+----------------------------------+
+| **System    |        |           |                                  |
+| Setup**     |        |           |                                  |
++=============+========+===========+==================================+
+| **Database  | >      | > **Ap    | > <https://localhost:8443/>      |
+| Version**   | REDCap | plication |                                  |
+|             | > 1    | > URL**   |                                  |
+|             | 3.8.1  |           |                                  |
++-------------+--------+-----------+----------------------------------+
+| **Document  | > Co   | *         | > 1                              |
+| Status**    | mplete | *Document |                                  |
+|             |        | V         |                                  |
+|             |        | ersion ** |                                  |
++-------------+--------+-----------+----------------------------------+
+
++-----------------------------------------------------------------------+
+| **Test Summary**                                                      |
++-----------------------------------------------------------------------+
+| **Feature Category Description:** The \'Field Embedding\' feature in  |
+| REDCap is the ultimate way to customize your surveys and data         |
+| collection instruments to make them look exactly how you want. Field  |
+| Embedding allows you to reposition field elements on a survey page or |
+| data entry form so that they get embedded in a new location on that   |
+| same page. Embedding fields gives you greater control over the look   |
+| and feel of your instrument. For example, you may place fields in a   |
+| grid/table for a more compact user-friendly page, or you can position |
+| some fields close together in a group if they are related.            |
+|                                                                       |
+| **Test Purpose Details:** This test script validates if Embedded      |
+| Fields work                                                           |
+|                                                                       |
+| **Functional Requirements:**                                          |
+|                                                                       |
+| -   11.1 The system shall support the ability to use Embedded Fields  |
+|     in data entry forms for better user-friendly form designs.        |
++-----------------------------------------------------------------------+
+|                                                                       |
++-----------------------------------------------------------------------+
+
++----+-----------+-------------+-----------------+--------------------+
+| ** |           |             |                 |                    |
+| Te |           |             |                 |                    |
+| st |           |             |                 |                    |
+| Re |           |             |                 |                    |
+| qu |           |             |                 |                    |
+| ir |           |             |                 |                    |
+| em |           |             |                 |                    |
+| en |           |             |                 |                    |
+| ts |           |             |                 |                    |
+| ** |           |             |                 |                    |
++----+-----------+-------------+-----------------+--------------------+
+| ** |           |             |                 |                    |
+| Te |           |             |                 |                    |
+| st |           |             |                 |                    |
+| U  |           |             |                 |                    |
+| se |           |             |                 |                    |
+| rs |           |             |                 |                    |
+| ** |           |             |                 |                    |
++----+-----------+-------------+-----------------+--------------------+
+| ** | **U       | *           | **Minimum       | **Other Settings** |
+| ID | sername** | *Password** | User's Rights** |                    |
+| ** |           |             |                 |                    |
++----+-----------+-------------+-----------------+--------------------+
+| >  | test_user | Testing123  | Standard User   |                    |
+| ** |           |             | with 'Project   |                    |
+| 1. |           |             | Design and      |                    |
+| ** |           |             | Setup'          |                    |
+|    |           |             | privileges.     |                    |
+|    |           |             | View and edit   |                    |
+|    |           |             | rights on all   |                    |
+|    |           |             | instruments.    |                    |
++----+-----------+-------------+-----------------+--------------------+
+| >  | t         | Testing123  | Administrator   |                    |
+| ** | est_admin |             |                 |                    |
+| 2. |           |             |                 |                    |
+| ** |           |             |                 |                    |
++----+-----------+-------------+-----------------+--------------------+
+| >  |           |             |                 |                    |
+| ** |           |             |                 |                    |
+| 3. |           |             |                 |                    |
+| ** |           |             |                 |                    |
++----+-----------+-------------+-----------------+--------------------+
+
++----+-------------------------+--------------------------------------+
+| *  |                         |                                      |
+| *P |                         |                                      |
+| ro |                         |                                      |
+| je |                         |                                      |
+| ct |                         |                                      |
+| S  |                         |                                      |
+| et |                         |                                      |
+| up |                         |                                      |
+| ** |                         |                                      |
++----+-------------------------+--------------------------------------+
+| ** | > **Description**       | > **Instructions**                   |
+| ID |                         |                                      |
+| ** |                         |                                      |
++----+-------------------------+--------------------------------------+
+| 1  | Project:                | Project created using                |
+| \. | Project_CU              | Project_CUH_v1381_Field_Embedding    |
+|    | H_v1381_Field_Embedding |                                      |
++----+-------------------------+--------------------------------------+
+| 2  | Project Setup           |                                      |
+| \. |                         |                                      |
++----+-------------------------+--------------------------------------+
+| 3  | Data Import File        |                                      |
+| \. |                         |                                      |
++----+-------------------------+--------------------------------------+
+| 4  | Other Files             |                                      |
+| \. |                         |                                      |
++----+-------------------------+--------------------------------------+
+
++------+------------------------+-------------------+------+----------+
+| **   |                        |                   |      |          |
+| Test |                        |                   |      |          |
+| Ste  |                        |                   |      |          |
+| ps** |                        |                   |      |          |
++------+------------------------+-------------------+------+----------+
+| **   | **Action Step**        | **Expected        | **   | **Co     |
+| Step |                        | Result**          | Pass | mments** |
+| \#** |                        |                   | /    |          |
+|      |                        |                   | Fa   |          |
+|      |                        |                   | il** |          |
++------+------------------------+-------------------+------+----------+
+| > *H | *You must perform the  | *After performing | *C   | *Include |
+| elp* | actions listed in this | the actions in    | heck | un       |
+|      | column.*               | the 'Action Step' | 'Pa  | expected |
+|      |                        | column, you       | ss', | results, |
+|      |                        | should see the    | if   | sugg     |
+|      |                        | following.*       | the  | estions. |
+|      |                        |                   | ac   | etc.*    |
+|      |                        |                   | tual |          |
+|      |                        |                   | res  |          |
+|      |                        |                   | ults |          |
+|      |                        |                   | m    |          |
+|      |                        |                   | atch |          |
+|      |                        |                   | the  |          |
+|      |                        |                   | '    |          |
+|      |                        |                   | Expe |          |
+|      |                        |                   | cted |          |
+|      |                        |                   | Resu |          |
+|      |                        |                   | lt'; |          |
+|      |                        |                   | ot   |          |
+|      |                        |                   | herw |          |
+|      |                        |                   | ise, |          |
+|      |                        |                   | c    |          |
+|      |                        |                   | heck |          |
+|      |                        |                   | 'Fai |          |
+|      |                        |                   | l'.* |          |
++------+------------------------+-------------------+------+----------+
+| 1.   | Login as test_user     | User is able to   | ![C  |          |
+|      |                        | login             | heck |          |
+|      | Go to My Projects      |                   | mark |          |
+|      |                        | Project Opens     | with |          |
+|      | Click on               |                   | s    |          |
+|      | 'Project_CUH           | Project setup     | olid |          |
+|      | _v1381_Field_Embedding | page opens        | f    |          |
+|      |                        |                   | ill] |          |
+|      | Click on 'Online       | Online Designer   | (med |          |
+|      | Designer'              | page is displayed | ia/i |          |
+|      |                        |                   | mage |          |
+|      |                        |                   | 2.pn |          |
+|      |                        |                   | g){w |          |
+|      |                        |                   | idth |          |
+|      |                        |                   | ="0. |          |
+|      |                        |                   | 1458 |          |
+|      |                        |                   | 3333 |          |
+|      |                        |                   | 3333 |          |
+|      |                        |                   | 3333 |          |
+|      |                        |                   | 4in" |          |
+|      |                        |                   | hei  |          |
+|      |                        |                   | ght= |          |
+|      |                        |                   | "0.1 |          |
+|      |                        |                   | 4583 |          |
+|      |                        |                   | 3333 |          |
+|      |                        |                   | 3333 |          |
+|      |                        |                   | 3334 |          |
+|      |                        |                   | in"} |          |
+|      |                        |                   | **Pa |          |
+|      |                        |                   | ss** |          |
+|      |                        |                   |      |          |
+|      |                        |                   | **   |          |
+|      |                        |                   | Fail |          |
+|      |                        |                   | ☐**  |          |
++------+------------------------+-------------------+------+----------+
+| 2.   | Click on instrument    | Field Embedding   | ![C  |          |
+|      | for 'Field Embedding   | Demo instrument   | heck |          |
+|      | Demo'                  | page is displayed | mark |          |
+|      |                        |                   | with |          |
+|      | You can see the        | Individual        | s    |          |
+|      | questions for specific | questions are     | olid |          |
+|      | years for the below:   | shown for         | f    |          |
+|      |                        | specific years.   | ill] |          |
+|      | -   Federal grants     |                   | (med |          |
+|      |                        |                   | ia/i |          |
+|      | -   Non-federal grants |                   | mage |          |
+|      |                        |                   | 2.pn |          |
+|      | -   Research           |                   | g){w |          |
+|      |                        |                   | idth |          |
+|      |   Agreements/Contracts |                   | ="0. |          |
+|      |                        |                   | 1458 |          |
+|      |                        |                   | 3333 |          |
+|      |                        |                   | 3333 |          |
+|      |                        |                   | 3333 |          |
+|      |                        |                   | 4in" |          |
+|      |                        |                   | hei  |          |
+|      |                        |                   | ght= |          |
+|      |                        |                   | "0.1 |          |
+|      |                        |                   | 4583 |          |
+|      |                        |                   | 3333 |          |
+|      |                        |                   | 3333 |          |
+|      |                        |                   | 3334 |          |
+|      |                        |                   | in"} |          |
+|      |                        |                   | **Pa |          |
+|      |                        |                   | ss** |          |
+|      |                        |                   |      |          |
+|      |                        |                   | **   |          |
+|      |                        |                   | Fail |          |
+|      |                        |                   | ☐**  |          |
++------+------------------------+-------------------+------+----------+
+| 3.   | Click on the 2nd 'Add  | Add New Field box | ![C  |          |
+|      | Field' button from the | opens             | heck |          |
+|      | top of the instrument  |                   | mark |          |
+|      | page.                  | Able to select    | with |          |
+|      |                        | option            | s    |          |
+|      | Select from the 'Field |                   | olid |          |
+|      | Type' drop down and    | Rich text editor  | f    |          |
+|      | choose 'Descriptive    | can be selected   | ill] |          |
+|      | Text'                  |                   | (med |          |
+|      |                        | Variable name can | ia/i |          |
+|      | Check the box for 'Use | be entered        | mage |          |
+|      | the Rich Text Editor'  |                   | 2.pn |          |
+|      |                        | Table is created  | g){w |          |
+|      | In the 'Variable Name' | by 4 rows and 4   | idth |          |
+|      | box enter embedded     | columns           | ="0. |          |
+|      |                        |                   | 1458 |          |
+|      | Click on the table     | Columns names can | 3333 |          |
+|      | icon and create a      | be entered        | 3333 |          |
+|      | table 4x4              |                   | 3333 |          |
+|      |                        | Row names can be  | 4in" |          |
+|      | Enter following into   | entered           | hei  |          |
+|      | the table              |                   | ght= |          |
+|      |                        | Field embed codes | "0.1 |          |
+|      | Top Row                | can added e.g.    | 4583 |          |
+|      |                        | {grant2012} into  | 3333 |          |
+|      | Second column to be    | specific year     | 3333 |          |
+|      | named: '2012'          | columns           | 3334 |          |
+|      |                        |                   | in"} |          |
+|      | Third column to be     | Field embed codes | **Pa |          |
+|      | named: '2013'          | can added e.g.    | ss** |          |
+|      |                        | {grant2013} into  |      |          |
+|      | Fourth column to be    | specific year     | **   |          |
+|      | named '2014'           | columns           | Fail |          |
+|      |                        |                   | ☐**  |          |
+|      | In the First Column:   | Field embed codes |      |          |
+|      |                        | can added e.g.    |      |          |
+|      | Second row to be       | {grant2014} into  |      |          |
+|      | named: 'Federal        | specific year     |      |          |
+|      | Grants'                | columns           |      |          |
+|      |                        |                   |      |          |
+|      | Third row to be named: | Edit Field box is |      |          |
+|      | 'Non- federal Grants'  | saved and closes  |      |          |
+|      |                        |                   |      |          |
+|      | Fourth row to be named | Green bar with    |      |          |
+|      | 'Research              | text 'Field is    |      |          |
+|      | Agreements/Contracts'  | embedded          |      |          |
+|      |                        | elsewhere on      |      |          |
+|      | For 2012 column enter  | page' is visible  |      |          |
+|      |                        |                   |      |          |
+|      | Federal Grants:        | Descriptive text  |      |          |
+|      | {grant2012}            | with text         |      |          |
+|      |                        | 'Contains         |      |          |
+|      | Non-federal Grants:    | embedded fields'  |      |          |
+|      | {nfgrant2012}          | is visible        |      |          |
+|      |                        |                   |      |          |
+|      | Research               |                   |      |          |
+|      | Agreements/Contracts:  |                   |      |          |
+|      | {grant2022}            |                   |      |          |
+|      |                        |                   |      |          |
+|      | For 2013 column enter  |                   |      |          |
+|      |                        |                   |      |          |
+|      | Federal Grants:        |                   |      |          |
+|      | {grant2013}            |                   |      |          |
+|      |                        |                   |      |          |
+|      | Non-federal Grants:    |                   |      |          |
+|      | {nfgrant2013}          |                   |      |          |
+|      |                        |                   |      |          |
+|      | Research               |                   |      |          |
+|      | Agreements/Contracts:  |                   |      |          |
+|      | {grant2023}            |                   |      |          |
+|      |                        |                   |      |          |
+|      | For 2014 column enter  |                   |      |          |
+|      |                        |                   |      |          |
+|      | Federal Grants:        |                   |      |          |
+|      | {grant2014}            |                   |      |          |
+|      |                        |                   |      |          |
+|      | Non-federal Grants:    |                   |      |          |
+|      | {nfgrant2014}          |                   |      |          |
+|      |                        |                   |      |          |
+|      | Research               |                   |      |          |
+|      | Agreements/Contracts:  |                   |      |          |
+|      | {grant2024}            |                   |      |          |
+|      |                        |                   |      |          |
+|      | Click on 'Save'        |                   |      |          |
+|      |                        |                   |      |          |
+|      | The embedded fields    |                   |      |          |
+|      | have a green           |                   |      |          |
+|      | information bar with   |                   |      |          |
+|      | text 'Field is         |                   |      |          |
+|      | embedded elsewhere on  |                   |      |          |
+|      | page'                  |                   |      |          |
+|      |                        |                   |      |          |
+|      | The descriptive text   |                   |      |          |
+|      | has a blue information |                   |      |          |
+|      | bar with text          |                   |      |          |
+|      | 'Contains embedded     |                   |      |          |
+|      | fields'                |                   |      |          |
++------+------------------------+-------------------+------+----------+
+| 4.   | Click on the 'Add/Edit | Add/Edit page     | ![C  |          |
+|      | Records' on the Data   | opens up          | heck |          |
+|      | Collection section     |                   | mark |          |
+|      |                        | A new record is   | with |          |
+|      | Create a new record by | created with ID 1 | s    |          |
+|      | clicking 'Add new      |                   | olid |          |
+|      | record'                | Field Embedding   | f    |          |
+|      |                        | Demo page opens   | ill] |          |
+|      | Instrument called      |                   | (med |          |
+|      | 'Field Embedding Demo' |                   | ia/i |          |
+|      | will open              |                   | mage |          |
+|      |                        |                   | 2.pn |          |
+|      |                        |                   | g){w |          |
+|      |                        |                   | idth |          |
+|      |                        |                   | ="0. |          |
+|      |                        |                   | 1458 |          |
+|      |                        |                   | 3333 |          |
+|      |                        |                   | 3333 |          |
+|      |                        |                   | 3333 |          |
+|      |                        |                   | 4in" |          |
+|      |                        |                   | hei  |          |
+|      |                        |                   | ght= |          |
+|      |                        |                   | "0.1 |          |
+|      |                        |                   | 4583 |          |
+|      |                        |                   | 3333 |          |
+|      |                        |                   | 3333 |          |
+|      |                        |                   | 3334 |          |
+|      |                        |                   | in"} |          |
+|      |                        |                   | **Pa |          |
+|      |                        |                   | ss** |          |
+|      |                        |                   |      |          |
+|      |                        |                   | **   |          |
+|      |                        |                   | Fail |          |
+|      |                        |                   | ☐**  |          |
++------+------------------------+-------------------+------+----------+
+| 5.   | Questions for the      | Table format is   | ![C  |          |
+|      | specific year grants   | shown allowing    | heck |          |
+|      | are structured in the  | questions         | mark |          |
+|      | table for ease of data | embedded in a     | with |          |
+|      | entry                  | user friendly     | s    |          |
+|      |                        | interface to be   | olid |          |
+|      | Add data to the        | collected         | f    |          |
+|      | corresponding          |                   | ill] |          |
+|      | row-column of the      | Data can be added | (med |          |
+|      | table                  | to the table      | ia/i |          |
+|      |                        |                   | mage |          |
+|      |                        |                   | 2.pn |          |
+|      |                        |                   | g){w |          |
+|      |                        |                   | idth |          |
+|      |                        |                   | ="0. |          |
+|      |                        |                   | 1458 |          |
+|      |                        |                   | 3333 |          |
+|      |                        |                   | 3333 |          |
+|      |                        |                   | 3333 |          |
+|      |                        |                   | 4in" |          |
+|      |                        |                   | hei  |          |
+|      |                        |                   | ght= |          |
+|      |                        |                   | "0.1 |          |
+|      |                        |                   | 4583 |          |
+|      |                        |                   | 3333 |          |
+|      |                        |                   | 3333 |          |
+|      |                        |                   | 3334 |          |
+|      |                        |                   | in"} |          |
+|      |                        |                   | **Pa |          |
+|      |                        |                   | ss** |          |
+|      |                        |                   |      |          |
+|      |                        |                   | **   |          |
+|      |                        |                   | Fail |          |
+|      |                        |                   | ☐**  |          |
++------+------------------------+-------------------+------+----------+
+| 6.   | Click on the 'Save and | Able to save and  | ![C  |          |
+|      | Exit form' button      | exit the form     | heck |          |
+|      |                        |                   | mark |          |
+|      |                        |                   | with |          |
+|      |                        |                   | s    |          |
+|      |                        |                   | olid |          |
+|      |                        |                   | f    |          |
+|      |                        |                   | ill] |          |
+|      |                        |                   | (med |          |
+|      |                        |                   | ia/i |          |
+|      |                        |                   | mage |          |
+|      |                        |                   | 2.pn |          |
+|      |                        |                   | g){w |          |
+|      |                        |                   | idth |          |
+|      |                        |                   | ="0. |          |
+|      |                        |                   | 1458 |          |
+|      |                        |                   | 3333 |          |
+|      |                        |                   | 3333 |          |
+|      |                        |                   | 3333 |          |
+|      |                        |                   | 4in" |          |
+|      |                        |                   | hei  |          |
+|      |                        |                   | ght= |          |
+|      |                        |                   | "0.1 |          |
+|      |                        |                   | 4583 |          |
+|      |                        |                   | 3333 |          |
+|      |                        |                   | 3333 |          |
+|      |                        |                   | 3334 |          |
+|      |                        |                   | in"} |          |
+|      |                        |                   | **Pa |          |
+|      |                        |                   | ss** |          |
+|      |                        |                   |      |          |
+|      |                        |                   | **   |          |
+|      |                        |                   | Fail |          |
+|      |                        |                   | ☐**  |          |
++------+------------------------+-------------------+------+----------+
+|      | THIS ENDS THE TESTING  |                   |      |          |
+|      | FOR THIS SCRIPT        |                   |      |          |
++------+------------------------+-------------------+------+----------+
+
++-----------+--------------------------------------------+---+---+-----+
+| **Con     |                                            |   |   |     |
+| clusion** |                                            |   |   |     |
++-----------+--------------------------------------------+---+---+-----+
+| Did the   |                                            | ! |   | >   |
+| Actual    |                                            | [ |   |  No |
+| Results   |                                            | C |   |     |
+| for each  |                                            | h |   |     |
+| test step |                                            | e |   |     |
+| match the |                                            | c |   |     |
+| Expected  |                                            | k |   |     |
+| Results   |                                            | m |   |     |
+| listed?   |                                            | a |   |     |
+|           |                                            | r |   |     |
+|           |                                            | k |   |     |
+|           |                                            | w |   |     |
+|           |                                            | i |   |     |
+|           |                                            | t |   |     |
+|           |                                            | h |   |     |
+|           |                                            | s |   |     |
+|           |                                            | o |   |     |
+|           |                                            | l |   |     |
+|           |                                            | i |   |     |
+|           |                                            | d |   |     |
+|           |                                            | f |   |     |
+|           |                                            | i |   |     |
+|           |                                            | l |   |     |
+|           |                                            | l |   |     |
+|           |                                            | ] |   |     |
+|           |                                            | ( |   |     |
+|           |                                            | m |   |     |
+|           |                                            | e |   |     |
+|           |                                            | d |   |     |
+|           |                                            | i |   |     |
+|           |                                            | a |   |     |
+|           |                                            | / |   |     |
+|           |                                            | i |   |     |
+|           |                                            | m |   |     |
+|           |                                            | a |   |     |
+|           |                                            | g |   |     |
+|           |                                            | e |   |     |
+|           |                                            | 2 |   |     |
+|           |                                            | . |   |     |
+|           |                                            | p |   |     |
+|           |                                            | n |   |     |
+|           |                                            | g |   |     |
+|           |                                            | ) |   |     |
+|           |                                            | { |   |     |
+|           |                                            | w |   |     |
+|           |                                            | i |   |     |
+|           |                                            | d |   |     |
+|           |                                            | t |   |     |
+|           |                                            | h |   |     |
+|           |                                            | = |   |     |
+|           |                                            | " |   |     |
+|           |                                            | 0 |   |     |
+|           |                                            | . |   |     |
+|           |                                            | 1 |   |     |
+|           |                                            | 4 |   |     |
+|           |                                            | 5 |   |     |
+|           |                                            | 8 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 4 |   |     |
+|           |                                            | i |   |     |
+|           |                                            | n |   |     |
+|           |                                            | " |   |     |
+|           |                                            | h |   |     |
+|           |                                            | e |   |     |
+|           |                                            | i |   |     |
+|           |                                            | g |   |     |
+|           |                                            | h |   |     |
+|           |                                            | t |   |     |
+|           |                                            | = |   |     |
+|           |                                            | " |   |     |
+|           |                                            | 0 |   |     |
+|           |                                            | . |   |     |
+|           |                                            | 1 |   |     |
+|           |                                            | 4 |   |     |
+|           |                                            | 5 |   |     |
+|           |                                            | 8 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 4 |   |     |
+|           |                                            | i |   |     |
+|           |                                            | n |   |     |
+|           |                                            | " |   |     |
+|           |                                            | } |   |     |
+|           |                                            | Y |   |     |
+|           |                                            | e |   |     |
+|           |                                            | s |   |     |
++-----------+--------------------------------------------+---+---+-----+
+| > **C     |                                            |   |   |     |
+| omments/A |                                            |   |   |     |
+| dditional |                                            |   |   |     |
+| > Infor   |                                            |   |   |     |
+| mation:** |                                            |   |   |     |
+| >         |                                            |   |   |     |
+| (Indicate |                                            |   |   |     |
+| > the     |                                            |   |   |     |
+| > step    |                                            |   |   |     |
+| > number  |                                            |   |   |     |
+| > of the  |                                            |   |   |     |
+| > step    |                                            |   |   |     |
+| > you     |                                            |   |   |     |
+| > wish to |                                            |   |   |     |
+| > comment |                                            |   |   |     |
+| > on.)    |                                            |   |   |     |
++-----------+--------------------------------------------+---+---+-----+
+| **        | **Mintoo Xavier**                          | * | * |     |
+| Completed |                                            | * | * |     |
+| By**      |                                            | D | 1 |     |
+|           |                                            | a | 5 |     |
+|           |                                            | t | / |     |
+|           |                                            | e | 1 |     |
+|           |                                            | : | 1 |     |
+|           |                                            | * | / |     |
+|           |                                            | * | 2 |     |
+|           |                                            |   | 0 |     |
+|           |                                            |   | 2 |     |
+|           |                                            |   | 3 |     |
+|           |                                            |   | * |     |
+|           |                                            |   | * |     |
++-----------+--------------------------------------------+---+---+-----+
