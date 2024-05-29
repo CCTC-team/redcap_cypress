@@ -1,0 +1,301 @@
++-------------+--------+------------+---------------------------------+
+| **System    |        |            |                                 |
+| Setup**     |        |            |                                 |
++=============+========+============+=================================+
+| **Database  | >      | > **A      | > https://localhost:8443/       |
+| Version**   | REDCap | pplication |                                 |
+|             | > 1    | > URL**    |                                 |
+|             | 3.8.1  |            |                                 |
++-------------+--------+------------+---------------------------------+
+| **Document  | > Co   | **Document | > 1                             |
+| Status**    | mplete | Version ** |                                 |
++-------------+--------+------------+---------------------------------+
+
++-----------------------------------------------------------------------+
+| **Test Summary**                                                      |
++-----------------------------------------------------------------------+
+| **Feature Category Description:** Two-Factor Authentication increases |
+| the security of the system by adding an additional security code on   |
+| top of the password at user login.                                    |
+|                                                                       |
+| **Test Purpose Details:** This test script validates if the           |
+| Two-Factor Authentication works                                       |
+|                                                                       |
+| **Functional Requirements:**                                          |
+|                                                                       |
+| -   1.1 The system shall support enabling/disabling of Two-Factor     |
+|     Authentication.                                                   |
+|                                                                       |
+| -   1.2 The system shall support the ability to use Two-Factor        |
+|     Authentication for user login.                                    |
++-----------------------------------------------------------------------+
+|                                                                       |
++-----------------------------------------------------------------------+
+
++----+-----------+-------------+-----------------+--------------------+
+| ** |           |             |                 |                    |
+| Te |           |             |                 |                    |
+| st |           |             |                 |                    |
+| Re |           |             |                 |                    |
+| qu |           |             |                 |                    |
+| ir |           |             |                 |                    |
+| em |           |             |                 |                    |
+| en |           |             |                 |                    |
+| ts |           |             |                 |                    |
+| ** |           |             |                 |                    |
++----+-----------+-------------+-----------------+--------------------+
+| ** |           |             |                 |                    |
+| Te |           |             |                 |                    |
+| st |           |             |                 |                    |
+| U  |           |             |                 |                    |
+| se |           |             |                 |                    |
+| rs |           |             |                 |                    |
+| ** |           |             |                 |                    |
++----+-----------+-------------+-----------------+--------------------+
+| ** | **U       | *           | **Minimum       | **Other Settings** |
+| ID | sername** | *Password** | User's Rights** |                    |
+| ** |           |             |                 |                    |
++----+-----------+-------------+-----------------+--------------------+
+| >  | test_user | Testing123  | Standard User   |                    |
+| ** |           |             |                 |                    |
+| 1. |           |             |                 |                    |
+| ** |           |             |                 |                    |
++----+-----------+-------------+-----------------+--------------------+
+| >  | t         | Testing123  | Administrator   |                    |
+| ** | est_admin |             |                 |                    |
+| 2. |           |             |                 |                    |
+| ** |           |             |                 |                    |
++----+-----------+-------------+-----------------+--------------------+
+
++----+-------------------------+--------------------------------------+
+| *  |                         |                                      |
+| *P |                         |                                      |
+| ro |                         |                                      |
+| je |                         |                                      |
+| ct |                         |                                      |
+| S  |                         |                                      |
+| et |                         |                                      |
+| up |                         |                                      |
+| ** |                         |                                      |
++----+-------------------------+--------------------------------------+
+| ** | > **Description**       | > **Instructions**                   |
+| ID |                         |                                      |
+| ** |                         |                                      |
++----+-------------------------+--------------------------------------+
+| 1  | > Project Setup         | #### Control Center, Secur           |
+| \. |                         | ity & Authentication Configuration:  |
+|    |                         |                                      |
+|    |                         | Two-factor Authentication = Disabled |
++----+-------------------------+--------------------------------------+
+| 2  | > Data Import File      |                                      |
+| \. |                         |                                      |
++----+-------------------------+--------------------------------------+
+| 3  | > Other Files           |                                      |
+| \. |                         |                                      |
++----+-------------------------+--------------------------------------+
+
++------+----------------------+-------------------+----------+---------+
+| **   |                      |                   |          |         |
+| Test |                      |                   |          |         |
+| Ste  |                      |                   |          |         |
+| ps** |                      |                   |          |         |
++------+----------------------+-------------------+----------+---------+
+| **   | **Action Step**      | **Expected        | **Pass / | **Com   |
+| Step |                      | Result**          | Fail**   | ments** |
+| \#** |                      |                   |          |         |
++------+----------------------+-------------------+----------+---------+
+| > *H | *You must perform    | *After performing | *Check   | *       |
+| elp* | the actions listed   | the actions in    | 'Pass',  | Include |
+|      | in this column.*     | the 'Action Step' | if the   | une     |
+|      |                      | column, you       | actual   | xpected |
+|      |                      | should see the    | results  | r       |
+|      |                      | following.*       | match    | esults, |
+|      |                      |                   | the      | sugge   |
+|      |                      |                   | '        | stions. |
+|      |                      |                   | Expected | etc.*   |
+|      |                      |                   | Result'; |         |
+|      |                      |                   | ot       |         |
+|      |                      |                   | herwise, |         |
+|      |                      |                   | check    |         |
+|      |                      |                   | 'Fail'.* |         |
++------+----------------------+-------------------+----------+---------+
+| 1.   | Login as test_user   | Successfully logs | -        |         |
+|      | using username and   | into REDCap       | **Pass** |         |
+|      | password             |                   |          |         |
+|      |                      |                   | **Fail   |         |
+|      |                      |                   | ☐**      |         |
++------+----------------------+-------------------+----------+---------+
+| 2.   | Logout as test_user  | Successfully      | -        |         |
+|      |                      | logged off        | **Pass** |         |
+|      |                      |                   |          |         |
+|      |                      |                   | **Fail   |         |
+|      |                      |                   | ☐**      |         |
++------+----------------------+-------------------+----------+---------+
+| 3.   | Login as test_admin  | Successfully logs | -        |         |
+|      |                      | into REDCap       | **Pass** |         |
+|      |                      |                   |          |         |
+|      |                      |                   | **Fail   |         |
+|      |                      |                   | ☐**      |         |
++------+----------------------+-------------------+----------+---------+
+| 4.   | Go to Control        | Control Center    | -        |         |
+|      | Center.              | page is           | **Pass** |         |
+|      |                      | displayed.        |          |         |
+|      | Click on 'Security & |                   | **Fail   |         |
+|      | Authentication' in   | Security &        | ☐**      |         |
+|      | System Configuration | Authentication    |          |         |
+|      | group                | Configuration     |          |         |
+|      |                      | page is displayed |          |         |
++------+----------------------+-------------------+----------+---------+
+| 5.   | Set the following    | Security &        | -        |         |
+|      | settings:            | Authentication    | **Pass** |         |
+|      |                      | Configuration are |          |         |
+|      | Two-Factor           | saved             | **Fail   |         |
+|      | Authentication =     |                   | ☐**      |         |
+|      | Enabled              |                   |          |         |
+|      |                      |                   |          |         |
+|      | Enforce two-factor   |                   |          |         |
+|      | authentication ONLY  |                   |          |         |
+|      | for Table-based      |                   |          |         |
+|      | users? = No, enforce |                   |          |         |
+|      | on all users         |                   |          |         |
+|      | (Table-based and     |                   |          |         |
+|      | non-Table-based)     |                   |          |         |
+|      |                      |                   |          |         |
+|      | Authentication       |                   |          |         |
+|      | interval: Trust a    |                   |          |         |
+|      | device\'s two-factor |                   |          |         |
+|      | login for X days? =  |                   |          |         |
+|      | 1                    |                   |          |         |
+|      |                      |                   |          |         |
+|      | Save Changes         |                   |          |         |
++------+----------------------+-------------------+----------+---------+
+| 6.   | Logout as test_admin | Successfully      | -        |         |
+|      |                      | logged off        | **Pass** |         |
+|      |                      |                   |          |         |
+|      |                      |                   | **Fail   |         |
+|      |                      |                   | ☐**      |         |
++------+----------------------+-------------------+----------+---------+
+| 7.   | Login as test_user   | Pop-up appears    | -        |         |
+|      | using username and   | 'Two-step         | **Pass** |         |
+|      | password             | verification for  |          |         |
+|      |                      | REDCap login'     | **Fail   |         |
+|      |                      |                   | ☐**      |         |
++------+----------------------+-------------------+----------+---------+
+| 8.   | Do not check the     | Pop-up appears    | -        |         |
+|      | checkbox 'Don\'t     | 'Enter your       | **Pass** |         |
+|      | prompt me with       | verification      |          |         |
+|      | two-step login on    | code'             | **Fail   |         |
+|      | this computer for 24 |                   | ☐**      |         |
+|      | hours'               |                   |          |         |
+|      |                      |                   |          |         |
+|      | Select the radio     |                   |          |         |
+|      | button for 'Email'   |                   |          |         |
++------+----------------------+-------------------+----------+---------+
+| 9.   | Go to test_user's    | A green tick and  | -        |         |
+|      | email (MailHog) and  | success appears   | **Pass** |         |
+|      | get the verification | next to the       |          |         |
+|      | code and enter it in | textbox           | **Fail   |         |
+|      | the textbox and      |                   | ☐**      |         |
+|      | press the 'Submit'   | Successfully      |          |         |
+|      | button               | directed to 'My   |          |         |
+|      |                      | Projects' page    |          |         |
++------+----------------------+-------------------+----------+---------+
+| 10.  | Logout as test_user  | Successfully      | -        |         |
+|      |                      | logged off        | **Pass** |         |
+|      |                      |                   |          |         |
+|      |                      |                   | **Fail   |         |
+|      |                      |                   | ☐**      |         |
++------+----------------------+-------------------+----------+---------+
+| 11.  | Login as test_user   | Pop-up appears    | -        |         |
+|      | using username and   | 'Two-step         | **Pass** |         |
+|      | password             | verification for  |          |         |
+|      |                      | REDCap login'     | **Fail   |         |
+|      |                      |                   | ☐**      |         |
++------+----------------------+-------------------+----------+---------+
+| 12.  | Check the checkbox   | Pop-up appears    | -        |         |
+|      | 'Don\'t prompt me    | 'Enter your       | **Pass** |         |
+|      | with two-step login  | verification      |          |         |
+|      | on this computer for | code'             | **Fail   |         |
+|      | 24 hours'            |                   | ☐**      |         |
+|      |                      |                   |          |         |
+|      | Select the radio     |                   |          |         |
+|      | button for 'Email'   |                   |          |         |
++------+----------------------+-------------------+----------+---------+
+| 13.  | Go to test_user's    | A green tick and  | -        |         |
+|      | email (MailHog) and  | success appear    | **Pass** |         |
+|      | get the verification | next to the       |          |         |
+|      | code and enter it in | textbox           | **Fail   |         |
+|      | the textbox and      |                   | ☐**      |         |
+|      | press the 'Submit'   | Successfully      |          |         |
+|      | button               | directed to 'My   |          |         |
+|      |                      | Projects' page    |          |         |
++------+----------------------+-------------------+----------+---------+
+| 14.  | Logout as test_user  | Successfully      | -        |         |
+|      |                      | logged off        | **Pass** |         |
+|      |                      |                   |          |         |
+|      |                      |                   | **Fail   |         |
+|      |                      |                   | ☐**      |         |
++------+----------------------+-------------------+----------+---------+
+| 15.  | Login as test_user   | Successfully logs | -        |         |
+|      | using username and   | into REDCap       | **Pass** |         |
+|      | password             |                   |          |         |
+|      |                      | No verification   | **Fail   |         |
+|      |                      | code asked        | ☐**      |         |
++------+----------------------+-------------------+----------+---------+
+| 16.  | Logout as test_user  | Successfully      | -        |         |
+|      |                      | logged off        | **Pass** |         |
+|      |                      |                   |          |         |
+|      |                      |                   | **Fail   |         |
+|      |                      |                   | ☐**      |         |
++------+----------------------+-------------------+----------+---------+
+|      | THIS ENDS THE        |                   |          |         |
+|      | TESTING FOR THIS     |                   |          |         |
+|      | SCRIPT               |                   |          |         |
++------+----------------------+-------------------+----------+---------+
+
++-----------+--------------------------------------------+---+---+---+
+| **Con     |                                            |   |   |   |
+| clusion** |                                            |   |   |   |
++-----------+--------------------------------------------+---+---+---+
+| Did the   |                                            | - |   | > |
+| Actual    |                                            |   |   |   |
+| Results   |                                            |   |   | N |
+| for each  |                                            |   |   | o |
+| test step |                                            | Y |   |   |
+| match the |                                            | e |   |   |
+| Expected  |                                            | s |   |   |
+| Results   |                                            |   |   |   |
+| listed?   |                                            |   |   |   |
++-----------+--------------------------------------------+---+---+---+
+| > **C     |                                            |   |   |   |
+| omments/A |                                            |   |   |   |
+| dditional |                                            |   |   |   |
+| > Infor   |                                            |   |   |   |
+| mation:** |                                            |   |   |   |
+| >         |                                            |   |   |   |
+| (Indicate |                                            |   |   |   |
+| > the     |                                            |   |   |   |
+| > step    |                                            |   |   |   |
+| > number  |                                            |   |   |   |
+| > of the  |                                            |   |   |   |
+| > step    |                                            |   |   |   |
+| > you     |                                            |   |   |   |
+| > wish to |                                            |   |   |   |
+| > comment |                                            |   |   |   |
+| > on.)    |                                            |   |   |   |
++-----------+--------------------------------------------+---+---+---+
+| **        | **Rukayat Yakub**                          | * | * |   |
+| Completed |                                            | * | * |   |
+| By**      |                                            | D | 2 |   |
+|           |                                            | a | 0 |   |
+|           |                                            | t | / |   |
+|           |                                            | e | 1 |   |
+|           |                                            | : | 1 |   |
+|           |                                            | * | / |   |
+|           |                                            | * | 2 |   |
+|           |                                            |   | 0 |   |
+|           |                                            |   | 2 |   |
+|           |                                            |   | 3 |   |
+|           |                                            |   | * |   |
+|           |                                            |   | * |   |
++-----------+--------------------------------------------+---+---+---+
