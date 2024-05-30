@@ -3,6 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
 
@@ -10,6 +11,8 @@
 
     * {
         font-family: monospace, Courier;
+        word-break: keep-all;
+        table-layout: fixed;
     }
 
     table {
@@ -20,6 +23,12 @@
         /* border: dashed grey 1px; */
         padding: 0.5rem 1rem;
     }
+
+    tr:not(:last-child) td:nth-child(4) li::marker {
+            color: black;
+            font-size: 2rem;
+            content: '✔';
+        }
 
     .feature-body > *, .js-file-line {
         font-size: 12px;
@@ -60,11 +69,14 @@
 
 </style>
 
-## REDCap validation for |VERSION|
+## |TARGETSOFTWARE| validation for |VERSION|
 
 |SUBHEADER|
 
 <div class="sub-header">
+* Note that currently the Project related events are not being picked up see
+    See https://github.com/orgs/community/discussions/57326
+    The audit trail related to moving columns within a project are not being pulled by graphql
 </div>
 
 ### Index

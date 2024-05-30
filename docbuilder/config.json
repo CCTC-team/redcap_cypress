@@ -1,4 +1,5 @@
 ﻿{
+  "targetSoftware": "REDCap",
   "runOutput" : true,
   "runPandoc" : true,
   "runChecks": true,
@@ -16,7 +17,7 @@
     "rmh54",
     "CoreenDsouza"
   ],
-  "totalExpectedCardChecks": 5,
+  "totalExpectedCardChecks": 4,
   "featureTemplateFilePath": "feature_template.md",
   "outputTemplateFilePath": "output_template.md",
   "outputFolderPath": "output\\",
