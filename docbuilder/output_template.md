@@ -26,7 +26,7 @@
 
     tr:not(:last-child) td:nth-child(4) li::marker {
             color: black;
-            font-size: 2rem;
+            font-size: 1.5rem;
             content: '✔';
         }
 

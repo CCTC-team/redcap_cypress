@@ -1,0 +1,4465 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+Document
+</title>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+<style>
+
+    * {
+        font-family: monospace, Courier;
+        word-break: keep-all;
+        table-layout: fixed;
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+
+    th, td {
+        /* border: dashed grey 1px; */
+        padding: 0.5rem 1rem;
+    }
+
+    tr:not(:last-child) td:nth-child(4) li::marker {
+            color: black;
+            font-size: 1.5rem;
+            content: '✔';
+        }
+
+    .feature-body > *, .js-file-line {
+        font-size: 12px;
+    }
+
+    .spec-script > * {
+        font-size: 14px;        
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .comments {
+        font-size: 12px;
+    }
+
+    .comment {
+        padding-bottom: 0.2rem;
+    }
+
+    .comment-edit {
+        font-size: 11px;        
+    }
+
+    .timeline {
+        font-size: 11px;
+    }
+
+    .index-good {
+        font-size: 12px;
+    }
+
+    .index-errors {
+        font-size: 11px;
+    }
+
+    .sub-header {
+        font-size: 10px;
+    }
+
+</style>
+<h2 id="redcap-validation-for-v13.8.1">REDCap validation for v13.8.1</h2>
+<div class="sub-header">
+<p>Generated on 30/05/2024 17:41:33 from github project id 10 by rmh54</p>
+</div>
+<div class="sub-header">
+<ul>
+<li>Note that currently the Project related events are not being picked up see See https://github.com/orgs/community/discussions/57326 The audit trail related to moving columns within a project are not being pulled by graphql</li>
+</ul>
+</div>
+<h3 id="index">Index</h3>
+<div class="index-good">
+<p><a id=index-redcap_cypress-15 href=#redcap_cypress-15>redcap_cypress-15 | 1. Run Configuration Check</a></p>
+<p><a id=index-redcap_cypress-12 href=#redcap_cypress-12>redcap_cypress-12 | 2. Add / Manage Users</a></p>
+<p><a id=index-redcap_cypress-23 href=#redcap_cypress-23>redcap_cypress-23 | 3. Assign Administrators and Account Managers</a></p>
+<p><a id=index-redcap_cypress-22 href=#redcap_cypress-22>redcap_cypress-22 | 5. Browse Projects</a></p>
+<p><a id=index-redcap_cypress-24 href=#redcap_cypress-24>redcap_cypress-24 | 6. Assign User Rights</a></p>
+<p><a id=index-redcap_cypress-25 href=#redcap_cypress-25>redcap_cypress-25 | 1. Two Factor Authentication</a></p>
+<p><a id=index-redcap_cypress-26 href=#redcap_cypress-26>redcap_cypress-26 | 2. Alerts and Notifications</a></p>
+</div>
+<section id="the-following-features-cannot-be-retrieved-uid-title---error" class="index-errors">
+<h4>The following features cannot be retrieved (uid | title -&gt; error)</h4>
+</section>
+<p><br/></p>
+<h3 id="features">Features</h3>
+<hr />
+<div id="redcap_cypress-15">
+<strong>Feature:</strong> 1. Run Configuration Check
+</div>
+<hr />
+<table>
+<colgroup>
+<col style="width: 60%" />
+<col style="width: 40%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Id:</strong> I_kwDOIaOBn86F-sWg</td>
+<td style="text-align: left;"><strong>Uid:</strong> redcap_cypress-15</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Author:</strong> MintooXavier</td>
+<td style="text-align: left;"><strong>Created:</strong> 17/04/2024 09:19:15</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Assignees:</strong> CoreenDsouza</td>
+<td style="text-align: left;"><strong>Resource path:</strong> <a href=https://github.com//CCTC-team/redcap_cypress/issues/15 target=_blank>/CCTC-team/redcap_cypress/issues/15</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Milestone:</strong> |none|</td>
+<td style="text-align: left;"><strong>Labels:</strong> Core feature || Gherkin || Automated</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<table>
+<colgroup>
+<col style="width: 60%" />
+<col style="width: 40%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>State:</strong> OPEN</td>
+<td style="text-align: left;"><strong>State reason</strong>: REOPENED</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Includes created edit:</strong> true</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Closed:</strong> false</td>
+<td style="text-align: left;"><strong>Closed on:</strong> |none|</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Editor:</strong> rmh54</td>
+<td style="text-align: left;"><strong>Updated on:</strong> 30/05/2024 13:49:23</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Locked:</strong> false</td>
+<td style="text-align: left;"><strong>Participants:</strong> MintooXavier || rmh54 || CoreenDsouza</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<strong>Project item body:</strong><br />
+
+<div class="feature-body">
+<p dir="auto">
+Brief description:<br> Configuration checklist shows if the REDCap is configured correctly. It tells if the everything is installed correctly, REDCap file structure is correct, tables etc are properly configured.
+</p>
+<p dir="auto">
+User spec:<br> <a href="https://github.com/CCTC-team/redcap_cypress/blob/redcap_val/user_requirement_specification/core/run_configuration_check.spec">https://github.com/CCTC-team/redcap_cypress/blob/redcap_val/user_requirement_specification/core/run_configuration_check.spec</a>
+</p>
+<p dir="auto">
+Feature link:<br> <a href="https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/A/Configuration%20Check/A.1.1.100%20-%20Run%20Configuration%20Check.feature">https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/A/Configuration%20Check/A.1.1.100%20-%20Run%20Configuration%20Check.feature</a>
+</p>
+<p dir="auto">
+Pre review:
+</p>
+<ul class="contains-task-list">
+<li class="task-list-item">
+<input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> Script(s) targets the correct feature sufficiently
+</li>
+<li class="task-list-item">
+<input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> The user requirements are met
+</li>
+</ul>
+<p dir="auto">
+Post review:
+</p>
+<ul class="contains-task-list">
+<li class="task-list-item">
+<input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> Script(s) targets the correct feature sufficiently
+</li>
+<li class="task-list-item">
+<input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> Script(s) appropriately tests the feature
+</li>
+</ul>
+</div>
+<hr />
+<p><strong>User specification:</strong><br />
+</p>
+<div class="spec-script">
+<div class="line-block"><br />
+<em>https://github.com/CCTC-team/redcap_cypress/blob/redcap_val/user_requirement_specification/core/run_configuration_check.spec</em><br />
+<br />
+A.1.1.100 - Control Center: The system shall support the ability to run a configuration check test page.</div>
+</div>
+<p><strong>Test script:</strong><br />
+</p>
+<div class="spec-script">
+<div class="line-block"><br />
+<em>https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/A/Configuration%20Check/A.1.1.100%20-%20Run%20Configuration%20Check.feature</em><br />
+<br />
+Feature: A.1.1.100 Run Configuration Check test page<br />
+<br />
+  As a REDCap end user<br />
+  I want to see that Configuration Checklist is functioning as expected<br />
+<br />
+  Scenario: A.1.1.100.100 Configuration Checklist Tests<br />
+<br />
+    Given I login to REDCap with the user “Test_Admin”<br />
+    And I click on the link labeled “Control Center”<br />
+    Then I should be able to locate and visit the Control Center link labeled “Browse Projects”<br />
+    And I should be able to locate and visit the Control Center link labeled “Edit a Project’s Settings”<br />
+    And I should be able to locate and visit the Control Center link labeled “Configuration Check”<br />
+    And I should be able to locate and visit the Control Center link labeled “General Configuration”<br />
+    And I should be able to locate and visit the Control Center link labeled “Security &amp; Authentication”<br />
+    And I should be able to locate and visit the Control Center link labeled “User Settings”<br />
+    And I should be able to locate and visit the Control Center link labeled “File Upload Settings”<br />
+    And I should be able to locate and visit the Control Center link labeled “Field Validation Types”<br />
+<br />
+    When I click on the link labeled “Configuration Check”<br />
+    Then I should see “Configuration Check”<br />
+    And I should see “TEST 1”<br />
+    And I should see “TEST 2”<br />
+    And I should see “TEST 3”<br />
+    And I should see “TEST 4”<br />
+    And I should see “TEST 5”<br />
+    And I should see “TEST 6”</div>
+</div>
+<hr />
+<p><strong>Comments:</strong><br />
+</p>
+<div class="comments">
+
+</div>
+<hr />
+<p><strong>Timeline events:</strong><br />
+</p>
+<div class="timeline">
+<div class="timeline">
+<p>LABELLED | <em>User:</em> MintooXavier <em>Created on:</em> 17/04/2024 09:19:15 <em>Label name:</em> Automated <em>Label description:</em></p>
+<p>ASSIGNED | <em>User:</em> MintooXavier <em>Created on:</em> 17/04/2024 09:38:46 <em>Assignee:</em> CoreenDsouza</p>
+<p>MILESTONED | <em>User:</em> MintooXavier <em>Created on:</em> 17/04/2024 09:39:47 <em>Milestone:</em> v.13.8.1</p>
+<p>LABELLED | <em>User:</em> MintooXavier <em>Created on:</em> 17/04/2024 09:40:25 <em>Label name:</em> Core feature <em>Label description:</em> Part of the RSVC core feature set</p>
+<p>CLOSED | <em>User:</em> MintooXavier <em>Created on:</em> 17/04/2024 10:17:16 <em>Closed reason:</em> COMPLETED</p>
+<p>DEMILESTONED | <em>User:</em> MintooXavier <em>Created on:</em> 17/04/2024 10:23:13 <em>Milestone:</em> v.13.8.1</p>
+<p>MILESTONED | <em>User:</em> MintooXavier <em>Created on:</em> 17/04/2024 10:23:13 <em>Milestone:</em> v.14</p>
+<p>REOPENED | <em>User:</em> MintooXavier <em>Created on:</em> 17/04/2024 10:55:59 <em>Reason:</em> REOPENED</p>
+<p>DEMILESTONED | <em>User:</em> MintooXavier <em>Created on:</em> 17/04/2024 12:20:50 <em>Milestone:</em> v.14</p>
+<p>MILESTONED | <em>User:</em> MintooXavier <em>Created on:</em> 17/04/2024 12:20:50 <em>Milestone:</em> v.13.8.1</p>
+<p>DEMILESTONED | <em>User:</em> rmh54 <em>Created on:</em> 19/04/2024 08:40:06 <em>Milestone:</em> v.13.8.1</p>
+<p>LABELLED | <em>User:</em> MintooXavier <em>Created on:</em> 22/04/2024 09:24:53 <em>Label name:</em> Gherkin <em>Label description:</em> Uses a Gherkin syntax</p>
+<p>RENAMED TITLE | <em>User:</em> MintooXavier <em>Created on:</em> 29/05/2024 08:59:40 <em>Previous title:</em> 16. Data Import - Data Collection and Storage <em>Current title:</em> 1. Run Configuration Check</p>
+</div>
+</div>
+<p><br/></p>
+<p>————— feature ends —————</p>
+<p><br/></p>
+<hr />
+<div id="redcap_cypress-12">
+<strong>Feature:</strong> 2. Add / Manage Users
+</div>
+<hr />
+<table>
+<colgroup>
+<col style="width: 60%" />
+<col style="width: 40%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Id:</strong> I_kwDOIaOBn86F-kpI</td>
+<td style="text-align: left;"><strong>Uid:</strong> redcap_cypress-12</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Author:</strong> MintooXavier</td>
+<td style="text-align: left;"><strong>Created:</strong> 17/04/2024 09:05:46</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Assignees:</strong> MintooXavier</td>
+<td style="text-align: left;"><strong>Resource path:</strong> <a href=https://github.com//CCTC-team/redcap_cypress/issues/12 target=_blank>/CCTC-team/redcap_cypress/issues/12</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Milestone:</strong> |none|</td>
+<td style="text-align: left;"><strong>Labels:</strong> Core feature || Gherkin || Automated</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<table>
+<colgroup>
+<col style="width: 60%" />
+<col style="width: 40%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>State:</strong> OPEN</td>
+<td style="text-align: left;"><strong>State reason</strong>: REOPENED</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Includes created edit:</strong> true</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Closed:</strong> false</td>
+<td style="text-align: left;"><strong>Closed on:</strong> |none|</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Editor:</strong> MintooXavier</td>
+<td style="text-align: left;"><strong>Updated on:</strong> 30/05/2024 11:23:13</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Locked:</strong> false</td>
+<td style="text-align: left;"><strong>Participants:</strong> MintooXavier || rmh54</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<strong>Project item body:</strong><br />
+
+<div class="feature-body">
+<p dir="auto">
+Brief description:<br> This features is to add, update or delete a user from REDCap system (in control center).
+</p>
+<p dir="auto">
+User spec:<br> <a href="https://github.com/CCTC-team/redcap_cypress/blob/redcap_val/user_requirement_specification/core/add_manage_users.spec">https://github.com/CCTC-team/redcap_cypress/blob/redcap_val/user_requirement_specification/core/add_manage_users.spec</a>
+</p>
+<p dir="auto">
+Feature link:<br> <a href="https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/A/Add%20Manage%20Users/A.2.2.100%20-%20Create%20Users.feature">https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/A/Add%20Manage%20Users/A.2.2.100%20-%20Create%20Users.feature</a><br> <a href="https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/A/Add%20Manage%20Users/A.2.2.200%20-%20Suspend%20-%20Unsuspend.feature">https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/A/Add%20Manage%20Users/A.2.2.200%20-%20Suspend%20-%20Unsuspend.feature</a><br> <a href="https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/A/Add%20Manage%20Users/A.2.2.300%20-%20Search%20by%20Criteria.feature">https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/A/Add%20Manage%20Users/A.2.2.300%20-%20Search%20by%20Criteria.feature</a><br> <a href="https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/A/Add%20Manage%20Users/A.2.2.400%20-%20Delete.feature">https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/A/Add%20Manage%20Users/A.2.2.400%20-%20Delete.feature</a><br> <a href="https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/A/Add%20Manage%20Users/A.2.2.500%20-%20Tabular%20View.feature">https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/A/Add%20Manage%20Users/A.2.2.500%20-%20Tabular%20View.feature</a><br> <a href="https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/A/Add%20Manage%20Users/A.2.2.600%20-%20Account%20Lockout.feature">https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/A/Add%20Manage%20Users/A.2.2.600%20-%20Account%20Lockout.feature</a><br> <a href="https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/A/Add%20Manage%20Users/A.2.2.700%20-%20Account%20Lockout%20Time%20Change.feature">https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/A/Add%20Manage%20Users/A.2.2.700%20-%20Account%20Lockout%20Time%20Change.feature</a><br> <a href="https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/A/Add%20Manage%20Users/A.2.2.800%20-%20Auto-Logout%20Inactivity%20Time.feature">https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/A/Add%20Manage%20Users/A.2.2.800%20-%20Auto-Logout%20Inactivity%20Time.feature</a>
+</p>
+<p dir="auto">
+Pre review:
+</p>
+<ul class="contains-task-list">
+<li class="task-list-item">
+<input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> Script(s) targets the correct feature sufficiently
+</li>
+<li class="task-list-item">
+<input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> The user requirements are met
+</li>
+</ul>
+<p dir="auto">
+Post review:
+</p>
+<ul class="contains-task-list">
+<li class="task-list-item">
+<input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> Script(s) targets the correct feature sufficiently
+</li>
+<li class="task-list-item">
+<input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> Script(s) appropriately tests the feature
+</li>
+</ul>
+</div>
+<hr />
+<p><strong>User specification:</strong><br />
+</p>
+<div class="spec-script">
+<div class="line-block"><br />
+<em>https://github.com/CCTC-team/redcap_cypress/blob/redcap_val/user_requirement_specification/core/add_manage_users.spec</em><br />
+<br />
+A.2.2.100 - Control Center - Users: The system shall support the ability create a single unique user with username first name last name primary email expiration date and allow the user to create/copy projects.<br />
+A.2.2.200 - Control Center - Users: The system shall support the ability to suspend/unsuspend individual user.<br />
+A.2.2.300 - Control Center - Users: The system shall support the ability to search for individual users and view/edit user information for username first name last name and/or primary email.<br />
+A.2.2.400 - Control Center - Users: The system shall support deleting a user.<br />
+A.2.2.500 - Control Center - Users: The system shall support viewing all users in tabular form.<br />
+A.2.2.600 - Control Center - System Configuration, Security &amp; Authentication: The system shall support the number of failed login attempts before user is locked out for a specific amount of time.<br />
+A.2.2.700 - Control Center - System Configuration, Security &amp; Authentication: The system shall support the amount of time user will be locked out after having failed login attempts.<br />
+A.2.2.800 - Control Center - System Configuration, Security &amp; Authentication: The system shall support the amount of inactivity time before auto logout time.</div>
+</div>
+<p><strong>Test script:</strong><br />
+</p>
+<div class="spec-script">
+<div class="line-block"><br />
+<em>https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/A/Add%20Manage%20Users/A.2.2.100%20-%20Create%20Users.feature</em><br />
+<br />
+Feature: A.2.2.100 Add/Manage users<br />
+<br />
+ As a REDCap end user<br />
+ I want to see that Add / Manage Users is functioning as expected<br />
+<br />
+ Scenario: A.2.2.100.100 System-level User Settings<br />
+    Given I login to REDCap with the user “Test_Admin”<br />
+    And I click on the link labeled “Control Center”<br />
+    And I click on the link labeled “User Settings”<br />
+    Then I should see “System-level User Settings”<br />
+<br />
+    When I click on the link labeled “User Settings”<br />
+    Then I should see “System-level User Settings”<br />
+<br />
+    When I select “No, only Administrators can create new projects” on the dropdown field labeled “Allow normal users to create new projects?”<br />
+    And I select “No” on the dropdown field labeled “By default, allow new users to create projects”<br />
+<br />
+    When I click on the button labeled “Save Changes”<br />
+    Then I should see “Your system configuration values have now been changed!”<br />
+<br />
+ Scenario: A.2.2.100.200 Create a Table-based user<br />
+    Given I login to REDCap with the user “Test_Admin”<br />
+    And I click on the link labeled “Control Center”<br />
+    And I click on the link labeled “Add Users (Table-based Only)”<br />
+    Then I should see “User Management for Table-based Authentication”<br />
+<br />
+    When I enter “Test_User1_Cypress” into the input field labeled “Username:”<br />
+    And I enter “User1” into the input field labeled “First name:”<br />
+    And I enter “Test” into the input field labeled “Last name:”<br />
+    And I enter “Test_User1@redcap.edu” into the input field labeled “Primary email:”<br />
+    And I check the checkbox labeled “Allow this user to request that projects be created for them by a REDCap administrator?”<br />
+    And I click on the button labeled “Save”<br />
+    Then I should see “User has been successfully saved.”<br />
+    And I should see “An email with login information was sent to: Test_User1@redcap.edu”<br />
+    And I logout<br />
+    # Reset password through email link<br />
+    # leader will handle password change feature test<br />
+<br />
+ Scenario: A.2.2.100.300 Create Table-based users via bulk upload<br />
+    Given I login to REDCap with the user “Test_Admin”<br />
+    And I click on the link labeled “Control Center”<br />
+    And I click on the link labeled “Add Users (Table-based Only)”<br />
+    Then I should see “User Management for Table-based Authentication”<br />
+<br />
+    When I click on the link labeled “Create users (bulk upload)”<br />
+    And I upload a “csv” format file located at “import_files/testusers_bulkupload.csv”, by clicking the button near “Upload CSV file of new users” to browse for the file, and clicking the button labeled “Upload File” to upload the file<br />
+    Then I should see “User was successfully added, and an email with login info was sent to user”<br />
+    And I should see “Test_User2”<br />
+    And I should see “Test_User3”<br />
+    And I should see “Test_User4”<br />
+<br />
+ Scenario: A.2.2.100.400 Prevent a Second User with the Same Username<br />
+   Given I login to REDCap with the user “Test_Admin”<br />
+   And I click on the link labeled “Control Center”<br />
+   And I click on the link labeled “Add Users (Table-based Only)”<br />
+   Then I should see “User Management for Table-based Authentication”<br />
+<br />
+   When I click on the link labeled “Add Users (Table-based Only)”<br />
+   And I enter “Test_User1” into the input field labeled “Username:”<br />
+   And I enter “User1” into the input field labeled “First name:”<br />
+   And I enter “Test” into the input field labeled “Last name:”<br />
+   And I enter “Test_User1@redcap.edu” into the input field labeled “Primary email:”<br />
+   And I click on the button labeled “Save”<br />
+   Then I should see “ERROR: The user could not be added!”<br />
+<br />
+ Scenario: A.2.2.100.500 Search a Table-based user<br />
+   Given I login to REDCap with the user “Test_Admin”<br />
+   And I click on the link labeled “Control Center”<br />
+   And I click on the link labeled “Browse Users”<br />
+   Then I should see “User Search: Search for user by username, first name, last name, or primary email”<br />
+<br />
+   When I enter “Test_User1” into the input field labeled “User Search: Search for user by username, first name, last name, or primary email”<br />
+   And I click on the button labeled “Search”<br />
+   Then I should see “Test_User1”<br />
+<br />
+  Scenario: A.2.2.100.600 User has no control center access<br />
+   Given I login to REDCap with the user “Test_User1”<br />
+   Then I should NOT see “Control Center”<br />
+<br />
+<br />
+<em>https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/A/Add%20Manage%20Users/A.2.2.200%20-%20Suspend%20-%20Unsuspend.feature</em><br />
+<br />
+Feature: A.2.2.200 Add/Manage users<br />
+<br />
+  As a REDCap end user<br />
+  I want to see that Suspend/Unsuspend Individual Users is functioning as expected<br />
+<br />
+  Scenario: A.2.2.200.100 Account suspension<br />
+    Given I login to REDCap with the user “Test_Admin”<br />
+    And I click on the link labeled “Control Center”<br />
+    And I click on the link labeled “Add Users (Table-based Only)”<br />
+    Then I should see “User Management for Table-based Authentication”<br />
+<br />
+    #NOTE: We are testing Suspend / Unsuspend - NOT bulk upload feature<br />
+    # Bulk upload steps are concessions to make this functional if performed manually<br />
+    When I click on the link labeled “Create users (bulk upload)”<br />
+    And I upload a “csv” format file located at “import_files/testusers_bulkupload.csv”, by clicking the button near “Upload CSV file of new users” to browse for the file, and clicking the button labeled “Upload File” to upload the file<br />
+    Then I should see “User was successfully added, and an email with login info was sent to user”<br />
+    And I should see “Test_User1”<br />
+    And I should see “Test_User2”<br />
+    And I should see “Test_User3”<br />
+    And I should see “Test_User4”<br />
+<br />
+    When I click on the link labeled “Browse Users”<br />
+    And I enter “Test_User1” into the input field labeled “User Search: Search for user by username, first name, last name, or primary email”<br />
+    And I click on the button labeled “Search”<br />
+    Then I should see “Test_User1”<br />
+<br />
+    When I click on the button labeled “Suspend user account” and cancel the confirmation window<br />
+    Then I should NOT see “Success! The user has now been suspended from REDCap”<br />
+    And I should NOT see “unsuspend user”<br />
+<br />
+    Given I logout<br />
+    And I login to REDCap with the user “Test_User1”<br />
+    Then I should see “Home”<br />
+    And I logout<br />
+<br />
+    Given I login to REDCap with the user “Test_Admin”<br />
+    And I click on the link labeled “Control Center”<br />
+    And I click on the link labeled “Browse Users”<br />
+    Then I should see “User Search: Search for user by username, first name, last name, or primary email”<br />
+<br />
+    When I enter “Test_User1” into the input field labeled “User Search: Search for user by username, first name, last name, or primary email”<br />
+    And I click on the button labeled “Search”<br />
+    Then I should see “Test_User1”<br />
+<br />
+    When I click on the button labeled “Suspend user account” and accept the confirmation window<br />
+    Then I should see a dialog containing the following text: “Success! The user has now been suspended from REDCap”<br />
+<br />
+    Given I click on the button labeled “Close” in the dialog box<br />
+    Then I should see “unsuspend user”<br />
+<br />
+    When I click on the link labeled “View User List By Criteria”<br />
+    And I select “Suspended users” on the dropdown field labeled “Display only:”<br />
+    And I click on the button labeled “Display User List”<br />
+    Then I should see “Loading…”<br />
+    And I should see “User List”<br />
+    And I should see a link labeled “Test_User1”<br />
+<br />
+    Given I logout<br />
+    And I login to REDCap with the user “Test_User1”<br />
+    Then I should see “The following REDCap user account has been suspended:”<br />
+    And I logout<br />
+<br />
+    Given I login to REDCap with the user “Test_Admin”<br />
+    And I click on the link labeled “Control Center”<br />
+    And I click on the link labeled “Browse Users”<br />
+    Then I should see “User Search: Search for user by username, first name, last name, or primary email”<br />
+<br />
+    When I enter “Test_User1” into the input field labeled “User Search: Search for user by username, first name, last name, or primary email”<br />
+    And I click on the button labeled “Search”<br />
+    Then I should see “Test_User1”<br />
+<br />
+    When I click on the link labeled “unsuspend user” and cancel the confirmation window<br />
+    Then I should see “unsuspend user”<br />
+<br />
+    Given I logout<br />
+    And I login to REDCap with the user “Test_User1”<br />
+    Then I should see “The following REDCap user account has been suspended:”<br />
+    And I logout<br />
+<br />
+    Given I login to REDCap with the user “Test_Admin”<br />
+    And I click on the link labeled “Control Center”<br />
+    And I click on the link labeled “Browse Users”<br />
+    Then I should see “User Search: Search for user by username, first name, last name, or primary email”<br />
+<br />
+    When I enter “Test_User1” into the input field labeled “User Search: Search for user by username, first name, last name, or primary email”<br />
+    And I click on the button labeled “Search”<br />
+    Then I should see “Test_User1”<br />
+<br />
+    When I click on the link labeled “unsuspend user” and accept the confirmation window<br />
+    Then I should see a dialog containing the following text: “Success! The user has now been unsuspended and will now be able to access REDCap again”<br />
+<br />
+    When I click on the button labeled “Close” in the dialog box<br />
+    And I should see a button labeled “Suspend user account”<br />
+<br />
+    Given I logout<br />
+    And I login to REDCap with the user “Test_User1”<br />
+    Then I should see “Home”<br />
+<br />
+<br />
+<em>https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/A/Add%20Manage%20Users/A.2.2.300%20-%20Search%20by%20Criteria.feature</em><br />
+<br />
+Feature: A.2.2.300 Add/Manage users Control Center - Users: The system shall support the ability to search for individual users and view/edit user information for username, first name, last name and/or primary email.<br />
+<br />
+  As a REDCap end user<br />
+  I want to see that Search Users is functioning as expected.<br />
+<br />
+  Scenario: A.2.2.300.100 Search by username, first name, last name and/or primary email<br />
+<br />
+    Given I login to REDCap with the user “Test_Admin”<br />
+    And I click on the link labeled “Control Center”<br />
+    And I click on the link labeled “Browse Users”<br />
+    And I click on the link labeled “View User List By Criteria”<br />
+    Then I should see “View User List By Criteria”<br />
+<br />
+    #FUNCTIONAL REQUIREMENT<br />
+    ##ACTION Search by username with “Keyword search”<br />
+    #Username is Test_Admin<br />
+    When I enter “Test_Admin” into the field with the placeholder text of “Keyword search”<br />
+    And I click on the button labeled “Display User List”<br />
+    #VERIFY_SEARCH<br />
+    Then I should see a table header and rows containing the following values in the browse users table:<br />
+      | Username | First Name | Last Name | Email |<br />
+      | test_admin | Admin | User | test_admin@test.edu |<br />
+<br />
+<br />
+    #FUNCTIONAL REQUIREMENT<br />
+    ##ACTION Search by First Name with “Keyword search”<br />
+    When I click on the link labeled “View User List By Criteria”<br />
+    And I enter “Admin” into the field with the placeholder text of “Keyword search”<br />
+    And I click on the button labeled “Display User List”<br />
+    Then I should see a table header and rows containing the following values in the browse users table:<br />
+      | Username | First Name | Last Name | Email |<br />
+      | test_admin | Admin | User | test_admin@test.edu |<br />
+<br />
+    #FUNCTIONAL REQUIREMENT<br />
+    ##ACTION Search by Last Name with “Keyword search”<br />
+    When I click on the link labeled “View User List By Criteria”<br />
+    And I enter “Test” into the field with the placeholder text of “Keyword search”<br />
+    And I click on the button labeled “Display User List”<br />
+    Then I should see a table header and rows containing the following values in the browse users table:<br />
+      | Username | First Name | Last Name | Email |<br />
+      | test_admin | Admin | User | test_admin@test.edu |<br />
+<br />
+    #FUNCTIONAL REQUIREMENT<br />
+    ##ACTION Search by Email with “Keyword search”<br />
+    When I click on the link labeled “View User List By Criteria”<br />
+    And I enter “test_admin@test.edu” into the field with the placeholder text of “Keyword search”<br />
+    And I click on the button labeled “Display User List”<br />
+    Then I should see a table header and rows containing the following values in the browse users table:<br />
+      | Username | First Name | Last Name | Email |<br />
+      | test_admin | Admin | User | test_admin@test.edu |<br />
+<br />
+<br />
+<em>https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/A/Add%20Manage%20Users/A.2.2.400%20-%20Delete.feature</em><br />
+<br />
+Feature: A.2.2.400 Add/Manage users<br />
+<br />
+  As a REDCap end user<br />
+  I want to see that Delete Users is functioning as expected.<br />
+<br />
+  Scenario: A.2.2.400.100 Delete User Function<br />
+    Given I login to REDCap with the user “Test_Admin”<br />
+    And I click on the link labeled “Control Center”<br />
+    And I click on the link labeled “Add Users (Table-based Only)”<br />
+    Then I should see “Create single user”<br />
+<br />
+    #SETUP_USER<br />
+    When I enter “Delete_User” into the input field labeled “Username:”<br />
+    And I enter “User_firstname” into the input field labeled “First name:”<br />
+    And I enter “User_lastname” into the input field labeled “Last name:”<br />
+    And I enter “Delete_User@test.edu” into the input field labeled “Primary email:”<br />
+    And I click on the button labeled “Save”<br />
+    Then I should see “User has been successfully saved.”<br />
+<br />
+    When I click on the link labeled “Browse Users”<br />
+    Then I should see “User Search: Search for user by username, first name, last name, or primary email”<br />
+<br />
+    When I enter “Delete_User” into the input field labeled “User Search: Search for user by username, first name, last name, or primary email”<br />
+    And I click on the button labeled “Search”<br />
+    Then I should see “Editable user attributes”<br />
+    And I should see “Delete_User”<br />
+<br />
+    #FUNCTIONAL REQUIREMENT<br />
+    ##ACTION Cancel delete user<br />
+    Given I click on the button labeled “Delete user from system” and cancel the confirmation window<br />
+    Then I should NOT see “The user ‘Delete_User’ has now been removed and deleted from all REDCap projects”<br />
+<br />
+    When I click on the link labeled “Browse Users”<br />
+    Then I should see “User Search: Search for user by username, first name, last name, or primary email”<br />
+<br />
+    #VERIFY User exists<br />
+    When I enter “Delete_User” into the input field labeled “User Search: Search for user by username, first name, last name, or primary email”<br />
+    And I click on the button labeled “Search”<br />
+    Then I should see “Editable user attributes”<br />
+    And I should see “Delete_User”<br />
+<br />
+    #FUNCTIONAL REQUIREMENT<br />
+    ##ACTION Delete user<br />
+    When I click on the button labeled “Delete user from system” and accept the confirmation window<br />
+    Then I should see “The user ‘Delete_User’ has now been removed and deleted from all REDCap projects”<br />
+    And I click on the button labeled “Close”<br />
+<br />
+    #VERIFY User does not exist<br />
+    When I click on the link labeled “Browse Users”<br />
+    Then I should see “User Search: Search for user by username, first name, last name, or primary email”<br />
+<br />
+    When I enter “Delete_User” into the input field labeled “User Search: Search for user by username, first name, last name, or primary email”<br />
+    And I click on the button labeled “Search”<br />
+    Then I should see “User does not exist!”<br />
+<br />
+<br />
+<em>https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/A/Add%20Manage%20Users/A.2.2.500%20-%20Tabular%20View.feature</em><br />
+<br />
+Feature: A.2.2.500 Add/Manage users<br />
+<br />
+  As a REDCap end user<br />
+  I want to see that Users in tabular form is functioning as expected<br />
+<br />
+  Scenario: A.2.2.500.100 Users in tabular form<br />
+    Given I login to REDCap with the user “Test_Admin”<br />
+    And I click on the link labeled “Control Center”<br />
+    And I click on the link labeled “Browse Users”<br />
+    Then I should see “User Search: Search for user by username, first name, last name, or primary email”<br />
+<br />
+    #FUNCTIONAL REQUIREMENT<br />
+    ##ACTION View Users in tabular form<br />
+    When I click on the link labeled “View User List By Criteria”<br />
+    And I select “All users” on the dropdown field labeled “Display only:”<br />
+    And I click on the button labeled “Display User List”<br />
+<br />
+    #VERIFY View Users in tabular form<br />
+    Then I should see a table header and rows containing the following values in the browse users table:<br />
+      | Username | First Name | Last Name | Email |<br />
+      | test_admin | Admin | User | test_admin@test.edu |<br />
+<br />
+<br />
+<em>https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/A/Add%20Manage%20Users/A.2.2.600%20-%20Account%20Lockout.feature</em><br />
+<br />
+Feature: A.2.2.600 Add/Manage users<br />
+<br />
+  As a REDCap end user<br />
+  I want to see that Users failed login lockout is functioning as expected.<br />
+<br />
+  Scenario: A.2.2.600.100 User account locked out after too many attempts<br />
+    Given I login to REDCap with the user “Test_Admin”<br />
+    And I click on the link labeled “Control Center”<br />
+    And I click on the link labeled “Security &amp; Authentication”<br />
+    Then I should see “Security &amp; Authentication Configuration”<br />
+<br />
+    When I clear the field labeled “Number of failed login attempts before user is locked out for a specified amount of time, which is set below.”<br />
+    And I enter “1” into the input field labeled “Number of failed login attempts before user is locked out for a specified amount of time, which is set below.”<br />
+    And I clear the field labeled “Amount of time user will be locked out after having failed login attempts exceeding the limit set above.”<br />
+    And I enter “2” into the input field labeled “Amount of time user will be locked out after having failed login attempts exceeding the limit set above.”<br />
+    And I click on the button labeled “Save Changes”<br />
+    Then I should see “Your system configuration values have now been changed!”<br />
+    Given I logout<br />
+<br />
+    Given I enter “Test_User1” into the input field labeled “Username:”<br />
+    And I enter “test” into the input field labeled “Password:”<br />
+    And I click on the button labeled “Log In”<br />
+    Then I should see “ERROR: You entered an invalid user name or password!”<br />
+<br />
+    Given I enter “Test_User1” into the input field labeled “Username:”<br />
+    And I enter “test” into the input field labeled “Password:”<br />
+    And I click on the button labeled “Log In”<br />
+    Then I should see “ACCESS DENIED!”<br />
+<br />
+    Given I wait for 2 minutes<br />
+<br />
+    Given I login to REDCap with the user “Test_User1”<br />
+    And I see “My Projects”<br />
+    Given I logout<br />
+<br />
+    Given I login to REDCap with the user “Test_Admin”<br />
+    And I click on the link labeled “Control Center”<br />
+    And I click on the link labeled “Security &amp; Authentication”<br />
+    Then I should see “Security &amp; Authentication Configuration”<br />
+<br />
+    When I clear the field labeled “Number of failed login attempts before user is locked out for a specified amount of time, which is set below.”<br />
+    And I enter “2” into the input field labeled “Number of failed login attempts before user is locked out for a specified amount of time, which is set below.”<br />
+    And I clear the field labeled “Amount of time user will be locked out after having failed login attempts exceeding the limit set above.”<br />
+    And I enter “1” into the input field labeled “Amount of time user will be locked out after having failed login attempts exceeding the limit set above.”<br />
+    And I click on the button labeled “Save Changes”<br />
+    Then I should see “Your system configuration values have now been changed!”<br />
+    Given I logout<br />
+<br />
+    Given I enter “Test_User1” into the input field labeled “Username:”<br />
+    And I enter “test” into the input field labeled “Password:”<br />
+    And I click on the button labeled “Log In”<br />
+    Then I should see “ERROR”<br />
+<br />
+    Given I enter “Test_User1” into the input field labeled “Username:”<br />
+    And I enter “test” into the input field labeled “Password:”<br />
+    And I click on the button labeled “Log In”<br />
+    Then I should see “ERROR”<br />
+<br />
+    Given I enter “Test_User1” into the input field labeled “Username:”<br />
+    And I enter “test” into the input field labeled “Password:”<br />
+    And I click on the button labeled “Log In”<br />
+    Then I should see “ACCESS DENIED!”<br />
+<br />
+    Given I wait for 1 minute<br />
+<br />
+    Given I login to REDCap with the user “Test_User1”<br />
+    And I see “My Projects”<br />
+    Given I logout<br />
+<br />
+<br />
+<em>https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/A/Add%20Manage%20Users/A.2.2.700%20-%20Account%20Lockout%20Time%20Change.feature</em><br />
+<br />
+Feature: A.2.2.700 Add/Manage users<br />
+<br />
+  As a REDCap end user<br />
+  I want to see that Users failed login lockout is functioning as expected.<br />
+<br />
+  Scenario: A.2.2.700.100 User account locked time<br />
+    Given I login to REDCap with the user “Test_Admin”<br />
+    When I click on the link labeled “Control Center”<br />
+    And I click on the link labeled “Security &amp; Authentication”<br />
+    Then I should see “Security &amp; Authentication Configuration”<br />
+<br />
+    Given I clear the field labeled “Number of failed login attempts before user is locked out for a specified amount of time, which is set below.”<br />
+    When I enter “1” into the input field labeled “Number of failed login attempts before user is locked out for a specified amount of time, which is set below.”<br />
+    And I clear the field labeled “Amount of time user will be locked out after having failed login attempts exceeding the limit set above.”<br />
+    And I enter “2” into the input field labeled “Amount of time user will be locked out after having failed login attempts exceeding the limit set above.”<br />
+    And I click on the button labeled “Save Changes”<br />
+    Then I should see “Your system configuration values have now been changed!”<br />
+    And I logout<br />
+<br />
+    #Login with bad password; first failed attempt at logging in<br />
+    Given I enter “Test_User1” into the input field labeled “Username:”<br />
+    And I enter “test” into the input field labeled “Password:”<br />
+    And I click on the button labeled “Log In”<br />
+    Then I should see “ERROR: You entered an invalid user name or password!”<br />
+<br />
+    #Try to login again with a bad password; we will be locked out<br />
+    Given I enter “Test_User1” into the input field labeled “Username:”<br />
+    And I enter “test” into the input field labeled “Password:”<br />
+    And I click on the button labeled “Log In”<br />
+    Then I should see “ACCESS DENIED!”<br />
+<br />
+    #Try logging in again after 1 minute<br />
+    Given I wait for 1 minute<br />
+    Given I attempt to login to REDCap with the user “Test_User1”<br />
+    Then I should see “ACCESS DENIED!”<br />
+<br />
+    #2 minutes of waiting total; now we can login<br />
+    Given I wait for another 1 minute<br />
+    When I attempt to login to REDCap with the user “Test_User1”<br />
+    Then I should see “My Projects”<br />
+    And I logout<br />
+<br />
+    Given I login to REDCap with the user “Test_Admin”<br />
+    When I click on the link labeled “Control Center”<br />
+    Then I click on the link labeled “Security &amp; Authentication”<br />
+    And I should see “Security &amp; Authentication Configuration”<br />
+<br />
+    Given I clear the field labeled “Number of failed login attempts before user is locked out for a specified amount of time, which is set below.”<br />
+    When I enter “1” into the input field labeled “Number of failed login attempts before user is locked out for a specified amount of time, which is set below.”<br />
+    And I clear the field labeled “Amount of time user will be locked out after having failed login attempts exceeding the limit set above.”<br />
+    And I enter “1” into the input field labeled “Amount of time user will be locked out after having failed login attempts exceeding the limit set above.”<br />
+    And I click on the button labeled “Save Changes”<br />
+    Then I should see “Your system configuration values have now been changed!”<br />
+    And I logout<br />
+<br />
+    #Login with bad password; first failed attempt at logging in<br />
+    Given I enter “Test_User1” into the input field labeled “Username:”<br />
+    And I enter “test” into the input field labeled “Password:”<br />
+    And I click on the button labeled “Log In”<br />
+    Then I should see “ERROR: You entered an invalid user name or password!”<br />
+<br />
+    #Try to login again with a bad password and we will be locked out<br />
+    Given I enter “Test_User1” into the input field labeled “Username:”<br />
+    And I enter “test” into the input field labeled “Password:”<br />
+    And I click on the button labeled “Log In”<br />
+    Then I should see “ACCESS DENIED!”<br />
+<br />
+    #We only have to wait for 1 minute total this time<br />
+    Given I wait for 1 minute<br />
+    When I attempt to login to REDCap with the user “Test_User1”<br />
+    Then I should see “My Projects”<br />
+    And I logout<br />
+<br />
+<br />
+<em>https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/A/Add%20Manage%20Users/A.2.2.800%20-%20Auto-Logout%20Inactivity%20Time.feature</em><br />
+<br />
+Feature: A.2.2.800 Add/Manage users<br />
+<br />
+  As a REDCap end user<br />
+  I want to see that amount of inactivity time before auto logout time is functioning as expected.<br />
+<br />
+  Scenario: A.2.2.800.100 User account locked time<br />
+<br />
+    Given I login to REDCap with the user “Test_Admin”<br />
+    And I click on the link labeled “Control Center”<br />
+    And I click on the link labeled “Security &amp; Authentication”<br />
+    Then I should see “Security &amp; Authentication Configuration”<br />
+<br />
+    When I clear the field labeled “Auto logout time”<br />
+    And I enter “4” into the input field labeled “Auto logout time”<br />
+    And I click on the button labeled “Save Changes”<br />
+    Then I should see “Your system configuration values have now been changed!”<br />
+    Given I logout<br />
+<br />
+    Given I login to REDCap with the user “Test_User1”<br />
+    And I see “My Projects”<br />
+<br />
+    Given I wait for 2 minutes<br />
+    Then I should see a dialog containing the following text: “REDCap Auto Logout Warning”<br />
+<br />
+    Given I wait for another 2 minutes<br />
+    Then I should see a dialog containing the following text: “Due to inactivity, your REDCap session has expired”<br />
+<br />
+    Given I click on the button labeled “Log In” in the dialog box<br />
+    Then I should see “Please log in with your user name and password.”<br />
+<br />
+    Given I login to REDCap with the user “Test_User1”<br />
+    And I see “My Projects”<br />
+    Given I logout<br />
+<br />
+    Given I login to REDCap with the user “Test_Admin”<br />
+    And I click on the link labeled “Control Center”<br />
+    And I click on the link labeled “Security &amp; Authentication”<br />
+    Then I should see “Security &amp; Authentication Configuration”<br />
+<br />
+    When I clear the field labeled “Auto logout time”<br />
+    And I enter “3” into the input field labeled “Auto logout time”<br />
+    And I click on the button labeled “Save Changes”<br />
+    Then I should see “Your system configuration values have now been changed!”<br />
+    Given I logout<br />
+<br />
+    Given I login to REDCap with the user “Test_User1”<br />
+    Given I wait for 2 minutes<br />
+    Then I should see a dialog containing the following text: “REDCap Auto Logout Warning”<br />
+<br />
+    Given I wait for 1 minute<br />
+    Then I should see a dialog containing the following text: “Due to inactivity, your REDCap session has expired”<br />
+<br />
+    Given I click on the button labeled “Log In” in the dialog box<br />
+    Then I should see “Please log in with your user name and password.”<br />
+<br />
+    Given I login to REDCap with the user “Test_User1”<br />
+    And I see “My Projects”<br />
+    Given I logout<br />
+<br />
+    Given I login to REDCap with the user “Test_Admin”<br />
+    And I click on the link labeled “Control Center”<br />
+    And I click on the link labeled “Security &amp; Authentication”<br />
+    Then I should see “Security &amp; Authentication Configuration”<br />
+<br />
+    When I clear the field labeled “Auto logout time”<br />
+    And I enter “20” into the input field labeled “Auto logout time”<br />
+    And I click on the button labeled “Save Changes”<br />
+    Then I should see “Your system configuration values have now been changed!”<br />
+    Given I logout</div>
+</div>
+<hr />
+<p><strong>Comments:</strong><br />
+</p>
+<div class="comments">
+<div class="comment">
+<p><strong>Comment:</strong></p>
+<p><em>Author:</em> MintooXavier <em>Updated on:</em> 17/04/2024 09:21:40</p>
+<em>Comment body:</em>
+<p dir="auto">
+Rewrite SCenario 14 <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/rmh54/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/rmh54"><span class="citation" data-cites="rmh54">@rmh54</span></a>
+</p>
+<p><em>Comment edits:</em></p>
+<div class="comment-edit">
+<p><em>Created:</em> 17/04/2024 09:21:40 <em>Edited on:</em> 17/04/2024 09:21:40 <em>Edited by:</em> MintooXavier <em>Deleted on:</em> |none| <em>Deleted by:</em> |none|</p>
+<p><em>Diff:</em></p>
+<p>Rewrite SCenario 14 <span class="citation" data-cites="rmh54">@rmh54</span></p>
+</div>
+<div class="comment-edit">
+<p><em>Created:</em> 17/04/2024 09:21:40 <em>Edited on:</em> 17/04/2024 09:21:06 <em>Edited by:</em> MintooXavier <em>Deleted on:</em> |none| <em>Deleted by:</em> |none|</p>
+<p><em>Diff:</em></p>
+<p>Rewrite SCenario 14</p>
+</div>
+</div>
+<div class="comment">
+<p><strong>Comment:</strong></p>
+<p><em>Author:</em> MintooXavier <em>Updated on:</em> 17/04/2024 09:22:40</p>
+<em>Comment body:</em>
+<p dir="auto">
+Completed rewriting Scenario 14
+</p>
+</div>
+</div>
+<hr />
+<p><strong>Timeline events:</strong><br />
+</p>
+<div class="timeline">
+<div class="timeline">
+<p>LABELLED | <em>User:</em> MintooXavier <em>Created on:</em> 17/04/2024 09:05:46 <em>Label name:</em> Automated <em>Label description:</em></p>
+<p>ASSIGNED | <em>User:</em> MintooXavier <em>Created on:</em> 17/04/2024 09:20:28 <em>Assignee:</em> MintooXavier</p>
+ISSUE COMMENT | <em>User:</em> MintooXavier <em>Created on:</em> 17/04/2024 09:21:06 <em>Issue comment body:</em>
+<p dir="auto">
+Rewrite SCenario 14 <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/rmh54/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/rmh54"><span class="citation" data-cites="rmh54">@rmh54</span></a>
+</p>
+<p>MENTIONED | <em>User:</em> rmh54 <em>Created on:</em> 17/04/2024 09:21:41</p>
+<p>SUBSCRIBED | <em>User:</em> rmh54 <em>Created on:</em> 17/04/2024 09:21:41</p>
+ISSUE COMMENT | <em>User:</em> MintooXavier <em>Created on:</em> 17/04/2024 09:22:40 <em>Issue comment body:</em>
+<p dir="auto">
+Completed rewriting Scenario 14
+</p>
+<p>MILESTONED | <em>User:</em> MintooXavier <em>Created on:</em> 17/04/2024 09:39:30 <em>Milestone:</em> v.13.8.1</p>
+<p>LABELLED | <em>User:</em> MintooXavier <em>Created on:</em> 17/04/2024 09:40:41 <em>Label name:</em> Core feature <em>Label description:</em> Part of the RSVC core feature set</p>
+<p>CLOSED | <em>User:</em> MintooXavier <em>Created on:</em> 17/04/2024 10:16:23 <em>Closed reason:</em> COMPLETED</p>
+<p>DEMILESTONED | <em>User:</em> MintooXavier <em>Created on:</em> 17/04/2024 10:22:53 <em>Milestone:</em> v.13.8.1</p>
+<p>MILESTONED | <em>User:</em> MintooXavier <em>Created on:</em> 17/04/2024 10:22:53 <em>Milestone:</em> v.14</p>
+<p>REOPENED | <em>User:</em> MintooXavier <em>Created on:</em> 17/04/2024 10:54:49 <em>Reason:</em> REOPENED</p>
+<p>DEMILESTONED | <em>User:</em> MintooXavier <em>Created on:</em> 17/04/2024 12:20:48 <em>Milestone:</em> v.14</p>
+<p>MILESTONED | <em>User:</em> MintooXavier <em>Created on:</em> 17/04/2024 12:20:48 <em>Milestone:</em> v.13.8.1</p>
+<p>CLOSED | <em>User:</em> rmh54 <em>Created on:</em> 18/04/2024 09:50:06 <em>Closed reason:</em> COMPLETED</p>
+<p>REOPENED | <em>User:</em> rmh54 <em>Created on:</em> 18/04/2024 09:50:18 <em>Reason:</em> REOPENED</p>
+<p>DEMILESTONED | <em>User:</em> rmh54 <em>Created on:</em> 19/04/2024 08:41:29 <em>Milestone:</em> v.13.8.1</p>
+<p>UNLABELLED | <em>User:</em> MintooXavier <em>Created on:</em> 22/04/2024 09:22:09 <em>Label name:</em> Core feature <em>Label description:</em> Part of the RSVC core feature set</p>
+<p>LABELLED | <em>User:</em> MintooXavier <em>Created on:</em> 22/04/2024 09:24:36 <em>Label name:</em> Gherkin <em>Label description:</em> Uses a Gherkin syntax</p>
+<p>LABELLED | <em>User:</em> MintooXavier <em>Created on:</em> 22/04/2024 09:24:42 <em>Label name:</em> Core feature <em>Label description:</em> Part of the RSVC core feature set</p>
+<p>RENAMED TITLE | <em>User:</em> MintooXavier <em>Created on:</em> 29/05/2024 08:58:22 <em>Previous title:</em> 17. Data Comparison Tool / DDE Module <em>Current title:</em> 2. Add / Manage Users</p>
+</div>
+</div>
+<p><br/></p>
+<p>————— feature ends —————</p>
+<p><br/></p>
+<hr />
+<div id="redcap_cypress-23">
+<strong>Feature:</strong> 3. Assign Administrators and Account Managers
+</div>
+<hr />
+<table>
+<colgroup>
+<col style="width: 60%" />
+<col style="width: 40%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Id:</strong> I_kwDOIaOBn86Kc9WH</td>
+<td style="text-align: left;"><strong>Uid:</strong> redcap_cypress-23</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Author:</strong> MintooXavier</td>
+<td style="text-align: left;"><strong>Created:</strong> 29/05/2024 09:36:25</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Assignees:</strong> |none|</td>
+<td style="text-align: left;"><strong>Resource path:</strong> <a href=https://github.com//CCTC-team/redcap_cypress/issues/23 target=_blank>/CCTC-team/redcap_cypress/issues/23</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Milestone:</strong> |none|</td>
+<td style="text-align: left;"><strong>Labels:</strong> Core feature || Gherkin || Automated</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<table>
+<colgroup>
+<col style="width: 60%" />
+<col style="width: 40%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>State:</strong> OPEN</td>
+<td style="text-align: left;"><strong>State reason</strong>: |not applicable|</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Includes created edit:</strong> true</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Closed:</strong> false</td>
+<td style="text-align: left;"><strong>Closed on:</strong> |none|</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Editor:</strong> MintooXavier</td>
+<td style="text-align: left;"><strong>Updated on:</strong> 30/05/2024 11:24:26</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Locked:</strong> false</td>
+<td style="text-align: left;"><strong>Participants:</strong> MintooXavier</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<strong>Project item body:</strong><br />
+
+<div class="feature-body">
+<p dir="auto">
+Brief description:<br> This features is to add a user as an admin in REDCap system (in control center).
+</p>
+<p dir="auto">
+User spec:<br> <a href="https://github.com/CCTC-team/redcap_cypress/blob/redcap_val/user_requirement_specification/core/assign_administrators_and_account_managers.spec">https://github.com/CCTC-team/redcap_cypress/blob/redcap_val/user_requirement_specification/core/assign_administrators_and_account_managers.spec</a>
+</p>
+<p dir="auto">
+Feature link:<br> <a href="https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/A/Assign%20Administrators/A.2.3.100%20-%20Administrators%20Table.feature">https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/A/Assign%20Administrators/A.2.3.100%20-%20Administrators%20Table.feature</a><br> <a href="https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/A/Assign%20Administrators/A.2.3.200%20-%20Add%20Remove%20Admins.feature">https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/A/Assign%20Administrators/A.2.3.200%20-%20Add%20Remove%20Admins.feature</a><br> <a href="https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/A/Assign%20Administrators/A.2.3.300%20-%20Super%20Users%20and%20Account%20Managers.feature">https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/A/Assign%20Administrators/A.2.3.300%20-%20Super%20Users%20and%20Account%20Managers.feature</a><br> <a href="https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/A/Assign%20Administrators/A.2.3.400%20-%20Assign%20Administrators%20and%20Account%20Managers.feature">https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/A/Assign%20Administrators/A.2.3.400%20-%20Assign%20Administrators%20and%20Account%20Managers.feature</a>
+</p>
+<p dir="auto">
+Pre review:
+</p>
+<ul class="contains-task-list">
+<li class="task-list-item">
+<input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> Script(s) targets the correct feature sufficiently
+</li>
+<li class="task-list-item">
+<input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> The user requirements are met
+</li>
+</ul>
+<p dir="auto">
+Post review:
+</p>
+<ul class="contains-task-list">
+<li class="task-list-item">
+<input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> Script(s) targets the correct feature sufficiently
+</li>
+<li class="task-list-item">
+<input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> Script(s) appropriately tests the feature
+</li>
+</ul>
+</div>
+<hr />
+<p><strong>User specification:</strong><br />
+</p>
+<div class="spec-script">
+<div class="line-block"><br />
+<em>https://github.com/CCTC-team/redcap_cypress/blob/redcap_val/user_requirement_specification/core/assign_administrators_and_account_managers.spec</em><br />
+<br />
+A.2.3.100 - Control Center: The system shall support viewing all current administrators and account managers.<br />
+A.2.3.200 - Control Center: The system shall support the granting and revoking administrators’ and account managers’ access to the system to individual users.<br />
+A.2.3.300 - Control Center: The system shall support the granting and revoking administrators’ ability to modify system configuration pages.<br />
+A.2.3.400 - Control Center: The system shall support the granting and revoking of administrators’ ability to access to all projects and data with maximum user privileges.</div>
+</div>
+<p><strong>Test script:</strong><br />
+</p>
+<div class="spec-script">
+<div class="line-block"><br />
+<em>https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/A/Assign%20Administrators/A.2.3.100%20-%20Administrators%20Table.feature</em><br />
+<br />
+Feature: A.2.3.100 Assign administrators and account managers<br />
+<br />
+  As a REDCap end user<br />
+  I want to see that Control Center is functioning as expected<br />
+<br />
+  Scenario: A.2.3.100.100 View administrator accounts<br />
+    Given I login to REDCap with the user “Test_Admin”<br />
+    And I click on the link labeled “Control Center”<br />
+    And I click on the link labeled “Administrator Privileges”<br />
+    Then I should see “Set administrator privileges”<br />
+    And I should see a table header and rows containing the following values in the administrators table:<br />
+      | Administrators |<br />
+      | Test_Admin (Admin User) |<br />
+<br />
+<br />
+<em>https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/A/Assign%20Administrators/A.2.3.200%20-%20Add%20Remove%20Admins.feature</em><br />
+<br />
+Feature: A.2.3.200 Assign administrators and account managers<br />
+<br />
+  As a REDCap end user<br />
+  I want to see that Assign Super Users / Account Managers is functioning as expected<br />
+<br />
+  Scenario: A.2.3.200.100 Give/remove user admin user rights<br />
+    Given I login to REDCap with the user “Test_Admin”<br />
+    When I click on the link labeled “Control Center”<br />
+    Then I click on the link labeled “Administrator Privileges”<br />
+    And I should see “Set administrator privileges”<br />
+<br />
+    Given I enter “Test_User1” into the field with the placeholder text of “Search users to add as admin”<br />
+    When I enable the Administrator Privilege “Set administrator privileges” for a new administrator<br />
+    And I click on the button labeled “Add”<br />
+    Then I should see ‘The user “Test_User1” has now been granted one or more administrator privileges’<br />
+<br />
+    Given I click on the button labeled “OK”<br />
+    Then I should see “Test_User1”<br />
+<br />
+    Given I click on the link labeled “Control Center”<br />
+    When I click on the link labeled “Administrator Privileges”<br />
+    Then I should see “Set administrator privileges”<br />
+    And I should see “Test_User1”<br />
+<br />
+    Given I logout<br />
+    When I login to REDCap with the user “Test_User1”<br />
+    Then I should see a link labeled “Control Center”<br />
+<br />
+    Given I logout<br />
+    When I login to REDCap with the user “Test_Admin”<br />
+    And I click on the link labeled “Control Center”<br />
+    And I click on the link labeled “Administrator Privileges”<br />
+    Then I should see “Set administrator privileges”<br />
+<br />
+    Given I disable the Administrator Privilege “Set administrator privileges” for the administrator “Test_User1”<br />
+    Then I should see a dialog containing the following text: “Please be aware that you have unchecked ALL the administrator privileges for this user”<br />
+<br />
+    Given I click on the button labeled “Close” in the dialog box<br />
+    When I click on the link labeled “Administrator Privileges”<br />
+    Then I should see “Set administrator privileges”<br />
+    And I should NOT see “Test_User1”<br />
+<br />
+    Given I logout<br />
+    When I login to REDCap with the user “Test_User1”<br />
+    Then I should NOT see a link labeled “Control Center”<br />
+<br />
+<br />
+<em>https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/A/Assign%20Administrators/A.2.3.300%20-%20Super%20Users%20and%20Account%20Managers.feature</em><br />
+<br />
+Feature: A.2.3.300 Assign administrators and account managers<br />
+<br />
+  As a REDCap end user<br />
+  I want to see that Assign Super Users / Account Managers is functioning as expected<br />
+<br />
+  Scenario: A.2.3.300.100 Modify and Revoke Admin’s User Rights<br />
+    Given I login to REDCap with the user “Test_Admin”<br />
+    And I click on the link labeled “Control Center”<br />
+    And I click on the link labeled “Administrator Privileges”<br />
+    Then I should see “Set administrator privileges”<br />
+<br />
+    When I enter “Test_User1” into the field with the placeholder text of “Search users to add as admin”<br />
+    And I enable the Administrator Privilege “Set administrator privileges” for a new administrator<br />
+    And I click on the button labeled “Add”<br />
+    Then I should see ‘The user “Test_User1” has now been granted one or more administrator privileges’<br />
+    And I click on the button labeled “OK”<br />
+    And I should see “Test_User1”<br />
+<br />
+    When I click on the link labeled “Control Center”<br />
+    And I click on the link labeled “Administrator Privileges”<br />
+    Then I should see “Set administrator privileges”<br />
+    And I enable the Administrator Privilege “Manage user accounts” for the administrator “Test_User1”<br />
+    And I enable the Administrator Privilege “Modify system configuration pages” for the administrator “Test_User1”<br />
+    Given I logout<br />
+<br />
+    Given I login to REDCap with the user “Test_User1”<br />
+    When I click on the link labeled “Control Center”<br />
+    Then I should see “Control Center Home”<br />
+    And I should see a link labeled “Browse Projects”<br />
+    And I should see a link labeled “Browse Users”<br />
+    And I should see a link labeled “Multi-Language Management”<br />
+    And I should see a link labeled “General Configuration”<br />
+    Given I logout<br />
+<br />
+    Given I login to REDCap with the user “Test_Admin”<br />
+    And I click on the link labeled “Control Center”<br />
+    And I click on the link labeled “Administrator Privileges”<br />
+    Then I should see “Set administrator privileges”<br />
+<br />
+    Given I enable the Administrator Privilege “Access to Control Center dashboards” for the administrator “Test_User1”<br />
+    When I disable the Administrator Privilege “Set administrator privileges” for the administrator “Test_User1”<br />
+    And I disable the Administrator Privilege “Manage user accounts” for the administrator “Test_User1”<br />
+    And I disable the Administrator Privilege “Modify system configuration pages” for the administrator “Test_User1”<br />
+    And I logout<br />
+    And I login to REDCap with the user “Test_User1”<br />
+    Then I should see a link labeled “Control Center”<br />
+<br />
+<br />
+<em>https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/A/Assign%20Administrators/A.2.3.400%20-%20Assign%20Administrators%20and%20Account%20Managers.feature</em><br />
+<br />
+Feature: A.2.3.400 Assign administrators and account managers<br />
+<br />
+  As a REDCap end user<br />
+  I want to see that Assign Super Users / Account Managers is functioning as expected<br />
+<br />
+  Scenario: A.2.3.400.100 Give and remove user maximum user privileges<br />
+    Given I login to REDCap with the user “Test_Admin”<br />
+    And I click on the link labeled “Control Center”<br />
+    And I click on the link labeled “Administrator Privileges”<br />
+    Then I should see “Set administrator privileges”<br />
+<br />
+    When I enter “Test_User1” into the field with the placeholder text of “Search users to add as admin”<br />
+    And I enable the Administrator Privilege “Set administrator privileges” for a new administrator<br />
+    And I enable the Administrator Privilege “Access to all projects and data” for a new administrator<br />
+    And I enable the Administrator Privilege “Manage user accounts” for a new administrator<br />
+    And I enable the Administrator Privilege “Perform REDCap upgrades” for a new administrator<br />
+    And I enable the Administrator Privilege “Install, upgrade, and configure” for a new administrator<br />
+    And I enable the Administrator Privilege “Modify system configuration pages” for a new administrator<br />
+    And I enable the Administrator Privilege “Access to Control Center dashboards” for a new administrator<br />
+    And I click on the button labeled “Add”<br />
+    Then I should see ‘The user “Test_User1” has now been granted one or more administrator privileges’<br />
+    And I click on the button labeled “OK” in the dialog box<br />
+<br />
+    Given I logout<br />
+    And I login to REDCap with the user “Test_User1”<br />
+    And I click on the link labeled “Control Center”<br />
+    Then I should see “Control Center Home”<br />
+    And I should see a link labeled “Browse Projects”<br />
+    And I should see a link labeled “Browse Users”<br />
+    And I should see a link labeled “General Configuration”<br />
+<br />
+    Given I logout<br />
+    And I login to REDCap with the user “Test_Admin”<br />
+    And I click on the link labeled “Control Center”<br />
+    And I click on the link labeled “Administrator Privilege”<br />
+    Then I should see “Set administrator privileges”<br />
+    When I disable the Administrator Privilege “Set administrator privileges” for the administrator “Test_User1”<br />
+    And I disable the Administrator Privilege “Access to all projects and data” for the administrator “Test_User1”<br />
+    And I disable the Administrator Privilege “Manage user accounts” for the administrator “Test_User1”<br />
+    And I disable the Administrator Privilege “Perform REDCap upgrades” for the administrator “Test_User1”<br />
+    And I disable the Administrator Privilege “Install, upgrade, and configure” for the administrator “Test_User1”<br />
+    And I disable the Administrator Privilege “Modify system configuration pages” for the administrator “Test_User1”<br />
+    And I disable the Administrator Privilege “Access to Control Center dashboards” for the administrator “Test_User1”<br />
+    Then I should see a dialog containing the following text: “NOTICE”<br />
+    And I should see a dialog containing the following text: “Please be aware that you have unchecked ALL the administrator privileges for this user”<br />
+    And I click on the button labeled “Close” in the dialog box<br />
+<br />
+    Given I logout<br />
+    And I login to REDCap with the user “Test_User1”<br />
+    Then I should NOT see “Control Panel”<br />
+    And I logout</div>
+</div>
+<hr />
+<p><strong>Comments:</strong><br />
+</p>
+<div class="comments">
+
+</div>
+<hr />
+<p><strong>Timeline events:</strong><br />
+</p>
+<div class="timeline">
+<div class="timeline">
+<p>RENAMED TITLE | <em>User:</em> MintooXavier <em>Created on:</em> 29/05/2024 09:40:51 <em>Previous title:</em> 3. Assign administrators and account managers <em>Current title:</em> 3. Assign Administrators and Account Managers</p>
+<p>LABELLED | <em>User:</em> MintooXavier <em>Created on:</em> 29/05/2024 10:38:50 <em>Label name:</em> Core feature <em>Label description:</em> Part of the RSVC core feature set</p>
+<p>LABELLED | <em>User:</em> MintooXavier <em>Created on:</em> 29/05/2024 10:38:50 <em>Label name:</em> Gherkin <em>Label description:</em> Uses a Gherkin syntax</p>
+<p>LABELLED | <em>User:</em> MintooXavier <em>Created on:</em> 29/05/2024 10:38:50 <em>Label name:</em> Automated <em>Label description:</em></p>
+</div>
+</div>
+<p><br/></p>
+<p>————— feature ends —————</p>
+<p><br/></p>
+<hr />
+<div id="redcap_cypress-22">
+<strong>Feature:</strong> 5. Browse Projects
+</div>
+<hr />
+<table>
+<colgroup>
+<col style="width: 60%" />
+<col style="width: 40%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Id:</strong> I_kwDOIaOBn86KcyDF</td>
+<td style="text-align: left;"><strong>Uid:</strong> redcap_cypress-22</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Author:</strong> MintooXavier</td>
+<td style="text-align: left;"><strong>Created:</strong> 29/05/2024 09:15:09</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Assignees:</strong> |none|</td>
+<td style="text-align: left;"><strong>Resource path:</strong> <a href=https://github.com//CCTC-team/redcap_cypress/issues/22 target=_blank>/CCTC-team/redcap_cypress/issues/22</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Milestone:</strong> |none|</td>
+<td style="text-align: left;"><strong>Labels:</strong> Core feature || Gherkin || Automated</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<table>
+<colgroup>
+<col style="width: 60%" />
+<col style="width: 40%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>State:</strong> OPEN</td>
+<td style="text-align: left;"><strong>State reason</strong>: |not applicable|</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Includes created edit:</strong> true</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Closed:</strong> false</td>
+<td style="text-align: left;"><strong>Closed on:</strong> |none|</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Editor:</strong> MintooXavier</td>
+<td style="text-align: left;"><strong>Updated on:</strong> 30/05/2024 11:25:28</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Locked:</strong> false</td>
+<td style="text-align: left;"><strong>Participants:</strong> MintooXavier</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<strong>Project item body:</strong><br />
+
+<div class="feature-body">
+<p dir="auto">
+Brief description:<br> This feature is used to test if we can browse for a project, sort and filter it according to the filter column.
+</p>
+<p dir="auto">
+User spec:<br> <a href="https://github.com/CCTC-team/redcap_cypress/blob/redcap_val/user_requirement_specification/core/browse_projects.spec">https://github.com/CCTC-team/redcap_cypress/blob/redcap_val/user_requirement_specification/core/browse_projects.spec</a>
+</p>
+<p dir="auto">
+Feature link:<br> <a href="https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/A/Browse%20Projects/A.1.5.100%20-%20Browse%20Projects.feature">https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/A/Browse%20Projects/A.1.5.100%20-%20Browse%20Projects.feature</a>
+</p>
+<p dir="auto">
+Pre review:
+</p>
+<ul class="contains-task-list">
+<li class="task-list-item">
+<input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> Script(s) targets the correct feature sufficiently
+</li>
+<li class="task-list-item">
+<input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> The user requirements are met
+</li>
+</ul>
+<p dir="auto">
+Post review:
+</p>
+<ul class="contains-task-list">
+<li class="task-list-item">
+<input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> Script(s) targets the correct feature sufficiently
+</li>
+<li class="task-list-item">
+<input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> Script(s) appropriately tests the feature
+</li>
+</ul>
+</div>
+<hr />
+<p><strong>User specification:</strong><br />
+</p>
+<div class="spec-script">
+<div class="line-block"><br />
+<em>https://github.com/CCTC-team/redcap_cypress/blob/redcap_val/user_requirement_specification/core/browse_projects.spec</em><br />
+<br />
+A.1.5.100 - Control Center: The system shall support viewing all projects by username, first name, last name and primary email address.</div>
+</div>
+<p><strong>Test script:</strong><br />
+</p>
+<div class="spec-script">
+<div class="line-block"><br />
+<em>https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/A/Browse%20Projects/A.1.5.100%20-%20Browse%20Projects.feature</em><br />
+<br />
+Feature: A.1.5.100 Browse Projects<br />
+<br />
+  As a REDCap end user<br />
+  I want to see that I have the ability to access, search, and filter projects<br />
+<br />
+  Scenario: A.1.5.100.100 Search/Sort project and Locate by User<br />
+    Given I login to REDCap with the user “Test_Admin”<br />
+    And I create a new project named “A.1.5.100.100” by clicking on “New Project” in the menu bar, selecting “Practice / Just for fun” from the dropdown, choosing file “Project_1.xml”, and clicking the “Create Project” button<br />
+    And I click on the link labeled “Control Center”<br />
+    And I click on the link labeled “Browse Projects”<br />
+    Then I should see “Viewing projects accessible by user:”<br />
+<br />
+    When I click on the button labeled “View all projects”<br />
+    Then I should see “A.1.5.100.100”<br />
+<br />
+    When I click on the link labeled “Control Center”<br />
+    And I click on the link labeled “Browse Projects”<br />
+    Then I should see “Viewing projects accessible by user:”<br />
+<br />
+    When I enter “A.1.5.100.100” into the input field labeled “Search project title by keyword(s):”<br />
+    And I click on the button labeled “Search project title”<br />
+    Then I should see a row labeled “A.1.5.100.100” in the projects table<br />
+<br />
+    When I click on the link labeled “Browse Projects”<br />
+    Then I should see “Viewing projects accessible by user:”<br />
+<br />
+    When I click on the button labeled “View all projects”<br />
+    Then I should see “A.1.5.100.100”<br />
+<br />
+    When I click on the table heading column labeled “Project Title”<br />
+    Then I should see projects sorted correctly when I click on “Project Title” to sort in either direction<br />
+<br />
+    When I click on the table heading column labeled “Records”<br />
+    Then I should see projects sorted correctly when I click on “Records” to sort in either direction<br />
+<br />
+    When I click on the table heading column labeled “Fields”<br />
+    Then I should see projects sorted correctly when I click on “Fields” to sort in either direction<br />
+<br />
+    When I click on the table heading column labeled “Instruments”<br />
+    Then I should see projects sorted correctly when I click on “Instruments” to sort in either direction<br />
+<br />
+    When I click on the table heading column labeled “Type”<br />
+    Then I should see projects sorted correctly when I click on “Type” to sort in either direction<br />
+<br />
+    When I click on the table heading column labeled “Status”<br />
+    Then I should see projects sorted correctly when I click on “Status” to sort in either direction<br />
+<br />
+    When I click on the table heading column labeled “PID”<br />
+    Then I should see projects sorted correctly when I click on “PID” to sort in either direction<br />
+<br />
+    When I click on the link labeled “Control Center”<br />
+    And I click on the link labeled “Browse Projects”<br />
+    Then I should see “Viewing projects accessible by user:”<br />
+<br />
+    When I enter “Test_Admin” into the input field labeled “Viewing projects accessible by user:”<br />
+    And I click on the button labeled exactly “View”<br />
+    Then I should see “A.1.5.100.100”</div>
+</div>
+<hr />
+<p><strong>Comments:</strong><br />
+</p>
+<div class="comments">
+
+</div>
+<hr />
+<p><strong>Timeline events:</strong><br />
+</p>
+<div class="timeline">
+<div class="timeline">
+<p>LABELLED | <em>User:</em> MintooXavier <em>Created on:</em> 29/05/2024 10:38:36 <em>Label name:</em> Core feature <em>Label description:</em> Part of the RSVC core feature set</p>
+<p>LABELLED | <em>User:</em> MintooXavier <em>Created on:</em> 29/05/2024 10:38:36 <em>Label name:</em> Gherkin <em>Label description:</em> Uses a Gherkin syntax</p>
+<p>LABELLED | <em>User:</em> MintooXavier <em>Created on:</em> 29/05/2024 10:38:36 <em>Label name:</em> Automated <em>Label description:</em></p>
+</div>
+</div>
+<p><br/></p>
+<p>————— feature ends —————</p>
+<p><br/></p>
+<hr />
+<div id="redcap_cypress-24">
+<strong>Feature:</strong> 6. Assign User Rights
+</div>
+<hr />
+<table>
+<colgroup>
+<col style="width: 60%" />
+<col style="width: 40%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Id:</strong> I_kwDOIaOBn86Kc_y5</td>
+<td style="text-align: left;"><strong>Uid:</strong> redcap_cypress-24</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Author:</strong> MintooXavier</td>
+<td style="text-align: left;"><strong>Created:</strong> 29/05/2024 09:41:14</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Assignees:</strong> |none|</td>
+<td style="text-align: left;"><strong>Resource path:</strong> <a href=https://github.com//CCTC-team/redcap_cypress/issues/24 target=_blank>/CCTC-team/redcap_cypress/issues/24</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Milestone:</strong> |none|</td>
+<td style="text-align: left;"><strong>Labels:</strong> Core feature || Gherkin || Automated</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<table>
+<colgroup>
+<col style="width: 60%" />
+<col style="width: 40%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>State:</strong> OPEN</td>
+<td style="text-align: left;"><strong>State reason</strong>: |not applicable|</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Includes created edit:</strong> true</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Closed:</strong> false</td>
+<td style="text-align: left;"><strong>Closed on:</strong> |none|</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Editor:</strong> MintooXavier</td>
+<td style="text-align: left;"><strong>Updated on:</strong> 30/05/2024 11:24:59</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Locked:</strong> false</td>
+<td style="text-align: left;"><strong>Participants:</strong> MintooXavier</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<strong>Project item body:</strong><br />
+
+<div class="feature-body">
+<p dir="auto">
+Brief description:<br> This feature is used to tests the access rights (access to CRFS, data export right, etc) of a user within a project.
+</p>
+<p dir="auto">
+User spec:<br> <a href="https://github.com/CCTC-team/redcap_cypress/blob/redcap_val/user_requirement_specification/core/assign_user_rights.spec">https://github.com/CCTC-team/redcap_cypress/blob/redcap_val/user_requirement_specification/core/assign_user_rights.spec</a>
+</p>
+<p dir="auto">
+Feature link:<br> <a href="https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/B/Assign%20User%20Rights/B.2.6.100%20-%20Basic%20Privileges.feature">https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/B/Assign%20User%20Rights/B.2.6.100%20-%20Basic%20Privileges.feature</a><br> <a href="https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/B/Assign%20User%20Rights/B.2.6.200%20-%20Data%20Entry%20Form%20Access.feature">https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/B/Assign%20User%20Rights/B.2.6.200%20-%20Data%20Entry%20Form%20Access.feature</a><br> <a href="https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/B/Assign%20User%20Rights/B.2.6.300%20-%20Data%20Export%20Rights.feature">https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/B/Assign%20User%20Rights/B.2.6.300%20-%20Data%20Export%20Rights.feature</a><br> <a href="https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/B/Assign%20User%20Rights/B.2.6.400%20-%20Creating%20Copying%20Deleting%20Roles.feature">https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/B/Assign%20User%20Rights/B.2.6.400%20-%20Creating%20Copying%20Deleting%20Roles.feature</a><br> <a href="https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/B/Assign%20User%20Rights/B.2.6.500%20-%20Adding%20and%20Removing%20Users%20from%20Roles.feature">https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/B/Assign%20User%20Rights/B.2.6.500%20-%20Adding%20and%20Removing%20Users%20from%20Roles.feature</a>
+</p>
+<p dir="auto">
+Pre review:
+</p>
+<ul class="contains-task-list">
+<li class="task-list-item">
+<input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> Script(s) targets the correct feature sufficiently
+</li>
+<li class="task-list-item">
+<input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> The user requirements are met
+</li>
+</ul>
+<p dir="auto">
+Post review:
+</p>
+<ul class="contains-task-list">
+<li class="task-list-item">
+<input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> Script(s) targets the correct feature sufficiently
+</li>
+<li class="task-list-item">
+<input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> Script(s) appropriately tests the feature
+</li>
+</ul>
+</div>
+<hr />
+<p><strong>User specification:</strong><br />
+</p>
+<div class="spec-script">
+<div class="line-block"><br />
+<em>https://github.com/CCTC-team/redcap_cypress/blob/redcap_val/user_requirement_specification/core/assign_user_rights.spec</em><br />
+<br />
+B.2.6.100 - Project Level: The system shall allow the ability to add, edit or delete user access to application tools for Basic Privileges and expiration date.<br />
+B.2.6.200 - Project Level: The system shall allow data entry form user access to be (No Access / Read Only / View &amp; Edit / Edit survey responses).<br />
+B.2.6.300 - Project Level: The system shall allow instrument level data export rights to be (No Access, De-Identified, Remove All Identifier Fields, Full Data Set).<br />
+B.2.6.400 - Project Level: The system shall allow for the creation, copying and deletion of user roles.<br />
+B.2.6.500 - Project Level: The system shall support adding and removing users from user roles.</div>
+</div>
+<p><strong>Test script:</strong><br />
+</p>
+<div class="spec-script">
+<div class="line-block"><br />
+<em>https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/B/Assign%20User%20Rights/B.2.6.100%20-%20Basic%20Privileges.feature</em><br />
+<br />
+Feature: B.2.6.100 Assign user rights Project Level: The system shall allow the ability to add, edit or delete user access to application tools for “Basic Privileges” and expiration date.<br />
+<br />
+  As a REDCap end user<br />
+  I want to see that project level user access is functioning as expected<br />
+<br />
+  Scenario: B.2.6.100.100 Project level User Rights functions (Add, Edit, Expire, Remove)<br />
+<br />
+    #SETUP<br />
+    Given I login to REDCap with the user “Test_Admin”<br />
+    And I create a new project named “B.2.6.100.100” by clicking on “New Project” in the menu bar, selecting “Practice / Just for fun” from the dropdown, choosing file “Project_1.xml”, and clicking the “Create Project” button<br />
+    And I click on the link labeled “My Projects”<br />
+    And I click on the link labeled “B.2.6.100.100”<br />
+    When I click on the link labeled “Project Setup”<br />
+    And I click on the button labeled “Move project to production”<br />
+    And I click on the radio labeled “Keep ALL data saved so far” in the dialog box<br />
+    And I click on the button labeled “YES, Move to Production Status” in the dialog box to request a change in project status<br />
+    Then I should see Project status: “Production”<br />
+<br />
+    #FUNCTIONAL REQUIREMENT<br />
+    ##ACTION: Add User with Basic custom rights<br />
+<br />
+    When I click on the link labeled “User Rights”<br />
+    And I enter “Test_User1” into the input field labeled “Add with custom rights”<br />
+    And I click on the button labeled “Add with custom rights”<br />
+    Then I should see a dialog containing the following text: “Adding new user”<br />
+<br />
+    When I remove all Basic Rights within the open User Rights dialog box<br />
+    And I save changes within the context of User Rights<br />
+<br />
+    ##VERIFY_LOG: Verify Update user rights<br />
+    And I click on the link labeled “Logging”<br />
+    Then I should see a table header and rows containing the following values in the logging table:<br />
+      | Time / Date | Username | Action | List of Data Changes OR Fields Exported |<br />
+      | mm/dd/yyyy hh:mm | test_admin | Add user | user = ‘test_admin’ |<br />
+<br />
+    ##ACTION #CROSS-FEATURE B.2.23.100: Verify Logging Filter by user name<br />
+    When I select “test_admin” on the dropdown field labeled “Filter by user name”<br />
+<br />
+    ##VERIFY_LOG #CROSS-FEATURE: Verify Logging Filter by user name<br />
+    Then I should see a table header and rows containing the following values in the logging table:<br />
+      | Time / Date | Username | Action | List of Data Changes OR Fields Exported |<br />
+      | mm/dd/yyyy hh:mm | test_admin | Add user | user = ‘Test_User1’ |<br />
+    And I logout<br />
+<br />
+    ##VERIFY: Verify User with Basic custom rights<br />
+    Given I login to REDCap with the user “Test_User1”<br />
+    Then I should see “Logged in as”<br />
+<br />
+    When I click on the link labeled “My Projects”<br />
+    And I click on the link labeled “B.2.6.100.100”<br />
+    Then I should see a link labeled “Project Home”<br />
+    And I should NOT see a link labeled “Project Setup”<br />
+    And I should NOT see a link labeled “Designer”<br />
+    And I should NOT see a link labeled “Dictionary”<br />
+    And I should see a link labeled “Codebook”<br />
+    And I should NOT see a link labeled “Survey Distribution Tools”<br />
+    And I should see a link labeled “Record Status Dashboard”<br />
+    And I should see a link labeled “View / Edit Records”<br />
+    And I should see “Applications”<br />
+    And I should NOT see a link labeled “Project Dashboards”<br />
+    And I should NOT see a link labeled “Alerts &amp; Notifications”<br />
+    And I should NOT see a link labeled “Multi-Language Management”<br />
+    And I should NOT see a link labeled “Calendar”<br />
+    And I should NOT see a link labeled “Data Import Tool”<br />
+    And I should NOT see a link labeled “Logging and Email Logging”<br />
+    And I should see a link labeled “Field Comment Log”<br />
+    And I should NOT see a link labeled “File Repository”<br />
+    And I should NOT see a link labeled “Data Comparison Tool”<br />
+    And I should NOT see a link labeled “User Rights and DAGs”<br />
+    And I should NOT see a link labeled “Customize &amp; Manage Locking/E-signatures”<br />
+    And I should NOT see a link labeled “Data Quality”<br />
+    And I should NOT see a link labeled “API and API Playground”<br />
+    And I should NOT see a link labeled “REDCap Mobile App”<br />
+    And I logout<br />
+<br />
+    ##ACTION: Edit User to full custom rights<br />
+    Given I login to REDCap with the user “Test_Admin”<br />
+    And I click on the link labeled “My Projects”<br />
+    And I click on the link labeled “B.2.6.100.100”<br />
+    And I click on the link labeled “User Rights”<br />
+    And I click on the link labeled “Test User1”<br />
+    And I click on the button labeled “Edit user privileges” on the tooltip<br />
+    Then I should see a dialog containing the following text: “Editing existing user”<br />
+<br />
+    When I check the User Right named “Project Setup &amp; Design”<br />
+    And I check the User Right named “User Rights”<br />
+    And I check the User Right named “Data Access Groups”<br />
+    And I check the User Right named “Survey Distribution Tools”<br />
+    And I check the User Right named “Alerts &amp; Notifications”<br />
+    And I check the User Right named “Calendar”<br />
+    And I check the User Right named “Add/Edit/Organize Reports”<br />
+    And I check the User Right named “Stats &amp; Charts”<br />
+    And I check the User Right named “Data Import Tool”<br />
+    And I check the User Right named “Data Comparison Tool”<br />
+    And I check the User Right named “Logging”<br />
+    And I check the User Right named “File Repository”<br />
+    And I check the User Right named “Data Quality - Create &amp; edit rules”<br />
+    And I check the User Right named “Data Quality - Execute rules”<br />
+    And I check the User Right named “API Export”<br />
+    And I check the User Right named “API Import/Update”<br />
+    And I check the User Right named “Create Records”<br />
+    And I check the User Right named “Rename Records”<br />
+    And I check the User Right named “Delete Records”<br />
+    And I check the User Right named “Record Locking Customization”<br />
+<br />
+    And I select the User Right named “Lock/Unlock Records” and choose “Locking / Unlocking”<br />
+    And I check the User Right named “Lock/Unlock <em>Entire</em> Records (record level)”<br />
+<br />
+    And I check the User Right named “REDCap Mobile App - Allow users to collect data offline in the mobile app”<br />
+    Then I should see a dialog containing the following text: “Confirm Mobile App Privileges”<br />
+    And I click on the button labeled “Yes, I understand”<br />
+<br />
+    And I check the User Right named “REDCap Mobile App - Allow user to download data for all records to the app?”<br />
+    And I save changes within the context of User Rights<br />
+<br />
+    ##VERIFY_LOG: Verify Update user rights<br />
+    And I click on the link labeled “Logging”<br />
+    Then I should see a table header and rows containing the following values in the logging table:<br />
+      | Time / Date | Username | Action | List of Data Changes OR Fields Exported |<br />
+      | mm/dd/yyyy hh:mm | test_admin | Update user | user = ‘test_user1’ |<br />
+    And I logout<br />
+<br />
+    ##VERIFY: Verify User with full custom rights<br />
+    Given I login to REDCap with the user “Test_User1”<br />
+    Then I should see “Logged in as”<br />
+<br />
+    When I click on the link labeled “My Projects”<br />
+    And I click on the link labeled “B.2.6.100.100”<br />
+    Then I should see a link labeled “Project Home”<br />
+    And I should see a link labeled “Project Setup”<br />
+    And I should see a link labeled “Designer”<br />
+    And I should see a link labeled “Dictionary”<br />
+    And I should see a link labeled “Codebook”<br />
+    And I should see a link labeled “Survey Distribution Tools”<br />
+    And I should see a link labeled “Record Status Dashboard”<br />
+    And I should see a link labeled “Add / Edit Records”<br />
+    And I should see “Applications”<br />
+    And I should see a link labeled “Project Dashboards”<br />
+    And I should see a link labeled “Alerts &amp; Notifications”<br />
+    And I should see a link labeled “Multi-Language Management”<br />
+    And I should see a link labeled “Calendar”<br />
+    And I should see a link labeled “Data Import Tool”<br />
+    And I should see a link labeled “Logging”<br />
+    And I should see a link labeled “Email Logging”<br />
+    And I should see a link labeled “Field Comment Log”<br />
+    And I should see a link labeled “File Repository”<br />
+    And I should see a link labeled “Data Comparison Tool”<br />
+    And I should see a link labeled “User Rights”<br />
+    And I should see a link labeled “DAGs”<br />
+    And I should see a link labeled “Customize &amp; Manage Locking/E-signatures”<br />
+    And I should see a link labeled “Data Quality”<br />
+    And I should see a link labeled “API”<br />
+    And I should see a link labeled “API Playground”<br />
+    And I should see a link labeled “REDCap Mobile App”<br />
+    And I logout<br />
+<br />
+    ##ACTION: Expire User<br />
+    Given I login to REDCap with the user “Test_Admin”<br />
+    And I click on the link labeled “My Projects”<br />
+    And I click on the link labeled “B.2.6.100.100”<br />
+    And I click on the link labeled “User Rights”<br />
+    And I assign an expired expiration date to user “Test User1” with username of “test_user1”<br />
+<br />
+    ##VERIFY_LOG: Verify Expire User<br />
+    And I click on the link labeled “Logging”<br />
+    #ATS: There is ZERO mention in the logs of anything related to expiration. It just says Update user in the logs.<br />
+    Then I should see a table header and rows containing the following values in the logging table:<br />
+      | Time / Date | Username | Action | List of Data Changes OR Fields Exported |<br />
+      | mm/dd/yyyy hh:mm | test_admin | Update user | user = ‘test_user1’ |<br />
+<br />
+    And I logout<br />
+<br />
+    ##VERIFY: Verify User access to project<br />
+    Given I login to REDCap with the user “Test_User1”<br />
+    Then I should see “Logged in as”<br />
+    And I click on the link labeled “My Projects”<br />
+    Then I should see a link labeled “B.2.6.100.100”<br />
+<br />
+    ##ACTION: Remove expiration for User<br />
+    Given I login to REDCap with the user “Test_Admin”<br />
+    And I click on the link labeled “My Projects”<br />
+    And I click on the link labeled “B.2.6.100.100”<br />
+    And I click on the link labeled “User Rights”<br />
+    And I remove the expiration date to user “Test User1” with username of “test_user1”<br />
+    #The Expiration column shows ‘never’ for “Test_User1”<br />
+<br />
+    ##VERIFY_LOG: Verify Update user Expiration<br />
+    And I click on the link labeled “Logging”<br />
+<br />
+    #ATS: ZERO mention in the logs of anything related to expiration. It just says ‘Update user’ in the logs.<br />
+    Then I should see a table header and rows containing the following values in the logging table:<br />
+      | Time / Date | Username | Action | List of Data Changes OR Fields Exported |<br />
+      | mm/dd/yyyy hh:mm | test_admin | Update user | user = ‘test_user1’ |<br />
+<br />
+    And I logout<br />
+<br />
+    ##VERIFY: Verify User access to project<br />
+    Given I login to REDCap with the user “Test_User1”<br />
+    Then I should see “Logged in as”<br />
+    And I click on the link labeled “My Projects”<br />
+    And I click on the link labeled “B.2.6.100.100”<br />
+    Then I should see a link labeled “Project Home”<br />
+    And I logout<br />
+<br />
+    ##ACTION: Remove User from project<br />
+    Given I login to REDCap with the user “Test_Admin”<br />
+    And I click on the link labeled “My Projects”<br />
+    And I click on the link labeled “B.2.6.100.100”<br />
+    And I click on the link labeled “User Rights”<br />
+    And I click on the link labeled “Test User1”<br />
+    And I click on the button labeled “Edit user privileges” on the tooltip<br />
+    Then I should see a dialog containing the following text: “Editing existing user”<br />
+<br />
+    When I click on the button labeled “Remove user”<br />
+    Then I should see a dialog containing the following text: “Remove user?”<br />
+    And I click on the button labeled “Remove user” in the dialog box<br />
+<br />
+    ##VERIFY_LOG: Verify Logging of Delete user<br />
+    And I click on the link labeled “Logging”<br />
+    Then I should see a table header and rows containing the following values in the logging table:<br />
+      | Time / Date | Username | Action | List of Data Changes OR Fields Exported |<br />
+      | mm/dd/yyyy hh:mm | test_admin | Update user | user = ‘test_user1’ |<br />
+      | mm/dd/yyyy hh:mm | test_admin | Delete user | user = ‘test_user1’ |<br />
+<br />
+    And I logout<br />
+<br />
+    ##VERIFY: Verify User has no access to project<br />
+<br />
+    Given I login to REDCap with the user “Test_User1”<br />
+    When I click on the link labeled “My Projects”<br />
+    Then I should NOT see a link labeled “B.2.6.100.100”<br />
+<br />
+<br />
+<em>https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/B/Assign%20User%20Rights/B.2.6.200%20-%20Data%20Entry%20Form%20Access.feature</em><br />
+<br />
+Feature: B.2.6.200 Assign user rights Project Level: The system shall allow data entry form user access to be (No Access / Read Only / View &amp; Edit / Edit survey responses)<br />
+<br />
+  As a REDCap end user<br />
+  I want to see that data entry rights is functioning as expected<br />
+<br />
+  Scenario: B.2.6.200.100 Data Viewing Rights<br />
+<br />
+    #SETUP<br />
+    Given I login to REDCap with the user “Test_Admin”<br />
+    And I create a new project named “B.2.6.200.100” by clicking on “New Project” in the menu bar, selecting “Practice / Just for fun” from the dropdown, choosing file “Project_1.xml”, and clicking the “Create Project” button<br />
+<br />
+<br />
+    When I click on the link labeled “My Projects”<br />
+    And I click on the link labeled “B.2.6.200.100”<br />
+    And I click on the link labeled “Project Setup”<br />
+    And I click on the button labeled “Move project to production”<br />
+    And I click on the radio labeled “Keep ALL data saved so far” in the dialog box<br />
+    And I click on the button labeled “YES, Move to Production Status” in the dialog box to request a change in project status<br />
+    Then I should see Project status: “Production”<br />
+<br />
+    When I click on the link labeled “User Rights”<br />
+    And I click on the button labeled “Upload or download users, roles, and assignments”<br />
+    Then I should see “Upload users (CSV)”<br />
+<br />
+    When I click on the link labeled “Upload users (CSV)”<br />
+    Then I should see a dialog containing the following text: “Upload users (CSV)”<br />
+<br />
+    Given I upload a “csv” format file located at “import_files/user list for project 1.csv”, by clicking the button near “Select your CSV” to browse for the file, and clicking the button labeled “Upload” to upload the file<br />
+    Then I should see a dialog containing the following text: “Upload users (CSV) - Confirm”<br />
+    And I should see a table header and rows containing the following values in a table:<br />
+      | username |<br />
+      | test_user1 |<br />
+      | test_user2 |<br />
+      | test_user3 |<br />
+      | test_user4 |<br />
+<br />
+    Given I click on the button labeled “Upload” in the dialog box<br />
+    Then I should see a dialog containing the following text: “SUCCESS!”<br />
+    And I click on the button labeled “Close” in the dialog box<br />
+<br />
+    And I should see a table header and rows containing the following values in a table:<br />
+      |Role name | Username |<br />
+      | — | test_admin |<br />
+      | — | test_user1 |<br />
+      | — | test_user2 |<br />
+      | — | test_user3 |<br />
+      | — | test_user4 |<br />
+      | 1_FullRights | [No users assigned] |<br />
+      | 2_Edit_RemoveID | [No users assigned] |<br />
+      | 3_ReadOnly_Deidentified | [No users assigned] |<br />
+      | 4_NoAccess_Noexport | [No users assigned] |<br />
+<br />
+    When I click on the link labeled “Test User1”<br />
+    And I click on the button labeled “Edit user privileges”<br />
+    Then I should see a dialog containing the following text: “Editing existing user”<br />
+<br />
+    #FUNCTIONAL REQUIREMENT<br />
+    ##ACTION: Set user access to No Access<br />
+<br />
+    When I set Data Viewing Rights to No Access for the instrument “Text Validation”<br />
+    And I save changes within the context of User Rights<br />
+<br />
+    ##VERIFY_LOG: Verify Update user rights<br />
+    And I click on the link labeled “Logging”<br />
+    Then I should see a table header and rows containing the following values in the logging table:<br />
+      | Time / Date | Username | Action | List of Data Changes OR Fields Exported |<br />
+      | mm/dd/yyyy hh:mm | test_admin | Add user | user = ‘test_user1’ |<br />
+<br />
+    ##ACTION #CROSS-FEATURE B.2.23.100: Verify Logging Filter by user name<br />
+    When I select the “test_admin” option from the Filter by username dropdown field<br />
+<br />
+    ##VERIFY_LOG #CROSS-FEATURE: Verify Logging Filter by user name<br />
+    Then I should see a table header and rows containing the following values in the logging table:<br />
+      | Time / Date | Username | Action | List of Data Changes OR Fields Exported |<br />
+      | mm/dd/yyyy hh:mm | test_admin | Update user | user = ‘test_user1’ |<br />
+    And I logout<br />
+<br />
+    Given I login to REDCap with the user “Test_User1”<br />
+    And I click on the link labeled “My Projects”<br />
+    And I click on the link labeled “B.2.6.200.100”<br />
+    ##VERIFY: No access to Instrument<br />
+    And I click on the link labeled “Record Status Dashboard”<br />
+    Then I should NOT see “Text Validation”<br />
+<br />
+    Given I click on the link labeled “User Rights”<br />
+    And I click on the link labeled “Test User1”<br />
+    And I click on the button labeled “Edit user privileges”<br />
+    Then I should see a dialog containing the following text: “Editing existing user”<br />
+<br />
+    ##ACTION: Set user access to Read Only<br />
+    When I set Data Viewing Rights to Read Only for the instrument “Text Validation”<br />
+    And I save changes within the context of User Rights<br />
+<br />
+    Given I click on the link labeled “Add / Edit Records”<br />
+    And I select record ID “1” from arm name “Arm 1: Arm 1” on the Add / Edit record page<br />
+    Then I should see “Record Home Page”<br />
+<br />
+    ##VERIFY: Read Only for the instrument<br />
+    When I click the bubble to select a record for the “Text Validation” longitudinal instrument on event “Event 1”<br />
+    Then I should see “Text Validation”<br />
+    And I should NOT see a button labeled “Save &amp; Exit Form”<br />
+<br />
+    Given I click on the link labeled “User Rights”<br />
+    And I click on the link labeled “Test User1”<br />
+    And I click on the button labeled “Edit user privileges”<br />
+    Then I should see a dialog containing the following text: “Editing existing user”<br />
+<br />
+    ##ACTION: Set user access to View &amp; Edit + Edit survey responses<br />
+    When I set Data Viewing Rights to View &amp; Edit with Edit survey responses checked for the instrument “Survey”<br />
+    And I save changes within the context of User Rights<br />
+<br />
+    Given I click on the link labeled “Add / Edit Records”<br />
+    And I select record ID “1” from arm name “Arm 1: Arm 1” on the Add / Edit record page<br />
+    Then I should see “Record Home Page”<br />
+<br />
+    ##VERIFY: Create survey record and then try to edit survey response for the instrument<br />
+    When I click the bubble to select a record for the “Survey” longitudinal instrument on event “Event Three”<br />
+    And I click on the button labeled “Survey options”<br />
+<br />
+    #This opens the survey<br />
+    When I click on the survey option label containing “Open survey” label<br />
+    #We are submitting the survey<br />
+    And I click on the button labeled “Submit”<br />
+<br />
+    Given I logout<br />
+    And I login to REDCap with the user “Test_User1”<br />
+    And I click on the link labeled “My Projects”<br />
+    And I click on the link labeled “B.2.6.200.100”<br />
+    Given I click on the link labeled “Add / Edit Records”<br />
+    And I select record ID “1” from arm name “Arm 1: Arm 1” on the Add / Edit record page<br />
+    Then I should see “Record Home Page”<br />
+<br />
+    When I click the bubble to select a record for the “Survey” longitudinal instrument on event “Event Three”<br />
+    Then I should see “Survey response is editable”<br />
+<br />
+    When I click on the button labeled “Edit response”<br />
+    Then I should see “now editing”<br />
+<br />
+    When I clear field and enter “Edited Name” into the data entry form field labeled “Name”<br />
+    And I select the submit option labeled “Save &amp; Stay” on the Data Collection Instrument<br />
+    Then I should see “successfully edited”<br />
+<br />
+    Given I click on the link labeled “User Rights”<br />
+    And I click on the link labeled “Test User1”<br />
+    And I click on the button labeled “Edit user privileges”<br />
+    Then I should see a dialog containing the following text: “Editing existing user”<br />
+<br />
+    ##ACTION: Remove user access to Edit survey responses<br />
+    When I set Data Viewing Rights to View &amp; Edit with Edit survey responses unchecked for the instrument “Survey”<br />
+    And I save changes within the context of User Rights<br />
+<br />
+    ##VERIFY: Not able to edit survey responses for the instrument<br />
+    Given I click on the link labeled “Add / Edit Records”<br />
+    And I select record ID “1” from arm name “Arm 1: Arm 1” on the Add / Edit record page<br />
+    Then I should see “Record Home Page”<br />
+    When I click the bubble to select a record for the “Survey” longitudinal instrument on event “Event Three”<br />
+    Then I should see “Survey response is read-only”<br />
+    And I should NOT see a button labeled “Save”<br />
+<br />
+<br />
+<em>https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/B/Assign%20User%20Rights/B.2.6.300%20-%20Data%20Export%20Rights.feature</em><br />
+<br />
+Feature: B.2.6.300 The system shall allow instrument level data export rights to be (No Access, De-Identified, Remove All Identifier Fields, Full Data Set)<br />
+<br />
+  As a REDCap end user<br />
+  I want to see that data export rights is functioning as expected<br />
+<br />
+  Scenario: B.2.6.300.100 Data Export Rights<br />
+    #SETUP_PRODUCTION<br />
+    Given I login to REDCap with the user “Test_Admin”<br />
+    And I create a new project named “B.2.6.300.100” by clicking on “New Project” in the menu bar, selecting “Practice / Just for fun” from the dropdown, choosing file “Project_1.xml”, and clicking the “Create Project” button<br />
+    When I click on the link labeled “My Projects”<br />
+    And I click on the link labeled “B.2.6.300.100”<br />
+<br />
+    When I click on the link labeled “Project Setup”<br />
+    And I click on the button labeled “Move project to production”<br />
+    And I click on the radio labeled “Keep ALL data saved so far” in the dialog box<br />
+    And I click on the button labeled “YES, Move to Production Status” in the dialog box to request a change in project status<br />
+    Then I should see Project status: “Production”<br />
+<br />
+    ##USER_RIGHTS<br />
+    When I click on the link labeled “User Rights”<br />
+    And I click on the button labeled “Upload or download users, roles, and assignments”<br />
+    Then I should see “Upload users (CSV)”<br />
+<br />
+    When I click on the link labeled “Upload users (CSV)”<br />
+    Then I should see a dialog containing the following text: “Upload users (CSV)”<br />
+<br />
+    Given I upload a “csv” format file located at “import_files/user list for project 1.csv”, by clicking the button near “Select your CSV” to browse for the file, and clicking the button labeled “Upload” to upload the file<br />
+    Then I should see a dialog containing the following text: “Upload users (CSV) - Confirm”<br />
+    And I should see a table header and rows containing the following values in the a table:<br />
+      | username |<br />
+      | test_user1 |<br />
+      | test_user2 |<br />
+      | test_user3 |<br />
+      | test_user4 |<br />
+<br />
+    Given I click on the button labeled “Upload” in the dialog box<br />
+    Then I should see a dialog containing the following text: “SUCCESS!”<br />
+    And I click on the button labeled “Close” in the dialog box<br />
+    And I logout<br />
+<br />
+    Given I login to REDCap with the user “Test_User1”<br />
+    Then I should see “Logged in as”<br />
+<br />
+    #FUNCTIONAL REQUIREMENT Export Full Data Set<br />
+    When I click on the link labeled “My Projects”<br />
+    And I click on the link labeled “B.2.6.300.100”<br />
+    And I click on the link labeled “Data Exports, Reports, and Stats”<br />
+<br />
+    ##ACTION:<br />
+    Then I should see a table header and rows containing the following values in the reports table:<br />
+      | A | All data (all records and fields) |<br />
+<br />
+    Given I click on the “Export Data” button for the “All data (all records and fields)” report in the My Reports &amp; Exports table<br />
+    And I click on the radio labeled “CSV / Microsoft Excel (raw data)” in the dialog box<br />
+    And I click on the button labeled “Export Data” in the dialog box<br />
+    Then I should see a dialog containing the following text: “Data export was successful!”<br />
+<br />
+    Given I click on the download icons to receive the files for the “CSV / Microsoft Excel (raw data)” format in the dialog box<br />
+    Then I should have a “csv” file that contains the headings below<br />
+      | record_id | redcap_event_name | redcap_repeat_instrument | redcap_repeat_instance | redcap_data_access_group | redcap_survey_identifier | name | email | text_validation_complete | ptname | textbox | text2 | radio | notesbox | multiple_dropdown_manual | multiple_dropdown_auto | multiple_radio_auto | radio_button_manual | checkbox_<strong>1 | checkbox</strong>_2 | checkbox___3 | calc_test | calculated_field | signature | file_upload | required | identifier | identifier_2 | edit_field | date_ymd | date_mdy | date_dmy | time_hhmmss | time_hhmm | time_mmss | datetime_ymd_hmss | datetime_ymd_hm | datetime_mdy_hmss | datetime_dmy_hmss | integer | number | number_1_period | number_1_comma | letters | mrn_10_digits | mrn | ssn | phone_north_america | phone_australia | phone_uk | zipcode_us | postal_5 | postal_code_australia | postal_code_canada | data_types_complete | survey_timestamp | name_survey | email_survey | survey_complete | consent_timestamp | name_consent | email_consent | dob | signature_consent | consent_complete |<br />
+<br />
+    And I click on the button labeled “Close” in the dialog box<br />
+<br />
+    ##VERIFY_LOG:<br />
+    When I click on the link labeled “Logging”<br />
+    Then I should see a table header and rows containing the following values in the logging table:<br />
+      | Time / Date | Username | Action | List of Data Changes OR Fields Exported |<br />
+      | mm/dd/yyyy hh:mm | test_user1 | Data export | Download exported data file (CSV raw) |<br />
+      | mm/dd/yyyy hh:mm | test_admin | Add user | user = ‘test_user1’ |<br />
+<br />
+    #SETUP<br />
+    Given I logout<br />
+    Then I should see “Please log in”<br />
+    Given I login to REDCap with the user “Test_User2”<br />
+    Then I should see “Logged in as”<br />
+<br />
+    #FUNCTIONAL REQUIREMENT Export remove all identifier fields<br />
+    When I click on the link labeled “My Projects”<br />
+    And I click on the link labeled “B.2.6.300.100”<br />
+    And I click on the link labeled “Data Exports, Reports, and Stats”<br />
+<br />
+    ##ACTION:<br />
+    Then I should see a table header and rows containing the following values in the reports table:<br />
+      | A | All data (all records and fields) |<br />
+<br />
+    Given I click on the “Export Data” button for the “All data (all records and fields)” report in the My Reports &amp; Exports table<br />
+    And I click on the radio labeled “CSV / Microsoft Excel (raw data)” in the dialog box<br />
+    And I check the checkbox labeled “Remove All Identifier Fields”<br />
+    And I click on the button labeled “Export Data” in the dialog box<br />
+    Then I should see a dialog containing the following text: “Data export was successful!”<br />
+<br />
+    ##VERIFY_DE:<br />
+    Given I click on the download icons to receive the files for the “CSV / Microsoft Excel (raw data)” format in the dialog box<br />
+<br />
+    #NOTE: Notice how there is no identifier or identifier_2 fields when removing de-identifiers. Still want to see ptname.<br />
+    Then I should have a “csv” file that contains the headings below<br />
+      | record_id | redcap_event_name | redcap_repeat_instrument | redcap_repeat_instance | redcap_data_access_group | name | email | text_validation_complete | ptname | textbox | text2 | radio | notesbox | multiple_dropdown_manual | multiple_dropdown_auto | multiple_radio_auto | radio_button_manual | checkbox_<strong>1 | checkbox</strong>_2 | checkbox___3 | calc_test | calculated_field | signature | file_upload | required | edit_field | date_ymd | date_mdy | date_dmy | time_hhmmss | time_hhmm | time_mmss | datetime_ymd_hmss | datetime_ymd_hm | datetime_mdy_hmss | datetime_dmy_hmss | integer | number | number_1_period | number_1_comma | letters | mrn_10_digits | mrn | ssn | phone_north_america | phone_australia | phone_uk | zipcode_us | postal_5 | postal_code_australia | postal_code_canada | data_types_complete | survey_timestamp | name_survey | email_survey | survey_complete | consent_timestamp | name_consent | email_consent | dob | signature_consent | consent_complete |<br />
+<br />
+    #SETUP<br />
+    Given I logout<br />
+    Then I should see “Please log in”<br />
+    Given I login to REDCap with the user “Test_User3”<br />
+    Then I should see “Logged in as”<br />
+<br />
+    #FUNCTIONAL REQUIREMENT: Export Deidentified<br />
+    When I click on the link labeled “My Projects”<br />
+    And I click on the link labeled “B.2.6.300.100”<br />
+    And I click on the link labeled “Data Exports, Reports, and Stats”<br />
+<br />
+    ##ACTION:<br />
+    Then I should see a table header and rows containing the following values in the reports table:<br />
+      | A | All data (all records and fields) |<br />
+<br />
+    Given I click on the “Export Data” button for the “All data (all records and fields)” report in the My Reports &amp; Exports table<br />
+    And I click on the radio labeled “CSV / Microsoft Excel (raw data)” in the dialog box<br />
+    And I check the checkbox labeled “Remove All Identifier Fields” in the dialog box<br />
+    And I check the checkbox labeled “Hash the Record ID field” in the dialog box<br />
+    And I click on the button labeled “Export Data” in the dialog box<br />
+    Then I should see a dialog containing the following text: “Data export was successful!”<br />
+<br />
+    ##VERIFY_DE:<br />
+    Given I click on the download icons to receive the files for the “CSV / Microsoft Excel (raw data)” format in the dialog box<br />
+<br />
+    #NOTE: Notice how there is no ptname, identifier, or identifier_2 fields when removing de-identifiers AND hashing Record ID<br />
+    Then I should have a “csv” file that contains the headings below<br />
+      | record_id | redcap_event_name | redcap_repeat_instrument | redcap_repeat_instance | redcap_data_access_group | email | text_validation_complete | radio | multiple_dropdown_manual | multiple_dropdown_auto | multiple_radio_auto | radio_button_manual | checkbox_<strong>1 | checkbox</strong>_2 | checkbox___3 | calc_test | calculated_field | signature | file_upload | date_ymd | date_mdy | date_dmy | time_hhmmss | time_hhmm | time_mmss | datetime_ymd_hmss | datetime_ymd_hm | datetime_mdy_hmss | datetime_dmy_hmss | integer | number | number_1_period | number_1_comma | letters | mrn_10_digits | mrn | ssn | phone_north_america | phone_australia | phone_uk | zipcode_us | postal_5 | postal_code_australia | postal_code_canada | data_types_complete | survey_timestamp | email_survey | survey_complete | consent_timestamp | email_consent | dob | signature_consent,consent_complete |<br />
+<br />
+    #SETUP<br />
+    Given I logout<br />
+    Then I should see “Please log in”<br />
+    Given I login to REDCap with the user “Test_User4”<br />
+    Then I should see “Logged in as”<br />
+<br />
+    #FUNCTIONAL REQUIREMENT: Export No Access<br />
+    When I click on the link labeled “My Projects”<br />
+    And I click on the link labeled “B.2.6.300.100”<br />
+<br />
+    ##ACTION:<br />
+    And I click on the link labeled “Data Exports, Reports, and Stats”<br />
+<br />
+    ##VERIFY<br />
+    Then I should NOT see a button labeled “Export Data”<br />
+<br />
+<br />
+<em>https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/B/Assign%20User%20Rights/B.2.6.400%20-%20Creating%20Copying%20Deleting%20Roles.feature</em><br />
+<br />
+Feature: B.2.6.400 Assign user rights Project Level: The system shall allow for the creation, copying and deletion of user roles.<br />
+<br />
+  As a REDCap end user<br />
+  I want to see that assign user rights is functioning as expected<br />
+<br />
+  Scenario: B.2.6.400.100 Create, Copy, &amp; Delete User Roles<br />
+    #SETUP<br />
+    Given I login to REDCap with the user “Test_Admin”<br />
+    And I create a new project named “B.2.6.400.100” by clicking on “New Project” in the menu bar, selecting “Practice / Just for fun” from the dropdown, choosing file “Project_1.xml”, and clicking the “Create Project” button<br />
+    When I click on the link labeled “My Projects”<br />
+    And I click on the link labeled “B.2.6.400.100”<br />
+    And I click on the link labeled “User Rights”<br />
+<br />
+    #FUNCTIONAL REQUIREMENT:<br />
+    ##ACTION: User Rights Create role<br />
+    Given I enter “TestRole2” into the field with the placeholder text of “Enter new role name”<br />
+    And I click on the button labeled “Create role”<br />
+    Then I should see a dialog containing the following text: “Creating new role”<br />
+<br />
+    ##VERIFY_UR<br />
+    When I click on the button labeled “Create role” in the dialog box<br />
+    Then I should see a table header and rows containing the following values in a table:<br />
+      | Role name |<br />
+      | 1_FullRights |<br />
+      | 2_Edit_RemoveID |<br />
+      | 3_ReadOnly_Deidentified |<br />
+      | 4_NoAccess_Noexport |<br />
+      | TestRole |<br />
+      | TestRole2 |<br />
+<br />
+    ##VERIFY_LOG<br />
+    Given I click on the link labeled “Logging”<br />
+<br />
+    Then I should see a table header and rows containing the following values in the logging table:<br />
+      | Time / Date | Username | Action | List of Data Changes OR Fields Exported |<br />
+      | mm/dd/yyyy hh:mm | test_admin | Create user role | role = ‘TestRole2’ |<br />
+<br />
+<br />
+    Given I click on the link labeled “User Rights”<br />
+    And I click on the link labeled “TestRole2”<br />
+    Then I should see a dialog containing the following text: “Editing existing user role”<br />
+<br />
+    ##ACTION: User Rights Copy role<br />
+    Given I click on the button labeled “Copy role” in the dialog box<br />
+    And I clear field and enter “Copy role” into the input field labeled “New role name:”<br />
+    And I click on the button labeled “Copy role” in the dialog box<br />
+    And I click on the button labeled “Cancel” in the dialog box<br />
+<br />
+    ##VERIFY<br />
+    Then I should see a table header and rows containing the following values in a table:<br />
+      | Role name |<br />
+      | 1_FullRights |<br />
+      | 2_Edit_RemoveID |<br />
+      | 3_ReadOnly_Deidentified |<br />
+      | 4_NoAccess_Noexport |<br />
+      | Copy role |<br />
+      | TestRole |<br />
+      | TestRole2 |<br />
+<br />
+    Given I click on the link labeled “TestRole2”<br />
+<br />
+    ##ACTION: User Rights delete role<br />
+    Given I click on the button labeled “Delete role” in the dialog box<br />
+    When I see a dialog containing the following text: “Delete role?”<br />
+    And I click on the button labeled “Delete role” in the dialog box<br />
+<br />
+    ##VERIFY<br />
+    Then I should NOT see “TestRole2”<br />
+    But I should see a table header and rows containing the following values in a table:<br />
+      | Role name |<br />
+      | 1_FullRights |<br />
+      | 2_Edit_RemoveID |<br />
+      | 3_ReadOnly_Deidentified |<br />
+      | 4_NoAccess_Noexport |<br />
+      | Copy role |<br />
+      | TestRole |<br />
+<br />
+<br />
+<em>https://github.com/CCTC-team/redcap_rsvc/blob/redcap_val/Feature%20Tests/B/Assign%20User%20Rights/B.2.6.500%20-%20Adding%20and%20Removing%20Users%20from%20Roles.feature</em><br />
+<br />
+Feature: B.2.6.500 Assign user rights Project Level: The system shall support adding and removing users from user roles.<br />
+<br />
+  As a REDCap end user<br />
+  I want to see that assign user rights is functioning as expected<br />
+<br />
+  Scenario: B.2.6.500.100 Cancel, Assign, Re-assign, &amp; Remove User Roles<br />
+    #SETUP<br />
+    Given I login to REDCap with the user “Test_Admin”<br />
+    And I create a new project named “B.2.6.500.100” by clicking on “New Project” in the menu bar, selecting “Practice / Just for fun” from the dropdown, choosing file “Project_1.xml”, and clicking the “Create Project” button<br />
+    When I click on the link labeled “My Projects”<br />
+    And I click on the link labeled “B.2.6.500.100”<br />
+    When I click on the link labeled “User Rights”<br />
+    And I click on the button labeled “Upload or download users, roles, and assignments”<br />
+    Then I should see “Upload users (CSV)”<br />
+<br />
+    When I click on the link labeled “Upload users (CSV)”<br />
+    Then I should see a dialog containing the following text: “Upload users (CSV)”<br />
+<br />
+    Given I upload a “csv” format file located at “import_files/user list for project 1.csv”, by clicking the button near “Select your CSV” to browse for the file, and clicking the button labeled “Upload” to upload the file<br />
+    Then I should see a dialog containing the following text: “Upload users (CSV) - Confirm”<br />
+    And I should see a table header and rows containing the following values in a table:<br />
+      | username |<br />
+      | test_user1 |<br />
+      | test_user2 |<br />
+      | test_user3 |<br />
+      | test_user4 |<br />
+<br />
+    Given I click on the button labeled “Upload” in the dialog box<br />
+    Then I should see a dialog containing the following text: “SUCCESS!”<br />
+<br />
+    When I click on the button labeled “Close” in the dialog box<br />
+    Then I should see a table header and rows containing the following values in a table:<br />
+      |Role name | Username |<br />
+      | — | test_admin |<br />
+      | — | test_user1 |<br />
+      | — | test_user2 |<br />
+      | — | test_user3 |<br />
+      | — | test_user4 |<br />
+      | 1_FullRights | [No users assigned] |<br />
+      | 2_Edit_RemoveID | [No users assigned] |<br />
+      | 3_ReadOnly_Deidentified | [No users assigned] |<br />
+      | 4_NoAccess_Noexport | [No users assigned] |<br />
+      | TestRole | [No users assigned] |<br />
+<br />
+    #FUNCTIONAL REQUIREMENT<br />
+    ##ACTION: Cancel assign to role<br />
+    When I click on the link labeled “Test User1”<br />
+    And I click on the button labeled “Assign to role” on the tooltip<br />
+    And I select “TestRole” on the dropdown field labeled “Select Role”<br />
+    And I click on the link labeled “Cancel”<br />
+<br />
+    ##VERIFY<br />
+    Then I should see a table header and rows containing the following values in a table:<br />
+      |Role name | Username |<br />
+      | — | test_admin |<br />
+      | — | test_user1 |<br />
+      | — | test_user2 |<br />
+      | — | test_user3 |<br />
+      | — | test_user4 |<br />
+      | 1_FullRights | [No users assigned] |<br />
+      | 2_Edit_RemoveID | [No users assigned] |<br />
+      | 3_ReadOnly_Deidentified | [No users assigned] |<br />
+      | 4_NoAccess_Noexport | [No users assigned] |<br />
+      | TestRole | [No users assigned] |<br />
+<br />
+    ##ACTION: Assign to role<br />
+    When I click on the link labeled “Test User1”<br />
+    And I click on the button labeled “Assign to role” on the tooltip<br />
+    And I select “TestRole” on the dropdown field labeled “Select Role”<br />
+    And I click on the button labeled exactly “Assign”<br />
+<br />
+    ##VERIFY<br />
+    Then I should see a table header and rows containing the following values in a table:<br />
+      |Role name | Username |<br />
+      | — | test_admin |<br />
+      | — | test_user2 |<br />
+      | — | test_user3 |<br />
+      | — | test_user4 |<br />
+      | 1_FullRights | [No users assigned] |<br />
+      | 2_Edit_RemoveID | [No users assigned] |<br />
+      | 3_ReadOnly_Deidentified | [No users assigned] |<br />
+      | 4_NoAccess_Noexport | [No users assigned] |<br />
+      | TestRole | test_user1 |<br />
+<br />
+    ##ACTION: Re-assign to role<br />
+    When I click on the link labeled “Test User1”<br />
+    And I click on the button labeled “Re-assign to role” on the tooltip<br />
+    And I select “1_FullRights” on the dropdown field labeled “Select Role”<br />
+    And I click on the button labeled exactly “Assign”<br />
+<br />
+    ##VERIFY<br />
+    Then I should see a table header and rows containing the following values in a table:<br />
+      |Role name | Username |<br />
+      | — | test_admin |<br />
+      | — | test_user1 |<br />
+      | — | test_user2 |<br />
+      | — | test_user3 |<br />
+      | — | test_user4 |<br />
+      | 2_Edit_RemoveID | [No users assigned] |<br />
+      | 3_ReadOnly_Deidentified | [No users assigned] |<br />
+      | 4_NoAccess_Noexport | [No users assigned] |<br />
+      | TestRole | [No users assigned] |<br />
+<br />
+    ##ACTION: Remove from role<br />
+    When I click on the link labeled “Test User1”<br />
+    And I click on the button labeled “Remove from role”<br />
+<br />
+    ##VERIFY<br />
+    Then I should see a table header and rows containing the following values in a table:<br />
+      |Role name | Username |<br />
+      | — | test_admin |<br />
+      | — | test_user1 |<br />
+      | — | test_user2 |<br />
+      | — | test_user3 |<br />
+      | — | test_user4 |<br />
+      | 1_FullRights | [No users assigned] |<br />
+      | 2_Edit_RemoveID | [No users assigned] |<br />
+      | 3_ReadOnly_Deidentified | [No users assigned] |<br />
+      | 4_NoAccess_Noexport | [No users assigned] |<br />
+      | TestRole | [No users assigned] |<br />
+<br />
+    And I should see a dialog containing the following text: “User’s privileges will remain the same”<br />
+    And I click on the button labeled “Close” in the dialog box</div>
+</div>
+<hr />
+<p><strong>Comments:</strong><br />
+</p>
+<div class="comments">
+
+</div>
+<hr />
+<p><strong>Timeline events:</strong><br />
+</p>
+<div class="timeline">
+<div class="timeline">
+<p>LABELLED | <em>User:</em> MintooXavier <em>Created on:</em> 29/05/2024 10:38:27 <em>Label name:</em> Core feature <em>Label description:</em> Part of the RSVC core feature set</p>
+<p>LABELLED | <em>User:</em> MintooXavier <em>Created on:</em> 29/05/2024 10:38:27 <em>Label name:</em> Gherkin <em>Label description:</em> Uses a Gherkin syntax</p>
+<p>LABELLED | <em>User:</em> MintooXavier <em>Created on:</em> 29/05/2024 10:38:27 <em>Label name:</em> Automated <em>Label description:</em></p>
+</div>
+</div>
+<p><br/></p>
+<p>————— feature ends —————</p>
+<p><br/></p>
+<hr />
+<div id="redcap_cypress-25">
+<strong>Feature:</strong> 1. Two Factor Authentication
+</div>
+<hr />
+<table>
+<colgroup>
+<col style="width: 60%" />
+<col style="width: 40%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Id:</strong> I_kwDOIaOBn86KdfsO</td>
+<td style="text-align: left;"><strong>Uid:</strong> redcap_cypress-25</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Author:</strong> MintooXavier</td>
+<td style="text-align: left;"><strong>Created:</strong> 29/05/2024 10:40:15</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Assignees:</strong> |none|</td>
+<td style="text-align: left;"><strong>Resource path:</strong> <a href=https://github.com//CCTC-team/redcap_cypress/issues/25 target=_blank>/CCTC-team/redcap_cypress/issues/25</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Milestone:</strong> |none|</td>
+<td style="text-align: left;"><strong>Labels:</strong> Non-core feature || Manual</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<table>
+<colgroup>
+<col style="width: 60%" />
+<col style="width: 40%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>State:</strong> OPEN</td>
+<td style="text-align: left;"><strong>State reason</strong>: |not applicable|</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Includes created edit:</strong> true</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Closed:</strong> false</td>
+<td style="text-align: left;"><strong>Closed on:</strong> |none|</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Editor:</strong> MintooXavier</td>
+<td style="text-align: left;"><strong>Updated on:</strong> 30/05/2024 11:27:12</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Locked:</strong> false</td>
+<td style="text-align: left;"><strong>Participants:</strong> MintooXavier</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<strong>Project item body:</strong><br />
+
+<div class="feature-body">
+<p dir="auto">
+Brief description:<br> This feature increases the security of the system by adding an additional security code on top of the password at user login.
+</p>
+<p dir="auto">
+User spec:<br> <a href="https://github.com/CCTC-team/redcap_cypress/blob/redcap_val/user_requirement_specification/non_core/two_factor_authentication.spec">https://github.com/CCTC-team/redcap_cypress/blob/redcap_val/user_requirement_specification/non_core/two_factor_authentication.spec</a>
+</p>
+<p dir="auto">
+Feature link:<br> <a href="https://github.com/CCTC-team/redcap_cypress/blob/redcap_val/manual_testing/01_Two_Factor_Authentication.gfm">https://github.com/CCTC-team/redcap_cypress/blob/redcap_val/manual_testing/01_Two_Factor_Authentication.gfm</a>
+</p>
+<p dir="auto">
+Pre review:
+</p>
+<ul class="contains-task-list">
+<li class="task-list-item">
+<input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> Script(s) targets the correct feature sufficiently
+</li>
+<li class="task-list-item">
+<input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> The user requirements are met
+</li>
+</ul>
+<p dir="auto">
+Post review:
+</p>
+<ul class="contains-task-list">
+<li class="task-list-item">
+<input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> Script(s) targets the correct feature sufficiently
+</li>
+<li class="task-list-item">
+<input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> Script(s) appropriately tests the feature
+</li>
+</ul>
+</div>
+<hr />
+<p><strong>User specification:</strong><br />
+</p>
+<div class="spec-script">
+<div class="line-block"><br />
+<em>https://github.com/CCTC-team/redcap_cypress/blob/redcap_val/user_requirement_specification/non_core/two_factor_authentication.spec</em><br />
+<br />
+1.1 - The system shall support enabling/disabling of Two-Factor Authentication.<br />
+1.2 - The system shall support the ability to use Two-Factor Authentication for user login.</div>
+</div>
+<p><strong>Test script:</strong><br />
+</p>
+<div class="spec-script">
+| | <em>https://github.com/CCTC-team/redcap_cypress/blob/redcap_val/manual_testing/01_Two_Factor_Authentication.gfm</em> | | &lt;!DOCTYPE html&gt;
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<title>
+01_Two_Factor_Authentication
+</title>
+<style>    code{white-space: pre-wrap;}    span.smallcaps{font-variant: small-caps;}    span.underline{text-decoration: underline;}    div.column{display: inline-block; vertical-align: top; width: 50%;}    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}    ul.task-list{list-style: none;}    .display.math{display: block; text-align: center; margin: 0.5rem auto;}  </style>
+<!--[if lt IE 9]>    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>  <![endif]-->
+</head>
+<body>
+<table style="width:97%;">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 12%" />
+<col style="width: 18%" />
+<col style="width: 47%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>
+<strong>System Setup</strong>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>
+<strong>Database Version</strong>
+</td>
+<td>
+<blockquote>
+<p>
+REDCap 1 3.8.1
+</p>
+</blockquote>
+</td>
+<td>
+<blockquote>
+<p>
+<strong>A pplication URL</strong>
+</p>
+</blockquote>
+</td>
+<td>
+<blockquote>
+<p>
+https://localhost:8443/
+</p>
+</blockquote>
+</td>
+</tr>
+<tr class="even">
+<td>
+<strong>Document Status</strong>
+</td>
+<td>
+<blockquote>
+<p>
+Co mplete
+</p>
+</blockquote>
+</td>
+<td>
+<strong>Document Version</strong>
+</td>
+<td>
+<blockquote>
+<p>
+1
+</p>
+</blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>
+<strong>Test Summary</strong>
+</td>
+</tr>
+<tr class="even">
+<td>
+<p>
+<strong>Feature Category Description:</strong> Two-Factor Authentication increases the security of the system by adding an additional security code on top of the password at user login.
+</p>
+<p>
+<strong>Test Purpose Details:</strong> This test script validates if the Two-Factor Authentication works
+</p>
+<p>
+<strong>Functional Requirements:</strong>
+</p>
+<ul>
+<li>
+<p>
+1.1 The system shall support enabling/disabling of Two-Factor Authentication.
+</p>
+</li>
+<li>
+<p>
+1.2 The system shall support the ability to use Two-Factor Authentication for user login.
+</p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="odd">
+<td>
+</td>
+</tr>
+</tbody>
+</table>
+<table style="width:97%;">
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 16%" />
+<col style="width: 19%" />
+<col style="width: 25%" />
+<col style="width: 29%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>
+<strong> Te st Re qu ir em en ts </strong>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr class="even">
+<td>
+<strong> Te st U se rs </strong>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr class="odd">
+<td>
+<strong> ID </strong>
+</td>
+<td>
+<strong>U sername</strong>
+</td>
+<td>
+<ul>
+<li>
+*Password**
+</li>
+</ul>
+</td>
+<td>
+<strong>Minimum Users Rights</strong>
+</td>
+<td>
+<strong>Other Settings</strong>
+</td>
+</tr>
+<tr class="even">
+<td>
+<blockquote>
+<p>
+<strong> 1. </strong>
+</p>
+</blockquote>
+</td>
+<td>
+test_user
+</td>
+<td>
+Testing123
+</td>
+<td>
+Standard User
+</td>
+<td>
+</td>
+</tr>
+<tr class="odd">
+<td>
+<blockquote>
+<p>
+<strong> 2. </strong>
+</p>
+</blockquote>
+</td>
+<td>
+t est_admin
+</td>
+<td>
+Testing123
+</td>
+<td>
+Administrator
+</td>
+<td>
+</td>
+</tr>
+</tbody>
+</table>
+<table style="width:97%;">
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 36%" />
+<col style="width: 54%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>
+<ul>
+<li>
+*P ro je ct S et up **
+</li>
+</ul>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr class="even">
+<td>
+<strong> ID </strong>
+</td>
+<td>
+<blockquote>
+<p>
+<strong>Description</strong>
+</p>
+</blockquote>
+</td>
+<td>
+<blockquote>
+<p>
+<strong>Instructions</strong>
+</p>
+</blockquote>
+</td>
+</tr>
+<tr class="odd">
+<td>
+1 .
+</td>
+<td>
+<blockquote>
+<p>
+Project Setup
+</p>
+</blockquote>
+</td>
+<td>
+<h4 id="control-center-secur">
+Control Center, Secur
+</h4>
+<p>
+ity &amp; Authentication Configuration:
+</p>
+<p>
+Two-factor Authentication = Disabled
+</p>
+</td>
+</tr>
+<tr class="even">
+<td>
+2 .
+</td>
+<td>
+<blockquote>
+<p>
+Data Import File
+</p>
+</blockquote>
+</td>
+<td>
+</td>
+</tr>
+<tr class="odd">
+<td>
+3 .
+</td>
+<td>
+<blockquote>
+<p>
+Other Files
+</p>
+</blockquote>
+</td>
+<td>
+</td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 31%" />
+<col style="width: 27%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>
+<strong> Test Ste ps</strong>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr class="even">
+<td>
+<strong> Step #</strong>
+</td>
+<td>
+<strong>Action Step</strong>
+</td>
+<td>
+<strong>Expected Result</strong>
+</td>
+<td>
+<strong>Pass / Fail</strong>
+</td>
+<td>
+<strong>Com ments</strong>
+</td>
+</tr>
+<tr class="odd">
+<td>
+<blockquote>
+<p>
+<em>H elp</em>
+</p>
+</blockquote>
+</td>
+<td>
+<em>You must perform the actions listed in this column.</em>
+</td>
+<td>
+<em>After performing the actions in the Action Step column, you should see the following.</em>
+</td>
+<td>
+<em>Check Pass, if the actual results match the Expected Result; ot herwise, check Fail.</em>
+</td>
+<td>
+<ul>
+<li>
+Include une xpected r esults, sugge stions. etc.*
+</li>
+</ul>
+</td>
+</tr>
+<tr class="even">
+<td>
+<ol type="1">
+<li>
+</li>
+</ol>
+</td>
+<td>
+Login as test_user using username and password
+</td>
+<td>
+Successfully logs into REDCap
+</td>
+<td>
+<ul>
+<li>
+<strong>Pass</strong>
+</li>
+</ul>
+<strong>Fail </strong>
+</td>
+<td>
+</td>
+</tr>
+<tr class="odd">
+<td>
+<ol start="2" type="1">
+<li>
+</li>
+</ol>
+</td>
+<td>
+Logout as test_user
+</td>
+<td>
+Successfully logged off
+</td>
+<td>
+<ul>
+<li>
+<strong>Pass</strong>
+</li>
+</ul>
+<strong>Fail </strong>
+</td>
+<td>
+</td>
+</tr>
+<tr class="even">
+<td>
+<ol start="3" type="1">
+<li>
+</li>
+</ol>
+</td>
+<td>
+Login as test_admin
+</td>
+<td>
+Successfully logs into REDCap
+</td>
+<td>
+<ul>
+<li>
+<strong>Pass</strong>
+</li>
+</ul>
+<strong>Fail </strong>
+</td>
+<td>
+</td>
+</tr>
+<tr class="odd">
+<td>
+<ol start="4" type="1">
+<li>
+</li>
+</ol>
+</td>
+<td>
+<p>
+Go to Control Center.
+</p>
+<p>
+Click on Security &amp; Authentication in System Configuration group
+</p>
+</td>
+<td>
+<p>
+Control Center page is displayed.
+</p>
+<p>
+Security &amp; Authentication Configuration page is displayed
+</p>
+</td>
+<td>
+<ul>
+<li>
+<strong>Pass</strong>
+</li>
+</ul>
+<strong>Fail </strong>
+</td>
+<td>
+</td>
+</tr>
+<tr class="even">
+<td>
+<ol start="5" type="1">
+<li>
+</li>
+</ol>
+</td>
+<td>
+<p>
+Set the following settings:
+</p>
+<p>
+Two-Factor Authentication = Enabled
+</p>
+<p>
+Enforce two-factor authentication ONLY for Table-based users? = No, enforce on all users (Table-based and non-Table-based)
+</p>
+<p>
+Authentication interval: Trust a device’s two-factor login for X days? = 1
+</p>
+<p>
+Save Changes
+</p>
+</td>
+<td>
+Security &amp; Authentication Configuration are saved
+</td>
+<td>
+<ul>
+<li>
+<strong>Pass</strong>
+</li>
+</ul>
+<strong>Fail </strong>
+</td>
+<td>
+</td>
+</tr>
+<tr class="odd">
+<td>
+<ol start="6" type="1">
+<li>
+</li>
+</ol>
+</td>
+<td>
+Logout as test_admin
+</td>
+<td>
+Successfully logged off
+</td>
+<td>
+<ul>
+<li>
+<strong>Pass</strong>
+</li>
+</ul>
+<strong>Fail </strong>
+</td>
+<td>
+</td>
+</tr>
+<tr class="even">
+<td>
+<ol start="7" type="1">
+<li>
+</li>
+</ol>
+</td>
+<td>
+Login as test_user using username and password
+</td>
+<td>
+Pop-up appears Two-step verification for REDCap login
+</td>
+<td>
+<ul>
+<li>
+<strong>Pass</strong>
+</li>
+</ul>
+<strong>Fail </strong>
+</td>
+<td>
+</td>
+</tr>
+<tr class="odd">
+<td>
+<ol start="8" type="1">
+<li>
+</li>
+</ol>
+</td>
+<td>
+<p>
+Do not check the checkbox Don’t prompt me with two-step login on this computer for 24 hours
+</p>
+<p>
+Select the radio button for Email
+</p>
+</td>
+<td>
+Pop-up appears Enter your verification code
+</td>
+<td>
+<ul>
+<li>
+<strong>Pass</strong>
+</li>
+</ul>
+<strong>Fail </strong>
+</td>
+<td>
+</td>
+</tr>
+<tr class="even">
+<td>
+<ol start="9" type="1">
+<li>
+</li>
+</ol>
+</td>
+<td>
+Go to test_users email (MailHog) and get the verification code and enter it in the textbox and press the Submit button
+</td>
+<td>
+<p>
+A green tick and success appears next to the textbox
+</p>
+<p>
+Successfully directed to My Projects page
+</p>
+</td>
+<td>
+<ul>
+<li>
+<strong>Pass</strong>
+</li>
+</ul>
+<strong>Fail </strong>
+</td>
+<td>
+</td>
+</tr>
+<tr class="odd">
+<td>
+<ol start="10" type="1">
+<li>
+</li>
+</ol>
+</td>
+<td>
+Logout as test_user
+</td>
+<td>
+Successfully logged off
+</td>
+<td>
+<ul>
+<li>
+<strong>Pass</strong>
+</li>
+</ul>
+<strong>Fail </strong>
+</td>
+<td>
+</td>
+</tr>
+<tr class="even">
+<td>
+<ol start="11" type="1">
+<li>
+</li>
+</ol>
+</td>
+<td>
+Login as test_user using username and password
+</td>
+<td>
+Pop-up appears Two-step verification for REDCap login
+</td>
+<td>
+<ul>
+<li>
+<strong>Pass</strong>
+</li>
+</ul>
+<strong>Fail </strong>
+</td>
+<td>
+</td>
+</tr>
+<tr class="odd">
+<td>
+<ol start="12" type="1">
+<li>
+</li>
+</ol>
+</td>
+<td>
+<p>
+Check the checkbox Don’t prompt me with two-step login on this computer for 24 hours
+</p>
+<p>
+Select the radio button for Email
+</p>
+</td>
+<td>
+Pop-up appears Enter your verification code
+</td>
+<td>
+<ul>
+<li>
+<strong>Pass</strong>
+</li>
+</ul>
+<strong>Fail </strong>
+</td>
+<td>
+</td>
+</tr>
+<tr class="even">
+<td>
+<ol start="13" type="1">
+<li>
+</li>
+</ol>
+</td>
+<td>
+Go to test_users email (MailHog) and get the verification code and enter it in the textbox and press the Submit button
+</td>
+<td>
+<p>
+A green tick and success appear next to the textbox
+</p>
+<p>
+Successfully directed to My Projects page
+</p>
+</td>
+<td>
+<ul>
+<li>
+<strong>Pass</strong>
+</li>
+</ul>
+<strong>Fail </strong>
+</td>
+<td>
+</td>
+</tr>
+<tr class="odd">
+<td>
+<ol start="14" type="1">
+<li>
+</li>
+</ol>
+</td>
+<td>
+Logout as test_user
+</td>
+<td>
+Successfully logged off
+</td>
+<td>
+<ul>
+<li>
+<strong>Pass</strong>
+</li>
+</ul>
+<strong>Fail </strong>
+</td>
+<td>
+</td>
+</tr>
+<tr class="even">
+<td>
+<ol start="15" type="1">
+<li>
+</li>
+</ol>
+</td>
+<td>
+Login as test_user using username and password
+</td>
+<td>
+<p>
+Successfully logs into REDCap
+</p>
+<p>
+No verification code asked
+</p>
+</td>
+<td>
+<ul>
+<li>
+<strong>Pass</strong>
+</li>
+</ul>
+<strong>Fail </strong>
+</td>
+<td>
+</td>
+</tr>
+<tr class="odd">
+<td>
+<ol start="16" type="1">
+<li>
+</li>
+</ol>
+</td>
+<td>
+Logout as test_user
+</td>
+<td>
+Successfully logged off
+</td>
+<td>
+<ul>
+<li>
+<strong>Pass</strong>
+</li>
+</ul>
+<strong>Fail </strong>
+</td>
+<td>
+</td>
+</tr>
+<tr class="even">
+<td>
+</td>
+<td>
+THIS ENDS THE TESTING FOR THIS SCRIPT
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+</tbody>
+</table>
+<table style="width:96%;">
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 62%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>
+<strong>Con clusion</strong>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr class="even">
+<td>
+Did the Actual Results for each test step match the Expected Results listed?
+</td>
+<td>
+</td>
+<td>
+<ul>
+<li>
+</li>
+</ul>
+Y e s
+</td>
+<td>
+</td>
+<td>
+<blockquote>
+</blockquote>
+N o
+</td>
+</tr>
+<tr class="odd">
+<td>
+<blockquote>
+<p>
+<strong>C omments/A dditional Infor mation:</strong>
+</p>
+<p>
+(Indicate the step number of the step you wish to comment on.)
+</p>
+</blockquote>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr class="even">
+<td>
+<strong> Completed By</strong>
+</td>
+<td>
+<strong>Rukayat Yakub</strong>
+</td>
+<td>
+<ul>
+<li>
+</li>
+<li>
+D a t e :
+</li>
+<li>
+</li>
+<li>
+</li>
+</ul>
+</td>
+<td>
+<ul>
+<li>
+</li>
+<li>
+2 0 / 1 1 / 2 0 2 3
+</li>
+<li>
+</li>
+<li>
+</li>
+</ul>
+</td>
+<td>
+</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>
+</div>
+<hr />
+<p><strong>Comments:</strong><br />
+</p>
+<div class="comments">
+
+</div>
+<hr />
+<p><strong>Timeline events:</strong><br />
+</p>
+<div class="timeline">
+<div class="timeline">
+<p>LABELLED | <em>User:</em> MintooXavier <em>Created on:</em> 29/05/2024 10:40:30 <em>Label name:</em> Non-core feature <em>Label description:</em> A feature managed by CCTU</p>
+<p>LABELLED | <em>User:</em> MintooXavier <em>Created on:</em> 29/05/2024 10:40:30 <em>Label name:</em> Manual <em>Label description:</em></p>
+</div>
+</div>
+<p><br/></p>
+<p>————— feature ends —————</p>
+<p><br/></p>
+<hr />
+<div id="redcap_cypress-26">
+<strong>Feature:</strong> 2. Alerts and Notifications
+</div>
+<hr />
+<table>
+<colgroup>
+<col style="width: 60%" />
+<col style="width: 40%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Id:</strong> I_kwDOIaOBn86KmJ24</td>
+<td style="text-align: left;"><strong>Uid:</strong> redcap_cypress-26</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Author:</strong> MintooXavier</td>
+<td style="text-align: left;"><strong>Created:</strong> 30/05/2024 09:59:47</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Assignees:</strong> |none|</td>
+<td style="text-align: left;"><strong>Resource path:</strong> <a href=https://github.com//CCTC-team/redcap_cypress/issues/26 target=_blank>/CCTC-team/redcap_cypress/issues/26</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Milestone:</strong> |none|</td>
+<td style="text-align: left;"><strong>Labels:</strong> Non-core feature || Manual</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<table>
+<colgroup>
+<col style="width: 60%" />
+<col style="width: 40%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>State:</strong> OPEN</td>
+<td style="text-align: left;"><strong>State reason</strong>: |not applicable|</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Includes created edit:</strong> true</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Closed:</strong> false</td>
+<td style="text-align: left;"><strong>Closed on:</strong> |none|</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Editor:</strong> MintooXavier</td>
+<td style="text-align: left;"><strong>Updated on:</strong> 30/05/2024 11:29:55</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Locked:</strong> false</td>
+<td style="text-align: left;"><strong>Participants:</strong> MintooXavier</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<strong>Project item body:</strong><br />
+
+<div class="feature-body">
+<p dir="auto">
+Brief description:<br> This feature is used to send emails when a record is saved and/or when a condition is met. e.g. when a participant is registered etc.
+</p>
+<p dir="auto">
+User spec:<br> <a href="https://github.com/CCTC-team/redcap_cypress/blob/redcap_val/user_requirement_specification/non_core/alerts_and_notifications.spec">https://github.com/CCTC-team/redcap_cypress/blob/redcap_val/user_requirement_specification/non_core/alerts_and_notifications.spec</a>
+</p>
+<p dir="auto">
+Feature link:<br> <a href="https://github.com/CCTC-team/redcap_cypress/blob/redcap_val/manual_testing/01_Two_Factor_Authentication.gfm">https://github.com/CCTC-team/redcap_cypress/blob/redcap_val/manual_testing/01_Two_Factor_Authentication.gfm</a>
+</p>
+<p dir="auto">
+Pre review:
+</p>
+<ul class="contains-task-list">
+<li class="task-list-item">
+<input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> Script(s) targets the correct feature sufficiently
+</li>
+<li class="task-list-item">
+<input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> The user requirements are met
+</li>
+</ul>
+<p dir="auto">
+Post review:
+</p>
+<ul class="contains-task-list">
+<li class="task-list-item">
+<input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> Script(s) targets the correct feature sufficiently
+</li>
+<li class="task-list-item">
+<input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> Script(s) appropriately tests the feature
+</li>
+</ul>
+</div>
+<hr />
+<p><strong>User specification:</strong><br />
+</p>
+<div class="spec-script">
+<div class="line-block"><br />
+<em>https://github.com/CCTC-team/redcap_cypress/blob/redcap_val/user_requirement_specification/non_core/alerts_and_notifications.spec</em><br />
+<br />
+2.1 - The system shall support the ability to send emails when a record is saved on a specific form/survey<br />
+2.2 - The system shall support the ability to send emails when a record is saved on a specific form/survey with Complete Status Only<br />
+2.3 - The system shall support the ability to send emails If conditional logic is TRUE when a record is saved on a specific form/survey<br />
+2.4 - The system shall support the ability to send emails When conditional logic is TRUE during a data import, data entry, or as the result of time-based logic.</div>
+</div>
+<p><strong>Test script:</strong><br />
+</p>
+<div class="spec-script">
+| | <em>https://github.com/CCTC-team/redcap_cypress/blob/redcap_val/manual_testing/01_Two_Factor_Authentication.gfm</em> | | &lt;!DOCTYPE html&gt;
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<title>
+01_Two_Factor_Authentication
+</title>
+<style>    code{white-space: pre-wrap;}    span.smallcaps{font-variant: small-caps;}    span.underline{text-decoration: underline;}    div.column{display: inline-block; vertical-align: top; width: 50%;}    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}    ul.task-list{list-style: none;}    .display.math{display: block; text-align: center; margin: 0.5rem auto;}  </style>
+<!--[if lt IE 9]>    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>  <![endif]-->
+</head>
+<body>
+<table style="width:97%;">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 12%" />
+<col style="width: 18%" />
+<col style="width: 47%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>
+<strong>System Setup</strong>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>
+<strong>Database Version</strong>
+</td>
+<td>
+<blockquote>
+<p>
+REDCap 1 3.8.1
+</p>
+</blockquote>
+</td>
+<td>
+<blockquote>
+<p>
+<strong>A pplication URL</strong>
+</p>
+</blockquote>
+</td>
+<td>
+<blockquote>
+<p>
+https://localhost:8443/
+</p>
+</blockquote>
+</td>
+</tr>
+<tr class="even">
+<td>
+<strong>Document Status</strong>
+</td>
+<td>
+<blockquote>
+<p>
+Co mplete
+</p>
+</blockquote>
+</td>
+<td>
+<strong>Document Version</strong>
+</td>
+<td>
+<blockquote>
+<p>
+1
+</p>
+</blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>
+<strong>Test Summary</strong>
+</td>
+</tr>
+<tr class="even">
+<td>
+<p>
+<strong>Feature Category Description:</strong> Two-Factor Authentication increases the security of the system by adding an additional security code on top of the password at user login.
+</p>
+<p>
+<strong>Test Purpose Details:</strong> This test script validates if the Two-Factor Authentication works
+</p>
+<p>
+<strong>Functional Requirements:</strong>
+</p>
+<ul>
+<li>
+<p>
+1.1 The system shall support enabling/disabling of Two-Factor Authentication.
+</p>
+</li>
+<li>
+<p>
+1.2 The system shall support the ability to use Two-Factor Authentication for user login.
+</p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="odd">
+<td>
+</td>
+</tr>
+</tbody>
+</table>
+<table style="width:97%;">
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 16%" />
+<col style="width: 19%" />
+<col style="width: 25%" />
+<col style="width: 29%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>
+<strong> Te st Re qu ir em en ts </strong>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr class="even">
+<td>
+<strong> Te st U se rs </strong>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr class="odd">
+<td>
+<strong> ID </strong>
+</td>
+<td>
+<strong>U sername</strong>
+</td>
+<td>
+<ul>
+<li>
+*Password**
+</li>
+</ul>
+</td>
+<td>
+<strong>Minimum Users Rights</strong>
+</td>
+<td>
+<strong>Other Settings</strong>
+</td>
+</tr>
+<tr class="even">
+<td>
+<blockquote>
+<p>
+<strong> 1. </strong>
+</p>
+</blockquote>
+</td>
+<td>
+test_user
+</td>
+<td>
+Testing123
+</td>
+<td>
+Standard User
+</td>
+<td>
+</td>
+</tr>
+<tr class="odd">
+<td>
+<blockquote>
+<p>
+<strong> 2. </strong>
+</p>
+</blockquote>
+</td>
+<td>
+t est_admin
+</td>
+<td>
+Testing123
+</td>
+<td>
+Administrator
+</td>
+<td>
+</td>
+</tr>
+</tbody>
+</table>
+<table style="width:97%;">
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 36%" />
+<col style="width: 54%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>
+<ul>
+<li>
+*P ro je ct S et up **
+</li>
+</ul>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr class="even">
+<td>
+<strong> ID </strong>
+</td>
+<td>
+<blockquote>
+<p>
+<strong>Description</strong>
+</p>
+</blockquote>
+</td>
+<td>
+<blockquote>
+<p>
+<strong>Instructions</strong>
+</p>
+</blockquote>
+</td>
+</tr>
+<tr class="odd">
+<td>
+1 .
+</td>
+<td>
+<blockquote>
+<p>
+Project Setup
+</p>
+</blockquote>
+</td>
+<td>
+<h4 id="control-center-secur">
+Control Center, Secur
+</h4>
+<p>
+ity &amp; Authentication Configuration:
+</p>
+<p>
+Two-factor Authentication = Disabled
+</p>
+</td>
+</tr>
+<tr class="even">
+<td>
+2 .
+</td>
+<td>
+<blockquote>
+<p>
+Data Import File
+</p>
+</blockquote>
+</td>
+<td>
+</td>
+</tr>
+<tr class="odd">
+<td>
+3 .
+</td>
+<td>
+<blockquote>
+<p>
+Other Files
+</p>
+</blockquote>
+</td>
+<td>
+</td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 31%" />
+<col style="width: 27%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>
+<strong> Test Ste ps</strong>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr class="even">
+<td>
+<strong> Step #</strong>
+</td>
+<td>
+<strong>Action Step</strong>
+</td>
+<td>
+<strong>Expected Result</strong>
+</td>
+<td>
+<strong>Pass / Fail</strong>
+</td>
+<td>
+<strong>Com ments</strong>
+</td>
+</tr>
+<tr class="odd">
+<td>
+<blockquote>
+<p>
+<em>H elp</em>
+</p>
+</blockquote>
+</td>
+<td>
+<em>You must perform the actions listed in this column.</em>
+</td>
+<td>
+<em>After performing the actions in the Action Step column, you should see the following.</em>
+</td>
+<td>
+<em>Check Pass, if the actual results match the Expected Result; ot herwise, check Fail.</em>
+</td>
+<td>
+<ul>
+<li>
+Include une xpected r esults, sugge stions. etc.*
+</li>
+</ul>
+</td>
+</tr>
+<tr class="even">
+<td>
+<ol type="1">
+<li>
+</li>
+</ol>
+</td>
+<td>
+Login as test_user using username and password
+</td>
+<td>
+Successfully logs into REDCap
+</td>
+<td>
+<ul>
+<li>
+<strong>Pass</strong>
+</li>
+</ul>
+<strong>Fail </strong>
+</td>
+<td>
+</td>
+</tr>
+<tr class="odd">
+<td>
+<ol start="2" type="1">
+<li>
+</li>
+</ol>
+</td>
+<td>
+Logout as test_user
+</td>
+<td>
+Successfully logged off
+</td>
+<td>
+<ul>
+<li>
+<strong>Pass</strong>
+</li>
+</ul>
+<strong>Fail </strong>
+</td>
+<td>
+</td>
+</tr>
+<tr class="even">
+<td>
+<ol start="3" type="1">
+<li>
+</li>
+</ol>
+</td>
+<td>
+Login as test_admin
+</td>
+<td>
+Successfully logs into REDCap
+</td>
+<td>
+<ul>
+<li>
+<strong>Pass</strong>
+</li>
+</ul>
+<strong>Fail </strong>
+</td>
+<td>
+</td>
+</tr>
+<tr class="odd">
+<td>
+<ol start="4" type="1">
+<li>
+</li>
+</ol>
+</td>
+<td>
+<p>
+Go to Control Center.
+</p>
+<p>
+Click on Security &amp; Authentication in System Configuration group
+</p>
+</td>
+<td>
+<p>
+Control Center page is displayed.
+</p>
+<p>
+Security &amp; Authentication Configuration page is displayed
+</p>
+</td>
+<td>
+<ul>
+<li>
+<strong>Pass</strong>
+</li>
+</ul>
+<strong>Fail </strong>
+</td>
+<td>
+</td>
+</tr>
+<tr class="even">
+<td>
+<ol start="5" type="1">
+<li>
+</li>
+</ol>
+</td>
+<td>
+<p>
+Set the following settings:
+</p>
+<p>
+Two-Factor Authentication = Enabled
+</p>
+<p>
+Enforce two-factor authentication ONLY for Table-based users? = No, enforce on all users (Table-based and non-Table-based)
+</p>
+<p>
+Authentication interval: Trust a device’s two-factor login for X days? = 1
+</p>
+<p>
+Save Changes
+</p>
+</td>
+<td>
+Security &amp; Authentication Configuration are saved
+</td>
+<td>
+<ul>
+<li>
+<strong>Pass</strong>
+</li>
+</ul>
+<strong>Fail </strong>
+</td>
+<td>
+</td>
+</tr>
+<tr class="odd">
+<td>
+<ol start="6" type="1">
+<li>
+</li>
+</ol>
+</td>
+<td>
+Logout as test_admin
+</td>
+<td>
+Successfully logged off
+</td>
+<td>
+<ul>
+<li>
+<strong>Pass</strong>
+</li>
+</ul>
+<strong>Fail </strong>
+</td>
+<td>
+</td>
+</tr>
+<tr class="even">
+<td>
+<ol start="7" type="1">
+<li>
+</li>
+</ol>
+</td>
+<td>
+Login as test_user using username and password
+</td>
+<td>
+Pop-up appears Two-step verification for REDCap login
+</td>
+<td>
+<ul>
+<li>
+<strong>Pass</strong>
+</li>
+</ul>
+<strong>Fail </strong>
+</td>
+<td>
+</td>
+</tr>
+<tr class="odd">
+<td>
+<ol start="8" type="1">
+<li>
+</li>
+</ol>
+</td>
+<td>
+<p>
+Do not check the checkbox Don’t prompt me with two-step login on this computer for 24 hours
+</p>
+<p>
+Select the radio button for Email
+</p>
+</td>
+<td>
+Pop-up appears Enter your verification code
+</td>
+<td>
+<ul>
+<li>
+<strong>Pass</strong>
+</li>
+</ul>
+<strong>Fail </strong>
+</td>
+<td>
+</td>
+</tr>
+<tr class="even">
+<td>
+<ol start="9" type="1">
+<li>
+</li>
+</ol>
+</td>
+<td>
+Go to test_users email (MailHog) and get the verification code and enter it in the textbox and press the Submit button
+</td>
+<td>
+<p>
+A green tick and success appears next to the textbox
+</p>
+<p>
+Successfully directed to My Projects page
+</p>
+</td>
+<td>
+<ul>
+<li>
+<strong>Pass</strong>
+</li>
+</ul>
+<strong>Fail </strong>
+</td>
+<td>
+</td>
+</tr>
+<tr class="odd">
+<td>
+<ol start="10" type="1">
+<li>
+</li>
+</ol>
+</td>
+<td>
+Logout as test_user
+</td>
+<td>
+Successfully logged off
+</td>
+<td>
+<ul>
+<li>
+<strong>Pass</strong>
+</li>
+</ul>
+<strong>Fail </strong>
+</td>
+<td>
+</td>
+</tr>
+<tr class="even">
+<td>
+<ol start="11" type="1">
+<li>
+</li>
+</ol>
+</td>
+<td>
+Login as test_user using username and password
+</td>
+<td>
+Pop-up appears Two-step verification for REDCap login
+</td>
+<td>
+<ul>
+<li>
+<strong>Pass</strong>
+</li>
+</ul>
+<strong>Fail </strong>
+</td>
+<td>
+</td>
+</tr>
+<tr class="odd">
+<td>
+<ol start="12" type="1">
+<li>
+</li>
+</ol>
+</td>
+<td>
+<p>
+Check the checkbox Don’t prompt me with two-step login on this computer for 24 hours
+</p>
+<p>
+Select the radio button for Email
+</p>
+</td>
+<td>
+Pop-up appears Enter your verification code
+</td>
+<td>
+<ul>
+<li>
+<strong>Pass</strong>
+</li>
+</ul>
+<strong>Fail </strong>
+</td>
+<td>
+</td>
+</tr>
+<tr class="even">
+<td>
+<ol start="13" type="1">
+<li>
+</li>
+</ol>
+</td>
+<td>
+Go to test_users email (MailHog) and get the verification code and enter it in the textbox and press the Submit button
+</td>
+<td>
+<p>
+A green tick and success appear next to the textbox
+</p>
+<p>
+Successfully directed to My Projects page
+</p>
+</td>
+<td>
+<ul>
+<li>
+<strong>Pass</strong>
+</li>
+</ul>
+<strong>Fail </strong>
+</td>
+<td>
+</td>
+</tr>
+<tr class="odd">
+<td>
+<ol start="14" type="1">
+<li>
+</li>
+</ol>
+</td>
+<td>
+Logout as test_user
+</td>
+<td>
+Successfully logged off
+</td>
+<td>
+<ul>
+<li>
+<strong>Pass</strong>
+</li>
+</ul>
+<strong>Fail </strong>
+</td>
+<td>
+</td>
+</tr>
+<tr class="even">
+<td>
+<ol start="15" type="1">
+<li>
+</li>
+</ol>
+</td>
+<td>
+Login as test_user using username and password
+</td>
+<td>
+<p>
+Successfully logs into REDCap
+</p>
+<p>
+No verification code asked
+</p>
+</td>
+<td>
+<ul>
+<li>
+<strong>Pass</strong>
+</li>
+</ul>
+<strong>Fail </strong>
+</td>
+<td>
+</td>
+</tr>
+<tr class="odd">
+<td>
+<ol start="16" type="1">
+<li>
+</li>
+</ol>
+</td>
+<td>
+Logout as test_user
+</td>
+<td>
+Successfully logged off
+</td>
+<td>
+<ul>
+<li>
+<strong>Pass</strong>
+</li>
+</ul>
+<strong>Fail </strong>
+</td>
+<td>
+</td>
+</tr>
+<tr class="even">
+<td>
+</td>
+<td>
+THIS ENDS THE TESTING FOR THIS SCRIPT
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+</tbody>
+</table>
+<table style="width:96%;">
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 62%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>
+<strong>Con clusion</strong>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr class="even">
+<td>
+Did the Actual Results for each test step match the Expected Results listed?
+</td>
+<td>
+</td>
+<td>
+<ul>
+<li>
+</li>
+</ul>
+Y e s
+</td>
+<td>
+</td>
+<td>
+<blockquote>
+</blockquote>
+N o
+</td>
+</tr>
+<tr class="odd">
+<td>
+<blockquote>
+<p>
+<strong>C omments/A dditional Infor mation:</strong>
+</p>
+<p>
+(Indicate the step number of the step you wish to comment on.)
+</p>
+</blockquote>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr class="even">
+<td>
+<strong> Completed By</strong>
+</td>
+<td>
+<strong>Rukayat Yakub</strong>
+</td>
+<td>
+<ul>
+<li>
+</li>
+<li>
+D a t e :
+</li>
+<li>
+</li>
+<li>
+</li>
+</ul>
+</td>
+<td>
+<ul>
+<li>
+</li>
+<li>
+2 0 / 1 1 / 2 0 2 3
+</li>
+<li>
+</li>
+<li>
+</li>
+</ul>
+</td>
+<td>
+</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>
+</div>
+<hr />
+<p><strong>Comments:</strong><br />
+</p>
+<div class="comments">
+
+</div>
+<hr />
+<p><strong>Timeline events:</strong><br />
+</p>
+<div class="timeline">
+<div class="timeline">
+<p>RENAMED TITLE | <em>User:</em> MintooXavier <em>Created on:</em> 30/05/2024 11:29:41 <em>Previous title:</em> Alerts and Notifications <em>Current title:</em> 2. Alerts and Notifications</p>
+<p>LABELLED | <em>User:</em> MintooXavier <em>Created on:</em> 30/05/2024 11:29:55 <em>Label name:</em> Non-core feature <em>Label description:</em> A feature managed by CCTU</p>
+<p>LABELLED | <em>User:</em> MintooXavier <em>Created on:</em> 30/05/2024 11:29:55 <em>Label name:</em> Manual <em>Label description:</em></p>
+</div>
+</div>
+<p><br/></p>
+<p>————— feature ends —————</p>
+<p><br/></p>
+</body>
+</html>
