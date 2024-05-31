@@ -212,7 +212,7 @@ defineParameterType({
 //file_repository
 defineParameterType({
     name: 'optionlabel',
-    regexp: /(Restore deleted file|Permanently delete file|Delete folder)/
+    regexp: /(Restore deleted file|Permanently delete file|Delete folder|Share file)/
 })
 
 //data_access_groups
