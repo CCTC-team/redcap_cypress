@@ -4,6 +4,8 @@ Feature: File Repository
   The below user requirements are met
   #-------------------------------------------------------------------------------------
   # C.3.26.200 User Interface: The system shall support limiting file repository user view access and export rights.
+  # C.3.26.400 User Interface: The system shall support multiple file upload through the following methods: (File upload | Drag and Drop)
+  # C.3.26.500 User Interface: The system shall limit folder deletion to empty folders.
   #-------------------------------------------------------------------------------------
 
   Scenario: C.3.26.200.100 Limit user view and export access based on User Rights and DAG
