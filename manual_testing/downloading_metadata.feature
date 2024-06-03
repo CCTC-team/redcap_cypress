@@ -6,7 +6,7 @@ Feature: Downloading Metadata only and data
 # I used pre existing project and dummy records
 # The Project_CUH_v1381 has been setup to include two instruments namely Text Validation and Data Types.
 # Text Validation consist of 3 fields namely Record Id(Field name = record_id with attribute text), Name(Field name = ptname_v2_v2 with attribute text) and Section Header:Form status(Field name = text_validation_complete attribute dropdown)
-# Data Types consist of 3 fields namely Date of birth(Field name = dob_v2 with attribute text (Field name = date_dmy with attribute text), Calculated Field(field name = calculated_field with attribute calculation 3*2) Section Header:Form status(Field name = data_types_complete attribute dropdown)
+#  Data Types consist of 4 fields namely Date of birth(Field name = dob_v2 with attribute text (Field name = date_dmy with attribute text), Calculated Field(field name = calculated_field with attribute calculation 3*2), Weight (Field name = Weight KG with attribute text(number)) Section Header:Form status(Field name = data_types_complete attribute dropdown)
 # Project_CUH_v1381_DataQualityRules(date) was created to be uploaded.
 # Dummy records consist of Name(Field name = ptname_v2_v2 with attribute text) as Tony
 
