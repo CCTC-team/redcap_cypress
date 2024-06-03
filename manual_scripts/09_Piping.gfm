@@ -1,0 +1,550 @@
++-------------+--------+-----------+----------------------------------+
+| **System    |        |           |                                  |
+| Setup**     |        |           |                                  |
++=============+========+===========+==================================+
+| **Database  | >      | > **Ap    | > <https://localhost:8443/>      |
+| Version**   | REDCap | plication |                                  |
+|             | > 1    | > URL**   |                                  |
+|             | 3.8.1  |           |                                  |
++-------------+--------+-----------+----------------------------------+
+| **Document  | > Co   | *         | > 1                              |
+| Status**    | mplete | *Document |                                  |
+|             |        | V         |                                  |
+|             |        | ersion ** |                                  |
++-------------+--------+-----------+----------------------------------+
+
++-----------------------------------------------------------------------+
+| **Test Summary**                                                      |
++-----------------------------------------------------------------------+
+| **Feature Category Description:** The \'Piping\' feature in REDCap    |
+| allows you to inject previously collected data into text on a data    |
+| collection form or survey, thus providing greater precision and       |
+| control over question wording. It can also be used in other ways,     |
+| such as for customizing survey invitations (e.g., by including the    |
+| respondent\'s name in the email) or survey completion text (e.g.,     |
+| thanking your respondent by name after completing a survey).          |
+|                                                                       |
+| **Test Purpose Details:** This test script validates if Piping        |
+| functions work                                                        |
+|                                                                       |
+| **Functional Requirements:**                                          |
+|                                                                       |
+| -   9.1 The system shall support the ability to use previously        |
+|     collected data in a text on a data collection form or survey.     |
++-----------------------------------------------------------------------+
+|                                                                       |
++-----------------------------------------------------------------------+
+
++----+-----------+-------------+-----------------+--------------------+
+| ** |           |             |                 |                    |
+| Te |           |             |                 |                    |
+| st |           |             |                 |                    |
+| Re |           |             |                 |                    |
+| qu |           |             |                 |                    |
+| ir |           |             |                 |                    |
+| em |           |             |                 |                    |
+| en |           |             |                 |                    |
+| ts |           |             |                 |                    |
+| ** |           |             |                 |                    |
++----+-----------+-------------+-----------------+--------------------+
+| ** |           |             |                 |                    |
+| Te |           |             |                 |                    |
+| st |           |             |                 |                    |
+| U  |           |             |                 |                    |
+| se |           |             |                 |                    |
+| rs |           |             |                 |                    |
+| ** |           |             |                 |                    |
++----+-----------+-------------+-----------------+--------------------+
+| ** | **U       | *           | **Minimum       | **Other Settings** |
+| ID | sername** | *Password** | User's Rights** |                    |
+| ** |           |             |                 |                    |
++----+-----------+-------------+-----------------+--------------------+
+| >  | test_user | Testing123  | Standard User   |                    |
+| ** |           |             | with 'Project   |                    |
+| 1. |           |             | Design and      |                    |
+| ** |           |             | Setup'          |                    |
+|    |           |             | privileges.     |                    |
+|    |           |             | View and edit   |                    |
+|    |           |             | rights on all   |                    |
+|    |           |             | instruments.    |                    |
++----+-----------+-------------+-----------------+--------------------+
+| >  | t         | Testing123  | Administrator   |                    |
+| ** | est_admin |             |                 |                    |
+| 2. |           |             |                 |                    |
+| ** |           |             |                 |                    |
++----+-----------+-------------+-----------------+--------------------+
+| >  |           |             |                 |                    |
+| ** |           |             |                 |                    |
+| 3. |           |             |                 |                    |
+| ** |           |             |                 |                    |
++----+-----------+-------------+-----------------+--------------------+
+
++----+-------------------------+--------------------------------------+
+| *  |                         |                                      |
+| *P |                         |                                      |
+| ro |                         |                                      |
+| je |                         |                                      |
+| ct |                         |                                      |
+| S  |                         |                                      |
+| et |                         |                                      |
+| up |                         |                                      |
+| ** |                         |                                      |
++----+-------------------------+--------------------------------------+
+| ** | > **Description**       | > **Instructions**                   |
+| ID |                         |                                      |
+| ** |                         |                                      |
++----+-------------------------+--------------------------------------+
+| 1  | Project:                | Project created using                |
+| \. | Project_CUHv1381        | Project_CUH_v1381                    |
++----+-------------------------+--------------------------------------+
+| 2  | Project Setup           |                                      |
+| \. |                         |                                      |
++----+-------------------------+--------------------------------------+
+| 3  | Data Import File        |                                      |
+| \. |                         |                                      |
++----+-------------------------+--------------------------------------+
+| 4  | Other Files             |                                      |
+| \. |                         |                                      |
++----+-------------------------+--------------------------------------+
+
++------+-----------------------+--------------------+------+----------+
+| **   |                       |                    |      |          |
+| Test |                       |                    |      |          |
+| Ste  |                       |                    |      |          |
+| ps** |                       |                    |      |          |
++------+-----------------------+--------------------+------+----------+
+| **   | **Action Step**       | **Expected         | **   | **Co     |
+| Step |                       | Result**           | Pass | mments** |
+| \#** |                       |                    | /    |          |
+|      |                       |                    | Fa   |          |
+|      |                       |                    | il** |          |
++------+-----------------------+--------------------+------+----------+
+| > *H | *You must perform the | *After performing  | *C   | *Include |
+| elp* | actions listed in     | the actions in the | heck | un       |
+|      | this column.*         | 'Action Step'      | 'Pa  | expected |
+|      |                       | column, you should | ss', | results, |
+|      |                       | see the            | if   | sugg     |
+|      |                       | following.*        | the  | estions. |
+|      |                       |                    | ac   | etc.*    |
+|      |                       |                    | tual |          |
+|      |                       |                    | res  |          |
+|      |                       |                    | ults |          |
+|      |                       |                    | m    |          |
+|      |                       |                    | atch |          |
+|      |                       |                    | the  |          |
+|      |                       |                    | '    |          |
+|      |                       |                    | Expe |          |
+|      |                       |                    | cted |          |
+|      |                       |                    | Resu |          |
+|      |                       |                    | lt'; |          |
+|      |                       |                    | ot   |          |
+|      |                       |                    | herw |          |
+|      |                       |                    | ise, |          |
+|      |                       |                    | c    |          |
+|      |                       |                    | heck |          |
+|      |                       |                    | 'Fai |          |
+|      |                       |                    | l'.* |          |
++------+-----------------------+--------------------+------+----------+
+| 1.   | Login as test_user    | User is able to    | ![C  |          |
+|      |                       | login              | heck |          |
+|      | Go to My Projects     |                    | mark |          |
+|      |                       | Project Opens      | with |          |
+|      | Click on              |                    | s    |          |
+|      | 'Project_CUH_v1381'   | Project setup page | olid |          |
+|      |                       | opens              | f    |          |
+|      | Click on 'Online      |                    | ill] |          |
+|      | Designer'             | Online Designer    | (med |          |
+|      |                       | page is displayed  | ia/i |          |
+|      |                       |                    | mage |          |
+|      |                       |                    | 2.pn |          |
+|      |                       |                    | g){w |          |
+|      |                       |                    | idth |          |
+|      |                       |                    | ="0. |          |
+|      |                       |                    | 1458 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 4in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 4583 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3334 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 2.   | Click on instrument   | Data types         | ![C  |          |
+|      | for 'Data Types'      | instrument page is | heck |          |
+|      |                       | displayed          | mark |          |
+|      |                       |                    | with |          |
+|      |                       |                    | s    |          |
+|      |                       |                    | olid |          |
+|      |                       |                    | f    |          |
+|      |                       |                    | ill] |          |
+|      |                       |                    | (med |          |
+|      |                       |                    | ia/i |          |
+|      |                       |                    | mage |          |
+|      |                       |                    | 2.pn |          |
+|      |                       |                    | g){w |          |
+|      |                       |                    | idth |          |
+|      |                       |                    | ="0. |          |
+|      |                       |                    | 1458 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 4in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 4583 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3334 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 3.   | Create Piping into    | Add New Field box  | ![C  |          |
+|      | questions             | opens              | heck |          |
+|      |                       |                    | mark |          |
+|      | Click on the 'Add     | Able to select     | with |          |
+|      | Field' button at the  | option             | s    |          |
+|      | bottom of the         |                    | olid |          |
+|      | instrument page.      | Able to enter      | f    |          |
+|      |                       | field label        | ill] |          |
+|      | Select from the       |                    | (med |          |
+|      | 'Field Type' drop     | Options can added  | ia/i |          |
+|      | down and choose       | to the choices     | mage |          |
+|      | 'Multiple Choice --   | field box          | 2.pn |          |
+|      | Radio Buttons (Single |                    | g){w |          |
+|      | Answer)'              | Variable name can  | idth |          |
+|      |                       | be entered         | ="0. |          |
+|      | In the 'Field Label'  |                    | 1458 |          |
+|      | box enter What is     | Edit Field box is  | 3333 |          |
+|      | your favorite ice     | saved and closes   | 3333 |          |
+|      | cream?                |                    | 3333 |          |
+|      |                       |                    | 4in" |          |
+|      | In the choices field  |                    | hei  |          |
+|      | box enter             |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      | 1, Chocolate          |                    | 4583 |          |
+|      |                       |                    | 3333 |          |
+|      | 2, Strawberry         |                    | 3333 |          |
+|      |                       |                    | 3334 |          |
+|      | 3, Vanilla            |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      | In the 'Variable      |                    | ss** |          |
+|      | Name' box enter       |                    |      |          |
+|      | ice_cream             |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      | Click on 'Save'       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 4.   | Create Piping into    | Add New Field box  | ![C  |          |
+|      | questions             | opens              | heck |          |
+|      |                       |                    | mark |          |
+|      | Click on the 'Add     | Able to select     | with |          |
+|      | Field' button at the  | option             | s    |          |
+|      | bottom of the         |                    | olid |          |
+|      | instrument page.      | Able to enter      | f    |          |
+|      |                       | field label        | ill] |          |
+|      | Select from the       |                    | (med |          |
+|      | 'Field Type' drop     | Variable name can  | ia/i |          |
+|      | down and choose       | be entered         | mage |          |
+|      | 'Slider/Visual Analog |                    | 2.pn |          |
+|      | Scale'                | Labels can be      | g){w |          |
+|      |                       | added to the field | idth |          |
+|      | In the 'Field Label'  | boxes for left,    | ="0. |          |
+|      | box enter How much do | middle, right      | 1458 |          |
+|      | you love              |                    | 3333 |          |
+|      | \[ice_cream\]?        | Min and Max values | 3333 |          |
+|      |                       | can be entered     | 3333 |          |
+|      | In the 'Variable      |                    | 4in" |          |
+|      | Name' box enter       | Custom alignment   | hei  |          |
+|      | love_icecream         | can be chosen      | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      | Add labels            | Field box is saved | 4583 |          |
+|      |                       | and closes         | 3333 |          |
+|      | Left label (bottom,   |                    | 3333 |          |
+|      | if vertical): Hate it |                    | 3334 |          |
+|      |                       |                    | in"} |          |
+|      | Middle label:         |                    | **Pa |          |
+|      | Indifferent           |                    | ss** |          |
+|      |                       |                    |      |          |
+|      | Right label (top, if  |                    | **   |          |
+|      | vertical): I love     |                    | Fail |          |
+|      | \[ice_cream\]         |                    | ☐**  |          |
+|      |                       |                    |      |          |
+|      | Enter Min/Max range   |                    |      |          |
+|      | values: Min = 0 and   |                    |      |          |
+|      | Max = 100             |                    |      |          |
+|      |                       |                    |      |          |
+|      | Select 'Custom        |                    |      |          |
+|      | Alignment' and choose |                    |      |          |
+|      | Right/Horizontal (RH) |                    |      |          |
+|      |                       |                    |      |          |
+|      | Click on 'Save'       |                    |      |          |
++------+-----------------------+--------------------+------+----------+
+| 5.   | Click on the          | Add/Edit page      | ![C  |          |
+|      | 'Add/Edit Records' on | opens up           | heck |          |
+|      | the Data Collection   |                    | mark |          |
+|      | section               | Record Home Page   | with |          |
+|      |                       | for ID 1 is open   | s    |          |
+|      | Select Record '1'     |                    | olid |          |
+|      | from the drop down    | Data Types page    | f    |          |
+|      | box for question      | opens              | ill] |          |
+|      | 'Choose an existing   |                    | (med |          |
+|      | Record ID' for Arm 1: |                    | ia/i |          |
+|      | Arm1                  |                    | mage |          |
+|      |                       |                    | 2.pn |          |
+|      | On the Data           |                    | g){w |          |
+|      | Collection Instrument |                    | idth |          |
+|      | called 'Data Types'   |                    | ="0. |          |
+|      | click on the icon for |                    | 1458 |          |
+|      | Event 1 column for    |                    | 3333 |          |
+|      | this instrument.      |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 4in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 4583 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3334 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 6.   | Select the option     | Chocolate can be   | ![C  |          |
+|      | 'Chocolate' for the   | selected           | heck |          |
+|      | question 'What is     |                    | mark |          |
+|      | your favorite ice     |                    | with |          |
+|      | cream?'               |                    | s    |          |
+|      |                       |                    | olid |          |
+|      |                       |                    | f    |          |
+|      |                       |                    | ill] |          |
+|      |                       |                    | (med |          |
+|      |                       |                    | ia/i |          |
+|      |                       |                    | mage |          |
+|      |                       |                    | 2.pn |          |
+|      |                       |                    | g){w |          |
+|      |                       |                    | idth |          |
+|      |                       |                    | ="0. |          |
+|      |                       |                    | 1458 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 4in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 4583 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3334 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 7.   | The question below    | Able to see 'How   | ![C  |          |
+|      | displays Chocolate    | much do you love   | heck |          |
+|      | .i.e. 'How much do    | Chocolate?'        | mark |          |
+|      | you love Chocolate?'  |                    | with |          |
+|      | The Piping will come  | Able to choose an  | s    |          |
+|      | from the answer given | answer             | olid |          |
+|      | in favorite ice cream |                    | f    |          |
+|      | question.             | Option 'I love     | ill] |          |
+|      |                       | \[ice cream\]'     | (med |          |
+|      | Move the slider to    | will be shown as   | ia/i |          |
+|      | one of the options    | 'I love Chocolate' | mage |          |
+|      | available             |                    | 2.pn |          |
+|      |                       | Form is closed and | g){w |          |
+|      | The option 'I love    | Record Home Page   | idth |          |
+|      | \[ice cream\]' will   | is visible         | ="0. |          |
+|      | have information      |                    | 1458 |          |
+|      | piped from the answer |                    | 3333 |          |
+|      | given in favorite ice |                    | 3333 |          |
+|      | cream question.       |                    | 3333 |          |
+|      |                       |                    | 4in" |          |
+|      | Enter 1 in Required   |                    | hei  |          |
+|      | field and Click on    |                    | ght= |          |
+|      | the 'Save and Exit    |                    | "0.1 |          |
+|      | form' button          |                    | 4583 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3334 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+|      | THIS ENDS THE TESTING |                    |      |          |
+|      | FOR THIS SCRIPT       |                    |      |          |
++------+-----------------------+--------------------+------+----------+
+
++-----------+--------------------------------------------+---+---+-----+
+| **Con     |                                            |   |   |     |
+| clusion** |                                            |   |   |     |
++-----------+--------------------------------------------+---+---+-----+
+| Did the   |                                            | ! |   | >   |
+| Actual    |                                            | [ |   |  No |
+| Results   |                                            | C |   |     |
+| for each  |                                            | h |   |     |
+| test step |                                            | e |   |     |
+| match the |                                            | c |   |     |
+| Expected  |                                            | k |   |     |
+| Results   |                                            | m |   |     |
+| listed?   |                                            | a |   |     |
+|           |                                            | r |   |     |
+|           |                                            | k |   |     |
+|           |                                            | w |   |     |
+|           |                                            | i |   |     |
+|           |                                            | t |   |     |
+|           |                                            | h |   |     |
+|           |                                            | s |   |     |
+|           |                                            | o |   |     |
+|           |                                            | l |   |     |
+|           |                                            | i |   |     |
+|           |                                            | d |   |     |
+|           |                                            | f |   |     |
+|           |                                            | i |   |     |
+|           |                                            | l |   |     |
+|           |                                            | l |   |     |
+|           |                                            | ] |   |     |
+|           |                                            | ( |   |     |
+|           |                                            | m |   |     |
+|           |                                            | e |   |     |
+|           |                                            | d |   |     |
+|           |                                            | i |   |     |
+|           |                                            | a |   |     |
+|           |                                            | / |   |     |
+|           |                                            | i |   |     |
+|           |                                            | m |   |     |
+|           |                                            | a |   |     |
+|           |                                            | g |   |     |
+|           |                                            | e |   |     |
+|           |                                            | 2 |   |     |
+|           |                                            | . |   |     |
+|           |                                            | p |   |     |
+|           |                                            | n |   |     |
+|           |                                            | g |   |     |
+|           |                                            | ) |   |     |
+|           |                                            | { |   |     |
+|           |                                            | w |   |     |
+|           |                                            | i |   |     |
+|           |                                            | d |   |     |
+|           |                                            | t |   |     |
+|           |                                            | h |   |     |
+|           |                                            | = |   |     |
+|           |                                            | " |   |     |
+|           |                                            | 0 |   |     |
+|           |                                            | . |   |     |
+|           |                                            | 1 |   |     |
+|           |                                            | 4 |   |     |
+|           |                                            | 5 |   |     |
+|           |                                            | 8 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 4 |   |     |
+|           |                                            | i |   |     |
+|           |                                            | n |   |     |
+|           |                                            | " |   |     |
+|           |                                            | h |   |     |
+|           |                                            | e |   |     |
+|           |                                            | i |   |     |
+|           |                                            | g |   |     |
+|           |                                            | h |   |     |
+|           |                                            | t |   |     |
+|           |                                            | = |   |     |
+|           |                                            | " |   |     |
+|           |                                            | 0 |   |     |
+|           |                                            | . |   |     |
+|           |                                            | 1 |   |     |
+|           |                                            | 4 |   |     |
+|           |                                            | 5 |   |     |
+|           |                                            | 8 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 4 |   |     |
+|           |                                            | i |   |     |
+|           |                                            | n |   |     |
+|           |                                            | " |   |     |
+|           |                                            | } |   |     |
+|           |                                            | Y |   |     |
+|           |                                            | e |   |     |
+|           |                                            | s |   |     |
++-----------+--------------------------------------------+---+---+-----+
+| > **C     |                                            |   |   |     |
+| omments/A |                                            |   |   |     |
+| dditional |                                            |   |   |     |
+| > Infor   |                                            |   |   |     |
+| mation:** |                                            |   |   |     |
+| >         |                                            |   |   |     |
+| (Indicate |                                            |   |   |     |
+| > the     |                                            |   |   |     |
+| > step    |                                            |   |   |     |
+| > number  |                                            |   |   |     |
+| > of the  |                                            |   |   |     |
+| > step    |                                            |   |   |     |
+| > you     |                                            |   |   |     |
+| > wish to |                                            |   |   |     |
+| > comment |                                            |   |   |     |
+| > on.)    |                                            |   |   |     |
++-----------+--------------------------------------------+---+---+-----+
+| **        | **Mintoo Xavier**                          | * | * |     |
+| Completed |                                            | * | * |     |
+| By**      |                                            | D | 1 |     |
+|           |                                            | a | 5 |     |
+|           |                                            | t | / |     |
+|           |                                            | e | 1 |     |
+|           |                                            | : | 1 |     |
+|           |                                            | * | / |     |
+|           |                                            | * | 2 |     |
+|           |                                            |   | 0 |     |
+|           |                                            |   | 2 |     |
+|           |                                            |   | 3 |     |
+|           |                                            |   | * |     |
+|           |                                            |   | * |     |
++-----------+--------------------------------------------+---+---+-----+

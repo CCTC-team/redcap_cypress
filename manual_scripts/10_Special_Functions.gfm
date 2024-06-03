@@ -1,0 +1,1249 @@
++-------------+--------+-----------+----------------------------------+
+| **System    |        |           |                                  |
+| Setup**     |        |           |                                  |
++=============+========+===========+==================================+
+| **Database  | >      | > **Ap    | > <https://localhost:8443/>      |
+| Version**   | REDCap | plication |                                  |
+|             | > 1    | > URL**   |                                  |
+|             | 3.8.1  |           |                                  |
++-------------+--------+-----------+----------------------------------+
+| **Document  | > Co   | *         | > 1                              |
+| Status**    | mplete | *Document |                                  |
+|             |        | V         |                                  |
+|             |        | ersion ** |                                  |
++-------------+--------+-----------+----------------------------------+
+
++-----------------------------------------------------------------------+
+| **Test Summary**                                                      |
++-----------------------------------------------------------------------+
+| **Feature Category Description:** REDCap logic can be used in a       |
+| variety of places, such as Branching Logic, Calculations, Report      |
+| filtering, Data Quality Module, Automated Survey Invitations, and     |
+| more. Special functions can be used in the logic, if desired.         |
+|                                                                       |
+| **Test Purpose Details:** This test script validates if Special       |
+| Functions work                                                        |
+|                                                                       |
+| **Functional Requirements:**                                          |
+|                                                                       |
+| -   10.1 The system shall support the ability to use Special          |
+|     Functions in data entry forms. The following subset of Smart      |
+|     Variables is selected and tested:                                 |
+|                                                                       |
+|     -   10.1.1 datediff                                               |
+|                                                                       |
+|     -   10.1.2 round                                                  |
+|                                                                       |
+|     -   10.1.3 if                                                     |
+|                                                                       |
+|     -   10.1.4 mean                                                   |
+|                                                                       |
+|     -   10.1.5 length                                                 |
++-----------------------------------------------------------------------+
+|                                                                       |
++-----------------------------------------------------------------------+
+
++----+-----------+-------------+-----------------+--------------------+
+| ** |           |             |                 |                    |
+| Te |           |             |                 |                    |
+| st |           |             |                 |                    |
+| Re |           |             |                 |                    |
+| qu |           |             |                 |                    |
+| ir |           |             |                 |                    |
+| em |           |             |                 |                    |
+| en |           |             |                 |                    |
+| ts |           |             |                 |                    |
+| ** |           |             |                 |                    |
++----+-----------+-------------+-----------------+--------------------+
+| ** |           |             |                 |                    |
+| Te |           |             |                 |                    |
+| st |           |             |                 |                    |
+| U  |           |             |                 |                    |
+| se |           |             |                 |                    |
+| rs |           |             |                 |                    |
+| ** |           |             |                 |                    |
++----+-----------+-------------+-----------------+--------------------+
+| ** | **U       | *           | **Minimum       | **Other Settings** |
+| ID | sername** | *Password** | User's Rights** |                    |
+| ** |           |             |                 |                    |
++----+-----------+-------------+-----------------+--------------------+
+| >  | test_user | Testing123  | Standard User   |                    |
+| ** |           |             | with 'Project   |                    |
+| 1. |           |             | Design and      |                    |
+| ** |           |             | Setup'          |                    |
+|    |           |             | privileges.     |                    |
+|    |           |             | View and edit   |                    |
+|    |           |             | rights on all   |                    |
+|    |           |             | instruments.    |                    |
++----+-----------+-------------+-----------------+--------------------+
+| >  | t         | Testing123  | Administrator   |                    |
+| ** | est_admin |             |                 |                    |
+| 2. |           |             |                 |                    |
+| ** |           |             |                 |                    |
++----+-----------+-------------+-----------------+--------------------+
+| >  |           |             |                 |                    |
+| ** |           |             |                 |                    |
+| 3. |           |             |                 |                    |
+| ** |           |             |                 |                    |
++----+-----------+-------------+-----------------+--------------------+
+
++----+-------------------------+--------------------------------------+
+| *  |                         |                                      |
+| *P |                         |                                      |
+| ro |                         |                                      |
+| je |                         |                                      |
+| ct |                         |                                      |
+| S  |                         |                                      |
+| et |                         |                                      |
+| up |                         |                                      |
+| ** |                         |                                      |
++----+-------------------------+--------------------------------------+
+| ** | > **Description**       | > **Instructions**                   |
+| ID |                         |                                      |
+| ** |                         |                                      |
++----+-------------------------+--------------------------------------+
+| 1  | Project:                | Project created using                |
+| \. | Project_CUH_            | Project_CUH_v1381_Special_Functions  |
+|    | v1381_Special_Functions |                                      |
++----+-------------------------+--------------------------------------+
+| 2  | Project Setup           |                                      |
+| \. |                         |                                      |
++----+-------------------------+--------------------------------------+
+| 3  | Data Import File        |                                      |
+| \. |                         |                                      |
++----+-------------------------+--------------------------------------+
+| 4  | Other Files             |                                      |
+| \. |                         |                                      |
++----+-------------------------+--------------------------------------+
+
++------+-----------------------+--------------------+------+----------+
+| **   |                       |                    |      |          |
+| Test |                       |                    |      |          |
+| Ste  |                       |                    |      |          |
+| ps** |                       |                    |      |          |
++------+-----------------------+--------------------+------+----------+
+| **   | **Action Step**       | **Expected         | **   | **Co     |
+| Step |                       | Result**           | Pass | mments** |
+| \#** |                       |                    | /    |          |
+|      |                       |                    | Fa   |          |
+|      |                       |                    | il** |          |
++------+-----------------------+--------------------+------+----------+
+| > *H | *You must perform the | *After performing  | *C   | *Include |
+| elp* | actions listed in     | the actions in the | heck | un       |
+|      | this column.*         | 'Action Step'      | 'Pa  | expected |
+|      |                       | column, you should | ss', | results, |
+|      |                       | see the            | if   | sugg     |
+|      |                       | following.*        | the  | estions. |
+|      |                       |                    | ac   | etc.*    |
+|      |                       |                    | tual |          |
+|      |                       |                    | res  |          |
+|      |                       |                    | ults |          |
+|      |                       |                    | m    |          |
+|      |                       |                    | atch |          |
+|      |                       |                    | the  |          |
+|      |                       |                    | '    |          |
+|      |                       |                    | Expe |          |
+|      |                       |                    | cted |          |
+|      |                       |                    | Resu |          |
+|      |                       |                    | lt'; |          |
+|      |                       |                    | ot   |          |
+|      |                       |                    | herw |          |
+|      |                       |                    | ise, |          |
+|      |                       |                    | c    |          |
+|      |                       |                    | heck |          |
+|      |                       |                    | 'Fai |          |
+|      |                       |                    | l'.* |          |
++------+-----------------------+--------------------+------+----------+
+| 1.   | Login as test_user    | User is able to    | ![C  |          |
+|      |                       | login              | heck |          |
+|      | Go to My Projects     |                    | mark |          |
+|      |                       | Project Opens      | with |          |
+|      | Click on              |                    | s    |          |
+|      | 'Project_CUH_v13      | Project setup page | olid |          |
+|      | 81_Special_Functions' | opens              | f    |          |
+|      |                       |                    | ill] |          |
+|      |                       |                    | (med |          |
+|      |                       |                    | ia/i |          |
+|      |                       |                    | mage |          |
+|      |                       |                    | 2.pn |          |
+|      |                       |                    | g){w |          |
+|      |                       |                    | idth |          |
+|      |                       |                    | ="0. |          |
+|      |                       |                    | 1458 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 4in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 4583 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3334 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 2.   | Click on 'Designer'   | Online Designer    | ![C  |          |
+|      | in the Project and    | page is displayed  | heck |          |
+|      | Home section          |                    | mark |          |
+|      |                       | Data types         | with |          |
+|      | Click on instrument   | instrument page is | s    |          |
+|      | for 'Data Types'      | displayed          | olid |          |
+|      |                       |                    | f    |          |
+|      |                       |                    | ill] |          |
+|      |                       |                    | (med |          |
+|      |                       |                    | ia/i |          |
+|      |                       |                    | mage |          |
+|      |                       |                    | 2.pn |          |
+|      |                       |                    | g){w |          |
+|      |                       |                    | idth |          |
+|      |                       |                    | ="0. |          |
+|      |                       |                    | 1458 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 4in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 4583 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3334 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 3.   | Create Special        | Edit Field box     | ![C  |          |
+|      | Function datediff     | opens              | heck |          |
+|      |                       |                    | mark |          |
+|      | Click on Edit button  | Logic Editor opens | with |          |
+|      | for question 'Date    | and able to enter  | s    |          |
+|      | difference in days'   | function           | olid |          |
+|      |                       |                    | f    |          |
+|      | Click on 'Calculation | Logic Editor       | ill] |          |
+|      | Equation' box and     | closed             | (med |          |
+|      | enter                 |                    | ia/i |          |
+|      | datediff(\[date_1\],  | Edit Field box is  | mage |          |
+|      | \[date_2\], \'d\')    | saved and closes   | 2.pn |          |
+|      |                       |                    | g){w |          |
+|      | Click 'Update & Close |                    | idth |          |
+|      | Editor'               |                    | ="0. |          |
+|      |                       |                    | 1458 |          |
+|      | Click on 'Save'       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 4in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 4583 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3334 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 4.   | Click on the          | Add/Edit page      | ![C  |          |
+|      | 'Add/Edit Records' on | opens up           | heck |          |
+|      | the Data Collection   |                    | mark |          |
+|      | section               | A new record is    | with |          |
+|      |                       | created with ID 1  | s    |          |
+|      | Create a new record   |                    | olid |          |
+|      | by clicking 'Add new  | Data Types page    | f    |          |
+|      | record for the arm    | opens              | ill] |          |
+|      | selected above' for   |                    | (med |          |
+|      | Arm 1:Arm1            |                    | ia/i |          |
+|      |                       |                    | mage |          |
+|      | On the Data           |                    | 2.pn |          |
+|      | Collection Instrument |                    | g){w |          |
+|      | called 'Data Types'   |                    | idth |          |
+|      | click on the icon for |                    | ="0. |          |
+|      | Event 1 column for    |                    | 1458 |          |
+|      | this instrument.      |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 4in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 4583 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3334 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 5.   | Enter '01-10-2023'    | Able to enter date | ![C  |          |
+|      | into the field        |                    | heck |          |
+|      | 'Date1'               |                    | mark |          |
+|      |                       |                    | with |          |
+|      |                       |                    | s    |          |
+|      |                       |                    | olid |          |
+|      |                       |                    | f    |          |
+|      |                       |                    | ill] |          |
+|      |                       |                    | (med |          |
+|      |                       |                    | ia/i |          |
+|      |                       |                    | mage |          |
+|      |                       |                    | 2.pn |          |
+|      |                       |                    | g){w |          |
+|      |                       |                    | idth |          |
+|      |                       |                    | ="0. |          |
+|      |                       |                    | 1458 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 4in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 4583 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3334 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 6.   | Enter '15-10-2023'    | Able to enter date | ![C  |          |
+|      | into the field        |                    | heck |          |
+|      | 'Date2'               |                    | mark |          |
+|      |                       |                    | with |          |
+|      |                       |                    | s    |          |
+|      |                       |                    | olid |          |
+|      |                       |                    | f    |          |
+|      |                       |                    | ill] |          |
+|      |                       |                    | (med |          |
+|      |                       |                    | ia/i |          |
+|      |                       |                    | mage |          |
+|      |                       |                    | 2.pn |          |
+|      |                       |                    | g){w |          |
+|      |                       |                    | idth |          |
+|      |                       |                    | ="0. |          |
+|      |                       |                    | 1458 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 4in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 4583 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3334 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 7.   | Check question 'Date  | Correct            | ![C  |          |
+|      | difference in days'   | calculation is     | heck |          |
+|      | shows the correct     | shown. It displays | mark |          |
+|      | difference in days    | 14                 | with |          |
+|      |                       |                    | s    |          |
+|      | Click on 'View        | The calculation    | olid |          |
+|      | equation'             | box opens and      | f    |          |
+|      |                       | calculation is     | ill] |          |
+|      | Click Close and Click | shown as           | (med |          |
+|      | on 'Save & Exit Form' | da                 | ia/i |          |
+|      |                       | tediff(\[date_1\], | mage |          |
+|      |                       | \[date_2\], \'d\') | 2.pn |          |
+|      |                       |                    | g){w |          |
+|      |                       | Form is saved and  | idth |          |
+|      |                       | return back to     | ="0. |          |
+|      |                       | Record Home Page   | 1458 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 4in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 4583 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3334 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 8.   | Click on 'Designer'   | Online Designer    | ![C  |          |
+|      | in the Project and    | page is displayed  | heck |          |
+|      | Home section          |                    | mark |          |
+|      |                       | Data types         | with |          |
+|      | Click on instrument   | instrument page is | s    |          |
+|      | for 'Data Types'      | displayed          | olid |          |
+|      |                       |                    | f    |          |
+|      |                       |                    | ill] |          |
+|      |                       |                    | (med |          |
+|      |                       |                    | ia/i |          |
+|      |                       |                    | mage |          |
+|      |                       |                    | 2.pn |          |
+|      |                       |                    | g){w |          |
+|      |                       |                    | idth |          |
+|      |                       |                    | ="0. |          |
+|      |                       |                    | 1458 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 4in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 4583 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3334 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 9.   | Create Special        | Edit Field box     | ![C  |          |
+|      | Function to calculate | opens              | heck |          |
+|      | BMI and round to one  |                    | mark |          |
+|      | decimal point         | Logic Editor opens | with |          |
+|      |                       | and able to enter  | s    |          |
+|      | Click on Edit button  | function           | olid |          |
+|      | for question 'BMI     |                    | f    |          |
+|      | Calculated'           | Logic Editor       | ill] |          |
+|      |                       | closed             | (med |          |
+|      | Click on 'Calculation |                    | ia/i |          |
+|      | Equation' box and     | Edit Field box is  | mage |          |
+|      | enter                 | saved and closes   | 2.pn |          |
+|      | roun                  |                    | g){w |          |
+|      | d((\[weight\]\*10000) |                    | idth |          |
+|      | /((\[height\])\^(2)), |                    | ="0. |          |
+|      | 1)                    |                    | 1458 |          |
+|      |                       |                    | 3333 |          |
+|      | Click 'Update & Close |                    | 3333 |          |
+|      | Editor'               |                    | 3333 |          |
+|      |                       |                    | 4in" |          |
+|      | Click on 'Save'       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 4583 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3334 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 10.  | Click on the          | Add/Edit page      | ![C  |          |
+|      | 'Add/Edit Records' on | opens up           | heck |          |
+|      | the Data Collection   |                    | mark |          |
+|      | section               | Record Home Page   | with |          |
+|      |                       | for ID 1 is opened | s    |          |
+|      | Select Record '1'     |                    | olid |          |
+|      | from the drop down    | Data Types page    | f    |          |
+|      | box for question      | opens              | ill] |          |
+|      | 'Choose an existing   |                    | (med |          |
+|      | Record ID' for Arm 1: |                    | ia/i |          |
+|      | Arm1                  |                    | mage |          |
+|      |                       |                    | 2.pn |          |
+|      | On the Data           |                    | g){w |          |
+|      | Collection Instrument |                    | idth |          |
+|      | called 'Data Types'   |                    | ="0. |          |
+|      | click on the icon for |                    | 1458 |          |
+|      | Event 1 column for    |                    | 3333 |          |
+|      | this instrument.      |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 4in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 4583 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3334 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 11.  | Enter 55.6 into       | Able to enter      | ![C  |          |
+|      | question 'Weight KG'  | value              | heck |          |
+|      |                       |                    | mark |          |
+|      |                       |                    | with |          |
+|      |                       |                    | s    |          |
+|      |                       |                    | olid |          |
+|      |                       |                    | f    |          |
+|      |                       |                    | ill] |          |
+|      |                       |                    | (med |          |
+|      |                       |                    | ia/i |          |
+|      |                       |                    | mage |          |
+|      |                       |                    | 2.pn |          |
+|      |                       |                    | g){w |          |
+|      |                       |                    | idth |          |
+|      |                       |                    | ="0. |          |
+|      |                       |                    | 1458 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 4in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 4583 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3334 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 12.  | Enter 180 into        | Able to enter      | ![C  |          |
+|      | question 'Height'     | value              | heck |          |
+|      |                       |                    | mark |          |
+|      |                       |                    | with |          |
+|      |                       |                    | s    |          |
+|      |                       |                    | olid |          |
+|      |                       |                    | f    |          |
+|      |                       |                    | ill] |          |
+|      |                       |                    | (med |          |
+|      |                       |                    | ia/i |          |
+|      |                       |                    | mage |          |
+|      |                       |                    | 2.pn |          |
+|      |                       |                    | g){w |          |
+|      |                       |                    | idth |          |
+|      |                       |                    | ="0. |          |
+|      |                       |                    | 1458 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 4in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 4583 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3334 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 13.  | Check question 'BMI   | 'BMI Calculated'   | ![C  |          |
+|      | Calculated' shows     | shows 17.2         | heck |          |
+|      | 17.2                  |                    | mark |          |
+|      |                       | The calculation    | with |          |
+|      | Click on 'View        | box opens and      | s    |          |
+|      | equation'             | calculation is     | olid |          |
+|      |                       | shown as           | f    |          |
+|      | Click Close and Click | round((\[w         | ill] |          |
+|      | on 'Save & Exit Form' | eight\]\*10000)/(( | (med |          |
+|      |                       | \[height\])\^(2)), | ia/i |          |
+|      |                       | 1)                 | mage |          |
+|      |                       |                    | 2.pn |          |
+|      |                       | Form is saved and  | g){w |          |
+|      |                       | return back to     | idth |          |
+|      |                       | Record Home Page   | ="0. |          |
+|      |                       |                    | 1458 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 4in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 4583 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3334 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 14.  | Click on 'Designer'   | Online Designer    | ![C  |          |
+|      | in the Project and    | page is displayed  | heck |          |
+|      | Home section          |                    | mark |          |
+|      |                       | Data types         | with |          |
+|      | Click on instrument   | instrument page is | s    |          |
+|      | for 'Data Types'      | displayed          | olid |          |
+|      |                       |                    | f    |          |
+|      |                       |                    | ill] |          |
+|      |                       |                    | (med |          |
+|      |                       |                    | ia/i |          |
+|      |                       |                    | mage |          |
+|      |                       |                    | 2.pn |          |
+|      |                       |                    | g){w |          |
+|      |                       |                    | idth |          |
+|      |                       |                    | ="0. |          |
+|      |                       |                    | 1458 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 4in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 4583 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3334 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 15.  | Create Special        | Edit Field box     | ![C  |          |
+|      | Function for 'if'     | opens              | heck |          |
+|      | logic function so BMI |                    | mark |          |
+|      | calculated can show   | Logic Editor opens | with |          |
+|      | if participant is     | and able to enter  | s    |          |
+|      | suitable              | function           | olid |          |
+|      |                       |                    | f    |          |
+|      | Click on Edit button  | Logic Editor       | ill] |          |
+|      | for question 'BMI     | closed             | (med |          |
+|      | suitable for study    |                    | ia/i |          |
+|      |                       | Edit Field box is  | mage |          |
+|      | 1 = Suitable          | saved and closes   | 2.pn |          |
+|      |                       |                    | g){w |          |
+|      | 0 = Not suitable'     |                    | idth |          |
+|      |                       |                    | ="0. |          |
+|      | Click on 'Calculation |                    | 1458 |          |
+|      | Equation' box and     |                    | 3333 |          |
+|      | enter if(\[bmi_calc\] |                    | 3333 |          |
+|      | \> 15, 1, 0)          |                    | 3333 |          |
+|      |                       |                    | 4in" |          |
+|      | Click 'Update & Close |                    | hei  |          |
+|      | Editor'               |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      | Click on 'Save'       |                    | 4583 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3334 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 16.  | Click on the          | Add/Edit page      | ![C  |          |
+|      | 'Add/Edit Records' on | opens up           | heck |          |
+|      | the Data Collection   |                    | mark |          |
+|      | section               | Record Home Page   | with |          |
+|      |                       | for ID 1 is opened | s    |          |
+|      | Select Record '1'     |                    | olid |          |
+|      | from the drop down    | Data Types page    | f    |          |
+|      | box for question      | opens              | ill] |          |
+|      | 'Choose an existing   |                    | (med |          |
+|      | Record ID' for Arm 1: |                    | ia/i |          |
+|      | Arm1                  |                    | mage |          |
+|      |                       |                    | 2.pn |          |
+|      | On the Data           |                    | g){w |          |
+|      | Collection Instrument |                    | idth |          |
+|      | called 'Data Types'   |                    | ="0. |          |
+|      | click on the icon for |                    | 1458 |          |
+|      | Event 1 column for    |                    | 3333 |          |
+|      | this instrument.      |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 4in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 4583 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3334 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 17.  | Check question 'BMI   | Calculation is     | ![C  |          |
+|      | suitable for study    | shown as 1         | heck |          |
+|      |                       |                    | mark |          |
+|      | 1 = Suitable          | The calculation    | with |          |
+|      |                       | box opens and      | s    |          |
+|      | 0 = Not suitable' If  | calculation is     | olid |          |
+|      | height and weight are | shown as           | f    |          |
+|      | entered and question  | if(\[bmi_calc\] \> | ill] |          |
+|      | 'BMI Calculated' is   | 15, 1, 0)          | (med |          |
+|      | above 15 then this    |                    | ia/i |          |
+|      | question will show as | Form is saved and  | mage |          |
+|      | '1' or else '0'       | return back to     | 2.pn |          |
+|      |                       | Record Home Page   | g){w |          |
+|      | Click on 'View        |                    | idth |          |
+|      | equation'             |                    | ="0. |          |
+|      |                       |                    | 1458 |          |
+|      | Click Close and Click |                    | 3333 |          |
+|      | on 'Save & Exit Form' |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 4in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 4583 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3334 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 18.  | Click on 'Designer'   | Online Designer    | ![C  |          |
+|      | in the Project and    | page is displayed  | heck |          |
+|      | Home section          |                    | mark |          |
+|      |                       | Data types         | with |          |
+|      | Click on instrument   | instrument page is | s    |          |
+|      | for 'Data Types'      | displayed          | olid |          |
+|      |                       |                    | f    |          |
+|      |                       |                    | ill] |          |
+|      |                       |                    | (med |          |
+|      |                       |                    | ia/i |          |
+|      |                       |                    | mage |          |
+|      |                       |                    | 2.pn |          |
+|      |                       |                    | g){w |          |
+|      |                       |                    | idth |          |
+|      |                       |                    | ="0. |          |
+|      |                       |                    | 1458 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 4in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 4583 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3334 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 19.  | Create Special        | Edit Field box     | ![C  |          |
+|      | Function for Mean     | opens              | heck |          |
+|      | logic that returns    |                    | mark |          |
+|      | the mean value of a   | Logic Editor opens | with |          |
+|      | set of values.        | and able to enter  | s    |          |
+|      |                       | function           | olid |          |
+|      | Click on Edit button  |                    | f    |          |
+|      | for question 'Mean    | Logic Editor       | ill] |          |
+|      | sum of values'        | closed             | (med |          |
+|      |                       |                    | ia/i |          |
+|      | Click on 'Calculation | Edit Field box is  | mage |          |
+|      | Equation' box and     | saved and closes   | 2.pn |          |
+|      | enter                 |                    | g){w |          |
+|      | mean(\[value1\],\     |                    | idth |          |
+|      | [value2\],\[value3\]) |                    | ="0. |          |
+|      |                       |                    | 1458 |          |
+|      | Click 'Update & Close |                    | 3333 |          |
+|      | Editor'               |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      | Click on 'Save'       |                    | 4in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 4583 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3334 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 20.  | Click on the          | Add/Edit page      | ![C  |          |
+|      | 'Add/Edit Records' on | opens up           | heck |          |
+|      | the Data Collection   |                    | mark |          |
+|      | section               | Record Home Page   | with |          |
+|      |                       | for ID 1 is opened | s    |          |
+|      | Select Record '1'     |                    | olid |          |
+|      | from the drop down    | Data Types page    | f    |          |
+|      | box for question      | opens              | ill] |          |
+|      | 'Choose an existing   |                    | (med |          |
+|      | Record ID' for Arm 1: |                    | ia/i |          |
+|      | Arm1                  |                    | mage |          |
+|      |                       |                    | 2.pn |          |
+|      | On the Data           |                    | g){w |          |
+|      | Collection Instrument |                    | idth |          |
+|      | called 'Data Types'   |                    | ="0. |          |
+|      | click on the icon for |                    | 1458 |          |
+|      | Event 1 column for    |                    | 3333 |          |
+|      | this instrument.      |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 4in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 4583 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3334 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 21.  | Enter 7 into question | Able to enter      | ![C  |          |
+|      | 'Value1'              | value              | heck |          |
+|      |                       |                    | mark |          |
+|      | Enter 9 into question | Able to enter      | with |          |
+|      | 'Value2'              | value              | s    |          |
+|      |                       |                    | olid |          |
+|      | Enter 11 into         | Able to enter      | f    |          |
+|      | question 'Value3'     | value              | ill] |          |
+|      |                       |                    | (med |          |
+|      |                       |                    | ia/i |          |
+|      |                       |                    | mage |          |
+|      |                       |                    | 2.pn |          |
+|      |                       |                    | g){w |          |
+|      |                       |                    | idth |          |
+|      |                       |                    | ="0. |          |
+|      |                       |                    | 1458 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 4in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 4583 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3334 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 22.  | Check question 'Mean  | Calculation is     | ![C  |          |
+|      | sum of values' shows  | shown as 9         | heck |          |
+|      | correct mean          |                    | mark |          |
+|      |                       | The calculation    | with |          |
+|      | Click on 'View        | box opens and      | s    |          |
+|      | equation'             | calculation is     | olid |          |
+|      |                       | shown as           | f    |          |
+|      | Click Close and Click | me                 | ill] |          |
+|      | on 'Save & Exit Form' | an(\[value1\],\[va | (med |          |
+|      |                       | lue2\],\[value3\]) | ia/i |          |
+|      |                       |                    | mage |          |
+|      |                       | Form is saved and  | 2.pn |          |
+|      |                       | return back to     | g){w |          |
+|      |                       | Record Home Page   | idth |          |
+|      |                       |                    | ="0. |          |
+|      |                       |                    | 1458 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 4in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 4583 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3334 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 23.  | Click on 'Designer'   | Online Designer    | ![C  |          |
+|      | in the Project and    | page is displayed  | heck |          |
+|      | Home section          |                    | mark |          |
+|      |                       | Data types         | with |          |
+|      | Click on instrument   | instrument page is | s    |          |
+|      | for 'Data Types'      | displayed          | olid |          |
+|      |                       |                    | f    |          |
+|      |                       |                    | ill] |          |
+|      |                       |                    | (med |          |
+|      |                       |                    | ia/i |          |
+|      |                       |                    | mage |          |
+|      |                       |                    | 2.pn |          |
+|      |                       |                    | g){w |          |
+|      |                       |                    | idth |          |
+|      |                       |                    | ="0. |          |
+|      |                       |                    | 1458 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 4in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 4583 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3334 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 24.  | Create Special        | Edit Field box     | ![C  |          |
+|      | Function for Length.  | opens              | heck |          |
+|      | This returns the      |                    | mark |          |
+|      | number of characters  | Logic Editor opens | with |          |
+|      | in a text string      | and able to enter  | s    |          |
+|      | including spaces      | function           | olid |          |
+|      |                       |                    | f    |          |
+|      | Click on Edit button  | Logic Editor       | ill] |          |
+|      | for question 'Length  | closed             | (med |          |
+|      | of text'              |                    | ia/i |          |
+|      |                       | Edit Field box is  | mage |          |
+|      | Click on 'Calculation | saved and closes   | 2.pn |          |
+|      | Equation' box and     |                    | g){w |          |
+|      | enter length          |                    | idth |          |
+|      | (\[notesbox\])        |                    | ="0. |          |
+|      |                       |                    | 1458 |          |
+|      | Click 'Update & Close |                    | 3333 |          |
+|      | Editor'               |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      | Click on 'Save'       |                    | 4in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 4583 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3334 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 25.  | Click on the          | Add/Edit page      | ![C  |          |
+|      | 'Add/Edit Records' on | opens up           | heck |          |
+|      | the Data Collection   |                    | mark |          |
+|      | section               | Record Home Page   | with |          |
+|      |                       | for ID 1 is opened | s    |          |
+|      | Select Record '1'     |                    | olid |          |
+|      | from the drop down    | Data Types page    | f    |          |
+|      | box for question      | opens              | ill] |          |
+|      | 'Choose an existing   |                    | (med |          |
+|      | Record ID' for Arm 1: |                    | ia/i |          |
+|      | Arm1                  |                    | mage |          |
+|      |                       |                    | 2.pn |          |
+|      | On the Data           |                    | g){w |          |
+|      | Collection Instrument |                    | idth |          |
+|      | called 'Data Types'   |                    | ="0. |          |
+|      | click on the icon for |                    | 1458 |          |
+|      | Event 1 column for    |                    | 3333 |          |
+|      | this instrument.      |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 4in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 4583 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3334 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 26.  | Enter 'Hello World'   | Able to enter text | ![C  |          |
+|      | text into question    |                    | heck |          |
+|      | 'Notes Box'           |                    | mark |          |
+|      |                       |                    | with |          |
+|      |                       |                    | s    |          |
+|      |                       |                    | olid |          |
+|      |                       |                    | f    |          |
+|      |                       |                    | ill] |          |
+|      |                       |                    | (med |          |
+|      |                       |                    | ia/i |          |
+|      |                       |                    | mage |          |
+|      |                       |                    | 2.pn |          |
+|      |                       |                    | g){w |          |
+|      |                       |                    | idth |          |
+|      |                       |                    | ="0. |          |
+|      |                       |                    | 1458 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 4in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 4583 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3334 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 27.  | Check question        | Calculation is     | ![C  |          |
+|      | 'Length of text'      | shown as 11        | heck |          |
+|      | shows correct length  |                    | mark |          |
+|      | of text               | The calculation    | with |          |
+|      |                       | box opens and      | s    |          |
+|      | Click on 'View        | calculation is     | olid |          |
+|      | equation'             | shown as length    | f    |          |
+|      |                       | (\[notesbox\])     | ill] |          |
+|      | Click Close and Click |                    | (med |          |
+|      | on 'Save & Exit Form' | Form is saved and  | ia/i |          |
+|      |                       | return back to     | mage |          |
+|      |                       | Record Home Page   | 2.pn |          |
+|      |                       |                    | g){w |          |
+|      |                       |                    | idth |          |
+|      |                       |                    | ="0. |          |
+|      |                       |                    | 1458 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 4in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 4583 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3334 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+|      | THIS ENDS THE TESTING |                    |      |          |
+|      | FOR THIS SCRIPT       |                    |      |          |
++------+-----------------------+--------------------+------+----------+
+
++-----------+--------------------------------------------+---+---+-----+
+| **Con     |                                            |   |   |     |
+| clusion** |                                            |   |   |     |
++-----------+--------------------------------------------+---+---+-----+
+| Did the   |                                            | ! |   | >   |
+| Actual    |                                            | [ |   |  No |
+| Results   |                                            | C |   |     |
+| for each  |                                            | h |   |     |
+| test step |                                            | e |   |     |
+| match the |                                            | c |   |     |
+| Expected  |                                            | k |   |     |
+| Results   |                                            | m |   |     |
+| listed?   |                                            | a |   |     |
+|           |                                            | r |   |     |
+|           |                                            | k |   |     |
+|           |                                            | w |   |     |
+|           |                                            | i |   |     |
+|           |                                            | t |   |     |
+|           |                                            | h |   |     |
+|           |                                            | s |   |     |
+|           |                                            | o |   |     |
+|           |                                            | l |   |     |
+|           |                                            | i |   |     |
+|           |                                            | d |   |     |
+|           |                                            | f |   |     |
+|           |                                            | i |   |     |
+|           |                                            | l |   |     |
+|           |                                            | l |   |     |
+|           |                                            | ] |   |     |
+|           |                                            | ( |   |     |
+|           |                                            | m |   |     |
+|           |                                            | e |   |     |
+|           |                                            | d |   |     |
+|           |                                            | i |   |     |
+|           |                                            | a |   |     |
+|           |                                            | / |   |     |
+|           |                                            | i |   |     |
+|           |                                            | m |   |     |
+|           |                                            | a |   |     |
+|           |                                            | g |   |     |
+|           |                                            | e |   |     |
+|           |                                            | 2 |   |     |
+|           |                                            | . |   |     |
+|           |                                            | p |   |     |
+|           |                                            | n |   |     |
+|           |                                            | g |   |     |
+|           |                                            | ) |   |     |
+|           |                                            | { |   |     |
+|           |                                            | w |   |     |
+|           |                                            | i |   |     |
+|           |                                            | d |   |     |
+|           |                                            | t |   |     |
+|           |                                            | h |   |     |
+|           |                                            | = |   |     |
+|           |                                            | " |   |     |
+|           |                                            | 0 |   |     |
+|           |                                            | . |   |     |
+|           |                                            | 1 |   |     |
+|           |                                            | 4 |   |     |
+|           |                                            | 5 |   |     |
+|           |                                            | 8 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 4 |   |     |
+|           |                                            | i |   |     |
+|           |                                            | n |   |     |
+|           |                                            | " |   |     |
+|           |                                            | h |   |     |
+|           |                                            | e |   |     |
+|           |                                            | i |   |     |
+|           |                                            | g |   |     |
+|           |                                            | h |   |     |
+|           |                                            | t |   |     |
+|           |                                            | = |   |     |
+|           |                                            | " |   |     |
+|           |                                            | 0 |   |     |
+|           |                                            | . |   |     |
+|           |                                            | 1 |   |     |
+|           |                                            | 4 |   |     |
+|           |                                            | 5 |   |     |
+|           |                                            | 8 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 3 |   |     |
+|           |                                            | 4 |   |     |
+|           |                                            | i |   |     |
+|           |                                            | n |   |     |
+|           |                                            | " |   |     |
+|           |                                            | } |   |     |
+|           |                                            | Y |   |     |
+|           |                                            | e |   |     |
+|           |                                            | s |   |     |
++-----------+--------------------------------------------+---+---+-----+
+| > **C     |                                            |   |   |     |
+| omments/A |                                            |   |   |     |
+| dditional |                                            |   |   |     |
+| > Infor   |                                            |   |   |     |
+| mation:** |                                            |   |   |     |
+| >         |                                            |   |   |     |
+| (Indicate |                                            |   |   |     |
+| > the     |                                            |   |   |     |
+| > step    |                                            |   |   |     |
+| > number  |                                            |   |   |     |
+| > of the  |                                            |   |   |     |
+| > step    |                                            |   |   |     |
+| > you     |                                            |   |   |     |
+| > wish to |                                            |   |   |     |
+| > comment |                                            |   |   |     |
+| > on.)    |                                            |   |   |     |
++-----------+--------------------------------------------+---+---+-----+
+| **        | **Mintoo Xavier**                          | * | * |     |
+| Completed |                                            | * | * |     |
+| By**      |                                            | D | 1 |     |
+|           |                                            | a | 5 |     |
+|           |                                            | t | / |     |
+|           |                                            | e | 1 |     |
+|           |                                            | : | 1 |     |
+|           |                                            | * | / |     |
+|           |                                            | * | 2 |     |
+|           |                                            |   | 0 |     |
+|           |                                            |   | 2 |     |
+|           |                                            |   | 3 |     |
+|           |                                            |   | * |     |
+|           |                                            |   | * |     |
++-----------+--------------------------------------------+---+---+-----+

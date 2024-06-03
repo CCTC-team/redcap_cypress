@@ -1,0 +1,1164 @@
++-------------+--------+-----------+----------------------------------+
+| **System    |        |           |                                  |
+| Setup**     |        |           |                                  |
++=============+========+===========+==================================+
+| **Database  | >      | > **Ap    | > <https://localhost:8443/>      |
+| Version**   | REDCap | plication |                                  |
+|             | > 1    | > URL**   |                                  |
+|             | 3.8.1  |           |                                  |
++-------------+--------+-----------+----------------------------------+
+| **Document  | > Co   | *         | > 1                              |
+| Status**    | mplete | *Document |                                  |
+|             |        | V         |                                  |
+|             |        | ersion ** |                                  |
++-------------+--------+-----------+----------------------------------+
+
++-----------------------------------------------------------------------+
+| **Test Summary**                                                      |
++-----------------------------------------------------------------------+
+| **Feature Category Description:** Instruments within a project can be |
+| downloaded as PDF                                                     |
+|                                                                       |
+| **Test Purpose Details:** This test script validates if secondary     |
+| unique field works.                                                   |
+|                                                                       |
+| **Functional Requirements:**                                          |
+|                                                                       |
+| -   17.1 The system shall provide the ability to enable/disable       |
+|     secondary unique field                                            |
+|                                                                       |
+| -   17.2 The system shall support the ability to display secondary    |
+|     unique field along with record ID                                 |
+|                                                                       |
+| -   17.3 The system shall support the ability to display secondary    |
+|     unique field in reports                                           |
+|                                                                       |
+| -   17.4 The system shall support the ability to include secondary    |
+|     unique field while downloading PDF of instruments                 |
++-----------------------------------------------------------------------+
+|                                                                       |
++-----------------------------------------------------------------------+
+
++----+-----------+-------------+-----------------+--------------------+
+| ** |           |             |                 |                    |
+| Te |           |             |                 |                    |
+| st |           |             |                 |                    |
+| Re |           |             |                 |                    |
+| qu |           |             |                 |                    |
+| ir |           |             |                 |                    |
+| em |           |             |                 |                    |
+| en |           |             |                 |                    |
+| ts |           |             |                 |                    |
+| ** |           |             |                 |                    |
++----+-----------+-------------+-----------------+--------------------+
+| ** |           |             |                 |                    |
+| Te |           |             |                 |                    |
+| st |           |             |                 |                    |
+| U  |           |             |                 |                    |
+| se |           |             |                 |                    |
+| rs |           |             |                 |                    |
+| ** |           |             |                 |                    |
++----+-----------+-------------+-----------------+--------------------+
+| ** | **U       | *           | **Minimum       | **Other Settings** |
+| ID | sername** | *Password** | User's Rights** |                    |
+| ** |           |             |                 |                    |
++----+-----------+-------------+-----------------+--------------------+
+| >  | test_user | Testing123  | Standard User   |                    |
+| ** |           |             | with 'Project   |                    |
+| 1. |           |             | Design and      |                    |
+| ** |           |             | Setup'          |                    |
+|    |           |             | privileges.     |                    |
+|    |           |             | View and edit   |                    |
+|    |           |             | rights on all   |                    |
+|    |           |             | instruments.    |                    |
++----+-----------+-------------+-----------------+--------------------+
+| >  | t         | Testing123  | Administrator   |                    |
+| ** | est_admin |             |                 |                    |
+| 2. |           |             |                 |                    |
+| ** |           |             |                 |                    |
++----+-----------+-------------+-----------------+--------------------+
+| >  |           |             |                 |                    |
+| ** |           |             |                 |                    |
+| 3. |           |             |                 |                    |
+| ** |           |             |                 |                    |
++----+-----------+-------------+-----------------+--------------------+
+
++----+-------------------------+--------------------------------------+
+| *  |                         |                                      |
+| *P |                         |                                      |
+| ro |                         |                                      |
+| je |                         |                                      |
+| ct |                         |                                      |
+| S  |                         |                                      |
+| et |                         |                                      |
+| up |                         |                                      |
+| ** |                         |                                      |
++----+-------------------------+--------------------------------------+
+| ** | > **Description**       | > **Instructions**                   |
+| ID |                         |                                      |
+| ** |                         |                                      |
++----+-------------------------+--------------------------------------+
+| 1  | Project:                | Project_CUHv1381.xml                 |
+| \. | Project_CUHv1381        |                                      |
++----+-------------------------+--------------------------------------+
+| 2  | Project Setup           |                                      |
+| \. |                         |                                      |
++----+-------------------------+--------------------------------------+
+| 3  | Data Import File        |                                      |
+| \. |                         |                                      |
++----+-------------------------+--------------------------------------+
+| 4  | Other Files             |                                      |
+| \. |                         |                                      |
++----+-------------------------+--------------------------------------+
+
++------+-----------------------+--------------------+------+----------+
+| **   |                       |                    |      |          |
+| Test |                       |                    |      |          |
+| Ste  |                       |                    |      |          |
+| ps** |                       |                    |      |          |
++------+-----------------------+--------------------+------+----------+
+| **   | **Action Step**       | **Expected         | **   | **Co     |
+| Step |                       | Result**           | Pass | mments** |
+| \#** |                       |                    | /    |          |
+|      |                       |                    | Fa   |          |
+|      |                       |                    | il** |          |
++------+-----------------------+--------------------+------+----------+
+| > *H | *You must perform the | *After performing  | *C   | *Include |
+| elp* | actions listed in     | the actions in the | heck | un       |
+|      | this column.*         | 'Action Step'      | 'Pa  | expected |
+|      |                       | column, you should | ss', | results, |
+|      |                       | see the            | if   | sugg     |
+|      |                       | following.*        | the  | estions. |
+|      |                       |                    | ac   | etc.*    |
+|      |                       |                    | tual |          |
+|      |                       |                    | res  |          |
+|      |                       |                    | ults |          |
+|      |                       |                    | m    |          |
+|      |                       |                    | atch |          |
+|      |                       |                    | the  |          |
+|      |                       |                    | '    |          |
+|      |                       |                    | Expe |          |
+|      |                       |                    | cted |          |
+|      |                       |                    | Resu |          |
+|      |                       |                    | lt'; |          |
+|      |                       |                    | ot   |          |
+|      |                       |                    | herw |          |
+|      |                       |                    | ise, |          |
+|      |                       |                    | c    |          |
+|      |                       |                    | heck |          |
+|      |                       |                    | 'Fai |          |
+|      |                       |                    | l'.* |          |
++------+-----------------------+--------------------+------+----------+
+| 1.   | Login as test_user    | User is able to    | ![C  |          |
+|      |                       | login              | heck |          |
+|      |                       |                    | mark |          |
+|      |                       |                    | with |          |
+|      | Go to My Projects     |                    | s    |          |
+|      |                       | Project Opens      | olid |          |
+|      |                       |                    | f    |          |
+|      |                       |                    | ill] |          |
+|      | Click on              |                    | (med |          |
+|      | 'Project_CUH_v1381    | Project setup page | ia/i |          |
+|      |                       | opens              | mage |          |
+|      |                       |                    | 2.pn |          |
+|      |                       |                    | g){w |          |
+|      | Click on the link     |                    | idth |          |
+|      | 'Designer'            | Designer page is   | ="0. |          |
+|      |                       | displayed          | 1513 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 5138 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 2.   | Click on 'Text        | Text Validation    | ![C  |          |
+|      | Validation'           | instrument opens   | heck |          |
+|      |                       |                    | mark |          |
+|      |                       |                    | with |          |
+|      |                       |                    | s    |          |
+|      | Click on the first    | Add New Field box  | olid |          |
+|      | 'Add Field' button    | opens              | f    |          |
+|      |                       |                    | ill] |          |
+|      |                       |                    | (med |          |
+|      |                       |                    | ia/i |          |
+|      | Choose Field Type as  | Text Validation    | mage |          |
+|      | TextBox (Short        | Page is shown with | 3.pn |          |
+|      | Text,Number,Date      | the new field      | g){w |          |
+|      | /Time,...).           | 'Secondary ID'     | idth |          |
+|      |                       |                    | ="0. |          |
+|      |                       |                    | 1513 |          |
+|      |                       |                    | 8888 |          |
+|      | Enter 'secondary_id'  |                    | 8888 |          |
+|      | into  Variable Name.  |                    | 8888 |          |
+|      |                       |                    | 8in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      | Enter 'Secondary ID'  |                    | "0.1 |          |
+|      | into Field Label      |                    | 5138 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      | Click on 'Save'       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 3.   | Click on the link     | 'Record Status     | ![C  |          |
+|      | 'Record Status        | Dashboard' page    | heck |          |
+|      | Dashboard'            | opens              | mark |          |
+|      |                       |                    | with |          |
+|      | Click on the bubble   | 'Text Validation'  | s    |          |
+|      | for 'Text Validation' | page opens         | olid |          |
+|      | for record ID 1       |                    | f    |          |
+|      |                       | Form is saved      | ill] |          |
+|      | Enter '1' into        |                    | (med |          |
+|      | 'Secondary ID' field  |                    | ia/i |          |
+|      |                       |                    | mage |          |
+|      | Click on 'Save & Exit |                    | 3.pn |          |
+|      | Form'                 |                    | g){w |          |
+|      |                       |                    | idth |          |
+|      |                       |                    | ="0. |          |
+|      |                       |                    | 1513 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 5138 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 4.   | Click on the link     | 'Record Status     | ![C  |          |
+|      | 'Record Status        | Dashboard' page    | heck |          |
+|      | Dashboard'            | opens              | mark |          |
+|      |                       |                    | with |          |
+|      |                       | Record ID column   | s    |          |
+|      |                       | displays '1'       | olid |          |
+|      |                       |                    | f    |          |
+|      |                       |                    | ill] |          |
+|      |                       |                    | (med |          |
+|      |                       |                    | ia/i |          |
+|      |                       |                    | mage |          |
+|      |                       |                    | 3.pn |          |
+|      |                       |                    | g){w |          |
+|      |                       |                    | idth |          |
+|      |                       |                    | ="0. |          |
+|      |                       |                    | 1513 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 5138 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 5.   | Click in the link     | Project setup page | ![C  |          |
+|      | 'Project Setup' in    | opens              | heck |          |
+|      | 'Project Home and     |                    | mark |          |
+|      | Design'               | 'Success! Your     | with |          |
+|      |                       | changes have been  | s    |          |
+|      | Click on the button   | saved' message is  | olid |          |
+|      | 'Additional           | displayed          | f    |          |
+|      | customizations'       |                    | ill] |          |
+|      |                       |                    | (med |          |
+|      | Check the checkbox    |                    | ia/i |          |
+|      | for 'Designate a      |                    | mage |          |
+|      | Secondary Unique      |                    | 2.pn |          |
+|      | Field' and select     |                    | g){w |          |
+|      | 'secondary_id --      |                    | idth |          |
+|      | Secondary ID' for     |                    | ="0. |          |
+|      | secondary unique      |                    | 1513 |          |
+|      | field                 |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      | Check the checkbox    |                    | 8888 |          |
+|      | for 'Display the      |                    | 8in" |          |
+|      | value of the          |                    | hei  |          |
+|      | Secondary Unique      |                    | ght= |          |
+|      | Field next to each    |                    | "0.1 |          |
+|      | record name           |                    | 5138 |          |
+|      | displayed?'           |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      | Check the checkbox    |                    | 8888 |          |
+|      | for 'Display the      |                    | in"} |          |
+|      | field label of the    |                    | **Pa |          |
+|      | Secondary Unique      |                    | ss** |          |
+|      | Field when displaying |                    |      |          |
+|      | the value?'           |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      | Check PDF             |                    | ☐**  |          |
+|      | Customizations and    |                    |      |          |
+|      | In 1) Set custom      |                    |      |          |
+|      | header text..., enter |                    |      |          |
+|      | 'CRF Version 1'       |                    |      |          |
+|      |                       |                    |      |          |
+|      | 2\) Select Display    |                    |      |          |
+|      | REDCap logo\...       |                    |      |          |
+|      |                       |                    |      |          |
+|      | 3\) Display or hide   |                    |      |          |
+|      | the Secondary Unique  |                    |      |          |
+|      | Field ... Keep it     |                    |      |          |
+|      | displayed             |                    |      |          |
+|      |                       |                    |      |          |
+|      | 3\) Hide Record ID..  |                    |      |          |
+|      | Keep it displayed     |                    |      |          |
+|      |                       |                    |      |          |
+|      | Click on the button   |                    |      |          |
+|      | 'Save'                |                    |      |          |
++------+-----------------------+--------------------+------+----------+
+| 6.   | Click on the link     | 'Record Status     | ![C  |          |
+|      | 'Record Status        | Dashboard' page    | heck |          |
+|      | Dashboard'            | opens              | mark |          |
+|      |                       |                    | with |          |
+|      |                       | Record ID column   | s    |          |
+|      |                       | displays '1        | olid |          |
+|      |                       | (Secondary ID 1)'  | f    |          |
+|      |                       |                    | ill] |          |
+|      |                       |                    | (med |          |
+|      |                       |                    | ia/i |          |
+|      |                       |                    | mage |          |
+|      |                       |                    | 2.pn |          |
+|      |                       |                    | g){w |          |
+|      |                       |                    | idth |          |
+|      |                       |                    | ="0. |          |
+|      |                       |                    | 1513 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 5138 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 7.   | Click on record ID    | Record Home Page   | ![C  |          |
+|      | '1' link              | for Record ID 1    | heck |          |
+|      |                       | opens              | mark |          |
+|      |                       |                    | with |          |
+|      |                       |                    | s    |          |
+|      |                       |                    | olid |          |
+|      |                       |                    | f    |          |
+|      |                       |                    | ill] |          |
+|      |                       |                    | (med |          |
+|      |                       |                    | ia/i |          |
+|      |                       |                    | mage |          |
+|      |                       |                    | 2.pn |          |
+|      |                       |                    | g){w |          |
+|      |                       |                    | idth |          |
+|      |                       |                    | ="0. |          |
+|      |                       |                    | 1513 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 5138 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 8.   | Click on the button   | PDF is downloaded  | ![C  |          |
+|      | 'Choose action for    |                    | heck |          |
+|      | record' and click on  |                    | mark |          |
+|      | the link 'Download    |                    | with |          |
+|      | PDF of record data    |                    | s    |          |
+|      | for all               |                    | olid |          |
+|      | instruments/events'   |                    | f    |          |
+|      |                       |                    | ill] |          |
+|      |                       |                    | (med |          |
+|      |                       |                    | ia/i |          |
+|      |                       |                    | mage |          |
+|      |                       |                    | 2.pn |          |
+|      |                       |                    | g){w |          |
+|      |                       |                    | idth |          |
+|      |                       |                    | ="0. |          |
+|      |                       |                    | 1513 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 5138 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 9.   | Open the PDF and      | CRF Version 1 is   | ![C  |          |
+|      | verify                | displayed at the   | heck |          |
+|      |                       | top left hand      | mark |          |
+|      | Close the PDF         | corner. Project    | with |          |
+|      |                       | name and Record ID | s    |          |
+|      |                       | 1 (Secondary ID 1) | olid |          |
+|      |                       | is displayed at    | f    |          |
+|      |                       | the top right hand | ill] |          |
+|      |                       | corner of the PDF. | (med |          |
+|      |                       |                    | ia/i |          |
+|      |                       | REDCap Logo is     | mage |          |
+|      |                       | displayed at the   | 2.pn |          |
+|      |                       | bottom right hand  | g){w |          |
+|      |                       | corner of the PDF. | idth |          |
+|      |                       |                    | ="0. |          |
+|      |                       |                    | 1513 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 5138 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 10.  | Click in the link     | Project setup page | ![C  |          |
+|      | 'Project Setup' in    | opens              | heck |          |
+|      | 'Project Home and     |                    | mark |          |
+|      | Design'               | 'Success! Your     | with |          |
+|      |                       | changes have been  | s    |          |
+|      | Click on the button   | saved' message is  | olid |          |
+|      | 'Additional           | displayed          | f    |          |
+|      | customizations'       |                    | ill] |          |
+|      |                       |                    | (med |          |
+|      | Select 3) Display or  |                    | ia/i |          |
+|      | hide the Secondary    |                    | mage |          |
+|      | Unique Field ... Hide |                    | 2.pn |          |
+|      | it                    |                    | g){w |          |
+|      |                       |                    | idth |          |
+|      | Click on the button   |                    | ="0. |          |
+|      | 'Save'                |                    | 1513 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 5138 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 11.  | Click on the link     | 'Record Status     | ![C  |          |
+|      | 'Record Status        | Dashboard' page    | heck |          |
+|      | Dashboard'            | opens              | mark |          |
+|      |                       |                    | with |          |
+|      |                       | Record ID column   | s    |          |
+|      |                       | displays '1        | olid |          |
+|      |                       | (Secondary ID 1)'  | f    |          |
+|      |                       |                    | ill] |          |
+|      |                       |                    | (med |          |
+|      |                       |                    | ia/i |          |
+|      |                       |                    | mage |          |
+|      |                       |                    | 2.pn |          |
+|      |                       |                    | g){w |          |
+|      |                       |                    | idth |          |
+|      |                       |                    | ="0. |          |
+|      |                       |                    | 1513 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 5138 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 12.  | Click on record ID    | Record Home Page   | ![C  |          |
+|      | '1' link              | for Record ID 1    | heck |          |
+|      |                       | opens              | mark |          |
+|      |                       |                    | with |          |
+|      |                       |                    | s    |          |
+|      |                       |                    | olid |          |
+|      |                       |                    | f    |          |
+|      |                       |                    | ill] |          |
+|      |                       |                    | (med |          |
+|      |                       |                    | ia/i |          |
+|      |                       |                    | mage |          |
+|      |                       |                    | 2.pn |          |
+|      |                       |                    | g){w |          |
+|      |                       |                    | idth |          |
+|      |                       |                    | ="0. |          |
+|      |                       |                    | 1513 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 5138 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 13.  | Click on the button   | PDF is downloaded  | ![C  |          |
+|      | 'Choose action for    |                    | heck |          |
+|      | record' and click on  |                    | mark |          |
+|      | the link 'Download    |                    | with |          |
+|      | PDF of record data    |                    | s    |          |
+|      | for all               |                    | olid |          |
+|      | instruments/events'   |                    | f    |          |
+|      |                       |                    | ill] |          |
+|      |                       |                    | (med |          |
+|      |                       |                    | ia/i |          |
+|      |                       |                    | mage |          |
+|      |                       |                    | 2.pn |          |
+|      |                       |                    | g){w |          |
+|      |                       |                    | idth |          |
+|      |                       |                    | ="0. |          |
+|      |                       |                    | 1513 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 5138 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 14.  | Open the PDF and      | CRF Version 1 is   | ![C  |          |
+|      | verify                | displayed at the   | heck |          |
+|      |                       | top left hand      | mark |          |
+|      | Close the PDF         | corner. Project    | with |          |
+|      |                       | name and Record ID | s    |          |
+|      |                       | 1 is displayed at  | olid |          |
+|      |                       | the top right hand | f    |          |
+|      |                       | corner of the PDF. | ill] |          |
+|      |                       | Secondary ID is    | (med |          |
+|      |                       | not displayed.     | ia/i |          |
+|      |                       |                    | mage |          |
+|      |                       | REDCap Logo is     | 2.pn |          |
+|      |                       | displayed at the   | g){w |          |
+|      |                       | bottom right hand  | idth |          |
+|      |                       | corner of the PDF. | ="0. |          |
+|      |                       |                    | 1513 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 5138 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 15.  | Click on the link     | 'My Reports &      | ![C  |          |
+|      | 'Data Exports,        | Exports' page      | heck |          |
+|      | Reports, and Stats'   | opens              | mark |          |
+|      |                       |                    | with |          |
+|      | Click on the button   | Report is          | s    |          |
+|      | 'View Report' for     | displayed. Record  | olid |          |
+|      | 'All data'            | ID column shows '1 | f    |          |
+|      |                       | (Secondary ID 1)'  | ill] |          |
+|      |                       |                    | (med |          |
+|      |                       |                    | ia/i |          |
+|      |                       |                    | mage |          |
+|      |                       |                    | 2.pn |          |
+|      |                       |                    | g){w |          |
+|      |                       |                    | idth |          |
+|      |                       |                    | ="0. |          |
+|      |                       |                    | 1513 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 5138 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 16.  | Click in the link     | Project setup page | ![C  |          |
+|      | 'Project Setup' in    | opens              | heck |          |
+|      | 'Project Home and     |                    | mark |          |
+|      | Design'               | 'Success! Your     | with |          |
+|      |                       | changes have been  | s    |          |
+|      | Click on the button   | saved' message is  | olid |          |
+|      | 'Additional           | displayed          | f    |          |
+|      | customizations'       |                    | ill] |          |
+|      |                       |                    | (med |          |
+|      | Uncheck the checkbox  |                    | ia/i |          |
+|      | for 'Display the      |                    | mage |          |
+|      | field label of the    |                    | 2.pn |          |
+|      | Secondary Unique      |                    | g){w |          |
+|      | Field when displaying |                    | idth |          |
+|      | the value?'           |                    | ="0. |          |
+|      |                       |                    | 1513 |          |
+|      | Click on the 'Save'   |                    | 8888 |          |
+|      | button                |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 5138 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 17.  | Click on the link     | 'Record Status     | ![C  |          |
+|      | 'Record Status        | Dashboard' page    | heck |          |
+|      | Dashboard'            | opens              | mark |          |
+|      |                       |                    | with |          |
+|      |                       | Record ID column   | s    |          |
+|      |                       | displays '1 (1)'   | olid |          |
+|      |                       |                    | f    |          |
+|      |                       |                    | ill] |          |
+|      |                       |                    | (med |          |
+|      |                       |                    | ia/i |          |
+|      |                       |                    | mage |          |
+|      |                       |                    | 2.pn |          |
+|      |                       |                    | g){w |          |
+|      |                       |                    | idth |          |
+|      |                       |                    | ="0. |          |
+|      |                       |                    | 1513 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 5138 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 18.  | Click on the link     | 'My Reports &      | ![C  |          |
+|      | 'Data Exports,        | Exports' page      | heck |          |
+|      | Reports, and Stats'   | opens              | mark |          |
+|      |                       |                    | with |          |
+|      | Click on the button   | Report is          | s    |          |
+|      | 'View Report' for     | displayed. Record  | olid |          |
+|      | 'All data'            | ID column shows '1 | f    |          |
+|      |                       | (1)'               | ill] |          |
+|      |                       |                    | (med |          |
+|      |                       |                    | ia/i |          |
+|      |                       |                    | mage |          |
+|      |                       |                    | 2.pn |          |
+|      |                       |                    | g){w |          |
+|      |                       |                    | idth |          |
+|      |                       |                    | ="0. |          |
+|      |                       |                    | 1513 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 5138 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 19.  | Click on the link     | 'Record Status     | ![C  |          |
+|      | 'Record Status        | Dashboard' page    | heck |          |
+|      | Dashboard'            | opens              | mark |          |
+|      |                       |                    | with |          |
+|      | Click on the button   | Record Home Page   | s    |          |
+|      | 'Add new record for   | for record ID 2 is | olid |          |
+|      | this arm'             | displayed          | f    |          |
+|      |                       |                    | ill] |          |
+|      | Click on the bubble   | 'Text Validation'  | (med |          |
+|      | for 'Text Validation' | page opens         | ia/i |          |
+|      |                       |                    | mage |          |
+|      | Enter '1' into        | 'DUPLICATE VALUE!' | 2.pn |          |
+|      | Secondary ID and      | message pops up    | g){w |          |
+|      | click on the button   |                    | idth |          |
+|      | 'Save & Exit Form'    | 'Record            | ="0. |          |
+|      |                       | ID 2 successfully  | 1513 |          |
+|      | Close the popup       | added' message is  | 8888 |          |
+|      | window                | displayed          | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      | Enter '2' into        |                    | 8in" |          |
+|      | Secondary ID and      |                    | hei  |          |
+|      | click on the button   |                    | ght= |          |
+|      | 'Save & Exit Form'    |                    | "0.1 |          |
+|      |                       |                    | 5138 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 20.  | Click on the link     | 'Record Status     | ![C  |          |
+|      | 'Record Status        | Dashboard' page    | heck |          |
+|      | Dashboard'            | opens              | mark |          |
+|      |                       |                    | with |          |
+|      |                       | Record ID column   | s    |          |
+|      |                       | displays '1 (1)'   | olid |          |
+|      |                       | and '2 (2)'        | f    |          |
+|      |                       |                    | ill] |          |
+|      |                       |                    | (med |          |
+|      |                       |                    | ia/i |          |
+|      |                       |                    | mage |          |
+|      |                       |                    | 2.pn |          |
+|      |                       |                    | g){w |          |
+|      |                       |                    | idth |          |
+|      |                       |                    | ="0. |          |
+|      |                       |                    | 1513 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 5138 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 21.  | Click in the link     | Project setup page | ![C  |          |
+|      | 'Project Setup' in    | opens              | heck |          |
+|      | 'Project Home and     |                    | mark |          |
+|      | Design'               | 'Success! Your     | with |          |
+|      |                       | changes have been  | s    |          |
+|      | Click on the button   | saved' message is  | olid |          |
+|      | 'Additional           | displayed          | f    |          |
+|      | customizations'       |                    | ill] |          |
+|      |                       |                    | (med |          |
+|      | Uncheck the checkbox  |                    | ia/i |          |
+|      | for 'Display the      |                    | mage |          |
+|      | value of the          |                    | 2.pn |          |
+|      | Secondary Unique      |                    | g){w |          |
+|      | Field next to each    |                    | idth |          |
+|      | record name           |                    | ="0. |          |
+|      | displayed?'           |                    | 1513 |          |
+|      |                       |                    | 8888 |          |
+|      | Click on the 'Save'   |                    | 8888 |          |
+|      | button                |                    | 8888 |          |
+|      |                       |                    | 8in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 5138 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 22.  | Click on the link     | 'Record Status     | ![C  |          |
+|      | 'Record Status        | Dashboard' page    | heck |          |
+|      | Dashboard'            | opens              | mark |          |
+|      |                       |                    | with |          |
+|      |                       | Record ID column   | s    |          |
+|      |                       | displays '1' and   | olid |          |
+|      |                       | '2'                | f    |          |
+|      |                       |                    | ill] |          |
+|      |                       |                    | (med |          |
+|      |                       |                    | ia/i |          |
+|      |                       |                    | mage |          |
+|      |                       |                    | 2.pn |          |
+|      |                       |                    | g){w |          |
+|      |                       |                    | idth |          |
+|      |                       |                    | ="0. |          |
+|      |                       |                    | 1513 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 5138 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 23.  | Click on the link     | 'My Reports &      | ![C  |          |
+|      | 'Data Exports,        | Exports' page      | heck |          |
+|      | Reports, and Stats'   | opens              | mark |          |
+|      |                       |                    | with |          |
+|      | Click on the button   | Report is          | s    |          |
+|      | 'View Report' for     | displayed. Record  | olid |          |
+|      | 'All data'            | ID column shows    | f    |          |
+|      |                       | '1' and '2'        | ill] |          |
+|      |                       |                    | (med |          |
+|      |                       |                    | ia/i |          |
+|      |                       |                    | mage |          |
+|      |                       |                    | 2.pn |          |
+|      |                       |                    | g){w |          |
+|      |                       |                    | idth |          |
+|      |                       |                    | ="0. |          |
+|      |                       |                    | 1513 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 5138 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 24.  | Click on the link     | 'Record Status     | ![C  |          |
+|      | 'Record Status        | Dashboard' page    | heck |          |
+|      | Dashboard'            | opens              | mark |          |
+|      |                       |                    | with |          |
+|      | Click on the button   | Record Home Page   | s    |          |
+|      | 'Add new record for   | for record ID 3 is | olid |          |
+|      | this arm'             | displayed          | f    |          |
+|      |                       |                    | ill] |          |
+|      | Click on the bubble   | 'Text Validation'  | (med |          |
+|      | for 'Text Validation' | page opens         | ia/i |          |
+|      |                       |                    | mage |          |
+|      | Enter '2' into        | 'DUPLICATE VALUE!' | 2.pn |          |
+|      | Secondary ID and      | message pops up    | g){w |          |
+|      | click on the button   |                    | idth |          |
+|      | 'Save & Exit Form'    | 'Record            | ="0. |          |
+|      |                       | ID 3 successfully  | 1513 |          |
+|      | Close the popup       | added' message is  | 8888 |          |
+|      | window                | displayed          | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      | Enter '3' into        |                    | 8in" |          |
+|      | Secondary ID and      |                    | hei  |          |
+|      | click on the button   |                    | ght= |          |
+|      | 'Save & Exit Form'    |                    | "0.1 |          |
+|      |                       |                    | 5138 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 25.  | Click in the link     | Project setup page | ![C  |          |
+|      | 'Project Setup' in    | opens              | heck |          |
+|      | 'Project Home and     |                    | mark |          |
+|      | Design'               | 'Success! Your     | with |          |
+|      |                       | changes have been  | s    |          |
+|      | Click on the button   | saved' message is  | olid |          |
+|      | 'Additional           | displayed          | f    |          |
+|      | customizations'       |                    | ill] |          |
+|      |                       |                    | (med |          |
+|      | Uncheck the checkbox  |                    | ia/i |          |
+|      | for 'Designate a      |                    | mage |          |
+|      | Secondary Unique      |                    | 2.pn |          |
+|      | Field'                |                    | g){w |          |
+|      |                       |                    | idth |          |
+|      | Click on the 'Save'   |                    | ="0. |          |
+|      | button                |                    | 1513 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 5138 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 26.  | Click on the link     | 'Record Status     | ![C  |          |
+|      | 'Record Status        | Dashboard' page    | heck |          |
+|      | Dashboard'            | opens              | mark |          |
+|      |                       |                    | with |          |
+|      | Click on the button   | Record Home Page   | s    |          |
+|      | 'Add new record for   | for record ID 4 is | olid |          |
+|      | this arm'             | displayed          | f    |          |
+|      |                       |                    | ill] |          |
+|      | Click on the bubble   | 'Text Validation'  | (med |          |
+|      | for 'Text Validation' | page opens         | ia/i |          |
+|      |                       |                    | mage |          |
+|      | Enter '2' into        | 'Record            | 3.pn |          |
+|      | Secondary ID and      | ID 4 successfully  | g){w |          |
+|      | click on the button   | added' message is  | idth |          |
+|      | 'Save & Exit Form'    | displayed          | ="0. |          |
+|      |                       |                    | 1513 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 5138 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 27.  | Click on the link     | 'Record Status     | ![C  |          |
+|      | 'Record Status        | Dashboard' page    | heck |          |
+|      | Dashboard'            | opens              | mark |          |
+|      |                       |                    | with |          |
+|      |                       | Record ID column   | s    |          |
+|      |                       | displays '1', '2', | olid |          |
+|      |                       | '3' and '4'        | f    |          |
+|      |                       |                    | ill] |          |
+|      |                       |                    | (med |          |
+|      |                       |                    | ia/i |          |
+|      |                       |                    | mage |          |
+|      |                       |                    | 3.pn |          |
+|      |                       |                    | g){w |          |
+|      |                       |                    | idth |          |
+|      |                       |                    | ="0. |          |
+|      |                       |                    | 1513 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 5138 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | 8888 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+|      | THIS ENDS THE TESTING |                    |      |          |
+|      | FOR THIS SCRIPT       |                    |      |          |
++------+-----------------------+--------------------+------+----------+
+
++-----------+--------------------------------------------+---+---+---+
+| **Con     |                                            |   |   |   |
+| clusion** |                                            |   |   |   |
++-----------+--------------------------------------------+---+---+---+
+| Did the   |                                            | Y |   | > |
+| Actual    |                                            | e |   |   |
+| Results   |                                            | s |   | N |
+| for each  |                                            |   |   | o |
+| test step |                                            |   |   |   |
+| match the |                                            |   |   |   |
+| Expected  |                                            |   |   |   |
+| Results   |                                            |   |   |   |
+| listed?   |                                            |   |   |   |
++-----------+--------------------------------------------+---+---+---+
+| > **C     |                                            |   |   |   |
+| omments/A |                                            |   |   |   |
+| dditional |                                            |   |   |   |
+| > Infor   |                                            |   |   |   |
+| mation:** |                                            |   |   |   |
+| >         |                                            |   |   |   |
+| (Indicate |                                            |   |   |   |
+| > the     |                                            |   |   |   |
+| > step    |                                            |   |   |   |
+| > number  |                                            |   |   |   |
+| > of the  |                                            |   |   |   |
+| > step    |                                            |   |   |   |
+| > you     |                                            |   |   |   |
+| > wish to |                                            |   |   |   |
+| > comment |                                            |   |   |   |
+| > on.)    |                                            |   |   |   |
++-----------+--------------------------------------------+---+---+---+
+| **        | **Tanwir Ahmed**                           | * | * |   |
+| Completed |                                            | * | * |   |
+| By**      |                                            | D | 0 |   |
+|           |                                            | a | 8 |   |
+|           |                                            | t | / |   |
+|           |                                            | e | 0 |   |
+|           |                                            | : | 1 |   |
+|           |                                            | * | / |   |
+|           |                                            | * | 2 |   |
+|           |                                            |   | 0 |   |
+|           |                                            |   | 2 |   |
+|           |                                            |   | 4 |   |
+|           |                                            |   | * |   |
+|           |                                            |   | * |   |
++-----------+--------------------------------------------+---+---+---+
