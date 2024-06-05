@@ -122,26 +122,18 @@
 | 1.   | Login as test_user   | Successfully logs | -        |         |
 |      | using username and   | into REDCap       | **Pass** |         |
 |      | password             |                   |          |         |
-|      |                      |                   | **Fail   |         |
-|      |                      |                   | ☐**      |         |
 +------+----------------------+-------------------+----------+---------+
 | 2.   | Logout as test_user  | Successfully      | -        |         |
 |      |                      | logged off        | **Pass** |         |
-|      |                      |                   |          |         |
-|      |                      |                   | **Fail   |         |
-|      |                      |                   | ☐**      |         |
 +------+----------------------+-------------------+----------+---------+
 | 3.   | Login as test_admin  | Successfully logs | -        |         |
 |      |                      | into REDCap       | **Pass** |         |
-|      |                      |                   |          |         |
-|      |                      |                   | **Fail   |         |
-|      |                      |                   | ☐**      |         |
 +------+----------------------+-------------------+----------+---------+
 | 4.   | Go to Control        | Control Center    | -        |         |
 |      | Center.              | page is           | **Pass** |         |
 |      |                      | displayed.        |          |         |
-|      | Click on 'Security & |                   | **Fail   |         |
-|      | Authentication' in   | Security &        | ☐**      |         |
+|      | Click on 'Security & |                   |          |         |
+|      | Authentication' in   | Security &        |          |         |
 |      | System Configuration | Authentication    |          |         |
 |      | group                | Configuration     |          |         |
 |      |                      | page is displayed |          |         |
@@ -149,8 +141,8 @@
 | 5.   | Set the following    | Security &        | -        |         |
 |      | settings:            | Authentication    | **Pass** |         |
 |      |                      | Configuration are |          |         |
-|      | Two-Factor           | saved             | **Fail   |         |
-|      | Authentication =     |                   | ☐**      |         |
+|      | Two-Factor           | saved             |          |         |
+|      | Authentication =     |                   |          |         |
 |      | Enabled              |                   |          |         |
 |      |                      |                   |          |         |
 |      | Enforce two-factor   |                   |          |         |
@@ -171,21 +163,17 @@
 +------+----------------------+-------------------+----------+---------+
 | 6.   | Logout as test_admin | Successfully      | -        |         |
 |      |                      | logged off        | **Pass** |         |
-|      |                      |                   |          |         |
-|      |                      |                   | **Fail   |         |
-|      |                      |                   | ☐**      |         |
 +------+----------------------+-------------------+----------+---------+
 | 7.   | Login as test_user   | Pop-up appears    | -        |         |
 |      | using username and   | 'Two-step         | **Pass** |         |
 |      | password             | verification for  |          |         |
-|      |                      | REDCap login'     | **Fail   |         |
-|      |                      |                   | ☐**      |         |
+|      |                      | REDCap login'     |          |         |
 +------+----------------------+-------------------+----------+---------+
 | 8.   | Do not check the     | Pop-up appears    | -        |         |
 |      | checkbox 'Don\'t     | 'Enter your       | **Pass** |         |
 |      | prompt me with       | verification      |          |         |
-|      | two-step login on    | code'             | **Fail   |         |
-|      | this computer for 24 |                   | ☐**      |         |
+|      | two-step login on    | code'             |          |         |
+|      | this computer for 24 |                   |          |         |
 |      | hours'               |                   |          |         |
 |      |                      |                   |          |         |
 |      | Select the radio     |                   |          |         |
@@ -194,29 +182,25 @@
 | 9.   | Go to test_user's    | A green tick and  | -        |         |
 |      | email (MailHog) and  | success appears   | **Pass** |         |
 |      | get the verification | next to the       |          |         |
-|      | code and enter it in | textbox           | **Fail   |         |
-|      | the textbox and      |                   | ☐**      |         |
+|      | code and enter it in | textbox           |          |         |
+|      | the textbox and      |                   |          |         |
 |      | press the 'Submit'   | Successfully      |          |         |
 |      | button               | directed to 'My   |          |         |
 |      |                      | Projects' page    |          |         |
 +------+----------------------+-------------------+----------+---------+
 | 10.  | Logout as test_user  | Successfully      | -        |         |
 |      |                      | logged off        | **Pass** |         |
-|      |                      |                   |          |         |
-|      |                      |                   | **Fail   |         |
-|      |                      |                   | ☐**      |         |
 +------+----------------------+-------------------+----------+---------+
 | 11.  | Login as test_user   | Pop-up appears    | -        |         |
 |      | using username and   | 'Two-step         | **Pass** |         |
 |      | password             | verification for  |          |         |
-|      |                      | REDCap login'     | **Fail   |         |
-|      |                      |                   | ☐**      |         |
+|      |                      | REDCap login'     |          |         |
 +------+----------------------+-------------------+----------+---------+
 | 12.  | Check the checkbox   | Pop-up appears    | -        |         |
 |      | 'Don\'t prompt me    | 'Enter your       | **Pass** |         |
 |      | with two-step login  | verification      |          |         |
-|      | on this computer for | code'             | **Fail   |         |
-|      | 24 hours'            |                   | ☐**      |         |
+|      | on this computer for | code'             |          |         |
+|      | 24 hours'            |                   |          |         |
 |      |                      |                   |          |         |
 |      | Select the radio     |                   |          |         |
 |      | button for 'Email'   |                   |          |         |
@@ -224,29 +208,23 @@
 | 13.  | Go to test_user's    | A green tick and  | -        |         |
 |      | email (MailHog) and  | success appear    | **Pass** |         |
 |      | get the verification | next to the       |          |         |
-|      | code and enter it in | textbox           | **Fail   |         |
-|      | the textbox and      |                   | ☐**      |         |
+|      | code and enter it in | textbox           |          |         |
+|      | the textbox and      |                   |          |         |
 |      | press the 'Submit'   | Successfully      |          |         |
 |      | button               | directed to 'My   |          |         |
 |      |                      | Projects' page    |          |         |
 +------+----------------------+-------------------+----------+---------+
 | 14.  | Logout as test_user  | Successfully      | -        |         |
 |      |                      | logged off        | **Pass** |         |
-|      |                      |                   |          |         |
-|      |                      |                   | **Fail   |         |
-|      |                      |                   | ☐**      |         |
 +------+----------------------+-------------------+----------+---------+
 | 15.  | Login as test_user   | Successfully logs | -        |         |
 |      | using username and   | into REDCap       | **Pass** |         |
 |      | password             |                   |          |         |
-|      |                      | No verification   | **Fail   |         |
-|      |                      | code asked        | ☐**      |         |
+|      |                      | No verification   |          |         |
+|      |                      | code asked        |          |         |
 +------+----------------------+-------------------+----------+---------+
 | 16.  | Logout as test_user  | Successfully      | -        |         |
 |      |                      | logged off        | **Pass** |         |
-|      |                      |                   |          |         |
-|      |                      |                   | **Fail   |         |
-|      |                      |                   | ☐**      |         |
 +------+----------------------+-------------------+----------+---------+
 |      | THIS ENDS THE        |                   |          |         |
 |      | TESTING FOR THIS     |                   |          |         |

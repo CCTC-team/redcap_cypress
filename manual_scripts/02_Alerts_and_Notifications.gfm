@@ -170,10 +170,6 @@
 |      |                      |                      | 8in"} |        |
 |      |                      |                      | **P   |        |
 |      |                      |                      | ass** |        |
-|      |                      |                      |       |        |
-|      |                      |                      | *     |        |
-|      |                      |                      | *Fail |        |
-|      |                      |                      | ☐**   |        |
 +------+----------------------+----------------------+-------+--------+
 | 2.   | Click on 'Alerts &   | Alerts &             | !     |        |
 |      | Notifications'       | Notifications page   | [Chec |        |
@@ -200,10 +196,6 @@
 |      |                      |                      | 8in"} |        |
 |      |                      |                      | **P   |        |
 |      |                      |                      | ass** |        |
-|      |                      |                      |       |        |
-|      |                      |                      | *     |        |
-|      |                      |                      | *Fail |        |
-|      |                      |                      | ☐**   |        |
 +------+----------------------+----------------------+-------+--------+
 | 3.   | Set the following    | 'Success! New alert  | !     |        |
 |      | settings:            | created.' message is | [Chec |        |
@@ -231,9 +223,9 @@
 |      |                      | [\[ev                | **P   |        |
 |      | Message: Alerts and  | ent_1_arm_1\]\[email | ass** |        |
 |      | Notifications        | _v2\]](mailto:[event |       |        |
-|      |                      | _1_arm_1][email_v2]) | *     |        |
-|      | Click Save           |                      | *Fail |        |
-|      |                      | Subject: Testing     | ☐**   |        |
+|      |                      | _1_arm_1][email_v2]) |       |        |
+|      | Click Save           |                      |       |        |
+|      |                      | Subject: Testing     |       |        |
 |      |                      | Alerts and           |       |        |
 |      |                      | Notifications        |       |        |
 |      |                      |                      |       |        |
@@ -265,10 +257,6 @@
 |      |                      |                      | 8in"} |        |
 |      |                      |                      | **P   |        |
 |      |                      |                      | ass** |        |
-|      |                      |                      |       |        |
-|      |                      |                      | *     |        |
-|      |                      |                      | *Fail |        |
-|      |                      |                      | ☐**   |        |
 +------+----------------------+----------------------+-------+--------+
 | 5.   | Click on the 'Text   | 'Text Validation'    | !     |        |
 |      | Validation'          | instrument opens     | [Chec |        |
@@ -295,10 +283,6 @@
 |      |                      |                      | 8in"} |        |
 |      |                      |                      | **P   |        |
 |      |                      |                      | ass** |        |
-|      |                      |                      |       |        |
-|      |                      |                      | *     |        |
-|      |                      |                      | *Fail |        |
-|      |                      |                      | ☐**   |        |
 +------+----------------------+----------------------+-------+--------+
 | 6.   | Click on the 'Data   | 'Data Types'         | !     |        |
 |      | Types' instrument    | instrument opens     | [Chec |        |
@@ -325,10 +309,6 @@
 |      |                      |                      | 8in"} |        |
 |      |                      |                      | **P   |        |
 |      |                      |                      | ass** |        |
-|      |                      |                      |       |        |
-|      |                      |                      | *     |        |
-|      |                      |                      | *Fail |        |
-|      |                      |                      | ☐**   |        |
 +------+----------------------+----------------------+-------+--------+
 | 7.   | Open email inbox     | Email is received    | !     |        |
 |      | (MailHog) and check  | with details as      | [Chec |        |
@@ -355,10 +335,6 @@
 |      |                      |                      | 8in"} |        |
 |      |                      |                      | **P   |        |
 |      |                      |                      | ass** |        |
-|      |                      |                      |       |        |
-|      |                      |                      | *     |        |
-|      |                      |                      | *Fail |        |
-|      |                      |                      | ☐**   |        |
 +------+----------------------+----------------------+-------+--------+
 | 8.   | In REDCap project    | 'Alerts &            | !     |        |
 |      | Project_CUH_v1381,   | Notifications' page  | [Chec |        |
@@ -385,10 +361,6 @@
 |      |                      | notification send    | 8in"} |        |
 |      |                      |                      | **P   |        |
 |      |                      |                      | ass** |        |
-|      |                      |                      |       |        |
-|      |                      |                      | *     |        |
-|      |                      |                      | *Fail |        |
-|      |                      |                      | ☐**   |        |
 +------+----------------------+----------------------+-------+--------+
 | 9.   | Click on 'Alerts &   | Alerts &             | !     |        |
 |      | Notifications'       | Notifications page   | [Chec |        |
@@ -415,10 +387,6 @@
 |      |                      |                      | 8in"} |        |
 |      |                      |                      | **P   |        |
 |      |                      |                      | ass** |        |
-|      |                      |                      |       |        |
-|      |                      |                      | *     |        |
-|      |                      |                      | *Fail |        |
-|      |                      |                      | ☐**   |        |
 +------+----------------------+----------------------+-------+--------+
 | 10.  | Set the following    | 'Success! The alert  | !     |        |
 |      | settings:            | was updated.'        | [Chec |        |
@@ -446,9 +414,9 @@
 |      | Click Save           | [\[ev                | **P   |        |
 |      |                      | ent_1_arm_1\]\[email | ass** |        |
 |      |                      | _v2\]](mailto:[event |       |        |
-|      |                      | _1_arm_1][email_v2]) | *     |        |
-|      |                      |                      | *Fail |        |
-|      |                      | Subject: Testing     | ☐**   |        |
+|      |                      | _1_arm_1][email_v2]) |       |        |
+|      |                      |                      |       |        |
+|      |                      | Subject: Testing     |       |        |
 |      |                      | Alerts and           |       |        |
 |      |                      | Notifications        |       |        |
 |      |                      |                      |       |        |
@@ -480,10 +448,6 @@
 |      |                      |                      | 8in"} |        |
 |      |                      |                      | **P   |        |
 |      |                      |                      | ass** |        |
-|      |                      |                      |       |        |
-|      |                      |                      | *     |        |
-|      |                      |                      | *Fail |        |
-|      |                      |                      | ☐**   |        |
 +------+----------------------+----------------------+-------+--------+
 | 12.  | Click on the 'Text   | 'Text Validation'    | !     |        |
 |      | Validation'          | instrument opens     | [Chec |        |
@@ -510,10 +474,6 @@
 |      |                      |                      | 8in"} |        |
 |      |                      |                      | **P   |        |
 |      |                      |                      | ass** |        |
-|      |                      |                      |       |        |
-|      |                      |                      | *     |        |
-|      |                      |                      | *Fail |        |
-|      |                      |                      | ☐**   |        |
 +------+----------------------+----------------------+-------+--------+
 | 13.  | Click on the 'Data   | 'Data Types'         | !     |        |
 |      | Types' instrument    | instrument opens     | [Chec |        |
@@ -540,10 +500,6 @@
 |      |                      |                      | 8in"} |        |
 |      |                      |                      | **P   |        |
 |      |                      |                      | ass** |        |
-|      |                      |                      |       |        |
-|      |                      |                      | *     |        |
-|      |                      |                      | *Fail |        |
-|      |                      |                      | ☐**   |        |
 +------+----------------------+----------------------+-------+--------+
 | 14.  | Open email inbox     | Email is not sent to | !     |        |
 |      | (MailHog) and check  | te                   | [Chec |        |
@@ -570,10 +526,6 @@
 |      |                      |                      | 8in"} |        |
 |      |                      |                      | **P   |        |
 |      |                      |                      | ass** |        |
-|      |                      |                      |       |        |
-|      |                      |                      | *     |        |
-|      |                      |                      | *Fail |        |
-|      |                      |                      | ☐**   |        |
 +------+----------------------+----------------------+-------+--------+
 | 15.  | In REDCap project    | 'Alerts &            | !     |        |
 |      | Project_CUH_v1381,   | Notifications' page  | [Chec |        |
@@ -600,10 +552,6 @@
 |      |                      |                      | 8in"} |        |
 |      |                      |                      | **P   |        |
 |      |                      |                      | ass** |        |
-|      |                      |                      |       |        |
-|      |                      |                      | *     |        |
-|      |                      |                      | *Fail |        |
-|      |                      |                      | ☐**   |        |
 +------+----------------------+----------------------+-------+--------+
 | 16.  | In Record Status     | 'Data Types'         | !     |        |
 |      | Dashboard, Click on  | instrument opens     | [Chec |        |
@@ -630,10 +578,6 @@
 |      |                      |                      | 8in"} |        |
 |      |                      |                      | **P   |        |
 |      |                      |                      | ass** |        |
-|      |                      |                      |       |        |
-|      |                      |                      | *     |        |
-|      |                      |                      | *Fail |        |
-|      |                      |                      | ☐**   |        |
 +------+----------------------+----------------------+-------+--------+
 | 17.  | Click on 'Alerts &   | 'Alerts &            | !     |        |
 |      | Notifications'       | Notifications' page  | [Chec |        |
@@ -660,10 +604,6 @@
 |      |                      | notification send    | 8in"} |        |
 |      |                      |                      | **P   |        |
 |      |                      |                      | ass** |        |
-|      |                      |                      |       |        |
-|      |                      |                      | *     |        |
-|      |                      |                      | *Fail |        |
-|      |                      |                      | ☐**   |        |
 +------+----------------------+----------------------+-------+--------+
 | 18.  | Open email inbox and | Email is received    | !     |        |
 |      | check                | with details as      | [Chec |        |
@@ -690,10 +630,6 @@
 |      |                      |                      | 8in"} |        |
 |      |                      |                      | **P   |        |
 |      |                      |                      | ass** |        |
-|      |                      |                      |       |        |
-|      |                      |                      | *     |        |
-|      |                      |                      | *Fail |        |
-|      |                      |                      | ☐**   |        |
 +------+----------------------+----------------------+-------+--------+
 | 19.  | In REDCap project    | The Data Types       | !     |        |
 |      | Project_CUH_v1381,   | instrument opens.    | [Chec |        |
@@ -721,9 +657,7 @@
 |      | Click 'Update &      |                      | **P   |        |
 |      | Close Editor' and    |                      | ass** |        |
 |      |                      |                      |       |        |
-|      | Click Save           |                      | *     |        |
-|      |                      |                      | *Fail |        |
-|      |                      |                      | ☐**   |        |
+|      | Click Save           |                      |       |        |
 +------+----------------------+----------------------+-------+--------+
 | 20.  | Click on 'Alerts &   | Alerts &             | !     |        |
 |      | Notifications'       | Notifications page   | [Chec |        |
@@ -750,10 +684,6 @@
 |      |                      |                      | 8in"} |        |
 |      |                      |                      | **P   |        |
 |      |                      |                      | ass** |        |
-|      |                      |                      |       |        |
-|      |                      |                      | *     |        |
-|      |                      |                      | *Fail |        |
-|      |                      |                      | ☐**   |        |
 +------+----------------------+----------------------+-------+--------+
 | 21.  | Set the following    | 'Success! The alert  | !     |        |
 |      | settings:            | was updated.'        | [Chec |        |
@@ -781,9 +711,9 @@
 |      | "Email\"(Event 1     | <te                  | **P   |        |
 |      | (Arm 1: Arm 1))      | st_user@example.com> | ass** |        |
 |      |                      |                      |       |        |
-|      | and                  | To:                  | *     |        |
-|      |                      | [\[ev                | *Fail |        |
-|      | 'is saved with any   | ent_1_arm_1\]\[email | ☐**   |        |
+|      | and                  | To:                  |       |        |
+|      |                      | [\[ev                |       |        |
+|      | 'is saved with any   | ent_1_arm_1\]\[email |       |        |
 |      | form status'         | _v2\]](mailto:[event |       |        |
 |      |                      | _1_arm_1][email_v2]) |       |        |
 |      | while the following  |                      |       |        |
@@ -823,10 +753,6 @@
 |      |                      |                      | 8in"} |        |
 |      |                      |                      | **P   |        |
 |      |                      |                      | ass** |        |
-|      |                      |                      |       |        |
-|      |                      |                      | *     |        |
-|      |                      |                      | *Fail |        |
-|      |                      |                      | ☐**   |        |
 +------+----------------------+----------------------+-------+--------+
 | 23.  | Click on the 'Text   | 'Text Validation'    | !     |        |
 |      | Validation'          | instrument opens     | [Chec |        |
@@ -853,10 +779,6 @@
 |      |                      |                      | 8in"} |        |
 |      |                      |                      | **P   |        |
 |      |                      |                      | ass** |        |
-|      |                      |                      |       |        |
-|      |                      |                      | *     |        |
-|      |                      |                      | *Fail |        |
-|      |                      |                      | ☐**   |        |
 +------+----------------------+----------------------+-------+--------+
 | 24.  | Click on the 'Data   | 'Data Types'         | !     |        |
 |      | Types' instrument    | instrument opens;    | [Chec |        |
@@ -883,10 +805,6 @@
 |      |                      |                      | 8in"} |        |
 |      |                      |                      | **P   |        |
 |      |                      |                      | ass** |        |
-|      |                      |                      |       |        |
-|      |                      |                      | *     |        |
-|      |                      |                      | *Fail |        |
-|      |                      |                      | ☐**   |        |
 +------+----------------------+----------------------+-------+--------+
 | 25.  | Open email inbox and | Email is received    | !     |        |
 |      | check                | with details as      | [Chec |        |
@@ -913,10 +831,6 @@
 |      |                      |                      | 8in"} |        |
 |      |                      |                      | **P   |        |
 |      |                      |                      | ass** |        |
-|      |                      |                      |       |        |
-|      |                      |                      | *     |        |
-|      |                      |                      | *Fail |        |
-|      |                      |                      | ☐**   |        |
 +------+----------------------+----------------------+-------+--------+
 | 26.  | In REDCap project    | 'Alerts &            | !     |        |
 |      | Project_CUH_v1381,   | Notifications' page  | [Chec |        |
@@ -943,10 +857,6 @@
 |      |                      | notification send    | 8in"} |        |
 |      |                      |                      | **P   |        |
 |      |                      |                      | ass** |        |
-|      |                      |                      |       |        |
-|      |                      |                      | *     |        |
-|      |                      |                      | *Fail |        |
-|      |                      |                      | ☐**   |        |
 +------+----------------------+----------------------+-------+--------+
 | 27.  | Click on 'Add / Edit | 'Add / Edit Records' | !     |        |
 |      | Records'             | page is displayed    | [Chec |        |
@@ -973,10 +883,6 @@
 |      |                      |                      | 8in"} |        |
 |      |                      |                      | **P   |        |
 |      |                      |                      | ass** |        |
-|      |                      |                      |       |        |
-|      |                      |                      | *     |        |
-|      |                      |                      | *Fail |        |
-|      |                      |                      | ☐**   |        |
 +------+----------------------+----------------------+-------+--------+
 | 28.  | Click on the 'Text   | 'Text Validation'    | !     |        |
 |      | Validation'          | instrument opens     | [Chec |        |
@@ -1003,10 +909,6 @@
 |      |                      |                      | 8in"} |        |
 |      |                      |                      | **P   |        |
 |      |                      |                      | ass** |        |
-|      |                      |                      |       |        |
-|      |                      |                      | *     |        |
-|      |                      |                      | *Fail |        |
-|      |                      |                      | ☐**   |        |
 +------+----------------------+----------------------+-------+--------+
 | 29.  | Click on the 'Data   | 'Data Types'         | !     |        |
 |      | Types' instrument    | instrument opens;    | [Chec |        |
@@ -1033,10 +935,6 @@
 |      |                      |                      | 8in"} |        |
 |      |                      |                      | **P   |        |
 |      |                      |                      | ass** |        |
-|      |                      |                      |       |        |
-|      |                      |                      | *     |        |
-|      |                      |                      | *Fail |        |
-|      |                      |                      | ☐**   |        |
 +------+----------------------+----------------------+-------+--------+
 | 30.  | Open email inbox and | Email is not sent to | !     |        |
 |      | check                | te                   | [Chec |        |
@@ -1063,10 +961,6 @@
 |      |                      |                      | 8in"} |        |
 |      |                      |                      | **P   |        |
 |      |                      |                      | ass** |        |
-|      |                      |                      |       |        |
-|      |                      |                      | *     |        |
-|      |                      |                      | *Fail |        |
-|      |                      |                      | ☐**   |        |
 +------+----------------------+----------------------+-------+--------+
 | 31.  | In REDCap project    | 'Alerts &            | !     |        |
 |      | Project_CUH_v1381,   | Notifications' page  | [Chec |        |
@@ -1093,10 +987,6 @@
 |      |                      |                      | 8in"} |        |
 |      |                      |                      | **P   |        |
 |      |                      |                      | ass** |        |
-|      |                      |                      |       |        |
-|      |                      |                      | *     |        |
-|      |                      |                      | *Fail |        |
-|      |                      |                      | ☐**   |        |
 +------+----------------------+----------------------+-------+--------+
 | 32.  | Click on 'Alerts &   | Alerts &             | !     |        |
 |      | Notifications'       | Notifications page   | [Chec |        |
@@ -1123,10 +1013,6 @@
 |      |                      |                      | 8in"} |        |
 |      |                      |                      | **P   |        |
 |      |                      |                      | ass** |        |
-|      |                      |                      |       |        |
-|      |                      |                      | *     |        |
-|      |                      |                      | *Fail |        |
-|      |                      |                      | ☐**   |        |
 +------+----------------------+----------------------+-------+--------+
 | 33.  | Set the following    | 'Success! The alert  | !     |        |
 |      | settings:            | was updated.'        | [Chec |        |
@@ -1154,9 +1040,9 @@
 |      | sending              | To:                  | **P   |        |
 |      | notification?'       | \[event_1            | ass** |        |
 |      |                      | _arm_1\]\[email_v2\] |       |        |
-|      | Click Save           |                      | *     |        |
-|      |                      | Subject: Testing     | *Fail |        |
-|      |                      | Alerts and           | ☐**   |        |
+|      | Click Save           |                      |       |        |
+|      |                      | Subject: Testing     |       |        |
+|      |                      | Alerts and           |       |        |
 |      |                      | Notifications        |       |        |
 |      |                      |                      |       |        |
 |      |                      | Message: Alerts and  |       |        |
@@ -1187,10 +1073,6 @@
 |      |                      |                      | 8in"} |        |
 |      |                      |                      | **P   |        |
 |      |                      |                      | ass** |        |
-|      |                      |                      |       |        |
-|      |                      |                      | *     |        |
-|      |                      |                      | *Fail |        |
-|      |                      |                      | ☐**   |        |
 +------+----------------------+----------------------+-------+--------+
 | 35.  | Click on the 'Text   | 'Text Validation'    | !     |        |
 |      | Validation'          | instrument opens     | [Chec |        |
@@ -1217,10 +1099,6 @@
 |      |                      |                      | 8in"} |        |
 |      |                      |                      | **P   |        |
 |      |                      |                      | ass** |        |
-|      |                      |                      |       |        |
-|      |                      |                      | *     |        |
-|      |                      |                      | *Fail |        |
-|      |                      |                      | ☐**   |        |
 +------+----------------------+----------------------+-------+--------+
 | 36.  | Click on the 'Data   | 'Data Types'         | !     |        |
 |      | Types' instrument    | instrument opens;    | [Chec |        |
@@ -1247,10 +1125,6 @@
 |      |                      |                      | 8in"} |        |
 |      |                      |                      | **P   |        |
 |      |                      |                      | ass** |        |
-|      |                      |                      |       |        |
-|      |                      |                      | *     |        |
-|      |                      |                      | *Fail |        |
-|      |                      |                      | ☐**   |        |
 +------+----------------------+----------------------+-------+--------+
 | 37.  | Open email inbox and | Email is received    | !     |        |
 |      | check                | with details as      | [Chec |        |
@@ -1277,10 +1151,6 @@
 |      |                      |                      | 8in"} |        |
 |      |                      |                      | **P   |        |
 |      |                      |                      | ass** |        |
-|      |                      |                      |       |        |
-|      |                      |                      | *     |        |
-|      |                      |                      | *Fail |        |
-|      |                      |                      | ☐**   |        |
 +------+----------------------+----------------------+-------+--------+
 | 38.  | In REDCap project    | 'Alerts &            | !     |        |
 |      | Project_CUH_v1381,   | Notifications' page  | [Chec |        |
@@ -1307,10 +1177,6 @@
 |      |                      | notification send    | 8in"} |        |
 |      |                      |                      | **P   |        |
 |      |                      |                      | ass** |        |
-|      |                      |                      |       |        |
-|      |                      |                      | *     |        |
-|      |                      |                      | *Fail |        |
-|      |                      |                      | ☐**   |        |
 +------+----------------------+----------------------+-------+--------+
 | 39.  | Click on 'Add / Edit | 'Add / Edit Records' | !     |        |
 |      | Records'             | page is displayed    | [Chec |        |
@@ -1337,10 +1203,6 @@
 |      |                      |                      | 8in"} |        |
 |      |                      |                      | **P   |        |
 |      |                      |                      | ass** |        |
-|      |                      |                      |       |        |
-|      |                      |                      | *     |        |
-|      |                      |                      | *Fail |        |
-|      |                      |                      | ☐**   |        |
 +------+----------------------+----------------------+-------+--------+
 | 40.  | Click on the 'Text   | 'Text Validation'    | !     |        |
 |      | Validation'          | instrument opens     | [Chec |        |
@@ -1367,10 +1229,6 @@
 |      |                      |                      | 8in"} |        |
 |      |                      |                      | **P   |        |
 |      |                      |                      | ass** |        |
-|      |                      |                      |       |        |
-|      |                      |                      | *     |        |
-|      |                      |                      | *Fail |        |
-|      |                      |                      | ☐**   |        |
 +------+----------------------+----------------------+-------+--------+
 | 41.  | Click on the 'Data   | 'Data Types'         | !     |        |
 |      | Types' instrument    | instrument opens;    | [Chec |        |
@@ -1397,10 +1255,6 @@
 |      |                      |                      | 8in"} |        |
 |      |                      |                      | **P   |        |
 |      |                      |                      | ass** |        |
-|      |                      |                      |       |        |
-|      |                      |                      | *     |        |
-|      |                      |                      | *Fail |        |
-|      |                      |                      | ☐**   |        |
 +------+----------------------+----------------------+-------+--------+
 | 42.  | Open email inbox and | Email is not sent to | !     |        |
 |      | check                | te                   | [Chec |        |
@@ -1427,10 +1281,6 @@
 |      |                      |                      | 8in"} |        |
 |      |                      |                      | **P   |        |
 |      |                      |                      | ass** |        |
-|      |                      |                      |       |        |
-|      |                      |                      | *     |        |
-|      |                      |                      | *Fail |        |
-|      |                      |                      | ☐**   |        |
 +------+----------------------+----------------------+-------+--------+
 | 43.  | In REDCap project    | 'Alerts &            | !     |        |
 |      | Project_CUH_v1381,   | Notifications' page  | [](me |        |
@@ -1440,9 +1290,7 @@
 |      | Click on the tab     | notification is not  | **P   |        |
 |      | 'Notification Log'   | sent for Record: 7   | ass** |        |
 |      | and click 'View past |                      |       |        |
-|      | notifications'       |                      | *     |        |
-|      |                      |                      | *Fail |        |
-|      |                      |                      | ☐**   |        |
+|      | notifications'       |                      |       |        |
 +------+----------------------+----------------------+-------+--------+
 | 44.  | Logout as test_user  | Successfully logged  | !     |        |
 |      |                      | off                  | [Chec |        |
@@ -1469,10 +1317,6 @@
 |      |                      |                      | 8in"} |        |
 |      |                      |                      | **P   |        |
 |      |                      |                      | ass** |        |
-|      |                      |                      |       |        |
-|      |                      |                      | *     |        |
-|      |                      |                      | *Fail |        |
-|      |                      |                      | ☐**   |        |
 +------+----------------------+----------------------+-------+--------+
 |      | THIS ENDS THE        |                      |       |        |
 |      | TESTING FOR THIS     |                      |       |        |
