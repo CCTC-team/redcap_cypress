@@ -1,5 +1,5 @@
 ---
-name: Feature Name
+name: REDCap Feature
 about: Brief description
 title: ''
 labels: ''
