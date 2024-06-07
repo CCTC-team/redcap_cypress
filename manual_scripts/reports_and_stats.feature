@@ -126,7 +126,7 @@ Then I should select "> =" 18
 Then I should select "OR"
 Then I should select "< =" 55
 Then I should see "Order the Results"
-# I should be able rearrange the results anyhow preferred.
+# I should be able rearrage the results anyhow preferred.
 Then I should click on the button labeled "Save Report"
 Then I should see "Your report has been saved pop up page"
 Then I should click on the button labeled "View Report"
@@ -138,22 +138,7 @@ Then I should see "View Report: Test page" showing the report selected(In the ra
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  
 
 
   
