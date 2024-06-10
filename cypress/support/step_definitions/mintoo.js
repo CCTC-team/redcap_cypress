@@ -6,6 +6,7 @@
 //     regexp: /(Restore deleted file|Permanently delete file|Delete folder)/
 // })
 
+
 /**
  * @module FileRepository
  * @author Mintoo Xavier <min2xavier@gmail.com>
@@ -17,6 +18,7 @@
 Given('I click on the {string} image for the file {string} in File Repository', (option, filename) => {
     cy.get('td').contains(filename).parents('tr').find('td:nth-child(7)').find('a[title*="' + option + '"]').click()
 })
+
 
 /**
  * @module FileRepository
@@ -88,7 +90,8 @@ Given("I {string} the radio option {string} for the user access {string} of repo
         
     )})                            
 
-    /**
+    
+/**
  * @module DataQualityRule
  * @author Mintoo Xavier <min2xavier@gmail.com>
  * @example I select the option {string} on field labeled {string} for the access {string} of report
@@ -109,4 +112,40 @@ Given("I select the option {string} on field labeled {string} for the access {st
         })
     }
         
+)})  
+
+
+/**
+ * @module RecordLocking&E-Signatures
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I click on the link labeled {string} for the form labeled {string} for record {string}
+ * @param {string} linklabel - link
+ * @param {string} form - CRF name
+ * @param {string} rec - record number
+ * @description Click on the link for the form for record
+ */
+Given("I click on the link labeled {string} for the form labeled {string} for record {string}", (linklabel, form, rec) => {
+    cy.get('table[id=esignLockList]').find('td').contains(rec).parent('tr').within(() => {
+        cy.get('td').contains(form).parent('tr').find('a').contains(linklabel).then($el => {
+            expect($el).to.have.attr('target','_blank')
+            // update attr to open in same tab
+            $el.attr('target', '_self')
+         })
+         .click()
+    }
+)})  
+
+
+/**
+ * @module RecordLocking&E-Signatures
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I verify the checkbox for the field labeled {string} is {check}
+ * @param {string} field - name of checkbox
+ * @param {check} check - check/uncheck
+ * @description Click on the link for the Descripency field.
+ */
+Given("I verify the checkbox for the field labeled {string} is {string}", (field, check) => {
+    cy.get('table[id=questiontable]').find('td').contains(field).parents('tr').within(() => {
+        cy.get('input[type=checkbox]').should(check === "checked" ? "be.checked" : "not.be.checked")
+    }
 )})  
