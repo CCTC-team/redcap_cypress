@@ -1,1 +1,0 @@
-duplicate user (same username) cannot be created – a warning message states: “ERROR: The user could not be added! A user already exists named…”

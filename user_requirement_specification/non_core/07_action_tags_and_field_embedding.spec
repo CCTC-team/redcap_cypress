@@ -5,3 +5,4 @@
     7.1.4 - @NOW and @TODAY 
     7.1.5 - @IF 
     7.1.6 - @USERNAME
+7.2 - The system shall support the ability to use Embedded Fields in data entry forms for better user-friendly form designs. 
