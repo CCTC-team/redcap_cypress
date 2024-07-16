@@ -11,30 +11,35 @@ Feature: Downloading Metadata only and data
 # Dummy records consist of Name(Field name = ptname_v2_v2 with attribute text) as Tony
 
 Scenario 1: Download metadata only(XML)
- Given I click on the tab labeled "Other Functionality"
+Given I login to REDCap with the user "test_admin" 
+And I click on the link labeled "My Projects"
+Then I should see a row labeled "Project_CUH_v1381" in the projects table
+ And I click on the link labeled "Project_CUH_v1381"
+ And I click on the link labeled "Other Functionality"
  And I click on the button labeled "Download metadata only(XML)"
- And I wait for 0.5 seconds
- Then I should see "Project_CUH_v1381_2024-05-31(date of the download)_1249.REDCap.xml"
+ Then I should see "Project_CUH_v1381_2024-05-31(date of the download)_1249.REDCap.xml" downloaded to computer
+##VERIFY
  # The entire project (all records, instruments, fields, and project attributes) can be downloaded as a single XML file (CDISC ODM format).
  # The XML file can be found in the downloads of the user's system.
  
 Scenario 2: Download metadata & data(XML)
  Given I click on the tab labeled "Other Functionality"
- And I click on the button labeled "Download metadata & data(XML)"
- And I wait for 0.5 seconds
- Then I should see "Exporting Entire project(metadata & data)"
- And I should select "Include all uploaded files and signatures"
- And I should select "Export gray form status fields with blank value" under Advanced data formatting options
- And I should select ",(comma) - default)" under Set CSV delimiter character
- And I should select "Use fields native decimal format (default)"
- Then I click on the button labeled "Export Entire Project(metadata & data)"
+ And I click on the button labeled "Download metadata & data(XML)" in the dialog box
+ Then I should see "Exporting Entire project(metadata & data)" dialog box
+ And I click on the checkbox labeled "Include all uploaded files and signatures?" in the dialog box
+ And I select "Export gray form status fields with blank value" on the dropdown field labeled "Export blank values for gray Form Status?" in the dialog box
+ And I select ",(comma) - default)" on the dropdown field labeled "Set CSV delimiter character" in the dialog box
+ And I select "Use fields native decimal format (default)" on the dropdown field labeled "Force all numbers into a specified decimal format?" in the dialog box
+ And I click on the button labeled "Export Entire Project(metadata & data)"
  # De-identification options(optional) which allow you to limit the amount of sensitive information that you are exporting out of the project.
  # Remove Notes/Essay box fields was selected and all the fields was removed from the downloaded project.
  # Remove all date and datetime fields was also selected and all the date and datetime fields was removed from the downloaded project.
  # Deselecting Include all uploaded files and signatures also removes all uploaded files and signatures in the entire project.
- And I should see "A popup showing Exporting data"
- And I wait for 1 minute
- And I should see "Data export was successful and data is now ready to be downloaded popup"
- And I should click on "icon to download"
+ And I should see a dialog containing the following text: "Exporting Data"
+ Then I should see a dialog containing the following text: "Data export was successful!"
+ Given I click on the download icons to receive the files for the "REDCap XML" format in the dialog box
+ ##VERIFY
  # The entire project with data input (all records, instruments, fields, and project attributes) can be downloaded as a single XML file (CDISC ODM format).
  # The XML file can be found in the downloads of the user's system.
+
+ 
