@@ -108,12 +108,4 @@ Complete? (text_validation_complete)
       1            0(0.0%)     1
 Then I select the dropdown option labeled "View as Pie Chart"
 And I should see a Pie Chart showing "Incomplete 1(100%)"
-<<<<<<< HEAD
 And I should see "Counts/frequency: Incomplete (1, 0.0%), Unverified (0, 0.0%), Complete (0, 100.0%)" in the title
-=======
-And I should see "Counts/frequency: Incomplete (1, 0.0%), Unverified (0, 0.0%), Complete (0, 100.0%)" in the title
-
-
-   
-    
->>>>>>> 3aeb76b7 (CorrectedVersion)
