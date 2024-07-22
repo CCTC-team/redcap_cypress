@@ -1,3 +1,7 @@
+The system shall support the ability to create codebook. The following are checked in codebook: 
+The system shall support the ability to creating and deleting a field alters the codebook 
+The system shall support the ability for the following to be checked in the codebook: Variable name, Label, Type, Field note
+
 12.1 - The system shall support the ability to create codebook. The following are checked in codebook: 
     12.1.1 - Creating and deleting a field alters the codebook  
     12.1.2 - The following are checked for a field in codebook: 
