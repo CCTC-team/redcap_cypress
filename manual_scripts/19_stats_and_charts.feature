@@ -7,7 +7,7 @@ Scenario: Uploading Project D.5.100 consisting Text Validation(Name, Email, Form
 
 #SETUP
 Given I login to REDCap with the user "Test_Admin"   
-And I create a new project named "Project D.5.100" by clicking on "New Project" in the menu bar, selecting "Practice / Just for fun" from the dropdown, choosing "Upload a RedCap project XML file (CDISC ODM format)", clicking "Choose File", selecting the "ProjectCUHV1381xml_2024-5-12_1714.REDCap" and clicking the "Create Project" button
+And I create a new project named "Project D.5.100" by clicking on "New Project" in the menu bar, selecting "Practice / Just for fun" from the dropdown, choosing "Upload a RedCap project XML file (CDISC ODM format)", clicking "Choose File", selecting the "Project_CUH_v1381.xml" and clicking the "Create Project" button
 
 ##SETUP_VERIFICATION: Text Validation and  Data Types
 When I click on the link labeled "Designer"
@@ -108,4 +108,12 @@ Complete? (text_validation_complete)
       1            0(0.0%)     1
 Then I select the dropdown option labeled "View as Pie Chart"
 And I should see a Pie Chart showing "Incomplete 1(100%)"
+<<<<<<< HEAD
 And I should see "Counts/frequency: Incomplete (1, 0.0%), Unverified (0, 0.0%), Complete (0, 100.0%)" in the title
+=======
+And I should see "Counts/frequency: Incomplete (1, 0.0%), Unverified (0, 0.0%), Complete (0, 100.0%)" in the title
+
+
+   
+    
+>>>>>>> 3aeb76b7 (CorrectedVersion)
