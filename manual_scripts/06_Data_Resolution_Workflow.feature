@@ -2,6 +2,23 @@
 Given  I login to REDCap with the user "test_admin" 
 And I create a new project named "Project_CUH_v1381" by clicking on "New Project" in the menu bar, selecting "Practice / Just for fun" from the dropdown, choosing file "Project_CUH_v138.xml", and clicking the "Create Project" button
 #Enable the Data Resolution Workflow (Data Queries)
+Given I click on the link labeled "Project Setup"
+And I click on the button labeled "Additional customizations"
+And I select "Data Resolution Workflow" in the field identified by "data_resolution_enabled"
+Then I click on the button labeled "Save"
+
+When I click on the link labeled "User Rights"
+I enter "test_user" into the field identified by "new_username"
+And  I click on the button labeled "Add with custom rights"
+And I click "Edit user privileges"
+And I check the checkbox labeled "record_create" 
+And  I select "Respond only to opened queries" under "Data Resolution Workflow"
+And I click "Save Changes"
+Given I enter "test_user2" into the field identified by "new_username"
+And  I click on the button labeled "Add with custom rights"
+And I click "Edit user privileges"
+And  I select "Open, close, and respond to queries" under "Data Resolution Workflow"
+And I click "Save Changes"
 And I logout
 
 
@@ -282,7 +299,7 @@ And I click on the link labeled "Project_CUH_v1381"
 And I click on the link labeled "Record Status Dashboard"
 And  I click on the bubble for the "Text Validation" data collection instrument for record ID "1"
 And I click on the Data Resolution Workflow icon for the input field labeled "Email"
-Given   I check the checkbox labeled "Reopen the closed query" 
+Given I check the checkbox labeled "Reopen the closed query" 
 And  I enter "Reopen the closed query" into the field identified by "dc-comment"
 And  I click on the button labeled "Reopen query"
 Then I should see a red exclamation icon for the input field labeled "Email"
