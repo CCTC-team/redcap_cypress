@@ -1,5 +1,0 @@
-record_id,text_validation_complete,date_missing_century,datetime_missing_century,datetime_missing_mins,datetime_secs_missing_secs,data_types_complete
-100,1,,,,,0
-5000,1,,,,,0
-5001,2,,,,,0
-5002,2,14/04/21,14/04/21 13:54,14/04/2021 13:,14/04/2021 13:55:,2
