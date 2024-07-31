@@ -1,11 +1,12 @@
 //Add any of your own step definitions here
 
+const { Given } = require('@badeball/cypress-cucumber-preprocessor')
+
 // //file_repository
 // defineParameterType({
 //     name: 'optionlabel',
 //     regexp: /(Restore deleted file|Permanently delete file|Delete folder)/
 // })
-
 
 /**
  * @module FileRepository
@@ -147,5 +148,19 @@ Given("I click on the link labeled {string} for the form labeled {string} for re
 Given("I verify the checkbox for the field labeled {string} is {string}", (field, check) => {
     cy.get('table[id=questiontable]').find('td').contains(field).parents('tr').within(() => {
         cy.get('input[type=checkbox]').should(check === "checked" ? "be.checked" : "not.be.checked")
+    }
+)})  
+
+
+/**
+ * @module LongitudinalProjectSetup
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I click the X to delete the event named {string}
+ * @param {string} label - name of event
+ * @description Click on X to delete an event on the Define My Event page.
+ */
+Given("I should NOT see the Delete image for the event named {string}", (label) => {
+    cy.get('table[id=event_table]').find('td').contains(label).parents('tr').within((tr) => {
+        expect(tr).to.not.have.descendants('img[title*=Delete]')
     }
 )})  
