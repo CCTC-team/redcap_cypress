@@ -1,0 +1,27 @@
+﻿{
+  "targetSoftware": "REDCap",
+  "runOutput" : true,
+  "runPandoc" : true,
+  "runChecks": true,
+  "pandocArgs": {
+    "runAs": {
+      "Case": "Html"
+    },
+    "fileName": "REDCap_v13.8.1.html"
+  },
+  "genOpts": 31,
+  "version": "v13.8.1",
+  "defaultBranch": "redcap_val",
+  "validUsers": [
+    "MintooXavier",
+    "rmh54",
+    "CoreenDsouza",
+    "TanDBPRO",
+    "rukayat-yakub"
+  ],
+  "totalExpectedCardChecks": 4,
+  "featureTemplateFilePath": "feature_template.md",
+  "outputTemplateFilePath": "output_template.md",
+  "outputFolderPath": "output\\",
+  "destinationFilePath": "output\\dest.md"
+}

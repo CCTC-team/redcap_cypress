@@ -1,0 +1,1046 @@
++-------------+--------+-----------+----------------------------------+
+| **System    |        |           |                                  |
+| Setup**     |        |           |                                  |
++=============+========+===========+==================================+
+| **Database  | >      | > **Ap    | > <https://localhost:8443/>      |
+| Version**   | REDCap | plication |                                  |
+|             | > 1    | > URL**   |                                  |
+|             | 3.8.1  |           |                                  |
++-------------+--------+-----------+----------------------------------+
+| **Document  | > Co   | *         | > 1                              |
+| Status**    | mplete | *Document |                                  |
+|             |        | V         |                                  |
+|             |        | ersion ** |                                  |
++-------------+--------+-----------+----------------------------------+
+
++-----------------------------------------------------------------------+
+| **Test Summary**                                                      |
++-----------------------------------------------------------------------+
+| **Feature Category Description: C**odebook is a human-readable,       |
+| read-only version of the project\'s Data Dictionary and it is found   |
+| on your project\'s Home Page under Quick Tasks. There are 18 pieces   |
+| of information that must be marked as identifiers in a REDCap data    |
+| dictionary, as per. HIPAA policies. A codebook describes each         |
+| variable by name according to the type of data -- numeric, date/time, |
+| character -- the units of measurement -- grams, feet, micrograms per  |
+| deciliter -- the purpose of collecting it and its relationship to     |
+| other data.                                                           |
+|                                                                       |
+| **Test Purpose Details:** This test script validates if Codebook work |
+|                                                                       |
+| **Functional Requirements:**                                          |
+|                                                                       |
+| -   12.1 The system shall support the ability to create codebook. The |
+|     following are checked in codebook:                                |
+|                                                                       |
+|     -   12.1.1 Creating and deleting a field alters the codebook      |
+|                                                                       |
+|     -   12.1.2 The following are checked for a field in codebook:     |
+|                                                                       |
+|         -   12.1.2.1 Variable name                                    |
+|                                                                       |
+|         -   12.1.2.2 Label                                            |
+|                                                                       |
+|         -   12.1.2.3 Type                                             |
+|                                                                       |
+|         -   12.1.2.4 Field note                                       |
+|                                                                       |
+|         -   12.1.2.5 Identifier                                       |
+|                                                                       |
+|         -   12.1.2.6 Required                                         |
+|                                                                       |
+|     -   12.1.3 The following subset of field types are verified       |
+|                                                                       |
+|         -   12.1.3.1 Textbox with email selected                      |
+|                                                                       |
+|         -   12.1.3.2 Textbox with date format e.g. D-M-Y              |
+|                                                                       |
+|         -   12.1.3.3 Dropdown                                         |
+|                                                                       |
+|         -   12.1.3.4 Radio button                                     |
+|                                                                       |
+|         -   12.1.3.5 Checkbox                                         |
+|                                                                       |
+|         -   12.1.3.6 Calculated Field                                 |
+|                                                                       |
+|         -   12.1.3.7 Descriptive Text (with optional                  |
+|             Image/Video/Audio/File Attachment)                        |
++-----------------------------------------------------------------------+
+|                                                                       |
++-----------------------------------------------------------------------+
+
++----+-----------+-------------+-----------------+--------------------+
+| ** |           |             |                 |                    |
+| Te |           |             |                 |                    |
+| st |           |             |                 |                    |
+| Re |           |             |                 |                    |
+| qu |           |             |                 |                    |
+| ir |           |             |                 |                    |
+| em |           |             |                 |                    |
+| en |           |             |                 |                    |
+| ts |           |             |                 |                    |
+| ** |           |             |                 |                    |
++----+-----------+-------------+-----------------+--------------------+
+| ** |           |             |                 |                    |
+| Te |           |             |                 |                    |
+| st |           |             |                 |                    |
+| U  |           |             |                 |                    |
+| se |           |             |                 |                    |
+| rs |           |             |                 |                    |
+| ** |           |             |                 |                    |
++----+-----------+-------------+-----------------+--------------------+
+| ** | **U       | *           | **Minimum       | **Other Settings** |
+| ID | sername** | *Password** | User's Rights** |                    |
+| ** |           |             |                 |                    |
++----+-----------+-------------+-----------------+--------------------+
+| >  | test_user | Testing123  | Standard User   |                    |
+| ** |           |             | with 'Project   |                    |
+| 1. |           |             | Design and      |                    |
+| ** |           |             | Setup'          |                    |
+|    |           |             | privileges.     |                    |
+|    |           |             | View and edit   |                    |
+|    |           |             | rights on all   |                    |
+|    |           |             | instruments.    |                    |
++----+-----------+-------------+-----------------+--------------------+
+| >  | t         | Testing123  | Administrator   |                    |
+| ** | est_admin |             |                 |                    |
+| 2. |           |             |                 |                    |
+| ** |           |             |                 |                    |
++----+-----------+-------------+-----------------+--------------------+
+| >  |           |             |                 |                    |
+| ** |           |             |                 |                    |
+| 3. |           |             |                 |                    |
+| ** |           |             |                 |                    |
++----+-----------+-------------+-----------------+--------------------+
+
++----+-------------------------+--------------------------------------+
+| *  |                         |                                      |
+| *P |                         |                                      |
+| ro |                         |                                      |
+| je |                         |                                      |
+| ct |                         |                                      |
+| S  |                         |                                      |
+| et |                         |                                      |
+| up |                         |                                      |
+| ** |                         |                                      |
++----+-------------------------+--------------------------------------+
+| ** | > **Description**       | > **Instructions**                   |
+| ID |                         |                                      |
+| ** |                         |                                      |
++----+-------------------------+--------------------------------------+
+| 1  | Project:                | New empty project                    |
+| \. | Project_CUHv1381        |                                      |
++----+-------------------------+--------------------------------------+
+| 2  | Project Setup           |                                      |
+| \. |                         |                                      |
++----+-------------------------+--------------------------------------+
+| 3  | Data Import File        |                                      |
+| \. |                         |                                      |
++----+-------------------------+--------------------------------------+
+| 4  | Other Files             |                                      |
+| \. |                         |                                      |
++----+-------------------------+--------------------------------------+
+
++------+-----------------------+--------------------+------+----------+
+| **   |                       |                    |      |          |
+| Test |                       |                    |      |          |
+| Ste  |                       |                    |      |          |
+| ps** |                       |                    |      |          |
++------+-----------------------+--------------------+------+----------+
+| **   | **Action Step**       | **Expected         | **   | **Co     |
+| Step |                       | Result**           | Pass | mments** |
+| \#** |                       |                    | /    |          |
+|      |                       |                    | Fa   |          |
+|      |                       |                    | il** |          |
++------+-----------------------+--------------------+------+----------+
+| > *H | *You must perform the | *After performing  | *C   | *Include |
+| elp* | actions listed in     | the actions in the | heck | un       |
+|      | this column.*         | 'Action Step'      | 'Pa  | expected |
+|      |                       | column, you should | ss', | results, |
+|      |                       | see the            | if   | sugg     |
+|      |                       | following.*        | the  | estions. |
+|      |                       |                    | ac   | etc.*    |
+|      |                       |                    | tual |          |
+|      |                       |                    | res  |          |
+|      |                       |                    | ults |          |
+|      |                       |                    | m    |          |
+|      |                       |                    | atch |          |
+|      |                       |                    | the  |          |
+|      |                       |                    | '    |          |
+|      |                       |                    | Expe |          |
+|      |                       |                    | cted |          |
+|      |                       |                    | Resu |          |
+|      |                       |                    | lt'; |          |
+|      |                       |                    | ot   |          |
+|      |                       |                    | herw |          |
+|      |                       |                    | ise, |          |
+|      |                       |                    | c    |          |
+|      |                       |                    | heck |          |
+|      |                       |                    | 'Fai |          |
+|      |                       |                    | l'.* |          |
++------+-----------------------+--------------------+------+----------+
+| 1.   | Login as test_user    | User is able to    | ![C  |          |
+|      |                       | login              | heck |          |
+|      | Go to My Projects     |                    | mark |          |
+|      |                       | Project Opens      | with |          |
+|      | Click on              |                    | s    |          |
+|      | 'Project_CUH_v1381    | Project setup page | olid |          |
+|      |                       | opens              | f    |          |
+|      | Click on ' Designer   |                    | ill] |          |
+|      |                       | Designer page is   | (med |          |
+|      |                       | displayed          | ia/i |          |
+|      |                       |                    | mage |          |
+|      |                       |                    | 3.pn |          |
+|      |                       |                    | g){w |          |
+|      |                       |                    | idth |          |
+|      |                       |                    | ="0. |          |
+|      |                       |                    | 1458 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 4in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 4583 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3334 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 2\.  | Click on 'Create'     | Message pops up    | ![C  |          |
+|      | button and click on   | 'The new           | heck |          |
+|      | 'Add instrument here' | instrument was     | mark |          |
+|      | and enter 'Text       | successfully       | with |          |
+|      | Validation' and click | created'           | s    |          |
+|      | on the button         |                    | olid |          |
+|      | 'Create' to create    | Text Validation    | f    |          |
+|      | the instrument.       | instrument is      | ill] |          |
+|      |                       | created            | (med |          |
+|      | Click 'Close' button  |                    | ia/i |          |
+|      |                       | Text Validation    | mage |          |
+|      | Click on the link     | page is displayed  | 3.pn |          |
+|      | 'Text Validation\'    |                    | g){w |          |
+|      |                       |                    | idth |          |
+|      |                       |                    | ="0. |          |
+|      |                       |                    | 1458 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 4in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 4583 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3334 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 3\.  | Click on the 'Add     | Add New Field box  | ![C  |          |
+|      | Field' button         | opens              | heck |          |
+|      |                       |                    | mark |          |
+|      |                       |                    | with |          |
+|      |                       |                    | s    |          |
+|      |                       |                    | olid |          |
+|      |                       |                    | f    |          |
+|      |                       |                    | ill] |          |
+|      |                       |                    | (med |          |
+|      |                       |                    | ia/i |          |
+|      |                       |                    | mage |          |
+|      |                       |                    | 3.pn |          |
+|      |                       |                    | g){w |          |
+|      |                       |                    | idth |          |
+|      |                       |                    | ="0. |          |
+|      |                       |                    | 1458 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 4in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 4583 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3334 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 4\.  | Click on the Field    | Shows the type of  | ![C  |          |
+|      | Type dropdown         | field options.     | heck |          |
+|      |                       |                    | mark |          |
+|      |                       |                    | with |          |
+|      |                       |                    | s    |          |
+|      |                       |                    | olid |          |
+|      |                       |                    | f    |          |
+|      |                       |                    | ill] |          |
+|      |                       |                    | (med |          |
+|      |                       |                    | ia/i |          |
+|      |                       |                    | mage |          |
+|      |                       |                    | 3.pn |          |
+|      |                       |                    | g){w |          |
+|      |                       |                    | idth |          |
+|      |                       |                    | ="0. |          |
+|      |                       |                    | 1458 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 4in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 4583 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3334 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 5\.  | Choose Field Type as  | Online Designer    | ![C  |          |
+|      | TextBox (Short        | Page is shown with | heck |          |
+|      | Text,Number,Date      | the field Name.    | mark |          |
+|      | /Time,...).           |                    | with |          |
+|      |                       |                    | s    |          |
+|      | Enter ptname into     |                    | olid |          |
+|      | Variable Name.        |                    | f    |          |
+|      |                       |                    | ill] |          |
+|      | Enter 'Name' into     |                    | (med |          |
+|      | Field Label           |                    | ia/i |          |
+|      |                       |                    | mage |          |
+|      | Click on 'Save'       |                    | 3.pn |          |
+|      |                       |                    | g){w |          |
+|      |                       |                    | idth |          |
+|      |                       |                    | ="0. |          |
+|      |                       |                    | 1458 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 4in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 4583 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3334 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 6\.  | Click on the second   | Add New Field box  | ![C  |          |
+|      | 'Add Field' button    | opens              | heck |          |
+|      |                       |                    | mark |          |
+|      |                       |                    | with |          |
+|      |                       |                    | s    |          |
+|      |                       |                    | olid |          |
+|      |                       |                    | f    |          |
+|      |                       |                    | ill] |          |
+|      |                       |                    | (med |          |
+|      |                       |                    | ia/i |          |
+|      |                       |                    | mage |          |
+|      |                       |                    | 3.pn |          |
+|      |                       |                    | g){w |          |
+|      |                       |                    | idth |          |
+|      |                       |                    | ="0. |          |
+|      |                       |                    | 1458 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 4in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 4583 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3334 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 7\.  | Choose Field Type as  | Field Type entered | ![C  |          |
+|      | TextBox(Short         |                    | heck |          |
+|      | Text,Number,Date      | Variable Name      | mark |          |
+|      | /Time,...).           | created            | with |          |
+|      |                       |                    | s    |          |
+|      | Enter email into      | Email is selected  | olid |          |
+|      | Variable Name.        | for the validation | f    |          |
+|      |                       |                    | ill] |          |
+|      | Click on \'Validation | Field label        | (med |          |
+|      | \' and select Email   | created            | ia/i |          |
+|      |                       |                    | mage |          |
+|      | Enter 'Email' into    | Online Designer    | 3.pn |          |
+|      | Field Label           | Page is shown with | g){w |          |
+|      |                       | the field Name.    | idth |          |
+|      | Click on 'Save'       |                    | ="0. |          |
+|      |                       | Codebook opens     | 1458 |          |
+|      | Click Codebook to     | showing the new    | 3333 |          |
+|      | check all the new     | fields:            | 3333 |          |
+|      | field created         |                    | 3333 |          |
+|      |                       | -   Variable /     | 4in" |          |
+|      |                       |     Field Name:    | hei  |          |
+|      |                       |     record_id      | ght= |          |
+|      |                       |     Field Label:   | "0.1 |          |
+|      |                       |     Record ID and  | 4583 |          |
+|      |                       |     Field          | 3333 |          |
+|      |                       |     Attributes:    | 3333 |          |
+|      |                       |     text           | 3334 |          |
+|      |                       |                    | in"} |          |
+|      |                       | -   Variable /     | **Pa |          |
+|      |                       |     Field Name:    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |    form_1_complete | **   |          |
+|      |                       |     Field Label:   | Fail |          |
+|      |                       |     Section        | ☐**  |          |
+|      |                       |     Header: Form   |      |          |
+|      |                       |     Status         |      |          |
+|      |                       |     Complete? and  |      |          |
+|      |                       |     Field          |      |          |
+|      |                       |     Attributes:    |      |          |
+|      |                       |     dropdown with  |      |          |
+|      |                       |     options        |      |          |
+|      |                       |                    |      |          |
+|      |                       |     -   0,         |      |          |
+|      |                       |         Incomplete |      |          |
+|      |                       |                    |      |          |
+|      |                       |     -   1,         |      |          |
+|      |                       |         Unverified |      |          |
+|      |                       |                    |      |          |
+|      |                       |     -   2,         |      |          |
+|      |                       |         Complete   |      |          |
+|      |                       |                    |      |          |
+|      |                       | -   Variable /     |      |          |
+|      |                       |     Field Name:    |      |          |
+|      |                       |     ptname Field   |      |          |
+|      |                       |     Label: Name    |      |          |
+|      |                       |     and Field      |      |          |
+|      |                       |     Attributes:    |      |          |
+|      |                       |     text           |      |          |
+|      |                       |                    |      |          |
+|      |                       | -   Variable /     |      |          |
+|      |                       |     Field Name:    |      |          |
+|      |                       |     email Field    |      |          |
+|      |                       |     Label: Email   |      |          |
+|      |                       |     and Field      |      |          |
+|      |                       |     Attributes:    |      |          |
+|      |                       |     text(email)    |      |          |
+|      |                       |                    |      |          |
+|      |                       | -   Variable /     |      |          |
+|      |                       |     Field Name:    |      |          |
+|      |                       |     text_v         |      |          |
+|      |                       | alidation_complete |      |          |
+|      |                       |     Field Label:   |      |          |
+|      |                       |     Section        |      |          |
+|      |                       |     Header: Form   |      |          |
+|      |                       |     Status         |      |          |
+|      |                       |     Complete? and  |      |          |
+|      |                       |     Field          |      |          |
+|      |                       |     Attributes:    |      |          |
+|      |                       |     dropdown with  |      |          |
+|      |                       |     options        |      |          |
+|      |                       |                    |      |          |
+|      |                       |     -   0,         |      |          |
+|      |                       |         Incomplete |      |          |
+|      |                       |                    |      |          |
+|      |                       |     -   1,         |      |          |
+|      |                       |         Unverified |      |          |
+|      |                       |                    |      |          |
+|      |                       |     -   2,         |      |          |
+|      |                       |         Complete   |      |          |
++------+-----------------------+--------------------+------+----------+
+| 8\.  | Click on ' Designer   | Designer page is   | ![C  |          |
+|      |                       | displayed          | heck |          |
+|      | Click on 'Create'     |                    | mark |          |
+|      | button and click on   | Message pops up    | with |          |
+|      | the second 'Add       | 'The new           | s    |          |
+|      | instrument here' and  | instrument was     | olid |          |
+|      | enter 'Data Type' and | successfully       | f    |          |
+|      | click on the button   | created'           | ill] |          |
+|      | 'Create' to create    |                    | (med |          |
+|      | the instrument.       | Data Type          | ia/i |          |
+|      |                       | instrument is      | mage |          |
+|      | Click 'Close' button  | created            | 3.pn |          |
+|      |                       |                    | g){w |          |
+|      | Click on the          | Data Type page is  | idth |          |
+|      | instrument for 'Data  | displayed          | ="0. |          |
+|      | Type\'                |                    | 1458 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 4in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 4583 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3334 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 9\.  | Click on the 'Add     | Add New Field      | ![C  |          |
+|      | Field' button         | opens              | heck |          |
+|      |                       |                    | mark |          |
+|      | Choose Field Type as  | Field Type entered | with |          |
+|      | TextBox(Short         |                    | s    |          |
+|      | Text,Number,Date      | Variable Name      | olid |          |
+|      | /Time,...).           | created            | f    |          |
+|      |                       |                    | ill] |          |
+|      | Enter 'dob' into the  | Validation option  | (med |          |
+|      | Variable Name         | Date (D-M-Y) is    | ia/i |          |
+|      |                       | picked. Minimum    | mage |          |
+|      | Click on \'Validation | and Maximum field  | 3.pn |          |
+|      | \' and select         | is displayed.      | g){w |          |
+|      | Date(D-M-Y)           |                    | idth |          |
+|      |                       | Minimum and        | ="0. |          |
+|      | Set the minimum to    | Maximum are set.   | 1458 |          |
+|      | '01-01-2005 (18years  |                    | 3333 |          |
+|      | minimum)'             | Field label        | 3333 |          |
+|      |                       | created            | 3333 |          |
+|      | Set the maximum to    |                    | 4in" |          |
+|      | '01-01-1958 (65years  | Online Designer    | hei  |          |
+|      | maximum)'             | Page shows where   | ght= |          |
+|      |                       | the fields can be  | "0.1 |          |
+|      | Enter Field Label as  | added or modified. | 4583 |          |
+|      | 'Date of Birth'       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      | Click on 'Save'       |                    | 3334 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 10\. | Click on the last     | Add New Field      | ![C  |          |
+|      | 'Add Field' button    | opens              | heck |          |
+|      |                       |                    | mark |          |
+|      | Choose Field Type as  | Field Type         | with |          |
+|      | Multiple Choice -     | entered.           | s    |          |
+|      | Drop-down List        |                    | olid |          |
+|      | (Single Answer).      | Choices are        | f    |          |
+|      |                       | created.           | ill] |          |
+|      | In Choices (one       |                    | (med |          |
+|      | choice per line),     | Field label        | ia/i |          |
+|      | enter                 | created            | mage |          |
+|      |                       |                    | 3.pn |          |
+|      | 5, DDChoice5          | Variable Name      | g){w |          |
+|      |                       | created            | idth |          |
+|      | 6, DDChoice6          |                    | ="0. |          |
+|      |                       | Online Designer    | 1458 |          |
+|      | 7, DDChoice7          | Page shows where   | 3333 |          |
+|      |                       | the fields can be  | 3333 |          |
+|      | Enter Field Label as  | added or modified. | 3333 |          |
+|      | 'Multiple Choice      |                    | 4in" |          |
+|      | Dropdown Manual'      |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      | Enter Variable Name   |                    | "0.1 |          |
+|      | as                    |                    | 4583 |          |
+|      | 'mult                 |                    | 3333 |          |
+|      | iple_dropdown_manual' |                    | 3333 |          |
+|      |                       |                    | 3334 |          |
+|      | Click on 'Save'       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 11\. | Click on the last     | Add New Field      | ![C  |          |
+|      | 'Add Field' button    | opens              | heck |          |
+|      |                       |                    | mark |          |
+|      | Choose Field Type as  | Field Type entered | with |          |
+|      | Multiple Choice -     |                    | s    |          |
+|      | Radio Buttons(Single  | Choices are        | olid |          |
+|      | Answer).              | created.           | f    |          |
+|      |                       |                    | ill] |          |
+|      | In Choices (one       | Field label        | (med |          |
+|      | choice per line),     | created            | ia/i |          |
+|      | enter                 |                    | mage |          |
+|      |                       | Variable Name      | 3.pn |          |
+|      | 1, Choice1            | created            | g){w |          |
+|      |                       |                    | idth |          |
+|      | 2, Choice2            | Online Designer    | ="0. |          |
+|      |                       | Page shows where   | 1458 |          |
+|      | 3, Choice3            | the fields can be  | 3333 |          |
+|      |                       | added or modified. | 3333 |          |
+|      | 4, Choice4            |                    | 3333 |          |
+|      |                       |                    | 4in" |          |
+|      | Enter 'Radio Button   |                    | hei  |          |
+|      | Auto' into the Field  |                    | ght= |          |
+|      | Label                 |                    | "0.1 |          |
+|      |                       |                    | 4583 |          |
+|      | Enter                 |                    | 3333 |          |
+|      | 'radio_button_auto'   |                    | 3333 |          |
+|      | into the Variable     |                    | 3334 |          |
+|      | Name                  |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      | Click on 'Save'       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 12\. | Click on the last     | Add New Field      | ![C  |          |
+|      | 'Add Field' button    | opens              | heck |          |
+|      |                       |                    | mark |          |
+|      | Choose Field Type as  | Field Type         | with |          |
+|      | Checkboxes (Multiple  | entered.           | s    |          |
+|      | Answer).              |                    | olid |          |
+|      |                       | Choices are        | f    |          |
+|      | In Choices (one       | created.           | ill] |          |
+|      | choice per line),     |                    | (med |          |
+|      | enter                 | Field label        | ia/i |          |
+|      |                       | created            | mage |          |
+|      | 1, Checkbox1          |                    | 3.pn |          |
+|      |                       | Variable Name      | g){w |          |
+|      | 2, Checkbox2          | created.           | idth |          |
+|      |                       |                    | ="0. |          |
+|      | 3, Checkbox3          | Online Designer    | 1458 |          |
+|      |                       | Page shows where   | 3333 |          |
+|      | Enter 'Checkbox' into | the fields can be  | 3333 |          |
+|      | the Field Label       | added or modified. | 3333 |          |
+|      |                       |                    | 4in" |          |
+|      | Enter 'checkbox' into |                    | hei  |          |
+|      | the Variable Name     |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      | Click on 'Save'       |                    | 4583 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3334 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 13\. | Click on the last     | Add New Field      | ![C  |          |
+|      | 'Add Field' button    | opens              | heck |          |
+|      |                       |                    | mark |          |
+|      | Choose Field Type as  | Field Type         | with |          |
+|      | Calculated Field.     | entered. It shows  | s    |          |
+|      |                       | where to enter     | olid |          |
+|      | Enter '3\*2' into the | Calculation        | f    |          |
+|      | Calculation Equation' | Equation.          | ill] |          |
+|      |                       |                    | (med |          |
+|      | Enter 'Calculated     | Calculated         | ia/i |          |
+|      | Field' into the Field | Equation created   | mage |          |
+|      | Label                 |                    | 3.pn |          |
+|      |                       | Field label        | g){w |          |
+|      | Enter                 | created            | idth |          |
+|      | 'calculated_field'    |                    | ="0. |          |
+|      | into the Variable     | Variable Name      | 1458 |          |
+|      | Name                  | created.           | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      | Click on 'Save'       | Online Designer    | 3333 |          |
+|      |                       | Page shows where   | 4in" |          |
+|      |                       | the fields can be  | hei  |          |
+|      |                       | added or modified. | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 4583 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3334 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 14\. | Click on the last     | Add New Field      | ![C  |          |
+|      | 'Add Field' button    | opens              | heck |          |
+|      |                       |                    | mark |          |
+|      | Choose Field Type as  | Field Type Entered | with |          |
+|      | Descriptive Text      |                    | s    |          |
+|      | (with optional        | Field Label        | olid |          |
+|      | I                     | created            | f    |          |
+|      | mage/Video/Audio/File |                    | ill] |          |
+|      | Attachment).          | Variable Name      | (med |          |
+|      |                       | created            | ia/i |          |
+|      | Enter 'Descriptive    |                    | mage |          |
+|      | Text with File' into  | URL entered        | 3.pn |          |
+|      | the Field Label       |                    | g){w |          |
+|      |                       | Radio button for   | idth |          |
+|      | Enter '               | Inside popup       | ="0. |          |
+|      | d                     | selected           | 1458 |          |
+|      | escriptive_file_text' |                    | 3333 |          |
+|      | into the Variable     | Online Designer    | 3333 |          |
+|      | Name                  | Page shows a watch | 3333 |          |
+|      |                       | video icon under   | 4in" |          |
+|      | Enter URL of the      | the field that was | hei  |          |
+|      | external              | modified.          | ght= |          |
+|      | video/image/audio e.g |                    | "0.1 |          |
+|      | h                     |                    | 4583 |          |
+|      | ttps://www.youtube.co |                    | 3333 |          |
+|      | m/watch?v=KkzVFB3Ba_o |                    | 3333 |          |
+|      | in 'Embed an external |                    | 3334 |          |
+|      | video'                |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      | Choose Display format |                    | ss** |          |
+|      | of video(Radio        |                    |      |          |
+|      | button) as Inside     |                    | **   |          |
+|      | popup                 |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
+|      | Click on 'Save'       |                    |      |          |
++------+-----------------------+--------------------+------+----------+
+|      | Click Codebook to     | Codebook opens     |      |          |
+|      | check all the new     | showing the new    |      |          |
+|      | field created         | fields:            |      |          |
+|      |                       |                    |      |          |
+|      |                       | -   Variable /     |      |          |
+|      |                       |     Field Name:    |      |          |
+|      |                       |     dob Field      |      |          |
+|      |                       |     Label: Date of |      |          |
+|      |                       |     Birth and      |      |          |
+|      |                       |     Field          |      |          |
+|      |                       |     Attributes:    |      |          |
+|      |                       |     text(date_dmy  |      |          |
+|      |                       | , Min: 2005-01-01, |      |          |
+|      |                       |  Max: 1958-01-01). |      |          |
+|      |                       |                    |      |          |
+|      |                       | -   Variable /     |      |          |
+|      |                       |     Field Name:    |      |          |
+|      |                       |     multip         |      |          |
+|      |                       | le_dropdown_manual |      |          |
+|      |                       |     Field Label:   |      |          |
+|      |                       |     Multiple       |      |          |
+|      |                       |     Choice         |      |          |
+|      |                       |     Dropdown       |      |          |
+|      |                       |     Manual and     |      |          |
+|      |                       |     Field          |      |          |
+|      |                       |     Attributes:    |      |          |
+|      |                       |     dropdown with  |      |          |
+|      |                       |     options        |      |          |
+|      |                       |                    |      |          |
+|      |                       |     -   5,         |      |          |
+|      |                       |         DDChoice5  |      |          |
+|      |                       |                    |      |          |
+|      |                       |     -   6,         |      |          |
+|      |                       |         DDChoice6  |      |          |
+|      |                       |                    |      |          |
+|      |                       |     -   7,         |      |          |
+|      |                       |         DDChoice7  |      |          |
+|      |                       |                    |      |          |
+|      |                       | -   Variable /     |      |          |
+|      |                       |     Field Name:    |      |          |
+|      |                       |                    |      |          |
+|      |                       |  radio_button_auto |      |          |
+|      |                       |     Field Label:   |      |          |
+|      |                       |     Radio Button   |      |          |
+|      |                       |     Auto and Field |      |          |
+|      |                       |     Attributes:    |      |          |
+|      |                       |     radio with     |      |          |
+|      |                       |     options        |      |          |
+|      |                       |                    |      |          |
+|      |                       |     -   1, Choice1 |      |          |
+|      |                       |                    |      |          |
+|      |                       |     -   2, Choice2 |      |          |
+|      |                       |                    |      |          |
+|      |                       |     -   3, Choice3 |      |          |
+|      |                       |                    |      |          |
+|      |                       |     -   4, Choice4 |      |          |
+|      |                       |                    |      |          |
+|      |                       | -   Variable /     |      |          |
+|      |                       |     Field Name:    |      |          |
+|      |                       |     checkbox Field |      |          |
+|      |                       |     Label:         |      |          |
+|      |                       |     Checkbox and   |      |          |
+|      |                       |     Field          |      |          |
+|      |                       |     Attributes:    |      |          |
+|      |                       |     checkbox with  |      |          |
+|      |                       |     options        |      |          |
+|      |                       |                    |      |          |
+|      |                       |     -   1,         |      |          |
+|      |                       |                    |      |          |
+|      |                       |   checkbox\_\_\_1, |      |          |
+|      |                       |         Checkbox1  |      |          |
+|      |                       |                    |      |          |
+|      |                       |     -   2,         |      |          |
+|      |                       |                    |      |          |
+|      |                       |   checkbox\_\_\_2, |      |          |
+|      |                       |         Checkbox2  |      |          |
+|      |                       |                    |      |          |
+|      |                       |     -   3,         |      |          |
+|      |                       |                    |      |          |
+|      |                       |   checkbox\_\_\_3, |      |          |
+|      |                       |         Checkbox3  |      |          |
+|      |                       |                    |      |          |
+|      |                       | -   Variable /     |      |          |
+|      |                       |     Field Name:    |      |          |
+|      |                       |                    |      |          |
+|      |                       |   calculated_field |      |          |
+|      |                       |     Field Label:   |      |          |
+|      |                       |     Calculated     |      |          |
+|      |                       |     Field and      |      |          |
+|      |                       |     Field          |      |          |
+|      |                       |     Attributes:    |      |          |
+|      |                       |     calc\          |      |          |
+|      |                       |                    |      |          |
+|      |                       |  Calculation: 3\*2 |      |          |
+|      |                       |                    |      |          |
+|      |                       | -   Variable /     |      |          |
+|      |                       |     Field Name:    |      |          |
+|      |                       |     des            |      |          |
+|      |                       | criptive_file_text |      |          |
+|      |                       |     Field Label:   |      |          |
+|      |                       |     Descriptive    |      |          |
+|      |                       |     Text with File |      |          |
+|      |                       |     and Field      |      |          |
+|      |                       |     Attributes:    |      |          |
+|      |                       |     descriptive    |      |          |
+|      |                       |                    |      |          |
+|      |                       | -   Variable /     |      |          |
+|      |                       |     Field Name:    |      |          |
+|      |                       |     text_v         |      |          |
+|      |                       | alidation_complete |      |          |
+|      |                       |     Field Label:   |      |          |
+|      |                       |     Section        |      |          |
+|      |                       |     Header: Form   |      |          |
+|      |                       |     Status         |      |          |
+|      |                       |     Complete? and  |      |          |
+|      |                       |     Field          |      |          |
+|      |                       |     Attributes:    |      |          |
+|      |                       |     dropdown with  |      |          |
+|      |                       |     options        |      |          |
+|      |                       |                    |      |          |
+|      |                       |     -   0,         |      |          |
+|      |                       |         Incomplete |      |          |
+|      |                       |                    |      |          |
+|      |                       |     -   1,         |      |          |
+|      |                       |         Unverified |      |          |
+|      |                       |                    |      |          |
+|      |                       |     -   2,         |      |          |
+|      |                       |         Complete   |      |          |
++------+-----------------------+--------------------+------+----------+
+| 15\. | FIELD NOTE            | Edit Field opens   | ![C  |          |
+|      |                       |                    | heck |          |
+|      | From Online Designer, | Field note created | mark |          |
+|      | Click on the link     |                    | with |          |
+|      | 'Data Type', Click    | Online Designer    | s    |          |
+|      | the pencil icon by    | Page shows where   | olid |          |
+|      | the 'Date of Birth'   | the fields can be  | f    |          |
+|      |                       | added or modified. | ill] |          |
+|      | Enter '18 years       |                    | (med |          |
+|      | above' into the Field | Codebook opens.    | ia/i |          |
+|      | Note                  | The Field Note     | mage |          |
+|      |                       | shows under the    | 3.pn |          |
+|      | Click on 'Save'       | Field Label        | g){w |          |
+|      |                       |                    | idth |          |
+|      | Click on Codebook to  |                    | ="0. |          |
+|      | see changes           |                    | 1458 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 4in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 4583 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3334 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 16\. | MAKING A FIELD AS     | Edit Field opens   | ![C  |          |
+|      | REQUIRED              |                    | heck |          |
+|      |                       | Radio button Yes   | mark |          |
+|      | From Online Designer, | selected           | with |          |
+|      | Click on the link     |                    | s    |          |
+|      | 'Data Type', Click    | Online Designer is | olid |          |
+|      | the pencil icon by    | displayed. Under   | f    |          |
+|      | the 'Date of Birth'   | the field Date of  | ill] |          |
+|      |                       | Birth, a red text  | (med |          |
+|      | Select Required       | '\*must provide    | ia/i |          |
+|      | (radio button) as Yes | value' is          | mage |          |
+|      |                       | displayed          | 3.pn |          |
+|      | Click on 'Save'       |                    | g){w |          |
+|      |                       | Required is added  | idth |          |
+|      | Click on codebook     | to the field       | ="0. |          |
+|      |                       | attributes         | 1458 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 4in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 4583 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3334 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 17\. | MAKING A FIELD AS     | Edit Field opens   | ![C  |          |
+|      | IDENTIFIER            |                    | heck |          |
+|      |                       | Radio button Yes   | mark |          |
+|      | From Online Designer, | selected           | with |          |
+|      | Click on the link     |                    | s    |          |
+|      | 'Data Type', Click    | Online Designer    | olid |          |
+|      | the pencil icon by    | Page is displayed  | f    |          |
+|      | the 'Date of Birth'   |                    | ill] |          |
+|      |                       | Identifier is      | (med |          |
+|      | Select Identifier     | added to the field | ia/i |          |
+|      | (radio button) as Yes | attributes         | mage |          |
+|      |                       |                    | 3.pn |          |
+|      | Click on 'Save'       |                    | g){w |          |
+|      |                       |                    | idth |          |
+|      | Click on Codebook     |                    | ="0. |          |
+|      |                       |                    | 1458 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 4in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 4583 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3334 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+| 18\. | DELETE A FIELD        | Text Validation    | ![C  |          |
+|      |                       | opens              | heck |          |
+|      | From Online Designer, |                    | mark |          |
+|      | Click on the link     | A pop up shows     | with |          |
+|      | 'Text Validation'     | asking to confirm  | s    |          |
+|      |                       | the field to be    | olid |          |
+|      | Click on the red x    | deleted            | f    |          |
+|      | icon by the 'Email'   |                    | ill] |          |
+|      | field                 | Online Designer is | (med |          |
+|      |                       | displayed and the  | ia/i |          |
+|      | Click on Delete       | deleted field      | mage |          |
+|      |                       | (Email) is not     | 3.pn |          |
+|      | Click on Codebook     | visible            | g){w |          |
+|      |                       |                    | idth |          |
+|      |                       | Codebook opens and | ="0. |          |
+|      |                       | the field Email is | 1458 |          |
+|      |                       | removed            | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 4in" |          |
+|      |                       |                    | hei  |          |
+|      |                       |                    | ght= |          |
+|      |                       |                    | "0.1 |          |
+|      |                       |                    | 4583 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3333 |          |
+|      |                       |                    | 3334 |          |
+|      |                       |                    | in"} |          |
+|      |                       |                    | **Pa |          |
+|      |                       |                    | ss** |          |
+|      |                       |                    |      |          |
+|      |                       |                    | **   |          |
+|      |                       |                    | Fail |          |
+|      |                       |                    | ☐**  |          |
++------+-----------------------+--------------------+------+----------+
+|      | THIS ENDS THE TESTING |                    |      |          |
+|      | FOR THIS SCRIPT       |                    |      |          |
++------+-----------------------+--------------------+------+----------+
+
++-----------+--------------------------------------------+---+---+-----+
+| **Con     |                                            |   |   |     |
+| clusion** |                                            |   |   |     |
++-----------+--------------------------------------------+---+---+-----+
+| Did the   |                                            | - |   | >   |
+| Actual    |                                            |   |   |  No |
+| Results   |                                            |   |   |     |
+| for each  |                                            |   |   |     |
+| test step |                                            | Y |   |     |
+| match the |                                            | e |   |     |
+| Expected  |                                            | s |   |     |
+| Results   |                                            |   |   |     |
+| listed?   |                                            |   |   |     |
++-----------+--------------------------------------------+---+---+-----+
+| > **C     |                                            |   |   |     |
+| omments/A |                                            |   |   |     |
+| dditional |                                            |   |   |     |
+| > Infor   |                                            |   |   |     |
+| mation:** |                                            |   |   |     |
+| >         |                                            |   |   |     |
+| (Indicate |                                            |   |   |     |
+| > the     |                                            |   |   |     |
+| > step    |                                            |   |   |     |
+| > number  |                                            |   |   |     |
+| > of the  |                                            |   |   |     |
+| > step    |                                            |   |   |     |
+| > you     |                                            |   |   |     |
+| > wish to |                                            |   |   |     |
+| > comment |                                            |   |   |     |
+| > on.)    |                                            |   |   |     |
++-----------+--------------------------------------------+---+---+-----+
+| **        | **Mintoo Xavier**                          | * | * |     |
+| Completed |                                            | * | * |     |
+| By**      |                                            | D | 2 |     |
+|           |                                            | a | 1 |     |
+|           |                                            | t | / |     |
+|           |                                            | e | 1 |     |
+|           |                                            | : | 1 |     |
+|           |                                            | * | / |     |
+|           |                                            | * | 2 |     |
+|           |                                            |   | 0 |     |
+|           |                                            |   | 2 |     |
+|           |                                            |   | 3 |     |
+|           |                                            |   | * |     |
+|           |                                            |   | * |     |
++-----------+--------------------------------------------+---+---+-----+

@@ -1,0 +1,847 @@
++-------------+--------+-----------+----------------------------------+
+| **System    |        |           |                                  |
+| Setup**     |        |           |                                  |
++=============+========+===========+==================================+
+| **Database  | >      | > **Ap    | > <https://localhost:8443/>      |
+| Version**   | REDCap | plication |                                  |
+|             | > 1    | > URL**   |                                  |
+|             | 3.8.1  |           |                                  |
++-------------+--------+-----------+----------------------------------+
+| **Document  | > Co   | *         | > 1                              |
+| Status**    | mplete | *Document |                                  |
+|             |        | V         |                                  |
+|             |        | ersion ** |                                  |
++-------------+--------+-----------+----------------------------------+
+
++-----------------------------------------------------------------------+
+| **Test Summary**                                                      |
++-----------------------------------------------------------------------+
+| **Feature Category Description:** This feature is used to send emails |
+| when a record is saved and/or when a condition is met.                |
+|                                                                       |
+| **Test Purpose Details:** This test script validates if the Alerts    |
+| and notifications works                                               |
+|                                                                       |
+| **Functional Requirements:**                                          |
+|                                                                       |
+| -   2.1 The system shall support the ability to send emails when a    |
+|     record is saved on a specific form/survey                         |
+|                                                                       |
+| -   2.2 The system shall support the ability to send emails when a    |
+|     record is saved on a specific form/survey with Complete Status    |
+|     Only                                                              |
+|                                                                       |
+| -   2.3 The system shall support the ability to send emails If        |
+|     conditional logic is TRUE when a record is saved on a specific    |
+|     form/survey                                                       |
+|                                                                       |
+| -   2.4 The system shall support the ability to send emails When      |
+|     conditional logic is TRUE during a data import, data entry, or as |
+|     the result of time-based logic                                    |
++-----------------------------------------------------------------------+
+|                                                                       |
++-----------------------------------------------------------------------+
+
++----+-----------+-------------+-----------------+--------------------+
+| ** |           |             |                 |                    |
+| Te |           |             |                 |                    |
+| st |           |             |                 |                    |
+| Re |           |             |                 |                    |
+| qu |           |             |                 |                    |
+| ir |           |             |                 |                    |
+| em |           |             |                 |                    |
+| en |           |             |                 |                    |
+| ts |           |             |                 |                    |
+| ** |           |             |                 |                    |
++----+-----------+-------------+-----------------+--------------------+
+| ** |           |             |                 |                    |
+| Te |           |             |                 |                    |
+| st |           |             |                 |                    |
+| U  |           |             |                 |                    |
+| se |           |             |                 |                    |
+| rs |           |             |                 |                    |
+| ** |           |             |                 |                    |
++----+-----------+-------------+-----------------+--------------------+
+| ** | **U       | *           | **Minimum       | **Other Settings** |
+| ID | sername** | *Password** | User's Rights** |                    |
+| ** |           |             |                 |                    |
++----+-----------+-------------+-----------------+--------------------+
+| >  | test_user | Testing123  | Standard User   |                    |
+| ** |           |             | with 'Project   |                    |
+| 1. |           |             | Design and      |                    |
+| ** |           |             | Setup'          |                    |
+|    |           |             | privileges.     |                    |
++----+-----------+-------------+-----------------+--------------------+
+| >  | t         | Testing123  | Administrator   |                    |
+| ** | est_admin |             |                 |                    |
+| 2. |           |             |                 |                    |
+| ** |           |             |                 |                    |
++----+-----------+-------------+-----------------+--------------------+
+| >  |           |             |                 |                    |
+| ** |           |             |                 |                    |
+| 3. |           |             |                 |                    |
+| ** |           |             |                 |                    |
++----+-----------+-------------+-----------------+--------------------+
+
++----+-------------------------+--------------------------------------+
+| *  |                         |                                      |
+| *P |                         |                                      |
+| ro |                         |                                      |
+| je |                         |                                      |
+| ct |                         |                                      |
+| S  |                         |                                      |
+| et |                         |                                      |
+| up |                         |                                      |
+| ** |                         |                                      |
++----+-------------------------+--------------------------------------+
+| ** | > **Description**       | > **Instructions**                   |
+| ID |                         |                                      |
+| ** |                         |                                      |
++----+-------------------------+--------------------------------------+
+| 1  | Project:                | Project created using                |
+| \. | Project_CUH_v1381       | Project_CUH_v1381.xml                |
++----+-------------------------+--------------------------------------+
+| 2  | > Project Setup         |                                      |
+| \. |                         |                                      |
++----+-------------------------+--------------------------------------+
+| 3  | > Data Import File      |                                      |
+| \. |                         |                                      |
++----+-------------------------+--------------------------------------+
+| 4  | > Other Files           |                                      |
+| \. |                         |                                      |
++----+-------------------------+--------------------------------------+
+
++------+----------------------+----------------------+-------+--------+
+| **   |                      |                      |       |        |
+| Test |                      |                      |       |        |
+| Ste  |                      |                      |       |        |
+| ps** |                      |                      |       |        |
++------+----------------------+----------------------+-------+--------+
+| **   | **Action Step**      | **Expected Result**  | *     | **Comm |
+| Step |                      |                      | *Pass | ents** |
+| \#** |                      |                      | /     |        |
+|      |                      |                      | F     |        |
+|      |                      |                      | ail** |        |
++------+----------------------+----------------------+-------+--------+
+| > *H | *You must perform    | *After performing    | *     | *I     |
+| elp* | the actions listed   | the actions in the   | Check | nclude |
+|      | in this column.*     | 'Action Step'        | 'P    | unex   |
+|      |                      | column, you should   | ass', | pected |
+|      |                      | see the following.*  | if    | re     |
+|      |                      |                      | the   | sults, |
+|      |                      |                      | a     | sugges |
+|      |                      |                      | ctual | tions. |
+|      |                      |                      | re    | etc.*  |
+|      |                      |                      | sults |        |
+|      |                      |                      | match |        |
+|      |                      |                      | the   |        |
+|      |                      |                      | 'Exp  |        |
+|      |                      |                      | ected |        |
+|      |                      |                      | Res   |        |
+|      |                      |                      | ult'; |        |
+|      |                      |                      | other |        |
+|      |                      |                      | wise, |        |
+|      |                      |                      | check |        |
+|      |                      |                      | 'Fa   |        |
+|      |                      |                      | il'.* |        |
++------+----------------------+----------------------+-------+--------+
+| 1.   | Login as test_user   | User is able to      | **P   |        |
+|      |                      | login                | ass** |        |
+|      | Click on             |                      |       |        |
+|      | 'Project_CUH_v1381'  | Project Opens        |       |        |
++------+----------------------+----------------------+-------+--------+
+| 2.   | Click on 'Alerts &   | Alerts &             | **P   |        |
+|      | Notifications'       | Notifications page   | ass** |        |
+|      |                      | is displayed         |       |        |
+|      | Click on the button  |                      |       |        |
+|      | 'Add New Alert'      | 'Create new alert'   |       |        |
+|      |                      | window opens         |       |        |
++------+----------------------+----------------------+-------+--------+
+| 3.   | Set the following    | 'Success! New alert  | **P   |        |
+|      | settings:            | created.' message is | ass** |        |
+|      |                      | displayed.           |       |        |
+|      | Title of this alert  |                      |       |        |
+|      | = Email Alert        | Alert #1 is created  |       |        |
+|      |                      | with Title 'Email    |       |        |
+|      | B\) Trigger the      | Alert' and displays  |       |        |
+|      | alert\...            | 'When the instrument |       |        |
+|      |                      | \"Data Types (Event  |       |        |
+|      | When: Choose         | 1 (Arm 1: Arm 1))\"  |       |        |
+|      | instrument = '\"Data | is saved and has any |       |        |
+|      | Types\" (Event 1     | form status.'.       |       |        |
+|      | (Arm 1: Arm 1))'     |                      |       |        |
+|      |                      | Preview is visible   |       |        |
+|      | Email To:            | on the right side    |       |        |
+|      | \[event_1            | and has the          |       |        |
+|      | _arm_1\]\[email_v2\] | following details:   |       |        |
+|      | "Email\"(Event 1     |                      |       |        |
+|      | (Arm 1: Arm 1))      | From:                |       |        |
+|      |                      | t                    |       |        |
+|      | Subject: Testing     | est_user@example.com |       |        |
+|      | Alerts and           |                      |       |        |
+|      | Notifications        | To:                  |       |        |
+|      |                      | [\[ev                |       |        |
+|      | Message: Alerts and  | ent_1_arm_1\]\[email |       |        |
+|      | Notifications        | _v2\]](mailto:[event |       |        |
+|      |                      | _1_arm_1][email_v2]) |       |        |
+|      | Click Save           |                      |       |        |
+|      |                      | Subject: Testing     |       |        |
+|      |                      | Alerts and           |       |        |
+|      |                      | Notifications        |       |        |
+|      |                      |                      |       |        |
+|      |                      | Message: Alerts and  |       |        |
+|      |                      | Notifications        |       |        |
++------+----------------------+----------------------+-------+--------+
+| 4.   | Click on 'Add / Edit | 'Add / Edit Records' | **P   |        |
+|      | Records'             | page is displayed    | ass** |        |
+|      |                      |                      |       |        |
+|      | Select 'Arm 1' and   | Record Home Page is  |       |        |
+|      | Click on the button  | displayed, and 'NEW  |       |        |
+|      | 'Add new record for  | Record ID 2' is      |       |        |
+|      | the arm selected     | visible in Arm 1     |       |        |
+|      | above'               |                      |       |        |
++------+----------------------+----------------------+-------+--------+
+| 5.   | Click on the 'Text   | 'Text Validation'    | **P   |        |
+|      | Validation'          | instrument opens     | ass** |        |
+|      | instrument           |                      |       |        |
+|      |                      | Record Home Page is  |       |        |
+|      | Enter                | displayed with the   |       |        |
+|      | 'tes                 | message 'Record ID 2 |       |        |
+|      | t_user2@example.com' | successfully added.' |       |        |
+|      | in the field         |                      |       |        |
+|      | labelled 'Email'     |                      |       |        |
+|      |                      |                      |       |        |
+|      | Click on the button  |                      |       |        |
+|      | labelled 'Save &     |                      |       |        |
+|      | Exit Form'           |                      |       |        |
++------+----------------------+----------------------+-------+--------+
+| 6.   | Click on the 'Data   | 'Data Types'         | **P   |        |
+|      | Types' instrument    | instrument opens     | ass** |        |
+|      |                      |                      |       |        |
+|      | Enter 2 in the field | Record Home Page is  |       |        |
+|      | labelled 'Required'  | displayed with the   |       |        |
+|      |                      | message 'Record ID 2 |       |        |
+|      | Click on the button  | successfully         |       |        |
+|      | labelled 'Save &     | edited.'             |       |        |
+|      | Exit Form'           |                      |       |        |
++------+----------------------+----------------------+-------+--------+
+| 7.   | Open email inbox     | Email is received    | **P   |        |
+|      | (MailHog) and check  | with details as      | ass** |        |
+|      |                      | follows:             |       |        |
+|      |                      |                      |       |        |
+|      |                      | From:                |       |        |
+|      |                      | t                    |       |        |
+|      |                      | est_user@example.com |       |        |
+|      |                      |                      |       |        |
+|      |                      | To:                  |       |        |
+|      |                      | te                   |       |        |
+|      |                      | st_user2@example.com |       |        |
+|      |                      |                      |       |        |
+|      |                      | Subject: Testing     |       |        |
+|      |                      | Alerts and           |       |        |
+|      |                      | Notifications        |       |        |
+|      |                      |                      |       |        |
+|      |                      | Message: Alerts and  |       |        |
+|      |                      | Notifications        |       |        |
++------+----------------------+----------------------+-------+--------+
+| 8.   | In REDCap project    | 'Alerts &            | **P   |        |
+|      | Project_CUH_v1381,   | Notifications' page  | ass** |        |
+|      | Click on 'Alerts &   | is displayed         |       |        |
+|      | Notifications'       |                      |       |        |
+|      |                      | The email            |       |        |
+|      | Click on the tab     | notification is      |       |        |
+|      | 'Notification Log'   | displayed with the   |       |        |
+|      | and click 'View past | details as follows:  |       |        |
+|      | notifications'       |                      |       |        |
+|      |                      | Record: 2            |       |        |
+|      |                      |                      |       |        |
+|      |                      | Recipient:           |       |        |
+|      |                      | te                   |       |        |
+|      |                      | st_user2@example.com |       |        |
+|      |                      |                      |       |        |
+|      |                      | Subject: Testing     |       |        |
+|      |                      | Alerts and           |       |        |
+|      |                      | Notifications        |       |        |
+|      |                      |                      |       |        |
+|      |                      | Notification send    |       |        |
+|      |                      | time displays date   |       |        |
+|      |                      | and time of          |       |        |
+|      |                      | notification send    |       |        |
++------+----------------------+----------------------+-------+--------+
+| 9.   | Click on 'Alerts &   | Alerts &             | **P   |        |
+|      | Notifications'       | Notifications page   | ass** |        |
+|      |                      | is displayed         |       |        |
+|      | Click on the Edit    |                      |       |        |
+|      | icon for Alert #1    | 'Edit Alert #1'      |       |        |
+|      |                      | window opens         |       |        |
++------+----------------------+----------------------+-------+--------+
+| 10.  | Set the following    | 'Success! The alert  | **P   |        |
+|      | settings:            | was updated.'        | ass** |        |
+|      |                      | message is           |       |        |
+|      | B\) Trigger the      | displayed.           |       |        |
+|      | alert\...            |                      |       |        |
+|      |                      | 'Alert #1: Email     |       |        |
+|      | When: Choose         | Alert' shows 'When   |       |        |
+|      | instrument = '\"Data | the instrument       |       |        |
+|      | Types\" (Event 1     | \"Data Types (Event  |       |        |
+|      | (Arm 1: Arm 1))'     | 1 (Arm 1: Arm 1))\"  |       |        |
+|      |                      | is saved and has a   |       |        |
+|      | Email To:            | Complete status.'    |       |        |
+|      | \[event_1            |                      |       |        |
+|      | _arm_1\]\[email_v2\] | Preview is visible   |       |        |
+|      | "Email\"(Event 1     | on the right side    |       |        |
+|      | (Arm 1: Arm 1))      | and has the          |       |        |
+|      |                      | following details:   |       |        |
+|      | and                  |                      |       |        |
+|      |                      | From:                |       |        |
+|      | 'Is saved with       | <te                  |       |        |
+|      | Complete status      | st_user@example.com> |       |        |
+|      | only'                |                      |       |        |
+|      |                      | To:                  |       |        |
+|      | Click Save           | [\[ev                |       |        |
+|      |                      | ent_1_arm_1\]\[email |       |        |
+|      |                      | _v2\]](mailto:[event |       |        |
+|      |                      | _1_arm_1][email_v2]) |       |        |
+|      |                      |                      |       |        |
+|      |                      | Subject: Testing     |       |        |
+|      |                      | Alerts and           |       |        |
+|      |                      | Notifications        |       |        |
+|      |                      |                      |       |        |
+|      |                      | Message: Alerts and  |       |        |
+|      |                      | Notifications        |       |        |
++------+----------------------+----------------------+-------+--------+
+| 11.  | Click on 'Add / Edit | 'Add / Edit Records' | **P   |        |
+|      | Records'             | page is displayed    | ass** |        |
+|      |                      |                      |       |        |
+|      | Select 'Arm 1' and   | Record Home Page is  |       |        |
+|      | Click on the button  | displayed, and 'NEW  |       |        |
+|      | 'Add new record for  | Record ID 3' is      |       |        |
+|      | the arm selected     | visible in Arm 1     |       |        |
+|      | above'               |                      |       |        |
++------+----------------------+----------------------+-------+--------+
+| 12.  | Click on the 'Text   | 'Text Validation'    | **P   |        |
+|      | Validation'          | instrument opens     | ass** |        |
+|      | instrument           |                      |       |        |
+|      |                      | Record Home Page is  |       |        |
+|      | Enter                | displayed with the   |       |        |
+|      | 'tes                 | message 'Record ID 3 |       |        |
+|      | t_user3@example.com' | successfully added.' |       |        |
+|      | in the field         |                      |       |        |
+|      | labelled 'Email'     |                      |       |        |
+|      |                      |                      |       |        |
+|      | Click on the button  |                      |       |        |
+|      | labelled 'Save &     |                      |       |        |
+|      | Exit Form'           |                      |       |        |
++------+----------------------+----------------------+-------+--------+
+| 13.  | Click on the 'Data   | 'Data Types'         | **P   |        |
+|      | Types' instrument    | instrument opens     | ass** |        |
+|      |                      |                      |       |        |
+|      | Enter 3 in the field | Record Home Page is  |       |        |
+|      | labelled 'Required'  | displayed with the   |       |        |
+|      |                      | message 'Record ID 3 |       |        |
+|      | Form Status =        | successfully         |       |        |
+|      | 'Incomplete'         | edited.'             |       |        |
+|      |                      |                      |       |        |
+|      | Click on the button  |                      |       |        |
+|      | labelled 'Save &     |                      |       |        |
+|      | Exit Form'           |                      |       |        |
++------+----------------------+----------------------+-------+--------+
+| 14.  | Open email inbox     | Email is not sent to | **P   |        |
+|      | (MailHog) and check  | te                   | ass** |        |
+|      |                      | st_user3@example.com |       |        |
++------+----------------------+----------------------+-------+--------+
+| 15.  | In REDCap project    | 'Alerts &            | **P   |        |
+|      | Project_CUH_v1381,   | Notifications' page  | ass** |        |
+|      | Click on 'Alerts &   | is displayed         |       |        |
+|      | Notifications'       |                      |       |        |
+|      |                      | The email            |       |        |
+|      | Click on the tab     | notification is not  |       |        |
+|      | 'Notification Log'   | sent for Record: 3   |       |        |
+|      | and click 'View past |                      |       |        |
+|      | notifications'       |                      |       |        |
++------+----------------------+----------------------+-------+--------+
+| 16.  | In Record Status     | 'Data Types'         | **P   |        |
+|      | Dashboard, Click on  | instrument opens     | ass** |        |
+|      | the 'Data Types'     |                      |       |        |
+|      | instrument for       | Record Home Page is  |       |        |
+|      | Record ID 3          | displayed with the   |       |        |
+|      |                      | message 'Record ID 3 |       |        |
+|      | Change Form Status   | successfully         |       |        |
+|      | to 'Complete'        | edited.'             |       |        |
+|      |                      |                      |       |        |
+|      | Click on the button  |                      |       |        |
+|      | labelled 'Save &     |                      |       |        |
+|      | Exit Form'           |                      |       |        |
++------+----------------------+----------------------+-------+--------+
+| 17.  | Click on 'Alerts &   | 'Alerts &            | **P   |        |
+|      | Notifications'       | Notifications' page  | ass** |        |
+|      |                      | is displayed         |       |        |
+|      | Click on the tab     |                      |       |        |
+|      | 'Notification Log'   | The email            |       |        |
+|      | and click 'View past | notification is      |       |        |
+|      | notifications'       | displayed with the   |       |        |
+|      |                      | details as follows:  |       |        |
+|      |                      |                      |       |        |
+|      |                      | Record: 3            |       |        |
+|      |                      |                      |       |        |
+|      |                      | Recipient:           |       |        |
+|      |                      | te                   |       |        |
+|      |                      | st_user3@example.com |       |        |
+|      |                      |                      |       |        |
+|      |                      | Subject: Testing     |       |        |
+|      |                      | Alerts and           |       |        |
+|      |                      | Notifications        |       |        |
+|      |                      |                      |       |        |
+|      |                      | Notification send    |       |        |
+|      |                      | time displays date   |       |        |
+|      |                      | and time of          |       |        |
+|      |                      | notification send    |       |        |
++------+----------------------+----------------------+-------+--------+
+| 18.  | Open email inbox and | Email is received    | **P   |        |
+|      | check                | with details as      | ass** |        |
+|      |                      | follows:             |       |        |
+|      |                      |                      |       |        |
+|      |                      | From:                |       |        |
+|      |                      | t                    |       |        |
+|      |                      | est_user@example.com |       |        |
+|      |                      |                      |       |        |
+|      |                      | To:                  |       |        |
+|      |                      | te                   |       |        |
+|      |                      | st_user3@example.com |       |        |
+|      |                      |                      |       |        |
+|      |                      | Subject: Testing     |       |        |
+|      |                      | Alerts and           |       |        |
+|      |                      | Notifications        |       |        |
+|      |                      |                      |       |        |
+|      |                      | Message: Alerts and  |       |        |
+|      |                      | Notifications        |       |        |
++------+----------------------+----------------------+-------+--------+
+| 19.  | In REDCap project    | The Data Types       | **P   |        |
+|      | Project_CUH_v1381,   | instrument opens.    | ass** |        |
+|      | In the Online        |                      |       |        |
+|      | Designer, click on   | 'Edit Field' window  |       |        |
+|      | the 'Data Types'     | opens                |       |        |
+|      | instrument           |                      |       |        |
+|      |                      | 'Logic Editor'       |       |        |
+|      | Click on the pencil  | window opens         |       |        |
+|      | icon for the field   |                      |       |        |
+|      | 'Text Box'.          | The logic appears as |       |        |
+|      |                      | "@CA                 |       |        |
+|      | Click on the area    | LCTEXT(if(\[ptname\] |       |        |
+|      | 'Action Tags / Field | != \'\', \'Pass\',   |       |        |
+|      | Annotation           | \'Fail\'))"          |       |        |
+|      | (optional)'          |                      |       |        |
+|      |                      | You are taken back   |       |        |
+|      | Type                 | to the 'Data Types'  |       |        |
+|      | '@CA                 | page                 |       |        |
+|      | LCTEXT(if(\[ptname\] |                      |       |        |
+|      | != \'\', \'Pass\',   |                      |       |        |
+|      | \'Fail\'))' in the   |                      |       |        |
+|      | Logic Editor window  |                      |       |        |
+|      |                      |                      |       |        |
+|      | Click 'Update &      |                      |       |        |
+|      | Close Editor' and    |                      |       |        |
+|      |                      |                      |       |        |
+|      | Click Save           |                      |       |        |
++------+----------------------+----------------------+-------+--------+
+| 20.  | Click on 'Alerts &   | Alerts &             | **P   |        |
+|      | Notifications'       | Notifications page   | ass** |        |
+|      |                      | is displayed         |       |        |
+|      | Click on the Edit    |                      |       |        |
+|      | icon for Alert #1    | 'Edit Alert #1'      |       |        |
+|      |                      | window opens         |       |        |
++------+----------------------+----------------------+-------+--------+
+| 21.  | Set the following    | 'Success! The alert  | **P   |        |
+|      | settings:            | was updated.'        | ass** |        |
+|      |                      | message is           |       |        |
+|      | A\) How will this    | displayed.           |       |        |
+|      | alert be triggered?  |                      |       |        |
+|      | Select the option:   | 'Alert #1: Email     |       |        |
+|      | 'If conditional      | Alert' shows 'If the |       |        |
+|      | logic is TRUE when a | following logic is   |       |        |
+|      | record is saved on a | TRUE when the        |       |        |
+|      | specific             | instrument \"Data    |       |        |
+|      | form/survey\*'       | Types (Event 1 (Arm  |       |        |
+|      |                      | 1: Arm 1))\" is      |       |        |
+|      | B\) Trigger the      | saved and has any    |       |        |
+|      | alert\...            | form status:         |       |        |
+|      |                      | \[                   |       |        |
+|      | When: Choose         | textbox\]=\'Pass\''. |       |        |
+|      | instrument = '\"Data |                      |       |        |
+|      | Types\" (Event 1     | Preview is visible   |       |        |
+|      | (Arm 1: Arm 1))'     | on the right side    |       |        |
+|      |                      | and has the          |       |        |
+|      | Email To:            | following details:   |       |        |
+|      | \[event_1            |                      |       |        |
+|      | _arm_1\]\[email_v2\] | From:                |       |        |
+|      | "Email\"(Event 1     | <te                  |       |        |
+|      | (Arm 1: Arm 1))      | st_user@example.com> |       |        |
+|      |                      |                      |       |        |
+|      | and                  | To:                  |       |        |
+|      |                      | [\[ev                |       |        |
+|      | 'is saved with any   | ent_1_arm_1\]\[email |       |        |
+|      | form status'         | _v2\]](mailto:[event |       |        |
+|      |                      | _1_arm_1][email_v2]) |       |        |
+|      | while the following  |                      |       |        |
+|      | logic is true:       | Subject: Testing     |       |        |
+|      | \[textbox\]=\'Pass\' | Alerts and           |       |        |
+|      |                      | Notifications        |       |        |
+|      | Check the checkbox   |                      |       |        |
+|      | 'Ensure logic is     | Message: Alerts and  |       |        |
+|      | still true before    | Notifications        |       |        |
+|      | sending              |                      |       |        |
+|      | notification?'       |                      |       |        |
+|      |                      |                      |       |        |
+|      | Click Save           |                      |       |        |
++------+----------------------+----------------------+-------+--------+
+| 22.  | Click on 'Add / Edit | 'Add / Edit Records' | **P   |        |
+|      | Records'             | page is displayed    | ass** |        |
+|      |                      |                      |       |        |
+|      | Select 'Arm 1' and   | Record Home Page is  |       |        |
+|      | Click on the button  | displayed, and 'NEW  |       |        |
+|      | 'Add new record for  | Record ID 4' is      |       |        |
+|      | the arm selected     | visible in Arm 1     |       |        |
+|      | above'               |                      |       |        |
++------+----------------------+----------------------+-------+--------+
+| 23.  | Click on the 'Text   | 'Text Validation'    | **P   |        |
+|      | Validation'          | instrument opens     | ass** |        |
+|      | instrument           |                      |       |        |
+|      |                      | Record Home Page is  |       |        |
+|      | Enter                | displayed with the   |       |        |
+|      | 'tes                 | message 'Record ID 4 |       |        |
+|      | t_user4@example.com' | successfully added.' |       |        |
+|      | in the field         |                      |       |        |
+|      | labelled 'Email'     |                      |       |        |
+|      |                      |                      |       |        |
+|      | Click on the button  |                      |       |        |
+|      | labelled 'Save &     |                      |       |        |
+|      | Exit Form'           |                      |       |        |
++------+----------------------+----------------------+-------+--------+
+| 24.  | Click on the 'Data   | 'Data Types'         | **P   |        |
+|      | Types' instrument    | instrument opens;    | ass** |        |
+|      |                      | Text Box field       |       |        |
+|      | Enter User4 in the   | displays 'Fail'      |       |        |
+|      | field labelled       |                      |       |        |
+|      | 'Name'               | Text Box field       |       |        |
+|      |                      | displays 'Pass'      |       |        |
+|      | Enter 4 in the field |                      |       |        |
+|      | labelled 'Required'  | Record Home Page is  |       |        |
+|      |                      | displayed with the   |       |        |
+|      | Click on the button  | message 'Record ID 4 |       |        |
+|      | 'Save & Exit Form'   | successfully         |       |        |
+|      |                      | edited.'             |       |        |
++------+----------------------+----------------------+-------+--------+
+| 25.  | Open email inbox and | Email is received    | **P   |        |
+|      | check                | with details as      | ass** |        |
+|      |                      | follows:             |       |        |
+|      |                      |                      |       |        |
+|      |                      | From:                |       |        |
+|      |                      | t                    |       |        |
+|      |                      | est_user@example.com |       |        |
+|      |                      |                      |       |        |
+|      |                      | To:                  |       |        |
+|      |                      | te                   |       |        |
+|      |                      | st_user4@example.com |       |        |
+|      |                      |                      |       |        |
+|      |                      | Subject: Testing     |       |        |
+|      |                      | Alerts and           |       |        |
+|      |                      | Notifications        |       |        |
+|      |                      |                      |       |        |
+|      |                      | Message: Alerts and  |       |        |
+|      |                      | Notifications        |       |        |
++------+----------------------+----------------------+-------+--------+
+| 26.  | In REDCap project    | 'Alerts &            | **P   |        |
+|      | Project_CUH_v1381,   | Notifications' page  | ass** |        |
+|      | Click on 'Alerts &   | is displayed         |       |        |
+|      | Notifications'       |                      |       |        |
+|      |                      | The email            |       |        |
+|      | Click on the tab     | notification is      |       |        |
+|      | 'Notification Log'   | displayed with the   |       |        |
+|      | and click 'View past | details as follows:  |       |        |
+|      | notifications'       |                      |       |        |
+|      |                      | Record: 4            |       |        |
+|      |                      |                      |       |        |
+|      |                      | Recipient:           |       |        |
+|      |                      | te                   |       |        |
+|      |                      | st_user4@example.com |       |        |
+|      |                      |                      |       |        |
+|      |                      | Subject: Testing     |       |        |
+|      |                      | Alerts and           |       |        |
+|      |                      | Notifications        |       |        |
+|      |                      |                      |       |        |
+|      |                      | Notification send    |       |        |
+|      |                      | time displays date   |       |        |
+|      |                      | and time of          |       |        |
+|      |                      | notification send    |       |        |
++------+----------------------+----------------------+-------+--------+
+| 27.  | Click on 'Add / Edit | 'Add / Edit Records' | **P   |        |
+|      | Records'             | page is displayed    | ass** |        |
+|      |                      |                      |       |        |
+|      | Select 'Arm 1' and   | Record Home Page is  |       |        |
+|      | Click on the button  | displayed, and 'NEW  |       |        |
+|      | 'Add new record for  | Record ID 5' is      |       |        |
+|      | the arm selected     | visible in Arm 1     |       |        |
+|      | above'               |                      |       |        |
++------+----------------------+----------------------+-------+--------+
+| 28.  | Click on the 'Text   | 'Text Validation'    | **P   |        |
+|      | Validation'          | instrument opens     | ass** |        |
+|      | instrument           |                      |       |        |
+|      |                      | Record Home Page is  |       |        |
+|      | Enter                | displayed with the   |       |        |
+|      | 'tes                 | message 'Record ID 5 |       |        |
+|      | t_user5@example.com' | successfully added.' |       |        |
+|      | in the field         |                      |       |        |
+|      | labelled 'Email'     |                      |       |        |
+|      |                      |                      |       |        |
+|      | Click on the button  |                      |       |        |
+|      | labelled 'Save &     |                      |       |        |
+|      | Exit Form'           |                      |       |        |
++------+----------------------+----------------------+-------+--------+
+| 29.  | Click on the 'Data   | 'Data Types'         | **P   |        |
+|      | Types' instrument    | instrument opens;    | ass** |        |
+|      |                      | Text Box field       |       |        |
+|      | Enter 5 in the field | displays 'Fail'      |       |        |
+|      | labelled 'Required'  |                      |       |        |
+|      |                      | Record Home Page is  |       |        |
+|      | Click on the button  | displayed with the   |       |        |
+|      | 'Save & Exit Form'   | message 'Record ID 5 |       |        |
+|      |                      | successfully         |       |        |
+|      |                      | edited.'             |       |        |
++------+----------------------+----------------------+-------+--------+
+| 30.  | Open email inbox and | Email is not sent to | **P   |        |
+|      | check                | te                   | ass** |        |
+|      |                      | st_user5@example.com |       |        |
++------+----------------------+----------------------+-------+--------+
+| 31.  | In REDCap project    | 'Alerts &            | **P   |        |
+|      | Project_CUH_v1381,   | Notifications' page  | ass** |        |
+|      | Click on 'Alerts &   | is displayed         |       |        |
+|      | Notifications'       |                      |       |        |
+|      |                      | The email            |       |        |
+|      | Click on the tab     | notification is not  |       |        |
+|      | 'Notification Log'   | sent for Record: 5   |       |        |
+|      | and click 'View past |                      |       |        |
+|      | notifications'       |                      |       |        |
++------+----------------------+----------------------+-------+--------+
+| 32.  | Click on 'Alerts &   | Alerts &             | **P   |        |
+|      | Notifications'       | Notifications page   | ass** |        |
+|      |                      | is displayed         |       |        |
+|      | Click on the Edit    |                      |       |        |
+|      | icon for Alert #1    | 'Edit Alert #1'      |       |        |
+|      |                      | window opens         |       |        |
++------+----------------------+----------------------+-------+--------+
+| 33.  | Set the following    | 'Success! The alert  | **P   |        |
+|      | settings:            | was updated.'        | ass** |        |
+|      |                      | message is           |       |        |
+|      | A\) How will this    | displayed.           |       |        |
+|      | alert be triggered?  |                      |       |        |
+|      | Select the option:   | 'Alert #1: Email     |       |        |
+|      | 'When conditional    | Alert' shows 'When   |       |        |
+|      | logic is TRUE during | the following logic  |       |        |
+|      | a data import, data  | becomes TRUE during  |       |        |
+|      | entry, or as the     | data import or data  |       |        |
+|      | result of time-based | entry:               |       |        |
+|      | logic'               | \[                   |       |        |
+|      |                      | textbox\]=\'Pass\''. |       |        |
+|      | B\) Trigger the      |                      |       |        |
+|      | alert\...            | Preview is visible   |       |        |
+|      |                      | on the right side    |       |        |
+|      | while the following  | and has the          |       |        |
+|      | logic is true:       | following details:   |       |        |
+|      | \[textbox\]=\'Pass\' |                      |       |        |
+|      |                      | From:                |       |        |
+|      | Check the checkbox   | t                    |       |        |
+|      | 'Ensure logic is     | est_user@example.com |       |        |
+|      | still true before    |                      |       |        |
+|      | sending              | To:                  |       |        |
+|      | notification?'       | \[event_1            |       |        |
+|      |                      | _arm_1\]\[email_v2\] |       |        |
+|      | Click Save           |                      |       |        |
+|      |                      | Subject: Testing     |       |        |
+|      |                      | Alerts and           |       |        |
+|      |                      | Notifications        |       |        |
+|      |                      |                      |       |        |
+|      |                      | Message: Alerts and  |       |        |
+|      |                      | Notifications        |       |        |
++------+----------------------+----------------------+-------+--------+
+| 34.  | Click on 'Add / Edit | 'Add / Edit Records' | **P   |        |
+|      | Records'             | page is displayed    | ass** |        |
+|      |                      |                      |       |        |
+|      | Select 'Arm 1' and   | Record Home Page is  |       |        |
+|      | Click on the button  | displayed, and 'NEW  |       |        |
+|      | 'Add new record for  | Record ID 6' is      |       |        |
+|      | the arm selected     | visible in Arm 1     |       |        |
+|      | above'               |                      |       |        |
++------+----------------------+----------------------+-------+--------+
+| 35.  | Click on the 'Text   | 'Text Validation'    | **P   |        |
+|      | Validation'          | instrument opens     | ass** |        |
+|      | instrument           |                      |       |        |
+|      |                      | Record Home Page is  |       |        |
+|      | Enter                | displayed with the   |       |        |
+|      | 'tes                 | message 'Record ID 6 |       |        |
+|      | t_user6@example.com' | successfully added.' |       |        |
+|      | in the field         |                      |       |        |
+|      | labelled 'Email'     |                      |       |        |
+|      |                      |                      |       |        |
+|      | Click on the button  |                      |       |        |
+|      | labelled 'Save &     |                      |       |        |
+|      | Exit Form'           |                      |       |        |
++------+----------------------+----------------------+-------+--------+
+| 36.  | Click on the 'Data   | 'Data Types'         | **P   |        |
+|      | Types' instrument    | instrument opens;    | ass** |        |
+|      |                      | Text Box field       |       |        |
+|      | Enter User6 in the   | displays 'Fail'      |       |        |
+|      | field labelled       |                      |       |        |
+|      | 'Name'               | Text Box field       |       |        |
+|      |                      | displays 'Pass'      |       |        |
+|      | Enter 6 in the field |                      |       |        |
+|      | labelled 'Required'  | Record Home Page is  |       |        |
+|      |                      | displayed with the   |       |        |
+|      | Click on the button  | message 'Record ID 6 |       |        |
+|      | 'Save & Exit Form'   | successfully         |       |        |
+|      |                      | edited.'             |       |        |
++------+----------------------+----------------------+-------+--------+
+| 37.  | Open email inbox and | Email is received    | **P   |        |
+|      | check                | with details as      | ass** |        |
+|      |                      | follows:             |       |        |
+|      |                      |                      |       |        |
+|      |                      | From:                |       |        |
+|      |                      | t                    |       |        |
+|      |                      | est_user@example.com |       |        |
+|      |                      |                      |       |        |
+|      |                      | To:                  |       |        |
+|      |                      | te                   |       |        |
+|      |                      | st_user6@example.com |       |        |
+|      |                      |                      |       |        |
+|      |                      | Subject: Testing     |       |        |
+|      |                      | Alerts and           |       |        |
+|      |                      | Notifications        |       |        |
+|      |                      |                      |       |        |
+|      |                      | Message: Alerts and  |       |        |
+|      |                      | Notifications        |       |        |
++------+----------------------+----------------------+-------+--------+
+| 38.  | In REDCap project    | 'Alerts &            | **P   |        |
+|      | Project_CUH_v1381,   | Notifications' page  | ass** |        |
+|      | Click on 'Alerts &   | is displayed         |       |        |
+|      | Notifications'       |                      |       |        |
+|      |                      | The email            |       |        |
+|      | Click on the tab     | notification is      |       |        |
+|      | 'Notification Log'   | displayed with the   |       |        |
+|      | and click 'View past | details as follows:  |       |        |
+|      | notifications'       |                      |       |        |
+|      |                      | Record: 6            |       |        |
+|      |                      |                      |       |        |
+|      |                      | Recipient:           |       |        |
+|      |                      | te                   |       |        |
+|      |                      | st_user6@example.com |       |        |
+|      |                      |                      |       |        |
+|      |                      | Subject: Testing     |       |        |
+|      |                      | Alerts and           |       |        |
+|      |                      | Notifications        |       |        |
+|      |                      |                      |       |        |
+|      |                      | Notification send    |       |        |
+|      |                      | time displays date   |       |        |
+|      |                      | and time of          |       |        |
+|      |                      | notification send    |       |        |
++------+----------------------+----------------------+-------+--------+
+| 39.  | Click on 'Add / Edit | 'Add / Edit Records' | **P   |        |
+|      | Records'             | page is displayed    | ass** |        |
+|      |                      |                      |       |        |
+|      | Select 'Arm 1' and   | Record Home Page is  |       |        |
+|      | Click on the button  | displayed, and 'NEW  |       |        |
+|      | 'Add new record for  | Record ID 7' is      |       |        |
+|      | the arm selected     | visible in Arm 1     |       |        |
+|      | above'               |                      |       |        |
++------+----------------------+----------------------+-------+--------+
+| 40.  | Click on the 'Text   | 'Text Validation'    | **P   |        |
+|      | Validation'          | instrument opens     | ass** |        |
+|      | instrument           |                      |       |        |
+|      |                      | Record Home Page is  |       |        |
+|      | Enter                | displayed with the   |       |        |
+|      | 'tes                 | message 'Record ID 7 |       |        |
+|      | t_user7@example.com' | successfully added.' |       |        |
+|      | in the field         |                      |       |        |
+|      | labelled 'Email'     |                      |       |        |
+|      |                      |                      |       |        |
+|      | Click on the button  |                      |       |        |
+|      | labelled 'Save &     |                      |       |        |
+|      | Exit Form'           |                      |       |        |
++------+----------------------+----------------------+-------+--------+
+| 41.  | Click on the 'Data   | 'Data Types'         | **P   |        |
+|      | Types' instrument    | instrument opens;    | ass** |        |
+|      |                      | Text Box field       |       |        |
+|      | Enter 7 in the field | displays 'Fail'      |       |        |
+|      | labelled 'Required'  |                      |       |        |
+|      |                      | Record Home Page is  |       |        |
+|      | Click on the button  | displayed with the   |       |        |
+|      | 'Save & Exit Form'   | message 'Record ID 7 |       |        |
+|      |                      | successfully         |       |        |
+|      |                      | edited.'             |       |        |
++------+----------------------+----------------------+-------+--------+
+| 42.  | Open email inbox and | Email is not sent to | **P   |        |
+|      | check                | te                   | ass** |        |
+|      |                      | st_user7@example.com |       |        |
++------+----------------------+----------------------+-------+--------+
+| 43.  | In REDCap project    | 'Alerts &            | **P   |        |
+|      | Project_CUH_v1381,   | Notifications' page  | ass** |        |
+|      | Click on 'Alerts &   | is displayed         |       |        |
+|      | Notifications'       |                      |       |        |
+|      |                      | The email            |       |        |
+|      | Click on the tab     | notification is not  |       |        |
+|      | 'Notification Log'   | sent for Record: 7   |       |        |
+|      | and click 'View past |                      |       |        |
+|      | notifications'       |                      |       |        |
++------+----------------------+----------------------+-------+--------+
+| 44.  | Logout as test_user  | Successfully logged  | **P   |        |
+|      |                      | off                  | ass** |        |
++------+----------------------+----------------------+-------+--------+
+|      | THIS ENDS THE        |                      |       |        |
+|      | TESTING FOR THIS     |                      |       |        |
+|      | SCRIPT               |                      |       |        |
++------+----------------------+----------------------+-------+--------+
+
++-----------+--------------------------------------------+---+---+-----+
+| **Con     |                                            |   |   |     |
+| clusion** |                                            |   |   |     |
++-----------+--------------------------------------------+---+---+-----+
+| Did the   |                                            | > |   | >   |
+| Actual    |                                            |   |   | ~~N |
+| Results   |                                            | Y |   | o~~ |
+| for each  |                                            | e |   |     |
+| test step |                                            | s |   |     |
+| match the |                                            |   |   |     |
+| Expected  |                                            |   |   |     |
+| Results   |                                            |   |   |     |
+| listed?   |                                            |   |   |     |
++-----------+--------------------------------------------+---+---+-----+
+| > **C     |                                            |   |   |     |
+| omments/A |                                            |   |   |     |
+| dditional |                                            |   |   |     |
+| > Infor   |                                            |   |   |     |
+| mation:** |                                            |   |   |     |
+| >         |                                            |   |   |     |
+| (Indicate |                                            |   |   |     |
+| > the     |                                            |   |   |     |
+| > step    |                                            |   |   |     |
+| > number  |                                            |   |   |     |
+| > of the  |                                            |   |   |     |
+| > step    |                                            |   |   |     |
+| > you     |                                            |   |   |     |
+| > wish to |                                            |   |   |     |
+| > comment |                                            |   |   |     |
+| > on.)    |                                            |   |   |     |
++-----------+--------------------------------------------+---+---+-----+
+| **        | **Tanwir Ahmed**                           | * | * |     |
+| Completed |                                            | * | * |     |
+| By**      |                                            | D | 2 |     |
+|           |                                            | a | 1 |     |
+|           |                                            | t | / |     |
+|           |                                            | e | 1 |     |
+|           |                                            | : | 1 |     |
+|           |                                            | * | / |     |
+|           |                                            | * | 2 |     |
+|           |                                            |   | 0 |     |
+|           |                                            |   | 2 |     |
+|           |                                            |   | 3 |     |
+|           |                                            |   | * |     |
+|           |                                            |   | * |     |
++-----------+--------------------------------------------+---+---+-----+

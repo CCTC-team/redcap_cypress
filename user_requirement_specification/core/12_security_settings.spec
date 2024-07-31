@@ -1,0 +1,1 @@
+A.2.12.100 - The system shall support changing the system status between online and offline.
