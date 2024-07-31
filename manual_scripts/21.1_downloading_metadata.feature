@@ -23,7 +23,7 @@ Feature: Downloading Metadata. The system shall support the ability to download 
     
         Scenario: 2 Create new project and upload Metadata file and verify all project attributes
         Given I login to REDCap with the user "Test_Admin"
-        And I create a new project named "21.1" by clicking on "New Project" in the menu bar, selecting "Practice / Just for fun" from the dropdown, choosing file "Project_redcap_val_Test_2024-05-31", and clicking the "Create Project" button 
+        And I create a new project named "Project_redcap_val_21.1" by clicking on "New Project" in the menu bar, selecting "Practice / Just for fun" from the dropdown, choosing file "Project_redcap_val_Test_2024-05-31", and clicking the "Create Project" button 
 
         ##VERIFY: Project attributes including instruments, fields, data quality rules, events and arms exist in project
 
