@@ -8,7 +8,7 @@ Scenario: D.109.100_Piping - Create Piping into questions
 
     #SETUP
     Given I login to REDCap with the user "Test_Admin"
-    And I create a new project named "D.109.100_Piping" by clicking on "New Project" in the menu bar, selecting "Practice / Just for fun" from the dropdown, choosing file "Project_redcap_val.xml", and clicking the "Create Project" button
+    And I create a new project named "D.109.100" by clicking on "New Project" in the menu bar, selecting "Practice / Just for fun" from the dropdown, choosing file "Project_redcap_val.xml", and clicking the "Create Project" button
 
 
     #ACTION: Create new field called ice_cream in the instrument
