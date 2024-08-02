@@ -35,7 +35,7 @@ Feature: D.119.200 Downloading Metadata and data - The system shall support the 
         
         Scenario: 2 Create new project and upload Metadata file and verify all project attributes
         Given I login to REDCap with the user "Test_Admin"
-        And I create a new project named "D.119.200_downloading_metadata_and_data" by clicking on "New Project" in the menu bar, selecting "Practice / Just for fun" from the dropdown, choosing file "Project_redcap_val_Test_2024-05-31", and clicking the "Create Project" button 
+        And I create a new project named "D.119.200" by clicking on "New Project" in the menu bar, selecting "Practice / Just for fun" from the dropdown, choosing file "Project_redcap_val_Test_2024-05-31", and clicking the "Create Project" button 
 
         ##VERIFY: Project attributes including instruments, fields, data quality rules, events and arms exist in project
 
