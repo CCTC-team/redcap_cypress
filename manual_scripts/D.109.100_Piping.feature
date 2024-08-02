@@ -1,19 +1,19 @@
-Feature: Piping. The system shall support the ability to use previously collected data in a text on a data collection form or survey.
+Feature: D.109.100 Piping - The system shall support the ability to use previously collected data in a text on a data collection form or survey.
 
   As a REDCap end user
   I want to see that Piping feature is functioning as expected
  
 
-Scenario: Project_redcap_val_9.1 Create Piping into questions
+Scenario: D.109.100_Piping - Create Piping into questions
 
     #SETUP
     Given I login to REDCap with the user "Test_Admin"
-    And I create a new project named "Project_redcap_val_9.1" by clicking on "New Project" in the menu bar, selecting "Practice / Just for fun" from the dropdown, choosing file "Project_redcap_val_Special_Functions.xml", and clicking the "Create Project" button
+    And I create a new project named "D.109.100_Piping" by clicking on "New Project" in the menu bar, selecting "Practice / Just for fun" from the dropdown, choosing file "Project_redcap_val.xml", and clicking the "Create Project" button
 
 
     #ACTION: Create new field called ice_cream in the instrument
     When I click on the link labeled "My Projects"  
-    And I click on the link labeled "Project_redcap_val_9.1" 
+    And I click on the link labeled "D.109.100_Piping" 
     Then I click on the link labeled "Designer"
     And I click on the instrument labeled "Data Types"
     And I click on the button labeled "Add Field"
