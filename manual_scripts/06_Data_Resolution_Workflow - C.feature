@@ -1,14 +1,14 @@
-Feature: D.106.100_A Data Resolution Workflow 
+Feature: D.106.100 Data Resolution Workflow
 
 As a REDCap end user
-I want to see that I have the ability to open, close, read only, reopen and respond to queries based on user roles
-I want to see that I have the ability to attach files to queries and make them available to download based on user roles. 
+The system shall support the ability to attach files to queries and make them available to download based on user roles. 
+The system shall support the ability to email and send messages via REDCap messenger with a link to queries based on user roles
 
-Scenario: D.106.100 Open, close, read only, reopen and respond to queries based on user roles
+Scenario: D.106.100_B Filter queries based on records, fields, events and users 
 
 #Data Resolution Workflow SETUP
 Given I login to REDCap with the user "test_admin" 
-And I create a new project named "Project_redcap_val" by clicking on "New Project" in the menu bar, selecting "Practice / Just for fun" from the dropdown, choosing file "Project_CUH_v138.xml", and clicking the "Create Project" button
+And I create a new project named "D.106.100_C" by clicking on "New Project" in the menu bar, selecting "Practice / Just for fun" from the dropdown, choosing file "Project_CUH_v138.xml", and clicking the "Create Project" button
 #Enable the Data Resolution Workflow (Data Queries)
 Given I click on the link labeled "Project Setup"
 And I click on the button labeled "Additional customizations"
