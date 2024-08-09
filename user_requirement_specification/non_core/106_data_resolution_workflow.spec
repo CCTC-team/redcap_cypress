@@ -6,4 +6,4 @@ D.106.500 - The system shall support the ability to email and send messages via 
 D.106.600 - The system shall have the ability to verify and de-verify data value based on user rights.
 D.106.700 - The system shall have the ability to automatically de-verify data that has been verified and subsequently changed.
 D.106.800 - The system shall have the ability to add comments to fields.
-D.106.900 - The system shall have the ability to filter  comments based on records, events, fields, users and keywords.
+D.106.900 - The system shall have the ability to filter comments based on records, events, fields, users and keywords.
