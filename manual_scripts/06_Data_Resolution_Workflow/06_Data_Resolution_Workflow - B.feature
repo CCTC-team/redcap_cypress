@@ -1,19 +1,19 @@
-Feature: D.106.100 Data Resolution Workflow
+Feature: D.106.100_C Data Resolution Workflow
 
 As a REDCap end user
-The system shall support the ability to attach files to queries and make them available to download based on user roles. 
-The system shall support the ability to email and send messages via REDCap messenger with a link to queries based on user roles
+I want to see that I have the ability to filter queries based on records, fields, events and users 
 
 Scenario: D.106.100_B Filter queries based on records, fields, events and users 
 
 #Data Resolution Workflow SETUP
 Given I login to REDCap with the user "test_admin" 
-And I create a new project named "D.106.100_C" by clicking on "New Project" in the menu bar, selecting "Practice / Just for fun" from the dropdown, choosing file "Project_CUH_v138.xml", and clicking the "Create Project" button
+And I create a new project named "D.106.100_A" by clicking on "New Project" in the menu bar, selecting "Practice / Just for fun" from the dropdown, choosing file "Project_redcap_val.xml", and clicking the "Create Project" button
 #Enable the Data Resolution Workflow (Data Queries)
 Given I click on the link labeled "Project Setup"
 And I click on the button labeled "Additional customizations"
 And I select "Data Resolution Workflow" in the field identified by "data_resolution_enabled"
 Then I click on the button labeled "Save"
+And I click on the button labeled "Close" in the dialog box
 
 When I click on the link labeled "User Rights"
 And I enter "test_user" into the field identified by "new_username"
@@ -29,74 +29,41 @@ And I select "Open, close, and respond to queries" under "Data Resolution Workfl
 And I click on the button labeled "Save Changes"
 And I logout
 
-#ACTION: Create record
+# #ACTION: Create record
+
+# Given I login to REDCap with the user "test_user" 
+# And I click on the link labeled "My Projects"
+# And I click on the link labeled "Project_CUH_v1381"
+# And I click on the link labeled "Record Status Dashboard"
+# And I click on the link labeled "Add new Record for this arm"
+# And I click the bubble to add a record for the "Text Validation" longitudinal instrument on event "Event 1"
+# And I enter "John" into the input field labeled "Name" 
+# And I enter "John@example.com" into the input field labeled "Email" 
+# And I select "Complete" on the dropdown field labeled "Complete?"
+# And I select the submit option labeled "Save & Exit Form" on the Data Collection Instrument
+# Then I should see "Record ID 1 successfully added"
+# And I logout
+
+#ACTION: Open a new query and 'Assign Query' 
+
+Given I click on the Data Resolution Workflow icon for the field labeled "Email"
+Given I click on the radio labeled "Open query" in the dialog box
+And I select "test_user" on the dropdown field labeled "Assign query to a user (optional): "
+And I enter "Query 1" into the input field labeled "Comment:" 
+And I click on the button labeled "Open query"
+Then I should see a red exclamation icon for the input field labeled "Email"
+And I logout
+#ACTION: Verify notification of assigned query in REDCap Messenger and ability to "Respond only" to queries as per User Rights + Ability to attach files to queries and make them available to download based on user roles. 
 
 Given I login to REDCap with the user "test_user" 
-And I click on the link labeled "My Projects"
 And I click on the link labeled "Project_CUH_v1381"
-And I click on the link labeled "Record Status Dashboard"
-And I click on the link labeled "Add new Record for this arm"
-And I click the bubble to add a record for the "Text Validation" longitudinal instrument on event "Event 1"
-And I enter "John" into the input field labeled "Name" 
-And I enter "John@example.com" into the input field labeled "Email" 
-And I select "Complete" on the dropdown field labeled "Complete?"
-And I select the submit option labeled "Save & Exit Form" on the Data Collection Instrument
-Then I should see "Record ID 1 successfully added"
-And I logout
-
-#ACTION: Verify and de-verify data
-
-Given I login to REDCap with the user "test_user2" 
-And I click on the link labeled "My Projects"
-And I click on the link labeled "Project_CUH_v1381"
-And I click on the link labeled "Record Status Dashboard"
-And  I click on the bubble for the "Text Validation" data collection instrument for record ID "1" 
-And I click on the Data Resolution Workflow icon for the field labeled "Name"
-Then I should see a table header and row containing the following values in the Data Resolution Workflow table:
-      | Date / Time      | User   | Comments and Details   | 
-      | mm/dd/yyyy hh:mm | test_user | Data Changes Made: ptname_v2_v2 = 'John' |
-Given I click on the radio labeled "Verified data value"
-And I click on the button labeled "Verified data value" 
-Then I should see a green tick icon for the input field labeled "Name"
-Given I click on the Data Resolution Workflow icon for the field labeled "Name"
-Then I should see a table header and row containing the following values in the Data Resolution Workflow table:
-      | Date / Time      | User   | Comments and Details   | 
-      | mm/dd/yyyy hh:mm | test_user | Data Changes Made: ptname_v2_v2 = 'John' |
-      | mm/dd/yyyy hh:mm | test_user2 | Action:Verified data value |
-Given I click on the radio labeled "De-verify data value"
-And I click on the button labeled "De-verify data value"
-Then I should see a dialog containing the following text: "A comment is required. Please enter a comment." 
-And I click on the button labeled "Close" in the dialog box
-And I enter "Test de-verify data" into the input field labeled "Comment:"
-And I click on the button labeled "De-verify data value"
-Then I should see a red exclamation icon for the input field labeled "Name"
-
 Given I click on the link labeled "Resolve Issues"
 And I select the "All status type" option from the Filters dropdown field indentified by 'choose_status_type'
 Then I should see a table header and row containing the following values in the Data Resolution Workflow table:
       | Record    | Data Quality rule and/or Field | First Update | Last Update |
       | 1 | ptname_v2_v2 | test_user2 "" | test_user2 "Test de-verify data" |
 
-#ACTION: Assign Query and notify via Email and Messenger
 
-Given I click on the link labeled "Record Status Dashboard"
-And I click on the bubble for the "Text Validation" data collection instrument for record ID "1" 
-And I click on the Data Resolution Workflow icon for the field labeled "Email"
-Given I click on the radio labeled "Open query" in the dialog box
-And I select "test_user" on the dropdown field labeled "Assign query to a user (optional): "
-And I select the checkbox option "Email" for the field labeled "Notify this user of their assignment using:" 
-And I select the checkbox option "REDCap Messenger" for the field labeled "Notify this user of their assignment using:"
-And I enter "Please check email" into the input field labeled "Comment:" 
-And I click on the button labeled "Open query"
-Then I should see a red exclamation icon for the input field labeled "Email"
-#An email and a message on Messenger is sent to test_user
-And I logout
- 
-#ACTION: Verify notification of assigned query in REDCap Messenger and ability to "Respond only" to queries as per User Rights + Ability to attach files to queries and make them available to download based on user roles. 
-
-Given I login to REDCap with the user "test_user" 
-And I click on the link labeled "Project_CUH_v1381"
-And I click on the link labeled "REDCap Messenger"
 Then I should see "Assigned to a data query" 
 And I click on the link labeled "Assigned to a data query" 
 Then I should see "You have been assigned to a data query that was just opened in the REDCap project "Project_CUH_v1381""

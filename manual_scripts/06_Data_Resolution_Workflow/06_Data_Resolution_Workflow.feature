@@ -1,4 +1,4 @@
-Feature: D.106.100_A Data Resolution Workflow 
+Feature: D.106.100 Data Resolution Workflow 
 
 As a REDCap end user
 I want to see that I have the ability to open, close, read only, reopen and respond to queries based on user roles
