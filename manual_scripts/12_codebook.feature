@@ -3,7 +3,7 @@ Feature: Codebook: The system shall support the viewing of codebook.
 As a REDCap end user
 I want to see that Codebook is functioning as expected
 
-Scenario: Uploading Project D.111.100 consisting Text Validation(Name, Email, Form status) and Data Types(Name, Textbox, Signature,multiple choice dropdown list (single answer), Radio Button Manual, File Upload (file_upload), Form status) as instruments through the Online Designer to view Codebook.
+Scenario: Uploading Project D.111.100 consisting Text Validation(Name, Email, Form status) and Data Types(Name, Textbox,Date of Birth, Checkbox,multiple choice dropdown list (single answer), Radio Button Manual, File Upload (file_upload),Calculated Field,Descriptive Text with File, Identifier, Required, Form status) as instruments through the Online Designer to view Codebook.
 
 #SETUP
 Given I login to REDCap with the user "Test_Admin"   
