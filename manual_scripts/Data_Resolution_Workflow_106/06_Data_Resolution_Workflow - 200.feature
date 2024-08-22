@@ -10,27 +10,27 @@ Scenario: D.106.200 Open, close, read only, reopen and respond to queries based 
 
 #ACTION: Data Resolution Workflow SETUP
 Given I login to REDCap with the user "test_admin" 
-And I create a new project named "D.106.100" by clicking on "New Project" in the menu bar, selecting "Practice / Just for fun" from the dropdown, choosing file "Project_redcap_val.xml", and clicking the "Create Project" button
+And I create a new project named "D.106.200" by clicking on "New Project" in the menu bar, selecting "Practice / Just for fun" from the dropdown, choosing file "Project_redcap_val.xml", and clicking the "Create Project" button
 #Enable the Data Resolution Workflow (Data Queries)
 Given I click on the link labeled "Project Setup"
 And I click on the button labeled "Additional customizations"
-And I select "Data Resolution Workflow" in the labeled "data_resolution_enabled"
+And I select "Data Resolution Workflow" in the dropdown field labeled "Enable:"
 Then I click on the button labeled "Save"
 And I click on the button labeled "Close" in the dialog box
 And I click on the link labeled "Data Import Tool"
-And  I upload a "csv" format file located at "cypress\fixtures\redcap_val_fixtures\Data import_D.106", by clicking the button near "Choose file" to browse for the file, and clicking the button labeled "Upload file" to upload the file
+And  I upload a "csv" format file located at "cypress\fixtures\redcap_val_fixtures\Data import csv", by clicking the button near "Choose file" to browse for the file, and clicking the button labeled "Upload file" to upload the file
 And I click on the button labeled "Import Data"
 Given I click on the link labeled "User Rights"
 And I click on the button labeled "Upload or download users, roles, and assignments"
 And I click on the link labeled "Upload users (CSV)"
-And I upload a "csv" format file located at "cypress\fixtures\redcap_val_fixtures\Users_D.106", by clicking the button near "Choose file" to browse for the file, and clicking the button labeled "Upload" to upload the file
+And I upload a "csv" format file located at "cypress\fixtures\redcap_val_fixtures\Users csv", by clicking the button near "Choose file" to browse for the file, and clicking the button labeled "Upload" to upload the file
 And I click on the button labeled "Upload" in the dialog box
 And I click on the button labeled "Close" in the dialog box
 And I logout
 
 Given I login to REDCap with the user "test_user1" 
 And I click on the link labeled "My Projects"
-And I click on the link labeled "D.106.100"
+And I click on the link labeled "D.106.200"
 And I click on the link labeled "Record Status Dashboard"
 And I click on the bubble for the "Text Validation" data collection instrument for record ID "1" 
 
@@ -50,11 +50,11 @@ And I logout
 #ACTION: Verify notification on Messenger and respond to query by uploading a file
 
 Given I login to REDCap with the user "test_user2" 
-And I click on the link labeled "D.106.100"
+And I click on the link labeled "D.106.200"
 And I click on the link labeled "REDCap Messenger"
 Then I should see "Assigned to a data query" 
 And I click on the link labeled "Assigned to a data query" 
-Then I should see a dialog containing the following text: "You have been assigned to a data query that was just opened in the REDCap project D.106.100." 
+Then I should see a dialog containing the following text: "You have been assigned to a data query that was just opened in the REDCap project D.106.200." 
 And I click on the link labeled "Open the data query assigned to you:"
 Then I should see a table header and row containing the following values in a table:
       | Record  | Data Quality rule and/or Field  | User Assigned     | First Update | 
@@ -85,7 +85,7 @@ And I logout
 #ACTION: Download file attached to query and 'Send back for further attention'
 
 Given I login to REDCap with the user "test_user1" 
-And I click on the link labeled "D.106.100"
+And I click on the link labeled "D.106.200"
 And I click on the link labeled "Record Status Dashboard"
 And I click on the bubble for the "Text Validation" data collection instrument for record ID "1" 
 And I click on the Data Resolution Workflow icon for the field labeled "Email"
@@ -100,7 +100,7 @@ And I logout
 #ACTION: Verify User right 'Open queries only'
 
 Given I login to REDCap with the user "test_user3" 
-And I click on the link labeled "D.106.100"
+And I click on the link labeled "D.106.200"
 And I click on the bubble for the "Text Validation" data collection instrument for record ID "1" 
 And I click on the Data Resolution Workflow icon for the field labeled "Email"
 Then I should NOT see "Close the query"
@@ -122,7 +122,7 @@ And I logout
 #ACTION:Verify User right 'Open and respond to queries'
 
 Given I login to REDCap with the user "test_user4" 
-And I click on the link labeled "D.106.100"
+And I click on the link labeled "D.106.200"
 And I click on the bubble for the "Text Validation" data collection instrument for record ID "1" 
 And I click on the Data Resolution Workflow icon for the field labeled "Email"
 Then I should see a table header and row containing the following values in a table:
@@ -143,7 +143,7 @@ And I logout
 #ACTION:Verify User right 'Open close and respond to queries'
 
 Given I login to REDCap with the user "test_user1" 
-And I click on the link labeled "D.106.100"
+And I click on the link labeled "D.106.200"
 And I click on the link labeled "Record Status Dashboard"
 And I click on the bubble for the "Text Validation" data collection instrument for record ID "1" 
 And I click on the Data Resolution Workflow icon for the field labeled "Email"
@@ -159,7 +159,7 @@ And I logout
 #ACTION:
 
 Given I login to REDCap with the user "test_user4" 
-And I click on the link labeled "D.106.100"
+And I click on the link labeled "D.106.200"
 And I click on the bubble for the "Text Validation" data collection instrument for record ID "1" 
 And I click on the Data Resolution Workflow icon for the field labeled "Email"
 Then I should see "Reopen the closed query"
@@ -177,14 +177,14 @@ And I logout
 #ACTION: Change user rights
 
 Given I login to REDCap with the user "test_admin" 
-And I click on the link labeled "D.106.100"
+And I click on the link labeled "D.106.200"
 When I click on the link labeled "User Rights"
 And I click on the link "test_user3"
-And I click on the link "Edit user privileges"
+And I click on the button labeled "Edit user privileges"
 And I click on the radio labeled "No access" in the dialog box
 And I click on the button labeled "Save Changes"
 And I click on the link "test_user4"
-And I click on the link "Edit user privileges"
+And I click on the button labeled "Edit user privileges"
 And  I click on the radio labeled "View only" in the dialog box
 And I click on the button labeled "Save Changes"
 And I logout
@@ -192,13 +192,13 @@ And I logout
 #ACTION: Verify 'No access' and 'View only' user rights
 
 Given I login to REDCap with the user "test_user3" 
-And I click on the link labeled "D.106.100"
+And I click on the link labeled "D.106.200"
 And I click on the link labeled "Record Status Dashboard"
 And  I click on the bubble for the "Text Validation" data collection instrument for record ID "1"
 Then I should NOT see Data Resolution Workflow icon
 And I logout
 Given I login to REDCap with the user "test_user4" 
-And I click on the link labeled "D.106.100"
+And I click on the link labeled "D.106.200"
 And I click on the link labeled "Record Status Dashboard"
 And  I click on the bubble for the "Text Validation" data collection instrument for record ID "1"
 And I click on the Data Resolution Workflow icon for the field labeled "Name"
@@ -212,7 +212,7 @@ And I logout
 #ACTION: Check logging (Use download step definition above or)
 
 Given I login to REDCap with the user "test_admin" 
-And I click on the link labeled "D.106.100"
+And I click on the link labeled "D.106.200"
 When I click on the link labeled "Logging"
 Then I should see a table header and row containing the following values in a table:
       | Date / Time      | Username   | Action       | List of Data Changes OR Fields Exported |
@@ -226,7 +226,7 @@ Then I logout
 #ACTION: Verify filtering
 
 Given I login to REDCap with the user "test_user1" 
-And I click on the link labeled "D.106.100"
+And I click on the link labeled "D.106.200"
 When I click on the link labeled "Resolve Issues"
 When I select the "All status types" option from the Filters dropdown field identified by 'choose_status_type'
 Then I should see a table header and row containing the following values in a table:
@@ -246,7 +246,7 @@ Then I should see a table header and row containing the following values in a ta
       | 1        | email_v2                        | test_user2     | test_user1 "Please check email" | test_use1 "Closed" |
 
 When I select the "Event 1 (Arm 1: Arm 1)" option from the Filters dropdown field with identified by 'choose_event'
-Then I should see a table header and row containing the following values in the Data Resolution Workflow table:
+Then I should see a table header and row containing the following values in a table:
       | Record    | Data Quality rule and/or Field  | User Assigned  | First Update                    | Last Update |
       | 1         | email_v2                        | test_user2     | test_user1 "Please check email" | test_use1 "Closed" |
 Given I select the "test_user3" option from the Filters dropdown field with identified by 'choose_assigned_user'

@@ -12,16 +12,16 @@ And I create a new project named "D.106.600" by clicking on "New Project" in the
 #Enable the Data Resolution Workflow (Data Queries)
 Given I click on the link labeled "Project Setup"
 And I click on the button labeled "Additional customizations"
-And I select "Data Resolution Workflow" in the labeled "data_resolution_enabled"
+And I select "Data Resolution Workflow" in the dropdown field labeled "Enable:"
 Then I click on the button labeled "Save"
 And I click on the button labeled "Close" in the dialog box
 And I click on the link labeled "Data Import Tool"
-And  I upload a "csv" format file located at "cypress\fixtures\redcap_val_fixtures\Data import_D.106", by clicking the button near "Choose file" to browse for the file, and clicking the button labeled "Upload file" to upload the file
+And  I upload a "csv" format file located at "cypress\fixtures\redcap_val_fixtures\Data import csv", by clicking the button near "Choose file" to browse for the file, and clicking the button labeled "Upload file" to upload the file
 And I click on the button labeled "Import Data"
 Given I click on the link labeled "User Rights"
 And I click on the button labeled "Upload or download users, roles, and assignments"
 And I click on the link labeled "Upload users (CSV)"
-And I upload a "csv" format file located at "cypress\fixtures\redcap_val_fixtures\Users_D.106", by clicking the button near "Choose file" to browse for the file, and clicking the button labeled "Upload" to upload the file
+And I upload a "csv" format file located at "cypress\fixtures\redcap_val_fixtures\Users csv", by clicking the button near "Choose file" to browse for the file, and clicking the button labeled "Upload" to upload the file
 And I click on the button labeled "Upload" in the dialog box
 And I click on the button labeled "Close" in the dialog box
 And I logout
@@ -35,14 +35,14 @@ And I click on the link labeled "D.106.600"
 And I click on the link labeled "Record Status Dashboard"
 And I click on the bubble for the "Text Validation" data collection instrument for record ID "1" 
 And I click on the Data Resolution Workflow icon for the field labeled "Name"
-Then I should see a table header and row containing the following values in the Data Resolution Workflow table:
+Then I should see a table header and row containing the following values in a table:
       | Date / Time      | User       | Comments and Details   | 
       | mm/dd/yyyy hh:mm | test_admin | Data Changes Made: ptname_v2_v2 = 'Tony Stone' |
 Given I click on the radio labeled "Verified data value"
 And I click on the button labeled "Verified data value" 
 #Then I should see a green tick icon for the input field labeled "Name"
 Given I click on the Data Resolution Workflow icon for the field labeled "Name"
-Then I should see a table header and row containing the following values in the Data Resolution Workflow table:
+Then I should see a table header and row containing the following values in a table:
       | Date / Time      | User       | Comments and Details   | 
       | mm/dd/yyyy hh:mm | test_admin | Data Changes Made: ptname_v2_v2 = 'Tony Stone'' |
       | mm/dd/yyyy hh:mm | test_user1 | Action:Verified data value |
@@ -56,7 +56,7 @@ And I click on the button labeled "De-verify data value"
 
 Given I click on the link labeled "Resolve Issues"
 And I select the "All status type" option from the Filters dropdown field indentified by 'choose_status_type'
-Then I should see a table header and row containing the following values in the Data Resolution Workflow table:
+Then I should see a table header and row containing the following values in a table:
       | Record    | Data Quality rule and/or Field | First Update  | Last Update |
       | 1         | ptname_v2_v2                   | test_user1 "" | test_user1 "Test de-verify data" |
 And I logout
@@ -88,7 +88,7 @@ And I select the submit option labeled "Save & Exit Form" on the Data Collection
 And  I click on the bubble for the "Text Validation" data collection instrument for record ID "1" 
 #Then I should see a red exclamation icon for the input field labeled "Name"
 And I click on the Data Resolution Workflow icon for the field labeled "Name"
-Then I should see a table header and row containing the following values in the Data Resolution Workflow table:
+Then I should see a table header and row containing the following values in a table:
       | Date / Time      | User       | Comments and Details   | 
       | mm/dd/yyyy hh:mm | test_user1 | Action:De-verified data value (automatically via data change) |
 And I click on the button labeled "Close" in the dialog box
