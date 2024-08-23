@@ -39,7 +39,7 @@ Feature: D.103.100 Form Display Logic
 
     Given I click on the link labeled "Add / Edit Records"
     When I click on the button labeled "Add new record for the arm selected above"
-    And I should see "Adding new Record ID 7"  
+    And I should see "Adding new Record ID 3"  
 #// unsure if I can do the above line 
     Then I should NOT see "Data Types"
 
