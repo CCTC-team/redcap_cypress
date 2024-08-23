@@ -44,7 +44,6 @@ Feature: D.103.100 Form Display Logic
 
     Given I click the bubble to select a record for the "Text Validation" longitudinal instrument on event "Event 1"
     And I enter "user3" into the input field labeled "Name"
-    I enter "User1" into the input field labeled "First name:
     And I click on the button labeled "Save & Exit Form"
     And I click the bubble to select a record for the "Data Types" longitudinal instrument on event "Event 1"
     When I enter "3" into the input field labeled "Required"
