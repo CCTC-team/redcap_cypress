@@ -17,10 +17,10 @@ Feature: D.103.100 Form Display Logic
     Given I click on the link labeled "Add / Edit Records"
     And I click on the button labeled "Add new record for the arm selected above"
     When I click the bubble to select a record for the "Text Validation" longitudinal instrument on event "Event 1"
-    And I clear field and enter "User 2" into the data entry form field labeled "Name"
+    And I enter "User 2" into the data entry form field labeled "Name"
     And I click on the button labeled "Save & Exit Form"
     And I click the bubble to select a record for the "Data Types" longitudinal instrument on event "Event 1"
-    And I clear field and enter "2" into the data entry form field labeled "Required"
+    And I enter "2" into the data entry form field labeled "Required"
     And I click on the button labeled "Save & Exit Form"
     Then I should see "Record ID 2 successfully edited."
 
@@ -39,15 +39,15 @@ Feature: D.103.100 Form Display Logic
 
     Given I click on the link labeled "Add / Edit Records"
     When I click on the button labeled "Add new record for the arm selected above"
-    And I should see "Adding new Record ID 3"  
-#// unsure if I can do the above line 
+    And I should see "3"  
     Then I should NOT see "Data Types"
 
     Given I click the bubble to select a record for the "Text Validation" longitudinal instrument on event "Event 1"
-    And I clear field and enter "User3" into the data entry form field labeled "Name"
+    And I enter "user3" into the input field labeled "Name"
+    I enter "User1" into the input field labeled "First name:
     And I click on the button labeled "Save & Exit Form"
     And I click the bubble to select a record for the "Data Types" longitudinal instrument on event "Event 1"
-    When I clear field and enter "3" into the data entry form field labeled "Required"
+    When I enter "3" into the input field labeled "Required"
     And I click on the button labeled "Save & Exit Form"
     Then I should see "Record ID 3 successfully edited."
 
