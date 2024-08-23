@@ -1,7 +1,7 @@
-Feature: D.103.100 Add/Manage users
+Feature: D.103.100 Form Display Logic
 
   As a REDCap end user
-  I want to see that Add / Manage Users is functioning as expected
+  I want to see that Form Display Logic is functioning as expected
 
   Scenario: 
     Given I login to REDCap with the user "Test_User"
