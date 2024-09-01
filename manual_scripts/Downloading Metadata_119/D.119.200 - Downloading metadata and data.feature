@@ -128,6 +128,7 @@ Feature: D.119.200 Downloading Metadata and data - The system shall support the 
       Then I click on the link labeled "Other Functionality"
       And I click on the button labeled "Download metadata & data(XML)" in the dialog box
       Then  I should see a dialog containing the following text: "Exporting Entire project(metadata & data)" 
+      And I click on the checkbox element labeled "Include all uploaded files and signatures?" 
       And I select "Export gray form status fields with blank value" on the dropdown field labeled "Export blank values for gray Form Status?" in the dialog box
       And I select ",(comma) - default)" on the dropdown field labeled "Set CSV delimiter character" in the dialog box
       And I select "Use fields native decimal format (default)" on the dropdown field labeled "Force all numbers into a specified decimal format?" in the dialog box
@@ -141,12 +142,12 @@ Feature: D.119.200 Downloading Metadata and data - The system shall support the 
       Given I click on the download icons to receive the files for the "REDCap XML" format in the dialog box
       #VERIFY
         # The entire project with data input (all records and data, instruments, fields, events, arms and project attributes) can be downloaded as a single XML file (CDISC ODM format).
-        # The XML file can be found in the downloads of the user's system in format of 'D119200_yyyy-mm-dd.REDCap.xml'.
+        # The XML file can be found in the downloads of the user's system in format of 'D119200_yyyy-mm-dd_HH:MM.REDCap.xml'.
 
       #FUNCTIONAL_REQUIREMENT
       #ACTION: Create new Project using Metadata and data downloaded file and verify metadata and data is correct in this new project
       Given I click on the link labeled "My Projects"
-      And I create a new project named "D.119.200_Metadata_and_data" by clicking on "New Project" in the menu bar, selecting "Practice / Just for fun" from the dropdown, choosing file "D119100_2024-08-31_0025.REDCap.xml", and clicking the "Create Project" button
+      And I create a new project named "D.119.200_Metadata_and_data" by clicking on "New Project" in the menu bar, selecting "Practice / Just for fun" from the dropdown, choosing file "D119200_2024-09-01_2335.REDCap.xml", and clicking the "Create Project" button
   
       #VERIFY: Text Validation and Data Types Instrument verfication in new project
       When I click on the link labeled "Designer"
