@@ -78,5 +78,5 @@ Scenario: D.109.100 - Create Piping into questions
     Then I verify "Hate it" is within the data entry form field labeled "How much do you love Strawberry? "
     And I select the submit option labeled "Save & Exit Record" on the Data Collection Instrument
     Then I should see "Record Home Page"
-    And I logout
+    
     
