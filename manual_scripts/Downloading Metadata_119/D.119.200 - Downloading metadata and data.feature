@@ -141,7 +141,7 @@ Feature: D.119.200 Downloading Metadata and data - The system shall support the 
       Given I click on the download icons to receive the files for the "REDCap XML" format in the dialog box
       #VERIFY
         # The entire project with data input (all records and data, instruments, fields, events, arms and project attributes) can be downloaded as a single XML file (CDISC ODM format).
-        # The XML file can be found in the downloads of the user's system in format of 'D119100_(date of download).REDCap.xml'.
+        # The XML file can be found in the downloads of the user's system in format of 'D119200_yyyy-mm-dd.REDCap.xml'.
 
       #FUNCTIONAL_REQUIREMENT
       #ACTION: Create new Project using Metadata and data downloaded file and verify metadata and data is correct in this new project
