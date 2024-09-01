@@ -38,7 +38,7 @@ Scenario: D.109.100 - Create Piping into questions
     And I enter "Hate it" into the input field labeled "Left label (bottom, if vertical): " in the dialog box
     And I enter "Indifferent" into the input field labeled "Middle label: " in the dialog box
     And I enter "I love [ice_cream]" into the input field labeled "Right label (top, if vertical): " in the dialog box
-    And I select the checkbox option "Display number value?" for the field labeled "Display number value?"
+    And I click on the checkbox element labeled "Display number value?" 
     And I enter "1" into the input field labeled "Min/max range values:	Min: " in the dialog box
     And I enter "3" into the input field labeled "Min/max range values:	Max: " in the dialog box
     And I select "Right/Horizontal (RH)" on the dropdown field labeled "Custom Alignment" in the dialog box
