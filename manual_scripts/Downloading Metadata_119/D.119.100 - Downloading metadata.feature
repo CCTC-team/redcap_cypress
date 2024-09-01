@@ -134,7 +134,7 @@ Feature: D.119.100 Downloading Metadata - The system shall support the ability t
       Then I click on the link labeled "Other Functionality"
       And I click on the button labeled "Download metadata only(XML)"
       #VERIFY: The entire project (instruments, arms, fields, data quality rules, data access groups, user roles and project attributes) can be downloaded as a single XML file (CDISC ODM format).
-      # The XML file can be found in the downloads of the user's system in format of 'D119100_yyyy-mm-dd.REDCap.xml'.
+      # The XML file can be found in the downloads of the user's system in format of 'D119100_yyyy-mm-dd_HH:MM.REDCap.xml'.
 
 
       #FUNCTIONAL_REQUIREMENT
