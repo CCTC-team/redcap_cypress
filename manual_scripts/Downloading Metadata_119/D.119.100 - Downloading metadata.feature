@@ -104,7 +104,6 @@ Feature: D.119.100 Downloading Metadata - The system shall support the ability t
 
     #VERIFY: User Role with permissions
     When I click on the link labeled "User Rights"
-    Then I should see "Data Quality Rules"
     And I should see a table header and rows containing the following values in a table:
     |  Role Name      | Username            | Expiration |  Data Access Group  |  Project Design and Setup  | User Rights | Data Access Groups | Data Viewing Rights            | Data Exports Rights          | Alerts and Notifications | Reports & Report Builder |Stats and Charts | Calendar | Data Import Tool | Data Comparison Tool | Logging | File Repository | Record Locking Customization | Lock/Unlock Records | Data Quality (create/edit rules) | Data Quality (execute rules) | API   | REDCap Mobile App | Create Records | Rename Records | Delete Records | User Role ID | Unique Role Name |
     |      -          | test_admin          |    never   |       -             |        Ticked              |    Ticked   |       Ticked       |  2 View & Edit                 | 2 Full Data Set              |        Ticked            |      Ticked              |      Ticked     |   Ticked |        Ticked    |  Ticked              |  Ticked |      Ticked     |       Cross                  |      Cross          |        Ticked                    |    Ticked                    | Cross |      Ticked       |      Ticked    |     Cross      |      Cross     |     -        |          -       |
@@ -150,7 +149,6 @@ Feature: D.119.100 Downloading Metadata - The system shall support the ability t
     When I click on the link labeled "Data Quality"
     Then I should see "Data Quality Rules"
     And I should see a table header and rows containing the following values in a table: 
-
     |  Rule #   |                   Rule Name                         | Rule Logic (Show discrepancy  only if...)                         |        
     |      A    | Blank values*                                       |  -                                                                |  
     |      B    | Blank values* (required fields only)                |  -                                                                |  
@@ -165,9 +163,7 @@ Feature: D.119.100 Downloading Metadata - The system shall support the ability t
 
     #VERIFY: User Role with permissions verification in new project
     When I click on the link labeled "User Rights"
-    Then I should see "Data Quality Rules"
     And I should see a table header and rows containing the following values in a table:
-
     |  Role Name      | Username            | Expiration |  Data Access Group  |  Project Design and Setup  | User Rights | Data Access Groups | Data Viewing Rights            | Data Exports Rights          | Alerts and Notifications | Reports & Report Builder |Stats and Charts | Calendar | Data Import Tool | Data Comparison Tool | Logging | File Repository | Record Locking Customization | Lock/Unlock Records | Data Quality (create/edit rules) | Data Quality (execute rules) | API   | REDCap Mobile App | Create Records | Rename Records | Delete Records | User Role ID | Unique Role Name |
     |      -          | test_admin          |    never   |       -             |        Ticked              |    Ticked   |       Ticked       |  2 View & Edit                 | 2 Full Data Set              |        Ticked            |      Ticked              |      Ticked     |   Ticked |        Ticked    |  Ticked              |  Ticked |      Ticked     |       Cross                  |      Cross          |        Ticked                    |    Ticked                    | Cross |      Ticked       |      Ticked    |     Cross      |      Cross     |     -        |          -       |
     |      Test Role  | [no users assigned  |            |                     |       Cross                |    Ticked   |       Ticked       |  1 Read Only 1 View and Edit   | 1 No Access 1 Full Data Set  |       Cross              |      Ticked              |      Ticked     |   Ticked |      Cross       |     Cross            |  Cross  |      Ticked     |       Cross                  |      Cross          |        Cross                     |    Cross                     | Cross |      Cross        |      Ticked    |     Cross      |     Cross      |     12       |    U-1714W3W7CD  |
@@ -175,7 +171,6 @@ Feature: D.119.100 Downloading Metadata - The system shall support the ability t
     #VERIFY: DAGS in project
     When I click on the link labeled "DAGs"
     Then I should see a table header and rows containing the following values in data access groups table:
-
     | Data Access Groups        | Users in group                                    | Number of records in group| Unique Group Name (auto generated)| Group ID number|
     | DAGS1                     |                                                   |          0                | dag1                              |      15        |
     | [Not assigned to a group  |  test_admin (Test User) * Can view all records    |          2                |                                   |                |
