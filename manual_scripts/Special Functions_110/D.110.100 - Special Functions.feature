@@ -45,7 +45,7 @@ Feature: D.110.100 Special Functions  - The system shall support the ability to 
     #VERIFY
     Then I should see "14" in the data entry form field "Date difference in days" 
     And I enter "1" into the data entry form field labeled "Required" 
-    And I select the submit option labeled "Save & Exit Record" on the Data Collection Instrument
+    And I select the submit option labeled "Save & Exit Form" on the Data Collection Instrument
     And I should see "Record Home Page"
 
 
@@ -68,7 +68,7 @@ Feature: D.110.100 Special Functions  - The system shall support the ability to 
 
     #VERIFY
     Then I should see "17.2" in the data entry form field "BMI Calculated" 
-    And I select the submit option labeled "Save & Exit Record" on the Data Collection Instrument
+    And I select the submit option labeled "Save & Exit Form" on the Data Collection Instrument
     And I should see "Record Home Page"
 
 
@@ -97,7 +97,7 @@ Feature: D.110.100 Special Functions  - The system shall support the ability to 
 
     #VERIFY
     Then I should see "1" in the data entry form field "BMI suitable for study 1 = Suitable 0 = Not suitable" 
-    And I select the submit option labeled "Save & Exit Record" on the Data Collection Instrument
+    And I select the submit option labeled "Save & Exit Form" on the Data Collection Instrument
     And I should see "Record Home Page"
 
 
@@ -122,7 +122,7 @@ Feature: D.110.100 Special Functions  - The system shall support the ability to 
 
     #VERIFY
     Then I should see "9" in the data entry form field "Mean sum of values" 
-    And I select the submit option labeled "Save & Exit Record" on the Data Collection Instrument
+    And I select the submit option labeled "Save & Exit Form" on the Data Collection Instrument
     And I should see "Record Home Page"
 
     #ACTION: D.110.100.5 Add Length special function to round to one decimal point into question
@@ -146,6 +146,6 @@ Feature: D.110.100 Special Functions  - The system shall support the ability to 
     #VERIFY
     When I click on the input element labeled "Length of text" 
     Then I should see "11" in the data entry form field "Length of text" 
-    And I select the submit option labeled "Save & Exit Record" on the Data Collection Instrument
+    And I select the submit option labeled "Save & Exit Form" on the Data Collection Instrument
     And I should see "Record Home Page"
     
