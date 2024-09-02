@@ -76,7 +76,7 @@ Scenario: D.109.100 - Create Piping into questions
     Then I should see a field named "How much do you love Strawberry?" after field named "What is your favorite ice cream" 
     And I move the slider field labeled "How much do you love Strawberry?" to the position of 1
     Then I verify "Hate it" is within the data entry form field labeled "How much do you love Strawberry? "
-    And I select the submit option labeled "Save & Exit Record" on the Data Collection Instrument
+    And I select the submit option labeled "Save & Exit Form" on the Data Collection Instrument
     Then I should see "Record Home Page"
     
     
