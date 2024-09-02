@@ -19,8 +19,8 @@ Then I should see "The Data Resolution Workflow has now been enabled!"
 And I click on the button labeled "Close" in the dialog box
 
 #ACTION: Import data 
-And I click on the link labeled "Data Import Tool"
-And  I upload a "csv" format file located at "cypress\fixtures\redcap_val_fixtures\import_files\D.106.100_Data Import", by clicking the button near "Choose file" to browse for the file, and clicking the button labeled "Upload File" to upload the file
+Given I click on the link labeled "Data Import Tool"
+And  I upload a "csv" format file located at "cypress\fixtures\redcap_val_fixtures\import_files\D.106.100_Data_Import", by clicking the button near "Choose file" to browse for the file, and clicking the button labeled "Upload File" to upload the file
 And I should see "Your document was uploaded successfully and is ready for review."
 And I click on the button labeled "Import Data"
 Then I should see "Import Successful! 15 records were created or modified during the import."
@@ -123,7 +123,7 @@ And I click on the button labeled "Cancel" in the dialog box
 And I logout
 
 
-#ACTION: Change user rights
+#ACTION: Assign user rights
 Given I login to REDCap with the user "Test_Admin" 
 And I click on the link labeled "My Projects"
 And I click on the link labeled "D.106.100"
