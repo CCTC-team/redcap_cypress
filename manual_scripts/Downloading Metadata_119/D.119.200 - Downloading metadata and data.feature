@@ -18,7 +18,6 @@ Feature: D.119.200 Downloading Metadata and data - The system shall support the 
       #VERIFY: Text Validation Instrument
         When I click on the link labeled "Designer"
         Then I should see a table header and rows containing the following values in a table:
-
         | Instrument name          |  Fields |
         | Text Validation          | 3       |
         | Data Types               | 18      |
@@ -31,7 +30,6 @@ Feature: D.119.200 Downloading Metadata and data - The system shall support the 
         #VERIFY: Data Types Instrument
         When I click on the link labeled "Designer"
         Then I should see a table header and rows containing the following values in a table:
-
         | Instrument name          |  Fields |
         | Text Validation          | 3       |
         | Data Types               | 18      |
@@ -70,20 +68,18 @@ Feature: D.119.200 Downloading Metadata and data - The system shall support the 
         When I click on the link labeled "Data Quality"
         Then I should see "Data Quality Rules"
         And I should see a table header and rows containing the following values in a table: 
-
-|  Rule #   |                   Rule Name                         | Rule Logic (Show discrepancy  only if...)                         |        
-|      A    | Blank values*                                       |  -                                                                |  
-|      B    | Blank values* (required fields only)                |  -                                                                |  
-|      C    | Field validation errors (incorrect data type)       |  -                                                                |  
-|      D    | Field validation errors (out of range)              |  -                                                                |  
-|      E    | Outliers for numerical fields (numbers, integers, sliders, calc fields)**|  -                                           |  
-|      F    | Hidden fields that contain values***                |  -                                                                |  
-|      G    | Multiple choice fields with invalid values          |  -                                                                |  
-|      H    | Incorrect values for calculated fields              |  -                                                                |  
-|      I    | Fields containing "missing data codes"              |  -                                                                |  
-|      1    | Identifier more than 8                              |  [identifier] > 8			                                            |  
-|           | 	                                                  |                                                                   |  
-
+        |  Rule #   |                   Rule Name                         | Rule Logic (Show discrepancy  only if...)                         |        
+        |      A    | Blank values*                                       |  -                                                                |  
+        |      B    | Blank values* (required fields only)                |  -                                                                |  
+        |      C    | Field validation errors (incorrect data type)       |  -                                                                |  
+        |      D    | Field validation errors (out of range)              |  -                                                                |  
+        |      E    | Outliers for numerical fields (numbers, integers, sliders, calc fields)**|  -                                           |  
+        |      F    | Hidden fields that contain values***                |  -                                                                |  
+        |      G    | Multiple choice fields with invalid values          |  -                                                                |  
+        |      H    | Incorrect values for calculated fields              |  -                                                                |  
+        |      I    | Fields containing "missing data codes"              |  -                                                                |  
+        |      1    | Identifier more than 8                              |  [identifier] > 8			                                            |  
+      
         #FUNCTIONAL_REQUIREMENT
         #ACTION: Import (with records in rows and column)
         Given I click on the link labeled "Data Import Tool"
@@ -97,9 +93,9 @@ Feature: D.119.200 Downloading Metadata and data - The system shall support the 
         #VERIFY_RSD: 2 records and instruments
         When I click on the link labeled "Record Status Dashboard"
         And I should see a table header and rows containing the following values in a table:
-      | Record ID |
-      | 1         |
-      | 2         |      
+        | Record ID |
+        | 1         |
+        | 2         |      
 
        And I should see the "Complete" icon for the "Text Validation" longitudinal instrument on event "Event 1" for record "1"
        And I should see the "Incomplete" icon for the "Data Types" longitudinal instrument on event "Event 1" for record "1"
@@ -110,15 +106,13 @@ Feature: D.119.200 Downloading Metadata and data - The system shall support the 
       When I click on the link labeled "User Rights"
       Then I should see "Data Quality Rules"
       And I should see a table header and rows containing the following values in a table:
-
-|  Role Name      | Username            | Expiration |  Data Access Group  |  Project Design and Setup  | User Rights | Data Access Groups | Data Viewing Rights            | Data Exports Rights          | Alerts and Notifications | Reports & Report Builder |Stats and Charts | Calendar | Data Import Tool | Data Comparison Tool | Logging | File Repository | Record Locking Customization | Lock/Unlock Records | Data Quality (create/edit rules) | Data Quality (execute rules) | API   | REDCap Mobile App | Create Records | Rename Records | Delete Records | User Role ID | Unique Role Name |
-|      -          | test_admin          |    never   |       -             |        Ticked              |    Ticked   |       Ticked       |  2 View & Edit                 | 2 Full Data Set              |        Ticked            |      Ticked              |      Ticked     |   Ticked |        Ticked    |  Ticked              |  Ticked |      Ticked     |       Cross                  |      Cross          |        Ticked                    |    Ticked                    | Cross |      Ticked       |      Ticked    |     Cross      |      Cross     |     -        |          -       |
-|      Test Role  | [no users assigned  |            |                     |       Cross                |    Ticked   |       Ticked       |  1 Read Only 1 View and Edit   | 1 No Access 1 Full Data Set  |       Cross              |      Ticked              |      Ticked     |   Ticked |      Cross       |     Cross            |  Cross  |      Ticked     |       Cross                  |      Cross          |        Cross                     |    Cross                     | Cross |      Cross        |      Ticked    |     Cross      |     Cross      |     12       |    U-1714W3W7CD  |
+      |  Role Name      | Username            | Expiration |  Data Access Group  |  Project Design and Setup  | User Rights | Data Access Groups | Data Viewing Rights            | Data Exports Rights          | Alerts and Notifications | Reports & Report Builder |Stats and Charts | Calendar | Data Import Tool | Data Comparison Tool | Logging | File Repository | Record Locking Customization | Lock/Unlock Records | Data Quality (create/edit rules) | Data Quality (execute rules) | API   | REDCap Mobile App | Create Records | Rename Records | Delete Records | User Role ID | Unique Role Name |
+      |      -          | test_admin          |    never   |       -             |        Ticked              |    Ticked   |       Ticked       |  2 View & Edit                 | 2 Full Data Set              |        Ticked            |      Ticked              |      Ticked     |   Ticked |        Ticked    |  Ticked              |  Ticked |      Ticked     |       Cross                  |      Cross          |        Ticked                    |    Ticked                    | Cross |      Ticked       |      Ticked    |     Cross      |      Cross     |     -        |          -       |
+      |   Test Role     | [no users assigned  |            |                     |       Cross                |    Ticked   |       Ticked       |  1 Read Only 1 View and Edit   | 1 No Access 1 Full Data Set  |       Cross              |      Ticked              |      Ticked     |   Ticked |      Cross       |     Cross            |  Cross  |      Ticked     |       Cross                  |      Cross          |        Cross                     |    Cross                     | Cross |      Cross        |      Ticked    |     Cross      |     Cross      |     12       |    U-1714W3W7CD  |
 
     #VERIFY: DAGS in project
       When I click on the link labeled "DAGs"
       Then I should see a table header and rows containing the following values in data access groups table:
-
       | Data Access Groups        | Users in group                                    | Number of records in group| Unique Group Name (auto generated)| Group ID number|
       | DAGS1                     |                                                   |          0                | dag1                              |      15        |
       | [Not assigned to a group  |  test_admin (Test User) * Can view all records    |          2                |                                   |                |
@@ -152,10 +146,9 @@ Feature: D.119.200 Downloading Metadata and data - The system shall support the 
       #VERIFY: Text Validation and Data Types Instrument verfication in new project
       When I click on the link labeled "Designer"
       Then I should see a table header and rows containing the following values in a table:
-
-        | Instrument name          |  Fields |
-        | Text Validation          | 3       |
-        | Data Types               | 18      |
+      | Instrument name          |  Fields |
+      | Text Validation          | 3       |
+      | Data Types               | 18      |
 
       #VERIFY:Events and Arms verfication in new project   
       When I click on the link labeled "Project setup"
@@ -167,40 +160,35 @@ Feature: D.119.200 Downloading Metadata and data - The system shall support the 
       And I verify the Data Collection Instrument named "Data Types" is enabled for the Event named "Event 1" 
 
       #VERIFY: Data Quality rules verfication in new project 
-      
       When I click on the link labeled "Data Quality"
       Then I should see "Data Quality Rules"
       And I should see a table header and rows containing the following values in a table: 
-
-|  Rule #   |                   Rule Name                         | Rule Logic (Show discrepancy  only if...)                         |        
-|      A    | Blank values*                                       |  -                                                                |  
-|      B    | Blank values* (required fields only)                |  -                                                                |  
-|      C    | Field validation errors (incorrect data type)       |  -                                                                |  
-|      D    | Field validation errors (out of range)              |  -                                                                |  
-|      E    | Outliers for numerical fields (numbers, integers, sliders, calc fields)**|  -                                           |  
-|      F    | Hidden fields that contain values***                |  -                                                                |  
-|      G    | Multiple choice fields with invalid values          |  -                                                                |  
-|      H    | Incorrect values for calculated fields              |  -                                                                |  
-|      I    | Fields containing "missing data codes"              |  -                                                                |  
-|      1    | Identifier more than 8                              |  [identifier] > 8			                                            |  
-|           | 	                                                  |                                                                   |  
-
+      |  Rule #   |                   Rule Name                         | Rule Logic (Show discrepancy  only if...)                         |        
+      |      A    | Blank values*                                       |  -                                                                |  
+      |      B    | Blank values* (required fields only)                |  -                                                                |  
+      |      C    | Field validation errors (incorrect data type)       |  -                                                                |  
+      |      D    | Field validation errors (out of range)              |  -                                                                |  
+      |      E    | Outliers for numerical fields (numbers, integers, sliders, calc fields)**|  -                                           |  
+      |      F    | Hidden fields that contain values***                |  -                                                                |  
+      |      G    | Multiple choice fields with invalid values          |  -                                                                |  
+      |      H    | Incorrect values for calculated fields              |  -                                                                |  
+      |      I    | Fields containing "missing data codes"              |  -                                                                |  
+      |      1    | Identifier more than 8                              |  [identifier] > 8			                                            |  
+      
     #VERIFY: User Role with permissions verification in new project
     When I click on the link labeled "User Rights"
     Then I should see "Data Quality Rules"
     And I should see a table header and rows containing the following values in a table:
-
-|  Role Name      | Username            | Expiration |  Data Access Group  |  Project Design and Setup  | User Rights | Data Access Groups | Data Viewing Rights            | Data Exports Rights          | Alerts and Notifications | Reports & Report Builder |Stats and Charts | Calendar | Data Import Tool | Data Comparison Tool | Logging | File Repository | Record Locking Customization | Lock/Unlock Records | Data Quality (create/edit rules) | Data Quality (execute rules) | API   | REDCap Mobile App | Create Records | Rename Records | Delete Records | User Role ID | Unique Role Name |
-|      -          | test_admin          |    never   |       -             |        Ticked              |    Ticked   |       Ticked       |  2 View & Edit                 | 2 Full Data Set              |        Ticked            |      Ticked              |      Ticked     |   Ticked |        Ticked    |  Ticked              |  Ticked |      Ticked     |       Cross                  |      Cross          |        Ticked                    |    Ticked                    | Cross |      Ticked       |      Ticked    |     Cross      |      Cross     |     -        |          -       |
-|      Test Role  | [no users assigned  |            |                     |       Cross                |    Ticked   |       Ticked       |  1 Read Only 1 View and Edit   | 1 No Access 1 Full Data Set  |       Cross              |      Ticked              |      Ticked     |   Ticked |      Cross       |     Cross            |  Cross  |      Ticked     |       Cross                  |      Cross          |        Cross                     |    Cross                     | Cross |      Cross        |      Ticked    |     Cross      |     Cross      |     12       |    U-1714W3W7CD  |
+    |  Role Name      | Username            | Expiration |  Data Access Group  |  Project Design and Setup  | User Rights | Data Access Groups | Data Viewing Rights            | Data Exports Rights          | Alerts and Notifications | Reports & Report Builder |Stats and Charts | Calendar | Data Import Tool | Data Comparison Tool | Logging | File Repository | Record Locking Customization | Lock/Unlock Records | Data Quality (create/edit rules) | Data Quality (execute rules) | API   | REDCap Mobile App | Create Records | Rename Records | Delete Records | User Role ID | Unique Role Name |
+    |      -          | test_admin          |    never   |       -             |        Ticked              |    Ticked   |       Ticked       |  2 View & Edit                 | 2 Full Data Set              |        Ticked            |      Ticked              |      Ticked     |   Ticked |        Ticked    |  Ticked              |  Ticked |      Ticked     |       Cross                  |      Cross          |        Ticked                    |    Ticked                    | Cross |      Ticked       |      Ticked    |     Cross      |      Cross     |     -        |          -       |
+    |   Test Role     | [no users assigned  |            |                     |       Cross                |    Ticked   |       Ticked       |  1 Read Only 1 View and Edit   | 1 No Access 1 Full Data Set  |       Cross              |      Ticked              |      Ticked     |   Ticked |      Cross       |     Cross            |  Cross  |      Ticked     |       Cross                  |      Cross          |        Cross                     |    Cross                     | Cross |      Cross        |      Ticked    |     Cross      |     Cross      |     12       |    U-1714W3W7CD  |
 
     #VERIFY: DAGS in project
     When I click on the link labeled "DAGs"
     Then I should see a table header and rows containing the following values in data access groups table:
-
-      | Data Access Groups        | Users in group                                    | Number of records in group| Unique Group Name (auto generated)| Group ID number|
-      | DAGS1                     |                                                   |          0                | dag1                              |      15        |
-      | [Not assigned to a group  |  test_admin (Test User) * Can view all records    |          2                |                                   |                |
+    | Data Access Groups        | Users in group                                    | Number of records in group| Unique Group Name (auto generated)| Group ID number|
+    | DAGS1                     |                                                   |          0                | dag1                              |      15        |
+    | [Not assigned to a group  |  test_admin (Test User) * Can view all records    |          2                |                                   |                |
   
   #VERIFY_RSD: Check all records and data are visible for instruments in Record Status Dashboard
     When I click on the link labeled "Record Status Dashboard"
