@@ -28,7 +28,7 @@ Feature: Two Factor Authentication: The system shall support enabling/disabling 
         
         
     Scenario: D.101.200 Wrong Authentication Code and Two-Factor Authentication for user login
-    #FUNCTIONAL_REQUIREMENT
+        #FUNCTIONAL_REQUIREMENT
         ##ACTION: Wrong Authentication Code
         Given I login to REDCap with the user "Test_User" 
         And I enter "Test_User" into the input field labeled "Username"
@@ -40,7 +40,7 @@ Feature: Two Factor Authentication: The system shall support enabling/disabling 
         And I should see "Sorry, but you did not enter a valid verification code. Please try again."
         And I click on the button labeled "Close"
 
-        #FUNCTIONAL_REQUIREMENT
+        
         ##ACTION: Using the Two-step Verification For REDCap login
         Given I login to REDCap with the user "Test_User" 
         And I enter "Test_User" into the input field labeled "Username"
