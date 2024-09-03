@@ -8,8 +8,8 @@ Feature: Two Factor Authentication: The system shall support enabling/disabling 
 
         #SETUP
         Given I login to REDCap with the user "Test_User" 
-        And I enter "Test_User" into the data entry form field labeled "Username"
-        And I enter "Testing123" into the data entry form field labeled "Password"
+        And I enter "Test_User" into the input field labeled "Username"
+        And I enter "Testing123" into the input field labeled "Password"
         And I click on the button labeled "Log In"
         Then I should see "REDCap Home Page"
         And I logout
@@ -31,20 +31,20 @@ Feature: Two Factor Authentication: The system shall support enabling/disabling 
     #FUNCTIONAL_REQUIREMENT
         ##ACTION: Wrong Authentication Code
         Given I login to REDCap with the user "Test_User" 
-        And I enter "Test_User" into the data entry form field labeled "Username"
-        And I enter "Testing123" into the data entry form field labeled "Password"
+        And I enter "Test_User" into the input field labeled "Username"
+        And I enter "Testing123" into the input field labeled "Password"
         And I click on the button labeled "Log In"
         When I click on the radio labeled "Email: Send an email containing your verification code to your email account." in the dialog box
         And I should see "Enter your verification code"
-        And I enter "125593" into the data entry form field labeled "Enter the verification code that you obtained from Email"
+        And I enter "125593" into the input field labeled "Enter the verification code that you obtained from Email"
         And I should see "Sorry, but you did not enter a valid verification code. Please try again."
         And I click on the button labeled "Close"
 
         #FUNCTIONAL_REQUIREMENT
         ##ACTION: Using the Two-step Verification For REDCap login
         Given I login to REDCap with the user "Test_User" 
-        And I enter "Test_User" into the data entry form field labeled "Username"
-        And I enter "Testing123" into the data entry form field labeled "Password"
+        And I enter "Test_User" into the input field labeled "Username"
+        And I enter "Testing123" into the input field labeled "Password"
         And I click on the button labeled "Log In"
         And I should see a checkbox labeled "Don't prompt me with two-step login on this computer for 24 hours" that is unchecked
         When I click on the radio labeled "Email: Send an email containing your verification code to your email account." in the dialog box
@@ -62,8 +62,8 @@ Feature: Two Factor Authentication: The system shall support enabling/disabling 
 
         
         Given I login to REDCap with the user "Test_User" 
-        And I enter "Test_User" into the data entry form field labeled "Username"
-        And I enter "Testing123" into the data entry form field labeled "Password"
+        And I enter "Test_User" into the input field labeled "Username"
+        And I enter "Testing123" into the input field labeled "Password"
         And I click on the button labeled "Log In"
         And I check the checkbox labeled "Don't prompt me with two-step login on this computer for 24 hours"
         When I click on the radio labeled "Email: Send an email containing your verification code to your email account." in the dialog box
@@ -80,8 +80,8 @@ Feature: Two Factor Authentication: The system shall support enabling/disabling 
         And I logout
 
         Given I login to REDCap with the user "Test_User" 
-        And I enter "Test_User" into the data entry form field labeled "Username"
-        And I enter "Testing123" into the data entry form field labeled "Password"
+        And I enter "Test_User" into the input field labeled "Username"
+        And I enter "Testing123" into the input field labeled "Password"
         And I click on the button labeled "Log In"
         #No verification code asked
         And I logout
