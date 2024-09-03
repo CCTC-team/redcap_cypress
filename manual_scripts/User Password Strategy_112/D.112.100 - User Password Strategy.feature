@@ -25,35 +25,31 @@ Feature: User Password Strategy: The system shall support the ability to send pa
 
         #The remaining steps was checked in the live environment and it functions perfectly.
         
-        Then I enter "Testing123" into the data entry form field labeled "Password"
-        And I enter "Testing123" into the data entry form field labeled "Re-type password"
+        Then I enter "Testing123" into the input field labeled "Password"
+        And I enter "Testing123" into the input field labeled "Re-type password"
         And I click on the button labeled "Submit"
 
        ##VERIFY: Testing New Password
         Given I visit the REDCap login page
-        And I enter "Test_User12345" into the data entry form field labeled "Username"
-        And I enter "Testing123" into the data entry form field labeled "Password"
+        And I enter "Test_User12345" into the input field labeled "Username"
+        And I enter "Testing123" into the input field labeled "Password"
         And I click on the button labeled "Log In"
         Then I should see "REDCap Home Page"
-        And I logout
 
         #FUNCTIONAL_REQUIREMENT
         ##ACTION: Reset Password 
-        Given I visit the REDCap login page
-        And I login to REDCap with the user "Test_User12345" 
-        Then I enter "Testing123" into the data entry form field labeled "Password"
         Given I click on the link labeled "Profile"
         Then I click on the button labeled "Reset password"
         And I click on the button labeled "Reset" 
-        Then I enter "Testingpass123" into the data entry form field labeled "Password"
-        And I enter "Testingpass123" into the data entry form field labeled "Re-type password"
+        Then I enter "Testingpass123" into the input field labeled "Password"
+        And I enter "Testingpass123" into the input field labeled "Re-type password"
         And I click on the button labeled "Submit"
         And I logout
 
         ##VERIFY: Testing New Password
         Given I visit the REDCap login page
-        And I enter "Test_User12345" into the data entry form field labeled "Username"
-        And I enter "Testingpass123" into the data entry form field labeled "Password"
+        And I enter "Test_User12345" into the input field labeled "Username"
+        And I enter "Testingpass123" into the input field labeled "Password"
         And I click on the button labeled "Log In"
         Then I should see "REDCap Home Page"
         And I logout
@@ -61,22 +57,23 @@ Feature: User Password Strategy: The system shall support the ability to send pa
         ##ACTION: Forgot Your Password
         Given I visit the REDCap login page
         When I click on the link labeled "Forgot your password"
-        And I enter "test_user12345" into the data entry form field labeled "Username"
+        And I enter "test_user12345" into the input field labeled "Username"
         And I click on the button labeled "Send password reset email"
+        Then I should see "EMAIL SENT!"
         Then I click on the button labeled "Go back to login page"
 
         ##VERIFY: Sent email in MailHog 
         Given I open Email
         When I click on the link labeled "REDCap password reset"
         Then I click on the link labeled "Set your new REDCap password"
-        And I enter "Testing1234" into the data entry form field labeled "Password"
-        And I enter "Testing1234" into the data entry form field labeled "Re-type password"
+        And I enter "Testing1234" into the input field labeled "Password"
+        And I enter "Testing1234" into the input field labeled "Re-type password"
         And I click on the button labeled "Submit"
 
         ##VERIFY: Testing New Password
         Given I visit the REDCap login page
-        When I enter "Test_User12345" into the data entry form field labeled "Username"
-        And I enter "Testing1234" into the data entry form field labeled "Password"
+        When I enter "Test_User12345" into the input field labeled "Username"
+        And I enter "Testing1234" into the input field labeled "Password"
         And I click on the button labeled "Log In"
         Then I should see "REDCap Home Page"
         And I logout
