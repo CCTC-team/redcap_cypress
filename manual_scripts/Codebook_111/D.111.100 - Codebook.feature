@@ -19,20 +19,20 @@
          | 2 | [form_1_complete]          | Section Header: form status (Complete?)| 	dropdown(0 Incomplete, 1 Unverified, 2 Complete                  |
 
         ##ACTION: Rename instrument
-        Given I click on the button labeled "Online Designer"
+        Given I click on the link labeled "Online Designer"
         When I click on the first button labeled "Choose action"
         And I click on the link labeled "Rename" in the action popup
-        And I clear field and enter "Text Validation " into the field with the placeholder text of "Form 1"
+        And I clear field and enter "Text Validation" into the field with the placeholder text of "Form 1"
         And I click on the button labeled "Save" to rename an instrument
         Then I should see "Text Validation" 
 
         ##ACTION: Create new instrument(Data Types)
         #Oddly, we need the space before this button because otherwise we match on "Create snapshot of instruments"
-        When I click on the button labeled exactly "Create"
-        And I click on the last button labeled "Add instrument here"
+        When I click on the button labeled exactly "Create "
+        And I click on the button labeled "Add instrument here"
         Then I should see "New instrument name:"
         When I enter "Data Types" into the input field labeled "New instrument name:" within the data collection instrument list
-        And I click on the last button labeled "Create"
+        And I click on the button labeled "Create"
         Then I should see "SUCCESS!"
 
         Given I click on the button labeled "Close" in the dialog box
@@ -50,20 +50,21 @@
          |   | Instrument: Data Types(data_types)           |                                        |                                                                      |   
          | 3 | [data_types_complete]                        | Section Header: form status (Complete?)| 	dropdown(0 Incomplete, 1 Unverified, 2 Complete                    |
 
-        ##SETUP_DEV
+       
         When I click on the link labeled "Designer"
         Then I should see "Data Collection Instruments"
 
         #FUNCTIONAL_REQUIREMENT
         ##ACTION: Fields creation for Text Validation
         When I click on the instrument labeled "Text Validation"
-        Then I should see "Record ID " within the field with variable name "record_id"
+        Then I should see "Record ID" within the field with variable name "record_id"
         And I click on the button labeled "Add Field"
         And I select "Text Box (Short Text, Number, Date/Time, ...)" from the Field Type dropdown of the open "Add New Field" dialog box
         And I add a new Text Box field labeled "Name" with variable name "ptname_v2" and click on the "Save" button
         And I click on the button labeled "Add Field"
         And I select "Text Box (Short Text, Number, Date/Time, ...)" from the Field Type dropdown of the open "Add New Field" dialog box
-        And I add a new Text Box field labeled "Email" with variable name "email_v2" and click on the "Save" button
+        And I enter "email_v2" into the Variable Name of the open "Add New Field" dialog box
+        And I enter "Email" into the Field Label of the open "Add New Field" dialog box
         And I select "Email" on the dropdown field labeled "Validation?"
         And I click on the button labeled "Save" in the dialog box
 
