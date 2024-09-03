@@ -9,10 +9,15 @@ D.114.100.6  - The system shall support the ability to delete calendar events
   As a REDCap end user
   I want to see that Scheduling Module and Calendar feature is functioning as expected
 
+  #PROJECT_SETUP
+  # Enable button for - Use longitudinal data collection with defined events
+  # Enable button for - Scheduling module (longitudinal only)
+
   Scenario: 1 D.114.100.1 - Schedule events
 
   #SETUP
     Given I login to REDCap with the user "Test_User"
-    And I create a new project named "D.114.100" by clicking on "New Project" in the menu bar, selecting "Practice / Just for fun" from the dropdown, choosing file "Project_redcap_val.xml", and clicking the "Create Project" button
+    And I create a new project named "D.114.100" by clicking on "New Project" in the menu bar, selecting "Practice / Just for fun" from the dropdown, choosing file "Project_redcap_val_Project_Scheduling_and_Calendar.xml", and clicking the "Create Project" button
         
-    
+   #FUNCTIONAL REQUIREMENT
+  ##ACTION: Enable project button for 'Use longitudinal data collection with defined events' and for 'Scheduling module (longitudinal only)' on the Project Setup Page
