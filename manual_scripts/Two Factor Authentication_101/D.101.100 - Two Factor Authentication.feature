@@ -27,7 +27,19 @@ Feature: Two Factor Authentication: The system shall support enabling/disabling 
 
         
         
-    Scenario: D.101.200 Two-Factor Authentication for user login
+    Scenario: D.101.200 Wrong Authentication Code and Two-Factor Authentication for user login
+    #FUNCTIONAL_REQUIREMENT
+        ##ACTION: Wrong Authentication Code
+        Given I login to REDCap with the user "Test_User" 
+        And I enter "Test_User" into the data entry form field labeled "Username"
+        And I enter "Testing123" into the data entry form field labeled "Password"
+        And I click on the button labeled "Log In"
+        When I click on the radio labeled "Email: Send an email containing your verification code to your email account." in the dialog box
+        And I should see "Enter your verification code"
+        And I enter "125593" into the data entry form field labeled "Enter the verification code that you obtained from Email"
+        And I should see "Sorry, but you did not enter a valid verification code. Please try again."
+        And I click on the button labeled "Close"
+
         #FUNCTIONAL_REQUIREMENT
         ##ACTION: Using the Two-step Verification For REDCap login
         Given I login to REDCap with the user "Test_User" 
@@ -48,6 +60,7 @@ Feature: Two Factor Authentication: The system shall support enabling/disabling 
         And I should see "REDCap Home page"
         And I logout
 
+        
         Given I login to REDCap with the user "Test_User" 
         And I enter "Test_User" into the data entry form field labeled "Username"
         And I enter "Testing123" into the data entry form field labeled "Password"
