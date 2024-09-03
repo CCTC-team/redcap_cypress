@@ -144,7 +144,7 @@ And I click on the link labeled "Record Status Dashboard"
 And I click on the bubble for the "Text Validation" data collection instrument for record ID "1" 
 And I click on the Data Resolution Workflow icon for the field labeled "Email"
 Then I should see a table header and row containing the following values in a table:
-      | Date / Time      | User   | Comments and Details   | 
+      | Date / Time      | User   | Comments and Details                                         | 
       | mm/dd/yyyy hh:mm | test_user1 | Action: Sent back for further attention:"Please clarify" |
 Then I should NOT see "Close the query"
 And I should see "Reply with response: "
