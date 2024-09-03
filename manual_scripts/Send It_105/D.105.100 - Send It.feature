@@ -9,8 +9,8 @@ Feature: Send It: The system shall support the ability to send a file to user/us
         And I click on the link labeled "Send-It"
         And I should see "From: test_user@example.com "
         And I select "associate another email to your account" on the dropdown field labeled "From"
-        And I enter "thomas@abc.com" into the data entry form field labeled "Enter new email:"
-        And I enter "thomas@abc.com" into the data entry form field labeled "Re-enter new email:"
+        And I enter "thomas@abc.com" into the input field labeled "Enter new email:"
+        And I enter "thomas@abc.com" into the input field labeled "Re-enter new email:"
         And I click on the button labeled "Add email"
         Then I should see "Verification email sent to thomas@abc.com"
         #Before this new email address can be utilized by your REDCap account, 
