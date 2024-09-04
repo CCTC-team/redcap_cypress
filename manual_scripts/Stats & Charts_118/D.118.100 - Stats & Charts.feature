@@ -13,7 +13,7 @@ Feature: Stats and Charts: The system shall support the viewing of stats and cha
         When I click on the link labeled "Designer"
         And I click on the link labeled "Text Validation"
         Then I should see "Record ID" within the field with variable name "record_id"
-        And I should see "Name" within the field with variable name "ptname_v2"
+        And I should see "Name" within the field with variable name "ptname_v2_v2"
         And I should see "Email" within the field with variable name "email_v2"
         Then I click on the link labeled "Next Instrument"
         And I should see "Data Types"
