@@ -3,7 +3,7 @@ Feature: Stats and Charts: The system shall support the viewing of stats and cha
     As a REDCap end user
     I want to see that Stats and Charts is functioning as expected
 
-    Scenario: Uploading Project D.118.100 consisting Text Validation(Name, Email, Form status) and Data Types(Name, Textbox, Checkbox,multiple choice dropdown list (single answer), Radio Button Manual, File Upload (file_upload), Form status) as instruments through the Online Designer to view stats and charts.
+    Scenario: Uploading Project D.118.100 consisting Text Validation and Data Types as instruments through the Online Designer to view stats and charts.
 
         #SETUP
         Given I login to REDCap with the user "Test_Admin"   
@@ -28,9 +28,7 @@ Feature: Stats and Charts: The system shall support the viewing of stats and cha
         #FUNCTIONAL_REQUIREMENT
         ##ACTION: Import (with records in rows and column)
         Given I click on the link labeled "Data Import Tool"
-        When I click on the button labeled "Choose File"
-        And I should see "the file labeled D.118.100_Data_Import.csv"
-        And I click on the button labeled "Upload File"
+        When I upload a "csv" format file located at "D.118.100_Data_Import.csv", by clicking the button near "Choose File" to browse for the file, and clicking the button labeled "Upload File" to upload the file
         Then I should see "Your document was uploaded successfully and is ready for review"
         And I click on the button labeled "Import Data"
         Then I should see "Import Successful! 15 records were created or modified during the import"
