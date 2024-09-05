@@ -54,7 +54,7 @@ Feature: Stats and Charts: The system shall support the viewing of stats and cha
         And I select "Text Validation" on the dropdown field labeled "Select a data Collection instrument to view" within the data collection instrument list
         Then I see a table header and rows containing the following values in the report data table: 
 
-         | Name (ptname_v2)                     |           |        |
+         | Name (ptname_v2_v2)                  |           |        |
          | Total Count(N)                       |  Missing  |        | 
          |      12                              |  3(20.0%) |        |
          |Email (email_v2)                      |           |        |
