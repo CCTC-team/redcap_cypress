@@ -71,7 +71,7 @@ And I click on the link labeled "Open the data query assigned to you:"
 #       | 1       | email_v2                        | test_user2        |  test_user1 "Please check email" | 
 # When I click on the button labeled "Click button to view data query" for the row labeled "email_v2" 
 Then I should see a table header and row containing the following values in a table:
-      | Date / Time      | User       | Comments and Details   | 
+      | Date / Time      | User       | Comments and Details                              | 
       | mm/dd/yyyy hh:mm | Test_User1 | Action: Opened query Comment:"Please check email" |
 And I select "Verified - Confirmed correct (no error)" on the dropdown field labeled "Reply with response"
 Given I upload a "csv" format file located at "/import_files/file1.csv", by clicking the button near "Upload file (optional)" to browse for the file, and clicking the button labeled "Upload File" to upload the file
@@ -167,7 +167,7 @@ And I click on the link labeled "Record Status Dashboard"
 And I click on the bubble for the "Text Validation" data collection instrument for record ID "1" 
 And I click on the Data Resolution Workflow icon for the field labeled "Email"
 Then I should see a table header and row containing the following values in a table:
-      | Date / Time      | User   | Comments and Details   | 
+      | Date / Time      | User       | Comments and Details                                         | 
       | mm/dd/yyyy hh:mm | test_user4 | Response:Corrected - Typographical error Comment:“Corrected” |
 And I click on the radio labeled "Close the query" in the dialog box
 And I enter "Closed" into the input field labeled "Comment:" 
