@@ -23,7 +23,7 @@ Feature: D.117.100  File Version History for File Upload fields
     Then I should see a downloaded file named "file1.csv (0.01 MB)"
 
     Given I click on the data History icon for the field labeled "File Upload"
-    And I should see "Data History for variable "file_upload" for record "2""
+    And I should see 'Data History for variable "file_upload" for record "2"'
     When I should see a table header and rows containing the following values in a table:
       | Date/Time of Upload   | User      | File Uploaded             | File Version   | Information / Action      |
       | dd/mm/yyyy hh:mm:ss   | Test_User | Upload File - "file1.csv" | V1             | [Download button] Delete  |
@@ -57,7 +57,7 @@ Feature: D.117.100  File Version History for File Upload fields
     When I download a file by clicking on the link labeled "file1.csv (0.01 MB)"
     Then I should see a downloaded file named "file1.csv (0.01 MB)"
     And I click on the data History icon for the field labeled "File Upload"
-    When I should see "Data History for variable "file_upload" for record "3""
+    When I should see 'Data History for variable "file_upload" for record "3"'
     Then I should see a table header and rows containing the following values in a table:
       | Date/Time of Upload   | User      | File Uploaded             | File Version   | Information / Action      |
       | dd/mm/yyyy hh:mm:ss   | Test_User | Upload File - "file1.csv" | V1             | [Download button] Delete  |
@@ -73,7 +73,7 @@ Feature: D.117.100  File Version History for File Upload fields
     And I click on the link labeled "2"
     And I click the bubble to select a record for the "Data Types" longitudinal instrument on event "Event 1"
     And I click on the data History icon for the field labeled "File Upload"
-    When I should see "Data History for variable "file_upload" for record "3""
+    When I should see 'Data History for variable "file_upload" for record "3"'
     Then I should see a table header and rows containing the following values in a table:
       | Date/Time of Upload   | User      | File Uploaded                                                        | File Version | Information / Action      |
       | dd/mm/yyyy hh:mm:ss   | Test_User | Upload File - "file1.csv"                                            | V1           | [Download button] Delete  |
@@ -91,7 +91,7 @@ Feature: D.117.100  File Version History for File Upload fields
     When I click on the link labeled "Remove file"
     Then I click on the button labeled "Yes, delete it"
     And I select the submit option labeled "Save & Stay" on the Data Collection Instrument
-    When I should see "Data History for variable "file_upload" for record "2""
+    When I should see 'Data History for variable "file_upload" for record "2"'
     # need to read two bits of text on the screen, both saying deleted and then a date time but unsure how to read both accurately (start it with 'Then')
     And I click on the button labeled "Close" in the dialog box 
 
@@ -100,7 +100,15 @@ Feature: D.117.100  File Version History for File Upload fields
     Then I uncheck the checkbox labeled "Enable the File Version History for 'File Upload' fields?"
     And I click on the button labeled "Save"
 
-    #finished 14 with the exeption of the above comments, about to start 15. Will need to actually create 
-    #record 3 before creating record 4 in this step as i did it in theory previously i believe
+    Given I click on the link labeled "Record Status Dashboard"
+    And I click on the button labeled "Add new record for this arm"
+    And I click the bubble to select a record for the "Data Types" longitudinal instrument on event "Event 1"
+    And I click on the link labeled "Upload file"
+
+    #the rest of this one is 
+
+
+    #working on docker now. Only done the first part of steps 15. Simply need to add and then delete a file though basically
+    # before checking version. record 3 before creating record 4 in this step as i did it in theory previously i believe
 
 
