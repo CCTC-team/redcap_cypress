@@ -3,7 +3,7 @@
 const { Given } = require('@badeball/cypress-cucumber-preprocessor')
 
 /**
- * @module FileRepository
+ * @module e-consent
  * @author Mintoo Xavier <min2xavier@gmail.com>
  * @example I select the radio option {string} for the e-consent Framework
  * @param {string} option - option to click for the e-consent Framework
