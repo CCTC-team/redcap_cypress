@@ -30,22 +30,21 @@ Feature: D.117.100  File Version History for File Upload fields
     Then I click on the button labeled "Add new record for this arm"
 
     Given I click on the link labeled "Upload new version"
-    And I upload a "csv" format file located at "redcap_cypress\cypress\fixtures\import_files\B316200100_ImportTemplate_ImportRecord.csv", by clicking the button near "File Upload" to browse for the file, and clicking the button labeled "Upload file" to upload the file
+    And I upload a "csv" format file located at "redcap_cypress\cypress\fixtures\import_files\B3161200100_ACCURATE.csv", by clicking the button near "File Upload" to browse for the file, and clicking the button labeled "Upload file" to upload the file
     And I clear field and enter "1" into the data entry form field labeled "Required"
     And I select the submit option labeled "Save & Stay" on the Data Collection Instrument
-    When I download a file by clicking on the link labeled "B316200100_ImportTemplate_ImportRecord.csv (0.01 MB)"
-    Then I should see a downloaded file named "B316200100_ImportTemplate_ImportRecord.csv (0.01 MB)"
+    When I download a file by clicking on the link labeled "B3161200100_ACCURATE.csv (0.01 MB)"
+    Then I should see a downloaded file named "B3161200100_ACCURATE.csv (0.01 MB)"
 
     Given I click on the link labeled "Record Status Dashboard"
     And I click on the link labeled "2"
     And I click on the span element labeled "Choose action for record"
     And I select "Download ZIP file of all uploaded documents" on the dropdown field labeled "Choose action for record"
     Then I should see a downloaded file named "Files_D117100_2024-09-06_1202.zip"
-    # open the csv via a file path of clicking on a couple of consecutive folders and maybe unzipping the zip file. 
+    # and I open the csv via a file path of clicking on a couple of consecutive folders and maybe unzipping the zip file. 
     Then I should see the latest downloaded "csv" file containing the headings below
-      | record_id | redcap_repeat_instrument | redcap_repeat_instance | redcap_data_access_group | redcap_survey_identifier | data_types_timestamp | ptname | textbox | radio | notesbox | identifier | identifier_2 | date_ymd | datetime_ymd_hmss | data_types_complete |
-    #unfinished, need to ammend the above to match the correct csv file's columns. need a further step here, in row '6' in word doc. 
-    # 
+      | record_id | redcap_event_name | redcap_repeat_instrument | redcap_repeat_instance | redcap_data_access_group | redcap_survey_identifier | name | email | text_validation_complete |
+    # and I should not see any other files  
 
     Given I click on the link labeled "Record Status Dashboard"
     And I click on the button labeled "Add new record for this arm"
@@ -65,9 +64,7 @@ Feature: D.117.100  File Version History for File Upload fields
 
     Given I click on the link labeled "Data Exports, Reports, and Stats"
     And I click on the tab labeled "Other Export Options"
-    And I click on the Download image for the field named "ZIP file of uploaded files (all records)" 
-    # another new step required to check for the following: 'Open ZIP file and access the document folder and open file for all records e.g ID 2 and ID 3'
-    # could be challenging. 
+    And I click on the Download image for the field named "ZIP file of uploaded files (all records)"  
 
     Given I click on the link labeled "Record Status Dashboard"
     And I click on the link labeled "2"
@@ -75,15 +72,14 @@ Feature: D.117.100  File Version History for File Upload fields
     And I click on the data History icon for the field labeled "File Upload"
     When I should see 'Data History for variable "file_upload" for record "3"'
     Then I should see a table header and rows containing the following values in a table:
-      | Date/Time of Upload   | User      | File Uploaded                                                        | File Version | Information / Action      |
-      | dd/mm/yyyy hh:mm:ss   | Test_User | Upload File - "file1.csv"                                            | V1           | [Download button] Delete  |
-      | dd/mm/yyyy hh:mm:ss   | Test_User | Upload File - "B316200100_ImportTemplate_ImportRecord.csv (0.01 MB)" | V2           | [Download button] Delete  |
+      | Date/Time of Upload   | User      | File Uploaded                                       | File Version | Information / Action      |
+      | dd/mm/yyyy hh:mm:ss   | Test_User | Upload File - "file1.csv"                           | V1           | [Download button] Delete  |
+      | dd/mm/yyyy hh:mm:ss   | Test_User | Upload File - "B3161200100_ACCURATE.csv (0.01 MB)"  | V2           | [Download button] Delete  |
     And I click on the first button labeled "Download"
     And I should see a downloaded file named "file1.csv (0.01 MB)"
     And I click on the last button labeled "Download"
     And I should see a downloaded file named "B316200100_ImportTemplate_ImportRecord.csv (0.01 MB)"
     And I click on the first link labeled "Delete"
-    # this needs to be new im afraid! 
     When I click on the button labeled "Yes, delete it"
     Then I should see the link labeled "Delete"
     And I should see the button labeled "Download"
@@ -92,7 +88,7 @@ Feature: D.117.100  File Version History for File Upload fields
     Then I click on the button labeled "Yes, delete it"
     And I select the submit option labeled "Save & Stay" on the Data Collection Instrument
     When I should see 'Data History for variable "file_upload" for record "2"'
-    # need to read two bits of text on the screen, both saying deleted and then a date time but unsure how to read both accurately (start it with 'Then')
+    # And I read two bits of text on the screen, both saying deleted and then a date time but unsure how to read both accurately (start it with 'Then')
     And I click on the button labeled "Close" in the dialog box 
 
     Given I click on the link labeled "Project Setup"
@@ -104,11 +100,29 @@ Feature: D.117.100  File Version History for File Upload fields
     And I click on the button labeled "Add new record for this arm"
     And I click the bubble to select a record for the "Data Types" longitudinal instrument on event "Event 1"
     And I click on the link labeled "Upload file"
+    And I upload a "csv" format file located at "redcap_cypress\cypress\fixtures\import_files\D.117 test document 1 20092024 .csv", by clicking the button near "File Upload" to browse for the file, and clicking the button labeled "Upload file" to upload the file
+    And I clear field and enter "1" into the data entry form field labeled "Required"
+    When I select the submit option labeled "Save & Stay" on the Data Collection Instrument
+    Then I should NOT see a link labeled "Upload new version"
+    And I click on the link labeled "Remove file"
+    And I click on the button labeled "Yes, delete it"
+    And I select the submit option labeled "Save & Stay" on the Data Collection Instrument
+    When I click on the link labeled "Upload file"
+    Then I upload a "csv" format file located at "redcap_cypress\cypress\fixtures\import_files\D.117 test document 2 20092024 .csv", by clicking the button near "File Upload" to browse for the file, and clicking the button labeled "Upload file" to upload the file
+    And I select the submit option labeled "Save & Stay" on the Data Collection Instrument
 
-    #the rest of this one is 
+    Given I click on the data History icon for the field labeled "File Upload"
+    When I should see 'Data History for variable "file_upload" for record "4"'
+    Then I should see a table header and rows containing the following values in a table:
+      | Date/Time of Upload   | User      | File Uploaded                                       | File Version | Information / Action      |
+      | dd/mm/yyyy hh:mm:ss   | Test_User | Upload File - "D.117 test document 1 20092024 .csv" | V1           | [Download button] Delete  |
+      | dd/mm/yyyy hh:mm:ss   | Test_User | Upload File - "D.117 test document 1 20092024 .csv" | V2           | [Download button] Delete  |
 
 
-    #working on docker now. Only done the first part of steps 15. Simply need to add and then delete a file though basically
-    # before checking version. record 3 before creating record 4 in this step as i did it in theory previously i believe
-
-
+# new step required for :
+# I click on the data History icon for the field labeled "File Upload"
+# I click on the first link labeled "Delete"
+# I click on the Download image for the field named "ZIP file of uploaded files (all records)"
+# for the comment on line 91
+# for the comment on line 44
+# for the comment on line 47 
