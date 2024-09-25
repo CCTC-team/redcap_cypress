@@ -3,7 +3,7 @@
     As a REDCap end user
     I want to see that Codebook is functioning as expected
 
-    Scenario: Uploading Project D.111.100 consisting Text Validation(Name, Email) and Data Types(Date of Birth, Checkbox,multiple choice dropdown list (single answer), Radio Button Manual, File Upload (file_upload),Calculated Field,Descriptive Text with File, Identifier, Required) as instruments through the Online Designer to view Codebook.
+    Scenario: Adding fields and verifying Codebook.
 
         #SETUP
         Given I login to REDCap with the user "Test_Admin"   
@@ -16,7 +16,7 @@
          | # | Variable/Field Name        |    Field Label                         | Field Attributes(Field Type, Validation, Choices, Calculations, etc.)| 
          |   | Instrument: Form 1 (form_1)|                                        |                                                                      |   
          | 1 | [record_id]                |     Record ID                          | 	             text                                                |  
-         | 2 | [form_1_complete]          | Section Header: form status (Complete?)| 	dropdown(0 Incomplete, 1 Unverified, 2 Complete                  |
+         | 2 | [form_1_complete]          | Section Header: Form Status (Complete?)| 	dropdown(0 Incomplete, 1 Unverified, 2 Complete                  |
 
         ##ACTION: Rename instrument
         Given I click on the link labeled "Online Designer"
@@ -36,7 +36,7 @@
         Then I should see "SUCCESS!"
 
         Given I click on the button labeled "Close" in the dialog box
-        #VERIFY 
+         
         Then I should see "Data Types"
 
         ##VERIFY_Codebook 
@@ -46,9 +46,9 @@
          | # | Variable/Field Name                          |    Field Label                         | Field Attributes(Field Type, Validation, Choices, Calculations, etc.)| 
          |   | Instrument: Text Validation (text_validation)|                                        |                                                                      |   
          | 1 | [record_id]                                  |     Record ID                          | 	             text                                                  |  
-         | 2 | [text_validation_complete]                   | Section Header: form status (Complete?)| 	dropdown(0 Incomplete, 1 Unverified, 2 Complete                    |
+         | 2 | [text_validation_complete]                   | Section Header: Form Status (Complete?)| 	dropdown(0 Incomplete, 1 Unverified, 2 Complete                    |
          |   | Instrument: Data Types(data_types)           |                                        |                                                                      |   
-         | 3 | [data_types_complete]                        | Section Header: form status (Complete?)| 	dropdown(0 Incomplete, 1 Unverified, 2 Complete                    |
+         | 3 | [data_types_complete]                        | Section Header: Form Status (Complete?)| 	dropdown(0 Incomplete, 1 Unverified, 2 Complete                    |
 
        
         When I click on the link labeled "Designer"
@@ -61,7 +61,7 @@
         And I click on the button labeled "Add Field"
         And I select "Text Box (Short Text, Number, Date/Time, ...)" from the Field Type dropdown of the open "Add New Field" dialog box
         And I add a new Text Box field labeled "Name" with variable name "ptname_v2" and click on the "Save" button
-        And I click on the button labeled "Add Field"
+        And I click on the last button labeled "Add Field"
         And I select "Text Box (Short Text, Number, Date/Time, ...)" from the Field Type dropdown of the open "Add New Field" dialog box
         And I enter "email_v2" into the Variable Name of the open "Add New Field" dialog box
         And I enter "Email" into the Field Label of the open "Add New Field" dialog box
@@ -78,9 +78,9 @@
         And I enter "Date of Trial" into the Field Label of the open "Add New Field" dialog box
         And I enter "date_trial" into the Variable Name of the open "Add New Field" dialog box
         And I select "Date (D-M-Y)" on the dropdown field labeled "Validation?"
-        And I enter "01-01-2006" into the input field labeled "Minimum:"
-        And I enter "today" into the input field labeled "Maximum:"
-        And I enter "must not be in the future" into the input field labeled "Field Note (optional):"
+        And I enter "01-01-2006" into the input field labeled "Minimum"
+        And I enter "today" into the input field labeled "Maximum"
+        And I enter "must not be in the future" into the input field labeled "Field Note (optional)"
         And I click on the button labeled "Save" in the dialog box
         Then I click on the button labeled "Add Field"
         And I select "Multiple Choice - Drop-down List (Single Answer)" from the Field Type dropdown of the open "Add New Field" dialog box
@@ -90,8 +90,7 @@
         And I enter Choices of "7, DDChoice7" into the open "Add New Field" dialog box
         And I enter Choices of "6, DDChoice6" into the open "Add New Field" dialog box
         And I click on the button labeled "Save" in the "Add New Field" dialog box
-        #VERIFY
-        Then I should see a field named "Multiple Choice Dropdown Manual"
+       
         And I should see the dropdown field labeled "Multiple Choice Dropdown Manual" with the options below
          | DDChoice5 |
          | DDChoice7 |
@@ -107,7 +106,6 @@
         And I enter Choices of "3, Checkbox3" into the open "Add New Field" dialog box
         And I enter Choices of "4, Checkbox4" into the open "Add New Field" dialog box
         And I click on the button labeled "Save" in the "Add New Field" dialog box
-        Then I should see the field labeled "Checkbox"
         And I should see the multiselect field labeled "checkbox" with the options below
          | Checkbox1       |
          | Checkbox2       |
@@ -118,7 +116,7 @@
         And I enter "File Upload" into the Field Label of the open "Add New Field" dialog box
         And I enter "file_upload" into the Variable Name of the open "Add New Field" dialog box
         And I click on the button labeled "Save" in the "Add New Field" dialog box
-        Then I should see the field labeled "File Upload"
+        
         And I should see the link labeled "Upload file"
 
         ##ACTION: Radio Button and Calculated fields creation for Data Types
@@ -131,9 +129,7 @@
         And I enter Choices of "101, Choice101" into the open "Add New Field" dialog box
         And I should see "Save"
         And I click on the button labeled "Save" in the "Add New Field" dialog box
-
-        #VERIFY
-        Then I should see a field named "Radio Button Manual"
+        
         And I should see the radio field labeled "Radio Button Manual" with the options below
          | Choice99      |
          | Choice100     |
@@ -145,7 +141,6 @@
         And I enter the equation "3*2" into Calculation Equation of the open "Add New Field" dialog box
         And I click on the button labeled "Save" in the "Add New Field" dialog box
 
-        #VERIFY
         Then I should see a field named "Calculated Field"
         And I should see a link labeled "View equation"
 
@@ -162,9 +157,8 @@
         Given I click on the button labeled "Close" in the dialog box
         And I click on the button labeled "Save" in the "Add New Field" dialog box
 
-        ##VERIFY 
         Then I should see the field labeled "Descriptive Text with File"
-        And I should see the link labeled "D.111.100_Upload File.docx"
+        And I should see the link labeled "import_files/File_upload.docx"
 
         When I click on the button labeled "Add Field"
         And I select "Text Box (Short Text, Number, Date/Time, ...)" from the Field Type dropdown of the open "Add New Field" dialog box
@@ -194,7 +188,7 @@
          | 1  | [record_id]                                 |     Record ID                           | 	             text                                                                                                |  
          | 2  | [ptname_v2]                                 | 	   Name                               | 	             text                                                                                                |  
          | 3  | [email_v2]                                  |     Email                               | 	             text(email)                                                                                         |  
-         | 4  | [text_validation_complete]                  | Section Header: form status (Complete?) | 	dropdown(0 Incomplete, 1 Unverified, 2 Complete)                                                                 |  
+         | 4  | [text_validation_complete]                  | Section Header: Form Status (Complete?) | 	dropdown(0 Incomplete, 1 Unverified, 2 Complete)                                                                 |  
          |    |  Instrument: Data Types (data_types)        |                                         |                                                                                                                      | 
          | 5  | [date_trial]                                |Date of Trial(must not be in the future) | 	     text (date_dmy, Min: 2006-01-01, Max: today)                                                                | 
          | 6  | [multiple_dropdown_manual]                  | Multiple Choice Dropdown Manual         | 	dropdown(5 DDChoice5, 6 DDChoice6, 7 DDChoice7)                                                                  |   
@@ -205,9 +199,9 @@
          | 11 | [descriptive_text_file]                     |     Descriptive Text with File          | 	            descriptive                                                                                          |
          | 12 | [identifier_2]                              |     Identifier                          | 	             text, Identifier                                                                                    |
          | 13 | [required_2]                                |     Required                            | 	            text, Required                                                                                       |
-         | 14 | [data_types_complete]                       | Section Header: form status (Complete?) | 	dropdown(0 Incomplete, 1 Unverified, 2 Complete)                                                                 |   
+         | 14 | [data_types_complete]                       | Section Header: Form Status (Complete?) | 	dropdown(0 Incomplete, 1 Unverified, 2 Complete)                                                                 |   
 
-    Scenario: D.111.200 Modify and Delete
+    Scenario: D.111.200 Modify, Delete and Verify in Codebook
         #ACTION: Check Modify and Delete fields in codebook
         When I click on the link labeled "Designer"
         And I click on the instrument labeled "Text Validation"
@@ -216,8 +210,16 @@
         Then I click on the button labeled "Save"
         And I click on the button labeled "delete icon" for the row labeled "Email"
         And  I click on the button labeled "Delete"
-        And I click on the link labeled "Codebook"
-        Then I should NOT see "Email"
-        And I should see "Name4567" within the field with variable name "ptname" 
+
+        ##VERIFY_Codebook 
+        When I click on the link labeled "Codebook"
+        And I should see a table header and rows containing the following values in the codebook table:  
+
+         | #  | Variable/Field Name                         |    Field Label                          | Field Attributes(Field Type, Validation, Choices, Calculations, etc.)                                                | 
+         |    | Instrument: Text Validation (text_validation|                                         |                                                                                                                      |   
+         | 1  | [record_id]                                 |     Record ID                           | 	             text                                                                                                |  
+         | 2  | [ptname_v2]                                 | 	   Name4567                           | 	             text                                                                                                |  
+         | 3  | [text_validation_complete]                  | Section Header: Form Status (Complete?) | 	dropdown(0 Incomplete, 1 Unverified, 2 Complete)                                                                 |  
+        
         And I logout
     
