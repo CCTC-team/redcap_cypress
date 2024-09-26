@@ -58,8 +58,8 @@ Feature: D.107.100  Action Tags and Field Embedding
 # above this is field embedding and below this is action tags 
 
   Scenario: 
-    Given I login to REDCap with the user "Test_User"
-    And I create a new project named "D.107.100" by clicking on "New Project" in the menu bar, selecting "Practice / Just for fun" from the dropdown, choosing file "Project_redcap_val.xml", and clicking the "Create Project" button
+    Given I login to REDCap with the user "test_user1"
+    And I create a new project named "D.107.100" by clicking on "New Project" in the menu bar, selecting "Practice / Just for fun" from the dropdown, choosing file "Project_redcap_val_ActionTags.xml", and clicking the "Create Project" button
     And I click on the button labeled "Additional Customizations"
     And I should see a checkbox labeled "Enable the Data History popup for all data collection instruments?" that is checked
     And I should see a checkbox labeled "Enable the File Version History for 'File Upload' fields?" that is checked
@@ -77,7 +77,7 @@ Feature: D.107.100  Action Tags and Field Embedding
     And I click on the link labeled "Add / Edit Records"
     And I select "1" on the dropdown field labeled "Choose an existing Record ID"
     And I click the bubble to select a record for the "Action Tags Test" longitudinal instrument on event "Status"
-    #there are no events at the moment? does this^ need to be 'event 1' or perhaps another definition?
+    And I should see "" in the data entry form field "Visit Date"
     When I enter "02/09/2023" into the input field labeled "Visit Date"
     Then I should see "@CALCDATE(02-09-2023, 7, 'd')"
     And I should see "09-09-2023" in the data entry form field "Next Visit Due" 
@@ -99,13 +99,16 @@ Feature: D.107.100  Action Tags and Field Embedding
     And I click on the link labeled "Add / Edit Records"
     And I select "1" on the dropdown field labeled "Choose an existing Record ID"
     And I click the bubble to select a record for the "Action Tags Test" longitudinal instrument on event "Status"
-    And I enter "19-11-1978" into the input field labeled "Participant Date of Birth"
-    And I should see "45.84887665957093" in the data entry form field "Years old" 
+    And I should see "" in the data entry form field "Participant Date of Birth"
+    And I should see "" in the data entry form field "Years old"
+    And I enter "TODAY" into the input field labeled "Participant Date of Birth"
+    And I should see "0" in the data entry form field "Years old" 
+    And I should see "Your child" in the data entry form field "Years old' field is empty and "This is a CALCTEXT" 
     And I click on the link labeled "View equation"
     And I should see "Calculation:	@CALCTEXT(if([years] >= 10, 'you', 'your child'))"
     And I click on the button labeled "Close"
     And I select the submit option labeled "Save & Stay" on the Data Collection Instrument
-    And I should see "@CALCTEXT(if(45.84887665957093 >= 10, 'you', 'your child'))"
+    And I should see "@CALCTEXT(if(0 >= 10, 'you', 'your child'))"
     When I clear the field labeled "Participant Date of Birth"
     Then I should see "" in the data entry form field "Years old"
     And I should see "your child" in the data entry form field "This is a CALCTEXT that will output the words you if they are greater than 10 or your child if less than 10. You could use this in piping to other fields."
@@ -118,7 +121,7 @@ Feature: D.107.100  Action Tags and Field Embedding
     And I click on the button labeled "Update & Close Editor"
     And I enter "@DEFAULT='5'" into the input field labeled "Field Note"
     Then I click on the button labeled "Save"
-    And I click on the Edit image for the field named "hat sport do you like the most"
+    And I click on the Edit image for the field named "What sport do you like the most"
     And I click on the input element labeled "Action Tags / Field Annotation" 
     And I enter '@DEFAULT="Gymnastics"' into the input field labeled "Logic Editor"
     And I click on the button labeled "Update & Close Editor"
@@ -140,12 +143,6 @@ Feature: D.107.100  Action Tags and Field Embedding
     And I click on the button labeled "Update & Close Editor"
     And I enter "@NOW" into the input field labeled "Field Note"
     Then I click on the button labeled "Save"
-    And I click on the Edit image for the field named "Now Server Time"
-    And I click on the input element labeled "Action Tags / Field Annotation" 
-    And I enter "@NOW-SERVER" into the input field labeled "Logic Editor"
-    And I click on the button labeled "Update & Close Editor"
-    And I enter "@NOW-SERVER" into the input field labeled "Field Note"
-    Then I click on the button labeled "Save"
     And I click on the Edit image for the field named "Today"
     And I click on the input element labeled "Action Tags / Field Annotation" 
     And I enter "@TODAY" into the input field labeled "Logic Editor"
@@ -156,16 +153,10 @@ Feature: D.107.100  Action Tags and Field Embedding
     Given I click on the link labeled "Add / Edit Records"
     And I select "1" on the dropdown field labeled "Choose an existing Record ID"
     And I click the bubble to select a record for the "Action Tags Test" longitudinal instrument on event "Status"
-    When I click the now button on the field "Now"
     And I should see "@NOW"
-    Then I should see "M-D-Y H:M" in the data entry form field "Now"
-    When I click the now button on the field "Now Server Time"
-    And I should see "@NOW-SERVER"
-    Then I should see "M-D-Y H:M" in the data entry form field "Now Server Time" 
-    When I click the today button on the field "Today"
+    Then I should see the exact time in the field labeled "Now"
     And I should see "@TODAY"
-    Then I should see "M-D-Y" in the data entry form field "Today" 
-    # above definitions need writing but dont know how best to write it to describe that it should match those dates
+    Then I should see today's date in the field labeled "Today"
 
     Given I click on the link labeled "Designer"
     And I click on the link labeled "Action Tags Test"
@@ -179,8 +170,7 @@ Feature: D.107.100  Action Tags and Field Embedding
     Given I click on the link labeled "Add / Edit Records"
     And I select "1" on the dropdown field labeled "Choose an existing Record ID"
     When I click the bubble to select a record for the "Action Tags Test" longitudinal instrument on event "Status"
-    Then I should see "USERNAME" in the data entry form field "@Username"
-    #please check above 
+    Then I should see "test_user1" in the data entry form field "@Username"
     And I should see "@USERNAME"
 
     Given I click on the link labeled "Designer"
@@ -195,10 +185,8 @@ Feature: D.107.100  Action Tags and Field Embedding
     And I select "1" on the dropdown field labeled "Choose an existing Record ID"
     And I click the bubble to select a record for the "Action Tags Test" longitudinal instrument on event "Status"
     And I select the radio option "Yes" for the field labeled "Are you able to attend weekend appointments?" 
-    And I select the submit option labeled "Save & Stay" on the Data Collection Instrument
-    And I select the radio option "Saturday 10am - 11am" for the field labeled "What are your preferred appointment times?"
-    And I select the submit option labeled "Save & Stay" on the Data Collection Instrument
-    And I select the radio option "Friday 4pm - 5pm" for the field labeled "What are your preferred appointment times?"
+    When I select the submit option labeled "Save & Stay" on the Data Collection Instrument
+    Then I should see "Saturday 10am - 11am"
     And I select the radio option "No" for the field labeled "Are you able to attend weekend appointments?" 
     When I select the submit option labeled "Save & Stay" on the Data Collection Instrument
     Then I should NOT see "Saturday 10am - 11am"
