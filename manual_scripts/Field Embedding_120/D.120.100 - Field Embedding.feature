@@ -12,7 +12,7 @@ Feature: D.120.100 Field Embedding
     And I click on the instrument labeled "Text Validation"
     And I click on the first button labeled "Add Field"
     Then I select "Descriptive Text (with optional Image/Video/Audio/File Attachment)" from the Field Type dropdown of the open "Add New Field" dialog box
-    And I enter "Email: {email_v2} ; Name: {ptname_v2_v2}" into the Field Label of the open "Add New Field" dialog box
+    And I enter "Mail ID: {email_v2} ; Participant Info: {ptname_v2_v2}" into the Field Label of the open "Add New Field" dialog box
     And I enter "embed" into the Variable Name of the open "Add New Field" dialog box
     When I click on the button labeled "Save"
     Then I should see "Field is embedded elsewhere on page" within the field with variable name "ptname_v2_v2"
@@ -24,9 +24,11 @@ Feature: D.120.100 Field Embedding
     Then I should see 'Record "2" is a new Record ID'
     
     When I click the bubble to select a record for the "Text Validation" longitudinal instrument on event "Event 1"
-    Then I should see "; Name:"
-    And I enter "User1" into the input field labeled "; Name:"
-    And I enter "User1@example.com" into the input field labeled "Email"
+    Then I should see "; Participant Info:"
+    And I enter "User1" into the input field labeled "; Participant Info:"
+    And I enter "User1@example.com" into the input field labeled "Mail ID"
+    And I should NOT see "Name"
+    And I should NOT see "Email"
     And I click on the button labeled "Save & Exit Form"
     Then I should see "successfully added"
 
