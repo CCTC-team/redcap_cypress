@@ -186,10 +186,21 @@ Feature: D.107.100  Action Tags and Field Embedding
     And I click the bubble to select a record for the "Action Tags Test" longitudinal instrument on event "Status"
     And I select the radio option "Yes" for the field labeled "Are you able to attend weekend appointments?" 
     When I select the submit option labeled "Save & Stay" on the Data Collection Instrument
-    Then I should see "Saturday 10am - 11am"
+    Then I should see the radio field labeled "What are you preferred appointment times?" with the options below
+    | Monday 8am - 9am     |
+    | Tuesday 10am - 11am  |
+    | Wednesday 12pm - 1pm |
+    | Thursday 2pm - 3pm   |
+    | Friday 4pm - 5pm     |
+    | Saturday 10am - 11am |
     And I select the radio option "No" for the field labeled "Are you able to attend weekend appointments?" 
     When I select the submit option labeled "Save & Stay" on the Data Collection Instrument
-    Then I should NOT see "Saturday 10am - 11am"
+    Then I should see the radio field labeled "What are you preferred appointment times?" with the options below
+    | Monday 8am - 9am     |
+    | Tuesday 10am - 11am  |
+    | Wednesday 12pm - 1pm |
+    | Thursday 2pm - 3pm   |
+    | Friday 4pm - 5pm     |
     And I select the submit option labeled "Save & Exit Form" on the Data Collection Instrument
 
 
