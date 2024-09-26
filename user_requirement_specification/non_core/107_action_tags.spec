@@ -5,4 +5,3 @@ D.107.100 - The system shall support the ability to use Action Tags in data entr
     D.107.100.4 - @NOW and @TODAY 
     D.107.100.5 - @IF 
     D.107.100.6 - @USERNAME
-D.107.200 - The system shall support the ability to use Embedded Fields in data entry forms for better user-friendly form designs. 
