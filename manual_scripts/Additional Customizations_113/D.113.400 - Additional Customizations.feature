@@ -1,13 +1,51 @@
 Feature: D.113.400 - Additional Customizations
 
-As a REDCap end user
-I want to see that I have the ability to specify a reason when making changes to existing records
-Scenario: D.113.400 Assign missing codes to blank fields 
+As a REDCap end user 
+I want to see that I have the ability to specify a reason when making changes to existing records 
+Scenario: D.113.400 Specify a reason when making changes to existing records 
 
-Scenario: D.106.200 Open, close, read only, reopen and respond to queries based on user roles
+    #ACTION: Specify a reason when making changes to existing records SETUP
+    Given I login to REDCap with the user "Test_Admin" 
+    And I create a new project named "D.106.200" by clicking on "New Project" in the menu bar, selecting "Practice / Just for fun" from the dropdown, choosing file "Project_redcap_val.xml", and clicking the "Create Project" button
 
-#ACTION: Reason when making changes to existing records SETUP
-Given I login to REDCap with the user "Test_Admin" 
-And I create a new project named "D.106.200" by clicking on "New Project" in the menu bar, selecting "Practice / Just for fun" from the dropdown, choosing file "Project_redcap_val.xml", and clicking the "Create Project" button
+    #ACTION: Enable reason when making changes to existing records 
+    Given I click on the link labeled "Project Setup"
+    And I click on the button labeled "Additional customizations"
+    And I check the checkbox labeled "require_change_reason"
+    Then I click on the button labeled "Save"
+    Then I should see "Sucess! Your changes have been saved!"
 
-#ACTION: Enable reason when making changes to existing records 
+    #ACTION: Import data 
+    Given I click on the link labeled "Data Import Tool"
+    And  I upload a "csv" format file located at "redcap_val_fixtures\import_files\D.106.100_Data Import.csv", by clicking the button near "Choose file" to browse for the file, and clicking the button labeled "Upload File" to upload the file
+    And I should see "Your document was uploaded successfully and is ready for review."
+    And I should see "Please supply a reason for the data changes for EACH existing record in the text boxes."
+    And I enter "Reason 1" into the textarea field labeled "reason-1" 
+    And I enter "Reason 2" into the textarea field labeled "reason-2" 
+    And I click on the button labeled "Import Data"
+    Then I should see "Import Successful! 15 records were created or modified during the import."
+
+    #ACTION: Change field values
+    Given I click on the link labeled "Record Status Dashboard"
+    And I click on the bubble for the "Text Validation" data collection instrument for record ID "1" 
+    And I enter "John" into the data entry form field labeled "Name" 
+    And I enter "John@email.com" into the data entry form field labeled "Email" 
+    And I click on the button labeled "Save & Stay"
+    Then I should see "Please supply reason for data changes" in the dialog box 
+    And I enter "Test reason for changes" into the textarea field labeled "change_reason" on the dialog box
+    And I click on the button labeled "Save Changes"
+
+    #ACTION: Verify reason for change history
+    Given I click on the "History" icon for the field labeled "Name"
+    Then I should see a table header and row containing the following values in a table:
+        | Date / Time of Change |      User      | Data Changes Made    | Reason for Data Change(s) | 
+        | mm/dd/yyyy hh:mm      | test_admin     | Tony Stone           | Reason 2                  |
+        | mm/dd/yyyy hh:mm      | test_admin     |  John                |  Test reason for changes  |
+    And I click on the button labeled "Close"
+    Given I click on the "History" icon for the field labeled "Email"
+    Then I should see a table header and row containing the following values in a table:
+        | Date / Time of Change |      User      | Data Changes Made      | Reason for Data Change(s) | 
+        | mm/dd/yyyy hh:mm      | test_admin     | tonystone@example.com  | Reason 2                  |
+        | mm/dd/yyyy hh:mm      | test_admin     |  John@email.com        | Test reason for changes   |
+    And I click on the button labeled "Close"
+    And I logout
