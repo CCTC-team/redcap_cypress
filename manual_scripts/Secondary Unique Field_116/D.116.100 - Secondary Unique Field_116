@@ -41,7 +41,63 @@ Feature: D.116.100  Action Tags and Field Embedding
     And I click on the button labeled "Save"
 
     Given I click on the link labeled "Record Status Dashboard"
+    And I click on the link labeled "1"
+    And I select "Download PDF of record data for all instruments/events" on the dropdown field labeled "Choose action for record"
+    And I should see the pdf has loaded in the iframe
+    And I should see "" 
+    # this needs to be a validation of the pdf and im unsure how to validate it ^
+    And I close the iframe window
+    And I click on the link labeled "Project Setup"
+    When I click on the button labeled "Additional customizations"
+    Then I check the checkbox labeled "PDF Customizations"
+    And I clear field and enter "CRF Version 1" into the input field labeled "1)"
+    And I click on the radio labeled "Display REDCap logo and website URL (default)" in the dialog box
+    And I select "Hide it" on the dropdown field labeled "3)"
+    And I click on the button labeled "Save"
 
-    #i am on step 6 of the word document
+    Given I click on the link labeled "Record Status Dashboard"
+    And I click on the link labeled "1"
+    When I select "Download PDF of record data for all instruments/events" on the dropdown field labeled "Choose action for record"
+    And I should see the pdf has loaded in the iframe
+    And I should see "" 
+    # this needs to be a validation of the pdf and im unsure how to validate it ^
+    Then I close the iframe window
+    
+    Given I click on the link labeled "Data Exports, Reports, and Stats"
+    When I click on the button labeled "View Report"
+    Then I should see a table header and rows containing the following values in the record status dashboard table:
+      | Record ID         |
+      | 1 (Secondary ID 1)|
+
+    Given I click on the link labeled "Project Setup"
+    When I click on the button labeled "Additional customizations"
+    Then I check the checkbox labeled "Designate a Secondary Unique Field"
+    And I uncheck the checkbox labeled "Display the field label of the Secondary Unique Field when displaying the value?"
+    And I click on the button labeled "Save"
+
+    Given I click on the link labeled "Record Status Dashboard"
+    Then I should see a table header and rows containing the following values in the record status dashboard table:
+      | Record ID |
+      | 1 (1)     |
+
+    Given I click on the link labeled "Data Exports, Reports, and Stats"
+    When I click on the button labeled "View Report"
+    Then I should see a table header and rows containing the following values in the record status dashboard table:
+      | Record ID |
+      | 1 (1)     |
+
+    Given I click on the link labeled "Record Status Dashboard"
+    And I click on the button labeled "Add new record for this arm"
+    When I click the bubble to add a record for the "Text Validation" longitudinal instrument on event "Event 1"
+    And I enter "1" into the input field labeled "Secondary ID"
+    And I select the submit option labeled "Save & Exit Form" on the Data Collection Instrument
+    Then I should see "DUPLICATE VALUE!"
+    And I close the popup
+    And I enter "2" into the input field labeled "Secondary ID"
+    And I select the submit option labeled "Save & Exit Form" on the Data Collection Instrument
+
+
+    
+    #i am on step 20 of the word document
 
 
