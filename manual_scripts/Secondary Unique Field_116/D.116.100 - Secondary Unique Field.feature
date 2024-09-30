@@ -1,7 +1,7 @@
-Feature: D.116.100  Action Tags and Field Embedding
+Feature: D.116.100  Secondary Unique Field
 
   As a REDCap end user
-  I want to see that File Version History for File Upload fields is functioning as expected
+  I want to see that fields can be made unique or otherwise as expected.
 
    Scenario: 
     Given I login to REDCap with the user "test_user1"
