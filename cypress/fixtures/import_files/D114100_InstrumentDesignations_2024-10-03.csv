@@ -1,0 +1,7 @@
+arm_num,unique_event_name,form
+1,enrollment_arm_1,demographics
+1,baseline_arm_1,baseline_data
+1,visit_1_arm_1,month_1_data
+1,visit_2_arm_1,month_2_data
+1,visit_3_arm_1,month_3_data
+1,final_visit_follow_arm_1,completion_data
