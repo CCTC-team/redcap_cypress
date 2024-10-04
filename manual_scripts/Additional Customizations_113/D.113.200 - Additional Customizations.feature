@@ -35,7 +35,9 @@ Scenario: D.113.100 Enable Data History pop up
       #ACTION: Change field values
       Given I click on the link labeled "Record Status Dashboard"
       And I click on the bubble for the "Text Validation" data collection instrument for record ID "1" 
+      And I clear the field labeled "Name" 
       And I enter "John" into the data entry form field labeled "Name" 
+      And  I clear the field labeled "email" 
       And I enter "John@email.com" into the data entry form field labeled "Email" 
       And I click on the button labeled "Save & Stay"
       And I logout
@@ -46,7 +48,9 @@ Scenario: D.113.100 Enable Data History pop up
       And I click on the link labeled "D.113.200"
       And I click on the link labeled "Record Status Dashboard"
       And I click on the bubble for the "Text Validation" data collection instrument for record ID "1" 
+      And I clear the field labeled "Name"
       And I enter "Joe" into the data entry form field labeled "Name" 
+      And I clear the field labeled "Email"
       And I enter "Joe@email.com" into the data entry form field labeled "Email" 
       And I click on the button labeled "Save & Stay"
 
@@ -57,6 +61,7 @@ Scenario: D.113.100 Enable Data History pop up
             | mm/dd/yyyy hh:mm | test_admin | Tony Stone         |
             | mm/dd/yyyy hh:mm | test_admin | John               |
             | mm/dd/yyyy hh:mm | test_user1 | Joe                |
+      Then I click on the button labeled "Close"
       Given I click on the "History" icon for the field labeled "Email"
       Then I should see a table header and row containing the following values in a table:
             | Date / Time      | User       | Data Changes Made       | 

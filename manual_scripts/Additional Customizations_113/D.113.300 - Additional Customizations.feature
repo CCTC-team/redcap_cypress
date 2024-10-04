@@ -15,13 +15,6 @@ And I check the checkbox labeled "bypass_branching_erase_field_prompt"
 Then I click on the button labeled "Save"
 Then I should see "Sucess! Your changes have been saved!"
 
-# #ACTION: Import data 
-# Given I click on the link labeled "Data Import Tool"
-# And  I upload a "csv" format file located at "redcap_val_fixtures\import_files\D.106.100_Data Import.csv", by clicking the button near "Choose file" to browse for the file, and clicking the button labeled "Upload File" to upload the file
-# And I should see "Your document was uploaded successfully and is ready for review."
-# And I click on the button labeled "Import Data"
-# Then I should see "Import Successful! 15 records were created or modified during the import."
-
 #ACTION: Add branching logic
 When I click on the link labeled "Designer"
 And I click on the instrument labeled "Text Validation"

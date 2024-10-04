@@ -22,7 +22,7 @@ Scenario: D.106.200 Open, close, read only, reopen and respond to queries based 
 
       #ACTION: Import data
       Given I click on the link labeled "Data Import Tool"
-      And  I upload a "csv" format file located at "redcap_val_fixtures\import_files\D.106.100_Data Import.csv", by clicking the button near "Choose file" to browse for the file, and clicking the button labeled "Upload file" to upload the file
+      And I upload a "csv" format file located at "redcap_val_fixtures\import_files\D.106.100_Data Import.csv", by clicking the button near "Choose file" to browse for the file, and clicking the button labeled "Upload file" to upload the file
       And I should see "Your document was uploaded successfully and is ready for review."
       And I click on the button labeled "Import Data"
       Then I should see "Import Successful! 15 records were created or modified during the import."

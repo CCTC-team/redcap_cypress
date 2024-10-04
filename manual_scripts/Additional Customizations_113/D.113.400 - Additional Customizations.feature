@@ -28,9 +28,11 @@ Scenario: D.113.400 Specify a reason when making changes to existing records
     #ACTION: Change field values
     Given I click on the link labeled "Record Status Dashboard"
     And I click on the bubble for the "Text Validation" data collection instrument for record ID "1" 
-    And I enter "John" into the data entry form field labeled "Name" 
+    And I clear the field labeled "Name"
+    And I enter "John" into the data entry form field labeled "Name"
+    And I clear the field labeled "Email" 
     And I enter "John@email.com" into the data entry form field labeled "Email" 
-    And I click on the button labeled "Save & Stay"
+    And I click on the button labeled "Save & Exit"
     Then I should see "Please supply reason for data changes" in the dialog box 
     And I enter "Test reason for changes" into the textarea field labeled "change_reason" on the dialog box
     And I click on the button labeled "Save Changes"
