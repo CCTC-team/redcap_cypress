@@ -4,19 +4,16 @@ Feature: D.114.100  Scheduling Module and Calendar
 
    Scenario: 
     Given I login to REDCap with the user "test_user1"
-    And I create a new project named "D.114.100" by clicking on "New Project" in the menu bar, selecting "Practice / Just for fun" from the dropdown, choosing file "Project_redcap_val_Project_Scheduling_and_Calendar.xml", and clicking the "Create Project" button
-    And I click on the button labeled "Enable" in the "Use longitudinal data collection with defined events?" row in the "Main project settings" section
+    When I create a new project named "D.114.100" by clicking on "New Project" in the menu bar, selecting "Practice / Just for fun" from the dropdown, choosing file "Project_redcap_val_Project_Scheduling_and_Calendar.xml", and clicking the "Create Project" button
+    Then I click on the button labeled "Enable" in the "Use longitudinal data collection with defined events?" row in the "Main project settings" section
     And I click on the button labeled "Define My Events"
-    When I click on the button labeled "Edit"
-    Then I enter "0" into the data entry form field labeled "Days Offset"
-    # think this is wrong and a new definition needs making for table entry? 
-    And I enter "Enrollment" into the data entry form field labeled "Event Label"
-    # think this is wrong and a new definition needs making for table entry? 
-    And I click on the button labeled "Save"
+    And I click on the button labeled "Edit"
+    
+    Given I add an event named "Enrollment" with offset of 0 days into the currently selected arm
+    Then I click on the button labeled "Add new event"
 
     Given I add an event named "Baseline" with offset of 1 day into the currently selected arm
     Then I click on the button labeled "Add new event"
-
  
     Given I add an event named "Visit 1" with offset of 2 days into the currently selected arm   
     Then I click on the button labeled "Add new event"
@@ -25,7 +22,6 @@ Feature: D.114.100  Scheduling Module and Calendar
     When I clear field and enter "1" into the data entry form field labeled "-"
     And I clear field and enter "2" into the data entry form field labeled "+"
     Then I click on the button labeled "Add new event"
-
 
     Given I add an event named "Visit 3" with offset of 60 days into the currently selected arm
     When I clear field and enter "1" into the data entry form field labeled "-"
@@ -45,7 +41,6 @@ Feature: D.114.100  Scheduling Module and Calendar
     Then I add a custom event label of "[complete_study_date]"
     #new definition required above
     
-
     Given I click on the link labeled "Designate Instruments for My Events"
     And I click on the tab labeled "Designate Instruments for My Events"
     And I click on the button labeled "Begin Editing"
@@ -119,16 +114,185 @@ Feature: D.114.100  Scheduling Module and Calendar
     #new step required, could be either of the abobe
     And I add a Time "16:00" to the Event Name "Final Visit"
     And I add a Date "03/04/2024" to the Event Name "Final Visit"
-    And I click on the button labeled "Ok"
+    When I click on the button labeled "Ok"
     #possibly different to when this is used above because its in a different table, but this needs to happen
-    And I click on the button labeled "Save"
+    Then I click on the button labeled "Save"
     And I click on the button labeled "NO just this one"
-    And I clear field and enter "04/04/2024" into the data entry form field labeled "Add new Ad Hoc calendar event on"
+    
+    Given I clear field and enter "04/04/2024" into the data entry form field labeled "Add new Ad Hoc calendar event on"
     And I enter "9:00" into the data entry form field labeled "Time:"
     And I enter "Test check up" into the data entry form field labeled "Notes:"
     And I click on the button labeled "Add Calendar Event"
-    And I click on the delete icon for the visit "Ad Hoc"
+    And I click on the delete icon for the event name "Ad Hoc"
+    When I click on the button labeled "Ok"
+    Then I should see "The calendar event has been deleted"
+    # PLEASE READ below!!! Applies to a lot
+    # before and after this has many steps that occur in a new window, we will need many new steps
+    
+    Given I click on the view calander event icon for the event name "Enrollment"
+    When I click on the link labeled "View Schedule"
+    And I should see "Scheduling"
+
+    Given I click on the view calander event icon for the event name "Baseline"
+    When I click on the link labeled "View Record Home Page"
+    Then I should see "Record Home Page"
+    
+    Given I click on the link labeled "Scheduling"
+    And I click on the tab "View or Edit Schedule"
+    And I select the dropdown option "2" for the Data Collection Instrument field labeled "Select a previously scheduled Study ID:"
+    And I click on the link labeled "change status"
+    And I select the dropdown option "Confirmed" for the Data Collection Instrument field labeled "Status"
+    And I click on the button labeled "Save Status"
+    And I close the window
+    When I click on the view calander event icon for the event name "Enrollment"
+    Then I click on the bubble for "Demographics" in the Data Entry Forms section
+    # new steps above 
+    And I should see "Demographics"
+    
+    Given I click on the link labeled "Scheduling"
+    And I click on the tab "View or Edit Schedule"
+    And I select the dropdown option "2" for the Data Collection Instrument field labeled "Select a previously scheduled Study ID:"
+    When I click on the link labeled "Print Schedule"
+    Then I close the window
+
+    Given I click on the link labeled "Calendar"
+    And I click on the tab labeled "Day"
+    And I select the dropdown option "November" from the Month dropdown
+    And I select the dropdown option "20" from the Day dropdown
+    When I select the dropdown option "2023" from the Year dropdown
+    Then I should see a table header and rows containing the following values in a table:
+      | Day         | Time    | Description     |                                     
+      | Mon Nov 20	| 1:30pm  |	1 (Enrollment)  |
+
+    Given I click on the tab labeled "Week"
+    And I select the dropdown option "November" from the Month dropdown
+    And I select the dropdown option "20" from the Day dropdown
+    When I select the dropdown option "2023" from the Year dropdown
+    #below table needs updating with symbols unfortunately. also change the times
+    Then I should see a table header and rows containing the following values in a table:
+      | Sunday    | Monday                                | Tuesday                            | Wednesday                         | Thursday  | Friday    | Saturday  |                                    
+      | + New 	19| + New 	20 1 (Enrollment) time 1:30pm |	+ New 	21 1 (Baseline) time 3:00pm| + New 	22 1 (Visit 1) time 2:00pm | + New 	23 | + New 	24 | + New 	25 | 
+ 
+    Given I click on the tab labeled "Month"
+    And I select the dropdown option "November" from the Month dropdown
+    And I select the dropdown option "20" from the Day dropdown
+    When I select the dropdown option "2023" from the Year dropdown
+    #below table needs updating with symbols unfortunately.
+    Then I should see a table header and rows containing the following values in a table:
+      | Sunday    | Monday                                | Tuesday                            | Wednesday                         | Thursday  | Friday    | Saturday  |
+      |           |                                       |                                    | + New 	1                          | + New 	2  | + New 	3  | + New 	4  |
+      | + New 	5 | + New 	6                             | + New 	7                          | + New 	8                          | + New 	9  | + New 	10 | + New  11 |
+      | + New  12 | + New 	13                            | + New 	14                         | + New 	15                         | + New 	16 | + New 	17 | + New  18 |
+      | + New  19 | + New 	20 1 (Enrollment) time 1:30pm |	+ New 	21 1 (Baseline) time 3:00pm| + New 	22 1 (Visit 1) time 2:00pm | + New 	23 | + New 	24 | + New 	25 |
+      | + New  26 | + New 	27                            | + New 	28                         | + New 	29                         | + New 	30 |           |           | 
+
+    Given I click on the tab labeled "Agenda"
+    And I select the dropdown option "November" from the Month dropdown
+    When I select the dropdown option "2023" from the Year dropdown
+    Then I should see a table header and rows containing the following values in a table:
+      | Day         | Time    | Description    |                                     
+      | Mon Nov 20	| 1:30pm  |	1 (Enrollment) |
+      | Tue Nov 21	| 3:00pm  |	1 (Baseline)   |
+      | Wed Nov 22	| 2:00pm  |	1 (Visit 1)    |
+ 
+    Given I click on the tab labeled "Day"
+    And I select the dropdown option "November" from the Month dropdown
+    And I select the dropdown option "20" from the Day dropdown
+    And I select the dropdown option "2023" from the Year dropdown
+    And I click on the link labeled "1 (Enrollment)"
+    When I click on the link labeled "View Schedule"
+    Then I should see 'Then I should see "Record Home Page"'
+    
+    Given I click on the link labeled "Calendar"
+    And I click on the tab labeled "Day"
+    And I select the dropdown option "November" from the Month dropdown
+    And I select the dropdown option "20" from the Day dropdown
+    And I select the dropdown option "2023" from the Year dropdown
+    And I click on the link labeled "1 (Enrollment)"
+    When I click on the link labeled "View Record Home Page"
+    Then I should see "Record Home Page"
+
+    Given I click on the link labeled "Calendar"
+    And I click on the tab labeled "Day"
+    And I select the dropdown option "November" from the Month dropdown
+    And I select the dropdown option "20" from the Day dropdown
+    And I select the dropdown option "2023" from the Year dropdown
+    And I click on the link labeled "1 (Enrollment)"
+    And I select the dropdown option "Confirmed" for the Data Collection Instrument field labeled "Status"
+    And I click on the button labeled "Save Status"
+    And I close the window
+    And I click on the link labeled "1 (Enrollment)"
+    And I should see "Status:	Confirmed"
+    When I close the window
+    Then I should see a table header and rows containing the following values in a table:
+      | Day         | Time    | Description                  |                                     
+      | Mon Nov 20	| 1:30pm  |	[small_tick] 1 (Enrollment)  |
+    When I click on the link labeled "1 (Enrollment)"
+    Then I click on the bubble for "Demographics" in the Data Entry Forms section
+    And I should see "Demographics"
+
+    Given I click on the link labeled "Calendar"
+    And I click on the tab labeled "Day"
+    And I select the dropdown option "November" from the Month dropdown
+    And I select the dropdown option "20" from the Day dropdown
+    And I select the dropdown option "2023" from the Year dropdown
+    And I click on the link labeled "1 (Enrollment)"
+    When I clear field and enter "14:30" into the data entry form field labeled "Time:"
+    And I click on the button labeled "Done"
+    Then I click on the button labeled "Save Time"
+    And I close the window
+
+    Given I click on the link labeled "1 (Enrollment)"
+    And I enter "Check up" into the data entry form field labeled "Notes:"
+    When I click on the button labeled "Save Notes"
+    And I close the window
+    #M: refresh browser page
+    #We need this line so that we know the page has refreshed
+    Then I should see a table header and rows containing the following values in a table:
+      | Day         | Time    | Description                            |                                     
+      | Mon Nov 20	| 1:30pm  |	[tick_small] 1 (Enrollment) - Check up |
+    
+    Given I click on the tab labeled "Week"
+    And I select the dropdown option "November" from the Month dropdown
+    And I select the dropdown option "20" from the Day dropdown
+    And I select the dropdown option "2023" from the Year dropdown
+    And I click on the link labeled "1 (Enrollment)"
+    When I click on the link labeled "View Schedule"
+    Then I should see 'Then I should see "Record Home Page"'
+    
+    Given I click on the link labeled "Calendar"
+    And I click on the tab labeled "Day"
+    And I select the dropdown option "November" from the Month dropdown
+    And I select the dropdown option "20" from the Day dropdown
+    And I select the dropdown option "2023" from the Year dropdown
+    And I click on the link labeled "1 (Enrollment)"
+    When I click on the link labeled "View Record Home Page"
+    Then I should see "Record Home Page"
+
+    Given I click on the link labeled "Calendar"
+    And I click on the tab labeled "Day"
+    And I select the dropdown option "November" from the Month dropdown
+    And I select the dropdown option "20" from the Day dropdown
+    And I select the dropdown option "2023" from the Year dropdown
+    And I click on the link labeled "1 (Enrollment)"
+    And I select the dropdown option "Scheduled" for the Data Collection Instrument field labeled "Status"
+    And I click on the button labeled "Save Status"
+    And I close the window
+    And I click on the link labeled "1 (Enrollment)"
+    And I should see "Status:	Scheduled"
+    When I close the window
+    #below table needs a proper look at
+    Then I should see a table header and rows containing the following values in a table:
+      | Day         | Time    | Description                  |                                     
+      | Mon Nov 20	| 1:30pm  |	[star_small] 1 (Enrollment)  |
+    Then I should see a table header and rows containing the following values in a table:
+      | Sunday    | Monday                                | Tuesday                            | Wednesday                         | Thursday  | Friday    | Saturday  |                                    
+      | + New 	19| + New 	20 1 (Enrollment) time 1:30pm |	+ New 	21 1 (Baseline) time 3:00pm| + New 	22 1 (Visit 1) time 2:00pm | + New 	23 | + New 	24 | + New 	25 | 
+ 
+    When I click on the link labeled "1 (Enrollment)"
+    Then I click on the bubble for "Demographics" in the Data Entry Forms section
+    And I should see "Demographics"
 
 
-    # i have reached step 10 in the word document, about a third of the way through it. 
+    # i have reached step 17 in the word document, about a half of the way through it. 
 
