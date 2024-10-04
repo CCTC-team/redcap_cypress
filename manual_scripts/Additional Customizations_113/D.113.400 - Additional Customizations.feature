@@ -38,7 +38,8 @@ Scenario: D.113.400 Specify a reason when making changes to existing records
     And I click on the button labeled "Save Changes"
 
     #ACTION: Verify reason for change history
-    Given I click on the "History" icon for the field labeled "Name"
+    Given I click on the bubble for the "Text Validation" data collection instrument for record ID "1" 
+    And I click on the "History" icon for the field labeled "Name"
     Then I should see a table header and row containing the following values in a table:
         | Date / Time of Change |      User      | Data Changes Made    | Reason for Data Change(s) | 
         | mm/dd/yyyy hh:mm      | test_admin     | Tony Stone           | Reason 2                  |
