@@ -161,8 +161,8 @@ Feature: D.114.100  Scheduling Module and Calendar
     And I select the dropdown option "20" from the Day dropdown
     When I select the dropdown option "2023" from the Year dropdown
     Then I should see a table header and rows containing the following values in a table:
-      | Day         | Time    | Description     |                                     
-      | Mon Nov 20	| 1:30pm  |	1 (Enrollment)  |
+      | Day         | Time    | Description                  |                                     
+      | Mon Nov 20	| 1:30pm  |	[tick_small] 1 (Enrollment)  |
 
     Given I click on the tab labeled "Week"
     And I select the dropdown option "November" from the Month dropdown
@@ -170,30 +170,29 @@ Feature: D.114.100  Scheduling Module and Calendar
     When I select the dropdown option "2023" from the Year dropdown
     #below table needs updating with symbols unfortunately. also change the times
     Then I should see a table header and rows containing the following values in a table:
-      | Sunday    | Monday                                | Tuesday                            | Wednesday                         | Thursday  | Friday    | Saturday  |                                    
-      | + New 	19| + New 	20 1 (Enrollment) time 1:30pm |	+ New 	21 1 (Baseline) time 3:00pm| + New 	22 1 (Visit 1) time 2:00pm | + New 	23 | + New 	24 | + New 	25 | 
+      | Sunday    | Monday                                         | Tuesday                        | Wednesday                     | Thursday  | Friday    | Saturday  |                                    
+      | + New 	19| [tick_small] + New 	20 1:30pm  1 (Enrollment)  |	+ New 	21 3:00pm 1 (Baseline) | + New 	22 2:00pm 1 (Visit 1)  | + New 	23 | + New 	24 | + New 	25 | 
  
     Given I click on the tab labeled "Month"
     And I select the dropdown option "November" from the Month dropdown
     And I select the dropdown option "20" from the Day dropdown
     When I select the dropdown option "2023" from the Year dropdown
-    #below table needs updating with symbols unfortunately.
     Then I should see a table header and rows containing the following values in a table:
-      | Sunday    | Monday                                | Tuesday                            | Wednesday                         | Thursday  | Friday    | Saturday  |
-      |           |                                       |                                    | + New 	1                          | + New 	2  | + New 	3  | + New 	4  |
-      | + New 	5 | + New 	6                             | + New 	7                          | + New 	8                          | + New 	9  | + New 	10 | + New  11 |
-      | + New  12 | + New 	13                            | + New 	14                         | + New 	15                         | + New 	16 | + New 	17 | + New  18 |
-      | + New  19 | + New 	20 1 (Enrollment) time 1:30pm |	+ New 	21 1 (Baseline) time 3:00pm| + New 	22 1 (Visit 1) time 2:00pm | + New 	23 | + New 	24 | + New 	25 |
-      | + New  26 | + New 	27                            | + New 	28                         | + New 	29                         | + New 	30 |           |           | 
+      | Sunday    | Monday                                            | Tuesday                         | Wednesday                          | Thursday  | Friday    | Saturday  |
+      |           |                                                   |                                 | + New 	1                          | + New 	2  | + New 	3  | + New 	4  |
+      | + New 	5 | + New 	6                                         | + New 	7                       | + New 	8                          | + New 	9  | + New 	10 | + New  11 |
+      | + New  12 | + New 	13                                        | + New 	14                      | + New 	15                         | + New 	16 | + New 	17 | + New  18 |
+      | + New  19 | + New 	20  [tick_small] 1:30pm 1 (Enrollment)    |	+ New 	21 3:00pm 1 (Baseline)  | + New 	22 2:00pm 1 (Visit 1)      | + New 	23 | + New 	24 | + New 	25 |
+      | + New  26 | + New 	27                                        | + New 	28                      | + New 	29                         | + New 	30 |           |           | 
 
     Given I click on the tab labeled "Agenda"
     And I select the dropdown option "November" from the Month dropdown
     When I select the dropdown option "2023" from the Year dropdown
     Then I should see a table header and rows containing the following values in a table:
-      | Day         | Time    | Description    |                                     
-      | Mon Nov 20	| 1:30pm  |	1 (Enrollment) |
-      | Tue Nov 21	| 3:00pm  |	1 (Baseline)   |
-      | Wed Nov 22	| 2:00pm  |	1 (Visit 1)    |
+      | Day         | Time    | Description                  |                                     
+      | Mon Nov 20	| 1:30pm  | [tick_small]	1 (Enrollment) |
+      | Tue Nov 21	| 3:00pm  |	1 (Baseline)                 |
+      | Wed Nov 22	| 2:00pm  |	1 (Visit 1)                  |
  
     Given I click on the tab labeled "Day"
     And I select the dropdown option "November" from the Month dropdown
@@ -286,13 +285,34 @@ Feature: D.114.100  Scheduling Module and Calendar
       | Day         | Time    | Description                  |                                     
       | Mon Nov 20	| 1:30pm  |	[star_small] 1 (Enrollment)  |
     Then I should see a table header and rows containing the following values in a table:
-      | Sunday    | Monday                                | Tuesday                            | Wednesday                         | Thursday  | Friday    | Saturday  |                                    
-      | + New 	19| + New 	20 1 (Enrollment) time 1:30pm |	+ New 	21 1 (Baseline) time 3:00pm| + New 	22 1 (Visit 1) time 2:00pm | + New 	23 | + New 	24 | + New 	25 | 
+      | Sunday    | Monday                                       | Tuesday                       | Wednesday                     | Thursday  | Friday    | Saturday  |                                    
+      | + New 	19| + New 20 [star_small] 1:30pm 1 (Enrollment)  |	+ New 21 3:00pm 1 (Baseline) | + New 	22 2:00pm  1 (Visit 1) | + New 	23 | + New 	24 | + New 	25 | 
  
     When I click on the link labeled "1 (Enrollment)"
     Then I click on the bubble for "Demographics" in the Data Entry Forms section
     And I should see "Demographics"
+    
+    Given I click on the link labeled "Calendar"
+    And I click on the tab labeled "Week"
+    And I click on the link labeled "1 (Enrollment)"
+    And I click on the link labeled "Change Time"
+    And I clear field and enter "16:35" into the data entry form field labeled "Time:"
+    And I click on the button labeled "Save Time"
+    When I close the window
+    #M: refresh browser page
+    Then I should see a table header and rows containing the following values in a table:
+      | Sunday    | Monday                                        | Tuesday                        | Wednesday                       | Thursday  | Friday    | Saturday  |                                    
+      | + New 	19| + New 	20 [star_small] 4:35pm 1 (Enrollment) |	+ New 	21 3:00pm 1 (Baseline) | + New 	22  2:00pm  1 (Visit 1)  | + New 	23 | + New 	24 | + New 	25 | 
+    And I enter "Check up" into the data entry form field labeled "Notes:"
+    When I click on the button labeled "Save Notes"
+    And I close the window
+    #M: refresh browser page
+    Then I should see a table header and rows containing the following values in a table:
+      | Sunday    | Monday                                                   | Tuesday                         | Wednesday                     | Thursday  | Friday    | Saturday  |                                    
+      | + New 	19| + New 	20 [star_small] 4:35pm 1 (Enrollment) - New Test |	+ New 	21 3:00pm 1 (Baseline) | + New 	22 2:00pm 1 (Visit 1)  | + New 	23 | + New 	24 | + New 	25 | 
+    #M: refresh browser page
+    # need an addition step here to describe hovering over the link and it displaying the correct information (day 20). 
 
 
-    # i have reached step 17 in the word document, about a half of the way through it. 
+    # i have reached step 18 in the word document. the start of it.
 
