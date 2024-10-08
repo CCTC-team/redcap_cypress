@@ -109,6 +109,7 @@ Feature: Send It: The system shall support the ability to send a file to user/us
       Given I open Email
       When I click on the link labeled "REDCap Send-It] Confirmation of file download"
       Then I should see "The file you uploaded, D118100_Data_Import.csv (Size), was downloaded by paul@abc.com on Day, Date HH:MM."
+      
       And I logout
 
     
