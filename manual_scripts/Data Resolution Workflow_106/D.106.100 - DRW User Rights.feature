@@ -1,14 +1,14 @@
 Feature: D.106.100 Data Resolution Workflow
 
-As a REDCap end user
-I want to see that I have the ability to allow Data Resolution Workflow rights to be (No Access, View only, Open queries only, Respond only to opened queries, Open and respond to queries; Open, close, and respond to queries).
+  As a REDCap end user
+  I want to see that I have the ability to allow Data Resolution Workflow rights to be (No Access, View only, Open queries only, Respond only to opened queries, Open and respond to queries; Open, close, and respond to queries).
 
 
-Scenario: D.106.100 Verify above mentioned Data Resolution Workflow rights 
+  Scenario: D.106.100 Verify above mentioned Data Resolution Workflow rights 
 
       #ACTION: Data Resolution Workflow SETUP
       Given I login to REDCap with the user "Test_Admin" 
-      And I create a new project named "D.106.100" by clicking on "New Project" in the menu bar, selecting "Practice / Just for fun" from the dropdown, choosing file "Project_redcap_val.xml", and clicking the "Create Project" button
+      And I create a new project named "D.106.100" by clicking on "New Project" in the menu bar, selecting "Practice / Just for fun" from the dropdown, choosing file "redcap_val_fixtures/cdisc_files/Project_redcap_val.xml", and clicking the "Create Project" button
 
       #ACTION: Enable the Data Resolution Workflow (Data Queries)
       Given I click on the link labeled "Project Setup"
@@ -20,7 +20,7 @@ Scenario: D.106.100 Verify above mentioned Data Resolution Workflow rights
 
       #ACTION: Import data 
       Given I click on the link labeled "Data Import Tool"
-      And  I upload a "csv" format file located at "redcap_val_fixtures\import_files\D.106.100_Data Import.csv", by clicking the button near "Choose file" to browse for the file, and clicking the button labeled "Upload File" to upload the file
+      And  I upload a "csv" format file located at "redcap_val_fixtures/import_files/D.106.100_Data_Import.csv", by clicking the button near "Choose file" to browse for the file, and clicking the button labeled "Upload File" to upload the file
       And I should see "Your document was uploaded successfully and is ready for review."
       And I click on the button labeled "Import Data"
       Then I should see "Import Successful! 15 records were created or modified during the import."
@@ -29,7 +29,7 @@ Scenario: D.106.100 Verify above mentioned Data Resolution Workflow rights
       Given I click on the link labeled "User Rights"
       And I click on the button labeled "Upload or download users, roles, and assignments"
       And I click on the link labeled "Upload users (CSV)"
-      And I upload a "csv" format file located at "redcap_val_fixtures\import_files\D.106.100_Users.csv", by clicking the button near "Choose file" to browse for the file, and clicking the button labeled "Upload" to upload the file
+      And I upload a "csv" format file located at "redcap_val_fixtures/import_files/D.106.100_Users.csv", by clicking the button near "Choose file" to browse for the file, and clicking the button labeled "Upload" to upload the file
       And I should see "Upload users (CSV) - Confirm"
       And I click on the button labeled "Upload" in the dialog box
       And I should see "5 users were added or updated"
