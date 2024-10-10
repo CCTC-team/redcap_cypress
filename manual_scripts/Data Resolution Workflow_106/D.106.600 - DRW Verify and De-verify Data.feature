@@ -34,7 +34,7 @@ Feature: D.106.600 Data Resolution Workflow
       #ACTION: Verify and de-verify data
       And I click on the link labeled "Record Status Dashboard"
       And I click on the bubble for the "Text Validation" data collection instrument for record ID "1" 
-      And I click on the Data Resolution Workflow icon for the field labeled "Name"
+      And I click on the Comment icon for the field labeled "Name"
       Then I should see a table header and row containing the following values in a table:
             | Date / Time      | User       | Comments and Details                           | 
             | mm/dd/yyyy hh:mm | test_user1 | Data Changes Made: ptname_v2_v2 = 'Tony Stone' |
@@ -52,7 +52,7 @@ Feature: D.106.600 Data Resolution Workflow
 
       Given I click on the link labeled "Record Status Dashboard"
       And I click on the bubble for the "Text Validation" data collection instrument for record ID "1" 
-      And I click on the Data Resolution Workflow icon for the field labeled "Name"
+      And I click on the Comment icon for the field labeled "Name"
       Then I should see a table header and row containing the following values in a table:
             | Date / Time      | User       | Comments and Details                                   | 
             | mm/dd/yyyy hh:mm | test_user1 | Data Changes Made: ptname_v2_v2 = 'Tony Stone'         |
@@ -65,7 +65,7 @@ Feature: D.106.600 Data Resolution Workflow
       And I enter "Test De-verify Data" into the input field labeled "Comment:"
       And I click on the button labeled "De-verify data value"
       Then I should see a red exclamation icon for the input field labeled "Name"
-      When I click on the Data Resolution Workflow icon for the field labeled "Name"
+      When I click on the Comment icon for the field labeled "Name"
       Then I should see a table header and row containing the following values in a table:
             | Date / Time      | User       | Comments and Details                                         | 
             | mm/dd/yyyy hh:mm | test_user1 | Data Changes Made: ptname_v2_v2 = 'Tony Stone'               |
@@ -83,7 +83,7 @@ Feature: D.106.600 Data Resolution Workflow
   Scenario: D.106.700 - Automatically De-verify data when verified data is changed
       And I click on the link labeled "Record Status Dashboard"
       And  I click on the bubble for the "Text Validation" data collection instrument for record ID "1" 
-      And I click on the Data Resolution Workflow icon for the field labeled "Name"
+      And I click on the Comment icon for the field labeled "Name"
       Then I should see "Data De-verified"
       Given I select the radio labeled "Verified data value" in the dialog box
       And I click on the button labeled "Verified data value" 
@@ -92,7 +92,7 @@ Feature: D.106.600 Data Resolution Workflow
       And I select the submit option labeled "Save & Exit Form" on the Data Collection Instrument
       And  I click on the bubble for the "Text Validation" data collection instrument for record ID "1" 
       Then I should see a red exclamation icon for the input field labeled "Name"
-      And I click on the Data Resolution Workflow icon for the field labeled "Name"
+      And I click on the Comment icon for the field labeled "Name"
       Then I should see a table header and row containing the following values in a table:
             | Date / Time      | User       | Comments and Details                                           | 
             | mm/dd/yyyy hh:mm | test_user1 | Data Changes Made: ptname_v2_v2 = 'John'                       |
