@@ -44,7 +44,7 @@ Scenario: D.106.200 Open, close, read only, reopen and respond to queries based 
       And I click on the link labeled "D.106.200"
       And I click on the link labeled "Record Status Dashboard"
       And I click on the bubble for the "Text Validation" data collection instrument for record ID "1" 
-      Given I click on the Data Resolution Workflow icon for the field labeled "Email"
+      Given I click on the Comment icon for the field labeled "Email"
       Given I click on the radio labeled "Open query" in the dialog box
       And I select "Test_User2" on the dropdown field labeled "Assign query to a user (optional): "
       And I select the checkbox option "Email" for the field labeled "Notify this user of their assignment using:" 
@@ -87,7 +87,7 @@ Scenario: D.106.200 Open, close, read only, reopen and respond to queries based 
       #ACTION: Verify Respond only to open queries
       Given I click on the link labeled "Record Status Dashboard"
       And I click on the bubble for the "Text Validation" data collection instrument for record ID "1" 
-      And I click on the Data Resolution Workflow icon for the field labeled "Name"
+      And I click on the Comment icon for the field labeled "Name"
       Then I should NOT see "Open query" 
       Then I should see "Awaiting action by user with sufficient user privileges"
       And I click on the button labeled "Close" in the dialog box
@@ -100,7 +100,7 @@ Scenario: D.106.200 Open, close, read only, reopen and respond to queries based 
       And I click on the link labeled "D.106.200"
       And I click on the link labeled "Record Status Dashboard"
       And I click on the bubble for the "Text Validation" data collection instrument for record ID "1" 
-      And I click on the Data Resolution Workflow icon for the field labeled "Email"
+      And I click on the Comment icon for the field labeled "Email"
       And  I download a file by clicking on the link labeled "file1.csv" 
       # file1.csv is downloaded
       And I click on the radio labeled "Send back for further attention" in the dialog box
@@ -115,7 +115,7 @@ Scenario: D.106.200 Open, close, read only, reopen and respond to queries based 
       And I click on the link labeled "D.106.200"
       And I click on the link labeled "Record Status Dashboard"
       And I click on the bubble for the "Text Validation" data collection instrument for record ID "1" 
-      And I click on the Data Resolution Workflow icon for the field labeled "Email"
+      And I click on the Comment icon for the field labeled "Email"
       Then I should NOT see "Close the query"
       And I should NOT see "Respond to query"
       And I should see "Awaiting action by user with sufficient user privileges"
@@ -123,12 +123,12 @@ Scenario: D.106.200 Open, close, read only, reopen and respond to queries based 
       #There is no 'Close' button, but an 'x' icon and its label is 'Close'. There is no other step to match
 
       #ACTION: Open a query
-      Given I click on the Data Resolution Workflow icon for the field labeled "Name"
+      Given I click on the Comment icon for the field labeled "Name"
       And I select the radio labeled "Open query" in the dialog box
       And I enter "New query" into the input field labeled "Comment:" 
       And I click on the button labeled "Open query"
       Then I should see a "red" exclamation icon for the input field labeled "Name"
-      Given I click on the Data Resolution Workflow icon for the field labeled "Name"
+      Given I click on the Comment icon for the field labeled "Name"
       Then  I should NOT see "Close the query"
       And I should NOT see "Respond to query"
       Then I should see "Awaiting action by user with sufficient user privileges"
@@ -142,7 +142,7 @@ Scenario: D.106.200 Open, close, read only, reopen and respond to queries based 
       And I click on the link labeled "D.106.200"
       And I click on the link labeled "Record Status Dashboard"
       And I click on the bubble for the "Text Validation" data collection instrument for record ID "1" 
-      And I click on the Data Resolution Workflow icon for the field labeled "Email"
+      And I click on the Comment icon for the field labeled "Email"
       Then I should see a table header and row containing the following values in a table:
             | Date / Time      | User   | Comments and Details                                         | 
             | mm/dd/yyyy hh:mm | test_user1 | Action: Sent back for further attention:"Please clarify" |
@@ -152,7 +152,7 @@ Scenario: D.106.200 Open, close, read only, reopen and respond to queries based 
       And I enter "Corrected" into the input field labeled "Comment:" 
       And I click on the button labeled "Respond to query"
       Then I should see a "blue" exclamation icon for the input field labeled "Email"
-      Given I click on the Data Resolution Workflow icon for the field labeled "Email"
+      Given I click on the Comment icon for the field labeled "Email"
       Then I should NOT see "Close the query"
       Then I should see "Awaiting action by user with sufficient user privileges"
       And I click on the button labeled "Close" in the dialog box
@@ -165,7 +165,7 @@ Scenario: D.106.200 Open, close, read only, reopen and respond to queries based 
       And I click on the link labeled "D.106.200"
       And I click on the link labeled "Record Status Dashboard"
       And I click on the bubble for the "Text Validation" data collection instrument for record ID "1" 
-      And I click on the Data Resolution Workflow icon for the field labeled "Email"
+      And I click on the Comment icon for the field labeled "Email"
       Then I should see a table header and row containing the following values in a table:
             | Date / Time      | User       | Comments and Details                                         | 
             | mm/dd/yyyy hh:mm | test_user4 | Response:Corrected - Typographical error Comment:“Corrected” |
@@ -181,13 +181,13 @@ Scenario: D.106.200 Open, close, read only, reopen and respond to queries based 
       And I click on the link labeled "D.106.200"
       And I click on the link labeled "Record Status Dashboard"
       And I click on the bubble for the "Text Validation" data collection instrument for record ID "1" 
-      And I click on the Data Resolution Workflow icon for the field labeled "Email"
+      And I click on the Comment icon for the field labeled "Email"
       Then I should see "Reopen the closed query"
       Given I check the checkbox labeled "Reopen the closed query" 
       And I enter "Reopen the closed query" into the input field labeled "Comment:"
       And I click on the button labeled "Reopen query"
       Then I should see a "red" exclamation icon for the input field labeled "Email"
-      Given I click on the Data Resolution Workflow icon for the field labeled "Email"
+      Given I click on the Comment icon for the field labeled "Email"
       Then I should NOT see "Close the query"
       And I click on the button labeled "Close" in the dialog box
       And I logout
@@ -213,7 +213,7 @@ Scenario: D.106.200 Open, close, read only, reopen and respond to queries based 
       And I click on the link labeled "D.106.200"
       And I click on the link labeled "Record Status Dashboard"
       And  I click on the bubble for the "Text Validation" data collection instrument for record ID "1"
-      Then I should NOT see Data Resolution Workflow icon
+      Then I should NOT see Comment icon
       And I logout
 
       #ACTION: Verify 'View only' user rights
@@ -222,7 +222,7 @@ Scenario: D.106.200 Open, close, read only, reopen and respond to queries based 
       And I click on the link labeled "D.106.200"
       And I click on the link labeled "Record Status Dashboard"
       And  I click on the bubble for the "Text Validation" data collection instrument for record ID "1"
-      And I click on the Data Resolution Workflow icon for the field labeled "Name"
+      And I click on the Comment icon for the field labeled "Name"
       Then I should see "Awaiting action by user with sufficient user privileges"
       And I click on the button labeled "Close" in the dialog box
       #There is no 'Close' button, but an 'x' icon and its label is 'Close'. There is no other step to match
