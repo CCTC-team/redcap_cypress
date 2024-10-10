@@ -44,12 +44,12 @@ Feature: D.106.100 Data Resolution Workflow
       #ACTION: Open a query
       Given I click on the link labeled "Record Status Dashboard"
       And I click on the bubble for the "Data Types" data collection instrument for record ID "1" 
-      And I click on the Data Resolution Workflow icon for the field labeled "Text Box"
+      And I click on the Comment icon for the field labeled "Text Box"
       And I click on the radio labeled "Open query" in the dialog box
       And I enter "Query 1" into the input field labeled "Comment:" 
       And I click on the button labeled "Open query"
       Then I should see a red exclamation icon for the input field labeled "Text Box"
-      And I click on the Data Resolution Workflow icon for the field labeled "Notes Box"
+      And I click on the Comment icon for the field labeled "Notes Box"
       And I click on the radio labeled "Verified data value"
       And I click on the button labeled "Verified data value"
       Then I should see a green tick icon for the input field labeled "Notes Box"
@@ -61,7 +61,7 @@ Feature: D.106.100 Data Resolution Workflow
       And I click on the link labeled "D.106.100"
       And I click on the link labeled "Record Status Dashboard"
       And I click on the bubble for the "Data Types" data collection instrument for record ID "1" 
-      And I click on the Data Resolution Workflow icon for the field labeled "Text Box"
+      And I click on the Comment icon for the field labeled "Text Box"
       Then I should see a table header and row containing the following values in a table:
             | Date / Time      | User       | Comments and Details                   | 
             | mm/dd/yyyy hh:mm | test_admin | Action: Opened query Comment:"Query 1" |
@@ -69,11 +69,11 @@ Feature: D.106.100 Data Resolution Workflow
       Then I should see "Close the query"
       And I should NOT see "Verified data value"
       And I click on the button labeled "Cancel" in the dialog box
-      And I click on the Data Resolution Workflow icon for the field labeled "Text2"
+      And I click on the Comment icon for the field labeled "Text2"
       Then I should see "Verified data value"
       And I should see "Open query"
       And I click on the button labeled "Cancel" in the dialog box
-      And I click on the Data Resolution Workflow icon for the field labeled "Notes Box"
+      And I click on the Comment icon for the field labeled "Notes Box"
       Then I should see a table header and row containing the following values in a table:
             | Date / Time      | User       | Comments and Details       | 
             | mm/dd/yyyy hh:mm | test_admin | Action:Verified data value |
@@ -87,20 +87,20 @@ Feature: D.106.100 Data Resolution Workflow
       And I click on the link labeled "D.106.100"
       And I click on the link labeled "Record Status Dashboard"
       And I click on the bubble for the "Data Types" data collection instrument for record ID "1" 
-      And I click on the Data Resolution Workflow icon for the field labeled "Text Box"
+      And I click on the Comment icon for the field labeled "Text Box"
       Then I should see a table header and row containing the following values in a table:
             | Date / Time      | User       | Comments and Details                   | 
             | mm/dd/yyyy hh:mm | test_admin | Action: Opened query Comment:"Query 1" |
       Then I should see "Reply with response"
       Then I should NOT see "Close the query"
       And I click on the button labeled "Cancel" in the dialog box
-      Given I click on the Data Resolution Workflow icon for the field labeled "Name"
+      Given I click on the Comment icon for the field labeled "Name"
       Then I should NOT see "Open query"
       And I should NOT see "Verified data value"
       And I should see "Awaiting action by user with sufficient user privileges"
       #There is no 'Close' button, but an 'x' icon and its label is 'Close'. There is no other step to match
       And I click on the button labeled "Close" in the dialog box
-      And I click on the Data Resolution Workflow icon for the field labeled "Notes Box"
+      And I click on the Comment icon for the field labeled "Notes Box"
       Then I should see a table header and row containing the following values in a table:
             | Date / Time      | User       | Comments and Details       | 
             | mm/dd/yyyy hh:mm | test_admin | Action:Verified data value |
@@ -116,7 +116,7 @@ Feature: D.106.100 Data Resolution Workflow
       And I click on the link labeled "D.106.100"
       And I click on the link labeled "Record Status Dashboard"
       And I click on the bubble for the "Data Types" data collection instrument for record ID "1" 
-      And I click on the Data Resolution Workflow icon for the field labeled "Text Box"
+      And I click on the Comment icon for the field labeled "Text Box"
       Then I should see a table header and row containing the following values in a table:
             | Date / Time      | User       | Comments and Details                   | 
             | mm/dd/yyyy hh:mm | test_admin | Action: Opened query Comment:"Query 1" |
@@ -125,11 +125,11 @@ Feature: D.106.100 Data Resolution Workflow
       And I should see "Awaiting action by user with sufficient user privileges"
       And I click on the button labeled "Close" in the dialog box
       #There is no 'Close' button, but an 'x' icon and its label is 'Close'. There is no other step to match
-      And I click on the Data Resolution Workflow icon for the field labeled "Name"
+      And I click on the Comment icon for the field labeled "Name"
       Then I should see "Open query"
       And I should see "Verified data value"
       And I click on the button labeled "Cancel" in the dialog box
-      And I click on the Data Resolution Workflow icon for the field labeled "Notes Box"
+      And I click on the Comment icon for the field labeled "Notes Box"
       Then I should see a table header and row containing the following values in a table:
             | Date / Time      | User       | Comments and Details       | 
             | mm/dd/yyyy hh:mm | test_admin | Action:Verified data value |
@@ -143,18 +143,18 @@ Feature: D.106.100 Data Resolution Workflow
       And I click on the link labeled "D.106.100"
       And I click on the link labeled "Record Status Dashboard"
       And I click on the bubble for the "Data Types" data collection instrument for record ID "1" 
-      And I click on the Data Resolution Workflow icon for the field labeled "Text Box"
+      And I click on the Comment icon for the field labeled "Text Box"
       Then I should see a table header and row containing the following values in a table:
             | Date / Time      | User       | Comments and Details                   | 
             | mm/dd/yyyy hh:mm | test_admin | Action: Opened query Comment:"Query 1" |
       Then I should NOT see "Close the query"
       And I should see "Reply with response:"
       And I click on the button labeled "Cancel" in the dialog box
-      And I click on the Data Resolution Workflow icon for the field labeled "Name"
+      And I click on the Comment icon for the field labeled "Name"
       Then I should see "Open query"
       And I should see "Verified data value"
       And I click on the button labeled "Cancel" in the dialog box
-      And I click on the Data Resolution Workflow icon for the field labeled "Notes Box"
+      And I click on the Comment icon for the field labeled "Notes Box"
       Then I should see a table header and row containing the following values in a table:
             | Date / Time      | User       | Comments and Details       | 
             | mm/dd/yyyy hh:mm | test_admin | Action:Verified data value |
@@ -199,7 +199,7 @@ Feature: D.106.100 Data Resolution Workflow
       And  I click on the bubble for the "Data Types" data collection instrument for record ID "1"
       #The below step shows a new query cannot be opened and cannot verify data value
       Then I should NOT see "Data Resolution Workflow" icon for the field labeled "Name"
-      Given I click on the Data Resolution Workflow icon for the field labeled "Text Box"
+      Given I click on the Comment icon for the field labeled "Text Box"
       Then I should see a table header and row containing the following values in a table:
             | Date / Time      | User       | Comments and Details                   | 
             | mm/dd/yyyy hh:mm | test_admin | Action: Opened query Comment:"Query 1" |
@@ -208,7 +208,7 @@ Feature: D.106.100 Data Resolution Workflow
       And I should see "Awaiting action by user with sufficient user privileges"
       #There is no 'Close' button, but an 'x' icon and its label is 'Close'. There is no other step to match
       And I click on the button labeled "Close" in the dialog box
-      Given I click on the Data Resolution Workflow icon for the field labeled "Notes Box"
+      Given I click on the Comment icon for the field labeled "Notes Box"
       Then I should see a table header and row containing the following values in a table:
             | Date / Time      | User       | Comments and Details       | 
             | mm/dd/yyyy hh:mm | test_admin | Action:Verified data value |
