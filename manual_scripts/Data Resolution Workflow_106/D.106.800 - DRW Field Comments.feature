@@ -150,4 +150,17 @@ Feature: D.106.800 Data Resolution Workflow
       Given I enter "Comments" into the field with the placeholder text of "Keyword search"
       And I click on the button labeled "Apply filters"
       Then I should see "[Returned no results]"
+
+      #VERIFY_LOG
+      Given I click on the link labeled "Logging"
+      Then I should see a table header and rows containing the following values in the logging table:
+            | Time / Date      | Username   | Action        | List of Data Changes OR Fields Exported                                                                 |
+            | mm/dd/yyyy hh:mm | test_user2 | Manage/Design | Add field comment (Record: 2, Event: Event 1 (Arm 1: Arm 1), Field: email_v2, Comment: "Comment 5")     |
+            | mm/dd/yyyy hh:mm | test_user2 | Manage/Design | Add field comment (Record: 1, Event: Event 1 (Arm 1: Arm 1), Field: email_v2, Comment: "Comment 4")     |
+            | mm/dd/yyyy hh:mm | test_user2 | Manage/Design | Add field comment (Record: 1, Event: Event 1 (Arm 1: Arm 1), Field: ptname_v2_v2, Comment: "Comment 3") |
+            | mm/dd/yyyy hh:mm | test_user1 | Manage/Design | Delete field comment (Record: 1, Field: ptname_v2_v2, Comment: "Comment 10")                            |
+            | mm/dd/yyyy hh:mm | test_user1 | Manage/Design | Add field comment (Record: 1, Event: Event 1 (Arm 1: Arm 1), Field: ptname_v2_v2, Comment: "Comment 2") |
+            | mm/dd/yyyy hh:mm | test_user1 | Manage/Design | Edit field comment (Record: 1, Field: ptname_v2_v2, Comment: "Comment 10")                              |
+            | mm/dd/yyyy hh:mm | test_user1 | Manage/Design | Add field comment (Record: 1, Event: Event 1 (Arm 1: Arm 1), Field: ptname_v2_v2, Comment: "Comment 1") |
+
       And I logout
