@@ -118,22 +118,23 @@ Feature: D.106.800 Data Resolution Workflow
       And I click on the link labeled "My Projects"
       # And I click on the link labeled "D.106.800"
       When I click on the link labeled "Field Comment Log"
-      When I select the option "1" from the dropdown field with the placeholder text of "All records"
+      When I select the option "1" from the dropdown field Record of Field Comment Log
       And I click on the button labeled "Apply filters"
       Then I should see a table header and row containing the following values in a table:
             | Record                   | Field        | Comments                                                                               |
             | 1 Event 1 (Arm 1: Arm 1) | email_v2     | Test_User2 (mm/dd/yyyy hh:mm):: "Comment 4"                                            |
             | 1 Event 1 (Arm 1: Arm 1) | ptname_v2_v2 | Test_User1 (mm/dd/yyyy hh:mm): "Comment 2" Test_User2 (mm/dd/yyyy hh:mm):: "Comment 3" |
 
-      When I select the option "ptname_v2_v2" from the dropdown field with the placeholder text of 'All fields'
+      
+      When I select the option "ptname_v2_v2" from the dropdown field Field of Field Comment Log
       And I click on the button labeled "Apply filters"
       Then I should see a table header and row containing the following values in a table:
             | Record                   | Field        | Comments                                                                               |
             | 1 Event 1 (Arm 1: Arm 1) | ptname_v2_v2 | Test_User1 (mm/dd/yyyy hh:mm): "Comment 2" Test_User2 (mm/dd/yyyy hh:mm):: "Comment 3" |
 
-      When I select the option "All records" from the dropdown field with the placeholder text of "All records"
-      And I select the option "All fields" from the dropdown field with the placeholder text of 'All fields'
-      And I select the option "test_user2" from the dropdown field with the placeholder text of 'All users'
+      When I select the option "All records" from the dropdown field Record of Field Comment Log
+      And I select the option "All fields" from the dropdown field Field of Field Comment Log
+      And I select the option "test_user2" from the dropdown field User of Field Comment Log
       And I click on the button labeled "Apply filters"
       Then I should see a table header and row containing the following values in a table:
             | Record                   | Field        | Comments                                                           |
