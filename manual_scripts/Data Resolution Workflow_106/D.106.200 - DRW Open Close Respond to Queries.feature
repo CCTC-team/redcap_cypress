@@ -158,6 +158,7 @@ Feature: D.106.200 Data Resolution Workflow
             | mm/dd/yyyy hh:mm | test_user2 | Manage/Design| Upload document for data query response (Record: 1, Event: Event 1 (Arm 1: Arm 1), Field: email_v2)                                                     |
             | mm/dd/yyyy hh:mm | test_user1 | Manage/Design| Open data query (Record: 1, Event: Event 1 (Arm 1: Arm 1), Field: email_v2, Comment: "Query 1")                                                         |
       
+      #D.106.300 - Filtering
       When I click on the link labeled "Resolve Issues"
       When I select the option "All status types(2)" from the dropdown field Status of Data Resolution Dashboard 
       Then I should see a table header and row containing the following values in a table:
