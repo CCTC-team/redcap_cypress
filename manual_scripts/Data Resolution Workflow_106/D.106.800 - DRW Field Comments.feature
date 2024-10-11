@@ -113,7 +113,7 @@ Feature: D.106.800 Data Resolution Workflow
       And I click on the button labeled "Comment"
       # And I logout
 
-      #ACTION: Verify filtering
+      #ACTION: D.106.900 - Verify filtering
       # Given I login to REDCap with the user "Test_User1"
       And I click on the link labeled "My Projects"
       # And I click on the link labeled "D.106.800"
