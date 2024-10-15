@@ -5,9 +5,7 @@ Feature: Two Factor Authentication: The system shall support enabling/disabling 
     I want to see that Two Factor Authentication is functioning as expected
 
     Scenario: D.101.100 Enabling/Disabling of Two-Factor Authentication
-
-        #SETUP
-        Given I login to REDCap with the user "Test_User" 
+        Given I login to REDCap with the user "Test_User1" 
         Then I should see "Welcome to REDCap"
         And I logout
 
@@ -16,61 +14,60 @@ Feature: Two Factor Authentication: The system shall support enabling/disabling 
         And I click on the link labeled "Security & Authentication"
         Then I should see "Security & Authentication Configuration"
         And I should see the dropdown field labeled "Two-Factor Authentication" with the option "Disabled" selected 
-        And I select "Enabled" on the dropdown field labeled "Two-Factor Authentication"
         And I should see the dropdown field labeled "Enforce two-factor authentication ONLY for Table-based users?" with the option "No, enforce on all users (Table-based and non-Table-based)" selected
-        And I should see the dropdown field labeled "Authentication interval: Trust a device's two-factor login for X days?" with the option "1" selected
+        And I select "Enabled" on the dropdown field labeled "Two-Factor Authentication"
+        And I enter "1" into the input field labeled "Authentication interval: Trust a device's two-factor login for X days?"
         Then I click on the button labeled "Save Changes"
         And I should see "Your system configuration values have now been changed!"
         And I logout
 
-        
-        
-    Scenario: D.101.200 Wrong Authentication Code and Two-Factor Authentication for user login
-        #FUNCTIONAL_REQUIREMENT
-        ##ACTION: Wrong Authentication Code
-        Given I login to REDCap with the user "Test_User" 
+    Scenario: D.101.200 Login using Two-Factor Authentication
+        # Enter incorrect REDCap Authentication Code
+        Given I login to REDCap with the user "Test_User1"
+        Then I should see "Two-step verification for REDCap login" in the dialog box
+        And I should see a checkbox labeled "Don't prompt me with two-step login on this computer for 24 hours" that is unchecked
         When I click on the radio labeled "Email: Send an email containing your verification code to your email account." in the dialog box
-        And I should see "Enter your verification code"
-        And I enter "125593" into the input field labeled "Enter the verification code that you obtained from Email"
-        Then I should see "Sorry, but you did not enter a valid verification code. Please try again."
-        And I click on the button labeled "Close"
+        And I should see "Enter your verification code" in the dialog box
+        And I enter "125593" into the input field labeled "Email" in the dialog box
+        And I click on the button labeled "Submit" in the dialog box
+        Then I should see "Sorry, but you did not enter a valid verification code. Please try again." in the dialog box
+        And I click on the button labeled "Close" in the dialog box
 
-        
-        ##ACTION: Using the Two-step Verification For REDCap login
-        Given I login to REDCap with the user "Test_User" 
-        Then I should see a checkbox labeled "Don't prompt me with two-step login on this computer for 24 hours" that is unchecked
-        And I click on the radio labeled "Email: Send an email containing your verification code to your email account." in the dialog box
-        Then I should see "Enter your verification code"
-
-        ##VERIFY: Sent email in MailHog 
+        # Copy and paste REDCap Verification code from MailHog
         Given I open Email
-        And I click on the link labeled "REDCap 2-step login"
+        And I click on the latest link labeled "REDCap 2-step login"
         Then I should see "REDCap Verification code"
-        #Copy the code and Paste
-        And I click on the button labeled "Submit"
-        Then I should see "Success"
+        And I copy REDCap Verification code
+
+        Given I return to REDCap
+        Then I should see "Enter your verification code" in the dialog box
+        And I enter REDCap Verification code into the input field labeled "Email" in the dialog box
+        And I click on the button labeled "Submit" in the dialog box
+        Then I should see "SUCCESS" in the dialog box
+        And I should see "Welcome to REDCap"
+        And I logout
+        
+        Given I login to REDCap with the user "Test_User1"
+        Then I should see "Two-step verification for REDCap login" in the dialog box
+        Then I check the checkbox labeled "Don't prompt me with two-step login on this computer for 24 hours" in the dialog box
+        And I click on the radio labeled "Email: Send an email containing your verification code to your email account." in the dialog box
+        And I should see "Enter your verification code"
+
+        # Copy and paste REDCap Verification code from MailHog
+        Given I open Email
+        And I click on the latest link labeled "REDCap 2-step login"
+        Then I should see "REDCap Verification code"
+        And I copy REDCap Verification code
+
+        Given I return to REDCap
+        Then I should see "Enter your verification code" in the dialog box
+        And I enter REDCap Verification code into the input field labeled "Email" in the dialog box
+        And I click on the button labeled "Submit" in the dialog box
+        Then I should see "SUCCESS" in the dialog box
         And I should see "Welcome to REDCap"
         And I logout
 
-        
-        Given I login to REDCap with the user "Test_User" 
-        And I check the checkbox labeled "Don't prompt me with two-step login on this computer for 24 hours"
-        Then I click on the radio labeled "Email: Send an email containing your verification code to your email account." in the dialog box
-        And I should see "Enter your verification code"
-
-        ##VERIFY: Sent email in MailHog 
-        Given I open Email
-        And I click on the link labeled "REDCap 2-step login"
-        Then I should see "REDCap Verification code"
-        #Copy the code and Paste
-        Then I click on the button labeled "Submit"
-        And I should see "Success"
-        And I should see "My Projects page"
-        And I logout
-
-        Given I login to REDCap with the user "Test_User" 
         #No verification code asked
+        Given I login to REDCap with the user "Test_User1"
+        Then I should see "Welcome to REDCap"
         And I logout
-
-        
-        
