@@ -159,6 +159,7 @@ Feature: D.106.800 Data Resolution Workflow
             | mm/dd/yyyy hh:mm | test_user2 | Manage/Design | Add field comment (Record: 2, Event: Event 1 (Arm 1: Arm 1), Field: email_v2, Comment: "Comment 5")     |
             | mm/dd/yyyy hh:mm | test_user2 | Manage/Design | Add field comment (Record: 1, Event: Event 1 (Arm 1: Arm 1), Field: email_v2, Comment: "Comment 4")     |
             | mm/dd/yyyy hh:mm | test_user2 | Manage/Design | Add field comment (Record: 1, Event: Event 1 (Arm 1: Arm 1), Field: ptname_v2_v2, Comment: "Comment 3") |
+            | mm/dd/yyyy hh:mm | test_user1 | Manage/Design | Make project customizations                                                                             |
             | mm/dd/yyyy hh:mm | test_user1 | Manage/Design | Delete field comment (Record: 1, Field: ptname_v2_v2, Comment: "Comment 10")                            |
             | mm/dd/yyyy hh:mm | test_user1 | Manage/Design | Add field comment (Record: 1, Event: Event 1 (Arm 1: Arm 1), Field: ptname_v2_v2, Comment: "Comment 2") |
             | mm/dd/yyyy hh:mm | test_user1 | Manage/Design | Edit field comment (Record: 1, Field: ptname_v2_v2, Comment: "Comment 10")                              |
