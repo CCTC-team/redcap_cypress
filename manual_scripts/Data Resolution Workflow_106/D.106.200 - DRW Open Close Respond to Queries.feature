@@ -147,16 +147,17 @@ Feature: D.106.200 Data Resolution Workflow
       ##VERIFY_LOG
       Given I click on the link labeled "Logging"
       Then I should see a table header and row containing the following values in a table:
-            | Date / Time      | Username   | Action       | List of Data Changes OR Fields Exported                                                                                                                 |
-            | mm/dd/yyyy hh:mm | test_user1 | Manage/Design| Open data query (Record: 2, Event: Event 1 (Arm 1: Arm 1), Field: ptname, Comment: "Query 2")                                                           |
-            | mm/dd/yyyy hh:mm | test_user1 | Manage/Design| Close data query (Record: 1, Event: Event 1 (Arm 1: Arm 1), Field: email_v2, Comment: "Closed")                                                         |
-            | mm/dd/yyyy hh:mm | test_user1 | Manage/Design| Open data query (Record: 1, Event: Event 1 (Arm 1: Arm 1), Field: email_v2, Comment: "Reopen the closed query")                                         |
-            | mm/dd/yyyy hh:mm | test_user1 | Manage/Design| Close data query (Record: 1, Event: Event 1 (Arm 1: Arm 1), Field: email_v2, Comment: "Closed")                                                         |
-            | mm/dd/yyyy hh:mm | test_user2 | Manage/Design| Send data query back for further attention (Record: 1, Event: Event 1 (Arm 1: Arm 1), Field: email_v2, Comment: "Please clarify")                       |
-            | mm/dd/yyyy hh:mm | test_user2 | Manage/Design| Download uploaded document for data query response (Record: 1, Event: Event 1 (Arm 1: Arm 1), Field: email_v2)                                          |
-            | mm/dd/yyyy hh:mm | test_user2 | Manage/Design| Respond to data query (Record: 1, Event: Event 1 (Arm 1: Arm 1), Field: email_v2, Comment: "The value is correct - B.3.16.600_DataImport.csv uploaded") |
-            | mm/dd/yyyy hh:mm | test_user2 | Manage/Design| Upload document for data query response (Record: 1, Event: Event 1 (Arm 1: Arm 1), Field: email_v2)                                                     |
-            | mm/dd/yyyy hh:mm | test_user1 | Manage/Design| Open data query (Record: 1, Event: Event 1 (Arm 1: Arm 1), Field: email_v2, Comment: "Query 1")                                                         |
+            | Date / Time      | Username   | Action        | List of Data Changes OR Fields Exported                                                                                                                 |
+            | mm/dd/yyyy hh:mm | test_user1 | Manage/Design | Open data query (Record: 2, Event: Event 1 (Arm 1: Arm 1), Field: ptname, Comment: "Query 2")                                                           |
+            | mm/dd/yyyy hh:mm | test_user1 | Manage/Design | Close data query (Record: 1, Event: Event 1 (Arm 1: Arm 1), Field: email_v2, Comment: "Closed")                                                         |
+            | mm/dd/yyyy hh:mm | test_user1 | Manage/Design | Open data query (Record: 1, Event: Event 1 (Arm 1: Arm 1), Field: email_v2, Comment: "Reopen the closed query")                                         |
+            | mm/dd/yyyy hh:mm | test_user1 | Manage/Design | Close data query (Record: 1, Event: Event 1 (Arm 1: Arm 1), Field: email_v2, Comment: "Closed")                                                         |
+            | mm/dd/yyyy hh:mm | test_user2 | Manage/Design | Send data query back for further attention (Record: 1, Event: Event 1 (Arm 1: Arm 1), Field: email_v2, Comment: "Please clarify")                       |
+            | mm/dd/yyyy hh:mm | test_user2 | Manage/Design | Download uploaded document for data query response (Record: 1, Event: Event 1 (Arm 1: Arm 1), Field: email_v2)                                          |
+            | mm/dd/yyyy hh:mm | test_user2 | Manage/Design | Respond to data query (Record: 1, Event: Event 1 (Arm 1: Arm 1), Field: email_v2, Comment: "The value is correct - B.3.16.600_DataImport.csv uploaded") |
+            | mm/dd/yyyy hh:mm | test_user2 | Manage/Design | Upload document for data query response (Record: 1, Event: Event 1 (Arm 1: Arm 1), Field: email_v2)                                                     |
+            | mm/dd/yyyy hh:mm | test_user1 | Manage/Design | Open data query (Record: 1, Event: Event 1 (Arm 1: Arm 1), Field: email_v2, Comment: "Query 1")                                                         |
+            | mm/dd/yyyy hh:mm | test_user1 | Manage/Design | Make project customizations                                                                                                                             |
       
       #D.106.300 - Filtering
       When I click on the link labeled "Resolve Issues"
