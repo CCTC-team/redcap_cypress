@@ -3,7 +3,7 @@ Feature: D.117.100  File Version History for File Upload fields
   As a REDCap end user
   I want to see that File Version History for File Upload fields is functioning as expected
 
-  Scenario: 
+  Scenario: D.117.100 - File Version History Enabled
     Given I login to REDCap with the user "Test_User1"
     And I create a new project named "D.117.100" by clicking on "New Project" in the menu bar, selecting "Practice / Just for fun" from the dropdown, choosing file "redcap_val_fixtures/cdisc_files/Project_redcap_val.xml", and clicking the "Create Project" button
     And I click on the button labeled "Additional Customizations"
@@ -29,7 +29,7 @@ Feature: D.117.100  File Version History for File Upload fields
     
     And I click on the button labeled "Close" in the dialog box
     
-    # upload new version of file
+  Scenario: D.117.200 - Upload new version of file
     Given I click on the link labeled "Upload new version"
     And I upload a "csv" format file located at "import_files/B3161200100_ACCURATE.csv", by clicking the button near "File Upload" to browse for the file, and clicking the button labeled "Upload file" to upload the file
     Then I should see a link labeled "B3161200100_ACCURATE.csv (0.01 MB)"
@@ -37,6 +37,7 @@ Feature: D.117.100  File Version History for File Upload fields
     When I download a file by clicking on the link labeled "B3161200100_ACCURATE.csv (0.01 MB)"
     Then I should see a downloaded file named "B3161200100_ACCURATE.csv"
 
+    # D.117.300
     Given I click on the Data History icon for the field labeled "File Upload"
     Then I should see 'Data History for variable "file_upload" for record "2"'
     And I should see a table header and rows containing the following values in a table:
@@ -50,6 +51,7 @@ Feature: D.117.100  File Version History for File Upload fields
     And I should see a downloaded file named "B3161200100_ACCURATE (1).csv"
     And I click on the button labeled "Close" in the dialog box
 
+  Scenario: D.117.400 - Download only current version of file during download of zip file
     Given I click on the link labeled "Record Status Dashboard"
     And I click on the link labeled exactly "2"
     And I click on the button labeled "Choose action for record"
@@ -117,6 +119,7 @@ Feature: D.117.100  File Version History for File Upload fields
     
     And I click on the button labeled "Close" in the dialog box
 
+    # Disable File Version History
     Given I click on the link labeled "Project Setup"
     When I click on the button labeled "Additional customizations"
     Then I uncheck the checkbox labeled "Enable the File Version History for 'File Upload' fields?"
@@ -140,6 +143,7 @@ Feature: D.117.100  File Version History for File Upload fields
     Then I should see a link labeled "file1.csv (0.01 MB)"
     And I select the submit option labeled "Save & Stay" on the Data Collection Instrument
 
+    # Verify file version is not saved
     Given I click on the Data History icon for the field labeled "File Upload"
     When I should see 'Data History for variable "file_upload" for record "4"'
     Then I should see a table header and rows containing the following values in a table:
