@@ -4,7 +4,7 @@ Feature: D.115.500  Download PDF of Instruments
   I want to be able to download a PDF of instruments
 
   Scenario: The system shall support the ability to download the data entry form from within an instrument (instrument contains Record ID)
-     Given I click on the link labeled "Record Status Dashboard"
+   Given I click on the link labeled "Record Status Dashboard"
    And I click on the link labeled "1"
    And I select "Download PDF of record data for all instruments/events" on the dropdown field labeled "Choose action for record"
    And I should see a downloaded file named "D115100_YYYY-MM-DD_TTTT.pdf"

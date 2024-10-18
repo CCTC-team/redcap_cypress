@@ -1,18 +1,10 @@
-Feature: D.115.700  Download PDF of Instruments
+    Feature: D.115.700  Download PDF of Instruments
 
   As a REDCap end user
   I want to be able to download a PDF of instruments
 
-  Scenario: The system shall support the ability to download ZIP file of all uploaded documents
-  Given I click on the link labeled "Record Status Dashboard"
-    And I select "Download ZIP file of all uploaded documents" on the dropdown field labeled "Choose action for record"
-    And I should see a downloaded file named "Files_D115100_2024-10-11_1226.zip"
-    And I open the downloaded zip folder?
-    When I unzip the folder 
-    # sorry i couldnt find the correct one for the above but there probably is one for that.
-    Then I verify the folder has the correct contents 
-    #The document folder contains 2 files for record ID 1 (arm 1) - event 2 and event three 
-  
+  Scenario: The system shall support the ability to download a PDF of data collection instruments containing saved data
+    
     Given I click on the link labeled "Record Status Dashboard"
     When I locate the bubble for the "Text Validation" instrument on event "Event 1" for record ID "1" and click on the bubble
     And I enter "Dave" into the input field labeled "Name"
