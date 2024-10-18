@@ -10,32 +10,27 @@ Scenario: D.113.100 Assign missing codes to blank fields
 Given I login to REDCap with the user "Test_Admin" 
 And I create a new project named "D.113.100" by clicking on "New Project" in the menu bar, selecting "Practice / Just for fun" from the dropdown, choosing file "Project_redcap_val.xml", and clicking the "Create Project" button
 
-#ACTION: Enable Missing Data Codes
+#ACTION: Add Missing Code
 Given I click on the link labeled "Project Setup"
 And I click on the button labeled "Additional customizations"
-And I click on the button labeled "ADD" for the row labeled "INV" 
-And I click on the button labeled "ADD" for the row labeled "UNK" 
+And I click on the button labeled "Add" for the row labeled "INV" 
+And I click on the button labeled "Add" for the row labeled "UNK" 
+Then I should see "INV, Invalid UNK, Unknown" in the data entry form field "Missing Data Codes" 
 Then I click on the button labeled "Save"
 Then I should see "Sucess! Your changes have been saved!"
 
-
-#ACTION: Import data 
-Given I click on the link labeled "Data Import Tool"
-And I upload a "csv" format file located at "cypress\fixtures\redcap_val_fixtures\import_files\D.106.100_Data_Import.csv", by clicking the button near "Choose file" to browse for the file, and clicking the button labeled "Upload File" to upload the file
-And I should see "Your document was uploaded successfully and is ready for review."
-And I click on the button labeled "Import Data"
-Then I should see "Import Successful! 15 records were created or modified during the import."
-
-#ACTION: Add missing codes
+#ACTION: Mark field as Missing
 Given I click on the link labeled "Record Status Dashboard"
 And I click on the bubble for the "Text Validation" data collection instrument for record ID "1" 
-And I click on the "Missing codes" icon for the field labeled "Name"
+And I click on the Missing Code icon for the field labeled "Name"
 And I click on the button labeled "Unknown (UNK)"
-And I click on the "Missing codes" icon for the field labeled "Email"
+Then I should see the field labeled "Name" with missing code "Unknown (UNK)"
+And I click on the Missing Code icon for the field labeled "Email"
 And I click on the button labeled "Invalid (INV)"
+Then I should see the field labeled "Email" with missing code "Invalid (INV)"
 And I click on the button labeled "Save & Exit Form"
 
-#ACTION: Verify access codes on report
+#ACTION: Verify Missing Codes in report
 Given I click on the link labeled "Data Exports, Reports, and Stats"
 Then I should see "All data (all records and fields)"
 When I click on the button labeled "View Report" for the report named "All data (all records and fields)"
@@ -43,14 +38,13 @@ Then I should see a table header and row containing the following values in a ta
       | Record ID | Event Name             | Name          | Email         |
       | 1         | Event 1 (Arm 1: Arm 1) | Unknown (UNK) | Invalid (INV) |
 
-#ACTION: Download CSV
+#ACTION: Verify Missing Codes in CSV Download
 Given I click on the button labeled "Export Data"
 And I click on the radio labeled "CSV / Microsoft Excel (raw data)" in the dialog box
 And I click on the button labeled "Export Data"
-And I click on the download icon to receive the file for the "csv" format in the dialog box
-And I click on the button labeled "Close"
-# Verify the downloded csv has the correct missing codes for 'Name' and 'Email' fields
-Then the downloaded CSV with filename "D.113.100_DATA_yyyy-mm-dd_hhmm" should have a value "UNK" for column "ptname_v2_v2" 
-And the downloaded CSV with filename "D.113.100_DATA_yyyy-mm-dd_hhmm" should have a value "INV" for column "email_v2" 
+Then I should see a dialog containing the following text: "Data export was successful!"
+And I click on the download icon to receive the file for the "CSV / Microsoft Excel (raw data)" format in the dialog box
+Then the downloaded CSV with filename "D113100_DATA_yyyy-mm-dd_hhmm" should have a value "UNK" for column "ptname_v2_v2" 
+And the downloaded CSV with filename "D113100_DATA_yyyy-mm-dd_hhmm" should have a value "INV" for column "email_v2" 
+And I click on the button labeled "Close" in the dialog box
 And I logout
-
