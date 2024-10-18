@@ -15,8 +15,8 @@ Feature: D.115.100 - The system shall support the ability to download the PDF of
     And I click on the link labeled "Project Setup"
     When I download a file by clicking on the link labeled "Download PDF of all instruments"
     Then I should see the following values in the downloaded PDF "D.115.100"
-      | Text Validation                                                 |
-      | Record ID                                                       |
+      | Text Validation                               D.115.100         |
+      | Record ID                             Record ID 1 (Event 1)     |
       | Name                                                            |
       | Email                                                           |
       | Data Types                                                      |
