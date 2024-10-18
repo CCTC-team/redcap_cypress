@@ -15,31 +15,31 @@ Feature: D.115.100 - The system shall support the ability to download the PDF of
     And I click on the link labeled "Project Setup"
     When I download a file by clicking on the link labeled "Download PDF of all instruments"
     Then I should see the following values in the downloaded PDF "D.115.100"
-      | Text Validation                  |                               |
-      | Record ID                        |                               |
-      | Name                             |                               |
-      | Email                            |                               |
-      | Data Types                       |                               |
-      | Name                             |                               |
-      | Text2                            |                               |
-      | Text Box                         |                               |
-      | Notes Box                        |                               |
-      | Calculated Field                 |                               |
-      | Multiple Choice Dropdown Auto    | DDChoice1 DDChoice2 DDChoice3 |
-      | Multiple Choice Dropdown Manual  | DDChoice5 DDChoice6 DDChoice7 |
-      | Radio Button Auto                | Choice1 Choice2 Choice.3      |
-      | Radio Button Manual              | Choice99 Choice100 Choice101  |
-      | Checkbox                         | Checkbox Checkbox2 Checkbox3  |
-      | Signature                        |                               |
-      | File Upload                      |                               |
-      | Descriptive Text with File       |                               |
-      | [Attachment: "7_image_v913.jpg"] |                               |
-      | Required                         |                               |
-      | Identifier                       |                               |
-      | Identifier                       |                               |
-      | Edit Field                       |                               |
-      | Section Break                    |                               |
-      | Descriptive Text                 |                               |
+      | Text Validation                                                 |
+      | Record ID                                                       |
+      | Name                                                            |
+      | Email                                                           |
+      | Data Types                                                      |
+      | Name                                                            |
+      | Text2                                                           |
+      | Text Box                                                        |
+      | Notes Box                                                       |
+      | Calculated Field                                                |
+      | Multiple Choice Dropdown Auto     DDChoice1 DDChoice2 DDChoice3 |
+      | Multiple Choice Dropdown Manual   DDChoice5 DDChoice6 DDChoice7 |
+      | Radio Button Auto                 Choice1 Choice2 Choice.3      |
+      | Radio Button Manual               Choice99 Choice100 Choice101  |
+      | Checkbox                          Checkbox Checkbox2 Checkbox3  |
+      | Signature                                                       |
+      | File Upload                                                     |
+      | Descriptive Text with File                                      |
+      | [Attachment: "7_image_v913.jpg"]                                |
+      | Required                                                        |
+      | Identifier                                                      |
+      | Identifier                                                      |
+      | Edit Field                                                      |
+      | Section Break                                                   |
+      | Descriptive Text                                                |
 
     #VERIFY_LOG
     Given I click on the link labeled "Logging"
