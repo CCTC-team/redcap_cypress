@@ -44,4 +44,11 @@ Feature: D.113.100 - The system shall support the ability to assign missing code
             Then the downloaded CSV with filename "D113100_DATA_yyyy-mm-dd_hhmm" should have a value "UNK" for column "ptname_v2_v2" 
             And the downloaded CSV with filename "D113100_DATA_yyyy-mm-dd_hhmm" should have a value "INV" for column "email_v2" 
             And I click on the button labeled "Close" in the dialog box
+
+            #VERIFY_LOG
+            Given I click on the link labeled "Logging"
+            Then I should see a table header and row containing the following values in the logging table:
+            | Date / Time      | Username   | Action        | List of Data Changes OR Fields Exported |
+            | mm/dd/yyyy hh:mm | test_admin | Manage/Design | Make project customizations             |
+      
             And I logout
