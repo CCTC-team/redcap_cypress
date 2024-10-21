@@ -36,13 +36,13 @@ Feature: D.115.500  Download PDF of Instruments
     #VERIFY_LOG
     Given I click on the link labeled "Logging"
     Then I should see a table header and rows containing the following values in the logging table:
-      | Time / Date      | Username   | Action                        | List of Data Changes OR Fields Exported |
-      | mm/dd/yyyy hh:mm | test_user1 | Manage/Design                 | Download data entry form as PDF         |
-      | mm/dd/yyyy hh:mm | test_user1 | PDF Export with data Record 1 | Download all data entry forms as PDF    |
-      | mm/dd/yyyy hh:mm | test_user1 | PDF Export with data Record 1 | Download all data entry forms as PDF    |
-      | mm/dd/yyyy hh:mm | test_user1 | Manage/Design                 | Make project customizations             |
-      | mm/dd/yyyy hh:mm | test_user1 | PDF Export with data Record 1 | Download all data entry forms as PDF    |
-      | mm/dd/yyyy hh:mm | test_user1 | PDF Export with data Record 1 | Download all data entry forms as PDF    |
-      | mm/dd/yyyy hh:mm | test_user1 | Manage/Design                 | Make project customizations             |
-      | mm/dd/yyyy hh:mm | test_user1 | PDF Export with data Record 1 | Download all data entry forms as PDF    |
-      | mm/dd/yyyy hh:mm | test_user1 | Manage/Design                 | Make project customizations             |
+      | Time / Date      | Username   | Action                        | List of Data Changes OR Fields Exported          |
+      | mm/dd/yyyy hh:mm | test_user1 | Manage/Design                 | Download data entry form as PDF                  |
+      | mm/dd/yyyy hh:mm | test_user1 | PDF Export with data Record 1 | Download all data entry forms as PDF (with data) |
+      | mm/dd/yyyy hh:mm | test_user1 | PDF Export with data Record 1 | Download all data entry forms as PDF (with data) |
+      | mm/dd/yyyy hh:mm | test_user1 | Manage/Design                 | Make project customizations                      |
+      | mm/dd/yyyy hh:mm | test_user1 | PDF Export with data Record 1 | Download all data entry forms as PDF (with data) |
+      | mm/dd/yyyy hh:mm | test_user1 | PDF Export with data Record 1 | Download all data entry forms as PDF (with data) |
+      | mm/dd/yyyy hh:mm | test_user1 | Manage/Design                 | Make project customizations                      |
+      | mm/dd/yyyy hh:mm | test_user1 | PDF Export with data Record 1 | Download all data entry forms as PDF (with data) |
+      | mm/dd/yyyy hh:mm | test_user1 | Manage/Design                 | Make project customizations                      |
