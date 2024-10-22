@@ -30,7 +30,6 @@ Feature: D.113.400 - The system shall support the ability to specify a reason wh
         Given I click on the link labeled "Record Status Dashboard"
         And I click on the bubble for the "Data Types" data collection instrument for record ID "1" 
         When I click on the History icon for the field labeled "Name"
-        # Bug - Should be Reason 1
         Then I should see a table header and row containing the following values in a table:
             | Date / Time of Change | User       | Data Changes Made | Reason for Data Change(s) | 
             | mm/dd/yyyy hh:mm      | test_admin | Lily Brown        | Reason 2                  |
@@ -48,22 +47,22 @@ Feature: D.113.400 - The system shall support the ability to specify a reason wh
         And I clear field and enter "John@email.com" into the data entry form field labeled "Email" 
         And I click on the button labeled "Save & Stay"
         Then I should see "Please supply reason for data changes" in the dialog box 
-        And I enter "Test reason for changes" into the textarea field labeled "change_reason" on the dialog box
-        And I click on the button labeled "Save Changes"
+        And I enter "Test reason for changes" into the textarea field labeled "Reason for changes:" in the dialog box
+        And I click on the button labeled "Save" in the dialog box
 
         #ACTION: Verify reason for change history
-        And I click on the History icon for the field labeled "Name"
+        When I click on the History icon for the field labeled "Name"
         Then I should see a table header and row containing the following values in a table:
-            | Date / Time of Change |      User      | Data Changes Made    | Reason for Data Change(s) | 
-            | mm/dd/yyyy hh:mm      | test_admin     | Tony Stone           | Reason 2                  |
-            | mm/dd/yyyy hh:mm      | test_admin     |  John                | Test reason for changes   |
+            | Date / Time of Change | User       | Data Changes Made | Reason for Data Change(s) | 
+            | mm/dd/yyyy hh:mm      | test_admin | Tony Stone        | Reason 2                  |
+            | mm/dd/yyyy hh:mm      | test_admin |  John             | Test reason for changes   |
         
         And I click on the button labeled "Close"
         Given I click on the History icon for the field labeled "Email"
         Then I should see a table header and row containing the following values in a table:
-            | Date / Time of Change |      User      | Data Changes Made      | Reason for Data Change(s) | 
-            | mm/dd/yyyy hh:mm      | test_admin     | tonystone@example.com  | Reason 2                  |
-            | mm/dd/yyyy hh:mm      | test_admin     |  John@email.com        | Test reason for changes   |
+            | Date / Time of Change | User       | Data Changes Made     | Reason for Data Change(s) | 
+            | mm/dd/yyyy hh:mm      | test_admin | tonystone@example.com | Reason 2                  |
+            | mm/dd/yyyy hh:mm      | test_admin | John@email.com        | Test reason for changes   |
         
         And I click on the button labeled "Close"
 
