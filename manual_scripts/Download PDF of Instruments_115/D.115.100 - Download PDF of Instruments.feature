@@ -6,7 +6,8 @@ Feature: D.115.100 - The system shall support the ability to download the PDF of
   Scenario: D.115.100 - Download PDF of Instruments
     Given I login to REDCap with the user "Test_User1"
     Then I create a new project named "D.115.100" by clicking on "New Project" in the menu bar, selecting "Practice / Just for fun" from the dropdown, choosing file "Project_redcap_val_.xml", and clicking the "Create Project" button
-   
+
+    #VERIFY
     And I click on the link labeled "Designer"
     And I click on the instrument labeled "Text Validation"
     And I click on the Edit image for the field named "Email"
@@ -55,6 +56,7 @@ Feature: D.115.100 - The system shall support the ability to download the PDF of
     And I delete the field named "Required" 
     And I delete the field named "Descriptive Text with File" 
 
+    #VERIFY
     Given I click on the link labeled "Project Setup"
     When I download a file by clicking on the link labeled "Download PDF of all instruments"
     Then I should NOT see the following values in the downloaded PDF "D115100 (1)"
