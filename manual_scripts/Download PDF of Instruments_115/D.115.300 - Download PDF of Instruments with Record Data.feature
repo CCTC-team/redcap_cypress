@@ -3,7 +3,7 @@ Feature: D.115.300 - The system shall support the ability to download the PDF of
   As a REDCap end user
   I want to see that download PDF of record data of all instruments/events is working as expected
 
-  Scenario: The system shall support the ability to download the PDF of record data of all instruments/events 
+  Scenario: Download PDF of record data of all instruments/events 
     Given I login to REDCap with the user "Test_User1"
     Then I create a new project named "D.115.300" by clicking on "New Project" in the menu bar, selecting "Practice / Just for fun" from the dropdown, choosing file "Project_redcap_val_.xml", and clicking the "Create Project" button
 
