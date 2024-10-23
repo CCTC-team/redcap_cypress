@@ -3,7 +3,7 @@ Feature: D.115.200 - The system shall support additional customization of PDF of
   As a REDCap end user
   I want to see that additional customization of PDF of instruments is working as expected
 
-  Scenario: The system shall support additional customization of PDF of instruments
+  Scenario: Additional customization of PDF of instruments
     Given I login to REDCap with the user "Test_User1"
     Then I create a new project named "D.115.200" by clicking on "New Project" in the menu bar, selecting "Practice / Just for fun" from the dropdown, choosing file "Project_redcap_val_.xml", and clicking the "Create Project" button
     And I click on the link labeled "Project Setup"
