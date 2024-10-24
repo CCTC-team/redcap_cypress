@@ -35,7 +35,7 @@ Feature: D.5.22.300 - The system shall support the ability to limit fields inclu
     | 5         | Event 1 (Arm 1: Arm 1) | Data Types        | 1               | 6                | Yash Tank      | Choice100 (100)     |                        |
     
     Given I click on the link labeled "Record Status Dashboard"
-    And I locate the bubble for the "Data Types" instrument on event "Event 2" for record ID "1" and click on the bubble
+    And I locate the bubble for the "Data Types" instrument on event "Event 1" for record ID "1" and click on the bubble
     When I enter "50" into the input field labeled "Required"
     Then I select the submit option labeled "Save & Exit Form" on the Data Collection Instrument
 
@@ -150,3 +150,83 @@ Feature: D.5.22.300 - The system shall support the ability to limit fields inclu
     When I click on the button labeled "Save Report"
     And I click on the button labeled "View report" in the dialog box
     Then I should see "No results were returned"
+
+    Given I click on the link labeled "Project Setup"
+    When I click on the button labeled "Designate Instruments for My Events"
+    And I click on the tab labeled "Arm 1"
+    And I click on the button labeled "Begin Editing"
+    And I enable the Data Collection Instrument named "Data Types" for the Event named "Event 2"
+    Then I click on the button labeled "Save" on the Designate Instruments for My Events page
+
+    Given I click on the link labeled "Record Status Dashboard"
+    When I locate the bubble for the "Data Types" instrument on event "Event 2" for record ID "1" and click on the bubble
+    And I enter "Ryan Test" into the input field labeled "Name"
+    And I enter "9" into the input field labeled "Required"
+    And I select the radio option "Choice101" for the field labeled "Radio Button Manual"
+    And I select "DDchoice5" on the dropdown field labeled "Multiple Choice Dropdown Manual"
+    Then I select the submit option labeled "Save & Exit Form" on the Data Collection Instrument
+
+    Given I click on the link labeled "Data Exports, Reports, and Stats"
+    And I click on the button labeled "Create New Report"
+    When I enter 'Test Report 2' into the input field labeled "Name of Report:" 
+    And I enter 'calculated_field "Calculated Field"' into the input field labeled "Field 2" 
+    And I enter 'ptname "Name"' into the input field labeled "Field 3" 
+    And I enter 'radio_button_manual "Radio Button Manual"' into the input field labeled "Field 4" 
+    And I enter 'multiple_dropdown_manual "Multiple Choice Dropdown Manual"' into the input field labeled "Field 5" 
+    And I enter 'required "Required"' into the input field labeled "Field 6" 
+    And I select "Event 2 (Arm 1: Arm 1)" on the multiselect field labeled "Filter by event(s):"
+    And I click on the button labeled "Save Report"
+    And I click on the button labeled "View report" in the dialog box
+    Then I should see a table header and rows containing the following values in the browse users table:
+    | Record ID | Event Name             | Repeat Instrument | Repeat Instance | Calculated Field | Name           | Radio Button Manual | Multiple Choice Dropdown Manual | Required |
+    | 1         | Event 2 (Arm 1: Arm 1) |                   | 1               | 6                |                | Choice101 (101)     | DDChoice5 (5)                   | 9        |
+
+    Given I click on the link labeled "Data Exports, Reports, and Stats"
+    And I click on the button labeled "Create New Report"
+    When I enter 'Test Report 3' into the input field labeled "Name of Report:" 
+    And I enter 'calculated_field "Calculated Field"' into the input field labeled "Field 2" 
+    And I enter 'ptname "Name"' into the input field labeled "Field 3" 
+    And I enter 'radio_button_manual "Radio Button Manual"' into the input field labeled "Field 4" 
+    And I enter 'multiple_dropdown_manual "Multiple Choice Dropdown Manual"' into the input field labeled "Field 5" 
+    And I enter 'required "Required"' into the input field labeled "Field 6" 
+    And I select 'record_id "Record ID"' on the dropdown field labeled "Filter 1"
+    And I select the operator "=" for filter "1"
+    And I enter the value "1" for filter "1"
+    And I uncheck the checkbox labeled "Include the repeating instance fields (redcap_repeat_instrument, redcap_repeat_instance) in the report and data export?"
+    And I click on the button labeled "Save Report"
+    And I click on the button labeled "View report" in the dialog box
+    Then I should see a table header and rows containing the following values in the browse users table:
+    | Record ID | Event Name             | Calculated Field | Name           | Radio Button Manual | Multiple Choice Dropdown Manual | Required |
+    | 1         | Event 1 (Arm 1: Arm 1) | 6                | Lily Brown     |                     |                                 |          |
+    | 1         | Event 1 (Arm 1: Arm 1) | 6                |                | Choice99(9..9)      | DDChoice5 (5)                   | 50       |
+    | 1         | Event 2 (Arm 1: Arm 1) | 6                |                | Choice101 (101)     | DDChoice5 (5)                   | 9        |
+
+
+# this is the start of the potentially pointless line break section 
+
+
+    Given I click on the link labeled "Record Status Dashboard"
+    And I locate the bubble for the "Data Types" instrument on event "Event 2" for record ID "1" and click on the bubble
+    When I enter "test then carriage return\r\nthen further test and then another carriage return\r\nand then some final text" into the input field labeled "Notes Box"
+    Then I select the submit option labeled "Save & Exit Form" on the Data Collection Instrument
+
+    Given I click on the link labeled "Data Exports, Reports, and Stats"
+    And I click on the button labeled "Create New Report"
+    When I enter 'Test Report 4' into the input field labeled "Name of Report:"
+    And I enter 'notesbox "Notes Box"' into the input field labeled "Field 2"
+    And I click on the button labeled "Save Report"
+    And I click on the button labeled "View report" in the dialog box
+    Then I select "Event 2 (Arm 1: Arm 1)" on the multiselect field labeled "Filter by event(s):"
+    | Record ID | Event Name             | Repeat Instrument | Repeat Instance | Notes Box                                                                                                   |
+    | 1         | Event 2 (Arm 1: Arm 1) |                   | 1               | test then carriage return\r\nthen further test and then another carriage return\r\nand then some final text |
+
+    Given I click on the button labeled "Edit Report"
+    When I uncheck the checkbox labeled "Checkbox3"
+    And I click on the button labeled "Save Report"
+    And I click on the button labeled "View report" in the dialog box
+    Then I select "Event 2 (Arm 1: Arm 1)" on the multiselect field labeled "Filter by event(s):"
+    | Record ID | Event Name             | Repeat Instrument | Repeat Instance | Notes Box                                                                                                   |
+    | 1         | Event 2 (Arm 1: Arm 1) |                   | 1               | test then carriage return\r\nthen further test and then another carriage return\r\nand then some final text |
+
+
+# need to speak to mintoo about if i need to check the csv exports here and therefore this whole carriage returns section 
