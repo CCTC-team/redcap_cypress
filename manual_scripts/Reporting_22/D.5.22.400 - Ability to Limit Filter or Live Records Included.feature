@@ -52,6 +52,58 @@ Feature: D.5.22.300 - The system shall support the ability to limit fields inclu
     | 1         | Event 1 (Arm 1: Arm 1) | Data Types        | 1               | 5        | 
     | 4         | Event 1 (Arm 1: Arm 1) | Data Types        | 1               | 50       |
     
+    Given I click on the link labeled "Data Exports, Reports, and Stats"
+    And I click on the button labeled "Create New Report"
+    And I enter 'Test Report 3' into the input field labeled "Name of Report:" 
+    And I enter 'calculated_field "Calculated Field"' into the input field labeled "Field 2" 
+    And I enter 'ptname "Name"' into the input field labeled "Field 3" 
+    And I enter 'radio_button_manual "Radio Button Manual"' into the input field labeled "Field 4" 
+    And I enter 'email_v2 "Email"' into the input field labeled "Field 5" 
+    And I enter 'required "Required"' into the input field labeled "Field 6" 
+    And I select 'radio_button_manual "Radio Button Manual"' on the dropdown field labeled "Live Filter 1"
+    And I select 'record_id "Record ID"' on the dropdown field labeled "Live Filter 2"
+    When I click on the button labeled "Save Report"
+    And I click on the button labeled "View report" in the dialog box
+    Then I should see a table header and rows containing the following values in the browse users table:
+    | Record ID | Event Name             | Repeat Instrument | Repeat Instance | Calculated Field | Name           | Radio Button Manual | Email                  | Required |
+    | 1         | Event 1 (Arm 1: Arm 1) |                   |                 |                  |                |                     | tonystone@example.com  |          |        
+    | 1         | Event 1 (Arm 1: Arm 1) | Data Types        | 1               | 6                | Lily Brown     | Choice99 (9..9)     |                        | 50       |
+    | 2         | Event 1 (Arm 1: Arm 1) |                   |                 |                  |                |                     | dannysmith@example.com |          |
+    | 2         | Event 1 (Arm 1: Arm 1) | Data Types        | 1               | 6                | Fred Gatefield | Choice101 (101)     |                        | 2        |
+    | 3         | Event 1 (Arm 1: Arm 1) |                   |                 |                  |                |                     |                        |          |
+    | 3         | Event 1 (Arm 1: Arm 1) | Data Types        | 1               | 6                | Thomas Pipe    | Choice100 (100)     |                        | 3        |
+    | 4         | Event 1 (Arm 1: Arm 1) |                   |                 |                  |                |                     | johndoe@example.com    |          |
+    | 4         | Event 1 (Arm 1: Arm 1) | Data Types        | 1               | 6                | Shy Green      | Choice99 (9..9)     |                        | 4        |
+    | 5         | Event 1 (Arm 1: Arm 1) |                   |                 |                  |                |                     | paulmoore@example.com  |          |
+    | 5         | Event 1 (Arm 1: Arm 1) | Data Types        | 1               | 6                | Yash Tank      | Choice100 (100)     |                        | 5        |
+    When I select 'Choice99' on the dropdown field labeled "[ Radio Button Manual ]"
+    #above step is incorrect because it is not labelled, it will need to say something like 'containing....' 
+    Then I should see a table header and rows containing the following values in the browse users table:
+    | Record ID | Event Name             | Repeat Instrument | Repeat Instance | Calculated Field | Name           | Radio Button Manual | Email                  | Required |       
+    | 1         | Event 1 (Arm 1: Arm 1) | Data Types        | 1               | 6                | Lily Brown     | Choice99 (9..9)     |                        | 50       |
+    | 4         | Event 1 (Arm 1: Arm 1) | Data Types        | 1               | 6                | Shy Green      | Choice99 (9..9)     |                        | 4        |
+    When I select '1' on the dropdown field labeled "[ Record ID ]"
+    #above step is incorrect because it is not labelled, it will need to say something like 'containing....' 
+    Then I should see a table header and rows containing the following values in the browse users table:
+    | Record ID | Event Name             | Repeat Instrument | Repeat Instance | Calculated Field | Name           | Radio Button Manual | Email                  | Required |       
+    | 1         | Event 1 (Arm 1: Arm 1) | Data Types        | 1               | 6                | Lily Brown     | Choice99 (9..9)     |                        | 50       |
+    
+    Given I click on the link labeled "Reset"
+    Then I should see a table header and rows containing the following values in the browse users table:
+    | Record ID | Event Name             | Repeat Instrument | Repeat Instance | Calculated Field | Name           | Radio Button Manual | Email                  | Required |
+    | 1         | Event 1 (Arm 1: Arm 1) |                   |                 |                  |                |                     | tonystone@example.com  |          |        
+    | 1         | Event 1 (Arm 1: Arm 1) | Data Types        | 1               | 6                | Lily Brown     | Choice99 (9..9)     |                        | 50       |
+    | 2         | Event 1 (Arm 1: Arm 1) |                   |                 |                  |                |                     | dannysmith@example.com |          |
+    | 2         | Event 1 (Arm 1: Arm 1) | Data Types        | 1               | 6                | Fred Gatefield | Choice101 (101)     |                        | 2        |
+    | 3         | Event 1 (Arm 1: Arm 1) |                   |                 |                  |                |                     |                        |          |
+    | 3         | Event 1 (Arm 1: Arm 1) | Data Types        | 1               | 6                | Thomas Pipe    | Choice100 (100)     |                        | 3        |
+    | 4         | Event 1 (Arm 1: Arm 1) |                   |                 |                  |                |                     | johndoe@example.com    |          |
+    | 4         | Event 1 (Arm 1: Arm 1) | Data Types        | 1               | 6                | Shy Green      | Choice99 (9..9)     |                        | 4        |
+    | 5         | Event 1 (Arm 1: Arm 1) |                   |                 |                  |                |                     | paulmoore@example.com  |          |
+    | 5         | Event 1 (Arm 1: Arm 1) | Data Types        | 1               | 6                | Yash Tank      | Choice100 (100)     |                        | 5        |
+    
+    
+
 
     #done order by, need to check the live filters now 
 
