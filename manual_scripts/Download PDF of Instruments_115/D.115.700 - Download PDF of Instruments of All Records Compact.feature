@@ -24,7 +24,7 @@ Feature: D.115.700 - The system shall support the ability to download the PDF of
      Given I click on the link labeled "Data Exports, Reports, and Stats"
     And I click on the tab labeled "Other Export Options"
     And I click on the image "Compact PDF" to download "PDF of data collection instruments containing saved data (all records)"
-    Then I should see the following values in the downloaded PDF "D115600_yyyy-mm-dd_hhmm.pdf"
+    Then I should see the following values in the downloaded PDF "D115700_yyyy-mm-dd_hhmm.pdf"
       |                                               D.115.700         |
       |                                       Record ID 1 (Event 1)     |
       | Text Validation                                                 |
@@ -42,6 +42,24 @@ Feature: D.115.700 - The system shall support the ability to download the PDF of
       | Text Validation                                                 |
       | Record ID                            2                          |
       | Name                                 Paul                       |
+
+    And I should NOT see the following values in the downloaded PDF "D115700_yyyy-mm-dd_hhmm.pdf"
+      | Name                                                            |
+      | Text2                                                           |
+      | Text Box                                                        |
+      | Notes Box                                                       |
+      | Multiple Choice Dropdown Auto     DDChoice1 DDChoice2 DDChoice3 |
+      | Multiple Choice Dropdown Manual   DDChoice5 DDChoice6 DDChoice7 |
+      | Radio Button Auto                 Choice1 Choice2 Choice.3      |
+      | Radio Button Manual               Choice99 Choice100 Choice101  |
+      | Checkbox                          Checkbox Checkbox2 Checkbox3  |
+      | Signature                                                       |
+      | File Upload                                                     |
+      | Required                                                        |
+      | Identifier                                                      |
+      | Identifier                                                      |
+      | Edit Field                                                      |
+      | Email                                                           |
 
     #VERIFY_LOG
     Given I click on the link labeled "Logging"
