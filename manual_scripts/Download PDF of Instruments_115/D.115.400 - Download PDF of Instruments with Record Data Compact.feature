@@ -49,6 +49,28 @@ Feature: D.115.400 - The system shall support the ability to download the PDF of
       | Record ID                            1                          |
       | Name                                 Joe                        |
 
+    #Checking for Email thrice doesn't work as expected in ATS as it might just check the first Email row for all 3
+    And I should NOT see the following values in the downloaded PDF "D.115.400_yyyy-mm-dd_hhmm.pdf"
+      | Name                                                            |
+      | Email                                                           |
+      | Email                                                           |
+      | Name                                                            |
+      | Text2                                                           |
+      | Text Box                                                        |
+      | Notes Box                                                       |
+      | Multiple Choice Dropdown Auto     DDChoice1 DDChoice2 DDChoice3 |
+      | Multiple Choice Dropdown Manual   DDChoice5 DDChoice6 DDChoice7 |
+      | Radio Button Auto                 Choice1 Choice2 Choice.3      |
+      | Radio Button Manual               Choice99 Choice100 Choice101  |
+      | Checkbox                          Checkbox Checkbox2 Checkbox3  |
+      | Signature                                                       |
+      | File Upload                                                     |
+      | Required                                                        |
+      | Identifier                                                      |
+      | Identifier                                                      |
+      | Edit Field                                                      |
+      | Email                                                           |
+
     #VERIFY_LOG
     Given I click on the link labeled "Logging"
     Then I should see a table header and rows containing the following values in the logging table:
