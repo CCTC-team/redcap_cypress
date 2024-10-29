@@ -55,12 +55,18 @@ Feature: D.121.100 - Control Center: The system shall support the option to conf
         And I click on the link labeled "PDF Survey Archive"
         And I download the PDF by clicking on the link for Record "1" and Survey "Participant Consent (Event 1 (Arm 1: Arm 1))" in the File Repository table
         Then I should see the following values in the downloaded PDF for Record "1" and Survey "Participant Consent (Event 1 (Arm 1: Arm 1))"
-            | First Name               | FirstName      |
-            | Last Name                | LastName       |
-            | Email                    | email@test.edu |
-            | DOB                      | yyyy-mm-dd     |
-            | Participant's Name Typed | MyName         |
+            | First Name                  | FirstName      |
+            | Last Name                   | LastName       |
+            | Email                       | email@test.edu |
+            | DOB                         | yyyy-mm-dd     |
+            | Participant's Name Typed    | MyName         |
+            | Participant signature field |                |
 
-##VERIFY_PDF Snapshot Specific File Location
-#M REDCap Administrators may need to work with their Azure Administrator to get a screenshot that the PDF file exists
-#END
+        ##VERIFY_PDF at Specific File Location
+        And I should see the following values in the PDF at the local storage
+            | First Name                  | FirstName      |
+            | Last Name                   | LastName       |
+            | Email                       | email@test.edu |
+            | DOB                         | yyyy-mm-dd     |
+            | Participant's Name Typed    | MyName         |
+            | Participant signature field |                |
