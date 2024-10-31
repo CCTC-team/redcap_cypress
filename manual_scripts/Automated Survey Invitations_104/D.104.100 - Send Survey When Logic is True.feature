@@ -46,7 +46,7 @@ Feature: D.104.100 - The system shall support the ability to send a survey when 
     And I select the first radio option labeled "Send every"
     And I select 'Day' on the dropdown field labeled "at time"
     And I enter "12:00" into the input field labeled "H:M"
-    And I click on the button labe "Done"
+    And I click on the button labeled "Done"
     And I select "Send only once" on the dropdown field labeled "Recurrence:"
     When I click on the button labeled "Save"
     Then I should see "Settings for automated invitations were successfully saved!"
@@ -75,6 +75,32 @@ Feature: D.104.100 - The system shall support the ability to send a survey when 
     | dd/mm/yyyy hh:mm     | [mail_open_document] | joe@abc.com       | 1      |                        | Survey Event 1 | [link]      | [stop_gray] |                 |
     | dd/mm/yyyy hh:mm     | [mail_open_document] | joe@abc.com       | 1      |                        | Survey Event 1 | [link]      | [stop_gray] |                 |
 
-    
+    Given I verify in mail hog the emails have been sent 
+    #(above for steps 12 and 13 in the word doc). 
 
-# got to step 12 
+    Given I wait for 5 minutes
+    And I click on the link labeled "Survey Distribution Tools"
+    When I click on the tab labeled "Survey Invitation Log"
+    Then I should see a table header and rows containing the following values in the administrators table:
+    | Invitation send time | View Invite          | Participant Email | Record | Participant Identifier | Survey         | Survey Link | Responded?  | Errors (if any) |
+    | dd/mm/yyyy hh:mm     | [mail_open_document] | joe@abc.com       | 1      |                        | Survey Event 1 | [link]      | [stop_gray] |                 |
+    When I click on the button labeled "View past invitations"
+    Then I should see a table header and rows containing the following values in the administrators table:
+    | Invitation send time | View Invite          | Participant Email | Record | Participant Identifier | Survey         | Survey Link | Responded?  | Errors (if any) |
+    | dd/mm/yyyy hh:mm     | [mail_open_document] | joe@abc.com       | 1      |                        | Survey Event 1 | [link]      | [stop_gray] |                 |
+    | dd/mm/yyyy hh:mm     | [mail_open_document] | joe@abc.com       | 1      |                        | Survey Event 1 | [link]      | [stop_gray] |                 |
+
+    
+    Given I wait for 5 minutes
+    And I click on the link labeled "Survey Distribution Tools"
+    And I click on the tab labeled "Survey Invitation Log"
+    When I click on the button labeled "View past invitations"
+    Then I should see a table header and rows containing the following values in the administrators table:
+    | Invitation send time | View Invite          | Participant Email | Record | Participant Identifier | Survey         | Survey Link | Responded?  | Errors (if any) |
+    | dd/mm/yyyy hh:mm     | [mail_open_document] | joe@abc.com       | 1      |                        | Survey Event 1 | [link]      | [stop_gray] |                 |
+    | dd/mm/yyyy hh:mm     | [mail_open_document] | joe@abc.com       | 1      |                        | Survey Event 1 | [link]      | [stop_gray] |                 |
+    | dd/mm/yyyy hh:mm     | [mail_open_document] | joe@abc.com       | 1      |                        | Survey Event 1 | [link]      | [stop_gray] |                 |
+
+
+    #in mailhog i neede to perform some actions which im not sure how to do
+    # i have reached the start of step 17 
