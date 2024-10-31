@@ -6,272 +6,224 @@ Feature: Alerts and Notifications: The system shall support sending emails when 
 
     Scenario: D.102.100 Send emails when a record is saved on a specific form/survey.
         #SETUP
-        Given I login to REDCap with the user "Test_user"   
+        Given I login to REDCap with the user "Test_user1"   
         And I create a new project named "D.102.100" by clicking on "New Project" in the menu bar, selecting "Practice / Just for fun" from the dropdown, choosing file "Project_redcap_val.xml", and clicking the "Create Project" button
 
         #FUNCTIONAL_REQUIREMENT
         ##ACTION: New Alert
-        Given I click on the link labeled "Alerts & Notifications"
-        When I click on the button labeled "Add New Alert"
-        Then I enter "Email Alert" into the input field labeled "Title of this alert"
-        And I select "“Data Types (Event 1 (Arm 1: Arm 1))" on the dropdown field labeled "Trigger the alert..."
-        And I should see "is saved with any form status"
+        When I click on the link labeled "Alerts & Notifications"
+        And I click on the button labeled "Add New Alert"
+        And I enter "Email Alert" into the input field labeled "Title of this alert"
+        And I should see the radio field labeled "How will this alert be triggered?" with the option "When a record is saved on a specific form/survey*" selected 
+        And I select "Data Types (Event 1 (Arm 1: Arm 1))" on the dropdown field for alert form name
+        And I should see the dropdown field for alert form status with the option "is saved with any form status" selected 
+         And I should see the radio field labeled "When to send the alert?" with the option "Send immediately" selected 
+        And I should see the radio field labeled "Send it how many times?" with the option "Just once" selected  
+        And I should see the radio field labeled "Alert Type:" with the option "Email" selected
         And I select "[event_1_arm_1][email_v2] “Email(Event 1 (Arm 1: Arm 1))" on the dropdown field labeled "Email To"
         And I enter "Testing Alerts and Notifications" into the input field labeled "Subject"
         And I enter "Alerts and Notifications" into the input field labeled "Message"
-        And I click on the button labeled "Save" in the dialog box
-        And I should see "Success! New alert created"
+        When I click on the button labeled "Save" in the dialog box
+        Then I should see "Success! New alert created"
         And I should see "Alert #1:Email Alert"
-        And I should see "When the instrument Data Types (Event 1 (Arm 1: Arm 1)) is saved with any form status."
+        And I should see "When the instrument Data Types (Event 1 (Arm 1: Arm 1)) is saved and has any form status."
 
-        And I click on the link labeled "Add / Edit Records"
-        And I click on the button labeled "+ Add new record for the arm selected above"
-        And I click on the instrument labeled "Text Validation"
-        And I enter "test_user2@example.com" into the input field labeled "Email"
+        Given I click on the link labeled "Add / Edit Records"
+        And I click on the button labeled "Add new record for the arm selected above"
+        And  I click on the bubble for the "Text Validation" data collection instrument for event "Event 1" 
+        And I enter "test_user2@example.com" into the data entry form field labeled "Email"
         And I click on the button labeled "Save & Exit Form"
-        And I should see "Record ID 1 successfully edited"
-        And I click on the instrument labeled "Data Types"
-        And I enter "Lily Brown" into the input field labeled "Name"
-        And I enter "2" into the input field labeled "Required"
+        Then I should see "Record ID 2 successfully added."
+        And  I click on the bubble for the "Data Types" data collection instrument for event "Event 1" 
+        And I enter "Lily Brown" into the data entry form field labeled "Name"
         And I click on the button labeled "Save & Exit Form"
-        And I should see "Record ID 1 successfully edited"
+        And I should see "Record ID 2 successfully edited."
 
         ##VERIFY: Sent email in MailHog 
         Given I open Email
         When I click on the link labeled "Testing Alerts and Notifications"
-        Then I should see "From	test_user@example.com"
+        Then I should see "From	Test_User1@test.edu"
         And I should see "To test_user2@example.com"
         And I should see "Alerts and Notifications"
 
-        Given I click on the link labeled "Alerts & Notifications"
+        Given I return to REDCap
+        And I click on the link labeled "Alerts & Notifications"
         When I click on the link labeled "Notification Log"
         And I click on the button labeled "View past notifications"
-        And I should see a table header and rows containing the following values in the a table:
-            |  Notification send time|  Alert  |   View Notification   |   Record                     |  Recipient             | Subject                         | 
-            |  MM/DD/YYYY HH:MM      |  #1(A-5)|     ""                | 1(#) - Event 1 (Arm 1: Arm 1)| test_user2@example.com | Testing Alerts and Notifications|
+        Then I should see a table header and rows containing the following values in the a table:
+            | Notification send time | Alert    | View Notification | Record                          | Recipient              | Subject                          | 
+            | mm/dd/yyyy hh:mm       | #1 (A-1) | [email icon]      | 2 (#1) - Event 1 (Arm 1: Arm 1) | test_user2@example.com | Testing Alerts and Notifications |
+
+        Given I click on the mail icon for record "2"
+        Then I should see "Test_User1@test.edu" in the dialog box
+        And I should see "test_user2@example.com" in the dialog box
+        And I should see "Testing Alerts and Notifications" in the dialog box
+        And I should see "Alerts and Notifications" in the dialog box
+        And I click on the button labeled "Close" in the dialog box
 
     Scenario: D.102.200 Send emails when a record is saved on a specific form/survey with Complete Status Only.
-        Given I click on the link labeled "Alerts & Notifications"
-        When I click on the link labeled "Edit"
-        And I should see "Title of this alert: Email Alert"
-        And I should see the dropdown field labeled "Trigger the alert... when" with the option "Data Types (Event 1 (Arm 1: Arm 1))" selected
-        And I select "is saved with Complete status only" on the dropdown field labeled "Trigger the alert..when"
-        And I should see "Email From: test_user@example,com"
-        And I should see "Email To: [event_1_arm_1][email_v2] “Email(Event 1 (Arm 1: Arm 1))"
-        And I should see "Subject Testing Alerts and Notifications" 
-        And I should see "Message: Alerts and Notifications"
+        Given I click on the tab labeled "My Alerts"
+        When I click on the link labeled "Edit" for alert "1"
+        Then I should see "Edit Alert #1"
+        And I select "is saved with Complete status only" on the dropdown field for alert form status
+        And I clear field and enter "Editing Alerts and Notifications" into the input field labeled "Subject"
         And I click on the button labeled "Save" in the dialog box
-        And I should see "Success! Alert was updated"
+        Then I should see "Success! The alert was updated"
         And I should see "Alert #1:Email Alert"
         And I should see "When the instrument Data Types (Event 1 (Arm 1: Arm 1)) is saved and has a Complete status."
 
         And I click on the link labeled "Add / Edit Records"
-        And I click on the button labeled "+ Add new record for the arm selected above"
-        And I should see "NEW Record ID 2"
-        And I click on the instrument labeled "Text Validation" 
+        And I click on the button labeled "Add new record for the arm selected above"
+        And I should see "NEW Record ID 3"
+        And  I click on the bubble for the "Text Validation" data collection instrument for event "Event 1" 
         And I enter "test_user3@example.com" into the input field labeled "Email"
         And I click on the button labeled "Save & Exit Form"
-        And I should see "Record ID 2 successfully added"
-        And I click on the instrument labeled "Data Types"
+        And I should see "Record ID 3 successfully added"
+        And  I click on the bubble for the "Data Types" data collection instrument for event "Event 1" 
         And I enter "Thomas Stone" into the input field labeled "Name"
-        And I enter "3" into the input field labeled "Required"
         And I click on the button labeled "Save & Exit Form" 
-        And I should see "Record ID 2 successfully edited" 
+        Then I should see "Record ID 3 successfully edited" 
 
         ##VERIFY: Sent email in MailHog 
         Given I open Email
-        Then I should NOT see "an email sent to test_user3@example.com"
+        Then I should NOT see a link labeled "Editing Alerts and Notifications"
 
-        Given I click on the link labeled "Alerts & Notifications"
-        When I click on the link labeled "Notification Log"
+        Given I return to REDCap
+        And I click on the link labeled "Alerts & Notifications"
+        When I click on the tab labeled "Notification Log"
         And I click on the button labeled "View past notifications"
-        And I should NOT see "The email notification sent for Record: 2"
+        And I should NOT see a link labeled "3"
 
-        And I click on the link labeled "Record Status Dashboard"
-        And I click on the instrument labeled "Data Types for Record ID 2" 
+        Given I click on the link labeled "Record Status Dashboard"
+        And I locate the bubble for the "Data Types" instrument on event "Event 1" for record ID "3" and click on the bubble
         And I select "Complete" on the dropdown field labeled "Complete?"  
         And I click on the button labeled "Save & Exit Form"
+        Then I should see "Record ID 3 successfully edited" 
 
         Given I click on the link labeled "Alerts & Notifications"
-        When I click on the link labeled "Notification Log"
+        When I click on the tab labeled "Notification Log"
         And I click on the button labeled "View past notifications"
-        And I should see a table header and rows containing the following values in the a table:
-            |  Notification send time|  Alert  |   View Notification   |   Record                     |  Recipient             | Subject                         | 
-            |  MM/DD/YYYY HH:MM      |  #1(A-5)|      ""               | 1(#) - Event 1 (Arm 1: Arm 1)| test_user2@example.com | Testing Alerts and Notifications|
-            |  MM/DD/YYYY HH:MM      |  #1(A-5)|      ""               | 2(#) - Event 1 (Arm 1: Arm 1)| test_user3@example.com | Testing Alerts and Notifications|
+        Then I should see a table header and rows containing the following values in the a table:
+            | Notification send time | Alert    | View Notification | Record                          | Recipient              | Subject                          | 
+            | mm/dd/yyyy hh:mm       | #1 (A-1) | [email icon]      | 2 (#1) - Event 1 (Arm 1: Arm 1) | test_user2@example.com | Testing Alerts and Notifications |
+            | mm/dd/yyyy hh:mm       | #1 (A-1) | [email icon]      | 3 (#1) - Event 1 (Arm 1: Arm 1) | test_user3@example.com | Editing Alerts and Notifications |
 
        ##VERIFY: Sent email in MailHog 
         Given I open Email
-        When I click on the link labeled "Testing Alerts and Notifications"
-        Then I should see "From	test_user@example.com"
+        When I click on the link labeled "Editing Alerts and Notifications"
+        Then I should see "From	Test_User1@example.com"
         And I should see "To test_user3@example.com"
         And I should see "Alerts and Notifications"
-
-    Scenario: D.102.300 Send emails If conditional logic is TRUE when a record is saved on a specific form/survey.
-        Given I click on the link labeled "Designer"
-        And I click on the instrument labeled "Data Types"
-        And I click on the button labeled "edit icon" for the row labeled "Text Box"
-        And I click on the input element labeled "Action Tags / Field Annotation (optional)"
-        And I enter "@CALCTEXT(if([ptname] != '', 'Pass', 'Fail'))" into the textarea field labeled "Logic Editor" 
-        And I click on the button labeled "Update & Close Editor"
-        And I click on the button labeled "Save"
-        And I click on the link labeled "Alerts & Notifications"
-        And I click on the link labeled "Edit icon"
-        And I select the radio option "If conditional logic is TRUE when a record is saved on a specific form/survey*" for the field labeled "How will this alert be triggered?"
-        And I should see the dropdown field labeled "Trigger the alert... when" with the option "Data Types (Event 1 (Arm 1: Arm 1))" selected
-        And I should see the dropdown field labeled "Email To" with the option "[event_1_arm_1][email_v2] “Email(Event 1 (Arm 1: Arm 1))" selected
-        And I select "is saved with any form status" on the dropdown field labeled "Trigger the alert..when"
-        And I click on the input element labeled "while the following logic is true:"
-        And I enter "[textbox]='Pass'" into the textarea field labeled "Logic Editor" 
-        And I click on the button labeled "Update & Close Editor"
-        And I check the checkbox labeled "Ensure logic is still true before sending notification?"
-        And I click on the button labeled "Save"
-        And I should see "Success! The alert was updated"
-        And I should see "If the following logic is TRUE when the instrument Data Types (Event 1 (Arm 1: Arm 1)) is saved and has any form status: [textbox]='Pass'"
-        And I click on the link labeled "Add / Edit Records"
-        And I click on the button labeled "+ Add new record for the arm selected above"
-        And I should see "NEW Record ID 3"
-        And I click on the instrument labeled "Text Validation"
-        And I enter "test_user4@example.com" into the input field labeled "Email"
-        And I click on the button labeled "Save & Exit Form"
-        And I should see "Record ID 3 successfully added"
-        And I click on the instrument labeled "Data Types"
-        And I should see "Fail" in the data entry form field "Text Box"
-        And I enter "User4" into the input field labeled "Name"
-        And I should see "Pass" in the data entry form field "Text Box"
-        And I enter "4" into the input field labeled "Required"
-        And I click on the button labeled "Save & Exit Form"
-        And I should see "Record ID 3 successfully edited"
-
-       ##VERIFY: Sent email in MailHog 
-        Given I open Email
-        When I click on the link labeled "Testing Alerts and Notifications"
-        Then I should see "From	test_user@example.com"
-        And I should see "To test_user4@example.com"
-        And I should see "Alerts and Notifications"
-
-        Given I click on the link labeled "Alerts & Notifications"
-        When I click on the link labeled "Notification Log"
-        And I click on the button labeled "View past notifications"
-        And I should see a table header and rows containing the following values in the a table:
-            |  Notification send time|  Alert  |   View Notification   |   Record                     |  Recipient             | Subject                         | 
-            |  MM/DD/YYYY HH:MM      |  #1(A-5)|      ""               | 1(#) - Event 1 (Arm 1: Arm 1)| test_user2@example.com | Testing Alerts and Notifications|
-            |  MM/DD/YYYY HH:MM      |  #1(A-5)|      ""               | 2(#) - Event 1 (Arm 1: Arm 1)| test_user3@example.com | Testing Alerts and Notifications|
-            |  MM/DD/YYYY HH:MM      |  #1(A-5)|      ""               | 3(#) - Event 1 (Arm 1: Arm 1)| test_user4@example.com | Testing Alerts and Notifications|
-
-        And I click on the link labeled "Add / Edit Records"
-        And I click on the button labeled "+ Add new record for the arm selected above"
-        And I should see "NEW Record ID 4"
-        And I click on the instrument labeled "Text Validation"
-        And I enter "test_user5@example.com" into the input field labeled "Email"
-        And I click on the button labeled "Save & Exit Form"
-        And I should see "Record ID 4 successfully added"
-        And I click on the instrument labeled "Data Types"
-        And I should see "Fail" in the data entry form field "Text Box"
-        And I enter "5" into the input field labeled "Required"
-        And I click on the button labeled "Save & Exit Form"
-        And I should see "Record ID 4 successfully edited"
-
-       ##VERIFY: Sent email in MailHog 
-        Given I open Email
-        Then I should NOT see "an email sent to test_user5@example.com"
-
-        Given I click on the link labeled "Alerts & Notifications"
-        When I click on the link labeled "Notification Log"
-        And I click on the button labeled "View past notifications"
-        And I should NOT see "The email notification sent for Record: 4"
      
-
-    Scenario: D.102.400 Send emails When conditional logic is TRUE during a data import, data entry, or as the result of time-based logic.
+        ##ACTION: Copy alert
+        Given I return to REDCap
         Given I click on the link labeled "Alerts & Notifications"
-        When I click on the link labeled "Edit"
-        And I select the radio option "When conditional logic is TRUE during a data import, data entry, or as the result of time-based logic" for the field labeled "How will this alert be triggered?"
-        And I should see "[textbox]='Pass'" in the data entry form field "while the following logic is true:" 
-        And I should see a checkbox labeled "Ensure logic is still true before sending notification?" that is unchecked
-        And I click on the button labeled "Save"
-        And I should see "Success! The alert was updated"
-        And I click on the link labeled "Add / Edit Records"
-        And I click on the button labeled "+ Add new record for the arm selected above"
-        And I should see "NEW Record ID 5"
-        And I click on the instrument labeled "Text Validation"
-        And I enter "test_user6@example.com" into the input field labeled "Email"
-        And I click on the button labeled "Save & Exit Form"
-        And I should see "Record ID 5 successfully added"
-        And I click on the instrument labeled "Data Types"
-        And I should see "Fail" in the data entry form field "Text Box" 
-        And I enter "User6" into the input field labeled "Name"
-        And I should see "Pass" in the data entry form field "Text Box"
-        And I enter "6" into the input field labeled "Required"
-        And I click on the button labeled "Save & Exit Form"
-        And I should see "Record ID 5 successfully edited"
-
-      ##VERIFY: Sent email in MailHog 
-        Given I open Email
-        When I click on the link labeled "Testing Alerts and Notifications"
-        Then I should see "From	test_user@example.com"
-        And I should see "To test_user6@example.com"
-        And I should see "Alerts and Notifications"
-
-        Given I click on the link labeled "Alerts & Notifications"
-        When I click on the link labeled "Notification Log"
-        And I click on the button labeled "View past notifications"
-        And I should see a table header and rows containing the following values in the a table:
-            |  Notification send time|  Alert  |   View Notification   |   Record                     |  Recipient             | Subject                         | 
-            |  MM/DD/YYYY HH:MM      |  #1(A-5)|      ""               | 1(#) - Event 1 (Arm 1: Arm 1)| test_user2@example.com | Testing Alerts and Notifications|
-            |  MM/DD/YYYY HH:MM      |  #1(A-5)|      ""               | 2(#) - Event 1 (Arm 1: Arm 1)| test_user3@example.com | Testing Alerts and Notifications|
-            |  MM/DD/YYYY HH:MM      |  #1(A-5)|      ""               | 3(#) - Event 1 (Arm 1: Arm 1)| test_user4@example.com | Testing Alerts and Notifications|
-            |  MM/DD/YYYY HH:MM      |  #1(A-5)|      ""               | 4(#) - Event 1 (Arm 1: Arm 1)| test_user6@example.com | Testing Alerts and Notifications|
-        And I click on the link labeled "Add / Edit Records"
-        And I click on the button labeled "+ Add new record for the arm selected above"
-        And I should see "NEW Record ID 6"
-        And I click on the instrument labeled "Text Validation"
-        And I enter "test_user7@example.com" into the input field labeled "Email"
-        And I click on the button labeled "Save & Exit Form"
-        And I should see "Record ID 6 successfully added"
-        And I click on the instrument labeled "Data Types"
-        And I should see "Fail" in the data entry form field "Text Box" 
-        And I enter "7" into the input field labeled "Required"
-        And I click on the button labeled "Save & Exit Form"
-        And I should see "Record ID 6 successfully edited"
-        ##VERIFY: Sent email in MailHog 
-        Given I open Email
-        Then I should NOT see "an email sent to test_user7@example.com"
-
-        Given I click on the link labeled "Alerts & Notifications"
-        When I click on the link labeled "Notification Log"
-        And I click on the button labeled "View past notifications"
-        And I should NOT see "The email notification sent for Record: 6"
+        Then I should NOT see "Alert #2:Email Alert"
+        When I click on the link labeled "Options"
+        And I click on the link labeled "Copy alert"
+        Then I should see "Alert #2:Email Alert"
+        And I should see "When the instrument Data Types (Event 1 (Arm 1: Arm 1)) is saved and has a Complete status."
+        When I click on the link labeled "Edit" for alert "2"
+        Then I should see "Edit Alert #2"
+        And I should see the radio field labeled "How will this alert be triggered?" with the option "When a record is saved on a specific form/survey*" selected 
+        And I should see the dropdown field for alert form name with the option "Data Types (Event 1 (Arm 1: Arm 1))" selected 
+        And I should see the dropdown field for alert form status with the option "is saved with Complete status only" selected
+        And I should see the radio field labeled "When to send the alert?" with the option "Send immediately" selected 
+        And I should see the radio field labeled "Send it how many times?" with the option "Just once" selected  
+        And I should see the radio field labeled "Alert Type:" with the option "Email" selected
+        And I should see the dropdown field labeled "Email To" with the option "[event_1_arm_1][email_v2] “Email(Event 1 (Arm 1: Arm 1))" selected 
+        And I should see "Editing Alerts and Notifications" in the data entry form field "Subject"
+        And I should see "Alerts and Notifications" in the data entry form field "Message"
+        And I click on the button labeled "Cancel" in the dialog box
+        Then I should see "Alert #2:Email Alert"
 
         ##ACTION: Deactivate alert
-        Given I click on the link labeled "Alerts & Notifications"
-        When I click on the link labeled "Options"
-        And I should see "Are you sure you want to deactivate this Alert? It can be re-enabled later, if needed."
-        And I click on the button labeled "Deactivate"
-        And I should see "Success! The alert was deactivated"
-        And I should see "No matching records found"
+        When I click on the link labeled "Options" for alert "2"
+        And I click on the link labeled "Deactivate alert"
+        Then I should see "Are you sure you want to deactivate this Alert? It can be re-enabled later, if needed."
+        When I click on the button labeled "Deactivate" in the dialog box
+        Then I should see "Success! The alert was deactivated"
+        And I should NOT see "Alert #2:Email Alert"
+        When I check the checkbox labeled "Show deactivated alerts"
+        Then I should see "Alert #2:Email Alert"
+        And I should see "When the instrument Data Types (Event 1 (Arm 1: Arm 1)) is saved and has a Complete status."
+        And I should see "DEACTIVATED: Alert was deactivated"
 
-        ##ACTION: Logging Table
+        ##ACTION: Re-enable alert
+        When I click on the link labeled "Options" for alert "2"
+        And I click on the link labeled "Re-enable alert"
+        Then I should see "Success! The alert was re-enabled."
+        And I should see "No matching records found"
+        When I uncheck the checkbox labeled "Show deactivated alerts"
+        Then I should see "Alert #1:Email Alert"
+        And I should see "Alert #2:Email Alert"
+
+        ##ACTION: Move alert
+        # Edit name for alert 2
+        Given I click on the link labeled "Edit" for alert "2"
+        Then I should see "Edit Alert #2"
+        And I clear field and enter "Testing Move Alerts and Notifications" into the input field labeled "Subject"
+        When I click on the button labeled "Save" in the dialog box
+        Then I should see "Success! The alert was updated."
+        # Move alert 1
+        When I click on the link labeled "Options" for alert "1"
+        And I click on the link labeled "Move alert"
+        And I select "Alert #2: Email Alert (A-1)" on the dropdown field labeled "Move the alert above so that it will be located immediately *AFTER* the following alert:"
+        And I click on the button labeled "Move alert" in the dialog box
+        Then I should see "Alert #1: Email Alert (A-2): The alert was successfully moved to a new location!"
+        Then I should see "PLEASE NOTE that moving this alert may have caused some or all of the alerts to be re-numbered automatically. They will still retain their same alert title and unique alert ID, but their alert number (#) may have changed because alert numbers are generated on the fly based on the order of the alerts."
+        And I click on the button labeled "Close" in the dialog box
+        # VERIFY
+        When I click on the link labeled "Edit" for alert "1"
+        Then I should see "Edit Alert #1"
+        And I should see "Testing Move Alerts and Notifications" in the data entry form field "Subject"
+        And I click on the button labeled "Cancel" in the dialog box
+        When I click on the link labeled "Edit" for alert "2"
+        Then I should see "Edit Alert #2"
+        And I should see "Editing Alerts and Notifications" in the data entry form field "Subject"
+        And I click on the button labeled "Cancel" in the dialog box
+
+        ##ACTION: Permanently delete alert
+        When I click on the link labeled "Options" for alert "1"
+        And I click on the link labeled "Deactivate alert"
+        And I should see "Are you sure you want to deactivate this Alert? It can be re-enabled later, if needed."
+        When I click on the button labeled "Deactivate" in the dialog box
+        And I should see "Success! The alert was deactivated"
+        And I should NOT see "Alert #1:Email Alert"
+        When I check the checkbox labeled "Show deactivated alerts"
+        Then I should see "Alert #1:Email Alert"
+        And I should see "When the instrument Data Types (Event 1 (Arm 1: Arm 1)) is saved and has a Complete status."
+        And I should see "DEACTIVATED: Alert was deactivated"
+        When I click on the link labeled "Edit" for alert "1"
+        Then I should see "Testing Move Alerts and Notifications" in the data entry form field "Subject"
+        And I click on the button labeled "Cancel" in the dialog box
+        When I click on the link labeled "Options" for alert "1"
+        And I click on the link labeled "Permanently delete"
+        Then I should see "Are you sure you want to delete this Alert?"
+        And I should see "This will permanently delete the Alert."
+        And I click on the button labeled "Delete" in the dialog box
+        Then I should see "Success! The alert was permanently deleted."
+        And I should see a checkbox labeled "Show deactivated alerts" that is unchecked
+        And I should see "Alert #1:Email Alert"
+        When I click on the link labeled "Edit" for alert "1"
+        Then I should see "Editing Alerts and Notifications" in the data entry form field "Subject"
+        And I click on the button labeled "Cancel" in the dialog box
+        When I check the checkbox labeled "Show deactivated alerts"
+        Then I should see "No matching records found"
+
+        #VERIFY_LOG: Logging Table
         Given I click on the link labeled "Logging"
         Then I should see a table header and rows containing the following values in the logging table:
-         |  Time / Date     |   Username  |      Action                                 |  List of Data Changes OR Fields Exported                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |  
-         | MM/DD/YYYY HH:MM |  test_user  | Manage/Design Deactivate alert              | Alert #1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-         | MM/DD/YYYY HH:MM |  test_user  | Update record 7 (Event 1 (Arm 1: Arm 1))    | textbox = 'Fail', required = '7', calculated_field = '6', data_types_complete = '0'                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-         | MM/DD/YYYY HH:MM |  test_user  | Create record 7 (Event 1 (Arm 1: Arm 1))    | email_v2 = 'test_user7@example.com', text_validation_complete = '0', record_id = '7'                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |  
-         | MM/DD/YYYY HH:MM |  test_user  | Sent alert Record 6 (Event 1 (Arm 1: Arm 1))| Alert #1, From: 'test_user@example.com', To: 'test_user7@example.com', Subject: 'Testing Alerts and Notifications', Message: 'Alert and Notification'                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |  
-         | MM/DD/YYYY HH:MM |  test_user  | Update record 6 (Event 1 (Arm 1: Arm 1))    | ptname = 'User7', textbox = 'Pass', required = '7', calculated_field = '6', data_types_complete = '0'                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |  
-         | MM/DD/YYYY HH:MM |  test_user  | Create record 6 (Event 1 (Arm 1: Arm 1))    | email_v2 = 'test_user7@example.com', text_validation_complete = '0', record_id = '6                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |  
-         | MM/DD/YYYY HH:MM |  test_user  | Manage/Design Modify alert                  | Alert #1, alert_title = 'Email Alert ', alert_type = 'EMAIL', alert_stop_type = 'RECORD', alert_expiration = '', form_name = 'data_types', form_name_event = 'event_1_arm_1', alert_condition = '[textbox]='Pass'', ensure_logic_still_true = 'yes', prevent_piping_identifiers = 'yes', trigger_on_instrument_save_status = 'complete_status_only', email_from = 'test_user@example.com', email_from_display = '', email_to = '[event_1_arm_1][email_v2]', phone_number_to = '', email_cc = '', email_bcc = '', email_subject = 'Testing Alerts and Notifications', alert_message = 'Alert and Notification', email_failed = '', email_attachment_variable = '', email_attachment1 = '', email_attachment2 = '', email_attachment3 = '', email_attachment4 = '', email_attachment5 = '', trigger_on_every_instrument_save = 'no', email_repetitive_change = '0', email_repetitive_change_calcs = '0', cron_send_email_on = 'now', cron_send_email_on_date = '', cron_send_email_on_time_lag_days = '', cron_send_email_on_time_lag_hours = '', cron_send_email_on_time_lag_minutes = '', cron_send_email_on_field = '', cron_send_email_on_field_after = 'after', cron_send_email_on_next_day_type = 'DAY', cron_send_email_on_next_time = '', cron_repeat_for = '0', cron_repeat_for_units = 'DAYS', cron_repeat_for_max = '', alert_order = '', sendgrid_template_id = '', sendgrid_template_data = '{}', sendgrid_mail_send_configuration = '{}'|  
-         | MM/DD/YYYY HH:MM |  test_user  | Sent alert Record 5 (Event 1 (Arm 1: Arm 1))| Alert #1, From: 'test_user@example.com', To: 'test_user6@example.com', Subject: 'Testing Alerts and Notifications', Message: 'Alert and Notification'                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |  
-         | MM/DD/YYYY HH:MM |  test_user  | Update record 5 (Event 1 (Arm 1: Arm 1))    | ptname = 'User6', textbox = 'Pass', required = '6', calculated_field = '6', data_types_complete = '0'                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-         | MM/DD/YYYY HH:MM |  test_user  | Create record 5 (Event 1 (Arm 1: Arm 1))    | email_v2 = 'test_user6@example.com', text_validation_complete = '0', record_id = '5'                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-         | MM/DD/YYYY HH:MM |  test_user  | Manage/Design Modify alert                  | Alert #1, alert_title = 'Email Alert ', alert_type = 'EMAIL', alert_stop_type = 'RECORD', alert_expiration = '', form_name = 'data_types', form_name_event = 'event_1_arm_1', alert_condition = '[textbox]='Pass'', ensure_logic_still_true = 'yes', prevent_piping_identifiers = 'yes', trigger_on_instrument_save_status = 'complete_status_only', email_from = 'test_user@example.com', email_from_display = '', email_to = '[event_1_arm_1][email_v2]', phone_number_to = '', email_cc = '', email_bcc = '', email_subject = 'Testing Alerts and Notifications', alert_message = 'Alert and Notification', email_failed = '', email_attachment_variable = '', email_attachment1 = '', email_attachment2 = '', email_attachment3 = '', email_attachment4 = '', email_attachment5 = '', trigger_on_every_instrument_save = 'no', email_repetitive_change = '0', email_repetitive_change_calcs = '0', cron_send_email_on = 'now', cron_send_email_on_date = '', cron_send_email_on_time_lag_days = '', cron_send_email_on_time_lag_hours = '', cron_send_email_on_time_lag_minutes = '', cron_send_email_on_field = '', cron_send_email_on_field_after = 'after', cron_send_email_on_next_day_type = 'DAY', cron_send_email_on_next_time = '', cron_repeat_for = '0', cron_repeat_for_units = 'DAYS', cron_repeat_for_max = '', alert_order = '', sendgrid_template_id = '', sendgrid_template_data = '{}', sendgrid_mail_send_configuration = '{}'|
-         | MM/DD/YYYY HH:MM |  test_user  | Manage/Design Modify alert                  | Alert #1, alert_title = 'Email Alert ', alert_type = 'EMAIL', alert_stop_type = 'RECORD', alert_expiration = '', form_name = 'data_types', form_name_event = 'event_1_arm_1', alert_condition = '[textbox]='Pass'', ensure_logic_still_true = 'yes', prevent_piping_identifiers = 'yes', trigger_on_instrument_save_status = 'complete_status_only', email_from = 'test_user@example.com', email_from_display = '', email_to = '[event_1_arm_1][email_v2]', phone_number_to = '', email_cc = '', email_bcc = '', email_subject = 'Testing Alerts and Notifications', alert_message = 'Alert and Notification', email_failed = '', email_attachment_variable = '', email_attachment1 = '', email_attachment2 = '', email_attachment3 = '', email_attachment4 = '', email_attachment5 = '', trigger_on_every_instrument_save = 'no', email_repetitive_change = '0', email_repetitive_change_calcs = '0', cron_send_email_on = 'now', cron_send_email_on_date = '', cron_send_email_on_time_lag_days = '', cron_send_email_on_time_lag_hours = '', cron_send_email_on_time_lag_minutes = '', cron_send_email_on_field = '', cron_send_email_on_field_after = 'after', cron_send_email_on_next_day_type = 'DAY', cron_send_email_on_next_time = '', cron_repeat_for = '0', cron_repeat_for_units = 'DAYS', cron_repeat_for_max = '', alert_order = '', sendgrid_template_id = '', sendgrid_template_data = '{}', sendgrid_mail_send_configuration = '{}'|
-         | MM/DD/YYYY HH:MM |  test_user  | Sent alert Record 4 (Event 1 (Arm 1: Arm 1))| Alert #1, From: 'test_user@example.com', To: 'test_user5@example.com', Subject: 'Testing Alerts and Notifications', Message: 'Alert and Notification'                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |                        
-         | MM/DD/YYYY HH:MM |  test_user  | Update record 4 (Event 1 (Arm 1: Arm 1))    | ptname = 'User5', textbox = 'Fail', required = '5', calculated_field = '6', data_types_complete = '0'                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | 
-         | MM/DD/YYYY HH:MM |  test_user  | Create Record 4 (Event 1 (Arm 1: Arm 1))    | email_v2 = 'test_user5@example.com', text_validation_complete = '0', record_id = '4'                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | 
-         | MM/DD/YYYY HH:MM |  test_user  | Sent alert Record 3 (Event 1 (Arm 1: Arm 1))| Alert #1, From: 'test_user@example.com', To: 'test_user4@example.com', Subject: 'Testing Alerts and Notifications', Message: 'Alert and Notification'                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | 
-         | MM/DD/YYYY HH:MM |  test_user  | Update record 3 (Event 1 (Arm 1: Arm 1))    | ptname = 'User4', textbox = 'Pass', required = '4', calculated_field = '6', data_types_complete = '0'                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | 
-         | MM/DD/YYYY HH:MM |  test_user  | Create record 3 Modify alert                | email_v2 = 'test_user4@example.com', text_validation_complete = '0', record_id = '3'                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | 
-         | MM/DD/YYYY HH:MM |  test_user  | Manage/Design Modify alert                  | Alert #1, alert_title = 'Email Alert ', alert_type = 'EMAIL', alert_stop_type = 'RECORD', alert_expiration = '', form_name = 'data_types', form_name_event = 'event_1_arm_1', alert_condition = '[textbox]='Pass'', ensure_logic_still_true = 'yes', prevent_piping_identifiers = 'yes', trigger_on_instrument_save_status = 'complete_status_only', email_from = 'test_user@example.com', email_from_display = '', email_to = '[event_1_arm_1][email_v2]', phone_number_to = '', email_cc = '', email_bcc = '', email_subject = 'Testing Alerts and Notifications', alert_message = 'Alert and Notification', email_failed = '', email_attachment_variable = '', email_attachment1 = '', email_attachment2 = '', email_attachment3 = '', email_attachment4 = '', email_attachment5 = '', trigger_on_every_instrument_save = 'no', email_repetitive_change = '0', email_repetitive_change_calcs = '0', cron_send_email_on = 'now', cron_send_email_on_date = '', cron_send_email_on_time_lag_days = '', cron_send_email_on_time_lag_hours = '', cron_send_email_on_time_lag_minutes = '', cron_send_email_on_field = '', cron_send_email_on_field_after = 'after', cron_send_email_on_next_day_type = 'DAY', cron_send_email_on_next_time = '', cron_repeat_for = '0', cron_repeat_for_units = 'DAYS', cron_repeat_for_max = '', alert_order = '', sendgrid_template_id = '', sendgrid_template_data = '{}', sendgrid_mail_send_configuration = '{}'| 
-         
+            | Time / Date      | Username   | Action                                       | List of Data Changes OR Fields Exported                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |  
+            | MM/DD/YYYY HH:MM | test_user1 | Manage/Design Permanently delete alert       | Alert #1:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |                        
+            | MM/DD/YYYY HH:MM | test_user1 | Manage/Design Deactivate  alert              | Alert #1:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |                        
+            | MM/DD/YYYY HH:MM | test_user1 | Manage/Design Move alert                     | Alert #1: Email Alert (A-4)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |                        
+            | MM/DD/YYYY HH:MM | test_user1 | Manage/Design Reactivate  alert              | Alert #2                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |                        
+            | MM/DD/YYYY HH:MM | test_user1 | Manage/Design Deactivate alert               | Alert #2                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |                        
+            | MM/DD/YYYY HH:MM | test_user1 | Manage/Design Copy alert                     | Alert #2 copied from Alert #1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |                        
+            | MM/DD/YYYY HH:MM | test_user1 | Sent alert Record 3 (Event 1 (Arm 1: Arm 1)) | Alert #1, From: 'Test_User1@example.com', To: 'test_user3@example.com', Subject: 'Editing Alerts and Notifications', Message: 'Alerts and Notification'                                                                                                                                                                                                                                                                                                                                                                                                                                   |                        
+            | MM/DD/YYYY HH:MM | test_user1 | Manage/Design Modify alert                   | Alert #1, alert_title = 'Email Alert', alert_type = 'EMAIL', alert_stop_type = 'RECORD', alert_expiration = '', form_name = 'data_types', form_name_event = 'event_1_arm_1', alert_condition = '', ensure_logic_still_true = 'no', prevent_piping_identifiers = 'yes', trigger_on_instrument_save_status = 'any_status', email_from = 'Test_User1@test.edu', email_from_display = '', email_to = '[event_1_arm_1][email_v2]', phone_number_to = '', email_cc = '', email_bcc = '', email_subject = 'Editing Alerts and Notifications', alert_message = 'Alerts and Notifications'         | 
+            | MM/DD/YYYY HH:MM | test_user1 | Sent alert Record 2 (Event 1 (Arm 1: Arm 1)) | Alert #1, From: 'Test_User1@test.edu', To: 'test_user2@example.com', Subject: 'Testing Alerts and Notifications', Message: 'Alerts and Notification'                                                                                                                                                                                                                                                                                                                                                                                                                                      | 
+            | MM/DD/YYYY HH:MM | test_user1 | Manage/Design Create alert                   | Alert #1, alert_title = 'Email Alert', alert_type = 'EMAIL', alert_stop_type = 'RECORD', alert_expiration = '', form_name = 'data_types', form_name_event = 'event_1_arm_1', alert_condition = '', ensure_logic_still_true = 'no', prevent_piping_identifiers = 'yes', trigger_on_instrument_save_status = 'complete_status_only', email_from = 'Test_User1@test.edu', email_from_display = '', email_to = '[event_1_arm_1][email_v2]', phone_number_to = '', email_cc = '', email_bcc = '', email_subject = 'Testing Alerts and Notifications', alert_message = 'Alert and Notification' | 
+
         And I logout
