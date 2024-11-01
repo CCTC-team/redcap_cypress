@@ -75,8 +75,22 @@ Feature: D.104.100 - The system shall support the ability to send a survey when 
     | dd/mm/yyyy hh:mm     | [mail_open_document] | joe@abc.com       | 1      |                        | Survey Event 1 | [link]      | [stop_gray] |                 |
     | dd/mm/yyyy hh:mm     | [mail_open_document] | joe@abc.com       | 1      |                        | Survey Event 1 | [link]      | [stop_gray] |                 |
 
-    Given I verify in mail hog the emails have been sent 
-    #(above for steps 12 and 13 in the word doc). 
+    Given I open email
+    When I verify the email(s)
+    And I should see "From: test_user@example.com"
+    And I should see "From: joe@abc.com"
+    And I should see "From: Testing Survey Event 1 "
+    Then I return to redcap 
+    #(this is for steps 12 and 13 in the word doc). 
+
+    Given I wait for 5 minutes
+    And I open email
+    When I verify the email(s)
+    And I should see "From: test_user@example.com"
+    And I should see "From: joe@abc.com"
+    And I should see "From: Testing Survey Event 1 "
+    # perhaps need a step to say we can see the above twice??? still not entire sure on the best way to do this. 
+    Then I return to redcap
 
     Given I wait for 5 minutes
     And I click on the link labeled "Survey Distribution Tools"
@@ -101,6 +115,66 @@ Feature: D.104.100 - The system shall support the ability to send a survey when 
     | dd/mm/yyyy hh:mm     | [mail_open_document] | joe@abc.com       | 1      |                        | Survey Event 1 | [link]      | [stop_gray] |                 |
     | dd/mm/yyyy hh:mm     | [mail_open_document] | joe@abc.com       | 1      |                        | Survey Event 1 | [link]      | [stop_gray] |                 |
 
+    Given I wait for 5 minutes
+    And I open email
+    When I verify the email(s)
+    And I should see "From: test_user@example.com"
+    And I should see "From: joe@abc.com"
+    And I should see "From: Testing Survey Event 1 "
+    And I click on the link "Testing Survey Event 1"
+    And I enter "1" into the input field labeled "Reminder"
+    And I enter "description" into the input field labeled "Description"
+    And I click on the button labeled "Submit"
+    Then I click on the button labeled "Close survey"
+  
+    Given I return to redcap
+    When I click on the link labeled "Record Status Dashboard"
+    Then I should see the image "circle_green_tick" link for the column containing "Survey"
+    # tried to make the above as similar to existing samples as possible
+    
+    
+    Given I click on the link labeled "Survey Distribution Tools"
+    When I click on the tab labeled "Survey Invitation Log"
+    Then I should see a table header and rows containing the following values in the administrators table:
+    | Invitation send time | View Invite          | Participant Email | Record | Participant Identifier | Survey         | Survey Link | Responded?  | Errors (if any) |
+    | dd/mm/yyyy hh:mm     | [mail_open_document] | joe@abc.com       | 1      |                        | Survey Event 2 | [link]      | [stop_gray] |                 |
+    | dd/mm/yyyy hh:mm     | [mail_open_document] | joe@abc.com       | 1      |                        | Survey Event 2 | [link]      | [stop_gray] |                 |
+    
 
-    #in mailhog i neede to perform some actions which im not sure how to do
-    # i have reached the start of step 17 
+    Given I click on the button labeled "View past invitations"
+    Then I should see a table header and rows containing the following values in the administrators table:
+    | Invitation send time | View Invite          | Participant Email | Record | Participant Identifier | Survey         | Survey Link | Responded?  | Errors (if any) |
+    | dd/mm/yyyy hh:mm     | [mail_open_document] | joe@abc.com       | 1      |                        | Survey Event 1 | [link]      | [stop_gray] |                 |
+
+    Given I wait for 10 minutes
+    And I open email
+    When I verify the email(s)
+    Then I should see "From: test_user@example.com"
+    And I should see "From: joe@abc.com"
+    And I should see "From: Testing Survey Event 2"
+
+    Given I return to redcap
+    And I click on the link labeled "Survey Distribution Tools"
+    When I click on the tab labeled "Survey Invitation Log"
+    Then I should see a table header and rows containing the following values in the administrators table:
+    | Invitation send time | View Invite          | Participant Email | Record | Participant Identifier | Survey         | Survey Link | Responded?  | Errors (if any) |
+    | dd/mm/yyyy hh:mm     | [mail_open_document] | joe@abc.com       | 1      |                        | Survey Event 2 | [link]      | [stop_gray] |                 |
+   
+    Given I click on the button labeled "View past invitations"
+    Then I should see a table header and rows containing the following values in the administrators table:
+    | Invitation send time | View Invite          | Participant Email | Record | Participant Identifier | Survey         | Survey Link | Responded?          | Errors (if any) |
+    | dd/mm/yyyy hh:mm     | [mail_open_document] | joe@abc.com       | 1      |                        | Survey Event 1 | [link]      | [circle_green_tick] |                 |
+    | dd/mm/yyyy hh:mm     | [mail_open_document] | joe@abc.com       | 1      |                        | Survey Event 2 | [link]      | [stop_gray]         |                 |
+
+    Given I click on the "[link]" icon 
+    #unsure how best to describe the above
+    When I enter "3" into the input field labeled "Reminder"
+    And I enter "description3" into the input field labeled "Description"
+    And I click on the button labeled "Submit"
+    Then I click on the button labeled "Close survey"
+
+    Given I return to redcap
+    And I click on the link labeled "Survey Distribution Tools"
+    When I click on the tab labeled "Survey Invitation Log"
+
+    # part way through step 23
