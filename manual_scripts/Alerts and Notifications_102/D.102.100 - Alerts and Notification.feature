@@ -1,10 +1,9 @@
-Feature: Alerts and Notifications: The system shall support sending emails when a record is saved and/or when a condition is met.
-
+Feature: D.102.100 - The system shall support the ability to send emails when a record is saved on a specific form/survey
 
     As a REDCap end user
     I want to see that Alerts and Notifications is functioning as expected
 
-    Scenario: D.102.100 Send emails when a record is saved on a specific form/survey.
+    Scenario: D.102.100 - Send alert when a record is saved on a specific form/survey
         #SETUP
         Given I login to REDCap with the user "Test_user1"   
         And I create a new project named "D.102.100" by clicking on "New Project" in the menu bar, selecting "Practice / Just for fun" from the dropdown, choosing file "Project_redcap_val.xml", and clicking the "Create Project" button
@@ -61,7 +60,7 @@ Feature: Alerts and Notifications: The system shall support sending emails when 
         And I should see "Alerts and Notifications" in the dialog box
         And I click on the button labeled "Close" in the dialog box
 
-    Scenario: D.102.200 Send emails when a record is saved on a specific form/survey with Complete Status Only.
+    Scenario: D.102.200 - Modify Alerts
         Given I click on the tab labeled "My Alerts"
         When I click on the link labeled "Edit" for alert "1"
         Then I should see "Edit Alert #1"
