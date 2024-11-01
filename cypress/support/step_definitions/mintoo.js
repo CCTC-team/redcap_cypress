@@ -107,7 +107,7 @@ Given("I should NOT see the following values in the downloaded PDF for Record {s
 
 
 /**
- * @module Downloadß
+ * @module Download
  * @author Mintoo Xavier <min2xavier@gmail.com>
  * @example I should see the following values in the downloaded PDF
  * @description Verifies the values within a PDF
@@ -171,7 +171,7 @@ Given("I should see the following values in the downloaded PDF", (dataTable) => 
 })
 
 /**
- * @module Downloadß
+ * @module Download
  * @author Mintoo Xavier <min2xavier@gmail.com>
  * @example I should NOT see the following values in the downloaded PDF
  * @description Verifies the values are not present within a PDF
@@ -298,4 +298,32 @@ Given("I should see the following values in the PDF at the local storage", (data
             }
         })
     })
+})
+
+
+Cypress.Commands.add('create_empty_project', (project_name, project_type, button_label = 'Create Project') => {
+    //Run through the steps to import the project via CDISC ODM
+    cy.get('a:visible:contains("New Project")').click()
+    cy.get('input#app_title').type(project_name)
+    cy.get('select#purpose').select(project_type)
+    cy.get('input#project_template_radio0').click()
+    cy.get('button').contains(button_label).click().then(() => {
+        let pid = null;
+        cy.url().should((url) => {
+            return url
+        })
+    })
+})
+
+/**
+ * @module DataImport
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I create an empty project named {string} by clicking on "New Project" in the menu bar, selecting "{projectType}" from the dropdown, and clicking the "{projectRequestLabel}" button
+ * @param {string} project_name - the desired name for the project
+ * @param {string} projectType - available options: 'Practice / Just for fun', 'Operational Support', 'Research', 'Quality Improvement', 'Other'
+ * @param {string} projectRequestLabel - available options: 'Create Project', 'Send Request'
+ * @description Creates an empty REDCap project of a specific project type.
+ */
+Given('I create an empty project named {string} by clicking on "New Project" in the menu bar, selecting "{projectType}" from the dropdown, and clicking the "{projectRequestLabel}" button', (project_name, project_type, cdisc_file, button_label) => {
+    cy.create_empty_project(project_name, project_type, cdisc_file, button_label)
 })
