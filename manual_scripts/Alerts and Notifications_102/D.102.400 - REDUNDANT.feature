@@ -1,2 +1,0 @@
-Feature: User Interface:The system shall support the ability to send emails When conditional logic is TRUE during a data import, data entry, or as the result of time-based logic.
-    This feature test is REDUNDANT and can be viewed in D.102.100.

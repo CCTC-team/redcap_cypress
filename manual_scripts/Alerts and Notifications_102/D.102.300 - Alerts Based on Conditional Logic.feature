@@ -48,7 +48,7 @@ Feature: D.102.300 - The system shall support the ability to send emails If cond
         And I click on the button labeled "Save & Exit Form"
         And I should see "Record ID 2 successfully edited"
 
-         ##VERIFY: Sent email in MailHog 
+        ##VERIFY: Sent email in MailHog 
         Given I open Email
         Then I should NOT see a link labeled "Testing Alerts and Notifications"
 
