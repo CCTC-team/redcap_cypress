@@ -57,33 +57,33 @@ Feature: D.108.100 Smart Variables - The system shall support the ability to use
     And I should see "Data Types"
 
   Scenario: D.108.100.1 - [event-name]
-      When I click on the instrument labeled "Data Types"
-      And I click on the first button labeled "Add Field"
-      And I select "Descriptive Text (with optional Image/Video/File Attachment" on the dropdown field labeled "Field Type" in the dialog box
-      And I enter "Event Name:[event-name]" into the input field labeled "Field Label" in the dialog box
-      And I enter "event_name_desc" into the input field labeled "Variable Name" in the dialog box
-      Then I click on the button labeled "Save"
+    When I click on the instrument labeled "Data Types"
+    And I click on the first button labeled "Add Field"
+    And I select "Descriptive Text (with optional Image/Video/File Attachment" on the dropdown field labeled "Field Type" in the dialog box
+    And I enter "Event Name:[event-name]" into the input field labeled "Field Label" in the dialog box
+    And I enter "event_name_desc" into the input field labeled "Variable Name" in the dialog box
+    Then I click on the button labeled "Save"
 
-    #VERIFY: [event-name] shows correctly in instrument
-      When I click on the link labeled "Add / Edit Records"
-      And I click on the link labeled "+ Add new record for the arm selected above"
-      Then I should see "Record Home Page"
-      And I click the bubble to select a record for the "Data Types" longitudinal instrument on event "Event 1"
-      Then I should see a field named "Event Name: event_1_arm_1" after field named "Record ID" 
-      And I enter "1" into the data entry form field labeled "Required"
-      And I select the submit option labeled "Save & Exit Form" on the Data Collection Instrument
-      Then I should see "Record Home Page"
+  #VERIFY: [event-name] shows correctly in instrument
+    When I click on the link labeled "Add / Edit Records"
+    And I click on the link labeled "+ Add new record for the arm selected above"
+    Then I should see "Record Home Page"
+    And I click the bubble to select a record for the "Data Types" longitudinal instrument on event "Event 1"
+    Then I should see a field named "Event Name: event_1_arm_1" after field named "Record ID" 
+    And I enter "1" into the data entry form field labeled "Required"
+    And I select the submit option labeled "Save & Exit Form" on the Data Collection Instrument
+    When I should see "Record Home Page"
 
-    #ACTION: D.108.100.2 - [record-dag-id] 
-      When I click on the link labeled "Designer"
-      And I click on the instrument labeled "Data Types"
-      And I click on the first button labeled "Add Field"
-      And I select "Descriptive Text (with optional Image/Video/File Attachment" on the dropdown field labeled "Field Type" in the dialog box
-      And I enter "Group ID Assigned: [record-dag-id]" into the input field labeled "Field Label" in the dialog box
-      And I enter "dag_id" into the input field labeled "Variable Name" in the dialog box
-      Then I click on the button labeled "Save"
+  Scenario: D.108.100.2 - [record-dag-id] 
+    When I click on the link labeled "Designer"
+    And I click on the instrument labeled "Data Types"
+    And I click on the first button labeled "Add Field"
+    And I select "Descriptive Text (with optional Image/Video/File Attachment" on the dropdown field labeled "Field Type" in the dialog box
+    And I enter "Group ID Assigned: [record-dag-id]" into the input field labeled "Field Label" in the dialog box
+    And I enter "dag_id" into the input field labeled "Variable Name" in the dialog box
+    Then I click on the button labeled "Save"
     
-    #VERIFY: [record-dag-id] shows correctly in instrument
+  #VERIFY: [record-dag-id] shows correctly in instrument
     When I click on the link labeled "Add / Edit Records"
     And I select record ID "1-1" from arm name "Arm 1: Arm 1" on the Add / Edit record page
     Then I should see "Record Home Page"
@@ -93,8 +93,8 @@ Feature: D.108.100 Smart Variables - The system shall support the ability to use
     Then I should see "Record Home Page"
     And I logout
 
-    #FUNCTIONAL_REQUIREMENT
-    #ACTION: Create a user role called 'Data Manager'
+  #FUNCTIONAL_REQUIREMENT
+  #ACTION: Create a user role called 'Data Manager'
     Given I login to REDCap with the user "Test_Admin"
     When I click on the link labeled "My Projects"  
     And I click on the link labeled "D.108.100" 
@@ -104,7 +104,7 @@ Feature: D.108.100 Smart Variables - The system shall support the ability to use
     And I check the User Right named "Project Setup & Design"
     And I click on the button labeled "Create role"
 
-    #VERIFY
+  #VERIFY
     Then I should see a table header and rows containing the following values in a table:
       | Role name               | Username                  | Expiration (Click expiration date to edit) | Data Access Group (click DAG to assign user) | 
       | —                       | test_admin  (Test User)   | never                                      |                                              |
@@ -112,14 +112,14 @@ Feature: D.108.100 Smart Variables - The system shall support the ability to use
       | Data Manager            | [No user assigned]        |                                            |                                              | 
       | TestRole                | [No user assigned]        |                                            |                                              |
 
-    #ACTION: Assign Test_User to user role 'Data Manager'
+  #ACTION: Assign Test_User to user role 'Data Manager'
     When I click on the link labeled "test_user(Test User)"
     And I click on the button labeled "Assign to role"
     Then I select "Data Manager" on the dropdown field labeled "Select Role" on the dialog box
     And I click on the button labeled "Assign"
     Then I should see "User 'test_user' has been successfully ASSIGNED to the user role 'Data Manager'"
     
-    #VERIFY
+  #VERIFY
     Then I should see a table header and rows containing the following values in a table:
       | Role name               | Username                  | Expiration (Click expiration date to edit) | Data Access Group (click DAG to assign user) | 
       | —                       | test_admin  (Test User)   | never                                      |                                              |
@@ -127,14 +127,14 @@ Feature: D.108.100 Smart Variables - The system shall support the ability to use
       | TestRole                | [No user assigned]        |                                            |                                              |
     And I logout
 
-    #ACTION: Login with Test User
+  #ACTION: Login with Test User
     Given I login to REDCap with the user "Test_User"
     When I click on the link labeled "My Projects"  
     And I click on the link labeled "D.108.100" 
     Then I click on the link labeled "Designer"
     And I should see "Data Types"
     
-    #ACTION: D.108.100.3 - [user-role-label]
+  Scenario: D.108.100.3 - [user-role-label]
     When I click on the instrument labeled "Data Types"
     And I click on the first button labeled "Add Field"
     And I select "Descriptive Text (with optional Image/Video/File Attachment" on the dropdown field labeled "Field Type" in the dialog box
@@ -142,7 +142,7 @@ Feature: D.108.100 Smart Variables - The system shall support the ability to use
     And I enter "user_role" into the input field labeled "Variable Name" in the dialog box
     Then I click on the button labeled "Save"
 
-    #VERIFY: [user-role-label] shows correctly in instrument
+  #VERIFY: [user-role-label] shows correctly in instrument
     When I click on the link labeled "Add / Edit Records"
     And I select record ID "1-1" from arm name "Arm 1: Arm 1" on the Add / Edit record page
     Then I should see "Record Home Page"
@@ -151,7 +151,7 @@ Feature: D.108.100 Smart Variables - The system shall support the ability to use
     And I select the submit option labeled "Save & Exit Form" on the Data Collection Instrument
     Then I should see "Record Home Page"
 
-    #ACTION: D.108.100.4 - [instrument-name]
+  Scenario: D.108.100.4 - [instrument-name]
     When I click on the link labeled "Designer"
     And I click on the instrument labeled "Data Types"
     And I click on the first button labeled "Add Field"
@@ -160,7 +160,7 @@ Feature: D.108.100 Smart Variables - The system shall support the ability to use
     And I enter "instrument_name" into the input field labeled "Variable Name" in the dialog box
     Then I click on the button labeled "Save"
 
-    #VERIFY: [instrument-name] shows correctly in instrument
+  #VERIFY: [instrument-name] shows correctly in instrument
     When I click on the link labeled "Add / Edit Records"
     And I select record ID "1-1" from arm name "Arm 1: Arm 1" on the Add / Edit record page
     Then I should see "Record Home Page" 
@@ -169,7 +169,7 @@ Feature: D.108.100 Smart Variables - The system shall support the ability to use
     And I select the submit option labeled "Save & Exit Form" on the Data Collection Instrument
     Then I should see "Record Home Page"
 
-    #ACTION: D.108.100.5 [user-fullname]
+  Scenario: D.108.100.5 [user-fullname]
     When I click on the link labeled "Designer"
     And I click on the instrument labeled "Data Types"
     And I click on the first button labeled "Add Field"
@@ -178,7 +178,7 @@ Feature: D.108.100 Smart Variables - The system shall support the ability to use
     And I enter "user_fullname" into the input field labeled "Variable Name" in the dialog box
     Then I click on the button labeled "Save"
 
-    #VERIFY: [user-fullname] shows correctly in instrument
+  #VERIFY: [user-fullname] shows correctly in instrument
     When I click on the link labeled "Add / Edit Records"
     And I select record ID "1-1" from arm name "Arm 1: Arm 1" on the Add / Edit record page
     Then I should see "Record Home Page"
