@@ -234,6 +234,28 @@ Given("I should NOT see the following values in the downloaded PDF", (dataTable)
     })
 })
 
+Cypress.Commands.add('fetchLatestDownload', (fileExtension) => {
+    // Change to redcap_source if required
+    // const downloadsDir = shell.pwd() + '../redcap_source/edocs/'
+    const downloadsDir = shell.pwd() + '../www/edocs/'
+
+    // Read the files in the downloads directory
+    const files = fs.readdirSync(downloadsDir)
+
+    // Filter files by extensionß
+    const filteredFiles = files.filter(file => path.extname(file) === `.${fileExtension}`)
+
+    //If no filtered files are found ...
+    if (filteredFiles.length === 0) {
+        return ''
+    } else {
+        // Sort files by modification time to get the latest one
+        const latestFile = filteredFiles
+            .map(file => ({ file, mtime: fs.statSync(path.join(downloadsDir, file)).mtime }))
+            .sort((a, b) => b.mtime - a.mtime)[0].file
+        return `${downloadsDir}${latestFile}`
+    }
+})
 
 /**
  * @module Download
@@ -242,8 +264,7 @@ Given("I should NOT see the following values in the downloaded PDF", (dataTable)
  * @description Verifies the values within a PDF
  */
 Given("I should see the following values in the PDF at the local storage", (dataTable) => {
-    // Write the function fetchLatestLocalStorage similar to fetchLatestDownload changing the location to ../www/redcap/edocs/
-    cy.task('fetchLatestLocalStorage', ({fileExtension: 'pdf'})).then((pdf_file) => {
+    cy.task('fetchLatestDownload', ({fileExtension: 'pdf'})).then((pdf_file) => {
 
         function findDateFormat(str) {
             for (const format in window.dateFormats) {
@@ -302,7 +323,6 @@ Given("I should see the following values in the PDF at the local storage", (data
 
 
 Cypress.Commands.add('create_empty_project', (project_name, project_type, button_label = 'Create Project') => {
-    //Run through the steps to import the project via CDISC ODM
     cy.get('a:visible:contains("New Project")').click()
     cy.get('input#app_title').type(project_name)
     cy.get('select#purpose').select(project_type)
