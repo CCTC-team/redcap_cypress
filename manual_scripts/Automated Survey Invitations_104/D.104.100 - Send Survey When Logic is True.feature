@@ -129,7 +129,7 @@ Feature: D.104.100 - The system shall support the ability to send a survey when 
   
     Given I return to redcap
     When I click on the link labeled "Record Status Dashboard"
-    Then I should see the image "circle_green_tick" link for the column containing "Survey"
+    Then I should see the image "circle_green_tick" link for the column containing "Survey" in event "Event 1"
     # tried to make the above as similar to existing samples as possible
     
     
@@ -176,5 +176,86 @@ Feature: D.104.100 - The system shall support the ability to send a survey when 
     Given I return to redcap
     And I click on the link labeled "Survey Distribution Tools"
     When I click on the tab labeled "Survey Invitation Log"
+    And I click on the button labeled "View past invitations"
+    Then I should see a table header and rows containing the following values in the administrators table:
+    | Invitation send time | View Invite          | Participant Email | Record | Participant Identifier | Survey         | Survey Link | Responded?          | Errors (if any) |
+    | dd/mm/yyyy hh:mm     | [mail_open_document] | joe@abc.com       | 1      |                        | Survey Event 1 | [link]      | [circle_green_tick] |                 |
+    | dd/mm/yyyy hh:mm     | [mail_open_document] | joe@abc.com       | 1      |                        | Survey Event 2 | [link]      | [circle_green_tick] |                 |
 
-    # part way through step 23
+    Given I click on the link labeled "Record Status Dashboard"
+    Then I should see the image "circle_green_tick" link for the column containing "Survey" in event "Event 2"
+
+    Given I click on the link labeled "Designer"
+    And I should see a table header and rows containing the following values in the administrators table:
+    | Instrument name | Fields | View PDF  | Enabled as Survey   | Instrument actions | Survey related options                |
+    | Demographics    | 4      | [pdficon] | Enable              | Choose action      |                                       |
+    | Survey          | 2      | [pdficon] | [tick_shield_small] | Choose action      | Survey settings Automated Invitations |
+# will it work like this? can it read text in buttons? 
+    And I click on the button labeled "Automated Invitations"
+    And I should see "Click the buttons below to set up or modify automated survey invitations."
+    And I should see "Event 1"
+    And I should see "Event 2"
+    And I click on the last button labeled "Modify"
+    And I check the checkbox labeled "When the following logic becomes true:"
+    And I clear field and enter "[event_1_arm_1][lname]!=''" in the textarea field labeled "Logic Editor" in the dialog box
+    And I click on the button labeled "Update & Close Editor" in the dialog box
+    And I check the checkbox labeled "Ensure logic is still true before sending invitation?"
+    When I click on the button labeled "Save"
+    Then I should see "Settings for automated invitations were successfully saved!"
+    And I click on the button "Close" in the pop-up box
+
+    Given I click on the link labeled "Add / Edit Records"
+    And I click on the button labeled "Add new record"
+    When I click the bubble to select a record for the "Demographics" longitudinal instrument on event "Event 1"
+    And I enter "Dave" into the input field labeled "First name"
+    And I enter "dave@abc.com" into the input field labeled "Email"
+    Then I select the submit option labeled "Save & Exit Form" on the Data Collection Instrument
+
+    Given I click on the link labeled "Survey Distribution Tools"
+    When I click on the tab labeled "Survey Invitation Log"
+    And I click on the button labeled "View past invitations"
+    Then I should see a table header and rows containing the following values in the administrators table:
+    | Invitation send time | View Invite          | Participant Email | Record | Participant Identifier | Survey         | Survey Link | Responded?          | Errors (if any) |
+    | dd/mm/yyyy hh:mm     | [mail_open_document] | joe@abc.com       | 1      |                        | Survey Event 1 | [link]      | [circle_green_tick] |                 |
+    | dd/mm/yyyy hh:mm     | [mail_open_document] | joe@abc.com       | 1      |                        | Survey Event 2 | [link]      | [circle_green_tick] |                 |
+    | dd/mm/yyyy hh:mm     | [mail_open_document] | dave@abc.com      | 2      |                        | Survey Event 1 | [link]      | [stop_gray]         |                 |
+    And I click on the button labeled "View future invitations"
+    Then I should see a table header and rows containing the following values in the administrators table:
+    | Invitation send time | View Invite          | Participant Email | Record | Participant Identifier | Survey         | Survey Link | Responded?   | Errors (if any) |
+    | dd/mm/yyyy hh:mm     | [mail_open_document] | dave@abc.com       | 2      |                        | Survey Event 1 | [link]      | [stop_gray] |                 |
+    | dd/mm/yyyy hh:mm     | [mail_open_document] | dave@abc.com       | 2      |                        | Survey Event 2 | [link]      | [stop_gray] |                 |
+
+    Given I wait for 5 minutes
+    And I open email
+    When I verify the email(s)
+    And I should see "From: test_user@example.com"
+    And I should see "From: dave@abc.com"
+    And I should see "From: Testing Survey Event 1"
+    And I click on the link "Testing Survey Event 1"
+    And I enter "45" into the input field labeled "Reminder"
+    And I enter "description45" into the input field labeled "Description"
+    And I click on the button labeled "Submit"
+    Then I click on the button labeled "Close survey"
+
+    Given I return to redcap
+    And I click on the link labeled "Survey Distribution Tools"
+    When I click on the tab labeled "Survey Invitation Log"
+    And I click on the button labeled "View past invitations"
+    Then I should see a table header and rows containing the following values in the administrators table:
+    | Invitation send time | View Invite          | Participant Email | Record | Participant Identifier | Survey         | Survey Link | Responded?          | Errors (if any) |
+    | dd/mm/yyyy hh:mm     | [mail_open_document] | joe@abc.com       | 1      |                        | Survey Event 1 | [link]      | [circle_green_tick] |                 |
+    | dd/mm/yyyy hh:mm     | [mail_open_document] | joe@abc.com       | 1      |                        | Survey Event 2 | [link]      | [circle_green_tick] |                 |
+    | dd/mm/yyyy hh:mm     | [mail_open_document] | dave@abc.com      | 2      |                        | Survey Event 2 | [link]      | [circle_green_tick] |                 |
+    And I click on the button labeled "View future invitations"
+    Then I should see "No invitations to list"
+
+    Given I click on the link labeled "Record Status Dashboard"
+
+    And I should see the "Completed Survey Response" icon for the "Survey" longitudinal instrument on event "Event Three" for record "1"
+    # need to use the above step in a few places? 
+
+    And I locate the bubble for the "Demographics" instrument on event "Event 1" for record ID "2" and click on the bubble
+    When I enter "Paul" into the input field labeled "Last name"
+    Then I select the submit option labeled "Save & Exit Form" on the Data Collection Instrument
+
+    # reached the start of step 38 which should be copy and pasting 
