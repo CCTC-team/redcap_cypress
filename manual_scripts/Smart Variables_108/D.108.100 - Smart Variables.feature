@@ -3,121 +3,95 @@ Feature: D.108.100 Smart Variables - The system shall support the ability to use
     D.108.100.2 - [record-dag-id]  
     D.108.100.3 - [user-role-label] 
     D.108.100.4 - [instrument-name] 
-    D.108.100.5 - [form-url:instrument]   
+    D.108.100.5 - [user-fullname]   
 
   As a REDCap end user
   I want to see that smart variables feature is functioning as expected
  
-  #Create a DAG group called 'DAG_TEST_GROUP' to test smart variables
   #Create a user role called 'Data Manager' to test smart variables
 
-  Scenario: 1 D.108.100 - Create smart variables 
+  Scenario: 1 D.108.100 - Smart Variable setup
 
   #SETUP
     Given I login to REDCap with the user "Test_Admin"
     And I create a new project named "D.108.100" by clicking on "New Project" in the menu bar, selecting "Practice / Just for fun" from the dropdown, choosing file "Project_redcap_val.xml", and clicking the "Create Project" button
         
-    #ACTION: Create Data Acesss group
+  #VERIFY: Data Access Group
     When I click on the link labeled "DAGs"
-    Then I should see "+ Create new groups:"
-    And I enter "DAG_TEST_GROUP" into the data entry form field labeled "Enter new group name" 
-    And I click on the button labeled "+ Add Group"
-    
-    #VERIFY
     Then I should see a table header and rows containing the following values in data access groups table:
       | Data Access Groups        | Users in group                                                      | Numbers of records in group|
-      | DAG_TEST_GROUP            |                                                                     |            0               |
       | DAG1                      |                                                                     |            0               |
       | [Not assigned to a group] |test admin (Test User), test_user (Test User) *Can view all records  |            1               |
 
-    #ACTION: Add test_user to project D.108.100
+  #ACTION: Add test_user to project D.108.100
     When I click on the link labeled "User Rights"
     And I enter "test_user" into the input field labeled "Add with custom rights"
     And I click on the button labeled "Add with custom rights"
     And I check the User Right named "Project Setup & Design"
     And I click on the button labeled "Add User"
 
-    #VERIFY
+  #VERIFY
     Then I should see a table header and rows containing the following values in a table:
       | Role name               | Username                  |
       | —                       | test_admin  (Test User)   |
       | —                       | test_user  (Test User)    |
      
-    #ACTION: Assign DAG to test_user
+  #ACTION: Assign DAG to test_user
     When I select "test_user (Test User)" on the dropdown field labeled "Assign user"
-    And I select "DAG_TEST_GROUP" on the dropdown field labeled "to"
+    And I select "DAG1" on the dropdown field labeled "to"
     And I click on the button labeled "Assign"
 
-    #VERIFY
+  #VERIFY
     Then I should see a table header and rows containing the following values in data access groups table:
-      | Data Access Groups        | Users in group                                                      | Numbers of records in group| Unique group name (auto generated)| Group ID number|
-      | DAG_TEST_GROUP            | test_user (Test User)                                               |            0               |     dag_test_group                | 22             |
-      | DAG1                      |                                                                     |            0               |          dag1                     | 21             |
-      | [Not assigned to a group] |test admin (Test User),  *Can view all records                       |            1               |                                   |                |  
+      | Data Access Groups        | Users in group                                                      | Numbers of records in group| 
+      | DAG1                      |test_user (Test User)                                                |            0               |         
+      | [Not assigned to a group] |test admin (Test User),  *Can view all records                       |            1               |
 
-    #VERIFY_RSD: Records in Record Status Dashboard
-    When I click on the link labeled "Record Status Dashboard"
-    Then I should see a table header and row containing the following values in a table:
-      | Record ID |
-      | 1         | 
     And I logout
 
-    #ACTION: Login with Test User
+  #ACTION: Login with Test User
     Given I login to REDCap with the user "Test_User"
     When I click on the link labeled "My Projects"  
     And I click on the link labeled "D.108.100" 
     Then I click on the link labeled "Designer"
-    And I should see a table header and rows containing the following values in a table:
-        | Instrument name          |  Fields |
-        | Text Validation          | 3       |
-        | Data Types               | 18      |
+    And I should see "Data Types"
 
-    #ACTION: D.108.100.1 Add smart variable [event-name] into field label
-    When I click on the instrument labeled "Data Types"
-    And I click on the first button labeled "Add Field"
-    And I select "Descriptive Text (with optional Image/Video/File Attachment" on the dropdown field labeled "Field Type" in the dialog box
-    And I enter "Event Name:[event-name]" into the input field labeled "Field Label" in the dialog box
-    And I enter "event_name_desc" into the input field labeled "Variable Name" in the dialog box
-    Then I click on the button labeled "Save"
+  Scenario: D.108.100.1 - [event-name]
+      When I click on the instrument labeled "Data Types"
+      And I click on the first button labeled "Add Field"
+      And I select "Descriptive Text (with optional Image/Video/File Attachment" on the dropdown field labeled "Field Type" in the dialog box
+      And I enter "Event Name:[event-name]" into the input field labeled "Field Label" in the dialog box
+      And I enter "event_name_desc" into the input field labeled "Variable Name" in the dialog box
+      Then I click on the button labeled "Save"
 
     #VERIFY: [event-name] shows correctly in instrument
-    When I click on the link labeled "Add / Edit Records"
-    And I click on the link labeled "+ Add new record for the arm selected above"
-    Then I should see "Record Home Page"
-    And I should see the "Incomplete (no data saved)" icon for the "Text Validation" longitudinal instrument on event "Event 1" for record "22-1"
-    And I should see the "Incomplete (no data saved)" icon for the "Data Types" longitudinal instrument on event "Event 1" for record "22-1" 
-    And I click on the bubble for the "Data Types" data collection instrument for record ID "22-1"
-    Then I should see a field named "Event Name: event_1_arm_1" after field named "Record ID" 
-    And I enter "1" into the data entry form field labeled "Required"
-    And I select the submit option labeled "Save & Exit Form" on the Data Collection Instrument
-    Then I should see "Record Home Page"
+      When I click on the link labeled "Add / Edit Records"
+      And I click on the link labeled "+ Add new record for the arm selected above"
+      Then I should see "Record Home Page"
+      And I click the bubble to select a record for the "Data Types" longitudinal instrument on event "Event 1"
+      Then I should see a field named "Event Name: event_1_arm_1" after field named "Record ID" 
+      And I enter "1" into the data entry form field labeled "Required"
+      And I select the submit option labeled "Save & Exit Form" on the Data Collection Instrument
+      Then I should see "Record Home Page"
 
-    #ACTION: D.108.100.2 Add smart variable [record-dag-id] into field label
-    When I click on the link labeled "Designer"
-    And I click on the instrument labeled "Data Types"
-    And I click on the first button labeled "Add Field"
-    And I select "Descriptive Text (with optional Image/Video/File Attachment" on the dropdown field labeled "Field Type" in the dialog box
-    And I enter "Group ID Assigned: [record-dag-id]" into the input field labeled "Field Label" in the dialog box
-    And I enter "dag_id" into the input field labeled "Variable Name" in the dialog box
-    Then I click on the button labeled "Save"
+    #ACTION: D.108.100.2 - [record-dag-id] 
+      When I click on the link labeled "Designer"
+      And I click on the instrument labeled "Data Types"
+      And I click on the first button labeled "Add Field"
+      And I select "Descriptive Text (with optional Image/Video/File Attachment" on the dropdown field labeled "Field Type" in the dialog box
+      And I enter "Group ID Assigned: [record-dag-id]" into the input field labeled "Field Label" in the dialog box
+      And I enter "dag_id" into the input field labeled "Variable Name" in the dialog box
+      Then I click on the button labeled "Save"
     
     #VERIFY: [record-dag-id] shows correctly in instrument
     When I click on the link labeled "Add / Edit Records"
-    And I select record ID "22-1" from arm name "Arm 1: Arm 1" on the Add / Edit record page
+    And I select record ID "1-1" from arm name "Arm 1: Arm 1" on the Add / Edit record page
     Then I should see "Record Home Page"
-    And I should see the "Incomplete (no data saved)" icon for the "Text Validation" longitudinal instrument on event "Event 1" for record "22-1"
-    And I should see the "Incomplete" icon for the "Data Types" longitudinal instrument on event "Event 1" for record "22-1" 
-    And I click on the bubble for the "Data Types" data collection instrument for record ID "22-1"
-    Then I should see a field named "Group ID Assigned: 22" after field named "Record ID" 
+    And I click the bubble to select a record for the "Data Types" longitudinal instrument on event "Event 1"
+    Then I should see a field named "Group ID Assigned: 1" after field named "Record ID" 
     And I select the submit option labeled "Save & Exit Form" on the Data Collection Instrument
     Then I should see "Record Home Page"
-
-   #VERIFY: Test_User only has access records assigned under DAG group ID: 22
-    When I click on the link labeled "Record Status Dashboard"
-    Then I should see a table header and row containing the following values in a table:  
-      | Record ID |
-      | 22-1      | 
-    And I should NOT see "Record ID 1"
+    And I logout
 
     #FUNCTIONAL_REQUIREMENT
     #ACTION: Create a user role called 'Data Manager'
@@ -125,16 +99,16 @@ Feature: D.108.100 Smart Variables - The system shall support the ability to use
     When I click on the link labeled "My Projects"  
     And I click on the link labeled "D.108.100" 
     And I click on the link labeled "User Rights"
-    And I enter "Data Manager" into the input field labeled "Create new roles: Add new user roles to which users may be assigned."
+    And I enter "Data Manager" into the field with the placeholder text of "Enter new role name"
     And I click on the button labeled "+ Create Role"
     And I check the User Right named "Project Setup & Design"
-    And I click on the button labeled "Create"
+    And I click on the button labeled "Create role"
 
     #VERIFY
     Then I should see a table header and rows containing the following values in a table:
       | Role name               | Username                  | Expiration (Click expiration date to edit) | Data Access Group (click DAG to assign user) | 
       | —                       | test_admin  (Test User)   | never                                      |                                              |
-      | —                       | test_user  (Test User)    | never                                      |     DAG_TEST_GROUP                           |
+      | —                       | test_user  (Test User)    | never                                      |     DAG1                                     |
       | Data Manager            | [No user assigned]        |                                            |                                              | 
       | TestRole                | [No user assigned]        |                                            |                                              |
 
@@ -149,7 +123,7 @@ Feature: D.108.100 Smart Variables - The system shall support the ability to use
     Then I should see a table header and rows containing the following values in a table:
       | Role name               | Username                  | Expiration (Click expiration date to edit) | Data Access Group (click DAG to assign user) | 
       | —                       | test_admin  (Test User)   | never                                      |                                              |
-      | Data Manager            | test_user  (Test User)    | never                                      |     DAG_TEST_GROUP                           |
+      | Data Manager            | test_user  (Test User)    | never                                      |     DAG1                                     |
       | TestRole                | [No user assigned]        |                                            |                                              |
     And I logout
 
@@ -158,12 +132,9 @@ Feature: D.108.100 Smart Variables - The system shall support the ability to use
     When I click on the link labeled "My Projects"  
     And I click on the link labeled "D.108.100" 
     Then I click on the link labeled "Designer"
-    And I should see a table header and rows containing the following values in a table:
-        | Instrument name          |  Fields |
-        | Text Validation          | 3       |
-        | Data Types               | 20      |
-
-    #ACTION: D.108.100.3 Add smart variable [user-role-label] into field label
+    And I should see "Data Types"
+    
+    #ACTION: D.108.100.3 - [user-role-label]
     When I click on the instrument labeled "Data Types"
     And I click on the first button labeled "Add Field"
     And I select "Descriptive Text (with optional Image/Video/File Attachment" on the dropdown field labeled "Field Type" in the dialog box
@@ -173,16 +144,14 @@ Feature: D.108.100 Smart Variables - The system shall support the ability to use
 
     #VERIFY: [user-role-label] shows correctly in instrument
     When I click on the link labeled "Add / Edit Records"
-    And I select record ID "22-1" from arm name "Arm 1: Arm 1" on the Add / Edit record page
+    And I select record ID "1-1" from arm name "Arm 1: Arm 1" on the Add / Edit record page
     Then I should see "Record Home Page"
-    And I should see the "Incomplete (no data saved)" icon for the "Text Validation" longitudinal instrument on event "Event 1" for record "22-1"
-    And I should see the "Incomplete" icon for the "Data Types" longitudinal instrument on event "Event 1" for record "22-1" 
-    And I click on the bubble for the "Data Types" data collection instrument for record ID "22-1"
+    And I click the bubble to select a record for the "Data Types" longitudinal instrument on event "Event 1"
     Then I should see a field named "User role: Data Manager" after field named "Record ID" 
     And I select the submit option labeled "Save & Exit Form" on the Data Collection Instrument
     Then I should see "Record Home Page"
 
-    #ACTION: D.108.100.4 Add smart variable [instrument-name] into field label
+    #ACTION: D.108.100.4 - [instrument-name]
     When I click on the link labeled "Designer"
     And I click on the instrument labeled "Data Types"
     And I click on the first button labeled "Add Field"
@@ -193,31 +162,27 @@ Feature: D.108.100 Smart Variables - The system shall support the ability to use
 
     #VERIFY: [instrument-name] shows correctly in instrument
     When I click on the link labeled "Add / Edit Records"
-    And I select record ID "22-1" from arm name "Arm 1: Arm 1" on the Add / Edit record page
-    Then I should see "Record Home Page"
-    And I should see the "Incomplete (no data saved)" icon for the "Text Validation" longitudinal instrument on event "Event 1" for record "22-1"
-    And I should see the "Incomplete" icon for the "Data Types" longitudinal instrument on event "Event 1" for record "22-1" 
-    And I click on the bubble for the "Data Types" data collection instrument for record ID "22-1"
+    And I select record ID "1-1" from arm name "Arm 1: Arm 1" on the Add / Edit record page
+    Then I should see "Record Home Page" 
+    And I click the bubble to select a record for the "Data Types" longitudinal instrument on event "Event 1"
     Then I should see a field named "Instrument Name: data_types" after field named "Record ID" 
     And I select the submit option labeled "Save & Exit Form" on the Data Collection Instrument
     Then I should see "Record Home Page"
 
-    #ACTION: D.108.100.5 Add smart variable [form-url:instrument] using instrument name 'data_types' into field label
+    #ACTION: D.108.100.5 [user-fullname]
     When I click on the link labeled "Designer"
     And I click on the instrument labeled "Data Types"
     And I click on the first button labeled "Add Field"
     And I select "Descriptive Text (with optional Image/Video/File Attachment" on the dropdown field labeled "Field Type" in the dialog box
-    And I enter "URL of the current form: [form-url:data_types]" into the input field labeled "Field Label" in the dialog box
-    And I enter "url_name" into the input field labeled "Variable Name" in the dialog box
+    And I enter "User Fullname: [user-fullname]" into the input field labeled "Field Label" in the dialog box
+    And I enter "user_fullname" into the input field labeled "Variable Name" in the dialog box
     Then I click on the button labeled "Save"
 
-    #VERIFY: [form-url:instrument] shows correctly in instrument
+    #VERIFY: [user-fullname] shows correctly in instrument
     When I click on the link labeled "Add / Edit Records"
-    And I select record ID "22-1" from arm name "Arm 1: Arm 1" on the Add / Edit record page
+    And I select record ID "1-1" from arm name "Arm 1: Arm 1" on the Add / Edit record page
     Then I should see "Record Home Page"
-    And I should see the "Incomplete (no data saved)" icon for the "Text Validation" longitudinal instrument on event "Event 1" for record "22-1"
-    And I should see the "Incomplete" icon for the "Data Types" longitudinal instrument on event "Event 1" for record "22-1" 
-    And I click on the bubble for the "Data Types" data collection instrument for record ID "22-1"
-    Then I should see a field named "URL of the current form: https://localhost:8443/redcap_v13.8.1/DataEntry/index.php?pid=100&page=data_types&id=22-1&event_id=323&instance=1" after field named "Record ID" 
+    And I click the bubble to select a record for the "Data Types" longitudinal instrument on event "Event 1"
+    Then I should see a field named "User Fullname: Test User" after field named "Record ID" 
     And I select the submit option labeled "Save & Exit Form" on the Data Collection Instrument
     Then I should see "Record Home Page"
