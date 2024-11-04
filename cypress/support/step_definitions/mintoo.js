@@ -234,7 +234,7 @@ Given("I should NOT see the following values in the downloaded PDF", (dataTable)
     })
 })
 
-Cypress.Commands.add('fetchLatestDownload', (fileExtension) => {
+Cypress.Commands.add('fetchLatestDownloadLocal', (fileExtension) => {
     // Change to redcap_source if required
     // const downloadsDir = shell.pwd() + '../redcap_source/edocs/'
     const downloadsDir = shell.pwd() + '../www/edocs/'
@@ -264,7 +264,7 @@ Cypress.Commands.add('fetchLatestDownload', (fileExtension) => {
  * @description Verifies the values within a PDF
  */
 Given("I should see the following values in the PDF at the local storage", (dataTable) => {
-    cy.task('fetchLatestDownload', ({fileExtension: 'pdf'})).then((pdf_file) => {
+    cy.task('fetchLatestDownloadLocal', ({fileExtension: 'pdf'})).then((pdf_file) => {
 
         function findDateFormat(str) {
             for (const format in window.dateFormats) {
