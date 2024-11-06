@@ -78,7 +78,7 @@ Feature: D.104.100 - The system shall support the ability to send a survey when 
     Given I open email
     When I verify the email(s)
     And I should see "From: test_user@example.com"
-    And I should see "From: joe@abc.com"
+    And I should see "To: joe@abc.com"
     And I should see "From: Testing Survey Event 1 "
     Then I return to redcap 
     #(this is for steps 12 and 13 in the word doc). 
@@ -87,7 +87,7 @@ Feature: D.104.100 - The system shall support the ability to send a survey when 
     And I open email
     When I verify the email(s)
     And I should see "From: test_user@example.com"
-    And I should see "From: joe@abc.com"
+    And I should see "To: joe@abc.com"
     And I should see "From: Testing Survey Event 1 "
     # perhaps need a step to say we can see the above twice??? still not entire sure on the best way to do this. 
     Then I return to redcap
@@ -119,7 +119,7 @@ Feature: D.104.100 - The system shall support the ability to send a survey when 
     And I open email
     When I verify the email(s)
     And I should see "From: test_user@example.com"
-    And I should see "From: joe@abc.com"
+    And I should see "To: joe@abc.com"
     And I should see "From: Testing Survey Event 1 "
     And I click on the link "Testing Survey Event 1"
     And I enter "1" into the input field labeled "Reminder"
@@ -221,7 +221,7 @@ Feature: D.104.100 - The system shall support the ability to send a survey when 
     | dd/mm/yyyy hh:mm     | [mail_open_document] | dave@abc.com      | 2      |                        | Survey Event 1 | [link]      | [stop_gray]         |                 |
     And I click on the button labeled "View future invitations"
     Then I should see a table header and rows containing the following values in the administrators table:
-    | Invitation send time | View Invite          | Participant Email | Record | Participant Identifier | Survey         | Survey Link | Responded?   | Errors (if any) |
+    | Invitation send time | View Invite          | Participant Email | Record  | Participant Identifier | Survey         | Survey Link | Responded?   | Errors (if any) |
     | dd/mm/yyyy hh:mm     | [mail_open_document] | dave@abc.com       | 2      |                        | Survey Event 1 | [link]      | [stop_gray] |                 |
     | dd/mm/yyyy hh:mm     | [mail_open_document] | dave@abc.com       | 2      |                        | Survey Event 2 | [link]      | [stop_gray] |                 |
 
@@ -258,4 +258,106 @@ Feature: D.104.100 - The system shall support the ability to send a survey when 
     When I enter "Paul" into the input field labeled "Last name"
     Then I select the submit option labeled "Save & Exit Form" on the Data Collection Instrument
 
-    # reached the start of step 38 which should be copy and pasting 
+    Given I click on the link labeled "Survey Distribution Tools"
+    When I click on the tab labeled "Survey Invitation Log"
+    Then I should see a table header and rows containing the following values in the administrators table:
+    | Invitation send time | View Invite          | Participant Email | Record | Participant Identifier | Survey         | Survey Link | Responded?          | Errors (if any) |
+    | dd/mm/yyyy hh:mm     | [mail_open_document] | dave@abc.com      | 2      |                        | Survey Event 2 | [link]      | [stop_gray]         |                 |
+    | dd/mm/yyyy hh:mm     | [mail_open_document] | dave@abc.com      | 2      |                        | Survey Event 2 | [link]      | [stop_gray]         |                 |
+    And I click on the button labeled "View past invitations"
+    Then I should see a table header and rows containing the following values in the administrators table:
+    | Invitation send time | View Invite          | Participant Email | Record | Participant Identifier | Survey         | Survey Link | Responded?          | Errors (if any) |
+    | dd/mm/yyyy hh:mm     | [mail_open_document] | joe@abc.com       | 1      |                        | Survey Event 1 | [link]      | [circle_green_tick] |                 |
+    | dd/mm/yyyy hh:mm     | [mail_open_document] | joe@abc.com       | 1      |                        | Survey Event 2 | [link]      | [circle_green_tick] |                 |
+    | dd/mm/yyyy hh:mm     | [mail_open_document] | dave@abc.com      | 2      |                        | Survey Event 2 | [link]      | [circle_green_tick] |                 |
+
+    Given I wait for 10 minutes
+    And I open email
+    When I verify the email(s)
+    And I should see "From: test_user@example.com"
+    And I should see "To: dave@abc.com"
+    And I should see "From: Testing Survey Event 2"
+    And I click on the link "Testing Survey Event 2"
+    And I enter "3" into the input field labeled "Reminder"
+    And I enter "description3" into the input field labeled "Description"
+    And I click on the button labeled "Submit"
+    Then I click on the button labeled "Close survey"
+
+    Given I click on the link labeled "Survey Distribution Tools"
+    When I click on the tab labeled "Survey Invitation Log"
+    And I click on the button labeled "View past invitations"
+    Then I should see a table header and rows containing the following values in the administrators table:
+    | Invitation send time | View Invite          | Participant Email | Record | Participant Identifier | Survey         | Survey Link | Responded?          | Errors (if any) |
+    | dd/mm/yyyy hh:mm     | [mail_open_document] | joe@abc.com       | 1      |                        | Survey Event 1 | [link]      | [circle_green_tick] |                 |
+    | dd/mm/yyyy hh:mm     | [mail_open_document] | joe@abc.com       | 1      |                        | Survey Event 2 | [link]      | [circle_green_tick] |                 |
+    | dd/mm/yyyy hh:mm     | [mail_open_document] | dave@abc.com      | 2      |                        | Survey Event 1 | [link]      | [circle_green_tick] |                 |
+    | dd/mm/yyyy hh:mm     | [mail_open_document] | dave@abc.com      | 2      |                        | Survey Event 2 | [link]      | [circle_green_tick] |                 |
+    
+    Given I click on the link labeled "Add / Edit Records"
+    And I click on the button labeled "Add new record"
+    When I click the bubble to select a record for the "Demographics" longitudinal instrument on event "Event 1"
+    And I enter "James" into the input field labeled "Last name"
+    And I enter "Joe" into the input field labeled "First name"
+    And I enter "james@abc.com" into the input field labeled "Email"
+    Then I select the submit option labeled "Save & Exit Form" on the Data Collection Instrument
+
+    Given I wait for 10 minutes
+    And I open email
+    When I verify the email(s)
+    And I should see "From: test_user@example.com"
+    And I should see "To: james@abc.com"
+    And I should see "From: Testing Survey Event 1"
+    And I click on the link "Testing Survey Event 1"
+    And I enter "10" into the input field labeled "Reminder"
+    And I enter "description10" into the input field labeled "Description"
+    And I click on the button labeled "Submit"
+    Then I click on the button labeled "Close survey"
+
+    Given I click on the link labeled "Survey Distribution Tools"
+    When I click on the tab labeled "Survey Invitation Log"
+    And I click on the button labeled "View past invitations"
+    Then I should see a table header and rows containing the following values in the administrators table:
+    | Invitation send time | View Invite          | Participant Email | Record | Participant Identifier | Survey         | Survey Link | Responded?          | Errors (if any) |
+    | dd/mm/yyyy hh:mm     | [mail_open_document] | joe@abc.com       | 1      |                        | Survey Event 1 | [link]      | [circle_green_tick] |                 |
+    | dd/mm/yyyy hh:mm     | [mail_open_document] | joe@abc.com       | 1      |                        | Survey Event 2 | [link]      | [circle_green_tick] |                 |
+    | dd/mm/yyyy hh:mm     | [mail_open_document] | dave@abc.com      | 2      |                        | Survey Event 1 | [link]      | [circle_green_tick] |                 |
+    | dd/mm/yyyy hh:mm     | [mail_open_document] | dave@abc.com      | 2      |                        | Survey Event 2 | [link]      | [circle_green_tick] |                 |
+    | dd/mm/yyyy hh:mm     | [mail_open_document] | james@abc.com     | 3      |                        | Survey Event 1 | [link]      | [circle_green_tick] |                 |
+    And I click on the button labeled "View future invitations"
+    Then I should see a table header and rows containing the following values in the administrators table:
+    | Invitation send time | View Invite          | Participant Email | Record | Participant Identifier | Survey         | Survey Link | Responded?    | Errors (if any) |
+    | dd/mm/yyyy hh:mm     | [mail_open_document] | james@abc         | 3      |                        | Survey Event 1 | [link]      | [stop_gray]   |                 |
+    | dd/mm/yyyy hh:mm     | [mail_open_document] | james@abc         | 3      |                        | Survey Event 2 | [link]      | [stop_gray]   |                 |
+
+    Given I click on the link labeled "Designer"
+    And I click on the button labeled "Auto Invitation options"
+    And I click on the button labeled "Download all Automated Survey Invitations settings (CSV)"
+    When I download a file by clicking on the link labeled "asi_export_pid28.csv"
+    Then I should see a downloaded file named "asi_export_pid28.csv"
+    # cannot find the steps abotu opening the csv 
+
+    Given I click on the link labeled "Designer"
+    And I click on the button labeled "Auto Invitation options"
+    And I click on the button labeled "Upload Automated Survey Invitations settings (CSV)"
+    #insert steps to choose file 
+    Then I click on the button labeled "Close"
+    
+    
+    Given I click on the link labeled "Designer"
+    And I click on the button labeled "Auto Invitation options"
+    When I click on the button labeled "Re-evaluate selected surveys"
+    Then I should see "0 invitations were scheduled (and 2 already-scheduled invitations were unscheduled) across a total of 1 record"
+
+    Given I click on the link labeled "Survey Distribution Tools"
+    When I click on the tab labeled "Survey Invitation Log"
+    Then I should see "No invitations to list"
+    And I click on the button labeled "View past invitations"
+    Then I should see a table header and rows containing the following values in the administrators table:
+    | Invitation send time | View Invite          | Participant Email | Record | Participant Identifier | Survey         | Survey Link | Responded?          | Errors (if any) |
+    | dd/mm/yyyy hh:mm     | [mail_open_document] | joe@abc.com       | 1      |                        | Survey Event 1 | [link]      | [circle_green_tick] |                 |
+    | dd/mm/yyyy hh:mm     | [mail_open_document] | joe@abc.com       | 1      |                        | Survey Event 2 | [link]      | [circle_green_tick] |                 |
+    | dd/mm/yyyy hh:mm     | [mail_open_document] | dave@abc.com      | 2      |                        | Survey Event 1 | [link]      | [circle_green_tick] |                 |
+    | dd/mm/yyyy hh:mm     | [mail_open_document] | dave@abc.com      | 2      |                        | Survey Event 2 | [link]      | [circle_green_tick] |                 |
+    | dd/mm/yyyy hh:mm     | [mail_open_document] | james@abc.com     | 3      |                        | Survey Event 1 | [link]      | [circle_green_tick] |                 |
+
+# done but need to addrfess comments, do logging, and sort these into correct files. 
