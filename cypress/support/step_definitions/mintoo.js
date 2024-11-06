@@ -170,6 +170,7 @@ Given("I should see the following values in the downloaded PDF", (dataTable) => 
     })
 })
 
+
 /**
  * @module Download
  * @author Mintoo Xavier <min2xavier@gmail.com>
@@ -234,6 +235,7 @@ Given("I should NOT see the following values in the downloaded PDF", (dataTable)
     })
 })
 
+
 Cypress.Commands.add('fetchLatestDownloadLocal', (fileExtension) => {
     // Change to redcap_source if required
     // const downloadsDir = shell.pwd() + '../redcap_source/edocs/'
@@ -257,11 +259,12 @@ Cypress.Commands.add('fetchLatestDownloadLocal', (fileExtension) => {
     }
 })
 
+
 /**
  * @module Download
  * @author Mintoo Xavier <min2xavier@gmail.com>
  * @example I should see the following values in the PDF at the local storage
- * @description Verifies the values within a PDF
+ * @description Verifies the values within a PDF at the local storage
  */
 Given("I should see the following values in the PDF at the local storage", (dataTable) => {
     cy.task('fetchLatestDownloadLocal', ({fileExtension: 'pdf'})).then((pdf_file) => {
@@ -321,7 +324,6 @@ Given("I should see the following values in the PDF at the local storage", (data
     })
 })
 
-
 Cypress.Commands.add('create_empty_project', (project_name, project_type, button_label = 'Create Project') => {
     cy.get('a:visible:contains("New Project")').click()
     cy.get('input#app_title').type(project_name)
@@ -335,6 +337,7 @@ Cypress.Commands.add('create_empty_project', (project_name, project_type, button
     })
 })
 
+
 /**
  * @module DataImport
  * @author Mintoo Xavier <min2xavier@gmail.com>
@@ -344,6 +347,20 @@ Cypress.Commands.add('create_empty_project', (project_name, project_type, button
  * @param {string} projectRequestLabel - available options: 'Create Project', 'Send Request'
  * @description Creates an empty REDCap project of a specific project type.
  */
-Given('I create an empty project named {string} by clicking on "New Project" in the menu bar, selecting "{projectType}" from the dropdown, and clicking the "{projectRequestLabel}" button', (project_name, project_type, cdisc_file, button_label) => {
-    cy.create_empty_project(project_name, project_type, cdisc_file, button_label)
+Given('I create an empty project named {string} by clicking on "New Project" in the menu bar, selecting "{projectType}" from the dropdown, and clicking the "{projectRequestLabel}" button', (project_name, project_type, button_label) => {
+    cy.create_empty_project(project_name, project_type, button_label)
 })
+
+
+/**
+ * @module RecordHomePage
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I cannot click the bubble for the {string} longitudinal instrument which is disabled
+ * @param {string} instrument - the name of the instrument
+ * @description Cannot click on the instrument as it is disabled
+ */
+Given('I cannot click the bubble for the {string} longitudinal instrument which is disabled', (instrument) => {
+    cy.get('table#event_grid_table').find('td').contains(instrument).parent('td').next().within(() => {
+            cy.get('a').should('have.css', 'pointer-events', "none") 
+    })
+})   
