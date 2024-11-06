@@ -1,2 +1,1 @@
 D.121.100 - Control Center: The system shall support the option to configure the storage location for uploaded documents.
-D.121.200 - User Interface: The system shall ensure that files uploaded to the file repository are saved in the configured eDoc external storage.
