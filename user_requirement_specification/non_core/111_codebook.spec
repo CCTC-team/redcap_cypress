@@ -1,4 +1,4 @@
-D.111.100 - The system shall support the ability to create codebook. The following are checked in codebook: 
+D.111.100 - The system shall support the ability to autogenerate codebook. The following are checked in codebook: 
     D.111.100.1 - The following are checked for a field in codebook: 
         D.111.100.1.1 - Variable name 
         D.111.100.1.2 - Label 
@@ -14,5 +14,4 @@ D.111.100 - The system shall support the ability to create codebook. The followi
         D.111.100.2.5 - Checkbox 
         D.111.100.2.6 - Calculated Field 
         D.111.100.2.7 - Descriptive Text (with optional Image/Video/Audio/File Attachment)
-D.111.200 - The system shall support the ability to modify and delete fields, which will subsequently alter the codebook. 
-    
+D.111.200 - The system shall support the ability to modify and delete fields, which will subsequently alter the codebook.
