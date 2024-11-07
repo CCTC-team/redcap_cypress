@@ -4,3 +4,5 @@ Feature: D.104.300 - The system shall support the ability to send a survey after
   I want to be able to send surveys various conditions at once including time.
 
   Scenario: D.104.300 - Send Survey Under Various Conditions (Time)
+
+  This feature test is REDUNDANT and can be viewed in D.104.200
