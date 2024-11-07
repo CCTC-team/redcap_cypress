@@ -1,6 +1,14 @@
 //Add any of your own step definitions here
 
-const { Given } = require('@badeball/cypress-cucumber-preprocessor')
+const { Given, defineParameterType } = require('@badeball/cypress-cucumber-preprocessor')
+
+import 'cypress-file-upload';
+
+defineParameterType({
+    name: 'addcustomization',
+    regexp: /Enable the Data History popup for all data collection instruments|Enable the File Version History for 'File Upload' fields/
+})
+
 
 /**
  * @module e-consent
@@ -364,3 +372,77 @@ Given('I cannot click the bubble for the {string} longitudinal instrument which 
             cy.get('a').should('have.css', 'pointer-events', "none") 
     })
 })   
+
+
+/**
+ * @module Visibility
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I (should )see a checkbox labeled {addcustomization} that is {check} in additional customizations
+ * @param {string} label - the label associated with the checkbox field
+ * @param {string} check - available options: 'checked', 'unchecked'
+ * @description Verifies if a checkbox field is checked/unchecked
+ */
+Given("I (should )see a checkbox labeled {addcustomization} that is {check} in additional customizations", (label, check) => {
+    cy.get('td').contains(label).parents('tr').within(() => {
+        cy.get('input[type=checkbox]').scrollIntoView().should(check === "checked" ? "be.checked" : "not.be.checked")
+    })
+})
+
+
+/**
+ * @module Interactions
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I click on the textarea labeled {string}
+ * @param {string} label - the label associated with the textarea field
+ * @description Clicks on the textarea field with given label
+ */
+Given("I click on the textarea labeled {string}", (label) => {
+    cy.contains(label).then(($label) => {
+        cy.wrap($label).parent().find('textarea').click()
+    })
+})
+
+
+/**
+ * @module MailHog
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I open the Email
+ * @description Open email
+ */
+Given('I open the Email', () => {
+    cy.visit("http://localhost:8025")
+})
+
+
+/**
+ * @module DataImport
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I upload a {string} format file located at {string}, by clicking the button near {string} to browse for the file, and clicking the button labeled {string} to upload the file
+ * @param {string} format - the format of the file that is being uploaded (e.g. csv)
+ * @param {string} file_location - the location of the file being uploaded (e.g. import_files/core/filename.csv)
+ * @param {string} uplaod_label - text near the upload label
+ * @param {string} button_label - text on the button you click to upload
+ * @description Imports well-formed REDCap data import file (of specific type) to a specific project given a Project ID.
+ */
+Given("I upload a {string} format file located at {string} by clicking on the button labeled {string}", (format, file_location, button_label) => {
+  cy.get('input[type="file"]').attachFile(file_location);
+})
+
+
+/**
+ * @module MailHog
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I upload a {string} format file located at {string}, by clicking the button near {string} to browse for the file, and clicking the button labeled {string} to upload the file
+ * @param {string} format - the format of the file that is being uploaded (e.g. csv)
+ * @param {string} file_location - the location of the file being uploaded (e.g. import_files/core/filename.csv)
+ * @param {string} uplaod_label - text near the upload label
+ * @param {string} button_label - text on the button you click to upload
+ * @description Imports well-formed REDCap data import file (of specific type) to a specific project given a Project ID.
+ */
+Given("I click on the link labeled {string} for user {string}", (label, username) => {
+    // cy.upload_file(file_location, format, '', button_label, upload_text)
+    cy.get('div').contains(label).parent('div').contains(username).click()
+})
+
+
+// https://github.com/SMenigat/cypress-mailhog
