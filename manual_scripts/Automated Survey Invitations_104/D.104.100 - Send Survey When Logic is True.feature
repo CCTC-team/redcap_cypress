@@ -88,7 +88,7 @@ Feature: D.104.100 - The system shall support the ability to send a survey when 
     When I verify the email(s)
     And I should see "From: test_user@example.com"
     And I should see "To: joe@abc.com"
-    And I should see "From: Testing Survey Event 1 "
+    And I should see "From: Testing Survey Event 1"
     # perhaps need a step to say we can see the above twice??? still not entire sure on the best way to do this. 
     Then I return to redcap
 
@@ -129,9 +129,7 @@ Feature: D.104.100 - The system shall support the ability to send a survey when 
   
     Given I return to redcap
     When I click on the link labeled "Record Status Dashboard"
-    Then I should see the image "circle_green_tick" link for the column containing "Survey" in event "Event 1"
-    # tried to make the above as similar to existing samples as possible
-    
+    Then I should see the "Completed Survey Response" icon for the "Survey" longitudinal instrument on event "Event 1" for record "1"
     
     Given I click on the link labeled "Survey Distribution Tools"
     When I click on the tab labeled "Survey Invitation Log"
@@ -183,14 +181,15 @@ Feature: D.104.100 - The system shall support the ability to send a survey when 
     | dd/mm/yyyy hh:mm     | [mail_open_document] | joe@abc.com       | 1      |                        | Survey Event 2 | [link]      | [circle_green_tick] |                 |
 
     Given I click on the link labeled "Record Status Dashboard"
-    Then I should see the image "circle_green_tick" link for the column containing "Survey" in event "Event 2"
+    Then I should see the "Completed Survey Response" icon for the "Survey" longitudinal instrument on event "Event 2" for record "1"
+
 
     Given I click on the link labeled "Designer"
     And I should see a table header and rows containing the following values in the administrators table:
     | Instrument name | Fields | View PDF  | Enabled as Survey   | Instrument actions | Survey related options                |
     | Demographics    | 4      | [pdficon] | Enable              | Choose action      |                                       |
     | Survey          | 2      | [pdficon] | [tick_shield_small] | Choose action      | Survey settings Automated Invitations |
-# will it work like this? can it read text in buttons? 
+    # will it work like this? can it read text in buttons? 
     And I click on the button labeled "Automated Invitations"
     And I should see "Click the buttons below to set up or modify automated survey invitations."
     And I should see "Event 1"
@@ -221,7 +220,7 @@ Feature: D.104.100 - The system shall support the ability to send a survey when 
     | dd/mm/yyyy hh:mm     | [mail_open_document] | dave@abc.com      | 2      |                        | Survey Event 1 | [link]      | [stop_gray]         |                 |
     And I click on the button labeled "View future invitations"
     Then I should see a table header and rows containing the following values in the administrators table:
-    | Invitation send time | View Invite          | Participant Email | Record  | Participant Identifier | Survey         | Survey Link | Responded?   | Errors (if any) |
+    | Invitation send time | View Invite          | Participant Email  | Record | Participant Identifier | Survey         | Survey Link | Responded?   | Errors (if any) |
     | dd/mm/yyyy hh:mm     | [mail_open_document] | dave@abc.com       | 2      |                        | Survey Event 1 | [link]      | [stop_gray] |                 |
     | dd/mm/yyyy hh:mm     | [mail_open_document] | dave@abc.com       | 2      |                        | Survey Event 2 | [link]      | [stop_gray] |                 |
 
@@ -250,10 +249,8 @@ Feature: D.104.100 - The system shall support the ability to send a survey when 
     Then I should see "No invitations to list"
 
     Given I click on the link labeled "Record Status Dashboard"
-
     And I should see the "Completed Survey Response" icon for the "Survey" longitudinal instrument on event "Event Three" for record "1"
     # need to use the above step in a few places? 
-
     And I locate the bubble for the "Demographics" instrument on event "Event 1" for record ID "2" and click on the bubble
     When I enter "Paul" into the input field labeled "Last name"
     Then I select the submit option labeled "Save & Exit Form" on the Data Collection Instrument
@@ -334,14 +331,15 @@ Feature: D.104.100 - The system shall support the ability to send a survey when 
     And I click on the button labeled "Download all Automated Survey Invitations settings (CSV)"
     When I download a file by clicking on the link labeled "asi_export_pid28.csv"
     Then I should see a downloaded file named "asi_export_pid28.csv"
-    # cannot find the steps abotu opening the csv 
+    And the downloaded CSV with filename "asi_export_pid28.csv" should have a value "Survey" for column "Survey" 
+    # the above step is wrong but im doing it in the office when i got 
+    # this far on my home pc so please just change whats in the last two sets of quotes
 
     Given I click on the link labeled "Designer"
     And I click on the button labeled "Auto Invitation options"
-    And I click on the button labeled "Upload Automated Survey Invitations settings (CSV)"
-    #insert steps to choose file 
+    When I upload a "csv" format file located at "FILEPATH", by clicking the button near "Upload Automated Survey Invitations settings (CSV)" to browse for the file, and clicking the button labeled "CHECK" to upload the file
+    # the above step needs the filepath and end button name ammending, same as above comment, i am in the office and did the rest of this at home. 
     Then I click on the button labeled "Close"
-    
     
     Given I click on the link labeled "Designer"
     And I click on the button labeled "Auto Invitation options"
@@ -359,5 +357,8 @@ Feature: D.104.100 - The system shall support the ability to send a survey when 
     | dd/mm/yyyy hh:mm     | [mail_open_document] | dave@abc.com      | 2      |                        | Survey Event 1 | [link]      | [circle_green_tick] |                 |
     | dd/mm/yyyy hh:mm     | [mail_open_document] | dave@abc.com      | 2      |                        | Survey Event 2 | [link]      | [circle_green_tick] |                 |
     | dd/mm/yyyy hh:mm     | [mail_open_document] | james@abc.com     | 3      |                        | Survey Event 1 | [link]      | [circle_green_tick] |                 |
+
+    
+
 
 # done but need to addrfess comments, do logging, and sort these into correct files. 

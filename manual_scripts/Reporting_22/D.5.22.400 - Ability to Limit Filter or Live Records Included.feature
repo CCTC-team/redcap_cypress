@@ -102,9 +102,6 @@ Feature: D.5.22.300 - The system shall support the ability to limit fields inclu
     | 5         | Event 1 (Arm 1: Arm 1) |                   |                 |                  |                |                     | paulmoore@example.com  |          |
     | 5         | Event 1 (Arm 1: Arm 1) | Data Types        | 1               | 6                | Yash Tank      | Choice100 (100)     |                        | 5        |
     
-    
-
-
-    #done order by, need to check the live filters now 
+  
 
     
