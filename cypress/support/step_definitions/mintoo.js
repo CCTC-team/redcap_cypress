@@ -121,6 +121,7 @@ Given("I should NOT see the following values in the downloaded PDF for Record {s
  * @description Verifies the values within a PDF
  */
 Given("I should see the following values in the downloaded PDF", (dataTable) => {
+    cy.wait(500)
     cy.task('fetchLatestDownload', ({fileExtension: 'pdf'})).then((pdf_file) => {
 
         function findDateFormat(str) {
@@ -446,3 +447,18 @@ Given("I click on the link labeled {string} for user {string}", (label, username
 
 
 // https://github.com/SMenigat/cypress-mailhog
+
+
+/**
+ * @module Interactions
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I select the radio option {string}
+ * @param {string} option - option to select
+ * @description selects the radio option
+ */
+Given("I select the radio option {string}", (option) => {
+    cy.get('label').contains(option).within(() => {
+        cy.get('input[type=radio]').click()
+    })
+})
+
