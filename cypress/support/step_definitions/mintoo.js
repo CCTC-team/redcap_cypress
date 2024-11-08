@@ -462,3 +462,32 @@ Given("I select the radio option {string}", (option) => {
     })
 })
 
+
+/**
+ * @module Interactions
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I click on the icon {string} to download {string}
+ * @param {string} icon - icon to click to select
+ * @param {string} label - option to select
+ * @description selects the radio option
+ */
+Given("I click on the icon {string} to download {string}", (icon,label) => {
+    cy.get('td').contains(label).parents('tr').within(() => {
+        let src = null
+        if(icon == "PDF")
+            src = "download_pdf"
+        else if(icon == "Compact PDF")
+            src = "download_pdf_compact"
+        else if(icon == "REDCap XML")
+            src = "download_xml_project"
+        else if(icon == "ZIP")
+            src = "download_zip"
+
+        if(icon == "PDF")
+            cy.get("img[src*=" + src + "]").first().click()
+        else
+        cy.get("img[src*=" + src + "]").click()
+        
+    })
+})
+
