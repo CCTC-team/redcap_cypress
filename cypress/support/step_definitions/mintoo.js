@@ -3,13 +3,49 @@
 const { Given, defineParameterType } = require('@badeball/cypress-cucumber-preprocessor')
 
 import 'cypress-file-upload';
+// import 'cypress-mailhog';
+
+// To make sure emails are deleted only once per Test Script
+let hasRunBeforeEach = false;
+
+// delete all the messages from MailHog
+beforeEach(() => {
+    if (!hasRunBeforeEach) {
+        // Your setup code here
+        hasRunBeforeEach = true;
+        cy.deleteAllEmails();
+      }
+})
+
+Cypress.Commands.add('deleteAllEmails', () => {
+    cy.request({
+        method: 'DELETE',
+        url: 'http://localhost:8025/api/v1/messages',
+        failOnStatusCode: false // Ignore potential errors due to no emails
+      });
+});
+
 
 defineParameterType({
     name: 'addcustomization',
     regexp: /Enable the Data History popup for all data collection instruments|Enable the File Version History for 'File Upload' fields/
 })
 
+defineParameterType({
+    name: 'namestat',
+    regexp: /name|status/
+})
 
+
+defineParameterType({
+    name: 'alert',
+    regexp: /How will this alert be triggered|When to send the alert|Send it how many times|Alert Type/
+})
+
+defineParameterType({
+    name: 'savecan',
+    regexp: /save|cancel/
+})
 /**
  * @module e-consent
  * @author Mintoo Xavier <min2xavier@gmail.com>
@@ -405,17 +441,6 @@ Given("I click on the textarea labeled {string}", (label) => {
 
 
 /**
- * @module MailHog
- * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I open the Email
- * @description Open email
- */
-Given('I open the Email', () => {
-    cy.visit("http://localhost:8025")
-})
-
-
-/**
  * @module DataImport
  * @author Mintoo Xavier <min2xavier@gmail.com>
  * @example I upload a {string} format file located at {string}, by clicking the button near {string} to browse for the file, and clicking the button labeled {string} to upload the file
@@ -428,25 +453,6 @@ Given('I open the Email', () => {
 Given("I upload a {string} format file located at {string} by clicking on the button labeled {string}", (format, file_location, button_label) => {
   cy.get('input[type="file"]').attachFile(file_location);
 })
-
-
-/**
- * @module MailHog
- * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I upload a {string} format file located at {string}, by clicking the button near {string} to browse for the file, and clicking the button labeled {string} to upload the file
- * @param {string} format - the format of the file that is being uploaded (e.g. csv)
- * @param {string} file_location - the location of the file being uploaded (e.g. import_files/core/filename.csv)
- * @param {string} uplaod_label - text near the upload label
- * @param {string} button_label - text on the button you click to upload
- * @description Imports well-formed REDCap data import file (of specific type) to a specific project given a Project ID.
- */
-Given("I click on the link labeled {string} for user {string}", (label, username) => {
-    // cy.upload_file(file_location, format, '', button_label, upload_text)
-    cy.get('div').contains(label).parent('div').contains(username).click()
-})
-
-
-// https://github.com/SMenigat/cypress-mailhog
 
 
 /**
@@ -491,3 +497,215 @@ Given("I click on the icon {string} to download {string}", (icon,label) => {
     })
 })
 
+
+/**
+ * @module MailHog
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I open the Email
+ * @description Open email
+ */
+Given('I open Email', () => {
+    cy.visit("http://localhost:8025")
+})
+
+
+// /**
+//  * @module MailHog
+//  * @author Mintoo Xavier <min2xavier@gmail.com>
+//  * @example I delete all the messages from Email
+//  * @description delete all the messages
+//  */
+// Given('I delete all the messages from Email', () => {
+//     cy.deleteAllEmails()
+
+// })
+
+
+Cypress.Commands.add('findEmailBySubjectAndRecipient', (subject, recipient) => {
+    cy.request('GET', 'http://localhost:8025/api/v2/messages').then((response) => {
+      expect(response.status).to.eq(200); // Ensure the request was successful
+      
+      // Get all messages from MailHog
+      const messages = response.body.items;
+
+      const matchedEmail = messages.find((message) => {
+        const emailSubject = message.Content.Headers.Subject[0];
+        const emailTo = message.Content.Headers.To[0];
+        
+        return emailSubject === subject && emailTo.includes(recipient);
+      });
+  
+      // Ensure an email was found, otherwise throw an error
+      if (matchedEmail) {
+        return cy.wrap(matchedEmail); // Wrap the matched email to use in tests
+      } else {
+        throw new Error(`No email found with subject "${subject}" for recipient "${recipient}".`);
+    }
+    });
+  });
+
+
+/**
+ * @module MailHog
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I should see an email for user {string} with subject {string}
+ * @param {string} recipient - email id of recipient
+ * @param {string} subject - subject of the email
+ * @description verifies an email is available for a given user with a given subject
+ */
+Given("I should see an email for user {string} with subject {string}", (recipient, subject) => {
+    cy.findEmailBySubjectAndRecipient(subject, recipient).then((email) => {
+        // Assertions on the email content
+        expect(email.Content.Headers.Subject[0]).to.eq(subject); // Check subject
+        expect(email.Content.Headers.To[0]).to.include(recipient); // Check recipient
+    })
+})
+
+
+/**
+ * @module MailHog
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I should see an email for user {string} with subject {string}
+ * @param {string} recipient - email id of recipient
+ * @param {string} subject - subject of the email
+ * @description verifies an email is available for a given user with a given subject
+ */
+Given("I copy the password from the email for user {string} with subject {string}", (recipient, subject) => {
+    cy.findEmailBySubjectAndRecipient(subject, recipient).then((email) => {
+        // Assertions on the email content
+        expect(email.Content.Headers.Subject[0]).to.eq(subject); // Check subject
+        expect(email.Content.Headers.To[0]).to.include(recipient); // Check recipient
+        
+        const passwordPattern = "[A-Z0-9]{8}"
+        const emailContent = email.Content.Body
+        cy.log(emailContent)
+
+        const match = emailContent.match('passwordPattern');
+        // const match = expect(emailContent).to.match(/[A-Z0-9]{8}/)
+        cy.log(match)
+
+        // if (match && match[1]) { 
+        //     password = match[1]; // Capture the password 
+        //     cy.log('Password extracted: ' + password); // Log the password (optional) 
+            
+        // } else { 
+        //     throw new Error('Password not found in email content'); 
+        // }
+    })
+})
+
+
+/**
+ * @module Interactions
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I select {string} on the dropdown field for alert form {namestat}
+ * @param {string} option - option to select
+ * @description selects the dropdown option for alert form name/status
+ */
+Given("I select {string} on the dropdown field for alert form {namestat}", (option,name_status) => {
+    if(name_status == "name")
+        name_status = "form-name"
+    else
+        name_status = "email-incomplete"
+
+    cy.get('select[name="' + name_status + '"]').select(option)
+})
+
+
+/**
+ * @module Visibility
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I select {string} on the dropdown field for alert form {namestat}
+ * @param {string} option - option to select
+ * @description selects the dropdown option for alert form name/status
+ */
+Given("I should see the dropdown field for alert form status with the option {string} selected", (option) => {
+    cy.get('select[name="email-incomplete"]').find(':selected').should('have.text', option)
+})
+
+
+/**
+ * @module Interactions
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I select the radio option {string} for {alert}
+ * @param {string} option - option to select
+ * @description selects the radio option for alert option
+ */
+Given("I select the radio option {string} for {alert}", (option, alert) => {
+    cy.get('td').contains(alert).parents('tr').within(() => {
+        cy.get('label').contains(option).parent().find('input').click()
+    })
+})
+
+
+/**
+ * @module Interactions
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example Given("I should see the radio option {string} for {alert} selected", (option, alert) => {
+ * @param {string} option - option selected
+ * @description verifies the radio option is selected for alert option
+ */
+Given("I should see the radio option {string} for {alert} selected", (option, alert) => {
+    cy.get('td').contains(alert).parents('tr').within(() => {
+        cy.get('label').contains(option).parent().find('input').should('be.checked')
+    })
+})
+
+
+/**
+ * @module Interactions
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I enter {string} into the alert message
+ * @param {string} msg - message to enter
+ * @description enters message into the message body of the alert
+ */
+Given("I enter {string} into the alert message", (msg) => {
+    cy.get('.tox-edit-area iframe').then($iframe => {
+        const $body = $iframe.contents().find('body')
+        cy.wrap($body).clear().type(msg)
+    })
+})
+
+
+/**
+ * @module Interactions
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I save the alert
+ * @description saves the alert
+ */
+Given("I {savecan} the alert", (msg) => {
+    if(msg== "save")
+        msg = "Save"
+    else
+        msg = "Cancel"
+    cy.get('button').contains(msg).scrollIntoView().click()
+})
+
+
+/**
+ * @module Interactions
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I click on the mail icon for record {string}
+ * @param {string} recordID - record ID
+ * @description clicks on the mail icon for record ID
+ */
+Given("I click on the mail icon for record {string}", (recordID) => {
+    cy.get('td:nth-child(4)').contains(recordID).parents('tr').within(() => {
+        cy.get('img[src*=mail]').click()
+    })
+})
+
+
+/**
+ * @module Interactions
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I click on the button labeled {string} for alert {string}
+ * @param {string} label - label on the button of the alert
+ * @param {string} num - alert number
+ * @description edit the alert
+ */
+Given("I click on the button labeled {string} for alert {string}", (label, num) => {
+    cy.get('table#customizedAlertsPreview').find('tr#alert_' + num).within(() => {
+        cy.get('button').contains(label).click()
+    })
+})
