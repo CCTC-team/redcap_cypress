@@ -2,18 +2,18 @@
 
 const { Given, defineParameterType } = require('@badeball/cypress-cucumber-preprocessor')
 
-import 'cypress-file-upload';
-// import 'cypress-mailhog';
+import 'cypress-file-upload'
+// import 'cypress-mailhog'
 
 // To make sure emails are deleted only once per Test Script
-let hasRunBeforeEach = false;
+let hasRunBeforeEach = false
 
 // delete all the messages from MailHog
 beforeEach(() => {
     if (!hasRunBeforeEach) {
         // Your setup code here
-        hasRunBeforeEach = true;
-        cy.deleteAllEmails();
+        hasRunBeforeEach = true
+        cy.deleteAllEmails()
       }
 })
 
@@ -22,8 +22,8 @@ Cypress.Commands.add('deleteAllEmails', () => {
         method: 'DELETE',
         url: 'http://localhost:8025/api/v1/messages',
         failOnStatusCode: false // Ignore potential errors due to no emails
-      });
-});
+      })
+})
 
 
 defineParameterType({
@@ -54,14 +54,14 @@ defineParameterType({
  * @description Clicks on the given option for the e-consent Framework
  */
 Given('I select the radio option {string} for the e-consent Framework', (option) => {
-    let value = 0;
+    let value = 0
 
     if (option == 'Auto-Archiver enabled')
         value = 1
     else if (option == 'Auto-Archiver + e-Consent Framework')
         value = 2
     else
-        value = 0;
+        value = 0
     cy.get('input[type=radio][name=pdf_auto_archive][value='+ value + ']').click()
 })
 
@@ -305,6 +305,7 @@ Cypress.Commands.add('fetchLatestDownloadLocal', (fileExtension) => {
 })
 
 
+// Not working. Have to fix this
 /**
  * @module Download
  * @author Mintoo Xavier <min2xavier@gmail.com>
@@ -375,7 +376,7 @@ Cypress.Commands.add('create_empty_project', (project_name, project_type, button
     cy.get('select#purpose').select(project_type)
     cy.get('input#project_template_radio0').click()
     cy.get('button').contains(button_label).click().then(() => {
-        let pid = null;
+        let pid = null
         cy.url().should((url) => {
             return url
         })
@@ -415,7 +416,7 @@ Given('I cannot click the bubble for the {string} longitudinal instrument which 
  * @module Visibility
  * @author Mintoo Xavier <min2xavier@gmail.com>
  * @example I (should )see a checkbox labeled {addcustomization} that is {check} in additional customizations
- * @param {string} label - the label associated with the checkbox field
+ * @param {string} addcustomization - available options: "Enable the Data History popup for all data collection instruments", "Enable the File Version History for 'File Upload' fields"
  * @param {string} check - available options: 'checked', 'unchecked'
  * @description Verifies if a checkbox field is checked/unchecked
  */
@@ -443,15 +444,13 @@ Given("I click on the textarea labeled {string}", (label) => {
 /**
  * @module DataImport
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I upload a {string} format file located at {string}, by clicking the button near {string} to browse for the file, and clicking the button labeled {string} to upload the file
- * @param {string} format - the format of the file that is being uploaded (e.g. csv)
+ * @example I upload a file located at {string} by clicking on the button labeled {string}
  * @param {string} file_location - the location of the file being uploaded (e.g. import_files/core/filename.csv)
- * @param {string} uplaod_label - text near the upload label
  * @param {string} button_label - text on the button you click to upload
- * @description Imports well-formed REDCap data import file (of specific type) to a specific project given a Project ID.
+ * @description attaches a file
  */
-Given("I upload a {string} format file located at {string} by clicking on the button labeled {string}", (format, file_location, button_label) => {
-  cy.get('input[type="file"]').attachFile(file_location);
+Given("I upload a file located at {string} by clicking on the button labeled {string}", (file_location, button_label) => {
+  cy.get('input[type="file"]').attachFile(file_location)
 })
 
 
@@ -473,11 +472,11 @@ Given("I select the radio option {string}", (option) => {
  * @module Interactions
  * @author Mintoo Xavier <min2xavier@gmail.com>
  * @example I click on the icon {string} to download {string}
- * @param {string} icon - icon to click to select
- * @param {string} label - option to select
- * @description selects the radio option
+ * @param {string} icon - icon to click
+ * @param {string} label - option to select on Other Export Options page
+ * @description download PDF from Other Export options page
  */
-Given("I click on the icon {string} to download {string}", (icon,label) => {
+Given("I click on the icon {string} to download {string}", (icon, label) => {
     cy.get('td').contains(label).parents('tr').within(() => {
         let src = null
         if(icon == "PDF")
@@ -502,47 +501,35 @@ Given("I click on the icon {string} to download {string}", (icon,label) => {
  * @module MailHog
  * @author Mintoo Xavier <min2xavier@gmail.com>
  * @example I open the Email
- * @description Open email
+ * @description Open MailHog
  */
 Given('I open Email', () => {
     cy.visit("http://localhost:8025")
 })
 
 
-// /**
-//  * @module MailHog
-//  * @author Mintoo Xavier <min2xavier@gmail.com>
-//  * @example I delete all the messages from Email
-//  * @description delete all the messages
-//  */
-// Given('I delete all the messages from Email', () => {
-//     cy.deleteAllEmails()
-
-// })
-
-
 Cypress.Commands.add('findEmailBySubjectAndRecipient', (subject, recipient) => {
     cy.request('GET', 'http://localhost:8025/api/v2/messages').then((response) => {
-      expect(response.status).to.eq(200); // Ensure the request was successful
+      expect(response.status).to.eq(200) // Ensure the request was successful
       
       // Get all messages from MailHog
-      const messages = response.body.items;
+      const messages = response.body.items
 
       const matchedEmail = messages.find((message) => {
-        const emailSubject = message.Content.Headers.Subject[0];
-        const emailTo = message.Content.Headers.To[0];
+        const emailSubject = message.Content.Headers.Subject[0]
+        const emailTo = message.Content.Headers.To[0]
         
-        return emailSubject === subject && emailTo.includes(recipient);
-      });
+        return emailSubject === subject && emailTo.includes(recipient)
+      })
   
       // Ensure an email was found, otherwise throw an error
       if (matchedEmail) {
-        return cy.wrap(matchedEmail); // Wrap the matched email to use in tests
+        return cy.wrap(matchedEmail) // Wrap the matched email to use in tests
       } else {
-        throw new Error(`No email found with subject "${subject}" for recipient "${recipient}".`);
+        throw new Error(`No email found with subject "${subject}" for recipient "${recipient}".`)
     }
-    });
-  });
+    })
+  })
 
 
 /**
@@ -556,12 +543,13 @@ Cypress.Commands.add('findEmailBySubjectAndRecipient', (subject, recipient) => {
 Given("I should see an email for user {string} with subject {string}", (recipient, subject) => {
     cy.findEmailBySubjectAndRecipient(subject, recipient).then((email) => {
         // Assertions on the email content
-        expect(email.Content.Headers.Subject[0]).to.eq(subject); // Check subject
-        expect(email.Content.Headers.To[0]).to.include(recipient); // Check recipient
+        expect(email.Content.Headers.Subject[0]).to.eq(subject) // Check subject
+        expect(email.Content.Headers.To[0]).to.include(recipient) // Check recipient
     })
 })
 
 
+//Copy Password is not working.. Needs fixing
 /**
  * @module MailHog
  * @author Mintoo Xavier <min2xavier@gmail.com>
@@ -573,23 +561,23 @@ Given("I should see an email for user {string} with subject {string}", (recipien
 Given("I copy the password from the email for user {string} with subject {string}", (recipient, subject) => {
     cy.findEmailBySubjectAndRecipient(subject, recipient).then((email) => {
         // Assertions on the email content
-        expect(email.Content.Headers.Subject[0]).to.eq(subject); // Check subject
-        expect(email.Content.Headers.To[0]).to.include(recipient); // Check recipient
+        expect(email.Content.Headers.Subject[0]).to.eq(subject) // Check subject
+        expect(email.Content.Headers.To[0]).to.include(recipient) // Check recipient
         
         const passwordPattern = "[A-Z0-9]{8}"
         const emailContent = email.Content.Body
         cy.log(emailContent)
 
-        const match = emailContent.match('passwordPattern');
+        const match = emailContent.match('passwordPattern')
         // const match = expect(emailContent).to.match(/[A-Z0-9]{8}/)
         cy.log(match)
 
         // if (match && match[1]) { 
-        //     password = match[1]; // Capture the password 
-        //     cy.log('Password extracted: ' + password); // Log the password (optional) 
+        //     password = match[1] // Capture the password 
+        //     cy.log('Password extracted: ' + password) // Log the password (optional) 
             
         // } else { 
-        //     throw new Error('Password not found in email content'); 
+        //     throw new Error('Password not found in email content') 
         // }
     })
 })
@@ -600,9 +588,10 @@ Given("I copy the password from the email for user {string} with subject {string
  * @author Mintoo Xavier <min2xavier@gmail.com>
  * @example I select {string} on the dropdown field for alert form {namestat}
  * @param {string} option - option to select
+ * @param {string} name_status - available options: 'name', 'status'
  * @description selects the dropdown option for alert form name/status
  */
-Given("I select {string} on the dropdown field for alert form {namestat}", (option,name_status) => {
+Given("I select {string} on the dropdown field for alert form {namestat}", (option, name_status) => {
     if(name_status == "name")
         name_status = "form-name"
     else
@@ -615,9 +604,9 @@ Given("I select {string} on the dropdown field for alert form {namestat}", (opti
 /**
  * @module Visibility
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I select {string} on the dropdown field for alert form {namestat}
- * @param {string} option - option to select
- * @description selects the dropdown option for alert form name/status
+ * @example I should see the dropdown field for alert form status with the option {string} selected
+ * @param {string} option - option selected
+ * @description verifies the option selected for alert form status
  */
 Given("I should see the dropdown field for alert form status with the option {string} selected", (option) => {
     cy.get('select[name="email-incomplete"]').find(':selected').should('have.text', option)
@@ -629,6 +618,7 @@ Given("I should see the dropdown field for alert form status with the option {st
  * @author Mintoo Xavier <min2xavier@gmail.com>
  * @example I select the radio option {string} for {alert}
  * @param {string} option - option to select
+ * @param {string} alert - available options: 'How will this alert be triggered', 'When to send the alert', 'Send it how many times', 'Alert Type'
  * @description selects the radio option for alert option
  */
 Given("I select the radio option {string} for {alert}", (option, alert) => {
@@ -643,6 +633,7 @@ Given("I select the radio option {string} for {alert}", (option, alert) => {
  * @author Mintoo Xavier <min2xavier@gmail.com>
  * @example Given("I should see the radio option {string} for {alert} selected", (option, alert) => {
  * @param {string} option - option selected
+ * @param {string} alert - available options: 'How will this alert be triggered', 'When to send the alert', 'Send it how many times', 'Alert Type'
  * @description verifies the radio option is selected for alert option
  */
 Given("I should see the radio option {string} for {alert} selected", (option, alert) => {
@@ -670,8 +661,9 @@ Given("I enter {string} into the alert message", (msg) => {
 /**
  * @module Interactions
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I save the alert
- * @description saves the alert
+ * @example I {savecan} the alert
+ * @param {string} savecan - available options: 'Save', 'Cancel'
+ * @description save/cancel the alert
  */
 Given("I {savecan} the alert", (msg) => {
     if(msg== "save")
@@ -702,10 +694,21 @@ Given("I click on the mail icon for record {string}", (recordID) => {
  * @example I click on the button labeled {string} for alert {string}
  * @param {string} label - label on the button of the alert
  * @param {string} num - alert number
- * @description edit the alert
+ * @description click on the button on the alert
  */
 Given("I click on the button labeled {string} for alert {string}", (label, num) => {
-    cy.get('table#customizedAlertsPreview').find('tr#alert_' + num).within(() => {
+    cy.get('table#customizedAlertsPreview').find('td').contains('Alert #' + num).parents('tr').within(() => {
         cy.get('button').contains(label).click()
     })
+})
+
+
+/**
+ * @module Interactions
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I click on the textarea labeled while the following logic is true for the alert
+ * @description click on the textarea labeled while the following logic is true for the alert
+ */
+Given("I click on the textarea labeled while the following logic is true for the alert", () => {
+    cy.get('textarea#alert-condition').click()
 })
