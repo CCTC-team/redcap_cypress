@@ -1,6 +1,10 @@
 //Add any of your own step definitions here
+// const shell = require('shelljs')
+// // const fs = require('fs')
+// const path = require('path')
 
 const { Given, defineParameterType } = require('@badeball/cypress-cucumber-preprocessor')
+
 
 import 'cypress-file-upload'
 // import 'cypress-mailhog'
@@ -28,7 +32,7 @@ Cypress.Commands.add('deleteAllEmails', () => {
 
 defineParameterType({
     name: 'addcustomization',
-    regexp: /Enable the Data History popup for all data collection instruments|Enable the File Version History for 'File Upload' fields/
+    regexp: /Enable the Data History popup for all data collection instruments|Enable the File Version History for 'File Upload' fields|Prevent branching logic from hiding fields that have values|Require a 'reason' when making changes to existing records/
 })
 
 defineParameterType({
@@ -42,10 +46,26 @@ defineParameterType({
     regexp: /How will this alert be triggered|When to send the alert|Send it how many times|Alert Type/
 })
 
+
 defineParameterType({
     name: 'savecan',
     regexp: /save|cancel/
 })
+
+
+defineParameterType({
+    name: 'fieldIcons',
+    regexp: /History|Missing Code|Comment|Show Field|/
+})
+
+fieldIcons = {
+    'History' : `img[src*=history]`,
+    'Missing Code': `img[src*=missing]`,
+    'Comment': `img[src*=balloon_left]`,
+    'Show Field' : `i[id*=showfield]`
+}
+
+
 /**
  * @module e-consent
  * @author Mintoo Xavier <min2xavier@gmail.com>
@@ -281,15 +301,15 @@ Given("I should NOT see the following values in the downloaded PDF", (dataTable)
 })
 
 
-Cypress.Commands.add('fetchLatestDownloadLocal', (fileExtension) => {
+Cypress.Commands.add('fetchLatestDownloadLocal', ({fileExtension}) => {
     // Change to redcap_source if required
     // const downloadsDir = shell.pwd() + '../redcap_source/edocs/'
-    const downloadsDir = shell.pwd() + '../www/edocs/'
+    const downloadsDir = 'c:/Users/min2suz/redcap_cypress_docker/redcap_source/edocs/'
 
     // Read the files in the downloads directory
-    const files = fs.readdirSync(downloadsDir)
+    const files = cy.readFile(downloadsDir)
 
-    // Filter files by extensionß
+    // Filter files by extension
     const filteredFiles = files.filter(file => path.extname(file) === `.${fileExtension}`)
 
     //If no filtered files are found ...
@@ -313,8 +333,7 @@ Cypress.Commands.add('fetchLatestDownloadLocal', (fileExtension) => {
  * @description Verifies the values within a PDF at the local storage
  */
 Given("I should see the following values in the PDF at the local storage", (dataTable) => {
-    cy.task('fetchLatestDownloadLocal', ({fileExtension: 'pdf'})).then((pdf_file) => {
-
+    cy.fetchLatestDownloadLocal({fileExtension: 'pdf'}).then((pdf_file) => {
         function findDateFormat(str) {
             for (const format in window.dateFormats) {
                 const regex = window.dateFormats[format]
@@ -370,6 +389,8 @@ Given("I should see the following values in the PDF at the local storage", (data
     })
 })
 
+
+
 Cypress.Commands.add('create_empty_project', (project_name, project_type, button_label = 'Create Project') => {
     cy.get('a:visible:contains("New Project")').click()
     cy.get('input#app_title').type(project_name)
@@ -416,13 +437,31 @@ Given('I cannot click the bubble for the {string} longitudinal instrument which 
  * @module Visibility
  * @author Mintoo Xavier <min2xavier@gmail.com>
  * @example I (should )see a checkbox labeled {addcustomization} that is {check} in additional customizations
- * @param {string} addcustomization - available options: "Enable the Data History popup for all data collection instruments", "Enable the File Version History for 'File Upload' fields"
+ * @param {string} addcustomization - available options: "Enable the Data History popup for all data collection instruments", "Enable the File Version History for 'File Upload' fields", "Prevent branching logic from hiding fields that have values"
  * @param {string} check - available options: 'checked', 'unchecked'
  * @description Verifies if a checkbox field is checked/unchecked
  */
 Given("I (should )see a checkbox labeled {addcustomization} that is {check} in additional customizations", (label, check) => {
     cy.get('td').contains(label).parents('tr').within(() => {
         cy.get('input[type=checkbox]').scrollIntoView().should(check === "checked" ? "be.checked" : "not.be.checked")
+    })
+})
+
+
+/**
+ * @module Interactions
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I {clickType} the checkbox labeled {addcustomization} in additional customizations
+ * @param {string} addcustomization - available options: "Enable the Data History popup for all data collection instruments", "Enable the File Version History for 'File Upload' fields", "Prevent branching logic from hiding fields that have values"
+ * @param {string} clickType - available options: 'click on', 'check', 'uncheck'
+ * @description checks/unchecks the checkbox field
+ */
+Given("I {clickType} the checkbox labeled {addcustomization} in additional customizations", (checktype, label) => {
+    cy.get('td').contains(label).parents('tr').within(() => {
+        if (checktype === "check")
+            cy.get('input[type=checkbox]').scrollIntoView().check()
+        else
+            cy.get('input[type=checkbox]').scrollIntoView().uncheck()
     })
 })
 
@@ -629,7 +668,7 @@ Given("I select the radio option {string} for {alert}", (option, alert) => {
 
 
 /**
- * @module Interactions
+ * @module Visibility
  * @author Mintoo Xavier <min2xavier@gmail.com>
  * @example Given("I should see the radio option {string} for {alert} selected", (option, alert) => {
  * @param {string} option - option selected
@@ -678,10 +717,10 @@ Given("I {savecan} the alert", (msg) => {
  * @module Interactions
  * @author Mintoo Xavier <min2xavier@gmail.com>
  * @example I click on the mail icon for record {string}
- * @param {string} recordID - record ID
+ * @param {int} recordID - record ID
  * @description clicks on the mail icon for record ID
  */
-Given("I click on the mail icon for record {string}", (recordID) => {
+Given("I click on the mail icon for record {int}", (recordID) => {
     cy.get('td:nth-child(4)').contains(recordID).parents('tr').within(() => {
         cy.get('img[src*=mail]').click()
     })
@@ -711,4 +750,65 @@ Given("I click on the button labeled {string} for alert {string}", (label, num) 
  */
 Given("I click on the textarea labeled while the following logic is true for the alert", () => {
     cy.get('textarea#alert-condition').click()
+})
+
+
+/**
+ * @module Visibility
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I should see the {fieldIcons} icon for the field labeled {string}
+ * @param {string} icon - icon to verify - available options: 'History', 'Missing Code', 'Comment', 'Show Field'
+ * @param {string} label - field label
+ * @description verifies the field contains the icon
+ */
+Given("I should see the {fieldIcons} icon for the field labeled {string}", (icon,label) => {
+    cy.get('td').contains(label).parents('tr').within(() => {
+        cy.get(fieldIcons[icon])
+    })
+})
+
+
+/**
+ * @module Visibility
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I should NOT see the {fieldIcons} icon for the field labeled {string}
+ * @param {string} icon - icon to verify - available options: 'History', 'Missing Code', 'Comment', 'Show Field'
+ * @param {string} label - field label
+ * @description verifies the field does not contains the icon
+ */
+Given("I should NOT see the {fieldIcons} icon for the field labeled {string}", (icon,label) => {
+    cy.get('td').contains(label).parents('tr').within(() => {
+        cy.get(fieldIcons[icon]).should('not.exist')
+    })    
+})
+
+
+/**
+ * @module Interactions
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I click on the {fieldIcons} icon for the field labeled {string}
+ * @param {string} icon - icon to click - available options: 'History', 'Missing Code', 'Comment', 'Show Field'
+ * @param {string} label - field label
+ * @description clicks on the icon for the field
+ */
+Given("I click on the {fieldIcons} icon for the field labeled {string}", (icon,label) => {
+    cy.get('td').contains(label).parents('tr').within(() => {
+        cy.get(fieldIcons[icon]).click()
+    })
+})
+
+
+/**
+ * @module Interactions
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I enter reason for change as {string} for row {string}
+ * @param {string} str - reason to enter
+ * @param {int} num - row number
+ * @description clicks on the icon for the field
+ */
+Given("I enter reason for change as {string} for row {int}", (str, num) => {
+    num += 2
+    cy.get('table#comptable').find('tr:nth-child(' + num + ')').within(() => {
+        cy.get('textarea').type(str)
+    })
 })
