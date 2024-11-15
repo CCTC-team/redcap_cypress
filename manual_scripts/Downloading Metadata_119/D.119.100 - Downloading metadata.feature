@@ -3,7 +3,7 @@ Feature: D.119.100 Downloading Metadata - The system shall support the ability t
   As a REDCap end user
   I want to see that downloading metadata only feature is functioning as expected
 
-    Scenario: 1 D.119.100 - Downloading Metadata only(XML) consisting Text Validation(Record ID,Name, Email, Form status) and Data Types(Name, Text2, Textbox, Notes Box, Calculated Field, Multiple choice dropdown Auto, Multiple choice dropdown Manual, Radio Button Manual, Checkbox, Signature (add signature), File Upload (file_upload), Section break, Descriptive Text with File,Identifier,Identifier, Edit Field, Section break, Descriptive Text, Form Status) as instruments shown in Online Designer. User roles, Data Access Group and Data Quality to be included in XML.
+    Scenario: D.119.100 - Downloading Metadata only(XML) consisting Text Validation(Record ID,Name, Email, Form status) and Data Types(Name, Text2, Textbox, Notes Box, Calculated Field, Multiple choice dropdown Auto, Multiple choice dropdown Manual, Radio Button Manual, Checkbox, Signature (add signature), File Upload (file_upload), Section break, Descriptive Text with File,Identifier,Identifier, Edit Field, Section break, Descriptive Text, Form Status) as instruments shown in Online Designer. User roles, Data Access Group and Data Quality to be included in XML.
 
     #SETUP
     Given I login to REDCap with the user "Test_Admin"   
