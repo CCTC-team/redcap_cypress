@@ -1,4 +1,4 @@
-D.106.100 - The system shall allow Data Resolution Workflow rights to be (No Access, View only, Open queries only, Respond only to opened queries, Open and respond to queries; Open, close, and respond to queries).
+D.106.100 - The system shall allow Data Resolution Workflow privileges to be (No Access, View only, Open queries only, Respond only to opened queries, Open and respond to queries; Open, close, and respond to queries).
 D.106.200 - The system shall support the ability to open, close, reopen and respond to queries.
 D.106.300 - The system shall support the ability to filter issues based on records, fields, events and users.
 D.106.400 - The system shall support the ability to upload files to queries. 
