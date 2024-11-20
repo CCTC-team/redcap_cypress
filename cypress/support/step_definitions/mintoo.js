@@ -52,17 +52,75 @@ defineParameterType({
     regexp: /save|cancel/
 })
 
-
 defineParameterType({
     name: 'fieldIcons',
-    regexp: /History|Missing Code|Comment|Show Field|/
+    regexp: /History|Missing Code|Comment|Show Field|Exclamation|Tick|Small Tick/
 })
+
+
+defineParameterType({
+    name: 'drwOptions',
+    regexp: /Verified data value|Open query|Close the query|Reply with response|Send back for further attention|Email|REDCap Messenger|/
+})
+
+
+defineParameterType({
+    name: 'drwRights',
+    regexp: /No Access|View only|Open queries only|Respond only to opened queries|Open and respond to queries|Open, close, and respond to queries|/
+})
+
+defineParameterType({
+    name: 'resolveType',
+    regexp: /Status|Field Rule|Event|DAG|Assigned User|/
+})
+
+resolveType = {
+    'Status' : `select[id=choose_status_type]`,
+    'Field Rule' : `select[id=choose_field_rule`,
+    'Event' : `select[id=choose_event]`,
+    'DAG' : `select[id=choose_dag]`,
+    'Assigned User' : `select[id=choose_assigned_user]`
+}
 
 fieldIcons = {
     'History' : `img[src*=history]`,
     'Missing Code': `img[src*=missing]`,
-    'Comment': `img[src*=balloon_left]`,
-    'Show Field' : `i[id*=showfield]`
+    'Comment': `img[src*=balloon]`,
+    'Show Field' : `i[id*=showfield]`,
+    'Exclamation': `img[src*=balloon_exclamation]`,
+    'Tick': `img[src*=tick_circle]`,
+    'Small Tick': `img[src*=balloon_tick]`
+}
+
+drwOptions = {
+    'Verified data value' : `input[value=VERIFIED]`,
+    'Open query' : `input[value=OPEN]`,
+    'Close the query' : `input[value=CLOSED]`,
+    'Reply with response' : `input[value=OPEN]`,
+    'Send back for further attention' : `input[value=OPEN]`,
+    'Email' : `input[id=assigned_user_id_notify_email]`,
+    'REDCap Messenger' : `input[id=assigned_user_id_notify_messenger]`
+}
+
+
+savecan = {
+    'save' : `Save`,
+    'cancel' : `Cancel`
+}
+
+
+namestat = {
+    'name' : `select[name=form-name]`,
+    'status' : `select[name=email-incomplete]`
+}
+
+drwRights = {
+    'No Access' : '0',
+    'View only' : '1',
+    'Open queries only' : '4',
+    'Respond only to opened queries' : '2',
+    'Open and respond to queries' : '5',
+    'Open, close, and respond to queries' : '3'
 }
 
 
@@ -631,12 +689,7 @@ Given("I copy the password from the email for user {string} with subject {string
  * @description selects the dropdown option for alert form name/status
  */
 Given("I select {string} on the dropdown field for alert form {namestat}", (option, name_status) => {
-    if(name_status == "name")
-        name_status = "form-name"
-    else
-        name_status = "email-incomplete"
-
-    cy.get('select[name="' + name_status + '"]').select(option)
+    cy.get(namestat[name_status]).select(option)
 })
 
 
@@ -705,11 +758,7 @@ Given("I enter {string} into the alert message", (msg) => {
  * @description save/cancel the alert
  */
 Given("I {savecan} the alert", (msg) => {
-    if(msg== "save")
-        msg = "Save"
-    else
-        msg = "Cancel"
-    cy.get('button').contains(msg).scrollIntoView().click()
+    cy.get('button').contains(savecan[msg]).scrollIntoView().click()
 })
 
 
@@ -756,12 +805,12 @@ Given("I click on the textarea labeled while the following logic is true for the
 /**
  * @module Visibility
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I should see the {fieldIcons} icon for the field labeled {string}
+ * @example I should see a {fieldIcons} icon for the field labeled {string}
  * @param {string} icon - icon to verify - available options: 'History', 'Missing Code', 'Comment', 'Show Field'
  * @param {string} label - field label
  * @description verifies the field contains the icon
  */
-Given("I should see the {fieldIcons} icon for the field labeled {string}", (icon,label) => {
+Given("I should see a(n) {fieldIcons} icon for the field labeled {string}", (icon,label) => {
     cy.get('td').contains(label).parents('tr').within(() => {
         cy.get(fieldIcons[icon])
     })
@@ -802,13 +851,106 @@ Given("I click on the {fieldIcons} icon for the field labeled {string}", (icon,l
  * @module Interactions
  * @author Mintoo Xavier <min2xavier@gmail.com>
  * @example I enter reason for change as {string} for row {string}
- * @param {string} str - reason to enter
+ * @param {string} text - reason to enter
  * @param {int} num - row number
  * @description clicks on the icon for the field
  */
-Given("I enter reason for change as {string} for row {int}", (str, num) => {
+Given("I enter reason for change as {string} for row {int}", (text, num) => {
     num += 2
     cy.get('table#comptable').find('tr:nth-child(' + num + ')').within(() => {
-        cy.get('textarea').type(str)
+        cy.get('textarea').type(text)
     })
+})
+
+
+/**
+ * @module Interactions
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I scroll to the field labeled {string}
+ * @param {string} text - field label
+ * @description croll to the field
+ */
+Given("I scroll to the field labeled {string}", (text) => {
+    cy.get('td').contains(text).scrollIntoView()
+})
+
+
+/**
+ * @module Interactions
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I scroll to the field labeled {string}
+ * @param {string} text - field label
+ * @description scroll to the field
+ */
+Given("I add the missing code {string}", (text) => {
+    cy.get('.set_btn').contains(text).click()
+})
+
+
+
+/**
+ * @module Interactions
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I select the {dropdownType} option {drwOptions} in Data Resolution Workflow
+ * @param {string} dropdownType - available options: 'dropdown', 'multiselect', 'checkboxes', 'radio'
+ * @param {string} drwOptions - option to select - available options: 'Verified data value', 'Open query', 'Close the query', 'Reply with response', 'Email', 'REDCap Messenger'
+ * @description Selects a specific item in Data Resolution Workflow
+ */
+Given("I select the {dropdownType} option {drwOptions} in Data Resolution Workflow", (type, option) => {
+    cy.get(drwOptions[option]).click()
+})
+
+
+/**
+ * @module Interactions
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I {enterType} {string} in the comment box in Data Resolution Workflow
+ * @param {string} text - comment to enter/verify
+ * @description enter/verify comment in the comment box in Data Resolution Workflow
+ */
+Given("I {enterType} {string} in the comment box in Data Resolution Workflow", (enter_type, text) => {
+    if(enter_type === "enter"){
+        cy.get('textarea#dc-comment').type(text)
+    } else if (enter_type === "clear field and enter") {
+        cy.get('textarea#dc-comment').clear().type(text)
+    } else if (enter_type === "verify"){
+        cy.get('textarea#dc-comment').invoke('val').should('include', text)
+    }
+})
+
+
+/**
+ * @module Interactions
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I select the User Right named Data Resolution Workflow and choose {drwRights}
+ * @param {string} drwRights - option to select - available options: 'No Access', 'View only', 'Open queries only', 'Respond only to opened queries', 'Open and respond to queries', 'Open, close, and respond to queries'
+ * @description selects the User Right option for Data Resolution Workflow
+ */
+Given("I select the User Right named Data Resolution Workflow and choose {drwRights}", (option) => {
+    cy.get('div[role=dialog]').should('be.visible').find('input[name=data_quality_resolution][value=' + drwRights[option] + ']').click()  
+})
+
+
+/**
+ * @module Interactions
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I select the dropdown option {string} in Data Resolution Workflow
+ * @param {string} option - option to select
+ * @description selects the dropdown option in Data Resolution Workflow
+ */
+Given("I select the dropdown option {string} in Data Resolution Workflow", (option) => {
+    cy.get('table#newDCHistory').find('select').select(option)  
+})
+
+
+/**
+ * @module Interactions
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I select the option {string} from the dropdown field for {resolveType} in Data Resolution Dashboard
+ * @param {string} resolveType - type of filter in Data Resolution Dashboard
+ * @param {string} option - option to select - available options: 'Status', 'Field Rule', 'Event', 'DAG', 'Assigned User'
+ * @description selects the dropdown option in Data Resolution Dashboard
+ */
+Given("I select the option {string} from the dropdown field for {resolveType} in Data Resolution Dashboard", (option, type) => {
+    cy.get('.ftitle').find(resolveType[type]).select(option)  
 })
