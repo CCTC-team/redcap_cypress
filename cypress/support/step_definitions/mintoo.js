@@ -35,11 +35,16 @@ defineParameterType({
     regexp: /Enable the Data History popup for all data collection instruments|Enable the File Version History for 'File Upload' fields|Prevent branching logic from hiding fields that have values|Require a 'reason' when making changes to existing records/
 })
 
+
 defineParameterType({
     name: 'namestat',
     regexp: /name|status/
 })
 
+// defineParameterType({
+//     name: 'editDelete',
+//     regexp: /Edit|Delete/
+// })
 
 defineParameterType({
     name: 'alert',
@@ -54,13 +59,13 @@ defineParameterType({
 
 defineParameterType({
     name: 'fieldIcons',
-    regexp: /History|Missing Code|Comment|Show Field|Exclamation|Tick|Small Tick/
+    regexp: /History|Missing Code|Comment|Show Field|Exclamation|Tick|Small Tick|Small Exclamation/
 })
 
 
 defineParameterType({
     name: 'drwOptions',
-    regexp: /Verified data value|Open query|Close the query|Reply with response|Send back for further attention|Email|REDCap Messenger|/
+    regexp: /Verified data value|De-verify data value|Open query|Close the query|Reply with response|Send back for further attention|Email|REDCap Messenger|/
 })
 
 
@@ -71,7 +76,12 @@ defineParameterType({
 
 defineParameterType({
     name: 'resolveType',
-    regexp: /Status|Field Rule|Event|DAG|Assigned User|/
+    regexp: /Status|Field Rule|Event|DAG|Assigned User|Record|Field|User/
+})
+
+defineParameterType({
+    name: 'commentDrw',
+    regexp: /Data Resolution Dashboard|Field Comment Log|/
 })
 
 resolveType = {
@@ -79,21 +89,31 @@ resolveType = {
     'Field Rule' : `select[id=choose_field_rule`,
     'Event' : `select[id=choose_event]`,
     'DAG' : `select[id=choose_dag]`,
-    'Assigned User' : `select[id=choose_assigned_user]`
+    'Assigned User' : `select[id=choose_assigned_user]`,
+    'Record' : `select[id=choose_record]`,
+    'Field' : `select[id=choose_field]`,
+    'User' : `select[id=choose_user]`
 }
+
+// editDelete = {
+//     'Edit' : `img[src*=pencil]`,
+//     'Delete': `img[src*=cross]`
+// }
 
 fieldIcons = {
     'History' : `img[src*=history]`,
     'Missing Code': `img[src*=missing]`,
     'Comment': `img[src*=balloon]`,
     'Show Field' : `i[id*=showfield]`,
-    'Exclamation': `img[src*=balloon_exclamation]`,
+    'Exclamation': `img[src*=exclamation_red]`,
     'Tick': `img[src*=tick_circle]`,
-    'Small Tick': `img[src*=balloon_tick]`
+    'Small Tick': `img[src*=balloon_tick]`,
+    'Small Exclamation': `img[src*=balloon_exclamation]`
 }
 
 drwOptions = {
     'Verified data value' : `input[value=VERIFIED]`,
+    'De-verify data value' : `input[value=DEVERIFIED]`,
     'Open query' : `input[value=OPEN]`,
     'Close the query' : `input[value=CLOSED]`,
     'Reply with response' : `input[value=OPEN]`,
@@ -820,12 +840,12 @@ Given("I should see a(n) {fieldIcons} icon for the field labeled {string}", (ico
 /**
  * @module Visibility
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I should NOT see the {fieldIcons} icon for the field labeled {string}
+ * @example I should NOT see a(n) {fieldIcons} icon for the field labeled {string}
  * @param {string} icon - icon to verify - available options: 'History', 'Missing Code', 'Comment', 'Show Field'
  * @param {string} label - field label
  * @description verifies the field does not contains the icon
  */
-Given("I should NOT see the {fieldIcons} icon for the field labeled {string}", (icon,label) => {
+Given("I should NOT see a(n) {fieldIcons} icon for the field labeled {string}", (icon,label) => {
     cy.get('td').contains(label).parents('tr').within(() => {
         cy.get(fieldIcons[icon]).should('not.exist')
     })    
@@ -893,7 +913,7 @@ Given("I add the missing code {string}", (text) => {
  * @author Mintoo Xavier <min2xavier@gmail.com>
  * @example I select the {dropdownType} option {drwOptions} in Data Resolution Workflow
  * @param {string} dropdownType - available options: 'dropdown', 'multiselect', 'checkboxes', 'radio'
- * @param {string} drwOptions - option to select - available options: 'Verified data value', 'Open query', 'Close the query', 'Reply with response', 'Email', 'REDCap Messenger'
+ * @param {string} drwOptions - option to select - available options: 'Verified data value', 'De-verify data value', 'Open query', 'Close the query', 'Reply with response', 'Email', 'REDCap Messenger'
  * @description Selects a specific item in Data Resolution Workflow
  */
 Given("I select the {dropdownType} option {drwOptions} in Data Resolution Workflow", (type, option) => {
@@ -904,11 +924,11 @@ Given("I select the {dropdownType} option {drwOptions} in Data Resolution Workfl
 /**
  * @module Interactions
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I {enterType} {string} in the comment box in Data Resolution Workflow
- * @param {string} text - comment to enter/verify
- * @description enter/verify comment in the comment box in Data Resolution Workflow
+ * @example I {enterType} {string} in the comment box in {commentDrw}
+ * @param {string} text - text to enter/verify
+ * @description enter/verify comment in the comment box in Data Resolution Workflow/Field Comment Log
  */
-Given("I {enterType} {string} in the comment box in Data Resolution Workflow", (enter_type, text) => {
+Given("I {enterType} {string} in the comment box in {commentDrw}", (enter_type, text) => {
     if(enter_type === "enter"){
         cy.get('textarea#dc-comment').type(text)
     } else if (enter_type === "clear field and enter") {
@@ -946,11 +966,62 @@ Given("I select the dropdown option {string} in Data Resolution Workflow", (opti
 /**
  * @module Interactions
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I select the option {string} from the dropdown field for {resolveType} in Data Resolution Dashboard
- * @param {string} resolveType - type of filter in Data Resolution Dashboard
+ * @example I select the option {string} from the dropdown field for {resolveType} in {commentDrw}
+ * @param {string} resolveType - type of filter
  * @param {string} option - option to select - available options: 'Status', 'Field Rule', 'Event', 'DAG', 'Assigned User'
- * @description selects the dropdown option in Data Resolution Dashboard
+ * @param {string} commentDrw - available options: 'Data Resolution Dashboard', 'Field Comment Log'
+ * @description selects the dropdown option in Data Resolution Dashboard/Field Comment Log
  */
-Given("I select the option {string} from the dropdown field for {resolveType} in Data Resolution Dashboard", (option, type) => {
+Given("I select the option {string} from the dropdown field for {resolveType} in {commentDrw}", (option, type, comdrw) => {
     cy.get('.ftitle').find(resolveType[type]).select(option)  
+})
+
+
+/**
+ * @module Interactions
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I click on the {onlineDesignerFieldIcons} icon for the Comment {string}
+ * @param {string} icon - icon to click
+ * @param {string} comment - comment
+ * @description clicks on the icon of the comment
+ */
+Given("I click on the {onlineDesignerFieldIcons} icon for the Comment {string}", (icon, comment) => {
+    cy.get('td').contains(comment).parents('tr').within(() => {
+        cy.get(onlineDesignerFieldIcons[icon]).click()  
+    })
+})
+
+
+/**
+ * @module Interactions
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I should NOT see {onlineDesignerFieldIcons} icon for the Comment {string}
+ * @param {string} icon - icon to verify
+ * @param {string} comment - comment
+ * @description verifies the icon of the comment
+ */
+Given("I should NOT see {onlineDesignerFieldIcons} icon for the Comment {string}", (icon, comment) => {
+    cy.get('td').contains(comment).parents('tr').within(() => {
+        cy.get(onlineDesignerFieldIcons[icon]).should('not.exist')
+    })
+})
+
+
+/**
+ * @module Interactions
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I {enterType} {string} in the comment box for the editted comment {string} in {commentDrw}
+ * @param {string} text - text to enter
+ * @param {string} comment - text to edit
+ * @param {string} commentDrw - available options: 'Data Resolution Dashboard', 'Field Comment Log'
+ * @description enter/verify comment in the comment box in Data Resolution Workflow/Field Comment Log
+ */
+Given("I {enterType} {string} in the comment box for the editted comment {string} in {commentDrw}", (enter_type, text, comment,comdrw) => {
+    cy.get('td').contains(comment).parents('tr').within(() => {
+        if(enter_type === "enter"){
+            cy.get('textarea[id*=dc-comment-edit]').type(text)
+        } else if (enter_type === "clear field and enter") {
+            cy.get('textarea[id*=dc-comment-edit]').clear().type(text)
+        }
+    })
 })
