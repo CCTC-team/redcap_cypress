@@ -53,6 +53,10 @@ defineParameterType({
 })
 
 defineParameterType({
+    name: 'buttonLink',
+    regexp: /button|link/
+})
+defineParameterType({
     name: 'fieldIcons',
     regexp: /History|Missing Code|Comment|Show Field|Exclamation|Tick|Small Tick|Small Exclamation/
 })
@@ -1013,5 +1017,24 @@ Given("I {enterType} {string} in the comment box for the editted comment {string
         } else if (enter_type === "clear field and enter") {
             cy.get('textarea[id*=dc-comment-edit]').clear().type(text)
         }
+    })
+})
+
+
+/**
+ * @module Interactions
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I {enterType} {string} in the comment box for the editted comment {string} in {commentDrw}
+ * @param {string} text - text to enter
+ * @param {string} comment - text to edit
+ * @param {string} commentDrw - available options: 'Data Resolution Dashboard', 'Field Comment Log'
+ * @description enter/verify comment in the comment box in Data Resolution Workflow/Field Comment Log
+ */
+Given("I click on the {buttonLink} labeled {string} for row {int}", (type, text, num) => {
+    cy.get('table[id*=dh_table]').find('tr:nth-child(' + num + ')').within(() => {
+        if(type === "button"){
+            cy.get('button').contains(text).click()
+        } else 
+            cy.get('a').contains(text).click()
     })
 })
