@@ -41,11 +41,6 @@ defineParameterType({
     regexp: /name|status/
 })
 
-// defineParameterType({
-//     name: 'editDelete',
-//     regexp: /Edit|Delete/
-// })
-
 defineParameterType({
     name: 'alert',
     regexp: /How will this alert be triggered|When to send the alert|Send it how many times|Alert Type/
@@ -81,7 +76,7 @@ defineParameterType({
 
 defineParameterType({
     name: 'commentDrw',
-    regexp: /Data Resolution Dashboard|Field Comment Log|/
+    regexp: /Data Resolution Workflow|Field Comment Log|Data Resolution Dashboard|/
 })
 
 resolveType = {
@@ -94,11 +89,6 @@ resolveType = {
     'Field' : `select[id=choose_field]`,
     'User' : `select[id=choose_user]`
 }
-
-// editDelete = {
-//     'Edit' : `img[src*=pencil]`,
-//     'Delete': `img[src*=cross]`
-// }
 
 fieldIcons = {
     'History' : `img[src*=history]`,
@@ -928,7 +918,7 @@ Given("I select the {dropdownType} option {drwOptions} in Data Resolution Workfl
  * @param {string} text - text to enter/verify
  * @description enter/verify comment in the comment box in Data Resolution Workflow/Field Comment Log
  */
-Given("I {enterType} {string} in the comment box in {commentDrw}", (enter_type, text) => {
+Given("I {enterType} {string} in the comment box in {commentDrw}", (enter_type, text, comdrw) => {
     if(enter_type === "enter"){
         cy.get('textarea#dc-comment').type(text)
     } else if (enter_type === "clear field and enter") {
