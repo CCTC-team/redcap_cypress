@@ -1,10 +1,9 @@
 //Add any of your own step definitions here
 // const shell = require('shelljs')
-// // const fs = require('fs')
-// const path = require('path')
+
 
 const { Given, defineParameterType } = require('@badeball/cypress-cucumber-preprocessor')
-
+   
 
 import 'cypress-file-upload'
 // import 'cypress-mailhog'
@@ -82,6 +81,23 @@ defineParameterType({
     name: 'commentDrw',
     regexp: /Data Resolution Workflow|Field Comment Log|Data Resolution Dashboard|/
 })
+
+defineParameterType({
+    name: 'otherExportOption',
+    regexp: /Export entire project as REDCap XML file|ZIP file of uploaded files|PDF of data collection instruments containing saved data|/
+})
+
+defineParameterType({
+    name: 'otherExportImg',
+    regexp: /REDCap XML|ZIP|PDF|Compact PDF/
+})
+
+otherExportImg = {
+    'REDCap XML' : `img[src*=download_xml_project]`,
+    'ZIP' : `img[src*=download_zip]`,
+    'PDF' : `a[title='Download PDF with all data']`,
+    'Compact PDF' : `a[title='Download PDF with all data (compact)']`
+}
 
 resolveType = {
     'Status' : `select[id=choose_status_type]`,
@@ -373,31 +389,6 @@ Given("I should NOT see the following values in the downloaded PDF", (dataTable)
 })
 
 
-Cypress.Commands.add('fetchLatestDownloadLocal', ({fileExtension}) => {
-    // Change to redcap_source if required
-    // const downloadsDir = shell.pwd() + '../redcap_source/edocs/'
-    const downloadsDir = 'c:/Users/min2suz/redcap_cypress_docker/redcap_source/edocs/'
-
-    // Read the files in the downloads directory
-    const files = cy.readFile(downloadsDir)
-
-    // Filter files by extension
-    const filteredFiles = files.filter(file => path.extname(file) === `.${fileExtension}`)
-
-    //If no filtered files are found ...
-    if (filteredFiles.length === 0) {
-        return ''
-    } else {
-        // Sort files by modification time to get the latest one
-        const latestFile = filteredFiles
-            .map(file => ({ file, mtime: fs.statSync(path.join(downloadsDir, file)).mtime }))
-            .sort((a, b) => b.mtime - a.mtime)[0].file
-        return `${downloadsDir}${latestFile}`
-    }
-})
-
-
-// Not working. Have to fix this
 /**
  * @module Download
  * @author Mintoo Xavier <min2xavier@gmail.com>
@@ -405,7 +396,7 @@ Cypress.Commands.add('fetchLatestDownloadLocal', ({fileExtension}) => {
  * @description Verifies the values within a PDF at the local storage
  */
 Given("I should see the following values in the PDF at the local storage", (dataTable) => {
-    cy.fetchLatestDownloadLocal({fileExtension: 'pdf'}).then((pdf_file) => {
+    cy.task('fetchLatestDownloadLocal',{fileExtension: 'pdf'}).then((pdf_file) => {
         function findDateFormat(str) {
             for (const format in window.dateFormats) {
                 const regex = window.dateFormats[format]
@@ -621,28 +612,40 @@ Given('I open Email', () => {
 
 Cypress.Commands.add('findEmailBySubjectAndRecipient', (subject, recipient) => {
     cy.request('GET', 'http://localhost:8025/api/v2/messages').then((response) => {
-      expect(response.status).to.eq(200) // Ensure the request was successful
+        expect(response.status).to.eq(200) // Ensure the request was successful
       
-      // Get all messages from MailHog
-      const messages = response.body.items
+        // Get all messages from MailHog
+        const messages = response.body.items
 
-      const matchedEmail = messages.find((message) => {
+        const matchedEmail = messages.find((message) => {
         const emailSubject = message.Content.Headers.Subject[0]
         const emailTo = message.Content.Headers.To[0]
         
         return emailSubject === subject && emailTo.includes(recipient)
-      })
+       
+        })
   
-      // Ensure an email was found, otherwise throw an error
-      if (matchedEmail) {
-        return cy.wrap(matchedEmail) // Wrap the matched email to use in tests
-      } else {
+        // Ensure an email was found, otherwise throw an error
+        if (matchedEmail) {
+            return cy.wrap(matchedEmail) // Wrap the matched email to use in tests
+        } else {
         throw new Error(`No email found with subject "${subject}" for recipient "${recipient}".`)
-    }
+        }
     })
   })
 
-
+  Cypress.Commands.add('findEmailsByRecipient', (recipient) => {
+    cy.request('GET', 'http://localhost:8025/api/v2/messages').then((response) => {
+        expect(response.status).to.eq(200) // Ensure the request was successful
+      
+        // Filter emails for the specific recipient
+        const emails = response.body.items.filter((email) => {
+            return email.To.some((to) => `${to.Mailbox}@${to.Domain}` === recipient);
+        })
+        // cy.log(emails.length)
+        return emails; 
+    })
+  })
 /**
  * @module MailHog
  * @author Mintoo Xavier <min2xavier@gmail.com>
@@ -656,6 +659,22 @@ Given("I should see an email for user {string} with subject {string}", (recipien
         // Assertions on the email content
         expect(email.Content.Headers.Subject[0]).to.eq(subject) // Check subject
         expect(email.Content.Headers.To[0]).to.include(recipient) // Check recipient
+    })
+})
+
+
+
+/**
+ * @module MailHog
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I should see an email for user {string} with subject {string}
+ * @param {string} recipient - email id of recipient
+ * @param {string} subject - subject of the email
+ * @description verifies an email is available for a given user with a given subject
+ */
+Given("I should see {int} email(s) for user {string}", (num, recipient) => {
+    cy.findEmailsByRecipient(recipient).then((emails) => {
+        expect(emails.length).to.eq(num) 
     })
 })
 
@@ -675,13 +694,29 @@ Given("I copy the password from the email for user {string} with subject {string
         expect(email.Content.Headers.Subject[0]).to.eq(subject) // Check subject
         expect(email.Content.Headers.To[0]).to.include(recipient) // Check recipient
         
-        const passwordPattern = "[A-Z0-9]{8}"
         const emailContent = email.Content.Body
-        cy.log(emailContent)
+        // Define the search phrase
+        const searchPhrase = "previous email.";
+        cy.log("emailContent:" + emailContent)
 
-        const match = emailContent.match('passwordPattern')
-        // const match = expect(emailContent).to.match(/[A-Z0-9]{8}/)
-        cy.log(match)
+        // Find the index of the search phrase in the input string
+        const index = emailContent.indexOf(searchPhrase);
+
+        if (index !== -1) {
+        // Calculate the starting index for the 8-letter substring. Have to add +6 (maybe because of <br> or something)
+        let startIndex = index + searchPhrase.length + 6;        
+
+        // Extract the 8-letter substring
+        let endIndex = startIndex + 8;
+        const substring = emailContent.substring(startIndex, endIndex).trim();
+        cy.log("Password:" + substring)
+        } else {
+            // If the search phrase is not found, return a default message
+            return null; // Or handle as needed
+        }
+        
+
+     
 
         // if (match && match[1]) { 
         //     password = match[1] // Capture the password 
@@ -1036,5 +1071,40 @@ Given("I click on the {buttonLink} labeled {string} for row {int}", (type, text,
             cy.get('button').contains(text).click()
         } else 
             cy.get('a').contains(text).click()
+    })
+})
+
+
+/**
+ * @module Interactions
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I unzip the latest downloaded zip file
+ * @description Unzips the latest downloaded zip file
+ */
+Given("I unzip the latest downloaded zip file", () => {
+    cy.task('fetchLatestDownload', ({fileExtension: 'zip'})).then((latest_file) => {
+        const filepath = latest_file
+        cy.task('unzipFile', { filepath }).then((result) => {
+            if (result.success) {
+            cy.log(`File unzipped successfully`)
+            } else {
+            cy.log(result.message)
+            throw new Error(result.message)
+            }
+        })
+    })
+})
+
+
+
+/**
+ * @module Interactions
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I unzip the latest downloaded zip file
+ * @description Unzips the latest downloaded zip file
+ */
+Given("I click on the {otherExportImg} image for {otherExportOption} in Other Export options", (img, option) => {
+    cy.get('td').contains(option).parents('tr').within(() => {
+        cy.get(otherExportImg[img]).click()
     })
 })
