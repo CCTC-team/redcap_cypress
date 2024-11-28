@@ -640,10 +640,10 @@ Cypress.Commands.add('findEmailBySubjectAndRecipient', (subject, recipient) => {
       
         // Filter emails for the specific recipient
         const emails = response.body.items.filter((email) => {
-            return email.To.some((to) => `${to.Mailbox}@${to.Domain}` === recipient);
+            return email.To.some((to) => `${to.Mailbox}@${to.Domain}` === recipient)
         })
         // cy.log(emails.length)
-        return emails; 
+        return emails
     })
   })
 /**
@@ -667,10 +667,10 @@ Given("I should see an email for user {string} with subject {string}", (recipien
 /**
  * @module MailHog
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I should see an email for user {string} with subject {string}
+ * @example I should see {int} email(s) for user {string}
  * @param {string} recipient - email id of recipient
- * @param {string} subject - subject of the email
- * @description verifies an email is available for a given user with a given subject
+ * @param {int} num - number of the email
+ * @description verifies the user has the given number of email(s)
  */
 Given("I should see {int} email(s) for user {string}", (num, recipient) => {
     cy.findEmailsByRecipient(recipient).then((emails) => {
@@ -678,53 +678,172 @@ Given("I should see {int} email(s) for user {string}", (num, recipient) => {
     })
 })
 
-
-//Copy Password is not working.. Needs fixing
 /**
  * @module MailHog
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I should see an email for user {string} with subject {string}
+ * @example I copy and paste the password for user {string} from the email with subject {string} to the link in the email with subject {string}
  * @param {string} recipient - email id of recipient
- * @param {string} subject - subject of the email
- * @description verifies an email is available for a given user with a given subject
+ * @param {string} subject1 - subject of the first email
+ * @param {string} subject2 - subject of the second email
+ * @description copy and paste the password for user from first email into the link in the second email
  */
-Given("I copy the password from the email for user {string} with subject {string}", (recipient, subject) => {
-    cy.findEmailBySubjectAndRecipient(subject, recipient).then((email) => {
-        // Assertions on the email content
-        expect(email.Content.Headers.Subject[0]).to.eq(subject) // Check subject
-        expect(email.Content.Headers.To[0]).to.include(recipient) // Check recipient
-        
-        const emailContent = email.Content.Body
+Given("I copy and paste the password for user {string} from the email with subject {string} to the link in the email with subject {string}", (recipient, subject1, subject2) => {
+    let password = null
+    cy.findEmailBySubjectAndRecipient(subject1, recipient).then((email) => {
+           
+        const emailContent1 = email.Content.Body
         // Define the search phrase
-        const searchPhrase = "previous email.";
-        cy.log("emailContent:" + emailContent)
+        const searchPhrase = "previous email."
+        cy.log("emailContent:" + emailContent1)
 
         // Find the index of the search phrase in the input string
-        const index = emailContent.indexOf(searchPhrase);
+        const index = emailContent1.indexOf(searchPhrase)
 
         if (index !== -1) {
         // Calculate the starting index for the 8-letter substring. Have to add +6 (maybe because of <br> or something)
-        let startIndex = index + searchPhrase.length + 6;        
+        let startIndex = index + searchPhrase.length + 6      
 
         // Extract the 8-letter substring
-        let endIndex = startIndex + 8;
-        const substring = emailContent.substring(startIndex, endIndex).trim();
-        cy.log("Password:" + substring)
+        let endIndex = startIndex + 8
+        password = emailContent1.substring(startIndex, endIndex).trim()
+        cy.log("Password:" + password)
         } else {
             // If the search phrase is not found, return a default message
-            return null; // Or handle as needed
+            return null // Or handle as needed
         }
-        
+    })
 
-     
+    cy.findEmailBySubjectAndRecipient(subject2, recipient).then((email) => {
+        const emailBody = email.Content.Body
 
-        // if (match && match[1]) { 
-        //     password = match[1] // Capture the password 
-        //     cy.log('Password extracted: ' + password) // Log the password (optional) 
+      // Use a regex to find the first link in the email body
+      const linkMatch = emailBody.match(/https?:\/\/[^\s]+/)
+      if (linkMatch) {
+        const link = linkMatch[0]
+        cy.log(`Found link: ${link}`)
+
+        // Visit the link
+        cy.visit(link)
+
+        // Paste the password into the input field
+        cy.get('input[type="password"]').type(password)
+      } else {
+        throw new Error('Link not found in the email body.')
+      }
+    })
+})
+
+
+/**
+ * @module MailHog
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I click on the link labeled {string} in the email for user {string} with subject {string}
+ * @param {string} recipient - email id of recipient
+ * @param {string} subject1 - subject of the first email
+ * @param {string} subject2 - subject of the second email
+ * @description copy and paste the password for user from first email into the link in the second email
+ */
+Given("I click on the link in the email for user {string} with subject {string}", (recipient, subject) => {
+    cy.findEmailBySubjectAndRecipient(subject, recipient).then((email) => {
+        const emailBody = email.Content.Body
+        const linkMatch = emailBody.match(/(https?:\/\/[^\s)]+)/g) // Regex to match URLs, excluding trailing ')'
+
+        if (linkMatch) {
+          const link = linkMatch[0]
+          cy.log(`Found link: ${link}`)
+          cy.visit(link)
+        }
+    
+    })
+})
+
+/**
+ * @module MailHog
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I verify the link in the email with subject {string} for user {string} expires after {int} day(s)
+ * @param {string} recipient - email id of recipient
+ * @param {string} subject1 - subject of the first email
+ * @param {string} subject2 - subject of the second email
+ * @description copy and paste the password for user from first email into the link in the second email
+ */
+Given("I click on link in the email with subject {string} for user {string} after {int} day(s)", (subject, recipient, numDays) => {
+        cy.findEmailBySubjectAndRecipient(subject, recipient).then((email) => {
+        const emailBody = email.Content.Body
+
+      // Use a regex to find the first link in the email body
+      const linkMatch = emailBody.match(/https?:\/\/[^\s]+/)
+      if (linkMatch) {
+        const link = linkMatch[0]
+        cy.log(`Found link: ${link}`)
+
+        const msPerDay = 24 * 60 * 60 * 1000
+
+        // Initialize the clock to the current time
+        cy.clock(Date.now())
+
+        // Advance the clock by numDays
+        cy.tick(numDays * msPerDay)
+
+        // // Log the updated date to confirm the time manipulation
+        // cy.window()
+        // .its('Date')
+        // .then((MockedDate) => {
+        //     const mockedDate = new MockedDate();
+        //     cy.log(`Current date after ticking: ${mockedDate}`);
             
-        // } else { 
-        //     throw new Error('Password not found in email content') 
-        // }
+        // })
+
+        cy.visit(link, { failOnStatusCode: false }) // Fail-safe if link is already expired
+        // Assert that the page displays the expiration message
+        cy.contains('This link has expired').should('be.visible')
+
+        // // Log the updated date to confirm the time manipulation
+        // cy.window()
+        // .its('Date')
+        // .then((MockedDate) => {
+        //     const mockedDate = new MockedDate();
+        //     cy.log(`Current date after ticking: ${mockedDate}`);
+        //     cy.visit(link).contains('The file has expired.') // Ensure fail-safe for expired links
+            
+        //     cy.log(`Current date after ticking: ${mockedDate}`);
+        // });
+
+        // Visit the link
+       
+ 
+       
+        // // Check if the link has expired (simulate 4 days later)
+        // const numDaysLater = new Date()
+        // numDaysLater.setDate(numDaysLater.getDate() + num)
+
+        // // cy.log(`Current date:` + numDaysLater)
+        // cy.clock(Date.now()).then(clock => {
+        //     clock.tick(5 * 24 * 60 * 60 * 1000)
+        // });      // Verify the mocked clock is set correctly
+        // // Verify the mocked clock is set correctly
+        // // cy.wrap(new Date().getTime()).should('eq', numDaysLater.getTime());
+        // // cy.clock(new Date().setDate(new Date().getDate() + num))
+        // // Get the current date
+        // cy.window().its('Date').invoke('now').then((newTime) => {
+        //     const expectedTime = Date.now() + (5 * 24 * 60 * 60 * 1000)
+        //     expect(newTime).to.be.closeTo(expectedTime, 100)
+        //     const d = new Date()
+        //     cy.log(`Current date:` + d)
+        //     // Visit the link
+            
+        //     cy.visit(link, { failOnStatusCode: false }) // Fail-safe if link is already expired
+            
+        // })
+        
+        // const d = new Date()
+        // cy.log(`Current date:` + d)
+        // // Visit the link
+        
+       
+
+      } else {
+        throw new Error('Link not found in the email body.')
+      }
     })
 })
 
@@ -1096,7 +1215,6 @@ Given("I unzip the latest downloaded zip file", () => {
 })
 
 
-
 /**
  * @module Interactions
  * @author Mintoo Xavier <min2xavier@gmail.com>
@@ -1107,4 +1225,18 @@ Given("I click on the {otherExportImg} image for {otherExportOption} in Other Ex
     cy.get('td').contains(option).parents('tr').within(() => {
         cy.get(otherExportImg[img]).click()
     })
+})
+
+
+/**
+ * @module Interactions
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I click on the button containing {string}
+* @param {string} text - text in button
+ * @description clicks on the button containing text
+ */
+Given("I click on the button containing {string}", (text) => {
+    cy.get('td').contains(text).within(() => {
+        cy.get('i').click()
+   })
 })
