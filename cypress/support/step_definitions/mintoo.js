@@ -4,6 +4,8 @@
 
 const { Given, defineParameterType } = require('@badeball/cypress-cucumber-preprocessor')
    
+// const timeAdjust = Cypress.env('serverTimeAdjust')
+// const { exec } = require('child_process')
 
 import 'cypress-file-upload'
 // import 'cypress-mailhog'
@@ -757,6 +759,24 @@ Given("I click on the link in the email for user {string} with subject {string}"
     })
 })
 
+
+Cypress.Commands.add('adjustDockerTime', (containerName, time) => {
+  return new Cypress.Promise((resolve, reject) => {
+    exec(
+      `docker exec ${containerName} date --set="${time}"`,
+      (error, stdout, stderr) => {
+        if (error) {
+          console.error(`Error adjusting time: ${stderr}`)
+          reject(error)
+        } else {
+          console.log(`Time adjusted: ${stdout}`)
+          resolve(stdout)
+        }
+      }
+    )
+  })
+})
+
 /**
  * @module MailHog
  * @author Mintoo Xavier <min2xavier@gmail.com>
@@ -776,24 +796,28 @@ Given("I click on link in the email with subject {string} for user {string} afte
         const link = linkMatch[0]
         cy.log(`Found link: ${link}`)
 
-        const msPerDay = 24 * 60 * 60 * 1000
-
-        // Initialize the clock to the current time
-        cy.clock(Date.now())
+        const expDay = 24 * 60 * 60 * 1000 * numDays
+        const d = new Date()
+        cy.log(`Current date:` + d)        // Initialize the clock to the current time
+        cy.clock(Date.now(), ['Date'])
 
         // Advance the clock by numDays
-        cy.tick(numDays * msPerDay)
+        cy.tick(expDay)
+            // Make an API call to set server time
+                // Adjust server time
+        cy.adjustDockerTime('debian', '4 days ahead')
 
-        // // Log the updated date to confirm the time manipulation
+                // // Log the updated date to confirm the time manipulation
         // cy.window()
         // .its('Date')
         // .then((MockedDate) => {
-        //     const mockedDate = new MockedDate();
-        //     cy.log(`Current date after ticking: ${mockedDate}`);
+        //     const mockedDate = new MockedDate()
+        //     cy.log(`Current date after ticking: ${mockedDate}`)
             
         // })
 
         cy.visit(link, { failOnStatusCode: false }) // Fail-safe if link is already expired
+        
         // Assert that the page displays the expiration message
         cy.contains('This link has expired').should('be.visible')
 
@@ -801,12 +825,12 @@ Given("I click on link in the email with subject {string} for user {string} afte
         // cy.window()
         // .its('Date')
         // .then((MockedDate) => {
-        //     const mockedDate = new MockedDate();
-        //     cy.log(`Current date after ticking: ${mockedDate}`);
+        //     const mockedDate = new MockedDate()
+        //     cy.log(`Current date after ticking: ${mockedDate}`)
         //     cy.visit(link).contains('The file has expired.') // Ensure fail-safe for expired links
             
-        //     cy.log(`Current date after ticking: ${mockedDate}`);
-        // });
+        //     cy.log(`Current date after ticking: ${mockedDate}`)
+        // })
 
         // Visit the link
        
@@ -819,9 +843,9 @@ Given("I click on link in the email with subject {string} for user {string} afte
         // // cy.log(`Current date:` + numDaysLater)
         // cy.clock(Date.now()).then(clock => {
         //     clock.tick(5 * 24 * 60 * 60 * 1000)
-        // });      // Verify the mocked clock is set correctly
+        // })      // Verify the mocked clock is set correctly
         // // Verify the mocked clock is set correctly
-        // // cy.wrap(new Date().getTime()).should('eq', numDaysLater.getTime());
+        // // cy.wrap(new Date().getTime()).should('eq', numDaysLater.getTime())
         // // cy.clock(new Date().setDate(new Date().getDate() + num))
         // // Get the current date
         // cy.window().its('Date').invoke('now').then((newTime) => {
@@ -1232,11 +1256,66 @@ Given("I click on the {otherExportImg} image for {otherExportOption} in Other Ex
  * @module Interactions
  * @author Mintoo Xavier <min2xavier@gmail.com>
  * @example I click on the button containing {string}
-* @param {string} text - text in button
+ * @param {string} text - text in button
  * @description clicks on the button containing text
  */
 Given("I click on the button containing {string}", (text) => {
     cy.get('td').contains(text).within(() => {
         cy.get('i').click()
+   })
+})
+
+
+/**
+ * @module Interactions
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I should see a bar chart for {string} with bar of width {int}
+ * @param {string} fieldName - Field name to check the bar chart
+ * @param {int} num - width of bar in the bar chart
+ * @description verifies bar chart contains bar of given width
+ */
+Given("I should see a bar chart for {string} with bar of width {int}", (fieldName, num) => {
+    cy.get('.dc_header').contains(fieldName).scrollIntoView().parent('p').nextAll('div').eq(1).within (() => {
+        cy.get('iframe').then($iframe => {
+            const $g = $iframe.contents().find('body').find('svg#chart')
+            cy.wrap($g).find('rect[fill="#3366cc"][width=' + num + ']').should('be.visible')
+        })
+   })
+})
+
+
+/**
+ * @module Interactions
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I should see a pie chart for {string} with text {string}
+ * @param {string} fieldName - Field name to check the pie chart
+ * @param {string} text - text within the pie chart
+ * @description verifies pie chart contains the text
+ */
+Given("I should see a pie chart for {string} with text {string}", (fieldName, text) => {
+    cy.get('.dc_header').contains(fieldName).scrollIntoView().parent('p').nextAll('div').eq(1).within (() => {
+        cy.get('iframe').then($iframe => {
+            const $g = $iframe.contents().find('body').find('svg#chart')
+            cy.wrap($g).find('text').contains(text).should('be.visible')
+        })
+   })
+})
+
+
+
+/**
+ * @module Interactions
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I should NOT see a pie chart for {string} with text {string}
+ * @param {string} fieldName - Field name to check the pie chart
+ * @param {string} text - text within the pie chart
+ * @description verifies pie chart contains the text is not visible
+ */
+Given("I should NOT see a pie chart for {string} with text {string}", (fieldName, text) => {
+    cy.get('.dc_header').contains(fieldName).scrollIntoView().parent('p').nextAll('div').eq(1).within (() => {
+        cy.get('iframe').then($iframe => {
+            const $g = $iframe.contents().find('body').find('svg#chart')
+            cy.wrap($g).find('text').contains(text).should('not.be.visible')
+        })
    })
 })
