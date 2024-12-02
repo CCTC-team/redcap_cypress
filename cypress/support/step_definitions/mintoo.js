@@ -1,7 +1,4 @@
 //Add any of your own step definitions here
-// const shell = require('shelljs')
-
-
 const { Given, defineParameterType } = require('@badeball/cypress-cucumber-preprocessor')
    
 // const timeAdjust = Cypress.env('serverTimeAdjust')
@@ -12,6 +9,8 @@ import 'cypress-file-upload'
 
 // To make sure emails are deleted only once per Test Script
 let hasRunBeforeEach = false
+
+let Password = null
 
 // delete all the messages from MailHog
 beforeEach(() => {
@@ -92,6 +91,11 @@ defineParameterType({
 defineParameterType({
     name: 'otherExportImg',
     regexp: /REDCap XML|ZIP|PDF|Compact PDF/
+})
+
+defineParameterType({
+    name: 'passwordVercode',
+    regexp: /password|verification code/
 })
 
 otherExportImg = {
@@ -680,58 +684,128 @@ Given("I should see {int} email(s) for user {string}", (num, recipient) => {
     })
 })
 
+// /**
+//  * @module MailHog
+//  * @author Mintoo Xavier <min2xavier@gmail.com>
+//  * @example I copy and paste the password for user {string} from the email with subject {string} to the link in the email with subject {string}
+//  * @param {string} recipient - email id of recipient
+//  * @param {string} subject1 - subject of the first email
+//  * @param {string} subject2 - subject of the second email
+//  * @description copy and paste the password for user from first email into the link in the second email
+//  */
+// Given("I copy and paste the password for user {string} from the email with subject {string} to the link in the email with subject {string}", (recipient, subject1, subject2) => {
+//     let password = null
+//     cy.findEmailBySubjectAndRecipient(subject1, recipient).then((email) => {
+           
+//         const emailContent1 = email.Content.Body
+//         // Define the search phrase
+//         const searchPhrase = "previous email."
+//         cy.log("emailContent:" + emailContent1)
+
+//         // Find the index of the search phrase in the input string
+//         const index = emailContent1.indexOf(searchPhrase)
+
+//         if (index !== -1) {
+//         // Calculate the starting index for the 8-letter substring. Have to add +6 (maybe because of <br> or something)
+//         let startIndex = index + searchPhrase.length + 6      
+
+//         // Extract the 8-letter substring
+//         let endIndex = startIndex + 8
+//         password = emailContent1.substring(startIndex, endIndex).trim()
+//         cy.log("Password:" + password)
+//         } else {
+//             // If the search phrase is not found, return a default message
+//             return null // Or handle as needed
+//         }
+//     })
+
+//     cy.findEmailBySubjectAndRecipient(subject2, recipient).then((email) => {
+//         const emailBody = email.Content.Body
+
+//       // Use a regex to find the first link in the email body
+//       const linkMatch = emailBody.match(/https?:\/\/[^\s]+/)
+//       if (linkMatch) {
+//         const link = linkMatch[0]
+//         cy.log(`Found link: ${link}`)
+
+//         // Visit the link
+//         cy.visit(link)
+
+//         // Paste the password into the input field
+//         cy.get('input[type="password"]').type(password)
+//       } else {
+//         throw new Error('Link not found in the email body.')
+//       }
+//     })
+// })
+
+
 /**
  * @module MailHog
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I copy and paste the password for user {string} from the email with subject {string} to the link in the email with subject {string}
- * @param {string} recipient - email id of recipient
- * @param {string} subject1 - subject of the first email
- * @param {string} subject2 - subject of the second email
- * @description copy and paste the password for user from first email into the link in the second email
+ * @example I paste the {passwordVercode} into the input field
+ * @param {string} passwordVercode - available options: 'password', 'verification code'
+ * @description pastes the password/verification code into the input field
  */
-Given("I copy and paste the password for user {string} from the email with subject {string} to the link in the email with subject {string}", (recipient, subject1, subject2) => {
-    let password = null
-    cy.findEmailBySubjectAndRecipient(subject1, recipient).then((email) => {
+Given("I paste the {passwordVercode} into the input field", (passcode) => {
+    if (passcode == "password")
+        cy.get('input[type="password"]').type(password)
+    else
+        cy.get('input[type="text"]').type(password)
+
+})
+
+/**
+ * @module MailHog
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I copy the {passwordVercode} for user {string} from the email with subject {string}
+ * @param {string} passwordVercode - available options: 'password', 'verification code'
+ * @param {string} recipient - email id of recipient
+ * @param {string} subject - subject of the  email
+ * @description copy the password for user from email with the given subject
+ */
+Given("I copy the {passwordVercode} for user {string} from the email with subject {string}", (passcode, recipient, subject) => {
+    password = null
+    let searchPhrase = null
+    let startIndex = null
+    let endIndex = null
+    cy.findEmailBySubjectAndRecipient(subject, recipient).then((email) => {
            
         const emailContent1 = email.Content.Body
         // Define the search phrase
-        const searchPhrase = "previous email."
+       
+        if (passcode == "password")
+            searchPhrase = "previous email."
+        else
+            searchPhrase = "verification code is "
+
         cy.log("emailContent:" + emailContent1)
 
         // Find the index of the search phrase in the input string
-        const index = emailContent1.indexOf(searchPhrase)
+        let index = emailContent1.indexOf(searchPhrase)
 
         if (index !== -1) {
-        // Calculate the starting index for the 8-letter substring. Have to add +6 (maybe because of <br> or something)
-        let startIndex = index + searchPhrase.length + 6      
+            if (passcode == "password") {
+                // Calculate the starting index of password. Have to add +6 (maybe because of <br> or something)
+                startIndex = index + searchPhrase.length + 6      
 
-        // Extract the 8-letter substring
-        let endIndex = startIndex + 8
+                // Extract the 8-letter password
+                endIndex = startIndex + 8
+            } else {
+                // Calculate the starting index of verification code
+                startIndex = index + searchPhrase.length     
+
+                // Extract the 8-letter verification code
+                endIndex = startIndex + 6
+
+            }
+       
         password = emailContent1.substring(startIndex, endIndex).trim()
-        cy.log("Password:" + password)
+        cy.log(passcode + ': ' + password)
         } else {
-            // If the search phrase is not found, return a default message
-            return null // Or handle as needed
+           
+            throw new Error(passcode + ' not found in the email body.')
         }
-    })
-
-    cy.findEmailBySubjectAndRecipient(subject2, recipient).then((email) => {
-        const emailBody = email.Content.Body
-
-      // Use a regex to find the first link in the email body
-      const linkMatch = emailBody.match(/https?:\/\/[^\s]+/)
-      if (linkMatch) {
-        const link = linkMatch[0]
-        cy.log(`Found link: ${link}`)
-
-        // Visit the link
-        cy.visit(link)
-
-        // Paste the password into the input field
-        cy.get('input[type="password"]').type(password)
-      } else {
-        throw new Error('Link not found in the email body.')
-      }
     })
 })
 
@@ -739,10 +813,9 @@ Given("I copy and paste the password for user {string} from the email with subje
 /**
  * @module MailHog
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I click on the link labeled {string} in the email for user {string} with subject {string}
+ * @example I click on the link in the email for user {string} with subject {string}
  * @param {string} recipient - email id of recipient
- * @param {string} subject1 - subject of the first email
- * @param {string} subject2 - subject of the second email
+ * @param {string} subject - subject of the first email
  * @description copy and paste the password for user from first email into the link in the second email
  */
 Given("I click on the link in the email for user {string} with subject {string}", (recipient, subject) => {
