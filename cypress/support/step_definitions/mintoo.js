@@ -98,6 +98,30 @@ defineParameterType({
     regexp: /password|verification code/
 })
 
+defineParameterType({
+    name: 'occurTime',
+    regexp: /occurence|time lag/
+})
+
+defineParameterType({
+    name: 'SendInvReminder',
+    regexp: /When to send invitations AFTER conditions are met|Enable reminders/
+})
+
+
+SendInvReminder = {
+
+    'When to send invitations AFTER conditions are met' : `input[type=text][id^=sscond-timelag`,
+    'Enable reminders' : `input[type=text][name^=reminder_timelag_`
+}
+
+
+occurTime = {
+    'occurence' : `input[type=radio][name=reminder_type][value=NEXT_OCCURRENCE]`,
+    'time lag' : `input[type=radio][name=reminder_type][value=TIME_LAG]`
+}
+
+
 otherExportImg = {
     'REDCap XML' : `img[src*=download_xml_project]`,
     'ZIP' : `img[src*=download_zip]`,
@@ -1375,7 +1399,6 @@ Given("I should see a pie chart for {string} with text {string}", (fieldName, te
 })
 
 
-
 /**
  * @module Interactions
  * @author Mintoo Xavier <min2xavier@gmail.com>
@@ -1392,3 +1415,58 @@ Given("I should NOT see a pie chart for {string} with text {string}", (fieldName
         })
    })
 })
+
+
+/**
+ * @module Interactions
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I click on the radio labeled Send every for {occurTime}
+ * @param {string} occurTime - available options: 'occurence', 'time lag'
+ * @description selects the radio option Send every for ASI option
+ */
+Given("I click on the radio labeled Send every for {occurTime}", (option) => {
+    cy.get(occurTime[option]).click()
+})
+
+
+/**
+ * @module Interactions
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I enter {int} day(s) {int} hour(s) and {int} minute(s) for {SendInvReminder}
+ * @param {int} days -  number of days
+ * @param {int} hrs -  number of hours
+ * @param {int} mins -  number of minutes
+ * @param {string} SendInvReminder - available options: 'When to send invitations AFTER conditions are met', 'Enable reminders'
+ * @description enter days, hours and minutes for ASI option
+ */
+Given("I enter {int} day(s) {int} hour(s) and {int} minute(s) for {SendInvReminder}", (days, hrs, mins, option) => {
+    cy.get(SendInvReminder[option] + 'days]').type(days)
+    cy.get(SendInvReminder[option] + 'hours]').type(hrs)
+    cy.get(SendInvReminder[option] + 'minutes]').type(mins)
+})
+
+
+/**
+ * @module Interactions
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I select {string} from the dropdown option for When the following survey is completed
+ * @param {string} text - option to select
+ * @description selects the dropdown option for When the following survey is completed
+ */
+Given("I select {string} from the dropdown option for When the following survey is completed", (text) => {
+    cy.get('.select2-selection__rendered').click()
+    cy.get('li.select2-results__option').contains(text).should('be.visible').click()
+})
+
+
+// /**
+//  * @module Interactions
+//  * @author Mintoo Xavier <min2xavier@gmail.com>
+//  * @example I select {string} from the dropdown option for When the following survey is completed
+//  * @param {string} text - option to select
+//  * @description selects the dropdown option for When the following survey is completed
+//  */
+// Given("I select the option for ASI reminder to send every {string} at time {string}", (text, time) => {
+//     cy.get('select[name=reminder_nextday_type]').select(text)
+//     cy.get('input[name=reminder_nexttime]').type(time)
+// })
