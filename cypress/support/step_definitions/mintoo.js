@@ -29,12 +29,10 @@ Cypress.Commands.add('deleteAllEmails', () => {
       })
 })
 
-
 defineParameterType({
     name: 'addcustomization',
     regexp: /Enable the Data History popup for all data collection instruments|Enable the File Version History for 'File Upload' fields|Prevent branching logic from hiding fields that have values|Require a 'reason' when making changes to existing records/
 })
-
 
 defineParameterType({
     name: 'namestat',
@@ -46,7 +44,6 @@ defineParameterType({
     regexp: /How will this alert be triggered|When to send the alert|Send it how many times|Alert Type/
 })
 
-
 defineParameterType({
     name: 'savecan',
     regexp: /save|cancel/
@@ -56,17 +53,16 @@ defineParameterType({
     name: 'buttonLink',
     regexp: /button|link/
 })
+
 defineParameterType({
     name: 'fieldIcons',
     regexp: /History|Missing Code|Comment|Show Field|Exclamation|Tick|Small Tick|Small Exclamation/
 })
 
-
 defineParameterType({
     name: 'drwOptions',
     regexp: /Verified data value|De-verify data value|Open query|Close the query|Reply with response|Send back for further attention|Email|REDCap Messenger|/
 })
-
 
 defineParameterType({
     name: 'drwRights',
@@ -85,12 +81,7 @@ defineParameterType({
 
 defineParameterType({
     name: 'otherExportOption',
-    regexp: /Export entire project as REDCap XML file|ZIP file of uploaded files|PDF of data collection instruments containing saved data|/
-})
-
-defineParameterType({
-    name: 'otherExportImg',
-    regexp: /REDCap XML|ZIP|PDF|Compact PDF/
+    regexp: /Export entire project as REDCap XML file|ZIP file of uploaded files|PDF of data collection instruments containing saved data|REDCap Project \(XML\)/
 })
 
 defineParameterType({
@@ -104,29 +95,54 @@ defineParameterType({
 })
 
 defineParameterType({
-    name: 'SendInvReminder',
+    name: 'sendInvReminder',
     regexp: /When to send invitations AFTER conditions are met|Enable reminders/
 })
 
+defineParameterType({
+    name: 'instrumentRights',
+    regexp: /No Access|Read Only|View & Edit|De-Identified|Remove All Identifier Fields|Full Data Set/
+})
 
-SendInvReminder = {
+defineParameterType({
+    name: 'instrumentPrivilege',
+    regexp: /Data Viewing Rights|Data Export Rights/
+})
 
+defineParameterType({
+    name: 'downloadIcon',
+    regexp: /PDF|Compact PDF|REDCap XML|ZIP/
+})
+
+downloadIcon = {
+    'PDF' : `img[src*=download_pdf]`,
+    'Compact PDF' : `img[src*=download_pdf_compact]`,
+    'REDCap XML' : `img[src*=download_xml_project]`,
+    'ZIP' : `img[src*=download_zip]`
+}
+
+instrumentPrivilege = {
+    'Data Viewing Rights' : `[name^=form-]`,
+    'Data Export Rights' : `[name^=export-form]`
+}
+
+instrumentRights = {
+    'No Access' : `input[type=radio][value=0]`,
+    'Read Only' : `input[type=radio][value=2]`,
+    'View & Edit' : `input[type=radio][value=1]`,
+    'De-Identified' : `input[type=radio][value=2]`,
+    'Remove All Identifier Fields' : `input[type=radio][value=3]`,
+    'Full Data Set' : `input[type=radio][value=1]`
+}
+
+sendInvReminder = {
     'When to send invitations AFTER conditions are met' : `input[type=text][id^=sscond-timelag`,
     'Enable reminders' : `input[type=text][name^=reminder_timelag_`
 }
 
-
 occurTime = {
     'occurence' : `input[type=radio][name=reminder_type][value=NEXT_OCCURRENCE]`,
     'time lag' : `input[type=radio][name=reminder_type][value=TIME_LAG]`
-}
-
-
-otherExportImg = {
-    'REDCap XML' : `img[src*=download_xml_project]`,
-    'ZIP' : `img[src*=download_zip]`,
-    'PDF' : `a[title='Download PDF with all data']`,
-    'Compact PDF' : `a[title='Download PDF with all data (compact)']`
 }
 
 resolveType = {
@@ -162,12 +178,10 @@ drwOptions = {
     'REDCap Messenger' : `input[id=assigned_user_id_notify_messenger]`
 }
 
-
 savecan = {
     'save' : `Save`,
     'cancel' : `Cancel`
 }
-
 
 namestat = {
     'name' : `select[name=form-name]`,
@@ -608,24 +622,20 @@ Given("I select the radio option {string}", (option) => {
  * @param {string} label - option to select on Other Export Options page
  * @description download PDF from Other Export options page
  */
-Given("I click on the icon {string} to download {string}", (icon, label) => {
-    cy.get('td').contains(label).parents('tr').within(() => {
-        let src = null
-        if(icon == "PDF")
-            src = "download_pdf"
-        else if(icon == "Compact PDF")
-            src = "download_pdf_compact"
-        else if(icon == "REDCap XML")
-            src = "download_xml_project"
-        else if(icon == "ZIP")
-            src = "download_zip"
+Given("I click on the icon {downloadIcon} to download {otherExportOption}", (icon, label) => {
+    if(label == "REDCap Project (XML)")
+        cy.get('div[role="dialog"]:visible').find (downloadIcon[icon]).click()
+
+    else {
+        cy.get('td').contains(label).parents('tr').within(() => {
 
         if(icon == "PDF")
-            cy.get("img[src*=" + src + "]").first().click()
+            cy.get(downloadIcon[icon]).first().click()
         else
-        cy.get("img[src*=" + src + "]").click()
+            cy.get(downloadIcon[icon]).last().click()
         
-    })
+        })
+    }
 })
 
 
@@ -1216,7 +1226,7 @@ Given("I {enterType} {string} in the comment box in {commentDrw}", (enter_type, 
  * @description selects the User Right option for Data Resolution Workflow
  */
 Given("I select the User Right named Data Resolution Workflow and choose {drwRights}", (option) => {
-    cy.get('div[role=dialog]').should('be.visible').find('input[name=data_quality_resolution][value=' + drwRights[option] + ']').click()  
+    cy.get('div[role="dialog"]:visible').find('input[name=data_quality_resolution][value=' + drwRights[option] + ']').click()  
 })
 
 
@@ -1326,25 +1336,12 @@ Given("I unzip the latest downloaded zip file", () => {
         const filepath = latest_file
         cy.task('unzipFile', { filepath }).then((result) => {
             if (result.success) {
-            cy.log(`File unzipped successfully`)
+                cy.log(`File unzipped successfully`)
             } else {
-            cy.log(result.message)
-            throw new Error(result.message)
+                cy.log(result.message)
+                throw new Error(result.message)
             }
         })
-    })
-})
-
-
-/**
- * @module Interactions
- * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I unzip the latest downloaded zip file
- * @description Unzips the latest downloaded zip file
- */
-Given("I click on the {otherExportImg} image for {otherExportOption} in Other Export options", (img, option) => {
-    cy.get('td').contains(option).parents('tr').within(() => {
-        cy.get(otherExportImg[img]).click()
     })
 })
 
@@ -1432,17 +1429,17 @@ Given("I click on the radio labeled Send every for {occurTime}", (option) => {
 /**
  * @module Interactions
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I enter {int} day(s) {int} hour(s) and {int} minute(s) for {SendInvReminder}
+ * @example I enter {int} day(s) {int} hour(s) and {int} minute(s) for {sendInvReminder}
  * @param {int} days -  number of days
  * @param {int} hrs -  number of hours
  * @param {int} mins -  number of minutes
- * @param {string} SendInvReminder - available options: 'When to send invitations AFTER conditions are met', 'Enable reminders'
+ * @param {string} sendInvReminder - available options: 'When to send invitations AFTER conditions are met', 'Enable reminders'
  * @description enter days, hours and minutes for ASI option
  */
-Given("I enter {int} day(s) {int} hour(s) and {int} minute(s) for {SendInvReminder}", (days, hrs, mins, option) => {
-    cy.get(SendInvReminder[option] + 'days]').type(days)
-    cy.get(SendInvReminder[option] + 'hours]').type(hrs)
-    cy.get(SendInvReminder[option] + 'minutes]').type(mins)
+Given("I enter {int} day(s) {int} hour(s) and {int} minute(s) for {sendInvReminder}", (days, hrs, mins, option) => {
+    cy.get(sendInvReminder[option] + 'days]').type(days)
+    cy.get(sendInvReminder[option] + 'hours]').type(hrs)
+    cy.get(sendInvReminder[option] + 'minutes]').type(mins)
 })
 
 
@@ -1458,6 +1455,61 @@ Given("I select {string} from the dropdown option for When the following survey 
     cy.get('li.select2-results__option').contains(text).should('be.visible').click()
 })
 
+
+/**
+ * @module DataImport
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I create a new project named {string} by clicking on "New Project" in the menu bar, selecting "{projectType}" from the dropdown, choosing the latest downloaded CDISC file, and clicking the "{projectRequestLabel}" button
+ * @param {string} project_name - the desired name for the project
+ * @param {string} projectType - available options: 'Practice / Just for fun', 'Operational Support', 'Research', 'Quality Improvement', 'Other'
+ * @param {string} projectRequestLabel - available options: 'Create Project', 'Send Request'
+ * @description Creates a new REDCap project of a specific project type using latest downloaded CDISC XML file.
+ */
+Given('I create a new project named {string} by clicking on "New Project" in the menu bar, selecting "{projectType}" from the dropdown, choosing the latest downloaded CDISC file, and clicking the "{projectRequestLabel}" button', (project_name, project_type, button_label) => {
+    cy.wait(500)
+    cy.task('fetchLatestDownload', ({fileExtension: 'xml'})).then((xml) => {
+        // Extract relative path starting from 'downloads'
+        let basePath = '/Users/min2suz/redcap_cypress_docker/redcap_cypress/cypress/';
+        let filePath = xml.replace(basePath, '../../');
+        cy.log(filePath)
+        cy.create_cdisc_project(project_name, project_type, filePath, button_label)
+    })
+})
+
+
+
+
+/**
+ * @module Visibility
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I (should )see a checkbox labeled {addcustomization} that is {check} in additional customizations
+ * @param {string} addcustomization - available options: "Enable the Data History popup for all data collection instruments", "Enable the File Version History for 'File Upload' fields", "Prevent branching logic from hiding fields that have values"
+ * @param {string} check - available options: 'checked', 'unchecked'
+ * @description Verifies if a checkbox field is checked/unchecked
+ */
+Given("I (should )see the {instrumentPrivilege} of the instrument {string} with option {instrumentRights} {select}", (priv, label, option, selected) => {
+    cy.get('td').contains(label).parent('tr').within(() => {
+        cy.get(instrumentRights[option] + instrumentPrivilege[priv]).should(selected === 'selected' ? "be.checked" : "not.be.checked")
+    })
+})
+
+
+/**
+ * @module DataImport
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I upload a {string} format file located at {string}, by clicking the button {string}
+ * @param {string} format - the format of the file that is being uploaded (e.g. csv)
+ * @param {string} file_location - the location of the file being uploaded (e.g. import_files/core/filename.csv)
+ * @param {string} button_label - text on the button you click to upload
+ * @description Imports well-formed REDCap data import file (of specific type) to a specific project given a Project ID.
+ */
+Given("I upload a {string} format file located at {string}, by clicking the button {string}", (format, file_location, button_label) => {
+    // cy.get('div[role="dialog"]:visible').within(() => {
+        cy.upload_file(file_location, format, '')
+    // })
+})
+
+// cy.upload_file("cdisc_files/" + cdisc_file, 'xml', 'input[name="AutomatedSurveyInvitation-import"]')
 
 // /**
 //  * @module Interactions
