@@ -114,6 +114,27 @@ defineParameterType({
     regexp: /PDF|Compact PDF|REDCap XML|ZIP/
 })
 
+defineParameterType({
+    name: 'reportFilterOption',
+    regexp: /field label|operator value/
+})
+
+defineParameterType({
+    name: 'operatorValue',
+    regexp: /operator|operator value/
+})
+
+
+operatorValue = {
+    'operator' : `select[name='limiter_operator[]']`,
+    'operator value' : `select[name='limiter_value[]']`
+}
+
+reportFilterOption = {
+    'field label' : `input[placeholder='Type variable name or field label']`,
+    'operator value' : `input[name='limiter_value[]']`
+}
+
 downloadIcon = {
     'PDF' : `img[src*=download_pdf]`,
     'Compact PDF' : `img[src*=download_pdf_compact]`,
@@ -1508,6 +1529,48 @@ Given("I upload a {string} format file located at {string}, by clicking the butt
         cy.upload_file(file_location, format, '')
     // })
 })
+
+
+/**
+ * @module Interactions
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I click on the list item {string}
+ * @param {string} text - list item to click
+ * @description clicks on the list item
+ */
+Given("I click on the list item {string}", (text) => {
+    cy.get('li').contains(text).click()
+})
+
+
+/**
+ * @module Interactions
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I select the operator {string} for Filter {int}
+ * @param {string} oper - operator to select
+ * @param {int} num - Filter number
+ * @description Selects the operator for the Filter
+ */
+Given("I enter {string} into the {reportFilterOption} for Filter {int}", (text, option, num) => {
+    cy.get('.limiter_num').contains(num).parents('tr').within(() => {
+        cy.get(reportFilterOption[option]).type(text)
+    })
+})
+
+/**
+ * @module Interactions
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I select the operator {string} for Filter {int}
+ * @param {string} oper - operator to select
+ * @param {int} num - Filter number
+ * @description Selects the operator for the Filter
+ */
+Given("I select the {operatorValue} {string} for Filter {int}", (option, text, num) => {
+    cy.get('#create_report_table').find('td').contains('Filter ' + num).parents('tr').within(() => {
+        cy.get(operatorValue[option]).select(text)
+    })
+})
+
 
 // cy.upload_file("cdisc_files/" + cdisc_file, 'xml', 'input[name="AutomatedSurveyInvitation-import"]')
 
