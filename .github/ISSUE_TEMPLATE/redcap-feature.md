@@ -23,3 +23,5 @@ Pre review:
 Post review:
 - [ ] Script(s) targets the correct feature sufficiently
 - [ ] Script(s) appropriately tests the feature
+- [ ] Script(s) are run on CCTC_REDCap_Docker
+- [ ] Script(s) are run on the REDCap version being validated
