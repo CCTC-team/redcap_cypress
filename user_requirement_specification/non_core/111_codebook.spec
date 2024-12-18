@@ -4,8 +4,10 @@ D.111.100 - The system shall support the ability to autogenerate codebook. The f
         D.111.100.1.2 - Label 
         D.111.100.1.3 - Type 
         D.111.100.1.4 - Field note 
-        D.111.100.1.5 - Identifier 
-        D.111.100.1.6 - Required 
+        D.111.100.1.5 - Branching Logic
+        D.111.100.1.6 - Action tag
+        D.111.100.1.7 - Identifier
+        D.111.100.1.8 - Required
     D.111.100.2 - The following subset of field types are verified 
         D.111.100.2.1 - Textbox with email selected 
         D.111.100.2.2 - Textbox with date format e.g. D-M-Y 
