@@ -1572,6 +1572,46 @@ Given("I select the {operatorValue} {string} for Filter {int}", (option, text, n
 })
 
 
+/**
+ * @module Interactions
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I should have the latest downloaded {string} file with SHA256 hash value {string}
+ * @param {string} fileType - file format
+ * @param {string} hashValue - hash value
+ * @description verifies the hash value of the file
+ */
+Given("I should have the latest downloaded {string} file with SHA256 hash value {string}", (fileType, hashValue) => {
+    cy.task('fetchLatestDownload', ({fileExtension: fileType})).then((latest_file) => {
+        let basePath = '/Users/min2suz/redcap_cypress_docker/redcap_cypress/';
+        let filePath = latest_file.replace(basePath, '');
+        let delLines = 0
+
+        // sas, sps, r files contain the corresponding csv file names within the files 
+        // csv filename is of the format filename_yyyy-mm-dd_hhmm.csv
+        // This causes the hash value to differ each time hence removing the csv file name from the file
+        if (fileType == "sas")
+            delLines = 2
+        else if (fileType == "sps")
+            delLines = 1
+        else if (fileType == "r")
+            delLines = 7
+        else if (fileType == "do")
+            delLines = 6
+        else if (fileType == "xml")
+            delLines = 3
+
+        if (fileType != 'csv')
+            cy.task('modifyFile', { filePath, delLines }).then(result => {
+                cy.log(result)
+            })
+        
+        cy.task('calculateFileHash', { filePath, fileType }).then(hash => {
+            expect(hash).to.equal(hashValue);
+          })
+    })
+})
+
+
 // cy.upload_file("cdisc_files/" + cdisc_file, 'xml', 'input[name="AutomatedSurveyInvitation-import"]')
 
 // /**
