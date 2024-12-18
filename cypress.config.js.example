@@ -1,20 +1,117 @@
 const { defineConfig } = require("cypress")
+const AdmZip = require('adm-zip')
+const fs = require('fs')
+const path = require('path')
+const crypto = require('crypto');
 
 module.exports = defineConfig({
-    projectId: 'PID',
+    projectId: '6dw6bj',
     hideXHR: false,
     e2e: {
         // We've imported your old cypress plugins here.
         // You may want to clean this up later by importing these.
         async setupNodeEvents(on, config) {
-            require('rctf/plugins/index.js')(on, config)
-            return config
+          require('rctf/plugins/index.js')(on, config)
+          on('task', {
+            // Task 1: Unzip a file
+            unzipFile({ filepath }) {
+              let unzipDestination = 'cypress/downloads/unzipped'; // Destination directory for unzipped files
+              
+              if (!fs.existsSync(filepath)) {
+                return { success: false, message: `File not found: ${filepath}` }
+              }
+
+              try {
+                // Ensure the unzip destination exists
+                if (!fs.existsSync(unzipDestination)) {
+                  fs.mkdirSync(unzipDestination, { recursive: true })
+                }
+                                   
+                // Unzip the file
+                const zip = new AdmZip(filepath);
+                zip.extractAllTo(unzipDestination, true);
+                return { success: true, message: `Unzipped to ${unzipDestination}` };
+              } catch (error) {
+                return { success: false, message: `Error unzipping file: ${error.message}` };
+              }
+            },
+            
+            // Task 2: Checks the Local storage location for the latest downloaded PDF file
+            fetchLatestDownloadLocal({ fileExtension }) {
+              // Local storage location
+              // Change this according to the local storage settings
+              const downloadsDir = path.resolve(__dirname, '../redcap_source/edocs')
+
+              try {
+                // Read files in the directory
+                const files = fs.readdirSync(downloadsDir);
+    
+                // Filter files by extension
+                const filteredFiles = files.filter(file => path.extname(file) === `.${fileExtension}`);
+    
+                // If no files are found, return an empty string
+                if (filteredFiles.length === 0) {
+                  return '';
+                }
+    
+                // Sort files by modification time and get the latest file
+                const latestFile = filteredFiles
+                  .map(file => ({
+                    file,
+                    mtime: fs.statSync(path.join(downloadsDir, file)).mtime,
+                  }))
+                  .sort((a, b) => b.mtime - a.mtime)[0].file;
+    
+                // Return the full path to the latest file
+                return path.join(downloadsDir, latestFile);
+              } catch (error) {
+                throw new Error(`Error fetching latest download: ${error.message}`);
+              }
+            },
+            // Task 3: Checks Hash file
+            calculateFileHash({ filePath }) {
+              return new Promise((resolve, reject) => {
+                const algorithm = 'sha256'
+                const hash = crypto.createHash(algorithm)
+                const stream = fs.createReadStream(filePath)
+    
+                stream.on('data', chunk => hash.update(chunk))
+                stream.on('end', () => resolve(hash.digest('hex')))
+                stream.on('error', reject)
+              })
+            },
+            // Task 4: Delete first delLines lines of the file
+            modifyFile({ filePath, delLines }) {
+              return new Promise((resolve, reject) => {
+                fs.readFile(filePath, 'utf8', (err, data) => {
+                  if (err) return reject(`Error reading file: ${err.message}`);
+    
+                  // Split file into lines and remove the first delLines lines
+                  const lines = data.split('\n');
+                  if (lines.length <= delLines) {
+                    return reject('File has fewer than ${delLines} lines to delete');
+                  }
+    
+                  const updatedContent = lines.slice(delLines).join('\n'); // Keep content after line ${delLines}
+    
+                  // Write the modified content back to the file
+                  fs.writeFile(filePath, updatedContent, 'utf8', writeErr => {
+                    if (writeErr) return reject(`Error writing file: ${writeErr.message}`);
+                    resolve('First ${delLines} lines deleted successfully');
+                  })
+                })
+              })
+            }
+
+          })
+          return config
         },
-        baseUrl: 'http://localhost:8080',
+
+        baseUrl: 'https://localhost:8443',
         stepDefinitions: 'cypress/support/step_definitions',
         specPattern: [ 'cypress/features/*.feature',
-                       'redcap_rsvc/*/[ABC]/*/*.feature',
-                       '!redcap_rsvc/*/[ABC]/*/*REDUNDANT*.feature'
+                       'redcap_rsvc/*/[ABCD]/*/*.feature',
+                       '!redcap_rsvc/*/[ABCD]/*/*REDUNDANT*.feature'
                      ],
         testIsolation: false,
         experimentalMemoryManagement: false,
@@ -33,7 +130,7 @@ module.exports = defineConfig({
         requestTimeout: 60000,
         chromeWebSecurity: false,
         scrollBehavior: 'bottom',
-        watchForFileChanges: false,
+        watchForFileChanges: true,
         redirectionLimit: 50
-    },
+    }
 })
