@@ -124,6 +124,29 @@ defineParameterType({
     regexp: /operator|operator value/
 })
 
+defineParameterType({
+    name: 'eventOptions',
+    regexp: /Min Offset Range|Max Offset Range|Custom Event Label|Time|Date|Notes/
+})
+
+defineParameterType({
+    name: 'eventSchedule',
+    regexp: /Event|Schedule/
+})
+
+eventSchedule = {
+    'Event' : `#event_table`,
+    'Schedule' : `#edit_sched_table`
+}
+
+eventOptions = {
+    'Min Offset Range' : `input#offset_min_edit`,
+    'Max Offset Range' : `input#offset_max_edit`,
+    'Custom Event Label' : `input#custom_event_label_edit`,
+    'Time' : `input[id^=time]`,
+    'Date' : `input[id^=date]`,
+    'Notes' : `textarea[id^=notes]`
+}
 
 operatorValue = {
     'operator' : `select[name='limiter_operator[]']`,
@@ -1610,6 +1633,77 @@ Given("I should have the latest downloaded {string} file with SHA256 hash value 
           })
     })
 })
+
+
+/**
+ * @module Interactions
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I enter {string} into the {eventOptions} for the event named {string} in the {eventSchedule} table
+ * @param {string} text - text to enter
+ * @param {string} eventOptions - available options - Min Offset Range, Max Offset Range, Custom Event Label
+ * @param {string} eventName - event name
+ * @param {string} eventSchedule - available options - Event, Schedule
+ * @description enter text into the option for the given event in the Event/SChedule table 
+ */
+Given("I enter {string} into the {eventOptions} for the event named {string} in the {eventSchedule} table", (text, option, eventName, tableName) => {
+    let object = 'input[value="' + eventName + '"]'
+    if (tableName == "Schedule")
+        object = 'td:contains("' + eventName + '")'
+    
+    cy.get(eventSchedule[tableName]).find(object).parents('tr').within(() => {
+        cy.get(eventOptions[option]).clear({force: true}).type(text, {force: true})
+    })
+})
+
+/**
+ * @module Interactions
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I enter {string} into the {eventOptions} for the event named {string} in the {eventSchedule} table
+ * @param {string} text - text to enter
+ * @param {string} eventOptions - available options - Min Offset Range, Max Offset Range, Custom Event Label
+ * @param {string} eventName - event name
+ * @param {string} eventSchedule - available options - Event, Schedule
+ * @description enter text into the option for the given event in the Event/SChedule table 
+ */
+Given("I click on the button labeled {string} to add an Ad Hoc Event", (text) => {
+    cy.window().then((win) => {
+        cy.stub(win, 'open').callsFake((url) => {
+          // You can test the URL that would have been opened in the popup
+        //   expect(url).to.include('Calendar/calendar_popup.php');  // Check the URL
+        //   expect(url).to.include('cal_id=123');  // Check the calendar ID
+        //   expect(url).to.include('width=500');  // Check the width
+        //   // You can add further checks here based on your requirements
+  
+        //   // Use `cy.visit()` to open the URL in the same window
+          cy.visit(url);
+        });
+      });
+  
+      // Simulate clicking the button that opens the calendar popup
+      cy.get('button#btn_newCalEv').click({force: true}); 
+      cy.url().should('include', 'calendar_popup.php');
+})
+
+
+// /**
+//  * @module Interactions
+//  * @author Mintoo Xavier <min2xavier@gmail.com>
+//  * @example I select {string} from the dropdown option for When the following survey is completed
+//  * @param {string} text - option to select
+//  * @description selects the dropdown option for When the following survey is completed
+//  */
+// Given("I click on the button labeled Print page", () => {
+//     cy.window().then((win) => {     
+//         cy.stub(win,'print').callsFake(url => {
+//             return window.print('_self')
+//         }).as('print')
+//       })
+
+//     cy.get('button').contains('Print page').click()
+//     cy.get('@print').should('be.called')
+
+// })
+
 
 
 // cy.upload_file("cdisc_files/" + cdisc_file, 'xml', 'input[name="AutomatedSurveyInvitation-import"]')
