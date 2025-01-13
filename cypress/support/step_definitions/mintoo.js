@@ -134,6 +134,28 @@ defineParameterType({
     regexp: /Event|Schedule/
 })
 
+defineParameterType({
+    name: 'calendarEvent',
+    regexp: /Edit|Delete|View/
+})
+
+defineParameterType({
+    name: 'calendarOption',
+    regexp: /Month|Day|Year/
+})
+
+calendarOption = {
+    'Month' : `select#month`,
+    'Day' : `select#day`,
+    'Year' : `select#year`
+}
+
+calendarEvent = {
+    'Edit' : `img[title=Edit]`,
+    'Delete' : `img[title=Delete]`,
+    'View' : `img[title='View Calendar Event']`
+}
+
 eventSchedule = {
     'Event' : `#event_table`,
     'Schedule' : `#edit_sched_table`
@@ -1607,28 +1629,19 @@ Given("I should have the latest downloaded {string} file with SHA256 hash value 
     cy.task('fetchLatestDownload', ({fileExtension: fileType})).then((latest_file) => {
         let basePath = '/Users/min2suz/redcap_cypress_docker/redcap_cypress/';
         let filePath = latest_file.replace(basePath, '');
-        let delLines = 0
 
-        // sas, sps, r files contain the corresponding csv file names within the files 
+        // sas, sps, r, do files contain the corresponding csv file names within the files 
         // csv filename is of the format filename_yyyy-mm-dd_hhmm.csv
+        // xml file contains filename and timestamp
+        // ics file contains UID and timestamp
         // This causes the hash value to differ each time hence removing the csv file name from the file
-        if (fileType == "sas")
-            delLines = 2
-        else if (fileType == "sps")
-            delLines = 1
-        else if (fileType == "r")
-            delLines = 7
-        else if (fileType == "do")
-            delLines = 6
-        else if (fileType == "xml")
-            delLines = 3
-
+    
         if (fileType != 'csv')
-            cy.task('modifyFile', { filePath, delLines }).then(result => {
+            cy.task('modifyFile', { filePath, fileType }).then(result => {
                 cy.log(result)
             })
-        
-        cy.task('calculateFileHash', { filePath, fileType }).then(hash => {
+
+        cy.task('calculateFileHash', { filePath }).then(hash => {
             expect(hash).to.equal(hashValue);
           })
     })
@@ -1658,64 +1671,112 @@ Given("I enter {string} into the {eventOptions} for the event named {string} in 
 /**
  * @module Interactions
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I enter {string} into the {eventOptions} for the event named {string} in the {eventSchedule} table
- * @param {string} text - text to enter
- * @param {string} eventOptions - available options - Min Offset Range, Max Offset Range, Custom Event Label
- * @param {string} eventName - event name
- * @param {string} eventSchedule - available options - Event, Schedule
- * @description enter text into the option for the given event in the Event/SChedule table 
+ * @example I click on the button labeled {string} to add an Ad Hoc Event
+ * @param {string} text - label on the button
+ * @description click on the button to add an Ad Hoc Event
  */
 Given("I click on the button labeled {string} to add an Ad Hoc Event", (text) => {
+    // Set the Pre Calendar Event URL so we can return to the page we were on later
+    cy.url().then((existing_url) => {
+        window.redcap_url_pre_survey = existing_url
+    })
+    
+    // Stub the window open method to prevent from opening new window
     cy.window().then((win) => {
+        
         cy.stub(win, 'open').callsFake((url) => {
-          // You can test the URL that would have been opened in the popup
-        //   expect(url).to.include('Calendar/calendar_popup.php');  // Check the URL
-        //   expect(url).to.include('cal_id=123');  // Check the calendar ID
-        //   expect(url).to.include('width=500');  // Check the width
-        //   // You can add further checks here based on your requirements
+            cy.visit(url)
+        })
+    })
   
-        //   // Use `cy.visit()` to open the URL in the same window
-          cy.visit(url);
-        });
-      });
-  
-      // Simulate clicking the button that opens the calendar popup
-      cy.get('button#btn_newCalEv').click({force: true}); 
-      cy.url().should('include', 'calendar_popup.php');
+    // Simulate clicking the button that opens the calendar popup
+    cy.get('#btn_newCalEv').click({force: true})
+    cy.url().should('include', 'calendar_popup.php')
+})
+
+/**
+ * @module Scheduling
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I return to the REDCap page I opened the calendar event from
+ * @description Returns user to the REDCap page they were on before they exited to add a calendar event
+ */
+Given("I return to the REDCap page I opened the calendar event from", () => {
+    cy.visit(window.redcap_url_pre_survey)
+   
 })
 
 
-// /**
-//  * @module Interactions
-//  * @author Mintoo Xavier <min2xavier@gmail.com>
-//  * @example I select {string} from the dropdown option for When the following survey is completed
-//  * @param {string} text - option to select
-//  * @description selects the dropdown option for When the following survey is completed
-//  */
-// Given("I click on the button labeled Print page", () => {
-//     cy.window().then((win) => {     
-//         cy.stub(win,'print').callsFake(url => {
-//             return window.print('_self')
-//         }).as('print')
-//       })
+/**
+ * @module Interactions
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I click on the {calendarEvent} icon for the event named {string} in the Schedule Events
+ * @param {string} calendarEvent - available options - Edit, Delete, View
+ * @param {string} event - event name
+ * @description clicks on the icon in the calendar event
+ */
+Given("I click on the {calendarEvent} icon for the event named {string} in the Schedule Events", (icon, event) => {
+    cy.get('td').contains(event).parents('tr').within(() => {
+        if(icon != 'View')
+            cy.get(calendarEvent[icon]).click()
+        
+        // View opens in a new window, hence have to stub it
+        else {
+            // Set the Pre Calendar Event URL so we can return to the page we were on later
+            cy.url().then((existing_url) => {
+                window.redcap_url_pre_survey = existing_url
+            })
 
-//     cy.get('button').contains('Print page').click()
-//     cy.get('@print').should('be.called')
+             // Stub the window open method (which ia called by popupCal function) to prevent from opening new window
+            cy.window().then((win) => {
+                
+                cy.stub(win, 'open').callsFake((url) => {
+                    cy.visit(url)
+                })
+            })
+  
+            // Simulate clicking the image that opens the calendar popup
+            cy.get(calendarEvent[icon]).click()
+            cy.url().should('include', 'calendar_popup.php')
+        }
+    })
+})
 
-// })
+/**
+ * @module Interactions
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I select {string} on the dropdown field for alert form {namestat}
+ * @param {string} option - option to select
+ * @param {string} name_status - available options: 'name', 'status'
+ * @description selects the dropdown option for alert form name/status
+ */
+Given("I select {string} on the {calendarOption} dropdown field", (text, option) => {
+    cy.get(calendarOption[option]).select(text)
+})
 
 
+/**
+ * @module Interactions
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I click on the link labeled {string} in the View Calendar Event
+ * @param {string} text - text to click
+ * @description clicks on the link in the View Calendar Event
+ */
+Given("I click on the link labeled {string} in the View Calendar Event", (text) => {
+    cy.contains('a', text) // Find the link by its visible text
+      .then(($link) => {
+        // Extract the URL fragment from the onclick handler
+        const onclickContent = $link.attr('onclick');
+        const match = onclickContent.match(/window\.opener\.location\.href\s*=\s*'(.*?)'/);
 
-// cy.upload_file("cdisc_files/" + cdisc_file, 'xml', 'input[name="AutomatedSurveyInvitation-import"]')
+        if (match) {
+          const relativeUrl = match[1]; // Extracted relative URL
+          const fullUrl = `${Cypress.config('baseUrl')}${relativeUrl}`; // Prepend baseUrl
 
-// /**
-//  * @module Interactions
-//  * @author Mintoo Xavier <min2xavier@gmail.com>
-//  * @example I select {string} from the dropdown option for When the following survey is completed
-//  * @param {string} text - option to select
-//  * @description selects the dropdown option for When the following survey is completed
-//  */
-// Given("I select the option for ASI reminder to send every {string} at time {string}", (text, time) => {
-//     cy.get('select[name=reminder_nextday_type]').select(text)
-//     cy.get('input[name=reminder_nexttime]').type(time)
-// })
+          // Visit the full URL directly
+          cy.visit(fullUrl);
+
+        } else {
+          throw new Error('Failed to extract the URL from the onclick attribute');
+        }
+      })
+})
