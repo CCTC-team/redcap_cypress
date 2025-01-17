@@ -933,116 +933,147 @@ Given("I click on the link in the email for user {string} with subject {string}"
 })
 
 
-Cypress.Commands.add('adjustDockerTime', (containerName, time) => {
-  return new Cypress.Promise((resolve, reject) => {
-    exec(
-      `docker exec ${containerName} date --set="${time}"`,
-      (error, stdout, stderr) => {
-        if (error) {
-          console.error(`Error adjusting time: ${stderr}`)
-          reject(error)
+// Cypress.Commands.add('adjustDockerTime', (containerName, time) => {
+//     return new Cypress.Promise((resolve, reject) => {
+//       exec(
+//         `docker exec ${containerName} date --set="${time}"`,
+//         (error, stdout, stderr) => {
+//           if (error) {
+//             console.error(`Error adjusting time: ${stderr}`)
+//             reject(error)
+//           } else {
+//             console.log(`Time adjusted: ${stdout}`)
+//             resolve(stdout)
+//           }
+//         }
+//       )
+//     })
+//   })
+  
+  /**
+   * @module MailHog
+   * @author Mintoo Xavier <min2xavier@gmail.com>
+   * @example I verify the link in the email with subject {string} for user {string} expires after {int} day(s)
+   * @param {string} recipient - email id of recipient
+   * @param {string} subject1 - subject of the first email
+   * @param {string} subject2 - subject of the second email
+   * @description copy and paste the password for user from first email into the link in the second email
+   */
+  Given("I click on link in the email with subject {string} for user {string} after {int} day(s)", (subject, recipient, numDays) => {
+          cy.findEmailBySubjectAndRecipient(subject, recipient).then((email) => {
+          const emailBody = email.Content.Body
+  
+        // Use a regex to find the first link in the email body
+        const linkMatch = emailBody.match(/https?:\/\/[^\s]+/)
+        if (linkMatch) {
+          const link = linkMatch[0]
+          cy.log(`Found link: ${link}`)
+  
+          const expDay = 24 * 60 * 60 * 1000 * numDays
+          const d = new Date()
+          cy.log(`Current date:` + d)        // Initialize the clock to the current time
+          cy.clock(Date.now(), ['Date'])
+  
+          // Advance the clock by numDays
+          cy.tick(expDay)
+          cy.log(`New date:` + Date()) 
+              // Make an API call to set server time
+                  // Adjust server time
+        //   cy.changeSystemDate('mailhog', '4 days ahead')
+          cy.task('changeSystemDate', {containerName: 'mailhog'}, { daysToAdd: '4 days ahead' }).then((result) => {
+                    // Log the result
+                    cy.log(result);
+                    expect(result.success).to.be.true; // Verify the operation was successful
+                })
+                  // // Log the updated date to confirm the time manipulation
+          // cy.window()
+          // .its('Date')
+          // .then((MockedDate) => {
+          //     const mockedDate = new MockedDate()
+          //     cy.log(`Current date after ticking: ${mockedDate}`)
+              
+          // })
+  
+          cy.visit(link, { failOnStatusCode: false }) // Fail-safe if link is already expired
+          
+          // Assert that the page displays the expiration message
+          cy.contains('This link has expired').should('be.visible')
+  
+          // // Log the updated date to confirm the time manipulation
+          // cy.window()
+          // .its('Date')
+          // .then((MockedDate) => {
+          //     const mockedDate = new MockedDate()
+          //     cy.log(`Current date after ticking: ${mockedDate}`)
+          //     cy.visit(link).contains('The file has expired.') // Ensure fail-safe for expired links
+              
+          //     cy.log(`Current date after ticking: ${mockedDate}`)
+          // })
+  
+          // Visit the link
+         
+   
+         
+          // // Check if the link has expired (simulate 4 days later)
+          // const numDaysLater = new Date()
+          // numDaysLater.setDate(numDaysLater.getDate() + num)
+  
+          // // cy.log(`Current date:` + numDaysLater)
+          // cy.clock(Date.now()).then(clock => {
+          //     clock.tick(5 * 24 * 60 * 60 * 1000)
+          // })      // Verify the mocked clock is set correctly
+          // // Verify the mocked clock is set correctly
+          // // cy.wrap(new Date().getTime()).should('eq', numDaysLater.getTime())
+          // // cy.clock(new Date().setDate(new Date().getDate() + num))
+          // // Get the current date
+          // cy.window().its('Date').invoke('now').then((newTime) => {
+          //     const expectedTime = Date.now() + (5 * 24 * 60 * 60 * 1000)
+          //     expect(newTime).to.be.closeTo(expectedTime, 100)
+          //     const d = new Date()
+          //     cy.log(`Current date:` + d)
+          //     // Visit the link
+              
+          //     cy.visit(link, { failOnStatusCode: false }) // Fail-safe if link is already expired
+              
+          // })
+          
+          // const d = new Date()
+          // cy.log(`Current date:` + d)
+          // // Visit the link
+          
+         
+  
         } else {
-          console.log(`Time adjusted: ${stdout}`)
-          resolve(stdout)
+          throw new Error('Link not found in the email body.')
         }
-      }
-    )
+      })
   })
-})
-
-/**
- * @module MailHog
- * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I verify the link in the email with subject {string} for user {string} expires after {int} day(s)
- * @param {string} recipient - email id of recipient
- * @param {string} subject1 - subject of the first email
- * @param {string} subject2 - subject of the second email
- * @description copy and paste the password for user from first email into the link in the second email
- */
-Given("I click on link in the email with subject {string} for user {string} after {int} day(s)", (subject, recipient, numDays) => {
-        cy.findEmailBySubjectAndRecipient(subject, recipient).then((email) => {
-        const emailBody = email.Content.Body
-
-      // Use a regex to find the first link in the email body
-      const linkMatch = emailBody.match(/https?:\/\/[^\s]+/)
-      if (linkMatch) {
-        const link = linkMatch[0]
-        cy.log(`Found link: ${link}`)
-
-        const expDay = 24 * 60 * 60 * 1000 * numDays
-        const d = new Date()
-        cy.log(`Current date:` + d)        // Initialize the clock to the current time
-        cy.clock(Date.now(), ['Date'])
-
-        // Advance the clock by numDays
-        cy.tick(expDay)
-            // Make an API call to set server time
-                // Adjust server time
-        cy.adjustDockerTime('debian', '4 days ahead')
-
-                // // Log the updated date to confirm the time manipulation
-        // cy.window()
-        // .its('Date')
-        // .then((MockedDate) => {
-        //     const mockedDate = new MockedDate()
-        //     cy.log(`Current date after ticking: ${mockedDate}`)
-            
-        // })
-
-        cy.visit(link, { failOnStatusCode: false }) // Fail-safe if link is already expired
-        
-        // Assert that the page displays the expiration message
-        cy.contains('This link has expired').should('be.visible')
-
-        // // Log the updated date to confirm the time manipulation
-        // cy.window()
-        // .its('Date')
-        // .then((MockedDate) => {
-        //     const mockedDate = new MockedDate()
-        //     cy.log(`Current date after ticking: ${mockedDate}`)
-        //     cy.visit(link).contains('The file has expired.') // Ensure fail-safe for expired links
-            
-        //     cy.log(`Current date after ticking: ${mockedDate}`)
-        // })
-
-        // Visit the link
-       
- 
-       
-        // // Check if the link has expired (simulate 4 days later)
-        // const numDaysLater = new Date()
-        // numDaysLater.setDate(numDaysLater.getDate() + num)
-
-        // // cy.log(`Current date:` + numDaysLater)
-        // cy.clock(Date.now()).then(clock => {
-        //     clock.tick(5 * 24 * 60 * 60 * 1000)
-        // })      // Verify the mocked clock is set correctly
-        // // Verify the mocked clock is set correctly
-        // // cy.wrap(new Date().getTime()).should('eq', numDaysLater.getTime())
-        // // cy.clock(new Date().setDate(new Date().getDate() + num))
-        // // Get the current date
-        // cy.window().its('Date').invoke('now').then((newTime) => {
-        //     const expectedTime = Date.now() + (5 * 24 * 60 * 60 * 1000)
-        //     expect(newTime).to.be.closeTo(expectedTime, 100)
-        //     const d = new Date()
-        //     cy.log(`Current date:` + d)
-        //     // Visit the link
-            
-        //     cy.visit(link, { failOnStatusCode: false }) // Fail-safe if link is already expired
-            
-        // })
-        
-        // const d = new Date()
-        // cy.log(`Current date:` + d)
-        // // Visit the link
-        
-       
-
-      } else {
-        throw new Error('Link not found in the email body.')
-      }
-    })
-})
+  
+  
+// /**
+//  * @module MailHog
+//  * @author Mintoo Xavier <min2xavier@gmail.com>
+//  * @example I verify the link in the email with subject {string} for user {string} expires after {int} day(s)
+//  * @param {string} recipient - email id of recipient
+//  * @param {string} subject1 - subject of the first email
+//  * @param {string} subject2 - subject of the second email
+//  * @description copy and paste the password for user from first email into the link in the second email
+//  */
+// Given("I change system date by adding {int} day(s)", (numDays) => {
+//     // cy.task('changeSystemDate', { daysToAdd: 4 }).then((result) => {
+//     //     // Log the result
+//     //     cy.log(result);
+//     //     expect(result.success).to.be.true; // Verify the operation was successful
+//     // })
+//     // // cy.clock(Date.UTC(2025, 1, 30), ['Date'])
+//     // cy.log(Date)
+//     cy.clock(); // Freeze time
+//     cy.visit('http://localhost:8025/'); // Load your app
+    
+   
+  
+//     cy.tick(4 * 24 * 60 * 60 * 1000); // Move time forward by 1 second
+// })
 
 
 /**
