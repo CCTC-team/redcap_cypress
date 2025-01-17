@@ -1,11 +1,7 @@
 //Add any of your own step definitions here
 const { Given, defineParameterType } = require('@badeball/cypress-cucumber-preprocessor')
-   
-// const timeAdjust = Cypress.env('serverTimeAdjust')
-// const { exec } = require('child_process')
 
 import 'cypress-file-upload'
-// import 'cypress-mailhog'
 
 // To make sure emails are deleted only once per Test Script
 let hasRunBeforeEach = false
@@ -15,7 +11,6 @@ let Password = null
 // delete all the messages from MailHog
 beforeEach(() => {
     if (!hasRunBeforeEach) {
-        // Your setup code here
         hasRunBeforeEach = true
         cy.deleteAllEmails()
       }
@@ -612,7 +607,7 @@ Given('I cannot click the bubble for the {string} longitudinal instrument which 
  * @example I (should )see a checkbox labeled {addcustomization} that is {check} in additional customizations
  * @param {string} addcustomization - available options: "Enable the Data History popup for all data collection instruments", "Enable the File Version History for 'File Upload' fields", "Prevent branching logic from hiding fields that have values"
  * @param {string} check - available options: 'checked', 'unchecked'
- * @description Verifies if a checkbox field is checked/unchecked
+ * @description Verifies if a checkbox field is checked/unchecked in additional customizations
  */
 Given("I (should )see a checkbox labeled {addcustomization} that is {check} in additional customizations", (label, check) => {
     cy.get('td').contains(label).parents('tr').within(() => {
@@ -627,7 +622,7 @@ Given("I (should )see a checkbox labeled {addcustomization} that is {check} in a
  * @example I {clickType} the checkbox labeled {addcustomization} in additional customizations
  * @param {string} addcustomization - available options: "Enable the Data History popup for all data collection instruments", "Enable the File Version History for 'File Upload' fields", "Prevent branching logic from hiding fields that have values"
  * @param {string} clickType - available options: 'click on', 'check', 'uncheck'
- * @description checks/unchecks the checkbox field
+ * @description checks/unchecks the checkbox field in additional customizations
  */
 Given("I {clickType} the checkbox labeled {addcustomization} in additional customizations", (checktype, label) => {
     cy.get('td').contains(label).parents('tr').within(() => {
@@ -683,10 +678,10 @@ Given("I select the radio option {string}", (option) => {
 /**
  * @module Interactions
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I click on the icon {string} to download {string}
+ * @example I click on the icon {downloadIcon} to download {otherExportOption}
  * @param {string} icon - icon to click
- * @param {string} label - option to select on Other Export Options page
- * @description download PDF from Other Export options page
+ * @param {string} label - option to click on Other Export Options page
+ * @description download from Other Export options page
  */
 Given("I click on the icon {downloadIcon} to download {otherExportOption}", (icon, label) => {
     if(label == "REDCap Project (XML)")
@@ -708,7 +703,7 @@ Given("I click on the icon {downloadIcon} to download {otherExportOption}", (ico
 /**
  * @module MailHog
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I open the Email
+ * @example I open Email
  * @description Open MailHog
  */
 Given('I open Email', () => {
@@ -784,76 +779,6 @@ Given("I should see {int} email(s) for user {string}", (num, recipient) => {
     })
 })
 
-// /**
-//  * @module MailHog
-//  * @author Mintoo Xavier <min2xavier@gmail.com>
-//  * @example I copy and paste the password for user {string} from the email with subject {string} to the link in the email with subject {string}
-//  * @param {string} recipient - email id of recipient
-//  * @param {string} subject1 - subject of the first email
-//  * @param {string} subject2 - subject of the second email
-//  * @description copy and paste the password for user from first email into the link in the second email
-//  */
-// Given("I copy and paste the password for user {string} from the email with subject {string} to the link in the email with subject {string}", (recipient, subject1, subject2) => {
-//     let password = null
-//     cy.findEmailBySubjectAndRecipient(subject1, recipient).then((email) => {
-           
-//         const emailContent1 = email.Content.Body
-//         // Define the search phrase
-//         const searchPhrase = "previous email."
-//         cy.log("emailContent:" + emailContent1)
-
-//         // Find the index of the search phrase in the input string
-//         const index = emailContent1.indexOf(searchPhrase)
-
-//         if (index !== -1) {
-//         // Calculate the starting index for the 8-letter substring. Have to add +6 (maybe because of <br> or something)
-//         let startIndex = index + searchPhrase.length + 6      
-
-//         // Extract the 8-letter substring
-//         let endIndex = startIndex + 8
-//         password = emailContent1.substring(startIndex, endIndex).trim()
-//         cy.log("Password:" + password)
-//         } else {
-//             // If the search phrase is not found, return a default message
-//             return null // Or handle as needed
-//         }
-//     })
-
-//     cy.findEmailBySubjectAndRecipient(subject2, recipient).then((email) => {
-//         const emailBody = email.Content.Body
-
-//       // Use a regex to find the first link in the email body
-//       const linkMatch = emailBody.match(/https?:\/\/[^\s]+/)
-//       if (linkMatch) {
-//         const link = linkMatch[0]
-//         cy.log(`Found link: ${link}`)
-
-//         // Visit the link
-//         cy.visit(link)
-
-//         // Paste the password into the input field
-//         cy.get('input[type="password"]').type(password)
-//       } else {
-//         throw new Error('Link not found in the email body.')
-//       }
-//     })
-// })
-
-
-/**
- * @module MailHog
- * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I paste the {passwordVercode} into the input field
- * @param {string} passwordVercode - available options: 'password', 'verification code'
- * @description pastes the password/verification code into the input field
- */
-Given("I paste the {passwordVercode} into the input field", (passcode) => {
-    if (passcode == "password")
-        cy.get('input[type="password"]').type(password)
-    else
-        cy.get('input[type="text"]').type(password)
-
-})
 
 /**
  * @module MailHog
@@ -862,7 +787,7 @@ Given("I paste the {passwordVercode} into the input field", (passcode) => {
  * @param {string} passwordVercode - available options: 'password', 'verification code'
  * @param {string} recipient - email id of recipient
  * @param {string} subject - subject of the  email
- * @description copy the password for user from email with the given subject
+ * @description copy the password/verification code for user from email with the given subject
  */
 Given("I copy the {passwordVercode} for user {string} from the email with subject {string}", (passcode, recipient, subject) => {
     password = null
@@ -913,10 +838,26 @@ Given("I copy the {passwordVercode} for user {string} from the email with subjec
 /**
  * @module MailHog
  * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I paste the {passwordVercode} into the input field
+ * @param {string} passwordVercode - available options: 'password', 'verification code'
+ * @description pastes the password/verification code into the input field
+ */
+Given("I paste the {passwordVercode} into the input field", (passcode) => {
+    if (passcode == "password")
+        cy.get('input[type="password"]').type(password)
+    else
+        cy.get('input[type="text"]').type(password)
+
+})
+
+
+/**
+ * @module MailHog
+ * @author Mintoo Xavier <min2xavier@gmail.com>
  * @example I click on the link in the email for user {string} with subject {string}
  * @param {string} recipient - email id of recipient
- * @param {string} subject - subject of the first email
- * @description copy and paste the password for user from first email into the link in the second email
+ * @param {string} subject - subject of the email
+ * @description clicks on the link in the email for user with specific subject
  */
 Given("I click on the link in the email for user {string} with subject {string}", (recipient, subject) => {
     cy.findEmailBySubjectAndRecipient(subject, recipient).then((email) => {
@@ -931,150 +872,7 @@ Given("I click on the link in the email for user {string} with subject {string}"
     
     })
 })
-
-
-// Cypress.Commands.add('adjustDockerTime', (containerName, time) => {
-//     return new Cypress.Promise((resolve, reject) => {
-//       exec(
-//         `docker exec ${containerName} date --set="${time}"`,
-//         (error, stdout, stderr) => {
-//           if (error) {
-//             console.error(`Error adjusting time: ${stderr}`)
-//             reject(error)
-//           } else {
-//             console.log(`Time adjusted: ${stdout}`)
-//             resolve(stdout)
-//           }
-//         }
-//       )
-//     })
-//   })
   
-  /**
-   * @module MailHog
-   * @author Mintoo Xavier <min2xavier@gmail.com>
-   * @example I verify the link in the email with subject {string} for user {string} expires after {int} day(s)
-   * @param {string} recipient - email id of recipient
-   * @param {string} subject1 - subject of the first email
-   * @param {string} subject2 - subject of the second email
-   * @description copy and paste the password for user from first email into the link in the second email
-   */
-  Given("I click on link in the email with subject {string} for user {string} after {int} day(s)", (subject, recipient, numDays) => {
-          cy.findEmailBySubjectAndRecipient(subject, recipient).then((email) => {
-          const emailBody = email.Content.Body
-  
-        // Use a regex to find the first link in the email body
-        const linkMatch = emailBody.match(/https?:\/\/[^\s]+/)
-        if (linkMatch) {
-          const link = linkMatch[0]
-          cy.log(`Found link: ${link}`)
-  
-          const expDay = 24 * 60 * 60 * 1000 * numDays
-          const d = new Date()
-          cy.log(`Current date:` + d)        // Initialize the clock to the current time
-          cy.clock(Date.now(), ['Date'])
-  
-          // Advance the clock by numDays
-          cy.tick(expDay)
-          cy.log(`New date:` + Date()) 
-              // Make an API call to set server time
-                  // Adjust server time
-        //   cy.changeSystemDate('mailhog', '4 days ahead')
-          cy.task('changeSystemDate', {containerName: 'mailhog'}, { daysToAdd: '4 days ahead' }).then((result) => {
-                    // Log the result
-                    cy.log(result);
-                    expect(result.success).to.be.true; // Verify the operation was successful
-                })
-                  // // Log the updated date to confirm the time manipulation
-          // cy.window()
-          // .its('Date')
-          // .then((MockedDate) => {
-          //     const mockedDate = new MockedDate()
-          //     cy.log(`Current date after ticking: ${mockedDate}`)
-              
-          // })
-  
-          cy.visit(link, { failOnStatusCode: false }) // Fail-safe if link is already expired
-          
-          // Assert that the page displays the expiration message
-          cy.contains('This link has expired').should('be.visible')
-  
-          // // Log the updated date to confirm the time manipulation
-          // cy.window()
-          // .its('Date')
-          // .then((MockedDate) => {
-          //     const mockedDate = new MockedDate()
-          //     cy.log(`Current date after ticking: ${mockedDate}`)
-          //     cy.visit(link).contains('The file has expired.') // Ensure fail-safe for expired links
-              
-          //     cy.log(`Current date after ticking: ${mockedDate}`)
-          // })
-  
-          // Visit the link
-         
-   
-         
-          // // Check if the link has expired (simulate 4 days later)
-          // const numDaysLater = new Date()
-          // numDaysLater.setDate(numDaysLater.getDate() + num)
-  
-          // // cy.log(`Current date:` + numDaysLater)
-          // cy.clock(Date.now()).then(clock => {
-          //     clock.tick(5 * 24 * 60 * 60 * 1000)
-          // })      // Verify the mocked clock is set correctly
-          // // Verify the mocked clock is set correctly
-          // // cy.wrap(new Date().getTime()).should('eq', numDaysLater.getTime())
-          // // cy.clock(new Date().setDate(new Date().getDate() + num))
-          // // Get the current date
-          // cy.window().its('Date').invoke('now').then((newTime) => {
-          //     const expectedTime = Date.now() + (5 * 24 * 60 * 60 * 1000)
-          //     expect(newTime).to.be.closeTo(expectedTime, 100)
-          //     const d = new Date()
-          //     cy.log(`Current date:` + d)
-          //     // Visit the link
-              
-          //     cy.visit(link, { failOnStatusCode: false }) // Fail-safe if link is already expired
-              
-          // })
-          
-          // const d = new Date()
-          // cy.log(`Current date:` + d)
-          // // Visit the link
-          
-         
-  
-        } else {
-          throw new Error('Link not found in the email body.')
-        }
-      })
-  })
-  
-  
-// /**
-//  * @module MailHog
-//  * @author Mintoo Xavier <min2xavier@gmail.com>
-//  * @example I verify the link in the email with subject {string} for user {string} expires after {int} day(s)
-//  * @param {string} recipient - email id of recipient
-//  * @param {string} subject1 - subject of the first email
-//  * @param {string} subject2 - subject of the second email
-//  * @description copy and paste the password for user from first email into the link in the second email
-//  */
-// Given("I change system date by adding {int} day(s)", (numDays) => {
-//     // cy.task('changeSystemDate', { daysToAdd: 4 }).then((result) => {
-//     //     // Log the result
-//     //     cy.log(result);
-//     //     expect(result.success).to.be.true; // Verify the operation was successful
-//     // })
-//     // // cy.clock(Date.UTC(2025, 1, 30), ['Date'])
-//     // cy.log(Date)
-//     cy.clock(); // Freeze time
-//     cy.visit('http://localhost:8025/'); // Load your app
-    
-   
-  
-//     cy.tick(4 * 24 * 60 * 60 * 1000); // Move time forward by 1 second
-// })
-
 
 /**
  * @module Interactions
@@ -1119,7 +917,7 @@ Given("I select the radio option {string} for {alert}", (option, alert) => {
 /**
  * @module Visibility
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example Given("I should see the radio option {string} for {alert} selected", (option, alert) => {
+ * @example I should see the radio option {string} for {alert} selected
  * @param {string} option - option selected
  * @param {string} alert - available options: 'How will this alert be triggered', 'When to send the alert', 'Send it how many times', 'Alert Type'
  * @description verifies the radio option is selected for alert option
@@ -1161,7 +959,7 @@ Given("I {savecan} the alert", (msg) => {
 /**
  * @module Interactions
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I click on the mail icon for record {string}
+ * @example I click on the mail icon for record {int}
  * @param {int} recordID - record ID
  * @description clicks on the mail icon for record ID
  */
@@ -1201,12 +999,12 @@ Given("I click on the textarea labeled while the following logic is true for the
 /**
  * @module Visibility
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I should see a {fieldIcons} icon for the field labeled {string}
+ * @example I should see a(n) {fieldIcons} icon for the field labeled {string}
  * @param {string} icon - icon to verify - available options: 'History', 'Missing Code', 'Comment', 'Show Field'
  * @param {string} label - field label
  * @description verifies the field contains the icon
  */
-Given("I should see a(n) {fieldIcons} icon for the field labeled {string}", (icon,label) => {
+Given("I should see a(n) {fieldIcons} icon for the field labeled {string}", (icon, label) => {
     cy.get('td').contains(label).parents('tr').within(() => {
         cy.get(fieldIcons[icon])
     })
@@ -1221,7 +1019,7 @@ Given("I should see a(n) {fieldIcons} icon for the field labeled {string}", (ico
  * @param {string} label - field label
  * @description verifies the field does not contains the icon
  */
-Given("I should NOT see a(n) {fieldIcons} icon for the field labeled {string}", (icon,label) => {
+Given("I should NOT see a(n) {fieldIcons} icon for the field labeled {string}", (icon, label) => {
     cy.get('td').contains(label).parents('tr').within(() => {
         cy.get(fieldIcons[icon]).should('not.exist')
     })    
@@ -1236,7 +1034,7 @@ Given("I should NOT see a(n) {fieldIcons} icon for the field labeled {string}", 
  * @param {string} label - field label
  * @description clicks on the icon for the field
  */
-Given("I click on the {fieldIcons} icon for the field labeled {string}", (icon,label) => {
+Given("I click on the {fieldIcons} icon for the field labeled {string}", (icon, label) => {
     cy.get('td').contains(label).parents('tr').within(() => {
         cy.get(fieldIcons[icon]).click()
     })
@@ -1246,10 +1044,10 @@ Given("I click on the {fieldIcons} icon for the field labeled {string}", (icon,l
 /**
  * @module Interactions
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I enter reason for change as {string} for row {string}
+ * @example I enter reason for change as {string} for row {int}
  * @param {string} text - reason to enter
  * @param {int} num - row number
- * @description clicks on the icon for the field
+ * @description enters reason for change for the row
  */
 Given("I enter reason for change as {string} for row {int}", (text, num) => {
     num += 2
@@ -1264,7 +1062,7 @@ Given("I enter reason for change as {string} for row {int}", (text, num) => {
  * @author Mintoo Xavier <min2xavier@gmail.com>
  * @example I scroll to the field labeled {string}
  * @param {string} text - field label
- * @description croll to the field
+ * @description scroll to the field with label
  */
 Given("I scroll to the field labeled {string}", (text) => {
     cy.get('td').contains(text).scrollIntoView()
@@ -1274,9 +1072,9 @@ Given("I scroll to the field labeled {string}", (text) => {
 /**
  * @module Interactions
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I scroll to the field labeled {string}
+ * @example I add the missing code {string}
  * @param {string} text - field label
- * @description scroll to the field
+ * @description adds the missing code
  */
 Given("I add the missing code {string}", (text) => {
     cy.get('.set_btn').contains(text).click()
@@ -1406,11 +1204,11 @@ Given("I {enterType} {string} in the comment box for the editted comment {string
 /**
  * @module Interactions
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I {enterType} {string} in the comment box for the editted comment {string} in {commentDrw}
+ * @example I click on the {buttonLink} labeled {string} for row {int}
  * @param {string} text - text to enter
  * @param {string} comment - text to edit
  * @param {string} commentDrw - available options: 'Data Resolution Dashboard', 'Field Comment Log'
- * @description enter/verify comment in the comment box in Data Resolution Workflow/Field Comment Log
+ * @description clicks on the button/Link for the row
  */
 Given("I click on the {buttonLink} labeled {string} for row {int}", (type, text, num) => {
     cy.get('table[id*=dh_table]').find('tr:nth-child(' + num + ')').within(() => {
@@ -1574,15 +1372,13 @@ Given('I create a new project named {string} by clicking on "New Project" in the
 })
 
 
-
-
 /**
  * @module Visibility
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I (should )see a checkbox labeled {addcustomization} that is {check} in additional customizations
+ * @example I (should )see the {instrumentPrivilege} of the instrument {string} with option {instrumentRights} {select}
  * @param {string} addcustomization - available options: "Enable the Data History popup for all data collection instruments", "Enable the File Version History for 'File Upload' fields", "Prevent branching logic from hiding fields that have values"
  * @param {string} check - available options: 'checked', 'unchecked'
- * @description Verifies if a checkbox field is checked/unchecked
+ * @description Verifies the instruments rights of the instrument
  */
 Given("I (should )see the {instrumentPrivilege} of the instrument {string} with option {instrumentRights} {select}", (priv, label, option, selected) => {
     cy.get('td').contains(label).parent('tr').within(() => {
@@ -1601,9 +1397,7 @@ Given("I (should )see the {instrumentPrivilege} of the instrument {string} with 
  * @description Imports well-formed REDCap data import file (of specific type) to a specific project given a Project ID.
  */
 Given("I upload a {string} format file located at {string}, by clicking the button {string}", (format, file_location, button_label) => {
-    // cy.get('div[role="dialog"]:visible').within(() => {
         cy.upload_file(file_location, format, '')
-    // })
 })
 
 
@@ -1622,8 +1416,9 @@ Given("I click on the list item {string}", (text) => {
 /**
  * @module Interactions
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I select the operator {string} for Filter {int}
- * @param {string} oper - operator to select
+ * @example I enter {string} into the {reportFilterOption} for Filter {int}
+ * @param {string} text - text to enter
+ * @param {string} reportFilterOption - available options : 'field label', 'operator value'
  * @param {int} num - Filter number
  * @description Selects the operator for the Filter
  */
@@ -1636,8 +1431,9 @@ Given("I enter {string} into the {reportFilterOption} for Filter {int}", (text, 
 /**
  * @module Interactions
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I select the operator {string} for Filter {int}
- * @param {string} oper - operator to select
+ * @example I select the {operatorValue} {string} for Filter {int}
+ * @param {string} operatorValue - available options : 'operator', 'operator value'
+ * @param {string} text - text to select
  * @param {int} num - Filter number
  * @description Selects the operator for the Filter
  */
@@ -1699,6 +1495,7 @@ Given("I enter {string} into the {eventOptions} for the event named {string} in 
     })
 })
 
+
 /**
  * @module Interactions
  * @author Mintoo Xavier <min2xavier@gmail.com>
@@ -1724,6 +1521,7 @@ Given("I click on the button labeled {string} to add an Ad Hoc Event", (text) =>
     cy.get('#btn_newCalEv').click({force: true})
     cy.url().should('include', 'calendar_popup.php')
 })
+
 
 /**
  * @module Scheduling
@@ -1772,12 +1570,13 @@ Given("I click on the {calendarEvent} icon for the event named {string} in the S
     })
 })
 
+
 /**
  * @module Interactions
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I select {string} on the dropdown field for alert form {namestat}
- * @param {string} option - option to select
- * @param {string} name_status - available options: 'name', 'status'
+ * @example I select {string} on the {calendarOption} dropdown field
+ * @param {string} text - text to select
+ * @param {string} calendarOption - available options: 'Month', 'Day', 'Year'
  * @description selects the dropdown option for alert form name/status
  */
 Given("I select {string} on the {calendarOption} dropdown field", (text, option) => {
