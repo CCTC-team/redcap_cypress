@@ -2,7 +2,8 @@ const { defineConfig } = require("cypress")
 const AdmZip = require('adm-zip')
 const fs = require('fs')
 const path = require('path')
-const crypto = require('crypto');
+const crypto = require('crypto')
+const { exec } = require('child_process')
 
 module.exports = defineConfig({
     projectId: '6dw6bj',
@@ -80,24 +81,44 @@ module.exports = defineConfig({
                 stream.on('error', reject)
               })
             },
-            // Task 4: Delete first delLines lines of the file
-            modifyFile({ filePath, delLines }) {
+            // Task 4: Delete lines from the file as it contains timestamp or ID
+            modifyFile({ filePath, fileType }) {
               return new Promise((resolve, reject) => {
                 fs.readFile(filePath, 'utf8', (err, data) => {
                   if (err) return reject(`Error reading file: ${err.message}`);
     
-                  // Split file into lines and remove the first delLines lines
+                  // Split file into lines
                   const lines = data.split('\n');
-                  if (lines.length <= delLines) {
-                    return reject('File has fewer than ${delLines} lines to delete');
+                
+                  let updatedContent
+                  // sas, sps, r, do files contain the corresponding csv file names within the files 
+                  // csv filename is of the format filename_yyyy-mm-dd_hhmm.csv
+                  // xml file contains filename and timestamp
+                  // ics file contains UID and timestamp
+                  // This causes the hash value to differ each time hence removing the csv file name from the file
+                  if(fileType == 'ics') {
+                    updatedContent = lines.filter((line) => !line.startsWith('UID') && !line.startsWith('DTSTAMP')).join('\n'); // delete lines starting with 'UID' and 'DTSTAMP' as UID and timestamp differ each time
                   }
-    
-                  const updatedContent = lines.slice(delLines).join('\n'); // Keep content after line ${delLines}
-    
+                  else if (fileType == 'sas') {
+                    updatedContent = lines.filter((line) => !line.startsWith('%let csv_file')).join('\n'); // delete lines starting with 'let csv_file' as the filename contains timestamp
+                  }
+                  else if (fileType == 'sps') {
+                    updatedContent = lines.filter((line) => !line.startsWith('FILE HANDLE')).join('\n'); // delete lines starting with 'FILE HANDLE' as the filename contains timestamp
+                  }
+                  else if (fileType == 'r') {
+                    updatedContent = lines.filter((line) => !line.startsWith('data')).join('\n'); // delete lines starting with 'data' as the filename contains timestamp
+                  }
+                  else if (fileType == 'do') {
+                    updatedContent = lines.filter((line) => !line.startsWith('label data') && !line.startsWith('import delimited')).join('\n'); // delete lines starting with 'label data' and 'import delimited' as the filename contains timestamp
+                  }
+                  else if (fileType == 'xml') {
+                    updatedContent = lines.filter((line) => !line.startsWith('<ODM xmlns') && !line.startsWith('<ClinicalData StudyOID')).join('\n'); // delete lines starting with '<ODM xmlns' and '<ClinicalData StudyOID' as the filename contains timestamp
+                  }
+
                   // Write the modified content back to the file
                   fs.writeFile(filePath, updatedContent, 'utf8', writeErr => {
                     if (writeErr) return reject(`Error writing file: ${writeErr.message}`);
-                    resolve('First ${delLines} lines deleted successfully');
+                    resolve('File Updated successfully');
                   })
                 })
               })
