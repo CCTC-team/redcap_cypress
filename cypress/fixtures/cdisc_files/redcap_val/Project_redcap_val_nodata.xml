@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<ODM xmlns="http://www.cdisc.org/ns/odm/v1.3" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:redcap="https://projectredcap.org" xsi:schemaLocation="http://www.cdisc.org/ns/odm/v1.3 schema/odm/ODM1-3-1.xsd" ODMVersion="1.3.1" FileOID="000-00-0000" FileType="Snapshot" Description="D.122.100" AsOfDateTime="2025-01-23T15:40:44" CreationDateTime="2025-01-23T15:40:44" SourceSystem="REDCap" SourceSystemVersion="13.8.1">
-<Study OID="Project.D122100">
+<ODM xmlns="http://www.cdisc.org/ns/odm/v1.3" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:redcap="https://projectredcap.org" xsi:schemaLocation="http://www.cdisc.org/ns/odm/v1.3 schema/odm/ODM1-3-1.xsd" ODMVersion="1.3.1" FileOID="000-00-0000" FileType="Snapshot" Description="redcap_val_nodata" AsOfDateTime="2025-02-05T14:13:09" CreationDateTime="2025-02-05T14:13:09" SourceSystem="REDCap" SourceSystemVersion="13.8.1">
+<Study OID="Project.redcap_val_nodata">
 <GlobalVariables>
-	<StudyName>D.122.100</StudyName>
-	<StudyDescription>This file contains the metadata, events, and data for REDCap project "D.122.100".</StudyDescription>
-	<ProtocolName>D.122.100</ProtocolName>
+	<StudyName>redcap_val_nodata</StudyName>
+	<StudyDescription>This file contains the metadata, events, and data for REDCap project "redcap_val_nodata".</StudyDescription>
+	<ProtocolName>redcap_val_nodata</ProtocolName>
 	<redcap:RecordAutonumberingEnabled>1</redcap:RecordAutonumberingEnabled>
 	<redcap:CustomRecordLabel></redcap:CustomRecordLabel>
 	<redcap:SecondaryUniqueField></redcap:SecondaryUniqueField>
@@ -32,19 +32,19 @@
 		</redcap:RepeatingInstruments>
 	</redcap:RepeatingInstrumentsAndEvents>
 	<redcap:DataQualityRulesGroup>
-		<redcap:DataQualityRules rule_order="1" rule_name="Identifier more than 8" rule_logic="[identifier] &gt; 8" real_time_execute="0"/>
+		<redcap:DataQualityRules rule_order="1" rule_name="Identifier more than 8" rule_logic="[identifier] &gt; 8" real_time_execute="1"/>
 	</redcap:DataQualityRulesGroup>
 	<redcap:DataAccessGroupsGroup>
 		<redcap:DataAccessGroups group_name="DAG1"/>
 		<redcap:DataAccessGroups group_name="DAG2"/>
 	</redcap:DataAccessGroupsGroup>
 	<redcap:UserRolesGroup>
-		<redcap:UserRoles role_name="DataEntry" unique_role_name="U-1714W3W7CD" lock_record="0" lock_record_multiform="0" lock_record_customize="0" data_export_tool="" data_export_instruments="[text_validation,0][data_types,0]" data_import_tool="0" data_comparison_tool="0" data_logging="0" file_repository="0" double_data="0" user_rights="0" data_access_groups="0" graphical="0" reports="0" design="0" alerts="0" calendar="0" data_entry="[text_validation,1][data_types,1]" api_export="0" api_import="0" mobile_app="0" mobile_app_download_data="0" record_create="1" record_rename="0" record_delete="0" dts="0" participants="1" data_quality_design="0" data_quality_execute="0" data_quality_resolution="1" random_setup="0" random_dashboard="0" random_perform="0" realtime_webservice_mapping="0" realtime_webservice_adjudicate="0" external_module_config="" mycap_participants="1"/>
-		<redcap:UserRoles role_name="DataManager" unique_role_name="U-513FF7JKEM" lock_record="2" lock_record_multiform="0" lock_record_customize="0" data_export_tool="" data_export_instruments="[text_validation,0][data_types,0]" data_import_tool="0" data_comparison_tool="0" data_logging="1" file_repository="0" double_data="0" user_rights="0" data_access_groups="0" graphical="1" reports="1" design="0" alerts="0" calendar="0" data_entry="[text_validation,2][data_types,2]" api_export="0" api_import="0" mobile_app="0" mobile_app_download_data="0" record_create="0" record_rename="0" record_delete="0" dts="0" participants="1" data_quality_design="0" data_quality_execute="0" data_quality_resolution="1" random_setup="0" random_dashboard="0" random_perform="0" realtime_webservice_mapping="0" realtime_webservice_adjudicate="0" external_module_config="" mycap_participants="1"/>
-		<redcap:UserRoles role_name="Monitor" unique_role_name="U-5787T4MMEY" lock_record="0" lock_record_multiform="0" lock_record_customize="0" data_export_tool="" data_export_instruments="[text_validation,0][data_types,0]" data_import_tool="0" data_comparison_tool="0" data_logging="0" file_repository="0" double_data="0" user_rights="0" data_access_groups="0" graphical="0" reports="1" design="0" alerts="0" calendar="0" data_entry="[text_validation,2][data_types,2]" api_export="0" api_import="0" mobile_app="0" mobile_app_download_data="0" record_create="0" record_rename="0" record_delete="0" dts="0" participants="1" data_quality_design="0" data_quality_execute="0" data_quality_resolution="1" random_setup="0" random_dashboard="0" random_perform="0" realtime_webservice_mapping="0" realtime_webservice_adjudicate="0" external_module_config="" mycap_participants="1"/>
+		<redcap:UserRoles role_name="DataEntry" unique_role_name="U-1714W3W7CD" lock_record="0" lock_record_multiform="0" lock_record_customize="0" data_export_tool="" data_export_instruments="[text_validation,0][data_types,0]" data_import_tool="0" data_comparison_tool="0" data_logging="0" file_repository="0" double_data="0" user_rights="0" data_access_groups="0" graphical="0" reports="0" design="0" alerts="0" calendar="0" data_entry="[text_validation,1][data_types,1]" api_export="0" api_import="0" mobile_app="0" mobile_app_download_data="0" record_create="1" record_rename="0" record_delete="0" dts="0" participants="1" data_quality_design="0" data_quality_execute="1" data_quality_resolution="1" random_setup="0" random_dashboard="0" random_perform="0" realtime_webservice_mapping="0" realtime_webservice_adjudicate="0" external_module_config="" mycap_participants="1"/>
+		<redcap:UserRoles role_name="DataManager" unique_role_name="U-513FF7JKEM" lock_record="2" lock_record_multiform="0" lock_record_customize="0" data_export_tool="" data_export_instruments="[text_validation,0][data_types,0]" data_import_tool="0" data_comparison_tool="0" data_logging="1" file_repository="0" double_data="0" user_rights="0" data_access_groups="0" graphical="1" reports="1" design="0" alerts="0" calendar="0" data_entry="[text_validation,2][data_types,2]" api_export="0" api_import="0" mobile_app="0" mobile_app_download_data="0" record_create="0" record_rename="0" record_delete="0" dts="0" participants="1" data_quality_design="1" data_quality_execute="0" data_quality_resolution="1" random_setup="0" random_dashboard="0" random_perform="0" realtime_webservice_mapping="0" realtime_webservice_adjudicate="0" external_module_config="" mycap_participants="1"/>
+		<redcap:UserRoles role_name="Monitor" unique_role_name="U-5787T4MMEY" lock_record="0" lock_record_multiform="0" lock_record_customize="0" data_export_tool="" data_export_instruments="[text_validation,0][data_types,0]" data_import_tool="0" data_comparison_tool="0" data_logging="0" file_repository="0" double_data="0" user_rights="0" data_access_groups="0" graphical="0" reports="1" design="0" alerts="0" calendar="0" data_entry="[text_validation,2][data_types,2]" api_export="0" api_import="0" mobile_app="0" mobile_app_download_data="0" record_create="0" record_rename="0" record_delete="0" dts="0" participants="1" data_quality_design="0" data_quality_execute="1" data_quality_resolution="1" random_setup="0" random_dashboard="0" random_perform="0" realtime_webservice_mapping="0" realtime_webservice_adjudicate="0" external_module_config="" mycap_participants="1"/>
 	</redcap:UserRolesGroup>
 </GlobalVariables>
-<MetaDataVersion OID="Metadata.D122100_2025-01-23_1540" Name="D.122.100" redcap:RecordIdField="record_id">
+<MetaDataVersion OID="Metadata.redcap_val_nodata_2025-02-05_1413" Name="redcap_val_nodata" redcap:RecordIdField="record_id">
 	<Protocol>
 		<StudyEventRef StudyEventOID="Event.event_1_arm_1" OrderNumber="1" Mandatory="No"/>
 		<StudyEventRef StudyEventOID="Event.event_2_arm_1" OrderNumber="2" Mandatory="No"/>
@@ -84,7 +84,6 @@
 	</FormDef>
 	<ItemGroupDef OID="text_validation.record_id" Name="Text Validation" Repeating="No">
 		<ItemRef ItemOID="record_id" Mandatory="No" redcap:Variable="record_id"/>
-		<ItemRef ItemOID="redcap_data_access_group" Mandatory="No" redcap:Variable="redcap_data_access_group"/>
 		<ItemRef ItemOID="text_validation_crfver" Mandatory="No" redcap:Variable="text_validation_crfver"/>
 		<ItemRef ItemOID="ptname_v2_v2" Mandatory="No" redcap:Variable="ptname_v2_v2"/>
 		<ItemRef ItemOID="email_v2" Mandatory="No" redcap:Variable="email_v2"/>
@@ -115,7 +114,6 @@
 	<ItemGroupDef OID="data_types.required" Name="Data Types" Repeating="No">
 		<ItemRef ItemOID="required" Mandatory="No" redcap:Variable="required"/>
 		<ItemRef ItemOID="identifier" Mandatory="No" redcap:Variable="identifier"/>
-		<ItemRef ItemOID="identifier_2" Mandatory="No" redcap:Variable="identifier_2"/>
 		<ItemRef ItemOID="edit_field" Mandatory="No" redcap:Variable="edit_field"/>
 	</ItemGroupDef>
 	<ItemGroupDef OID="data_types.descriptive_text" Name="Section Break" Repeating="No">
@@ -126,9 +124,6 @@
 	</ItemGroupDef>
 	<ItemDef OID="record_id" Name="record_id" DataType="text" Length="999" redcap:Variable="record_id" redcap:FieldType="text">
 		<Question><TranslatedText>Record ID</TranslatedText></Question>
-	</ItemDef>
-	<ItemDef OID="redcap_data_access_group" Name="redcap_data_access_group" DataType="text" Length="999" redcap:Variable="redcap_data_access_group">
-		<Question><TranslatedText>Data Access Group</TranslatedText></Question>
 	</ItemDef>
 	<ItemDef OID="text_validation_crfver" Name="text_validation_crfver" DataType="text" Length="999" redcap:Variable="text_validation_crfver" redcap:FieldType="text">
 		<Question><TranslatedText>CRF Versioning</TranslatedText></Question>
@@ -205,9 +200,6 @@
 	<ItemDef OID="identifier" Name="identifier" DataType="text" Length="999" redcap:Variable="identifier" redcap:FieldType="text" redcap:Identifier="y">
 		<Question><TranslatedText>Identifier</TranslatedText></Question>
 	</ItemDef>
-	<ItemDef OID="identifier_2" Name="identifier_2" DataType="text" Length="999" redcap:Variable="identifier_2" redcap:FieldType="text" redcap:Identifier="y">
-		<Question><TranslatedText>Identifier</TranslatedText></Question>
-	</ItemDef>
 	<ItemDef OID="edit_field" Name="edit_field" DataType="text" Length="999" redcap:Variable="edit_field" redcap:FieldType="text">
 		<Question><TranslatedText>Edit Field</TranslatedText></Question>
 	</ItemDef>
@@ -262,6 +254,4 @@
 	</CodeList>
 </MetaDataVersion>
 </Study>
-<ClinicalData StudyOID="Project.D122100" MetaDataVersionOID="Metadata.D122100_2025-01-23_1540">
-</ClinicalData>
 </ODM>
