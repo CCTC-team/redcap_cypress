@@ -67,8 +67,9 @@ defineParameterType({
 /**
  * @module ControlCenter
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I click on the "{toDoTableIcons}" icon for the {toDoRequestTypes} request created for the project named {string} within the "{toDoTableTypes}" table
+ * @example I click on the {toDoTableIcons} icon for the {string} request created for the project named {string} within the {toDoTableTypes} table
  * @param {string} toDoTableIcons - available options: 'process request', 'get more information', 'add or edit a comment', 'Move to low priority section', 'archive request notification'
+ * @param {string} request_name - Name of request
  * @param {string} project_name - the text value of project name you want to target
  * @param {string} toDoTableTypes - available options: 'Pending Requests', 'Low Priority Pending Requests', 'Completed & Archived Requests'
  * @description Clicks on an icon within the To-Do-List page based upon Icon, Request Name, Project Name, and Table Name specified.
@@ -81,17 +82,55 @@ Given('I click on the {toDoTableIcons} icon for the {string} request created for
     })
 })
 
+
 /**
  * @module ControlCenter
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I (should) see the "{toDoRequestTypes}" request created for the project named {string} within the "{toDoTableTypes}" table
- * @param {string} toDoRequestTypes - available options: 'Move to prod', 'Approve draft changes', 'Copy project'
+ * @example I (should )see the {string} request created for the project named {string} within the {toDoTableTypes} table
+ * @param {string} request_name - Name of request
  * @param {string} project_name - the text value of project name you want to target
  * @param {string} toDoTableTypes - available options: 'Pending Requests', 'Low Priority Pending Requests', 'Completed & Archived Requests'
- * @description Identifies Request Type within the To-Do-List page based upon Project Name, and Table Name specified.
+ * @description Identifies Request Name within the To-Do-List page based upon Project Name, and Table Name specified.
  */
 Given('I (should )see the {string} request created for the project named {string} within the {toDoTableTypes} table', (request_name, project_name, table_name) => {
     cy.get(`.${window.toDoListTables[table_name]}`).within(() => {
         cy.get(`.request-container:contains("${project_name}"):has(.type:contains("${request_name}"))`)
     })
+})
+
+
+/**
+ * @module HightlightDQR
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I (should )see {string} in the Data quality errors table
+ * @param {string} text - text to view 
+ * @description verify text is visible in the Data quality errors table
+ */
+Given('I (should )see {string} in the Data quality errors table', (text) => {
+    cy.get('#form-instance-rule-errors').contains(text)
+})
+
+/**
+ * @module HightlightDQR
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I (should )see the field labeled {string} highlighed in red
+ * @param {string} label - field label
+ * @description verify field is highlighted in red
+ */
+Given('I (should )see the field labeled {string} highlighed in red', (label) => {
+    cy.get('#questiontable').find('tr').contains(label).parents('tr').should('have.attr', 'style')
+        .and('include', 'border-width: 2px')
+        .and('include', 'border-color: rgb(255, 33, 0)')
+})
+
+
+/**
+ * @module HightlightDQR
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I (should )NOT see the field labeled {string} highlighed in red
+ * @param {string} label - field label
+ * @description verify field is not highlighted in red
+ */
+Given('I (should )NOT see the field labeled {string} highlighed in red', (label) => {
+    cy.get('#questiontable').find('tr').contains(label).parents('tr').should('not.have.attr', 'style', 'border-width: 2px; border-color: rgb(255, 33, 0);')
 })
