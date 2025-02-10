@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<ODM xmlns="http://www.cdisc.org/ns/odm/v1.3" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:redcap="https://projectredcap.org" xsi:schemaLocation="http://www.cdisc.org/ns/odm/v1.3 schema/odm/ODM1-3-1.xsd" ODMVersion="1.3.1" FileOID="000-00-0000" FileType="Snapshot" Description="redcap_val_nodata" AsOfDateTime="2025-02-05T14:13:09" CreationDateTime="2025-02-05T14:13:09" SourceSystem="REDCap" SourceSystemVersion="13.8.1">
-<Study OID="Project.redcap_val_nodata">
+<ODM xmlns="http://www.cdisc.org/ns/odm/v1.3" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:redcap="https://projectredcap.org" xsi:schemaLocation="http://www.cdisc.org/ns/odm/v1.3 schema/odm/ODM1-3-1.xsd" ODMVersion="1.3.1" FileOID="000-00-0000" FileType="Snapshot" Description="E.127.700" AsOfDateTime="2025-02-07T14:45:36" CreationDateTime="2025-02-07T14:45:36" SourceSystem="REDCap" SourceSystemVersion="13.8.1">
+<Study OID="Project.E127700">
 <GlobalVariables>
-	<StudyName>redcap_val_nodata</StudyName>
-	<StudyDescription>This file contains the metadata, events, and data for REDCap project "redcap_val_nodata".</StudyDescription>
-	<ProtocolName>redcap_val_nodata</ProtocolName>
+	<StudyName>E.127.700</StudyName>
+	<StudyDescription>This file contains the metadata, events, and data for REDCap project "E.127.700".</StudyDescription>
+	<ProtocolName>E.127.700</ProtocolName>
 	<redcap:RecordAutonumberingEnabled>1</redcap:RecordAutonumberingEnabled>
 	<redcap:CustomRecordLabel></redcap:CustomRecordLabel>
 	<redcap:SecondaryUniqueField></redcap:SecondaryUniqueField>
@@ -44,7 +44,7 @@
 		<redcap:UserRoles role_name="Monitor" unique_role_name="U-5787T4MMEY" lock_record="0" lock_record_multiform="0" lock_record_customize="0" data_export_tool="" data_export_instruments="[text_validation,0][data_types,0]" data_import_tool="0" data_comparison_tool="0" data_logging="0" file_repository="0" double_data="0" user_rights="0" data_access_groups="0" graphical="0" reports="1" design="0" alerts="0" calendar="0" data_entry="[text_validation,2][data_types,2]" api_export="0" api_import="0" mobile_app="0" mobile_app_download_data="0" record_create="0" record_rename="0" record_delete="0" dts="0" participants="1" data_quality_design="0" data_quality_execute="1" data_quality_resolution="1" random_setup="0" random_dashboard="0" random_perform="0" realtime_webservice_mapping="0" realtime_webservice_adjudicate="0" external_module_config="" mycap_participants="1"/>
 	</redcap:UserRolesGroup>
 </GlobalVariables>
-<MetaDataVersion OID="Metadata.redcap_val_nodata_2025-02-05_1413" Name="redcap_val_nodata" redcap:RecordIdField="record_id">
+<MetaDataVersion OID="Metadata.E127700_2025-02-07_1445" Name="E.127.700" redcap:RecordIdField="record_id">
 	<Protocol>
 		<StudyEventRef StudyEventOID="Event.event_1_arm_1" OrderNumber="1" Mandatory="No"/>
 		<StudyEventRef StudyEventOID="Event.event_2_arm_1" OrderNumber="2" Mandatory="No"/>
@@ -97,7 +97,6 @@
 		<ItemRef ItemOID="text2" Mandatory="No" redcap:Variable="text2"/>
 		<ItemRef ItemOID="textbox" Mandatory="No" redcap:Variable="textbox"/>
 		<ItemRef ItemOID="notesbox" Mandatory="No" redcap:Variable="notesbox"/>
-		<ItemRef ItemOID="calculated_field" Mandatory="No" redcap:Variable="calculated_field"/>
 		<ItemRef ItemOID="multiple_dropdown_auto" Mandatory="No" redcap:Variable="multiple_dropdown_auto"/>
 		<ItemRef ItemOID="multiple_dropdown_manual" Mandatory="No" redcap:Variable="multiple_dropdown_manual"/>
 		<ItemRef ItemOID="radio_button_auto" Mandatory="No" redcap:Variable="radio_button_auto"/>
@@ -152,9 +151,6 @@
 	</ItemDef>
 	<ItemDef OID="notesbox" Name="notesbox" DataType="text" Length="999" redcap:Variable="notesbox" redcap:FieldType="textarea">
 		<Question><TranslatedText>Notes Box</TranslatedText></Question>
-	</ItemDef>
-	<ItemDef OID="calculated_field" Name="calculated_field" DataType="float" Length="999" redcap:Variable="calculated_field" redcap:FieldType="calc" redcap:Calculation="3*2">
-		<Question><TranslatedText>Calculated Field</TranslatedText></Question>
 	</ItemDef>
 	<ItemDef OID="multiple_dropdown_auto" Name="multiple_dropdown_auto" DataType="text" Length="1" redcap:Variable="multiple_dropdown_auto" redcap:FieldType="select">
 		<Question><TranslatedText>Multiple Choice Dropdown Auto</TranslatedText></Question>
