@@ -150,3 +150,60 @@ Given('I should see {int} row(s) in the data entry log table', (num) => {
         expect(rowCount-1).to.be.equal(num)
     })
 })
+
+
+  /**e
+   * @module ExternalModule
+   * @author Mintoo Xavier <min2xavier@gmail.com>
+   * @example I click on the button labeled {string} for the field labeled {string} in the external module configuration
+   * @param {string} buttonLabel - Label on button
+   * @param {string} field - Field Label
+   * @description Clicks on the button for the field in the external module configuration
+   */
+  Given("I click on the button labeled {string} for the field labeled {string} in the external module configuration", (buttonLabel, field) => {
+    cy.get('.table-no-top-row-border').find('td').contains(field).parents('tr').within(() => {
+        cy.get('button').contains(buttonLabel).click()
+    })
+  })
+
+
+  /**e
+   * @module ExternalModule
+   * @author Mintoo Xavier <min2xavier@gmail.com>
+   * @example I close the dialog box for the external module {string}
+   * @param {string} name - Name of external module
+   * @description Close the dialog box for the external module
+   */
+  Given("I close the dialog box for the external module {string}", (name) => {
+    cy.get('.modal-dialog').contains(name).parents('div[class="modal-header"]').within(() => {
+        cy.get('button[class=close]').click()
+    })
+})
+
+
+/**
+ * @module HightlightDQR
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I should see the field labeled {string} with a {int}px {string} right border in {string} color
+ * @param {string} label - field label
+ * @param {int} num - right border style in px
+ * @param {string} lineType - right border style - solid/dashed
+ * @param {string} color - color of right border
+ * @description verify field has a right border of specified style
+ */
+Given('I should see the field labeled {string} with a {int}px {string} right border in {string} color', (label, num, lineType, color) => {
+    cy.get('#questiontable').find('tr').contains(label).parents('tr').should('have.attr', 'style')
+        .and('include', 'border-right: ' + num + 'px ' + lineType + ' ' + color)
+})
+
+
+/**
+ * @module EnhaceReasonForChange
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I should NOT see the field labeled {string} with a colored right border
+ * @param {string} label - field label
+ * @description verify field does not have a right border
+ */
+Given('I should NOT see the field labeled {string} with a colored right border', (label) => {
+    cy.get('#questiontable').find('tr').contains(label).parents('tr').should('not.have.attr', 'style', 'border-right')
+})
