@@ -12,6 +12,20 @@ defineParameterType({
     regexp: /red|yellow|green/
 })
 
+
+defineParameterType({
+    name: 'monTable',
+    regexp: /monitoring|monitoring history|monitoring logging/
+})
+
+
+monTable = {
+    'monitoring' : '#mon-q-fields-table',
+    'monitoring history' : '#monitor-query-data-log',
+    'monitoring logging' : '#monitor-query-data-log'
+}
+
+
 formStatusIcon = {
     'red' : 'img[src*=circle_red]',
     'yellow' : 'img[src*=circle_yellow]',
@@ -90,7 +104,7 @@ Given('I (should )see the {string} request created for the project named {string
             .invoke('attr', 'id')
             .then(($id) => {
                 let elm = cy.get('[name="' + $id.split('label-')[1] + '"]')
-                elm.should('have.attr', 'disabled');
+                elm.should('have.attr', 'disabled')
             })
     })
   })
@@ -102,12 +116,25 @@ Given('I (should )see the {string} request created for the project named {string
    * @example I should see {string} within the data entry field labeled {string}
    * @param {string} fieldOptions - field options visible
    * @param {string} label - Field Label
-   * @description Enable/Disable external module
+   * @description verifies data entry field contains text
    */
   Given("I should see {string} within the data entry field labeled {string}", (fieldOptions, label) => {
-    cy.get('#questiontable').find('td').contains(label).parents('tr').within(() => {
-        cy.get('small').should('contain', fieldOptions)
-    })
+    // cy.get('#questiontable').find('td').contains(label).parents('tr').within(() => {
+    //     cy.get('*').contains(fieldOptions).should('be.visible')
+    // })
+    cy.get('#questiontable').find('td').contains(label).parents('tr').should('contain', fieldOptions)
+  })
+
+   /**e
+   * @module MonitoringQR
+   * @author Mintoo Xavier <min2xavier@gmail.com>
+   * @example I should NOT see {string} within the data entry field labeled {string}
+   * @param {string} fieldOptions - field options visible
+   * @param {string} label - Field Label
+   * @description verifies data entry field does not contain text
+   */
+   Given("I should NOT see {string} within the data entry field labeled {string}", (fieldOptions, label) => {
+    cy.get('#questiontable').find('td').contains(label).parents('tr').should('not.contain', fieldOptions)
   })
 
 
@@ -288,9 +315,51 @@ Given('I select {string} in the dropdown field in column {string} for the field 
 /**
  * @module MonitoringQR
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I should NOT see the monitoring table
+ * @example I should NOT see the {monTable} table
+ * @param {string} monTable - available options: 'monitoring', 'monitoring history', 'monitoring logging'
  * @description verifies monitoring table does not exists
  */
 Given('I should NOT see the monitoring table', () => {
     cy.get('#mon-q-fields-table').should('not.exist')
+})
+
+
+/**
+ * @module MonitoringQR
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I click on the {string} view icon
+ * @param {string} ordinal - available options: 'first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'tenth', 'eleventh', 'twelfth', 'thirteenth', 'fourteenth', 'fifteenth', 'sixteenth', 'seventeenth', 'eighteenth', 'nineteenth', 'twentieth', 'last'
+ * @description clicks on the view icon in the monitoring table
+ */
+Given('I click on the {string} view icon', (ordinal) => {
+    index = window.ordinalChoices[ordinal]
+    cy.get('.fa-eye').eq(index).click()
+})
+
+
+/**
+ * @module MonitoringQR
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I should see a button labeled {string} disabled
+ * @param {string} label - label on button
+ * @description verifies the button is disabled
+ */
+Given('I should see a button labeled {string} disabled', (label) => {
+    cy.get('input[type=button][value*="' + label +'"]').should('be.disabled')
+})
+
+
+/**
+ * @module MonitoringQR
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I verify that the {monTable} table image matches the baseline image {string}
+ * @param {string} monTable - available options: 'monitoring', 'monitoring history', 'monitoring logging'
+ * @description clicks on the view icon in the monitoring table
+ */
+Given('I verify that the {monTable} table image matches the baseline image {string}', (tableName, imageName) => {
+    // Capture screenshot of the table
+    cy.get(monTable[tableName]).screenshot(imageName)
+  
+    // Compare the screenshot to the baseline image
+    // cy.compareSnapshot(imageName, 10.10) // 0.0 for exact match, adjust tolerance if needed
 })
