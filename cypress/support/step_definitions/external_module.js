@@ -363,3 +363,16 @@ Given('I verify that the {monTable} table image matches the baseline image {stri
     // Compare the screenshot to the baseline image
     // cy.compareSnapshot(imageName, 10.10) // 0.0 for exact match, adjust tolerance if needed
 })
+
+
+
+/**
+ * @module MonitoringQR
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I should see the monitoring status {string}
+ * @param {string} label - label on button
+ * @description verifies the button is disabled
+ */
+Given('I should see the monitoring status {string}', (label) => {
+    cy.get('tr[class=labelrc]').contains(label)
+})
