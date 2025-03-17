@@ -352,27 +352,26 @@ Given('I should see a button labeled {string} disabled', (label) => {
 /**
  * @module MonitoringQR
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I verify that the {monTable} table image matches the baseline image {string}
- * @param {string} monTable - available options: 'monitoring', 'monitoring history', 'monitoring logging'
- * @description clicks on the view icon in the monitoring table
+ * @example I should see the monitoring status {string}
+ * @param {string} label - monitoring status
+ * @description verifies the monitoring status
  */
-Given('I verify that the {monTable} table image matches the baseline image {string}', (tableName, imageName) => {
-    // Capture screenshot of the table
-    cy.get(monTable[tableName]).screenshot(imageName)
-  
-    // Compare the screenshot to the baseline image
-    // cy.compareSnapshot(imageName, 10.10) // 0.0 for exact match, adjust tolerance if needed
+Given('I should see the monitoring status {string}', (label) => {
+    cy.get('tr[class=labelrc]').contains(label)
 })
-
 
 
 /**
  * @module MonitoringQR
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I should see the monitoring status {string}
- * @param {string} label - label on button
- * @description verifies the button is disabled
+ * @example I should see {int} row(s) in the monitoring logging table
+ * @param {int} num - number of row(s)
+ * @description verifies monitoring logging table contains the specified number of row(s)
  */
-Given('I should see the monitoring status {string}', (label) => {
-    cy.get('tr[class=labelrc]').contains(label)
+Given('I should see {int} row(s) in the monitoring logging table', (num) => {
+    cy.get('#monitor-query-data-log tbody tr').its('length').then ((rowCount) => {
+        // Subtracting 1 for header
+        rowCount = (rowCount-1)/2
+        expect(rowCount).to.be.equal(num)
+    })
 })
