@@ -1,1 +1,0 @@
-D.21.700 - Verify hash value of the exported file formats: CSV, SPSS, SAS, R, STATA, and CDISC ODM (XML).

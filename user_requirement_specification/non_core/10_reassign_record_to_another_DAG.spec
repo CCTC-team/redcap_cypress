@@ -1,1 +1,0 @@
-D.10.700 - The system shall provide the ability to reassign a record from one DAG to another for users with appropriate user rights
