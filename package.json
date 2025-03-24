@@ -7,7 +7,7 @@
     "del-cli": "^5.1.0",
     "move-cli": "^2.0.0",
     "rctf": "git://github.com/aldefouw/rctf#v1.0.117",
-    "redcap_rsvc": "git://github.com/4bbakers/redcap_rsvc#V15.0.9-ABC"
+    "redcap_rsvc": "git://github.com/4bbakers/redcap_rsvc#V14.7.0"
   },
   "optionalDependencies": {
     "redcap_cypress_doc_theme": "git://github.com/aldefouw/redcap_cypress_doc_theme#bf84bfa"
@@ -50,6 +50,7 @@
   "author": "Adam De Fouw",
   "license": "MIT",
   "dependencies": {
-    "@badeball/cypress-cucumber-preprocessor": "^20.1.0"
+    "@badeball/cypress-cucumber-preprocessor": "^20.1.0",
+    "adm-zip": "^0.5.16"
   }
 }
