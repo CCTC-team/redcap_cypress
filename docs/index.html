@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset='utf-8'>
-    <title>redcap_cypress 13.1.37 | Documentation</title>
+    <title>redcap_cypress 15.0.9 | Documentation</title>
     <meta name='description' content='This repository is a template to assist you in writing **automated tests for REDCap**.'>
     <meta name='viewport' content='width=device-width,initial-scale=1'>
     <link href='assets/bass.css' rel='stylesheet'>
@@ -92,11 +92,11 @@
       <div id='split-left' class='overflow-auto fs0 height-viewport-100'>
         <div class='py1 px2'>
           <h3 class='mb0 no-anchor'>redcap_cypress</h3>
-          <div class='mb1'><code>v13.1.37</code></div>
+          <div class='mb1'><code>v15.0.9</code></div>
             <div>
               <span class="mb0">Step Definition Versions:</span>
               <ul class='mt0'>
-                  <li><a href="v1.0.96.html">v1.0.96</a></li>
+                  <li><a href="v1.0.117.html">v1.0.117</a></li>
               </ul>
             </div>
           <input
@@ -732,6 +732,10 @@
                       <h2 class="mt1 mb1">Visit Page</h2>
                     
                     <li><a href='#i-visit-the-redcap-login-page'>I visit the REDCap login page</a></li>
+                    
+              
+                    
+                    <li><a href='#i-wait-for-background-processes-to-finish'>I wait for background processes to finish</a></li>
                     
               
             </ul>
@@ -2485,6 +2489,10 @@
                         
                           <li><code>&#39;uncheck&#39;</code></li>
                         
+                          <li><code>&#39;enable&#39;</code></li>
+                        
+                          <li><code>&#39;disable&#39;</code></li>
+                        
                       </ul>
                     </div>
                   
@@ -2790,7 +2798,7 @@
         
           <div class='space-bottom0'>
             <div>
-              <span class='code bold'>uplaod_label</span>
+              <span class='code bold'>upload_label</span>
 
             
 
@@ -5381,6 +5389,10 @@
                         
                           <li><code>&#39;uncheck&#39;</code></li>
                         
+                          <li><code>&#39;enable&#39;</code></li>
+                        
+                          <li><code>&#39;disable&#39;</code></li>
+                        
                       </ul>
                     </div>
                   
@@ -5400,6 +5412,8 @@
                           <li><code>&#39;checkbox&#39;</code></li>
                         
                           <li><code>&#39;radio&#39;</code></li>
+                        
+                          <li><code>&#39;toggle button&#39;</code></li>
                         
                       </ul>
                     </div>
@@ -11550,6 +11564,8 @@
                         
                           <li><code>&#39;Edit&#39;</code></li>
                         
+                          <li><code>&#39;Edit Matrix&#39;</code></li>
+                        
                           <li><code>&#39;Branching Logic&#39;</code></li>
                         
                           <li><code>&#39;Copy&#39;</code></li>
@@ -16833,6 +16849,10 @@
                         
                           <li><code>&#39;unchecked&#39;</code></li>
                         
+                          <li><code>&#39;in the enabled state&#39;</code></li>
+                        
+                          <li><code>&#39;in the disabled state&#39;</code></li>
+                        
                       </ul>
                     </div>
                   
@@ -17254,6 +17274,8 @@
                           <li><code>&#39;section break&#39;</code></li>
                         
                           <li><code>&#39;checkbox&#39;</code></li>
+                        
+                          <li><code>&#39;toggle button&#39;</code></li>
                         
                       </ul>
                     </div>
@@ -18870,6 +18892,78 @@
   
   
   <p class='mb0'><strong>Author:</strong> <a href="mailto:aldefouw@medicine.wisc.edu">Adam De Fouw</a></p>
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+            
+        
+            
+
+            
+<section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+
+      
+        
+          
+          <h2 class='fl mb0 mt0' id='i-wait-for-background-processes-to-finish'>
+          I wait <span class="hljs-keyword">for</span> background processes to finish
+          </h2>
+          <div class="gherkin_step" id="i-wait-for-background-processes-to-finish_gherkin"></div>
+          <script>
+                window.all_steps.push(`I wait for background processes to finish`)
+          </script>
+        
+      
+
+
+      
+          
+              <script>
+                  document.getElementById(`i-wait-for-background-processes-to-finish_gherkin`).innerHTML = `<div id="input146"></div><button onclick="generateText(146)" class="btn">Generate Step</button><br /><br /><div id="output146"></div>`
+                  outputStepGenerator(146)
+              </script>
+          
+      
+    
+
+    
+  </div>
+  
+
+  
+
+
+  <p>Executes REDCap's crons and returns to the previous page</p>
+
+
+  
+  
+
+  
+  
+  
+  <p class='mb0'><strong>Author:</strong> <a href="mailto:mark.mcever@vumc.org">Mark McEver</a></p>
   
   
 
