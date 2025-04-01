@@ -9,6 +9,7 @@ module.exports = defineConfig({
     projectId: '6dw6bj',
     hideXHR: false,
     e2e: {
+        projectRoot: __dirname,
         // We've imported your old cypress plugins here.
         // You may want to clean this up later by importing these.
         async setupNodeEvents(on, config) {
@@ -123,7 +124,6 @@ module.exports = defineConfig({
                 })
               })
             }
-
           })
           return config
         },
@@ -131,8 +131,8 @@ module.exports = defineConfig({
         baseUrl: 'https://localhost:8443',
         stepDefinitions: 'cypress/support/step_definitions',
         specPattern: [ 'cypress/features/*.feature',
-                       'redcap_rsvc/*/[ABCD]/*/*.feature',
-                       '!redcap_rsvc/*/[ABCD]/*/*REDUNDANT*.feature'
+                       'redcap_rsvc/*/[ABCDE]/*/*.feature',
+                       '!redcap_rsvc/*/[ABCDE]/*/*REDUNDANT*.feature'
                      ],
         testIsolation: false,
         experimentalMemoryManagement: false,

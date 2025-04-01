@@ -1,5 +1,6 @@
 //Add any of your own step definitions here
 const { Given, defineParameterType } = require('@badeball/cypress-cucumber-preprocessor')
+const path = Cypress.config('projectRoot')
 
 import 'cypress-file-upload'
 
@@ -1336,7 +1337,7 @@ Given('I create a new project named {string} by clicking on "New Project" in the
     cy.wait(500)
     cy.task('fetchLatestDownload', ({fileExtension: 'xml'})).then((xml) => {
         // Extract relative path starting from 'downloads'
-        let basePath = '/Users/min2suz/redcap_cypress_docker/redcap_cypress/cypress/';
+        let basePath = path + '/cypress/';
         let filePath = xml.replace(basePath, '../../');
         cy.log(filePath)
         cy.create_cdisc_project(project_name, project_type, filePath, button_label)
@@ -1426,7 +1427,7 @@ Given("I select the {operatorValue} {string} for Filter {int}", (option, text, n
  */
 Given("I should have the latest downloaded {string} file with SHA256 hash value {string}", (fileType, hashValue) => {
     cy.task('fetchLatestDownload', ({fileExtension: fileType})).then((latest_file) => {
-        let basePath = '/Users/min2suz/redcap_cypress_docker/redcap_cypress/';
+        let basePath = path;
         let filePath = latest_file.replace(basePath, '');
 
         // sas, sps, r, do files contain the corresponding csv file names within the files 
