@@ -47,7 +47,7 @@ commands:
               export BRANCH=$REDCAP_VERSION
             fi
             git clone --depth=1 --branch=$BRANCH git@github.com:vanderbilt-redcap/REDCap.git redcap_v${REDCAP_VERSION}
-            git log -1 # Include current commit in build logs
+            git -C redcap_v${REDCAP_VERSION} log -1 # Include current commit in build logs
             cp -a redcap_v${REDCAP_VERSION}/Resources/install_files/redcap/* .
             cp -a redcap_v${REDCAP_VERSION}/Resources/nonversioned_files/* .
             cp ../.circleci/redcap_install_files/* .
