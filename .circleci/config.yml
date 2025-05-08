@@ -9,7 +9,7 @@ executors:
       image: ubuntu-2404:2024.11.1 # Machine image updates: https://circleci.com/developer/machine/image/ubuntu-2404
       resource_class: large
     environment:
-      REDCAP_VERSION: "15.0.9"
+      REDCAP_VERSION: "99.99.99"
 
 workflows:
   version: 2
@@ -41,7 +41,13 @@ commands:
             cd << parameters.dir >>
             mkdir redcap_source
             cd redcap_source
-            git clone --depth=1 git@github.com:vanderbilt-redcap/REDCap.git redcap_v${REDCAP_VERSION}
+            if [[ "$REDCAP_VERSION" = "99.99.99" ]]; then
+              export BRANCH=master
+            else
+              export BRANCH=$REDCAP_VERSION
+            fi
+            git clone --depth=1 --branch=$BRANCH git@github.com:vanderbilt-redcap/REDCap.git redcap_v${REDCAP_VERSION}
+            git -C redcap_v${REDCAP_VERSION} log -1 # Include current commit in build logs
             cp -a redcap_v${REDCAP_VERSION}/Resources/install_files/redcap/* .
             cp -a redcap_v${REDCAP_VERSION}/Resources/nonversioned_files/* .
             cp ../.circleci/redcap_install_files/* .
@@ -49,7 +55,7 @@ commands:
 jobs:
   run-tests:
     executor: shared-executor
-    parallelism: 30
+    parallelism: 28
     environment:
     steps:
       - checkout
