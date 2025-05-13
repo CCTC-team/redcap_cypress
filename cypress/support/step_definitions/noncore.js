@@ -720,13 +720,28 @@ Cypress.Commands.add('findEmailBySubjectAndRecipient', (subject, recipient) => {
         return emails
     })
   })
+
+  Cypress.Commands.add('noEmailsWithSubject', (subject) => {
+    cy.request('GET', 'http://localhost:8025/api/v2/messages').then((response) => {
+        expect(response.status).to.eq(200) // Ensure the request was successful
+        
+        const emails = response.body.items
+        
+        const matchingEmails = emails.filter((email) => {
+            const subjectHeader = email.Content?.Headers?.Subject?.[0]
+            return subjectHeader === subject
+          })
+          expect(matchingEmails.length, `No email should exist with subject "${subject}"`).to.eq(0)
+    })
+  })
+
 /**
  * @module MailHog
  * @author Mintoo Xavier <min2xavier@gmail.com>
  * @example I should see an email for user {string} with subject {string}
  * @param {string} recipient - email id of recipient
  * @param {string} subject - subject of the email
- * @description verifies an email is available for a given user with a given subject
+ * @description verifies an email with a given subject for user is available
  */
 Given("I should see an email for user {string} with subject {string}", (recipient, subject) => {
     cy.findEmailBySubjectAndRecipient(subject, recipient).then((email) => {
@@ -734,6 +749,17 @@ Given("I should see an email for user {string} with subject {string}", (recipien
         expect(email.Content.Headers.Subject[0]).to.eq(subject) // Check subject
         expect(email.Content.Headers.To[0]).to.include(recipient) // Check recipient
     })
+})
+
+/**
+ * @module MailHog
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I should NOT see an email with subject {string}
+ * @param {string} subject - subject of the email
+ * @description verifies an email with a given subject is not available
+ */
+Given("I should NOT see an email with subject {string}", (subject) => {
+    cy.noEmailsWithSubject(subject)
 })
 
 
