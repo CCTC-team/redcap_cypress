@@ -1609,3 +1609,73 @@ Given("I click on the link labeled {string} in the View Calendar Event", (text) 
         }
       })
 })
+
+Cypress.Commands.add('get_record_status_dashboard_nonlongitudinal', (instrument, record_id, cell_action, click = true, icon) => {
+    let link_location = null
+    let repeating = false
+
+    if(cell_action === " and click the repeating instrument bubble for the first instance" ||
+        cell_action === " and click the repeating instrument bubble for the second instance" ||
+        cell_action === " and click the repeating instrument bubble for the third instance"){
+        repeating = true
+    }
+
+    cy.table_cell_by_column_and_row_label(instrument, record_id, 'table#record_status_table').within(() => {
+
+        if(cell_action === " and click on the bubble" || repeating || !click){
+            cy.get('a').then(($a) => {
+                link_location = $a
+            })
+        } else if (cell_action === " and click the new instance link") {
+            cy.get('button').then(($button) => {
+                link_location = $button
+            })
+        }
+    })
+    .then(() => {
+        cy.intercept({
+            method: 'POST',
+            url: '/redcap_v' + Cypress.env('redcap_version') + '/index.php?*'
+        }).as('instance_table')
+
+        if(click){
+            cy.wrap(link_location).click()
+        } else {
+            expect(link_location).to.have.descendants(window.recordStatusIcons[icon])
+        }
+
+        if(repeating){
+            cy.wait('@instance_table')
+
+            cy.get('#instancesTablePopup').within(() => {
+                let instance = null
+
+                if(cell_action === " and click the repeating instrument bubble for the first instance"){
+                    instance = 1
+                } else if (cell_action === " and click the repeating instrument bubble for the second instance"){
+                    instance = 2
+                } else if (cell_action === " and click the repeating instrument bubble for the third instance"){
+                    instance = 3
+                }
+
+                cy.get('td').contains(instance).parent('tr').within(() => {
+                    cy.get('a').click()
+                })
+            })
+        }
+    })
+})
+
+
+/**
+ * @module RecordStatusDashboard
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I locate the bubble for the {string} instrument for record ID {string}{cellAction}
+ * @param {string} instrument - the data collection instrument you want to target
+ * @param {string} record_id - the value of the record_id you want to target
+ * @param {string} cellAction - available options: ' and click the new instance link', ' and click on the bubble', ' and click the repeating instrument bubble for the first instance', ' and click the repeating instrument bubble for the second instance', ' and click the repeating instrument bubble for the third instance'
+ * @description Clicks on a bubble within the Record Status Dashboard based upon record ID and the nonlongitudinal data instrument.
+ */
+Given("I locate the bubble for the {string} instrument for record ID {string}{cellAction}", (instrument, record_id, cell_action) => {
+    cy.get_record_status_dashboard_nonlongitudinal(instrument, record_id, cell_action)
+})
