@@ -58,6 +58,7 @@
 		<ItemRef ItemOID="text_validation_crfver" Mandatory="No" redcap:Variable="text_validation_crfver"/>
 		<ItemRef ItemOID="ptname_v2" Mandatory="No" redcap:Variable="ptname_v2"/>
 		<ItemRef ItemOID="email_v2" Mandatory="No" redcap:Variable="email_v2"/>
+		<ItemRef ItemOID="text_validation_monstat" Mandatory="No" redcap:Variable="text_validation_monstat"/>
 	</ItemGroupDef>
 	<ItemGroupDef OID="text_validation.text_validation_complete" Name="Form Status" Repeating="No">
 		<ItemRef ItemOID="text_validation_complete" Mandatory="No" redcap:Variable="text_validation_complete"/>
@@ -72,6 +73,7 @@
 		<ItemRef ItemOID="checkbox___2" Mandatory="No" redcap:Variable="checkbox"/>
 		<ItemRef ItemOID="checkbox___3" Mandatory="No" redcap:Variable="checkbox"/>
 		<ItemRef ItemOID="file_upload" Mandatory="No" redcap:Variable="file_upload"/>
+		<ItemRef ItemOID="data_types_monstat" Mandatory="No" redcap:Variable="data_types_monstat"/>
 	</ItemGroupDef>
 	<ItemGroupDef OID="data_types.data_types_complete" Name="Form Status" Repeating="No">
 		<ItemRef ItemOID="data_types_complete" Mandatory="No" redcap:Variable="data_types_complete"/>
@@ -87,6 +89,10 @@
 	</ItemDef>
 	<ItemDef OID="email_v2" Name="email_v2" DataType="text" Length="999" redcap:Variable="email_v2" redcap:FieldType="text" redcap:TextValidationType="email" redcap:FieldAnnotation="@ENDPOINT-SECONDARY">
 		<Question><TranslatedText>Email</TranslatedText></Question>
+	</ItemDef>
+	<ItemDef OID="text_validation_monstat" Name="text_validation_monstat" DataType="text" Length="1" redcap:Variable="text_validation_monstat" redcap:FieldType="select">
+		<Question><TranslatedText>Monitoring Status</TranslatedText></Question>
+		<CodeListRef CodeListOID="text_validation_monstat.choices"/>
 	</ItemDef>
 	<ItemDef OID="text_validation_complete" Name="text_validation_complete" DataType="text" Length="1" redcap:Variable="text_validation_complete" redcap:FieldType="select" redcap:SectionHeader="Form Status">
 		<Question><TranslatedText>Complete?</TranslatedText></Question>
@@ -124,10 +130,21 @@
 	<ItemDef OID="file_upload" Name="file_upload" DataType="text" Length="999" redcap:Variable="file_upload" redcap:FieldType="file">
 		<Question><TranslatedText>File Upload</TranslatedText></Question>
 	</ItemDef>
+	<ItemDef OID="data_types_monstat" Name="data_types_monstat" DataType="text" Length="1" redcap:Variable="data_types_monstat" redcap:FieldType="select">
+		<Question><TranslatedText>Monitoring Status</TranslatedText></Question>
+		<CodeListRef CodeListOID="data_types_monstat.choices"/>
+	</ItemDef>
 	<ItemDef OID="data_types_complete" Name="data_types_complete" DataType="text" Length="1" redcap:Variable="data_types_complete" redcap:FieldType="select" redcap:SectionHeader="Form Status">
 		<Question><TranslatedText>Complete?</TranslatedText></Question>
 		<CodeListRef CodeListOID="data_types_complete.choices"/>
 	</ItemDef>
+	<CodeList OID="text_validation_monstat.choices" Name="text_validation_monstat" DataType="text" redcap:Variable="text_validation_monstat">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Verified</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Requires verification</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="3"><Decode><TranslatedText>Requires verification due to data change</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="4"><Decode><TranslatedText>Not required</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="5"><Decode><TranslatedText>Verification in progress</TranslatedText></Decode></CodeListItem>
+	</CodeList>
 	<CodeList OID="text_validation_complete.choices" Name="text_validation_complete" DataType="text" redcap:Variable="text_validation_complete">
 		<CodeListItem CodedValue="0"><Decode><TranslatedText>Incomplete</TranslatedText></Decode></CodeListItem>
 		<CodeListItem CodedValue="1"><Decode><TranslatedText>Unverified</TranslatedText></Decode></CodeListItem>
@@ -154,6 +171,13 @@
 	<CodeList OID="checkbox___3.choices" Name="checkbox___3" DataType="boolean" redcap:Variable="checkbox" redcap:CheckboxChoices="1, Checkbox|2, Checkbox2|3, Checkbox3">
 		<CodeListItem CodedValue="1"><Decode><TranslatedText>Checked</TranslatedText></Decode></CodeListItem>
 		<CodeListItem CodedValue="0"><Decode><TranslatedText>Unchecked</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="data_types_monstat.choices" Name="data_types_monstat" DataType="text" redcap:Variable="data_types_monstat">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Verified</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Requires verification</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="3"><Decode><TranslatedText>Requires verification due to data change</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="4"><Decode><TranslatedText>Not required</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="5"><Decode><TranslatedText>Verification in progress</TranslatedText></Decode></CodeListItem>
 	</CodeList>
 	<CodeList OID="data_types_complete.choices" Name="data_types_complete" DataType="text" redcap:Variable="data_types_complete">
 		<CodeListItem CodedValue="0"><Decode><TranslatedText>Incomplete</TranslatedText></Decode></CodeListItem>

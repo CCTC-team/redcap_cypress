@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<ODM xmlns="http://www.cdisc.org/ns/odm/v1.3" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:redcap="https://projectredcap.org" xsi:schemaLocation="http://www.cdisc.org/ns/odm/v1.3 schema/odm/ODM1-3-1.xsd" ODMVersion="1.3.1" FileOID="000-00-0000" FileType="Snapshot" Description="E.127.1400" AsOfDateTime="2025-05-09T09:26:58" CreationDateTime="2025-05-09T09:26:58" SourceSystem="REDCap" SourceSystemVersion="13.8.1">
-<Study OID="Project.E1271400">
+<ODM xmlns="http://www.cdisc.org/ns/odm/v1.3" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:redcap="https://projectredcap.org" xsi:schemaLocation="http://www.cdisc.org/ns/odm/v1.3 schema/odm/ODM1-3-1.xsd" ODMVersion="1.3.1" FileOID="000-00-0000" FileType="Snapshot" Description="E.128.1900" AsOfDateTime="2025-05-15T14:47:58" CreationDateTime="2025-05-15T14:47:58" SourceSystem="REDCap" SourceSystemVersion="13.8.1">
+<Study OID="Project.E1281900">
 <GlobalVariables>
-	<StudyName>E.127.1400</StudyName>
-	<StudyDescription>This file contains the metadata, events, and data for REDCap project "E.127.1400".</StudyDescription>
-	<ProtocolName>E.127.1400</ProtocolName>
+	<StudyName>E.128.1900</StudyName>
+	<StudyDescription>This file contains the metadata, events, and data for REDCap project "E.128.1900".</StudyDescription>
+	<ProtocolName>E.128.1900</ProtocolName>
 	<redcap:RecordAutonumberingEnabled>1</redcap:RecordAutonumberingEnabled>
 	<redcap:CustomRecordLabel></redcap:CustomRecordLabel>
 	<redcap:SecondaryUniqueField></redcap:SecondaryUniqueField>
@@ -43,7 +43,7 @@
 		<redcap:UserRoles role_name="Monitor" unique_role_name="U-5787T4MMEY" lock_record="0" lock_record_multiform="0" lock_record_customize="0" data_export_tool="" data_export_instruments="[text_validation,0][data_types,0]" data_import_tool="0" data_comparison_tool="0" data_logging="0" file_repository="0" double_data="0" user_rights="0" data_access_groups="0" graphical="0" reports="1" design="0" alerts="0" calendar="0" data_entry="[text_validation,2][data_types,2]" api_export="0" api_import="0" mobile_app="0" mobile_app_download_data="0" record_create="0" record_rename="0" record_delete="0" dts="0" participants="1" data_quality_design="0" data_quality_execute="1" data_quality_resolution="1" random_setup="0" random_dashboard="0" random_perform="0" realtime_webservice_mapping="0" realtime_webservice_adjudicate="0" external_module_config="" mycap_participants="1"/>
 	</redcap:UserRolesGroup>
 </GlobalVariables>
-<MetaDataVersion OID="Metadata.E1271400_2025-05-09_0926" Name="E.127.1400" redcap:RecordIdField="record_id">
+<MetaDataVersion OID="Metadata.E1281900_2025-05-15_1447" Name="E.128.1900" redcap:RecordIdField="record_id">
 	<Protocol>
 		<StudyEventRef StudyEventOID="Event.event_1_arm_1" OrderNumber="1" Mandatory="No"/>
 		<StudyEventRef StudyEventOID="Event.event_2_arm_1" OrderNumber="2" Mandatory="No"/>
@@ -83,6 +83,7 @@
 		<ItemRef ItemOID="text_validation_crfver" Mandatory="No" redcap:Variable="text_validation_crfver"/>
 		<ItemRef ItemOID="ptname_v2" Mandatory="No" redcap:Variable="ptname_v2"/>
 		<ItemRef ItemOID="email_v2" Mandatory="No" redcap:Variable="email_v2"/>
+		<ItemRef ItemOID="text_validation_monstat" Mandatory="No" redcap:Variable="text_validation_monstat"/>
 	</ItemGroupDef>
 	<ItemGroupDef OID="text_validation.text_validation_complete" Name="Form Status" Repeating="No">
 		<ItemRef ItemOID="text_validation_complete" Mandatory="No" redcap:Variable="text_validation_complete"/>
@@ -97,6 +98,7 @@
 		<ItemRef ItemOID="checkbox___2" Mandatory="No" redcap:Variable="checkbox"/>
 		<ItemRef ItemOID="checkbox___3" Mandatory="No" redcap:Variable="checkbox"/>
 		<ItemRef ItemOID="file_upload" Mandatory="No" redcap:Variable="file_upload"/>
+		<ItemRef ItemOID="data_types_monstat" Mandatory="No" redcap:Variable="data_types_monstat"/>
 	</ItemGroupDef>
 	<ItemGroupDef OID="data_types.data_types_complete" Name="Form Status" Repeating="No">
 		<ItemRef ItemOID="data_types_complete" Mandatory="No" redcap:Variable="data_types_complete"/>
@@ -112,6 +114,10 @@
 	</ItemDef>
 	<ItemDef OID="email_v2" Name="email_v2" DataType="text" Length="999" redcap:Variable="email_v2" redcap:FieldType="text" redcap:TextValidationType="email" redcap:FieldAnnotation="@ENDPOINT-SECONDARY">
 		<Question><TranslatedText>Email</TranslatedText></Question>
+	</ItemDef>
+	<ItemDef OID="text_validation_monstat" Name="text_validation_monstat" DataType="text" Length="1" redcap:Variable="text_validation_monstat" redcap:FieldType="select">
+		<Question><TranslatedText>Monitoring Status</TranslatedText></Question>
+		<CodeListRef CodeListOID="text_validation_monstat.choices"/>
 	</ItemDef>
 	<ItemDef OID="text_validation_complete" Name="text_validation_complete" DataType="text" Length="1" redcap:Variable="text_validation_complete" redcap:FieldType="select" redcap:SectionHeader="Form Status">
 		<Question><TranslatedText>Complete?</TranslatedText></Question>
@@ -149,10 +155,21 @@
 	<ItemDef OID="file_upload" Name="file_upload" DataType="text" Length="999" redcap:Variable="file_upload" redcap:FieldType="file">
 		<Question><TranslatedText>File Upload</TranslatedText></Question>
 	</ItemDef>
+	<ItemDef OID="data_types_monstat" Name="data_types_monstat" DataType="text" Length="1" redcap:Variable="data_types_monstat" redcap:FieldType="select">
+		<Question><TranslatedText>Monitoring Status</TranslatedText></Question>
+		<CodeListRef CodeListOID="data_types_monstat.choices"/>
+	</ItemDef>
 	<ItemDef OID="data_types_complete" Name="data_types_complete" DataType="text" Length="1" redcap:Variable="data_types_complete" redcap:FieldType="select" redcap:SectionHeader="Form Status">
 		<Question><TranslatedText>Complete?</TranslatedText></Question>
 		<CodeListRef CodeListOID="data_types_complete.choices"/>
 	</ItemDef>
+	<CodeList OID="text_validation_monstat.choices" Name="text_validation_monstat" DataType="text" redcap:Variable="text_validation_monstat">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Verified</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Requires verification</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="3"><Decode><TranslatedText>Requires verification due to data change</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="4"><Decode><TranslatedText>Not required</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="5"><Decode><TranslatedText>Verification in progress</TranslatedText></Decode></CodeListItem>
+	</CodeList>
 	<CodeList OID="text_validation_complete.choices" Name="text_validation_complete" DataType="text" redcap:Variable="text_validation_complete">
 		<CodeListItem CodedValue="0"><Decode><TranslatedText>Incomplete</TranslatedText></Decode></CodeListItem>
 		<CodeListItem CodedValue="1"><Decode><TranslatedText>Unverified</TranslatedText></Decode></CodeListItem>
@@ -179,6 +196,13 @@
 	<CodeList OID="checkbox___3.choices" Name="checkbox___3" DataType="boolean" redcap:Variable="checkbox" redcap:CheckboxChoices="1, Checkbox|2, Checkbox2|3, Checkbox3">
 		<CodeListItem CodedValue="1"><Decode><TranslatedText>Checked</TranslatedText></Decode></CodeListItem>
 		<CodeListItem CodedValue="0"><Decode><TranslatedText>Unchecked</TranslatedText></Decode></CodeListItem>
+	</CodeList>
+	<CodeList OID="data_types_monstat.choices" Name="data_types_monstat" DataType="text" redcap:Variable="data_types_monstat">
+		<CodeListItem CodedValue="1"><Decode><TranslatedText>Verified</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="2"><Decode><TranslatedText>Requires verification</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="3"><Decode><TranslatedText>Requires verification due to data change</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="4"><Decode><TranslatedText>Not required</TranslatedText></Decode></CodeListItem>
+		<CodeListItem CodedValue="5"><Decode><TranslatedText>Verification in progress</TranslatedText></Decode></CodeListItem>
 	</CodeList>
 	<CodeList OID="data_types_complete.choices" Name="data_types_complete" DataType="text" redcap:Variable="data_types_complete">
 		<CodeListItem CodedValue="0"><Decode><TranslatedText>Incomplete</TranslatedText></Decode></CodeListItem>
