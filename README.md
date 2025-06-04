@@ -24,13 +24,7 @@ Powered by the **REDCap Cypress Test Framework ([RCTF](https://github.com/vander
 
 # How to Install
 
-[![REDCap Cypress Developer Toolkit](https://raw.githubusercontent.com/vanderbilt-redcap/redcap_cypress_docker/main/tutorial-windows.png)](https://github.com/vanderbilt-redcap/redcap_cypress_docker)
-
-
-If you are a developer, please start by visiting the [REDCap Cypress Developer Toolkit](https://github.com/vanderbilt-redcap/redcap_cypress_docker), located here:
-https://github.com/vanderbilt-redcap/redcap_cypress_docker
-
-The Developer Toolkit is the best way to get Cypress up and running on your developer machine.
+Please start by visiting the [REDCap Cypress Developer Toolkit](https://github.com/vanderbilt-redcap/redcap_cypress_docker).  It is the best way to get Cypress up and running on your developer machine.
 
 **Want to run the automated feature tests in CI / CD pipelines?** 
 
