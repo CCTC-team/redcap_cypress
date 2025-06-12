@@ -12,12 +12,20 @@ defineParameterType({
     regexp: /red|yellow|green/
 })
 
-
 defineParameterType({
     name: 'monTable',
     regexp: /monitoring|monitoring history|monitoring logging/
 })
 
+defineParameterType({
+    name: 'dqrTable',
+    regexp: /Data quality error table|Data quality exclusion table/
+})
+
+dqrTable = {
+    'Data quality error table' : '#form-instance-rule-errors',
+    'Data quality exclusion table' : '#form-instance-rule-exclusions'
+}
 
 monTable = {
     'monitoring' : '#mon-q-fields-table',
@@ -31,6 +39,7 @@ formStatusIcon = {
     'yellow' : 'img[src*=circle_yellow]',
     'green' : 'img[src*=circle_green]'
 }
+
 
   /**
    * @module ControlCenter
@@ -46,7 +55,6 @@ formStatusIcon = {
     })
   })
 
-  
 
 /**
  * @module ControlCenter
@@ -119,9 +127,6 @@ Given('I (should )see the {string} request created for the project named {string
    * @description verifies data entry field contains text
    */
   Given("I should see {string} within the data entry field labeled {string}", (fieldOptions, label) => {
-    // cy.get('#questiontable').find('td').contains(label).parents('tr').within(() => {
-    //     cy.get('*').contains(fieldOptions).should('be.visible')
-    // })
     cy.get('#questiontable').find('td').contains(label).parents('tr').should('contain', fieldOptions)
   })
 
@@ -141,13 +146,28 @@ Given('I (should )see the {string} request created for the project named {string
 /**
  * @module HightlightDQR
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I (should )see {string} in the Data quality errors table
- * @param {string} text - text to view 
- * @description verify text is visible in the Data quality errors table
+ * @example I (should )see {string} in the {dqrTable}
+ * @param {string} text - text to view
+ * @param {string} dqrTable - available options: 'Data quality error table', 'Data quality exclusion table'
+ * @description verify text is visible in the Data quality errors/exclusion table
  */
-Given('I (should )see {string} in the Data quality errors table', (text) => {
-    cy.get('#form-instance-rule-errors').contains(text)
+Given('I (should )see {string} in the {dqrTable}', (text, tableName) => {
+    cy.get(dqrTable[tableName]).contains(text)
 })
+
+
+/**
+ * @module HightlightDQR
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I should NOT see {string} in the {dqrTable}
+ * @param {string} text - text to view 
+ * @param {string} dqrTable - available options: 'Data quality error table', 'Data quality exclusion table'
+ * @description verify text is not visible in the Data quality errors/exclusion table
+ */
+Given('I should NOT see {string} in the {dqrTable}', (text, tableName) => {
+    cy.get(dqrTable[tableName]).should('not.contain', text)
+})
+
 
 /**
  * @module HightlightDQR
