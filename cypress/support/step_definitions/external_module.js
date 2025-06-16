@@ -302,7 +302,7 @@ Given('I should NOT see {formStatusIcon} form status bubble', (icon) => {
  * @description enters text in the input field for the specified row and column in the monitoring table
  */
 Given('I enter {string} in the column {string} for the field {string}', (text, col, fieldLabel) => {
-    cy.table_cell_by_column_and_row_label(col, fieldLabel, '#mon-q-fields-table').find('input').clear().type(text)
+    cy.table_cell_by_column_and_row_label(col, fieldLabel, '#mon-q-fields-table').find('textarea').clear().type(text)
 })
 
 
