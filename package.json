@@ -7,8 +7,8 @@
     "redcap_rsvc": "git://github.com/vanderbilt-redcap/redcap_rsvc#staging"
   },
   "devDependencies": {
-    "del-cli": "^5.1.0",
-    "move-cli": "^2.0.0"
+    "del-cli": "^5",
+    "move-cli": "^2"
   },
   "optionalDependencies": {
     "redcap_cypress_doc_theme": "git://github.com/vanderbilt-redcap/redcap_cypress_doc_theme#bf84bfa"
