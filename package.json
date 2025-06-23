@@ -10,7 +10,7 @@
     "cypress": "*"
   },
   "devDependencies": {
-    "del-cli": "^5",
+    "del-cli": "^6",
     "move-cli": "^2"
   },
   "optionalDependencies": {
