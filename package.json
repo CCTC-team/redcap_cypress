@@ -6,6 +6,9 @@
     "rctf": "github:vanderbilt-redcap/rctf#dependency-updates",
     "redcap_rsvc": "git://github.com/vanderbilt-redcap/redcap_rsvc#staging"
   },
+  "peerDependencies": {
+    "cypress": "*"
+  },
   "devDependencies": {
     "del-cli": "^5",
     "move-cli": "^2"
