@@ -9,7 +9,7 @@ executors:
       image: ubuntu-2404:2024.11.1 # Machine image updates: https://circleci.com/developer/machine/image/ubuntu-2404
       resource_class: large
     environment:
-      REDCAP_VERSION: "99.99.99"
+      REDCAP_VERSION: "15.4.2"
 
 workflows:
   version: 2
@@ -55,15 +55,10 @@ commands:
 jobs:
   run-tests:
     executor: shared-executor
-    parallelism: 28
+    parallelism: 30
     environment:
     steps:
       - checkout
-      - run:
-          name: Install MySQL Client
-          command: |
-            sudo apt-get update
-            sudo apt-get install mysql-client-core-8.0
       - setup-redcap
       - run:
           name: Start Docker REDCap Container
@@ -74,11 +69,6 @@ jobs:
           name: Install composer dependencies
           command: |
             docker exec -it redcap_docker-app-1 sh -c "cd /var/www/html/redcap_v${REDCAP_VERSION} && COMPOSER_DISABLE_XDEBUG_WARN=1 composer require --dev phpunit/php-code-coverage:^11"
-      - run:
-          name: Reload REDCap
-          command: |
-            cd /home/circleci/project/redcap_docker
-            docker-compose down && REDCAP_VERSION=${REDCAP_VERSION} docker-compose up -d
       - run:
           name: Permissions on coverage files
           command: |
