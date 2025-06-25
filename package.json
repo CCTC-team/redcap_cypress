@@ -3,8 +3,8 @@
   "version": "14.7.0",
   "description": "This repository is a template to assist you in writing **automated tests for REDCap**.",
   "dependencies": {
-    "rctf": "github:vanderbilt-redcap/rctf#dependency-updates",
-    "redcap_rsvc": "github:vanderbilt-redcap/redcap_rsvc#pr-for-kyle"
+    "rctf": "github:vanderbilt-redcap/rctf#main",
+    "redcap_rsvc": "github:vanderbilt-redcap/redcap_rsvc#staging"
   },
   "peerDependencies": {
     "cypress": "*"
