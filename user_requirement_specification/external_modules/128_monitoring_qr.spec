@@ -8,7 +8,7 @@ E.128.700 - The system shall support the ability to set up Monitoring QR module 
 E.128.800 - The system shall support the ability to exclude fields from being monitored using Monitoring QR external module.
 E.128.900 - The system shall allow users to view monitoring queries inline with the question based on their roles using Monitoring QR external module.
 E.128.1000 - The system shall support the ability to raise monitoring queries only against flagged fields using Monitoring QR external module.
-E.128.1100 - The system shall support the ability to view/hide monitoring queries in the Resolve Issues page using Monitoring QR external module.
+E.128.1100 - The system shall enable the Data Manager to either respond or choose not to respond to monitoring queries via the Monitoring QR external module.
 E.128.1200 - The system shall support the ability to view/hide 'Save' and 'Cancel' buttons in the data entry form when the user is not a data entry user using Monitoring QR external module.
 E.128.1300 - The system shall support the ability to make all fields readonly (except the monitor status and form status fields) for users other than data entry users using Monitoring QR external module.
 E.128.1400 - The system shall support the ability to include field label in the inline table below the data entry form using Monitoring QR external module.
