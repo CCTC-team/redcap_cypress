@@ -49,8 +49,7 @@ module.exports = defineConfig({
             // Task 2: Checks the Local storage location for the latest downloaded PDF file
             fetchLatestDownloadLocal({ fileExtension }) {
               // Local storage location
-              // Change this according to the local storage settings
-              const edocsPath = config.env.redcap_source_path || '/edocs'
+              const edocsPath = config.env.edocs_folder
               const downloadsDir = path.resolve(edocsPath)
 
               try {
