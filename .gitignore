@@ -25,7 +25,6 @@ cypress/fixtures/cdisc_files
 cypress/fixtures/dictionaries
 cypress/fixtures/import_files
 cypress/gcs_uploads
-cypress/s3_uploads
 cypress/sftp_uploads
 cypress/webdav_uploads
 
