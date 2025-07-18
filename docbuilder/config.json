@@ -15,11 +15,13 @@
   "validUsers": [
     "MintooXavier",
     "rmh54",
+    "phillidgithub",
     "CoreenDsouza",
     "TanDBPRO",
-    "rukayat-yakub"
+    "rukayat-yakub",
+    "LawrenceFayers"
   ],
-  "totalExpectedCardChecks": 4,
+  "totalExpectedCardChecks": 6,
   "featureTemplateFilePath": "feature_template.md",
   "outputTemplateFilePath": "output_template.md",
   "outputFolderPath": "output\\",
