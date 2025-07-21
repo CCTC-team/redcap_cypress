@@ -1,0 +1,3 @@
+A.6.11.0100. - Control Center: The system shall support limiting the ability to move projects to production to administrators.
+B.6.11.0200. - User Interface: The system shall support the ability for a user to change between following project statuses bidirectionally: Development, Production, Analysis/Cleanup, Mark as Complete.
+B.6.11.0300. - User Interface: The system shall support the ability for a user to keep or remove all record data during project status change from Development to Production.

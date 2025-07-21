@@ -1,0 +1,2 @@
+D.118.100 - The system shall support the ability to select instruments and verify the status of fields through stats and charts.
+D.118.200 - The system shall support the ability to select instruments and verify their status using pie charts and bar charts.
