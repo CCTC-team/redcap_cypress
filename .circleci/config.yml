@@ -35,6 +35,7 @@ commands:
           command: |
             cd << parameters.dir >>
             git clone --branch xdebug-marks-changes https://github.com/vanderbilt-redcap/redcap_docker
+            git -C redcap_docker log -1 # Include current commit in build logs
       - run:
           name: Get REDCap Source
           command: |
