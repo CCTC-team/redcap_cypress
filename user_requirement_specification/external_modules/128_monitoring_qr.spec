@@ -16,3 +16,19 @@ E.128.1500 - The system shall automatically update the monitoring status to 'Req
 E.128.1600 - The system shall allow only super-admins to configure the Monitoring QR external module.
 E.128.1700 - The system shall support the ability to use Monitoring QR external module for different Arms.
 E.128.1800 - The system shall support the ability to use Monitoring QR external module for Repeating Events/Instruments.
+E.128.1900 - The system shall support the integration of the Monitoring QR external module for projects utilizing Repeating Events with Double Arm configurations and DAGs.
+E.128.2000 – The system shall support the integration of the Monitoring QR external module for projects utilizing Repeating Events with Double Arm configurations and without DAGs.
+E.128.2100 – The system shall support the integration of the Monitoring QR external module for projects utilizing Repeating Events with Single Arm configurations and DAGs.
+E.128.2200 – The system shall support the integration of the Monitoring QR external module for projects utilizing Repeating Events with Single Arm configurations and without DAGs.
+E.128.2300 – The system shall support the integration of the Monitoring QR external module for projects utilizing Non-repeating Events with Double Arm configurations and DAGs.
+E.128.2400 – The system shall support the integration of the Monitoring QR external module for projects utilizing Non-repeating Events with Double Arm configurations and without DAGs.
+E.128.2500 – The system shall support the integration of the Monitoring QR external module for projects utilizing Non-repeating Events with Single Arm configurations and DAGs.
+E.128.2600 – The system shall support the integration of the Monitoring QR external module for projects utilizing Non-repeating Events with Single Arm configurations and without DAGs.
+E.128.2700 – The system shall support the integration of the Monitoring QR external module for projects utilizing Repeating Instruments with Double Arm configurations and DAGs.
+E.128.2800 – The system shall support the integration of the Monitoring QR external module for projects utilizing Repeating Instruments with Double Arm configurations and without DAGs.
+E.128.2900 – The system shall support the integration of the Monitoring QR external module for projects utilizing Repeating Instruments with Single Arm configurations and DAGs.
+E.128.3000 – The system shall support the integration of the Monitoring QR external module for projects utilizing Repeating Instruments with Single Arm configurations and without DAGs.
+E.128.3100 – The system shall support the integration of the Monitoring QR external module for Non-longitudinal projects utilizing Repeating Instruments and with DAGs.
+E.128.3200 – The system shall support the integration of the Monitoring QR external module for Non-longitudinal projects utilizing Repeating Instruments and without DAGs.
+E.128.3300 – The system shall support the integration of the Monitoring QR external module for Non-longitudinal projects utilizing Non-repeating Instruments and with DAGs.
+E.128.3400 – The system shall support the integration of the Monitoring QR external module for Non-longitudinal projects utilizing Non-repeating Instruments and without DAGs.
