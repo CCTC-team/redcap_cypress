@@ -3,4 +3,5 @@ C.3.26.0200. - User Interface: The system shall support limiting file repository
 C.3.26.0300. - User Interface: The system shall support the storage, organization, and sharing of project files for permanent folders: (Data Export | e-Consent PDFs | Recycle Bin | Custom Create folder / Sub-folder)
 C.3.26.0400. - User Interface: The system shall support multiple file upload through the following methods: (File upload | Drag and Drop)
 C.3.26.0500. - User Interface: The system shall limit folder deletion to empty folders.
+D.3.26.0600. - User Interface: The system shall support file retention rules for the Recycle Bin. Includes 30 Day file retention of deleted files | 30 Day file restore
 D.3.26.0800. - User Interface: The system shall support sharing of files via Send-IT.
