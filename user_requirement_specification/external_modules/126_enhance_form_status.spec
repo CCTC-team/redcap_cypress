@@ -12,3 +12,19 @@ E.126.1100 - The system shall support the ability to add an action tag that user
 E.126.1200 - The system shall allow only super-admins to configure the Enhance Form Status external module.
 E.126.1300 - The system shall support the ability to use Enhance Form Status external module for different Arms.
 E.126.1400 - The system shall support the ability to use Enhance Form Status external module for Repeating Events/Instruments.
+E.126.1500 - The system shall support the integration of the Enhance Form Status external module for projects utilizing Repeating Events with Double Arm configurations and DAGs.
+E.126.1600 – The system shall support the integration of the Enhance Form Status external module for projects utilizing Repeating Events with Double Arm configurations and without DAGs.
+E.126.1700 – The system shall support the integration of the Enhance Form Status external module for projects utilizing Repeating Events with Single Arm configurations and DAGs.
+E.126.1800 – The system shall support the integration of the Enhance Form Status external module for projects utilizing Repeating Events with Single Arm configurations and without DAGs.
+E.126.1900 – The system shall support the integration of the Enhance Form Status external module for projects utilizing Non-repeating Events with Double Arm configurations and DAGs.
+E.126.2000 – The system shall support the integration of the Enhance Form Status external module for projects utilizing Non-repeating Events with Double Arm configurations and without DAGs.
+E.126.2100 – The system shall support the integration of the Enhance Form Status external module for projects utilizing Non-repeating Events with Single Arm configurations and DAGs.
+E.126.2200 – The system shall support the integration of the Enhance Form Status external module for projects utilizing Non-repeating Events with Single Arm configurations and without DAGs.
+E.126.2300 – The system shall support the integration of the Enhance Form Status external module for projects utilizing Repeating Instruments with Double Arm configurations and DAGs.
+E.126.2400 – The system shall support the integration of the Enhance Form Status external module for projects utilizing Repeating Instruments with Double Arm configurations and without DAGs.
+E.126.2500 – The system shall support the integration of the Enhance Form Status external module for projects utilizing Repeating Instruments with Single Arm configurations and DAGs.
+E.126.2600 – The system shall support the integration of the Enhance Form Status external module for projects utilizing Repeating Instruments with Single Arm configurations and without DAGs.
+E.126.2700 – The system shall support the integration of the Enhance Form Status external module for Non-longitudinal projects utilizing Repeating Instruments and with DAGs.
+E.126.2800 – The system shall support the integration of the Enhance Form Status external module for Non-longitudinal projects utilizing Repeating Instruments and without DAGs.
+E.126.2900 – The system shall support the integration of the Enhance Form Status external module for Non-longitudinal projects utilizing Non-repeating Instruments and with DAGs.
+E.126.3000 – The system shall support the integration of the Enhance Form Status external module for Non-longitudinal projects utilizing Non-repeating Instruments and without DAGs.
