@@ -1,5 +1,15 @@
+version: 2.1
+
 orbs:
   codecov: codecov/codecov@4.0.1
+
+executors:
+  shared-executor:
+    machine:
+      image: ubuntu-2404:2024.11.1 # Machine image updates: https://circleci.com/developer/machine/image/ubuntu-2404
+      resource_class: large
+    environment:
+      REDCAP_VERSION: "14.7.0"
 
 workflows:
   version: 2
@@ -8,18 +18,36 @@ workflows:
       - run-tests:
           context: REDCap Tests
       - html-reports:
-          context: HTML Reports
+          context: REDCap Tests
           requires:
             - run-tests
 
+commands:
+  setup-redcap:
+    parameters:
+      dir:
+        type: string
+        default: "."
+    steps:
+      - add_ssh_keys
+      - run:
+          name: Build the REDCap Image
+          command: |
+            cd << parameters.dir >>
+            git clone --branch main https://github.com/CCTC-team/CCTC_REDCap_Docker.git
+      - run:
+          name: Get REDCap Source
+          command: |
+            cd << parameters.dir >>
+            GIT_SSH_COMMAND="ssh -i ~/.ssh/id_rsa" git clone --branch redcap-cypress --depth=1 https://github.com/aldefouw/redcap_source
+            GIT_SSH_COMMAND="ssh -i ~/.ssh/id_rsa_042ee976ef53cbd6ec78fbf9742292ca" git clone --depth=1 git@github.com:vanderbilt-redcap/REDCap.git redcap_source/redcap_v${REDCAP_VERSION}
+
 jobs:
   run-tests:
-    machine:
-      image: ubuntu-2404:2024.05.1 # Machine image updates: https://circleci.com/developer/machine/image/ubuntu-2404
-      resource_class: large
-    parallelism: 28
+    executor: shared-executor
+    parallelism: 26
     environment:
-      REDCAP_VERSION: "13.1.37"
+      BOOTSTRAPPING_REDCAP_VERSION: "13.1.37" # Do not change this
     steps:
       - checkout
       - run:
@@ -27,28 +55,21 @@ jobs:
           command: |
             sudo apt-get update
             sudo apt-get install mysql-client-core-8.0
-      - run:
-          name: Build the REDCap Image
-          command: |
-            git clone --branch xdebug https://github.com/aldefouw/redcap_docker
-      - run:
-          name: Get REDCap Source
-          command: |
-            git clone --branch redcap-cypress https://github.com/aldefouw/redcap_source
+      - setup-redcap
       - run:
           name: Start Docker REDCap Container
           command: |
             cd /home/circleci/project/redcap_docker
-            REDCAP_VERSION=${REDCAP_VERSION} docker-compose up -d
+            REDCAP_VERSION=${BOOTSTRAPPING_REDCAP_VERSION} docker-compose up -d
       - run:
           name: Install composer dependencies
           command: |
-            docker exec -it redcap_docker-app-1 sh -c "cd /var/www/html/redcap_v${REDCAP_VERSION} && COMPOSER_DISABLE_XDEBUG_WARN=1 composer install"
+            docker exec -it redcap_docker-app-1 sh -c "cd /var/www/html/redcap_v${BOOTSTRAPPING_REDCAP_VERSION} && COMPOSER_DISABLE_XDEBUG_WARN=1 composer install"
       - run:
           name: Reload REDCap
           command: |
             cd /home/circleci/project/redcap_docker
-            docker-compose down && REDCAP_VERSION=${REDCAP_VERSION} docker-compose up -d
+            docker-compose down && REDCAP_VERSION=${BOOTSTRAPPING_REDCAP_VERSION} docker-compose up -d
       - run:
           name: Permissions on coverage files
           command: |
@@ -64,13 +85,14 @@ jobs:
             cd /home/circleci/project
             sed s/PID/$PROJECT_ID/g cypress.config.js.example > cypress.config.js
             mv cypress.env.json.example cypress.env.json
-
+            sed -i '/  "redcap_version": ".*",/c\  "redcap_version": "'${REDCAP_VERSION}'",' cypress.env.json
       - run:
           name: Install Cypress
           command: |
             export NVM_DIR="/opt/circleci/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
             nvm use stable
+            npm install
             npm run redcap_rsvc:install
       - run:
           name: Run Tests
@@ -92,27 +114,26 @@ jobs:
             - coverage-report
             - coverage
             - cypress/videos
+            - redcap_rsvc
 
   html-reports:
-    machine:
-      image: ubuntu-2404:2024.05.1 # Machine image updates: https://circleci.com/developer/machine/image/ubuntu-2404
-      resource_class: large
-    environment:
-      REDCAP_VERSION: "13.1.37"
+    executor: shared-executor
     steps:
       - checkout
       - attach_workspace:
           at: /home/circleci/project/coverage
+      - setup-redcap:
+          dir: "/home/circleci/project/"
       - run:
-          name: Build the REDCap Image
+          name: Push PASSED Videos to VUMC REDCap project
           command: |
-            cd /home/circleci/project/
-            git clone --branch xdebug https://github.com/aldefouw/redcap_docker
-      - run:
-          name: Get REDCap Source
-          command: |
-            cd /home/circleci/project/
-            git clone --branch redcap-cypress https://github.com/aldefouw/redcap_source
+            if git log -1 --pretty=%B | grep -q '\[video-upload\]'; then
+              echo "Attempting video upload to REDCap project ..."
+              cd /home/circleci/project/coverage/redcap_rsvc
+              node upload_videos_to_redcap_project.js $REDCAP_API_TOKEN $PROJECT_ID $REDCAP_API_URL
+            else
+              echo "Skipping video upload.  To push videos to project, use [video-upload] tag in your commit message."
+            fi          
       - run:
           name: Start Docker REDCap Container
           command: |
@@ -129,7 +150,7 @@ jobs:
             cd /home/circleci/project/redcap_source
             git add "html-report-${REDCAP_VERSION}.zip"
             git commit -m "Add latest HTML Report for version ${REDCAP_VERSION}"
-            git push origin redcap-cypress
+            GIT_SSH_COMMAND="ssh -i ~/.ssh/id_rsa" git push origin redcap-cypress
 
       - store_artifacts:
           path: /home/circleci/project/coverage/cypress/videos
