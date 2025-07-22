@@ -10,25 +10,13 @@ type: software
 authors:
   - given-names: Adam
     family-names: De Fouw
-    email: aldefouw@medicine.wisc.edu
+    email: adefouw@wisc.edu
     affiliation: University of Wisconsin-Madison
-identifiers:
-  - type: url
-    value: >-
-      https://github.com/aldefouw/redcap_cypress/tree/v13.1.37_rapid
-    description: >-
-      The URL of REDCap Cypress Test Framework to use
-      against v13.1.37 LTS of REDCap.
 repository-code: >-
-  https://github.com/aldefouw/redcap_cypress/tree/v13.1.37_rapid
+  https://github.com/vanderbilt-redcap/redcap_cypress/tree/master
 keywords:
   - REDCap
   - Cypress
   - Test Framework
   - Automated Testing
 license: MIT
-version: 13.1.37
-date-released: 'Future'
-
-
-

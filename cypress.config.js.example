@@ -170,7 +170,7 @@ module.exports = defineConfig({
         experimentalMemoryManagement: false,
         numTestsKeptInMemory: 0,
         retries: {
-            runMode: 0,
+            runMode: 2,
             openMode: 0
         },
         video: false,
