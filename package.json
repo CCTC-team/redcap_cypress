@@ -7,7 +7,7 @@
     "del-cli": "^5.1.0",
     "move-cli": "^2.0.0",
     "rctf": "github:vanderbilt-redcap/rctf#marks-changes",
-    "redcap_rsvc": "github:vanderbilt-redcap/redcap_rsvc#marks-changes"
+    "redcap_rsvc": "github:vanderbilt-redcap/redcap_rsvc#marks-changes-plus-edoc"
   },
   "optionalDependencies": {
     "redcap_cypress_doc_theme": "git://github.com/vanderbilt-redcap/redcap_cypress_doc_theme#bf84bfa"
