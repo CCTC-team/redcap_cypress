@@ -51,7 +51,7 @@ commands:
             git -C redcap_v${REDCAP_VERSION} log -1 # Include current commit in build logs
             cp -a redcap_v${REDCAP_VERSION}/Resources/install_files/redcap/* .
             cp -a redcap_v${REDCAP_VERSION}/Resources/nonversioned_files/* .
-            cp << parameters.dir >>/.circleci/redcap_install_files/* .
+            cp /home/circleci/project/.circleci/redcap_install_files/* .
 
 jobs:
   run-tests:
