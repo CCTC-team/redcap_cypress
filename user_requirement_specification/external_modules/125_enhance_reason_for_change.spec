@@ -11,3 +11,19 @@ E.125.1000 - The system shall allow configuring the highlight border style for c
 E.125.1100 - The system shall allow only super-admins to configure the Enhance Reason For Change external module.
 E.125.1200 - The system shall support the ability to use Enhance Reason For Change external module for different Arms.
 E.125.1300 - The system shall support the ability to use Enhance Reason For Change external module for Repeating Events/Instruments.
+E.125.1400 - The system shall support the integration of the Enhance Reason For Change external module for projects utilizing Repeating Events with Double Arm configurations and DAGs.
+E.125.1500 – The system shall support the integration of the Enhance Reason For Change external module for projects utilizing Repeating Events with Double Arm configurations and without DAGs.
+E.125.1600 – The system shall support the integration of the Enhance Reason For Change external module for projects utilizing Repeating Events with Single Arm configurations and DAGs.
+E.125.1700 – The system shall support the integration of the Enhance Reason For Change external module for projects utilizing Repeating Events with Single Arm configurations and without DAGs.
+E.125.1800 – The system shall support the integration of the Enhance Reason For Change external module for projects utilizing Non-repeating Events with Double Arm configurations and DAGs.
+E.125.1900 – The system shall support the integration of the Enhance Reason For Change external module for projects utilizing Non-repeating Events with Double Arm configurations and without DAGs.
+E.125.2000 – The system shall support the integration of the Enhance Reason For Change external module for projects utilizing Non-repeating Events with Single Arm configurations and DAGs.
+E.125.2100 – The system shall support the integration of the Enhance Reason For Change external module for projects utilizing Non-repeating Events with Single Arm configurations and without DAGs.
+E.125.2200 – The system shall support the integration of the Enhance Reason For Change external module for projects utilizing Repeating Instruments with Double Arm configurations and DAGs.
+E.125.2300 – The system shall support the integration of the Enhance Reason For Change external module for projects utilizing Repeating Instruments with Double Arm configurations and without DAGs.
+E.125.2400 – The system shall support the integration of the Enhance Reason For Change external module for projects utilizing Repeating Instruments with Single Arm configurations and DAGs.
+E.125.2500 – The system shall support the integration of the Enhance Reason For Change external module for projects utilizing Repeating Instruments with Single Arm configurations and without DAGs.
+E.125.2600 – The system shall support the integration of the Enhance Reason For Change external module for Non-longitudinal projects utilizing Repeating Instruments and with DAGs.
+E.125.2700 – The system shall support the integration of the Enhance Reason For Change external module for Non-longitudinal projects utilizing Repeating Instruments and without DAGs.
+E.125.2800 – The system shall support the integration of the Enhance Reason For Change external module for Non-longitudinal projects utilizing Non-repeating Instruments and with DAGs.
+E.125.2900 – The system shall support the integration of the Enhance Reason For Change external module for Non-longitudinal projects utilizing Non-repeating Instruments and without DAGs.
