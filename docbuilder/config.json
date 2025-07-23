@@ -7,10 +7,10 @@
     "runAs": {
       "Case": "Html"
     },
-    "fileName": "REDCap_v13.8.1.html"
+    "fileName": "REDCap_v14.7.0.html"
   },
   "genOpts": 31,
-  "version": "v13.8.1",
+  "version": "v14.7.0",
   "defaultBranch": "redcap_val",
   "validUsers": [
     "MintooXavier",
