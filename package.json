@@ -4,6 +4,7 @@
   "description": "This repository is a template to assist you in writing **automated tests for REDCap**.",
   "devDependencies": {
     "cypress": "^13.17.0",
+    "cypress-file-upload": "^5.0.8",
     "del-cli": "^5.1.0",
     "move-cli": "^2.0.0",
     "rctf": "git://github.com/vanderbilt-redcap/rctf#main",
@@ -50,6 +51,7 @@
   "author": "Adam De Fouw",
   "license": "MIT",
   "dependencies": {
-    "@badeball/cypress-cucumber-preprocessor": "^22"
+    "@badeball/cypress-cucumber-preprocessor": "^22",
+    "adm-zip": "^0.5.16"
   }
 }
