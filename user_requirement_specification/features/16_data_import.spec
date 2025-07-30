@@ -12,7 +12,6 @@ B.3.16.1100. - User Interface: The system shall allow data to be changed only by
 B.3.16.1200. - User Interface: The system shall provide the option to allow blank values to overwrite existing saved values.
 B.3.16.1300. - User Interface: The system shall provide the ability to assign data instruments to a data access group with the Data Import Tool.
 B.3.16.1400. - User Interface: The system shall allow data to be uploaded as background process with the csv template to create and/or modify records.
-D.3.16.1500. - User Interface: The system shall provide the ability to email the user upon completion of an background data import large data files.
 B.3.16.1600. - User Interface: The system shall report background process data import errors.
 B.3.16.1700. - User Interface: The system shall provide the ability to download background process data import error reports.
 B.3.16.1800. - User Interface: The system shall provide the ability to display real-time process data comparison table.

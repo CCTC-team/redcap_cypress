@@ -1,1 +1,0 @@
-D.121.100 - Control Center: The system shall support the option to configure the storage location for uploaded documents.
