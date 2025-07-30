@@ -9,7 +9,7 @@ executors:
       image: ubuntu-2404:2024.11.1 # Machine image updates: https://circleci.com/developer/machine/image/ubuntu-2404
       resource_class: large
     environment:
-      REDCAP_VERSION: "15.4.2"
+      REDCAP_VERSION: "15.5.4"
 
 workflows:
   version: 2
@@ -34,11 +34,12 @@ commands:
           name: Build the REDCap Image
           command: |
             cd << parameters.dir >>
-            git clone --branch xdebug https://github.com/vanderbilt-redcap/redcap_docker
+            git clone --branch xdebug-marks-changes https://github.com/vanderbilt-redcap/redcap_docker ../redcap_docker
+            git -C ../redcap_docker log -1 # Include current commit in build logs
       - run:
           name: Get REDCap Source
           command: |
-            cd << parameters.dir >>
+            cd << parameters.dir >>/..
             mkdir redcap_source
             cd redcap_source
             if [[ "$REDCAP_VERSION" = "99.99.99" ]]; then
@@ -50,7 +51,7 @@ commands:
             git -C redcap_v${REDCAP_VERSION} log -1 # Include current commit in build logs
             cp -a redcap_v${REDCAP_VERSION}/Resources/install_files/redcap/* .
             cp -a redcap_v${REDCAP_VERSION}/Resources/nonversioned_files/* .
-            cp ../.circleci/redcap_install_files/* .
+            cp /home/circleci/project/.circleci/redcap_install_files/* .
 
 jobs:
   run-tests:
@@ -63,7 +64,7 @@ jobs:
       - run:
           name: Start Docker REDCap Container
           command: |
-            cd /home/circleci/project/redcap_docker
+            cd /home/circleci/redcap_docker
             REDCAP_VERSION=${REDCAP_VERSION} docker-compose up -d
       - run:
           name: Install composer dependencies
@@ -76,8 +77,8 @@ jobs:
       - run:
           name: Change eDocs & Temp folder permissions
           command: |
-            sudo chmod 777 /home/circleci/project/edocs
-            sudo chmod 777 /home/circleci/project/tmp
+            sudo chmod 777 /home/circleci/edocs
+            sudo chmod 777 /home/circleci/tmp
       - run:
           name: Configure Cypress environment
           command: |
@@ -96,6 +97,7 @@ jobs:
       - run:
           name: Run Tests
           command: |
+            export UID # Referenced in docker-compose.yml by 'if running via automation' RCTF steps
             CYPRESS_prettyEnabled=true npx cypress run --record --key $RECORD_KEY --parallel --group core-tests --browser chrome || true
       - run:
           name: Coverage Report
@@ -136,7 +138,7 @@ jobs:
       - run:
           name: Start Docker REDCap Container
           command: |
-            cd /home/circleci/project/redcap_docker
+            cd /home/circleci/redcap_docker
             docker-compose up -d
       - run:
           name: Coverage Report
