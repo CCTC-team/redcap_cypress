@@ -2,6 +2,7 @@
   "name": "redcap_cypress",
   "description": "This repository is a template to assist you in writing **automated tests for REDCap**.",
   "dependencies": {
+    "escape-string-regexp": "^5.0.0",
     "rctf": "github:vanderbilt-redcap/rctf#95fc3c4f44bcbb4b6b34e62490c0bf0badc7df11",
     "redcap_rsvc": "github:vanderbilt-redcap/redcap_rsvc#f7fc6c8d876009ddab3bd123d31db25cd620247d"
   },
