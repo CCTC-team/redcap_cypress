@@ -69,7 +69,7 @@
 
 </style>
 
-## |TARGETSOFTWARE| validation for |VERSION|
+## |TARGETSOFTWARE| Validation Report for |VERSION|
 
 |SUBHEADER|
 
