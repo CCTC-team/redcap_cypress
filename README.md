@@ -117,7 +117,6 @@ Here is an example environment variable setup:
   "redcap_version": "13.1.37",
   "language": "English",
   "redcap_hooks_path": "/var/www/html/hook_functions.php",
-  "redcap_source_path": "../redcap_source",
   "temp_folder": "/var/www/html/temp",
   "mysql": {
     "host": "db",
