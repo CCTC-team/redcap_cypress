@@ -2,7 +2,7 @@
   "name": "redcap_cypress",
   "description": "This repository is a template to assist you in writing **automated tests for REDCap**.",
   "dependencies": {
-    "rctf": "github:vanderbilt-redcap/rctf#2f582c9c6d3a5229953cea589d567c34553126fd",
+    "rctf": "github:vanderbilt-redcap/rctf#e7ca53dfbd9718a34db567e62d833fb073ccef61",
     "redcap_rsvc": "github:vanderbilt-redcap/redcap_rsvc#5c485bfbd8d9f3157e5840fda0cd44aa2baa577e"
   },
   "peerDependencies": {
@@ -14,6 +14,9 @@
   },
   "optionalDependencies": {
     "redcap_cypress_doc_theme": "git://github.com/vanderbilt-redcap/redcap_cypress_doc_theme#bf84bfa"
+  },
+  "overrides": {
+    "glob": "9.3.5"
   },
   "scripts": {
     "about-these-scripts": "These scripts are intended for a cloud environment, and do not currently make sense for local development where redcap_rsvc is a git checkout rather than a copy from node_modules.",
