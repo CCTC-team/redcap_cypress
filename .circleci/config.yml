@@ -78,7 +78,6 @@ jobs:
           name: Change eDocs & Temp folder permissions
           command: |
             sudo chmod 777 /home/circleci/edocs
-            sudo chmod 777 /home/circleci/tmp
       - run:
           name: Configure Cypress environment
           command: |
