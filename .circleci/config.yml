@@ -33,9 +33,10 @@ commands:
       - run:
           name: Build the REDCap Image
           command: |
-            cd << parameters.dir >>
-            git clone --branch xdebug-marks-changes https://github.com/vanderbilt-redcap/redcap_docker ../redcap_docker
-            git -C ../redcap_docker log -1 # Include current commit in build logs
+            cd << parameters.dir >>/../redcap_docker
+            git clone --branch xdebug-marks-changes https://github.com/vanderbilt-redcap/redcap_docker
+            git log -1 # Include current commit in build logs
+            git apply docker-compose.xdebug-volume-patch
       - run:
           name: Get REDCap Source
           command: |
@@ -65,7 +66,7 @@ jobs:
           name: Start Docker REDCap Container
           command: |
             cd /home/circleci/redcap_docker
-            REDCAP_VERSION=${REDCAP_VERSION} docker-compose up -d
+            REDCAP_VERSION=${REDCAP_VERSION} PHP_EXTENSION_XDEBUG=1 docker-compose up -d
       - run:
           name: Install composer dependencies
           command: |
