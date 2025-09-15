@@ -59,7 +59,6 @@ jobs:
   run-tests:
     executor: shared-executor
     parallelism: 30
-    environment:
     steps:
       - checkout
       - setup-redcap
@@ -67,7 +66,7 @@ jobs:
           name: Start Docker REDCap Container
           command: |
             cd /home/circleci/redcap_docker
-            REDCAP_VERSION=${REDCAP_VERSION} PHP_EXTENSION_XDEBUG=1 docker-compose up -d
+            docker-compose up -d
       - run:
           name: Install composer dependencies
           command: |
