@@ -12,9 +12,6 @@
     "del-cli": "^6",
     "move-cli": "^2"
   },
-  "optionalDependencies": {
-    "redcap_cypress_doc_theme": "git://github.com/vanderbilt-redcap/redcap_cypress_doc_theme#bf84bfa"
-  },
   "overrides": {
     "glob": "9.3.5"
   },
