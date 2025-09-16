@@ -149,8 +149,10 @@ jobs:
           command: |
             cd /home/circleci/project
             GIT_SSH_COMMAND="ssh -i ~/.ssh/id_rsa_dba1897a8caca68e1a8a5c2185311de3" git clone --depth=1 git@github.com:vanderbilt-redcap/redcap_cypress_build_reports.git
-            cd redcap_cypress_build_reports
-            sudo zip -r "html-report-${REDCAP_VERSION}.zip" ../coverage-report/html-report/*
+            cd coverage-report/html-report
+            # Run the zip command from inside the dir of files we want to include to avoid extraneous parent dirs in the zip
+            sudo zip -r ../../redcap_cypress_build_reports/"html-report-${REDCAP_VERSION}.zip" *
+            cd ../../redcap_cypress_build_reports
             git add "html-report-${REDCAP_VERSION}.zip"
             git commit -m "Add latest HTML Report for version ${REDCAP_VERSION}"
             GIT_SSH_COMMAND="ssh -i ~/.ssh/id_rsa_dba1897a8caca68e1a8a5c2185311de3" git push
