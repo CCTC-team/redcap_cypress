@@ -136,6 +136,15 @@ jobs:
               echo "Skipping video upload.  To push videos to project, use [video-upload] tag in your commit message."
             fi          
       - run:
+          name: Start Docker REDCap Container
+          command: |
+            cd /home/circleci/redcap_docker
+            docker-compose up -d
+      - run:
+          name: Coverage Report
+          command: |
+            docker exec -i redcap_docker-app-1 php /var/www/html/phpcov.phar merge --html /tmp/path/coverage-report/html-report /tmp/path/coverage
+      - run:
           name: Push to Repository
           command: |
             cd /home/circleci/project
