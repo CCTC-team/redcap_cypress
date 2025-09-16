@@ -118,6 +118,7 @@ jobs:
             - redcap_rsvc
 
   html-reports:
+    type: approval
     executor: shared-executor
     steps:
       - checkout
