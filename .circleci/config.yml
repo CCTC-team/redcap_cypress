@@ -134,7 +134,7 @@ jobs:
               node upload_videos_to_redcap_project.js $REDCAP_API_TOKEN $PROJECT_ID $REDCAP_API_URL
             else
               echo "Skipping video and RCTF documentation upload.  To push videos to project and update RCTF documentation, use include '[video-upload]' in your commit message."
-              exit 0
+              circleci-agent step halt
             fi          
       - run:
           name: Start Docker REDCap Container
