@@ -118,7 +118,6 @@ jobs:
             - redcap_rsvc
 
   html-reports:
-    type: approval
     executor: shared-executor
     steps:
       - checkout
@@ -134,7 +133,8 @@ jobs:
               cd /home/circleci/project/coverage/redcap_rsvc
               node upload_videos_to_redcap_project.js $REDCAP_API_TOKEN $PROJECT_ID $REDCAP_API_URL
             else
-              echo "Skipping video upload.  To push videos to project, use [video-upload] tag in your commit message."
+              echo "Skipping video and RCTF documentation upload.  To push videos to project and update RCTF documentation, use include '[video-upload]' in your commit message."
+              exit 0
             fi          
       - run:
           name: Start Docker REDCap Container
