@@ -35,7 +35,9 @@ commands:
           command: |
             cd << parameters.dir >>
             git clone --branch xdebug-marks-changes https://github.com/vanderbilt-redcap/redcap_docker ../redcap_docker
-            git -C ../redcap_docker log -1 # Include current commit in build logs
+            cd ../redcap_docker
+            git log -1 # Include current commit in build logs
+            git apply docker-compose.xdebug-volume-patch
       - run:
           name: Get REDCap Source
           command: |
@@ -57,7 +59,6 @@ jobs:
   run-tests:
     executor: shared-executor
     parallelism: 30
-    environment:
     steps:
       - checkout
       - setup-redcap
@@ -65,7 +66,7 @@ jobs:
           name: Start Docker REDCap Container
           command: |
             cd /home/circleci/redcap_docker
-            REDCAP_VERSION=${REDCAP_VERSION} docker-compose up -d
+            docker-compose up -d
       - run:
           name: Install composer dependencies
           command: |
@@ -78,7 +79,6 @@ jobs:
           name: Change eDocs & Temp folder permissions
           command: |
             sudo chmod 777 /home/circleci/edocs
-            sudo chmod 777 /home/circleci/tmp
       - run:
           name: Configure Cypress environment
           command: |
@@ -133,7 +133,8 @@ jobs:
               cd /home/circleci/project/coverage/redcap_rsvc
               node upload_videos_to_redcap_project.js $REDCAP_API_TOKEN $PROJECT_ID $REDCAP_API_URL
             else
-              echo "Skipping video upload.  To push videos to project, use [video-upload] tag in your commit message."
+              echo "Skipping video and RCTF documentation upload.  To push videos to project and update RCTF documentation, use include '[video-upload]' in your commit message."
+              circleci-agent step halt
             fi          
       - run:
           name: Start Docker REDCap Container
@@ -149,8 +150,10 @@ jobs:
           command: |
             cd /home/circleci/project
             GIT_SSH_COMMAND="ssh -i ~/.ssh/id_rsa_dba1897a8caca68e1a8a5c2185311de3" git clone --depth=1 git@github.com:vanderbilt-redcap/redcap_cypress_build_reports.git
-            cd redcap_cypress_build_reports
-            sudo zip -r "html-report-${REDCAP_VERSION}.zip" ../coverage-report/html-report/*
+            cd coverage-report/html-report
+            # Run the zip command from inside the dir of files we want to include to avoid extraneous parent dirs in the zip
+            sudo zip -r ../../redcap_cypress_build_reports/"html-report-${REDCAP_VERSION}.zip" *
+            cd ../../redcap_cypress_build_reports
             git add "html-report-${REDCAP_VERSION}.zip"
             git commit -m "Add latest HTML Report for version ${REDCAP_VERSION}"
             GIT_SSH_COMMAND="ssh -i ~/.ssh/id_rsa_dba1897a8caca68e1a8a5c2185311de3" git push

@@ -2,8 +2,8 @@
   "name": "redcap_cypress",
   "description": "This repository is a template to assist you in writing **automated tests for REDCap**.",
   "dependencies": {
-    "rctf": "github:vanderbilt-redcap/rctf#2f582c9c6d3a5229953cea589d567c34553126fd",
-    "redcap_rsvc": "github:vanderbilt-redcap/redcap_rsvc#5c485bfbd8d9f3157e5840fda0cd44aa2baa577e"
+    "rctf": "github:vanderbilt-redcap/rctf#567e7bd30cf95b027a1f86945cd32ea1b1b20cd5",
+    "redcap_rsvc": "github:vanderbilt-redcap/redcap_rsvc#e6b6b2ff5c62d784e8f15ed41145549d469a37fd"
   },
   "peerDependencies": {
     "cypress": "*"
@@ -12,8 +12,8 @@
     "del-cli": "^6",
     "move-cli": "^2"
   },
-  "optionalDependencies": {
-    "redcap_cypress_doc_theme": "git://github.com/vanderbilt-redcap/redcap_cypress_doc_theme#bf84bfa"
+  "overrides": {
+    "glob": "9.3.5"
   },
   "scripts": {
     "about-these-scripts": "These scripts are intended for a cloud environment, and do not currently make sense for local development where redcap_rsvc is a git checkout rather than a copy from node_modules.",
@@ -33,8 +33,7 @@
     "rctf:launch_tests": "CYPRESS_prettyEnabled=true CYPRESS_baseUrl=http://localhost:6060 npx cypress run --env testMode=true --config specPattern=./cypress/features/tests/*/*.spec.feature --browser chrome",
     "rctf:official_tests": "npm run rctf:get_step_features && CYPRESS_VIDEO=false CYPRESS_prettyEnabled=true CYPRESS_baseUrl=http://localhost:6060 npx cypress run --env testMode=true --config specPattern=./cypress/features/tests/*/*.spec.feature --record --key $RECORD_KEY --group rctf-tests --browser chrome",
     "rctf:write_step_tests": "npm run rctf:get_step_features && CYPRESS_baseUrl=http://localhost:6060 npx cypress open --env testMode=true --config specPattern=./cypress/features/tests/*/*.spec.feature",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "docs:build": "npm install git://github.com/documentationjs/documentation#97e9361 --no-save && ./node_modules/.bin/documentation build ./node_modules/rctf/step_definitions/* ./node_modules/rctf/step_definitions/support/* -f html --theme node_modules/redcap_cypress_doc_theme/index.js -o docs"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "cypress-cucumber-preprocessor": {
     "step_definitions": "cypress/support/step_definitions/"
