@@ -133,7 +133,7 @@ jobs:
               cd /home/circleci/project/coverage/redcap_rsvc
               node upload_videos_to_redcap_project.js $REDCAP_API_TOKEN $PROJECT_ID $REDCAP_API_URL
             else
-              echo "Skipping video and RCTF documentation upload.  To push videos to project and update RCTF documentation, use include '[video-upload]' in your commit message."
+              echo "Skipping video and code coverage upload.  To push videos to project and update code coverage, use include '[video-upload]' in your commit message."
               circleci-agent step halt
             fi          
       - run:
