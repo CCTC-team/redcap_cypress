@@ -19,7 +19,7 @@ module.exports = defineConfig({
                      ],
         testIsolation: false,
         experimentalMemoryManagement: false,
-        numTestsKeptInMemory: 0,
+        numTestsKeptInMemory: 50,
         retries: {
             runMode: 0,
             openMode: 0
