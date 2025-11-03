@@ -763,6 +763,37 @@ Given("I should NOT see an email with subject {string}", (subject) => {
 })
 
 
+/**
+ * @module MailHog
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I open the email for user {string} with subject {string}
+ * @param {string} recipient - email id of recipient
+ * @param {string} subject - subject of the email
+ * @description Opens the email with a given subject for user in MailHog UI
+ */
+Given("I open the email for user {string} with subject {string}", (recipient, subject) => {
+     // Visit MailHog web UI
+    cy.visit('http://localhost:8025');
+
+    // Wait for the email list to load
+    cy.get('.msglist-message', { timeout: 10000 }).should('have.length.greaterThan', 0);
+
+    // Find the email row that matches the subject and recipient
+    cy.get('.msglist-message').each(($el) => {
+        const emailText = $el.text();
+
+        // Check if both subject and recipient match in the message list row
+        if (emailText.includes(subject) && emailText.includes(recipient)) {
+            cy.wrap($el).click(); // Open that specific email
+            return false; // stop iteration once found
+        }
+    });
+
+    // Wait for the email preview to appear
+    cy.get('#preview-plaintext, #preview-html', { timeout: 10000 }).should('exist');
+
+})
+
 
 /**
  * @module MailHog

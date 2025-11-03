@@ -22,6 +22,18 @@ defineParameterType({
     regexp: /Data quality error table|Data quality exclusion table/
 })
 
+defineParameterType({
+    name: 'emTableName',
+    regexp: /data entry log|system changes|project changes|user role changes/
+})
+
+emTableName = {
+    'data entry log' : '#log-data-entry-event',
+    'system changes' : '#system_changes_table',
+    'project changes' : '#project_changes_table',
+    'user role changes' : '#user_role_changes_table',
+}
+
 dqrTable = {
     'Data quality error table' : '#form-instance-rule-errors',
     'Data quality exclusion table' : '#form-instance-rule-exclusions'
@@ -337,10 +349,14 @@ Given('I should NOT see the field labeled {string} highlighed in red', (label) =
  * @param {int} num - number of row(s)
  * @description verifies data entry log table contains the specified number of row(s)
  */
-Given('I should see {int} row(s) in the data entry log table', (num) => {
-    cy.get('#log-data-entry-event tbody tr').its('length').then ((rowCount) => {
+Given('I should see {int} row(s) in the {emTableName} table', (num, tableName) => {
+    element = emTableName[tableName] + ' tbody tr'
+    cy.get(element).its('length').then ((rowCount) => {
         // Subtracting 1 for header
-        expect(rowCount-1).to.be.equal(num)
+        if (tableName === 'data entry log') {
+            rowCount = rowCount-1
+        }
+        expect(rowCount).to.be.equal(num)
     })
 })
 
