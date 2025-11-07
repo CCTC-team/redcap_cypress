@@ -24,10 +24,11 @@ defineParameterType({
 
 defineParameterType({
     name: 'emTableName',
-    regexp: /data entry log|system changes|project changes|user role changes/
+    regexp: /monitoring logging|data entry log|system changes|project changes|user role changes/
 })
 
 emTableName = {
+    'monitoring logging' : '#monitor-query-data-log',
     'data entry log' : '#log-data-entry-event',
     'system changes' : '#system_changes_table',
     'project changes' : '#project_changes_table',
@@ -262,22 +263,6 @@ Given('I should see the monitoring status {string}', (label) => {
 
 
 /**
- * @module MonitoringQR
- * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I should see {int} row(s) in the monitoring logging table
- * @param {int} num - number of row(s)
- * @description verifies monitoring logging table contains the specified number of row(s)
- */
-Given('I should see {int} row(s) in the monitoring logging table', (num) => {
-    cy.get('#monitor-query-data-log tbody tr').its('length').then ((rowCount) => {
-        // Subtracting 1 for header
-        rowCount = (rowCount-1)/2
-        expect(rowCount).to.be.equal(num)
-    })
-})
-
-
-/**
  * @module EmbellishFields/MonitoringQR
  * @author Mintoo Xavier <min2xavier@gmail.com>
  * @example I should see {string} within the data entry field labeled {string}
@@ -343,11 +328,12 @@ Given('I should NOT see the field labeled {string} highlighed in red', (label) =
 
 
 /**
- * @module DataEntryLog
+ * @module MonitoringQR/DataEntryLog/ConfigurationMonitor
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I should see {int} row(s) in the data entry log table
+ * @example I should see {int} row(s) in the {emTableName} table
  * @param {int} num - number of row(s)
- * @description verifies data entry log table contains the specified number of row(s)
+ * @param {string} emTableName - available options: 'monitoring logging', 'data entry log', 'system changes', 'project changes', 'user role changes'
+ * @description verifies the table contains the specified number of row(s)
  */
 Given('I should see {int} row(s) in the {emTableName} table', (num, tableName) => {
     element = emTableName[tableName] + ' tbody tr'
@@ -356,6 +342,12 @@ Given('I should see {int} row(s) in the {emTableName} table', (num, tableName) =
         if (tableName === 'data entry log') {
             rowCount = rowCount-1
         }
+
+        if (tableName === 'monitoring logging') {
+             // Subtracting 1 for header and dividing by 2 as each entry has 2 rows
+            rowCount = (rowCount-1)/2
+        }
+
         expect(rowCount).to.be.equal(num)
     })
 })
@@ -411,4 +403,253 @@ Given('I should see {formStatusIcon} bubble with the form status {string}', (ico
  */
 Given('I should NOT see {formStatusIcon} form status bubble', (icon) => {
     cy.get('#questiontable').should('not.contain', formStatusIcon[icon])
+})
+
+
+/**
+ * @module Visibility
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I should see a table header and rows with rowspan containing the following values in a table:
+ * @param {dataTable} options the Data Table of values specified
+ * @description Verifies a table contains the specified headers and rows, handling columns with rowspan that spans across multiple rows.
+ * This step definition is designed for tables where columns have variable positions due to rowspan attributes.
+ * It expands cells with rowspan to cover all affected rows during verification.
+ */
+Given('I should see a table header and rows with rowspan containing the following values in a table:', (dataTable) => {
+    const rows = dataTable.rawTable
+    const expectedHeaders = rows[0]
+    const expectedRows = rows.slice(1)
+
+    cy.get('table').should('be.visible').then(($table) => {
+        // Find all rows in the table
+        const $allRows = $table.find('tr')
+
+        // Find header row
+        let $headerCells
+        const $theadHeaders = $table.find('thead tr:first th, thead tr:first td')
+
+        if ($theadHeaders.length > 0) {
+            $headerCells = $theadHeaders
+        } else {
+            // Headers might be in first tbody row
+            const $firstRow = Cypress.$($allRows[0])
+            $headerCells = $firstRow.find('th, td')
+        }
+
+        // Verify headers
+        expectedHeaders.forEach((expectedHeader, index) => {
+            const headerText = Cypress.$($headerCells[index]).text().trim()
+            expect(headerText, `Header at position ${index}`).to.include(expectedHeader.trim())
+        })
+
+        // Get data rows (skip header row)
+        let $dataRows = $allRows.slice(1)
+        if ($theadHeaders.length > 0) {
+            $dataRows = $table.find('tbody tr')
+        }
+
+        // Build a normalized grid that expands rowspan cells
+        const normalizedGrid = []
+        const rowspanTracker = [] // Tracks which columns are occupied by rowspan from previous rows
+
+        $dataRows.each((rowIndex, htmlRow) => {
+            const $row = Cypress.$(htmlRow)
+            const $cells = $row.find('td, th')
+
+            // Initialize tracker for this row if needed
+            if (!rowspanTracker[rowIndex]) {
+                rowspanTracker[rowIndex] = []
+            }
+
+            const normalizedRow = []
+            let cellIndex = 0
+
+            // Fill in cells, accounting for rowspan from previous rows
+            for (let colIndex = 0; colIndex < expectedHeaders.length; colIndex++) {
+                // Check if this column is occupied by a rowspan from a previous row
+                if (rowspanTracker[rowIndex][colIndex]) {
+                    normalizedRow[colIndex] = rowspanTracker[rowIndex][colIndex]
+                } else {
+                    // Use the current cell
+                    const $cell = Cypress.$($cells[cellIndex])
+                    if ($cell.length > 0) {
+                        const cellText = $cell.text().trim()
+                        const rowspan = parseInt($cell.attr('rowspan') || '1')
+
+                        normalizedRow[colIndex] = cellText
+
+                        // If this cell has rowspan > 1, mark it for subsequent rows
+                        if (rowspan > 1) {
+                            for (let r = 1; r < rowspan; r++) {
+                                const targetRowIndex = rowIndex + r
+                                if (!rowspanTracker[targetRowIndex]) {
+                                    rowspanTracker[targetRowIndex] = []
+                                }
+                                rowspanTracker[targetRowIndex][colIndex] = cellText
+                            }
+                        }
+
+                        cellIndex++
+                    } else {
+                        normalizedRow[colIndex] = ''
+                    }
+                }
+            }
+
+            normalizedGrid.push(normalizedRow)
+        })
+
+        // Verify each expected row exists in the normalized grid
+        expectedRows.forEach((expectedRow) => {
+            let rowFound = false
+
+            normalizedGrid.forEach((normalizedRow) => {
+                // Only check rows that have the same number of cells
+                if (normalizedRow.length !== expectedRow.length) {
+                    return
+                }
+
+                let cellsMatch = true
+
+                expectedRow.forEach((expectedCell, cellIndex) => {
+                    if (cellIndex >= normalizedRow.length) {
+                        cellsMatch = false
+                        return
+                    }
+
+                    const cellText = normalizedRow[cellIndex]
+                    const expectedText = expectedCell.trim()
+
+                    // Handle date/time pattern matching
+                    if (expectedText === 'mm/dd/yyyy hh:mm' || expectedText.match(/^mm\/dd\/yyyy/)) {
+                        const dateTimePattern = /\d{1,2}\/\d{1,2}\/\d{4}\s+\d{1,2}:\d{2}\s*(am|pm)?/i
+                        if (!dateTimePattern.test(cellText)) {
+                            cellsMatch = false
+                        }
+                    } else if (expectedText === '') {
+                        // Empty cell - allow any whitespace or truly empty
+                        if (cellText !== '' && cellText !== ' ') {
+                            cellsMatch = false
+                        }
+                    } else {
+                        // Exact match or contains match
+                        if (!cellText.includes(expectedText) && cellText !== expectedText) {
+                            cellsMatch = false
+                        }
+                    }
+                })
+
+                if (cellsMatch) {
+                    rowFound = true
+                }
+            })
+
+            expect(rowFound, `Expected row not found: ${expectedRow.join(' | ')}`).to.be.true
+        })
+    })
+})
+
+
+/**
+ * @module MailHog
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I should see an email table with the following rows:
+ * @param {DataTable} dataTable - Gherkin DataTable with headers and rows
+ * @description Verifies a plain HTML table in emails (e.g., MailHog) contains the specified headers and rows.
+ * Supports date/time patterns like mm/dd/yyyy hh:mm.
+ */
+Given('I should see an email table with the following rows:', (dataTable) => {
+    const rows = dataTable.rawTable
+
+    // First row contains headers
+    const expectedHeaders = rows[0]
+    const expectedRows = rows.slice(1)
+
+    // MailHog displays email content in an iframe - switch to it first
+    cy.get('iframe#preview-html').then(($iframe) => {
+        const iframeBody = $iframe.contents().find('body')
+
+        // Find table in the iframe body
+        cy.wrap(iframeBody).find('table').then(($table) => {
+
+            cy.wrap($table).find('tr').then(($allRows) => {
+                // Find header row - could be in thead or first row with th/td elements
+                let $headerCells
+                const $theadHeaders = $table.find('thead tr:first th, thead tr:first td')
+
+                if ($theadHeaders.length > 0) {
+                    // Headers are in thead
+                    $headerCells = $theadHeaders
+                } else {
+                    // Headers are likely in first row (styled differently)
+                    // Look for first row with style attribute or just use first row
+                    const $firstRow = Cypress.$($allRows[0])
+                    $headerCells = $firstRow.find('th, td')
+                }
+
+                // Verify headers exist
+                expectedHeaders.forEach((expectedHeader, index) => {
+                    const headerText = Cypress.$($headerCells[index]).text().trim()
+                    expect(headerText, `Header at position ${index}`).to.include(expectedHeader.trim())
+                })
+
+                // Verify each expected row exists in the table
+                // Skip first row if it contains headers
+                let $dataRows = $allRows
+                if ($headerCells.length > 0) {
+                    $dataRows = $allRows.slice(1)
+                }
+
+                expectedRows.forEach((expectedRow) => {
+                    let rowFound = false
+
+                    $dataRows.each((_, htmlRow) => {
+                        const $cells = Cypress.$(htmlRow).find('td, th')
+
+                        // Only check rows that have the same number of cells
+                        if ($cells.length !== expectedRow.length) {
+                            return
+                        }
+
+                        let cellsMatch = true
+
+                        expectedRow.forEach((expectedCell, cellIndex) => {
+                            if (cellIndex >= $cells.length) {
+                                cellsMatch = false
+                                return
+                            }
+
+                            const cellText = Cypress.$($cells[cellIndex]).text().trim()
+                            const expectedText = expectedCell.trim()
+
+                            // Handle date/time pattern matching (mm/dd/yyyy hh:mm)
+                            if (expectedText === 'mm/dd/yyyy hh:mm' || expectedText.match(/^mm\/dd\/yyyy/)) {
+                                // Match date pattern: digits/digits/digits and optional time
+                                const dateTimePattern = /\d{1,2}\/\d{1,2}\/\d{4}\s+\d{1,2}:\d{2}\s*(am|pm)?/i
+                                if (!dateTimePattern.test(cellText)) {
+                                    cellsMatch = false
+                                }
+                            } else if (expectedText === '') {
+                                // Empty cell - allow any whitespace or truly empty
+                                if (cellText !== '' && cellText !== ' ') {
+                                    cellsMatch = false
+                                }
+                            } else {
+                                // Exact match or contains match
+                                if (!cellText.includes(expectedText) && cellText !== expectedText) {
+                                    cellsMatch = false
+                                }
+                            }
+                        })
+
+                        if (cellsMatch) {
+                            rowFound = true
+                        }
+                    })
+
+                    expect(rowFound, `Expected row not found: ${expectedRow.join(' | ')}`).to.be.true
+                })
+            })
+        })
+    })
 })
