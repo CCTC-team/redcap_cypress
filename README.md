@@ -8,10 +8,10 @@ This repository is a template to enable **REDCap Automated Testing** within the 
 
 Powered by the **REDCap Cypress Test Framework ([RCTF](https://github.com/vanderbilt-redcap/rctf/))**, feature test files, written in Gherkin domain-specific language, may use:
 
-1. **Built-in Gherkin Steps** - documented in the [Gherkin Step Builder](https://vanderbilt-redcap.github.io/redcap_cypress/)
+1. **Built-in Gherkin Steps** - documented in the [Gherkin Step Builder](#gherkin-step-builder)
 2. **Custom Gherkin Steps** - by creating your own step definitions in the **/support/step_definitions/** folder.
 
-*[RSVC Automated Feature Tests](#rsvc-automated-feature-tests) only use [built-in Gherkin Steps](https://vanderbilt-redcap.github.io/redcap_cypress/), but you may add your own if you [write institution-specific feature tests](#writing-gherkin-feature-tests).*
+*[RSVC Automated Feature Tests](#rsvc-automated-feature-tests) only use built-in Gherkin Steps, but you may add your own if you [write institution-specific feature tests](#writing-gherkin-feature-tests).*
 
 # Overview
 - [How to Install](#how-to-install)
@@ -24,13 +24,7 @@ Powered by the **REDCap Cypress Test Framework ([RCTF](https://github.com/vander
 
 # How to Install
 
-[![REDCap Cypress Developer Toolkit](https://raw.githubusercontent.com/vanderbilt-redcap/redcap_cypress_docker/main/tutorial-windows.png)](https://github.com/vanderbilt-redcap/redcap_cypress_docker)
-
-
-If you are a developer, please start by visiting the [REDCap Cypress Developer Toolkit](https://github.com/vanderbilt-redcap/redcap_cypress_docker), located here:
-https://github.com/vanderbilt-redcap/redcap_cypress_docker
-
-The Developer Toolkit is the best way to get Cypress up and running on your developer machine.
+Please start by visiting the [REDCap Cypress Developer Toolkit](https://github.com/vanderbilt-redcap/redcap_cypress_docker).  It is the best way to get Cypress up and running on your developer machine.
 
 **Want to run the automated feature tests in CI / CD pipelines?** 
 
@@ -123,7 +117,6 @@ Here is an example environment variable setup:
   "redcap_version": "13.1.37",
   "language": "English",
   "redcap_hooks_path": "/var/www/html/hook_functions.php",
-  "redcap_source_path": "../redcap_source",
   "temp_folder": "/var/www/html/temp",
   "mysql": {
     "host": "db",
@@ -246,11 +239,8 @@ https://github.com/vanderbilt-redcap/redcap_rsvc
 
 2. ### Gherkin Step Builder 
 
-[<img src="https://github.com/vanderbilt-redcap/redcap_cypress/blob/master/GherkinStepBuilder.png" alt="Gherkin Step Builder">](https://vanderbilt-redcap.github.io/redcap_cypress/)
+<img src="https://github.com/vanderbilt-redcap/redcap_cypress/blob/master/GherkinStepBuilder.png" alt="Gherkin Step Builder">
 
 All REDCap feature tests run through this repository are powered by Step Definitions defined in the [RCTF](https://github.com/vanderbilt-redcap/rctf) node package.   
 
-Hundreds of steps are available, and we built a [Gherkin Step Builder](https://vanderbilt-redcap.github.io/redcap_cypress/) tool to help you generate your own syntactically valid Steps in your Feature Tests.
-
-The Gherkin Step Builder is located here:
-https://vanderbilt-redcap.github.io/redcap_cypress/
+Hundreds of steps are available, and we built a [Gherkin Step Builder](https://vanderbilt-redcap.github.io/rctf/) tool to help you generate your own syntactically valid Steps in your Feature Tests.

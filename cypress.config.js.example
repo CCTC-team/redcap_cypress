@@ -163,12 +163,13 @@ module.exports = defineConfig({
         baseUrl: 'https://localhost:8443',
         stepDefinitions: 'cypress/support/step_definitions',
         specPattern: [ 'cypress/features/*.feature',
-                       'redcap_rsvc/*/[ABCDE]/*/*.feature',
-                       '!redcap_rsvc/*/[ABCDE]/*/*REDUNDANT*.feature'
+                       'redcap_rsvc/*/[ABC]/*/*.feature',
+                       '!redcap_rsvc/*/[ABC]/*/*REDUNDANT*.feature',
+                       '../redcap_source/modules/*/automated-tests/**/*.feature'
                      ],
         testIsolation: false,
         experimentalMemoryManagement: false,
-        numTestsKeptInMemory: 0,
+        numTestsKeptInMemory: 50,
         retries: {
             runMode: 2,
             openMode: 0
@@ -178,9 +179,9 @@ module.exports = defineConfig({
         trashAssetsBeforeRuns: true,
         viewportWidth: 1600,
         viewportHeight: 1200,
-        defaultCommandTimeout: 60000,
-        responseTimeout: 60000,
-        requestTimeout: 60000,
+        defaultCommandTimeout: 20000,
+        responseTimeout: 20000,
+        requestTimeout: 20000,
         chromeWebSecurity: false,
         scrollBehavior: 'bottom',
         watchForFileChanges: true,

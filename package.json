@@ -1,24 +1,19 @@
 {
   "name": "redcap_cypress",
-  "version": "14.7.0",
   "description": "This repository is a template to assist you in writing **automated tests for REDCap**.",
-  "devDependencies": {
-    "cypress": "^13.17.0",
-    "cypress-file-upload": "^5.0.8",
-    "del-cli": "^5.1.0",
-    "move-cli": "^2.0.0",
-    "rctf": "git://github.com/vanderbilt-redcap/rctf#main",
-    "redcap_rsvc": "git://github.com/vanderbilt-redcap/redcap_rsvc#staging"
-  },
-  "optionalDependencies": {
-    "redcap_cypress_doc_theme": "git://github.com/vanderbilt-redcap/redcap_cypress_doc_theme#bf84bfa"
+  "dependencies": {
+    "rctf": "github:vanderbilt-redcap/rctf#4334857a8ad1c05808bdee0c7c129803251aee70",
+    "redcap_rsvc": "github:vanderbilt-redcap/redcap_rsvc#01cdfac208c29aa5db7c4a4ffa02be3c7b8f824b"
   },
   "peerDependencies": {
-    "cypress": "^13.13.0"
+    "cypress": "*"
+  },
+  "devDependencies": {
+    "del-cli": "^6",
+    "move-cli": "^2"
   },
   "overrides": {
-    "glob": "^9.3.5",
-    "reflect-metadata": "0.2.2"
+    "glob": "9.3.5"
   },
   "scripts": {
     "about-these-scripts": "These scripts are intended for a cloud environment, and do not currently make sense for local development where redcap_rsvc is a git checkout rather than a copy from node_modules.",
@@ -38,8 +33,7 @@
     "rctf:launch_tests": "CYPRESS_prettyEnabled=true CYPRESS_baseUrl=http://localhost:6060 npx cypress run --env testMode=true --config specPattern=./cypress/features/tests/*/*.spec.feature --browser chrome",
     "rctf:official_tests": "npm run rctf:get_step_features && CYPRESS_VIDEO=false CYPRESS_prettyEnabled=true CYPRESS_baseUrl=http://localhost:6060 npx cypress run --env testMode=true --config specPattern=./cypress/features/tests/*/*.spec.feature --record --key $RECORD_KEY --group rctf-tests --browser chrome",
     "rctf:write_step_tests": "npm run rctf:get_step_features && CYPRESS_baseUrl=http://localhost:6060 npx cypress open --env testMode=true --config specPattern=./cypress/features/tests/*/*.spec.feature",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "docs:build": "npm install git://github.com/documentationjs/documentation#97e9361 --no-save && ./node_modules/.bin/documentation build ./node_modules/rctf/step_definitions/* ./node_modules/rctf/step_definitions/support/* -f html --theme node_modules/redcap_cypress_doc_theme/index.js -o docs"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "cypress-cucumber-preprocessor": {
     "step_definitions": "cypress/support/step_definitions/"
@@ -49,9 +43,5 @@
     "url": "https://github.com/vanderbilt-redcap/redcap_cypress.git"
   },
   "author": "Adam De Fouw",
-  "license": "MIT",
-  "dependencies": {
-    "@badeball/cypress-cucumber-preprocessor": "^22",
-    "adm-zip": "^0.5.16"
-  }
+  "license": "MIT"
 }
