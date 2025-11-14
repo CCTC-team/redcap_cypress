@@ -1184,14 +1184,14 @@ Given("I select the option {string} from the dropdown field for {resolveType} in
 /**
  * @module Interactions
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I click on the {onlineDesignerFieldIcons} icon for the Comment {string}
+ * @example I click on the {string} icon for the Comment {string}
  * @param {string} icon - icon to click
  * @param {string} comment - comment
  * @description clicks on the icon of the comment
  */
-Given("I click on the {onlineDesignerFieldIcons} icon for the Comment {string}", (icon, comment) => {
+Given("I click on the {string} icon for the Comment {string}", (icon, comment) => {
     cy.get('td').contains(comment).parents('tr').within(() => {
-        cy.get(onlineDesignerFieldIcons[icon]).click()  
+        cy.get(window.onlineDesignerFieldIcons[icon]).click()
     })
 })
 
@@ -1199,14 +1199,14 @@ Given("I click on the {onlineDesignerFieldIcons} icon for the Comment {string}",
 /**
  * @module Interactions
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I should NOT see {onlineDesignerFieldIcons} icon for the Comment {string}
+ * @example I should NOT see {string} icon for the Comment {string}
  * @param {string} icon - icon to verify
  * @param {string} comment - comment
  * @description verifies the icon of the comment
  */
-Given("I should NOT see {onlineDesignerFieldIcons} icon for the Comment {string}", (icon, comment) => {
+Given("I should NOT see {string} icon for the Comment {string}", (icon, comment) => {
     cy.get('td').contains(comment).parents('tr').within(() => {
-        cy.get(onlineDesignerFieldIcons[icon]).should('not.exist')
+        cy.get(window.onlineDesignerFieldIcons[icon]).should('not.exist')
     })
 })
 
