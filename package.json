@@ -7,7 +7,7 @@
     "cypress-file-upload": "^5.0.8",
     "del-cli": "^5.1.0",
     "move-cli": "^2.0.0",
-    "rctf": "git://github.com/vanderbilt-redcap/rctf#main",
+    "rctf": "git://github.com/CCTC-team/rctf#MX",
     "redcap_rsvc": "git://github.com/vanderbilt-redcap/redcap_rsvc#staging"
   },
   "optionalDependencies": {
