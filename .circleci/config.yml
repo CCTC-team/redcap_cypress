@@ -10,6 +10,10 @@ executors:
       resource_class: large
     environment:
       REDCAP_VERSION: "14.7.0"
+      CCTC_DOCKER_BRANCH: "main"
+      CYPRESS_BRANCH: "new_redcap_val"
+      RSVC_BRANCH: "new_redcap_val"
+      RCTF_BRANCH: "main"
 
 workflows:
   version: 2
@@ -34,15 +38,14 @@ commands:
           name: Build the REDCap Image
           command: |
             cd << parameters.dir >>
-            git clone --branch main https://github.com/vanderbilt-redcap/redcap_docker ../redcap_docker
-            cd ../redcap_docker
+            git clone --branch ${CCTC_DOCKER_BRANCH} git@github.com:CCTC-team/CCTC_REDCap_Docker.git ../CCTC_REDCap_Docker
+            cd ../CCTC_REDCap_Docker
             git log -1 # Include current commit in build logs
-            git apply docker-compose.xdebug-volume-patch
       - run:
           name: Get REDCap Source
           command: |
             cd << parameters.dir >>/..
-            mkdir redcap_source
+            mkdir -p redcap_source
             cd redcap_source
             if [[ "$REDCAP_VERSION" = "99.99.99" ]]; then
               export BRANCH=master
@@ -53,7 +56,14 @@ commands:
             git -C redcap_v${REDCAP_VERSION} log -1 # Include current commit in build logs
             cp -a redcap_v${REDCAP_VERSION}/Resources/install_files/redcap/* .
             cp -a redcap_v${REDCAP_VERSION}/Resources/nonversioned_files/* .
-            cp /home/circleci/project/.circleci/redcap_install_files/* .
+            # Copy database.php if exists in CircleCI config
+            if [ -f /home/circleci/project/.circleci/redcap_install_files/database.php ]; then
+              cp /home/circleci/project/.circleci/redcap_install_files/database.php .
+            fi
+      - run:
+          name: Create MySQL Volume
+          command: |
+            docker volume create mySQLVolume
 
 jobs:
   run-tests:
@@ -61,20 +71,28 @@ jobs:
     parallelism: 30
     steps:
       - checkout
+      - run:
+          name: Checkout redcap_val branch
+          command: |
+            cd /home/circleci/project
+            git fetch origin ${CYPRESS_BRANCH}
+            git checkout ${CYPRESS_BRANCH}
+            git log -1 # Show current commit
       - setup-redcap
       - run:
           name: Start Docker REDCap Container
           command: |
-            cd /home/circleci/redcap_docker
-            docker-compose up -d
+            cd /home/circleci/CCTC_REDCap_Docker
+            docker compose build
+            docker compose up -d
       - run:
           name: Install composer dependencies
           command: |
-            docker exec -it redcap_docker-app-1 sh -c "cd /var/www/html/redcap_v${REDCAP_VERSION} && COMPOSER_DISABLE_XDEBUG_WARN=1 composer require --dev phpunit/php-code-coverage:^11"
+            docker exec -it debian sh -c "cd /var/www/html/redcap_v${REDCAP_VERSION} && COMPOSER_DISABLE_XDEBUG_WARN=1 composer require --dev phpunit/php-code-coverage:^11"
       - run:
           name: Permissions on coverage files
           command: |
-            docker exec -it redcap_docker-app-1 sh -c "chmod 777 /tmp/path/coverage"
+            docker exec -it debian sh -c "chmod 777 /tmp/path/coverage"
       - run:
           name: Change eDocs & Temp folder permissions
           command: |
@@ -86,6 +104,17 @@ jobs:
             sed s/PID/$PROJECT_ID/g cypress.config.js.example > cypress.config.js
             mv cypress.env.json.example cypress.env.json
             sed -i '/  "redcap_version": ".*",/c\  "redcap_version": "'${REDCAP_VERSION}'",' cypress.env.json
+      - run:
+          name: Update package.json dependencies for CCTC-team repositories
+          command: |
+            cd /home/circleci/project
+            # Update rctf to use CCTC-team main branch
+            sed -i 's|"rctf": "github:vanderbilt-redcap/rctf#[^"]*"|"rctf": "github:CCTC-team/rctf#'${RCTF_BRANCH}'"|' package.json
+            # Update redcap_rsvc to use CCTC-team redcap_val branch
+            sed -i 's|"redcap_rsvc": "github:vanderbilt-redcap/redcap_rsvc#[^"]*"|"redcap_rsvc": "github:CCTC-team/redcap_rsvc#'${RSVC_BRANCH}'"|' package.json
+            # Update repository URL to CCTC-team
+            sed -i 's|"url": "https://github.com/vanderbilt-redcap/redcap_cypress.git"|"url": "https://github.com/CCTC-team/redcap_cypress.git"|' package.json
+            cat package.json | grep -E '(rctf|redcap_rsvc|repository)' -A 1
       - run:
           name: Install Cypress
           command: |
@@ -102,7 +131,7 @@ jobs:
       - run:
           name: Coverage Report
           command: |
-            docker exec -i redcap_docker-app-1 php /var/www/html/phpcov.phar merge --clover /tmp/path/coverage-report/merged-coverage-${CIRCLE_NODE_INDEX}.xml /tmp/path/coverage
+            docker exec -i debian php /var/www/html/phpcov.phar merge --clover /tmp/path/coverage-report/merged-coverage-${CIRCLE_NODE_INDEX}.xml /tmp/path/coverage
       - run:
           name: Debug Workspace Contents
           command: ls -l /home/circleci/project/coverage-report
@@ -121,6 +150,13 @@ jobs:
     executor: shared-executor
     steps:
       - checkout
+      - run:
+          name: Checkout redcap_val branch
+          command: |
+            cd /home/circleci/project
+            git fetch origin ${CYPRESS_BRANCH}
+            git checkout ${CYPRESS_BRANCH}
+            git log -1 # Show current commit
       - attach_workspace:
           at: /home/circleci/project/coverage
       - setup-redcap:
@@ -139,17 +175,17 @@ jobs:
       - run:
           name: Start Docker REDCap Container
           command: |
-            cd /home/circleci/redcap_docker
-            docker-compose up -d
+            cd /home/circleci/CCTC_REDCap_Docker
+            docker compose up -d
       - run:
           name: Coverage Report
           command: |
-            docker exec -i redcap_docker-app-1 php /var/www/html/phpcov.phar merge --html /tmp/path/coverage-report/html-report /tmp/path/coverage
+            docker exec -i debian php /var/www/html/phpcov.phar merge --html /tmp/path/coverage-report/html-report /tmp/path/coverage
       - run:
           name: Push to Repository
           command: |
             cd /home/circleci/project
-            GIT_SSH_COMMAND="ssh -i ~/.ssh/id_rsa_dba1897a8caca68e1a8a5c2185311de3" git clone --depth=1 git@github.com:vanderbilt-redcap/redcap_cypress_build_reports.git
+            GIT_SSH_COMMAND="ssh -i ~/.ssh/id_rsa_dba1897a8caca68e1a8a5c2185311de3" git clone --depth=1 git@github.com:CCTC-team/redcap_cypress_build_reports.git
             cd coverage-report/html-report
             # Run the zip command from inside the dir of files we want to include to avoid extraneous parent dirs in the zip
             sudo zip -r ../../redcap_cypress_build_reports/"html-report-${REDCAP_VERSION}.zip" *
