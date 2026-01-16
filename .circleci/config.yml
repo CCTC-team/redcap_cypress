@@ -11,8 +11,8 @@ executors:
     environment:
       REDCAP_VERSION: "14.7.0"
       CCTC_DOCKER_BRANCH: "main"
-      CYPRESS_BRANCH: "new_redcap_val"
-      RSVC_BRANCH: "new_redcap_val"
+      CYPRESS_BRANCH: "redcap_val"
+      RSVC_BRANCH: "redcap_val"
       RCTF_BRANCH: "main"
 
 workflows:
