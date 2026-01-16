@@ -160,11 +160,12 @@ module.exports = defineConfig({
           return config
         },
 
-        baseUrl: 'https://localhost:8443',
+        baseUrl: 'http://localhost:8080',
         stepDefinitions: 'cypress/support/step_definitions',
         specPattern: [ 'cypress/features/*.feature',
                        'redcap_rsvc/*/[ABC]/*/*.feature',
                        '!redcap_rsvc/*/[ABC]/*/*REDUNDANT*.feature',
+                       '../redcap_source/modules/*/automated_tests/**/*.feature',
                        '../redcap_source/modules/*/automated-tests/**/*.feature'
                      ],
         testIsolation: false,
