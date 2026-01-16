@@ -10,7 +10,7 @@ executors:
       resource_class: large
     environment:
       REDCAP_VERSION: "14.7.0"
-      CCTC_DOCKER_BRANCH: "main"
+      CCTC_DOCKER_BRANCH: "MX_MAC"
       CYPRESS_BRANCH: "redcap_val"
       RSVC_BRANCH: "redcap_val"
       RCTF_BRANCH: "main"
@@ -110,8 +110,8 @@ jobs:
             cd /home/circleci/project
             # Update rctf to use CCTC-team main branch
             sed -i 's|"rctf": "github:vanderbilt-redcap/rctf#[^"]*"|"rctf": "github:CCTC-team/rctf#'${RCTF_BRANCH}'"|' package.json
-            # Update redcap_rsvc to use CCTC-team redcap_val branch
-            sed -i 's|"redcap_rsvc": "github:vanderbilt-redcap/redcap_rsvc#[^"]*"|"redcap_rsvc": "github:CCTC-team/redcap_rsvc#'${RSVC_BRANCH}'"|' package.json
+            # Update redcap_rsvc to use CCTC-team/vanderbilt_redcap_rsvc redcap_val branch
+            sed -i 's|"redcap_rsvc": "github:vanderbilt-redcap/redcap_rsvc#[^"]*"|"redcap_rsvc": "github:CCTC-team/vanderbilt_redcap_rsvc#'${RSVC_BRANCH}'"|' package.json
             # Update repository URL to CCTC-team
             sed -i 's|"url": "https://github.com/vanderbilt-redcap/redcap_cypress.git"|"url": "https://github.com/CCTC-team/redcap_cypress.git"|' package.json
             cat package.json | grep -E '(rctf|redcap_rsvc|repository)' -A 1
@@ -162,17 +162,6 @@ jobs:
       - setup-redcap:
           dir: "/home/circleci/project/"
       - run:
-          name: Push PASSED Videos to VUMC REDCap project
-          command: |
-            if git log -1 --pretty=%B | grep -q '\[video-upload\]'; then
-              echo "Attempting video upload to REDCap project ..."
-              cd /home/circleci/project/coverage/redcap_rsvc
-              node upload_videos_to_redcap_project.js $REDCAP_API_TOKEN $PROJECT_ID $REDCAP_API_URL
-            else
-              echo "Skipping video and code coverage upload.  To push videos to project and update code coverage, use include '[video-upload]' in your commit message."
-              circleci-agent step halt
-            fi          
-      - run:
           name: Start Docker REDCap Container
           command: |
             cd /home/circleci/CCTC_REDCap_Docker
@@ -181,18 +170,6 @@ jobs:
           name: Coverage Report
           command: |
             docker exec -i debian php /var/www/html/phpcov.phar merge --html /tmp/path/coverage-report/html-report /tmp/path/coverage
-      - run:
-          name: Push to Repository
-          command: |
-            cd /home/circleci/project
-            GIT_SSH_COMMAND="ssh -i ~/.ssh/id_rsa_dba1897a8caca68e1a8a5c2185311de3" git clone --depth=1 git@github.com:CCTC-team/redcap_cypress_build_reports.git
-            cd coverage-report/html-report
-            # Run the zip command from inside the dir of files we want to include to avoid extraneous parent dirs in the zip
-            sudo zip -r ../../redcap_cypress_build_reports/"html-report-${REDCAP_VERSION}.zip" *
-            cd ../../redcap_cypress_build_reports
-            git add "html-report-${REDCAP_VERSION}.zip"
-            git commit -m "Add latest HTML Report for version ${REDCAP_VERSION}"
-            GIT_SSH_COMMAND="ssh -i ~/.ssh/id_rsa_dba1897a8caca68e1a8a5c2185311de3" git push
 
       - store_artifacts:
           path: /home/circleci/project/coverage/cypress/videos
