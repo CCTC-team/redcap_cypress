@@ -133,7 +133,9 @@ jobs:
             CYPRESS_prettyEnabled=true npx cypress run --record --key $RECORD_KEY --parallel --group core-tests --browser chrome --reporter junit --reporter-options=mochaFile=coverage/test-results/[hash].xml || true
       - run:
           name: Debug Cypress Videos
-          command: ls -l /home/circleci/project/cypress/videos
+          command: |
+            mkdir -p /home/circleci/project/cypress/videos
+            ls -l /home/circleci/project/cypress/videos
       - persist_to_workspace:
           root: .
           paths:
