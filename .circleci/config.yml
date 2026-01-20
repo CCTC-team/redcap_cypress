@@ -111,6 +111,9 @@ jobs:
             sed -i '/"host":/c\    "host": "mariadb",' cypress.env.json
             sed -i '/"path":/c\    "path": "docker exec -i mariadb mysql",' cypress.env.json
             sed -i '/"port":/c\    "port": "3306",' cypress.env.json
+            # Add missing path configurations
+            sed -i '/"temp_folder":/a\  "edocs_folder": "/home/circleci/redcap_source/edocs",' cypress.env.json
+            sed -i '/"redcap_version":/a\  "redcap_source_path": "/home/circleci/redcap_source",' cypress.env.json
       - run:
           name: Update package.json dependencies for CCTC-team repositories
           command: |
