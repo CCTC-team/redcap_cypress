@@ -78,6 +78,9 @@ echo ""
 check_repo_branch "CCTC_REDCap_Docker" "MX_MAC" "CCTC REDCap Docker"
 ((failures+=$?))
 
+check_repo_branch "redcap_source" "14.7.0" "REDCap Source (TODO: Replace with your actual repo/branch)"
+((failures+=$?))
+
 check_repo_branch "redcap_cypress" "redcap_val" "REDCap Cypress"
 ((failures+=$?))
 

@@ -39,3 +39,6 @@ cypress/features/Continue\ Last\ Run.feature
 /mysql
 
 mysql-cli.zip
+
+# CircleCI SSH keys (private - do not commit)
+circleci-ssh-keys/

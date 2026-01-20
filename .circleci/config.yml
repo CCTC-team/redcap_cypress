@@ -44,16 +44,23 @@ commands:
             cd << parameters.dir >>/..
             mkdir -p redcap_source
             cd redcap_source
+
+            # Determine branch/tag for REDCap version
             if [[ "$REDCAP_VERSION" = "99.99.99" ]]; then
-              export BRANCH=master
+              export BRANCH=main
             else
               export BRANCH=$REDCAP_VERSION
             fi
-            git clone --depth=1 --branch=$BRANCH git@github.com:vanderbilt-redcap/REDCap.git redcap_v${REDCAP_VERSION}
-            git -C redcap_v${REDCAP_VERSION} log -1 # Include current commit in build logs
-            cp -a redcap_v${REDCAP_VERSION}/Resources/install_files/redcap/* .
-            cp -a redcap_v${REDCAP_VERSION}/Resources/nonversioned_files/* .
-            # Copy database.php if exists in CircleCI config
+
+            # Clone REDCap install files from CCTC-team private repository
+            git clone --depth=1 --branch=$BRANCH git@github.com:CCTC-team/redcap_source.git redcap_source
+            git -C redcap_source log -1 # Include current commit in build logs
+
+            # Copy REDCap files from nested folder structure
+            # Repository has: redcap_v14.7.0/ folder containing all files
+            cp -a redcap_source/redcap_v${REDCAP_VERSION}/* .
+
+            # Copy database.php from CircleCI config (overrides the one from repo)
             if [ -f /home/circleci/project/.circleci/redcap_install_files/database.php ]; then
               cp /home/circleci/project/.circleci/redcap_install_files/database.php .
             fi

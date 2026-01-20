@@ -13,6 +13,9 @@ cd circleci-ssh-keys
 echo -e "\n=== Generating key for CCTC_REDCap_Docker ==="
 ssh-keygen -t ed25519 -C "circleci-cctc-docker" -f cctc_docker_key -N ""
 
+echo -e "\n=== Generating key for redcap_source ==="
+ssh-keygen -t ed25519 -C "circleci-redcap-source" -f redcap_source_key -N ""
+
 echo -e "\n=== Generating key for vanderbilt_redcap_rsvc ==="
 ssh-keygen -t ed25519 -C "circleci-vanderbilt-redcap-rsvc" -f vanderbilt_redcap_rsvc_key -N ""
 
@@ -29,6 +32,10 @@ echo ""
 echo "   For CCTC_REDCap_Docker:"
 echo "   https://github.com/CCTC-team/CCTC_REDCap_Docker/settings/keys/new"
 cat cctc_docker_key.pub
+echo ""
+echo "   For redcap_source (TODO: Replace with your actual repo name):"
+echo "   https://github.com/CCTC-team/redcap_source/settings/keys/new"
+cat redcap_source_key.pub
 echo ""
 echo "   For vanderbilt_redcap_rsvc:"
 echo "   https://github.com/CCTC-team/vanderbilt_redcap_rsvc/settings/keys/new"
