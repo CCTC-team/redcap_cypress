@@ -91,14 +91,6 @@ jobs:
             docker compose build
             docker compose up -d
       - run:
-          name: Install composer dependencies
-          command: |
-            docker exec -it debian sh -c "cd /var/www/html/redcap_v${REDCAP_VERSION} && COMPOSER_DISABLE_XDEBUG_WARN=1 composer require --dev phpunit/php-code-coverage:^11"
-      - run:
-          name: Permissions on coverage files
-          command: |
-            docker exec -it debian sh -c "chmod 777 /tmp/path/coverage"
-      - run:
           name: Change eDocs & Temp folder permissions
           command: |
             sudo chmod 777 /home/circleci/edocs
@@ -134,20 +126,11 @@ jobs:
             export UID # Referenced in docker-compose.yml by 'if running via automation' RCTF steps
             CYPRESS_prettyEnabled=true npx cypress run --record --key $RECORD_KEY --parallel --group core-tests --browser chrome --reporter junit --reporter-options=mochaFile=coverage/test-results/[hash].xml || true
       - run:
-          name: Coverage Report
-          command: |
-            docker exec -i debian php /var/www/html/phpcov.phar merge --clover /tmp/path/coverage-report/merged-coverage-${CIRCLE_NODE_INDEX}.xml /tmp/path/coverage
-      - run:
-          name: Debug Workspace Contents
-          command: ls -l /home/circleci/project/coverage-report
-      - run:
           name: Debug Cypress Videos
           command: ls -l /home/circleci/project/cypress/videos
       - persist_to_workspace:
           root: .
           paths:
-            - coverage-report
-            - coverage
             - cypress/videos
             - redcap_rsvc
 
@@ -162,8 +145,6 @@ jobs:
             git fetch origin ${CYPRESS_BRANCH}
             git checkout ${CYPRESS_BRANCH}
             git log -1 # Show current commit
-      - attach_workspace:
-          at: /home/circleci/project/coverage
       - setup-redcap:
           dir: "/home/circleci/project/"
       - run:
@@ -171,11 +152,6 @@ jobs:
           command: |
             cd /home/circleci/CCTC_REDCap_Docker
             docker compose up -d
-      - run:
-          name: Coverage Report
-          command: |
-            docker exec -i debian php /var/www/html/phpcov.phar merge --html /tmp/path/coverage-report/html-report /tmp/path/coverage
-
       - store_artifacts:
           path: /home/circleci/project/coverage/cypress/videos
           destination: /home/circleci/project/coverage/cypress/videos
