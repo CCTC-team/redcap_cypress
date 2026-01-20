@@ -91,9 +91,15 @@ jobs:
             docker compose build
             docker compose up -d
       - run:
-          name: Change eDocs & Temp folder permissions
+          name: Set permissions for eDocs & Temp folders
           command: |
-            sudo chmod 777 /home/circleci/edocs
+            # eDocs and temp folders are at redcap_source level (sibling to redcap_v14.7.0/)
+            # Create them if they don't exist
+            mkdir -p /home/circleci/redcap_source/edocs
+            mkdir -p /home/circleci/redcap_source/temp
+            # Make them writable by the Docker container
+            sudo chmod -R 777 /home/circleci/redcap_source/edocs
+            sudo chmod -R 777 /home/circleci/redcap_source/temp
       - run:
           name: Configure Cypress environment
           command: |
