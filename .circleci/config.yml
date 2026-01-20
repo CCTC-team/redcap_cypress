@@ -107,6 +107,10 @@ jobs:
             sed s/PID/$PROJECT_ID/g cypress.config.js.example > cypress.config.js
             mv cypress.env.json.example cypress.env.json
             sed -i '/  "redcap_version": ".*",/c\  "redcap_version": "'${REDCAP_VERSION}'",' cypress.env.json
+            # Update MySQL configuration to use docker exec
+            sed -i '/"host":/c\    "host": "mariadb",' cypress.env.json
+            sed -i '/"path":/c\    "path": "docker exec -i mariadb mysql",' cypress.env.json
+            sed -i '/"port":/c\    "port": "3306",' cypress.env.json
       - run:
           name: Update package.json dependencies for CCTC-team repositories
           command: |
