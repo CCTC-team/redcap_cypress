@@ -1,0 +1,262 @@
+name: REDCap Cypress Tests
+
+on:
+  push:
+    branches:
+      - new_redcap_val
+  workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}/redcap-env
+  REDCAP_VERSION: "14.7.0"
+  BOOTSTRAPPING_REDCAP_VERSION: "13.1.37"
+
+jobs:
+  cypress-tests:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: read
+      checks: write  # For test results
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          ssh-key: ${{ secrets.DEPLOY_KEY }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+
+      - name: Install MySQL Client
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y mysql-client
+
+      - name: Clone private repositories
+        env:
+          GH_PAT: ${{ secrets.CCTC_TEAM_PAT }}
+          REDCAP_SSH_KEY: ${{ secrets.REDCAP_SOURCE_SSH_KEY }}
+        run: |
+          # Clone CCTC_REDCap_Docker if not already present
+          if [ ! -d "CCTC_REDCap_Docker" ]; then
+            git clone --branch MX_MAC --depth=1 https://x-access-token:${GH_PAT}@github.com/CCTC-team/CCTC_REDCap_Docker.git
+          fi
+
+          # Setup SSH for private repos
+          mkdir -p ~/.ssh
+          echo "$REDCAP_SSH_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+
+          # Clone redcap_source with SSH
+          if [ ! -d "redcap_source" ]; then
+            GIT_SSH_COMMAND="ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no" \
+              git clone --branch redcap-cypress --depth=1 git@github.com:aldefouw/redcap_source.git
+          fi
+
+          # Clone REDCap core (adjust repo and branch as needed)
+          # Uncomment and modify if you need to clone REDCap core separately
+          # GIT_SSH_COMMAND="ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no" \
+          #   git clone --depth=1 git@github.com:vanderbilt-redcap/REDCap.git redcap_source/redcap_v${REDCAP_VERSION}
+
+      - name: Create persistent MySQL volume
+        run: |
+          docker volume create mySQLVolume
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Pull Docker image
+        run: |
+          docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+
+      - name: Tag Docker image for use
+        run: |
+          docker tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest cctc_redcap_docker-app
+
+      - name: Start Docker services
+        run: |
+          cd CCTC_REDCap_Docker
+          docker compose up -d
+
+      - name: Wait for services to be ready
+        run: |
+          echo "Waiting for MariaDB to be ready..."
+          timeout 60 bash -c 'until docker exec mariadb mysqladmin ping -h localhost --silent; do sleep 2; done'
+
+          echo "Waiting for Apache to be ready..."
+          timeout 60 bash -c 'until curl -k -s -f https://localhost:8443 > /dev/null; do sleep 2; done'
+
+          echo "Services are ready!"
+          docker ps -a
+
+      - name: Install Composer dependencies in container
+        run: |
+          # Check if bootstrapping version exists before installing composer deps
+          if [ -d "redcap_source/redcap_v${BOOTSTRAPPING_REDCAP_VERSION}" ]; then
+            docker exec debian sh -c "cd /var/www/html/redcap_v${BOOTSTRAPPING_REDCAP_VERSION} && COMPOSER_DISABLE_XDEBUG_WARN=1 composer install"
+          else
+            echo "Bootstrapping version not found, skipping composer install"
+          fi
+
+      - name: Reload Docker services
+        run: |
+          cd CCTC_REDCap_Docker
+          docker compose down
+          docker compose up -d
+
+      - name: Wait for services after reload
+        run: |
+          timeout 60 bash -c 'until docker exec mariadb mysqladmin ping -h localhost --silent; do sleep 2; done'
+          timeout 60 bash -c 'until curl -k -s -f https://localhost:8443 > /dev/null; do sleep 2; done'
+          echo "Services restarted successfully"
+
+      - name: Set permissions
+        run: |
+          docker exec debian sh -c "mkdir -p /tmp/path/coverage && chmod 777 /tmp/path/coverage"
+          sudo chmod -R 777 ${{ github.workspace }}/redcap_source/edocs || echo "edocs folder doesn't exist yet"
+          sudo chmod -R 777 ${{ github.workspace }}/redcap_source/temp || echo "temp folder doesn't exist yet"
+
+      - name: Configure Cypress environment
+        env:
+          PROJECT_ID: ${{ secrets.PROJECT_ID }}
+        run: |
+          # Configure cypress.config.js
+          if [ -f "cypress.config.js.example" ]; then
+            cp cypress.config.js.example cypress.config.js
+            # Replace PID if needed (currently hardcoded as '6dw6bj')
+            if [ -n "$PROJECT_ID" ]; then
+              sed -i "s/projectId: '6dw6bj'/projectId: '$PROJECT_ID'/g" cypress.config.js
+            fi
+          fi
+
+          # Configure cypress.env.json
+          if [ -f "cypress.env.json.example" ]; then
+            cp cypress.env.json.example cypress.env.json
+
+            # Update REDCap version
+            sed -i "s/\"redcap_version\": \".*\"/\"redcap_version\": \"${REDCAP_VERSION}\"/g" cypress.env.json
+
+            # Update MySQL host to use mariadb container
+            sed -i 's/"host": "127.0.0.1"/"host": "mariadb"/g' cypress.env.json
+
+            # Update MySQL path for Docker exec
+            sed -i 's/"path": "mysql"/"path": "docker exec -i mariadb mysql"/g' cypress.env.json
+          fi
+
+          echo "Cypress configuration complete"
+          echo "cypress.config.js content:"
+          head -20 cypress.config.js
+          echo ""
+          echo "cypress.env.json content:"
+          cat cypress.env.json
+
+      - name: Update package.json for CCTC-team repositories
+        env:
+          GH_PAT: ${{ secrets.CCTC_TEAM_PAT }}
+        run: |
+          # Update rctf to CCTC-team fork
+          npm pkg set devDependencies.rctf="git+https://x-access-token:${GH_PAT}@github.com/CCTC-team/rctf.git#MX"
+
+          # Update redcap_rsvc to staging branch
+          npm pkg set devDependencies.redcap_rsvc="git://github.com/vanderbilt-redcap/redcap_rsvc#staging"
+
+          echo "Updated package.json dependencies:"
+          npm pkg get devDependencies.rctf
+          npm pkg get devDependencies.redcap_rsvc
+
+      - name: Install Cypress and dependencies
+        run: |
+          npm install
+          npm run redcap_rsvc:install || echo "RSVC install failed or not needed"
+
+      - name: Run Cypress tests (Sequential)
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+        run: |
+          # Run tests with or without recording depending on whether RECORD_KEY is set
+          if [ -n "$CYPRESS_RECORD_KEY" ]; then
+            echo "Running tests with Cypress Dashboard recording..."
+            CYPRESS_prettyEnabled=true npx cypress run \
+              --record \
+              --key $CYPRESS_RECORD_KEY \
+              --group core-tests \
+              --browser chrome \
+              --ci-build-id ${{ github.run_id }}-${{ github.run_attempt }} \
+              --reporter junit \
+              --reporter-options "mochaFile=results/test-results-[hash].xml,toConsole=true" \
+              || true
+          else
+            echo "Running tests without Cypress Dashboard recording..."
+            CYPRESS_prettyEnabled=true npx cypress run \
+              --browser chrome \
+              --reporter junit \
+              --reporter-options "mochaFile=results/test-results-[hash].xml,toConsole=true" \
+              || true
+          fi
+
+      - name: Generate coverage report
+        if: always()
+        run: |
+          # Check if phpcov.phar exists and coverage directory has files
+          if docker exec debian test -f /var/www/html/phpcov.phar; then
+            docker exec debian sh -c "php /var/www/html/phpcov.phar merge \
+              --clover /tmp/path/coverage-report/coverage.xml \
+              /tmp/path/coverage" || echo "Coverage report generation failed"
+          else
+            echo "phpcov.phar not found, skipping coverage report"
+          fi
+
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        if: always()
+        with:
+          files: |
+            results/*.xml
+          check_name: Cypress Test Results
+          comment_title: REDCap Cypress Test Results
+
+      - name: Upload Cypress videos
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cypress-videos
+          path: cypress/videos/
+          retention-days: 30
+          if-no-files-found: warn
+
+      - name: Upload Cypress screenshots
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots/
+          retention-days: 30
+          if-no-files-found: warn
+
+      - name: Upload coverage reports
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: coverage-reports
+          path: /tmp/path/coverage-report/
+          retention-days: 30
+          if-no-files-found: warn
+
+      - name: Cleanup
+        if: always()
+        run: |
+          cd CCTC_REDCap_Docker
+          docker compose down
+          docker volume rm mySQLVolume || echo "Volume already removed or doesn't exist"
