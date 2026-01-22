@@ -11,6 +11,10 @@ env:
   IMAGE_NAME: ${{ github.repository }}/redcap-env
   REDCAP_VERSION: "14.7.0"
   BOOTSTRAPPING_REDCAP_VERSION: "13.1.37"
+  CCTC_DOCKER_BRANCH: "MX_MAC"
+  CYPRESS_BRANCH: "redcap_val"
+  RSVC_BRANCH: "redcap_val"
+  RCTF_BRANCH: "main"
 
 jobs:
   cypress-tests:
@@ -27,6 +31,12 @@ jobs:
           submodules: recursive
           ssh-key: ${{ secrets.DEPLOY_KEY }}
 
+      - name: Checkout redcap_val branch
+        run: |
+          git fetch origin ${{ env.CYPRESS_BRANCH }}
+          git checkout ${{ env.CYPRESS_BRANCH }}
+          git log -1
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -39,32 +49,52 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y mysql-client
 
-      - name: Clone private repositories
+      - name: Clone CCTC_REDCap_Docker
         env:
           GH_PAT: ${{ secrets.CCTC_TEAM_PAT }}
-          REDCAP_SSH_KEY: ${{ secrets.REDCAP_SOURCE_SSH_KEY }}
         run: |
           # Clone CCTC_REDCap_Docker if not already present
           if [ ! -d "CCTC_REDCap_Docker" ]; then
-            git clone --branch MX_MAC --depth=1 https://x-access-token:${GH_PAT}@github.com/CCTC-team/CCTC_REDCap_Docker.git
+            git clone --branch ${{ env.CCTC_DOCKER_BRANCH }} https://x-access-token:${GH_PAT}@github.com/CCTC-team/CCTC_REDCap_Docker.git
           fi
+          cd CCTC_REDCap_Docker
+          git log -1
 
+      - name: Get REDCap Source
+        env:
+          REDCAP_SSH_KEY: ${{ secrets.REDCAP_SOURCE_SSH_KEY }}
+        run: |
           # Setup SSH for private repos
           mkdir -p ~/.ssh
           echo "$REDCAP_SSH_KEY" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan github.com >> ~/.ssh/known_hosts
 
-          # Clone redcap_source with SSH
-          if [ ! -d "redcap_source" ]; then
-            GIT_SSH_COMMAND="ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no" \
-              git clone --branch redcap-cypress --depth=1 git@github.com:aldefouw/redcap_source.git
+          # Create redcap_source directory
+          mkdir -p redcap_source
+          cd redcap_source
+
+          # Determine branch/tag for REDCap version
+          if [[ "${{ env.REDCAP_VERSION }}" = "99.99.99" ]]; then
+            export BRANCH=main
+          else
+            export BRANCH=${{ env.REDCAP_VERSION }}
           fi
 
-          # Clone REDCap core (adjust repo and branch as needed)
-          # Uncomment and modify if you need to clone REDCap core separately
-          # GIT_SSH_COMMAND="ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no" \
-          #   git clone --depth=1 git@github.com:vanderbilt-redcap/REDCap.git redcap_source/redcap_v${REDCAP_VERSION}
+          # Clone REDCap install files from CCTC-team private repository
+          GIT_SSH_COMMAND="ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no" \
+            git clone --depth=1 --branch=$BRANCH git@github.com:CCTC-team/redcap_source.git redcap_source
+          git -C redcap_source log -1
+
+          # Copy REDCap folder from nested structure (preserve folder name)
+          # Repository has: redcap_v14.7.0/ folder containing all files
+          # Docker expects: /var/www/html/redcap_v14.7.0/ to exist
+          cp -a redcap_source/redcap_v${{ env.REDCAP_VERSION }} .
+
+          # Copy database.php from CircleCI config (overrides the one from repo)
+          if [ -f ${{ github.workspace }}/.circleci/redcap_install_files/database.php ]; then
+            cp ${{ github.workspace }}/.circleci/redcap_install_files/database.php redcap_v${{ env.REDCAP_VERSION }}/
+          fi
 
       - name: Create persistent MySQL volume
         run: |
@@ -122,11 +152,17 @@ jobs:
           timeout 60 bash -c 'until curl -k -s -f https://localhost:8443 > /dev/null; do sleep 2; done'
           echo "Services restarted successfully"
 
-      - name: Set permissions
+      - name: Set permissions for eDocs & Temp folders
         run: |
+          # eDocs and temp folders are at redcap_source level (sibling to redcap_v14.7.0/)
+          # Create them if they don't exist
+          mkdir -p ${{ github.workspace }}/redcap_source/edocs
+          mkdir -p ${{ github.workspace }}/redcap_source/temp
+          # Make them writable by the Docker container
+          sudo chmod -R 777 ${{ github.workspace }}/redcap_source/edocs
+          sudo chmod -R 777 ${{ github.workspace }}/redcap_source/temp
+          # Also create coverage directory
           docker exec debian sh -c "mkdir -p /tmp/path/coverage && chmod 777 /tmp/path/coverage"
-          sudo chmod -R 777 ${{ github.workspace }}/redcap_source/edocs || echo "edocs folder doesn't exist yet"
-          sudo chmod -R 777 ${{ github.workspace }}/redcap_source/temp || echo "temp folder doesn't exist yet"
 
       - name: Configure Cypress environment
         env:
@@ -134,25 +170,24 @@ jobs:
         run: |
           # Configure cypress.config.js
           if [ -f "cypress.config.js.example" ]; then
-            cp cypress.config.js.example cypress.config.js
-            # Replace PID if needed (currently hardcoded as '6dw6bj')
-            if [ -n "$PROJECT_ID" ]; then
-              sed -i "s/projectId: '6dw6bj'/projectId: '$PROJECT_ID'/g" cypress.config.js
-            fi
+            sed "s/PID/$PROJECT_ID/g" cypress.config.js.example > cypress.config.js
           fi
 
           # Configure cypress.env.json
           if [ -f "cypress.env.json.example" ]; then
-            cp cypress.env.json.example cypress.env.json
+            mv cypress.env.json.example cypress.env.json
 
             # Update REDCap version
-            sed -i "s/\"redcap_version\": \".*\"/\"redcap_version\": \"${REDCAP_VERSION}\"/g" cypress.env.json
+            sed -i '/  "redcap_version": ".*",/c\  "redcap_version": "${{ env.REDCAP_VERSION }}",' cypress.env.json
 
-            # Update MySQL host to use mariadb container
-            sed -i 's/"host": "127.0.0.1"/"host": "mariadb"/g' cypress.env.json
+            # Update MySQL configuration to use docker exec
+            sed -i '/"host":/c\    "host": "mariadb",' cypress.env.json
+            sed -i '/"path":/c\    "path": "docker exec -i mariadb mysql",' cypress.env.json
+            sed -i '/"port":/c\    "port": "3306",' cypress.env.json
 
-            # Update MySQL path for Docker exec
-            sed -i 's/"path": "mysql"/"path": "docker exec -i mariadb mysql"/g' cypress.env.json
+            # Add missing path configurations
+            sed -i '/"temp_folder":/a\  "edocs_folder": "${{ github.workspace }}/redcap_source/edocs",' cypress.env.json
+            sed -i '/"redcap_version":/a\  "redcap_source_path": "${{ github.workspace }}/redcap_source",' cypress.env.json
           fi
 
           echo "Cypress configuration complete"
@@ -162,19 +197,19 @@ jobs:
           echo "cypress.env.json content:"
           cat cypress.env.json
 
-      - name: Update package.json for CCTC-team repositories
-        env:
-          GH_PAT: ${{ secrets.CCTC_TEAM_PAT }}
+      - name: Update package.json dependencies for CCTC-team repositories
         run: |
-          # Update rctf to CCTC-team fork
-          npm pkg set devDependencies.rctf="git+https://x-access-token:${GH_PAT}@github.com/CCTC-team/rctf.git#MX"
+          # Update rctf to use CCTC-team branch
+          sed -i 's|"rctf": "github:vanderbilt-redcap/rctf#[^"]*"|"rctf": "github:CCTC-team/rctf#${{ env.RCTF_BRANCH }}"|' package.json
 
-          # Update redcap_rsvc to staging branch
-          npm pkg set devDependencies.redcap_rsvc="git://github.com/vanderbilt-redcap/redcap_rsvc#staging"
+          # Update redcap_rsvc to use CCTC-team/vanderbilt_redcap_rsvc branch
+          sed -i 's|"redcap_rsvc": "github:vanderbilt-redcap/redcap_rsvc#[^"]*"|"redcap_rsvc": "github:CCTC-team/vanderbilt_redcap_rsvc#${{ env.RSVC_BRANCH }}"|' package.json
+
+          # Update repository URL to CCTC-team
+          sed -i 's|"url": "https://github.com/vanderbilt-redcap/redcap_cypress.git"|"url": "https://github.com/CCTC-team/redcap_cypress.git"|' package.json
 
           echo "Updated package.json dependencies:"
-          npm pkg get devDependencies.rctf
-          npm pkg get devDependencies.redcap_rsvc
+          cat package.json | grep -E '(rctf|redcap_rsvc|repository)' -A 1
 
       - name: Install Cypress and dependencies
         run: |

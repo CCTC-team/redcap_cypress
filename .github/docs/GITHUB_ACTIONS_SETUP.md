@@ -41,6 +41,21 @@ Add the following secrets one by one:
 **Purpose:** Access CCTC-team private repositories
 
 **How to create:**
+
+**Option 1: Classic Token (Recommended - works for cross-organization access)**
+1. Go to GitHub Settings → Developer settings → Personal access tokens → **Tokens (classic)**
+2. Click "Generate new token (classic)"
+3. Set token name: "GitHub Actions - CCTC Repos"
+4. Set expiration: 90 days (or custom)
+5. Select scopes:
+   - ✅ **repo** (Full control of private repositories)
+6. Click "Generate token"
+7. **Copy the token** (you won't see it again!)
+8. Add to GitHub Secrets:
+   - Name: `CCTC_TEAM_PAT`
+   - Value: [paste token]
+
+**Option 2: Fine-Grained Token (If you're a member of CCTC-team organization)**
 1. Go to GitHub Settings → Developer settings → Personal access tokens → Fine-grained tokens
 2. Click "Generate new token"
 3. Set token name: "GitHub Actions - CCTC Repos"
@@ -55,46 +70,93 @@ Add the following secrets one by one:
    - Name: `CCTC_TEAM_PAT`
    - Value: [paste token]
 
-##### B. REDCAP_SOURCE_SSH_KEY (SSH Deploy Key)
+**Option 3: Organization-Level Token (Requires CCTC-team admin)**
+- Contact CCTC-team organization admin
+- Request they create an organization-level PAT or GitHub App
+- Admin will provide the token to add to your secrets
 
-**Purpose:** Clone aldefouw/redcap_source repository
+**Note:** If you cannot access CCTC-team repositories when creating a fine-grained token, use **Option 1 (Classic Token)** instead.
 
-**How to create:**
-1. Generate SSH key pair:
-   ```bash
-   ssh-keygen -t ed25519 -C "github-actions-redcap" -f ~/.ssh/github_redcap_source
-   # Press Enter for no passphrase
-   ```
+##### B. SSH Deploy Keys (REDCAP_SOURCE_SSH_KEY & DEPLOY_KEY)
 
-2. Add public key to repository:
-   - Go to https://github.com/aldefouw/redcap_source/settings/keys
+**Purpose:** Clone private repositories and checkout submodules
+
+**Important:** You can use the **SAME SSH key** for both `REDCAP_SOURCE_SSH_KEY` and `DEPLOY_KEY` secrets. This simplifies management and is recommended for most users.
+
+**Repositories that need this key:**
+- CCTC-team/redcap_source (main REDCap source files)
+- aldefouw/redcap_cypress (submodule - if using git@github.com URL)
+- aldefouw/redcap_docker (submodule - if using git@github.com URL)
+- aldefouw/redcap_rsvc (submodule - if using git@github.com URL)
+
+**Step 1: Generate ONE SSH key pair**
+```bash
+ssh-keygen -t ed25519 -C "github-actions-multi-repo" -f ~/.ssh/github_actions_deploy
+# Press Enter for no passphrase (important for CI/CD)
+```
+
+**Step 2: Add the PUBLIC key to ALL repositories**
+
+You need to add the same public key (`~/.ssh/github_actions_deploy.pub`) to each repository:
+
+```bash
+# First, copy the public key to your clipboard
+cat ~/.ssh/github_actions_deploy.pub
+# Copy the output (starts with ssh-ed25519...)
+```
+
+Then add it as a deploy key to each repository:
+
+1. **CCTC-team/redcap_source**: https://github.com/CCTC-team/redcap_source/settings/keys
    - Click "Add deploy key"
-   - Title: "GitHub Actions CI"
-   - Key: Copy contents of `~/.ssh/github_redcap_source.pub`
-   - Check "Allow write access": **No** (read-only)
+   - Title: `GitHub Actions CI`
+   - Key: [paste public key]
+   - **Allow write access**: NO (read-only)
    - Click "Add key"
 
-3. Add private key to GitHub Secrets:
-   ```bash
-   cat ~/.ssh/github_redcap_source
-   ```
-   - Name: `REDCAP_SOURCE_SSH_KEY`
-   - Value: [paste entire private key including header/footer]
+2. **aldefouw/redcap_cypress**: https://github.com/aldefouw/redcap_cypress/settings/keys
+   - Repeat the same process
+   - Title: `GitHub Actions CI`
+   - Key: [paste same public key]
+   - **Allow write access**: NO
 
-##### C. DEPLOY_KEY (SSH Key for Submodules)
+3. **aldefouw/redcap_docker**: https://github.com/aldefouw/redcap_docker/settings/keys (if needed)
+   - Repeat the same process
 
-**Purpose:** Checkout repository with submodules (redcap_cypress)
+4. **aldefouw/redcap_rsvc**: https://github.com/aldefouw/redcap_rsvc/settings/keys (if needed)
+   - Repeat the same process
 
-**Option 1: Reuse REDCAP_SOURCE_SSH_KEY**
-- If your submodules use the same SSH key, you can reuse the key from step B
-- Name: `DEPLOY_KEY`
-- Value: [same as REDCAP_SOURCE_SSH_KEY]
+**Note:** If you don't have access to add deploy keys to these repositories, contact the repository owner.
 
-**Option 2: Create separate key**
-- Follow same steps as REDCAP_SOURCE_SSH_KEY but generate new key
-- Add public key to each submodule repository's deploy keys
+**Step 3: Add the PRIVATE key to GitHub Secrets (TWICE with different names)**
 
-##### D. CYPRESS_RECORD_KEY (Optional - Cypress Dashboard)
+```bash
+# View the private key
+cat ~/.ssh/github_actions_deploy
+# Copy the entire output including BEGIN/END lines
+```
+
+Add the same private key to two secrets in your repository (Settings → Secrets and variables → Actions):
+
+1. **Secret name:** `REDCAP_SOURCE_SSH_KEY`
+   - Value: [paste entire private key]
+   - Click "Add secret"
+
+2. **Secret name:** `DEPLOY_KEY`
+   - Value: [paste same private key again]
+   - Click "Add secret"
+
+**Why two secrets with the same value?**
+- `DEPLOY_KEY`: Used by `actions/checkout@v4` to clone submodules
+- `REDCAP_SOURCE_SSH_KEY`: Used in workflow scripts to clone redcap_source
+
+**Alternative: Use separate keys** (Advanced - only if you need tighter security)
+- Generate two different key pairs
+- Add first public key to submodule repos → use for `DEPLOY_KEY`
+- Add second public key to CCTC-team/redcap_source → use for `REDCAP_SOURCE_SSH_KEY`
+- This provides isolation but is more complex to manage
+
+##### C. CYPRESS_RECORD_KEY (Optional - Cypress Dashboard)
 
 **Purpose:** Record test results to Cypress Dashboard
 
@@ -109,7 +171,7 @@ Add the following secrets one by one:
 
 **Note:** This is optional. Tests will run without it, but won't record to Dashboard.
 
-##### E. PROJECT_ID (Optional - REDCap Project ID)
+##### D. PROJECT_ID (Optional - REDCap Project ID)
 
 **Purpose:** REDCap project ID for testing (if needed)
 
@@ -123,13 +185,13 @@ Add the following secrets one by one:
 
 #### Secrets Summary Table
 
-| Secret Name | Required | Purpose |
-|-------------|----------|---------|
-| `CCTC_TEAM_PAT` | ✅ Yes | Access CCTC-team repos |
-| `REDCAP_SOURCE_SSH_KEY` | ✅ Yes | Clone redcap_source |
-| `DEPLOY_KEY` | ✅ Yes | Checkout submodules |
-| `CYPRESS_RECORD_KEY` | ⚠️ Optional | Cypress Dashboard recording |
-| `PROJECT_ID` | ⚠️ Optional | Override project ID |
+| Secret Name | Required | Purpose | Notes |
+|-------------|----------|---------|-------|
+| `CCTC_TEAM_PAT` | ✅ Yes | Access CCTC-team repos | Classic token with `repo` scope |
+| `REDCAP_SOURCE_SSH_KEY` | ✅ Yes | Clone redcap_source | Can reuse same SSH key as DEPLOY_KEY |
+| `DEPLOY_KEY` | ✅ Yes | Checkout submodules | Can reuse same SSH key as REDCAP_SOURCE_SSH_KEY |
+| `CYPRESS_RECORD_KEY` | ⚠️ Optional | Cypress Dashboard recording | Only needed if using Cypress Dashboard |
+| `PROJECT_ID` | ⚠️ Optional | Override project ID | Usually not needed (hardcoded in config) |
 
 ### 2. Enable GitHub Container Registry (GHCR)
 

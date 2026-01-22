@@ -14,6 +14,7 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}/redcap-env
+  CCTC_DOCKER_BRANCH: "MX_MAC"
 
 jobs:
   build-and-push:
@@ -34,7 +35,7 @@ jobs:
         run: |
           # Clone CCTC_REDCap_Docker repository if not already present
           if [ ! -d "CCTC_REDCap_Docker" ]; then
-            git clone --branch MX_MAC --depth=1 https://x-access-token:${GH_PAT}@github.com/CCTC-team/CCTC_REDCap_Docker.git
+            git clone --branch ${{ env.CCTC_DOCKER_BRANCH }} --depth=1 https://x-access-token:${GH_PAT}@github.com/CCTC-team/CCTC_REDCap_Docker.git
           fi
 
       - name: Set up Docker Buildx
