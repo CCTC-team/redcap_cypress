@@ -136,14 +136,15 @@ defineParameterType({
 })
 
 defineParameterType({
-    name: 'calendarOption',
-    regexp: /Month|Day|Year/
+    name: 'dropdownOption',
+    regexp: /Month|Day|Year|Expiration/
 })
 
-calendarOption = {
+dropdownOption = {
     'Month' : `select#month`,
     'Day' : `select#day`,
-    'Year' : `select#year`
+    'Year' : `select#year`,
+    'Expiration' : `select#expireDays`
 }
 
 calendarEvent = {
@@ -1605,13 +1606,13 @@ Given("I click on the {calendarEvent} icon for the event named {string} in the S
 /**
  * @module Interactions
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I select {string} on the {calendarOption} dropdown field
+ * @example I select {string} on the {dropdownOption} dropdown field
  * @param {string} text - text to select
- * @param {string} calendarOption - available options: 'Month', 'Day', 'Year'
+ * @param {string} dropdownOption - available options: 'Month', 'Day', 'Year'
  * @description selects the dropdown option for alert form name/status
  */
-Given("I select {string} on the {calendarOption} dropdown field", (text, option) => {
-    cy.get(calendarOption[option]).select(text)
+Given("I select {string} on the {dropdownOption} dropdown field", (text, option) => {
+    cy.get(dropdownOption[option]).select(text)
 })
 
 
