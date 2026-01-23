@@ -261,22 +261,20 @@ drwRights = {
 
 
 /**
- * @module e-consent
+ * @module Interactions
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I select the radio option {string} for the e-consent Framework
- * @param {string} option - option to click for the e-consent Framework
- * @description Clicks on the given option for the e-consent Framework
+ * @example I select the radio option {string} for ASI
+ * @param {string} option - ASI option to select
+ * @description Clicks on the given radio option for ASI
  */
-Given('I select the radio option {string} for the e-consent Framework', (option) => {
-    let value = 0
-
-    if (option == 'Auto-Archiver enabled')
-        value = 1
-    else if (option == 'Auto-Archiver + e-Consent Framework')
-        value = 2
-    else
-        value = 0
-    cy.get('input[type=radio][name=pdf_auto_archive][value='+ value + ']').click()
+Given('I select the radio option {string} for ASI', (option) => {
+    cy.get('div.boldish input[type="radio"]').each(($input) => {
+        const nextText = $input[0].nextSibling?.textContent?.trim()
+        if (nextText && nextText.includes(option.trim())) {
+            cy.wrap($input).click()
+            return false // stop iteration
+        }
+    })
 })
 
 
@@ -606,19 +604,36 @@ Given("I {clickType} the checkbox labeled {addcustomization} in additional custo
     })
 })
 
-
 /**
- * @module Interactions
+ * @module DataImport
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I click on the textarea labeled {string}
- * @param {string} label - the label associated with the textarea field
- * @description Clicks on the textarea field with given label
+ * @param {string} format - the format of the file that is being uploaded (e.g. csv)
+ * @param {string} file_location - the location of the file being uploaded (e.g. import_files/core/filename.csv)
+ * @param {string} button_label - text on the button you click to upload
+ * @description Imports well-formed REDCap data import file (of specific type) to a specific project given a Project ID.
  */
-Given("I click on the textarea labeled {string}", (label) => {
-    cy.contains(label).then(($label) => {
-        cy.wrap($label).parent().find('textarea').click()
-    })
+Given("I upload a {string} format file located at {string}, by clicking the button labeled {string}", (format, file_location, button_label) => {
+    file_location = getFilePathForCurrentFeature(file_location)
+    const filePath = 'cypress/fixtures/' + file_location
+
+    // Attach file to the hidden input first
+    cy.get('input[type=file]').selectFile(filePath, { force: true })
+    // Then click the submit/OK button
+    cy.get(`button.ok-button:contains("${button_label}"), input[type=submit][value*="${button_label}"], button:contains("${button_label}")`).first().click()
 })
+
+// /**
+//  * @module Interactions
+//  * @author Mintoo Xavier <min2xavier@gmail.com>
+//  * @example I click on the textarea labeled {string}
+//  * @param {string} label - the label associated with the textarea field
+//  * @description Clicks on the textarea field with given label
+//  */
+// Given("I click on the textarea labeled {string}", (label) => {
+//     cy.contains(label).then(($label) => {
+//         cy.wrap($label).parent().find('textarea').click()
+//     })
+// })
 
 
 /**
@@ -1181,19 +1196,19 @@ Given("I select the option {string} from the dropdown field for {resolveType} in
 })
 
 
-/**
- * @module Interactions
- * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I click on the {string} icon for the Comment {string}
- * @param {string} icon - icon to click
- * @param {string} comment - comment
- * @description clicks on the icon of the comment
- */
-Given("I click on the {string} icon for the Comment {string}", (icon, comment) => {
-    cy.get('td').contains(comment).parents('tr').within(() => {
-        cy.get(window.onlineDesignerFieldIcons[icon]).click()
-    })
-})
+// /**
+//  * @module Interactions
+//  * @author Mintoo Xavier <min2xavier@gmail.com>
+//  * @example I click on the {string} icon for the Comment {string}
+//  * @param {string} icon - icon to click
+//  * @param {string} comment - comment
+//  * @description clicks on the icon of the comment
+//  */
+// Given("I click on the {string} icon for the Comment {string}", (icon, comment) => {
+//     cy.get('td').contains(comment).parents('tr').within(() => {
+//         cy.get(window.onlineDesignerFieldIcons[icon]).click()
+//     })
+// })
 
 
 /**
@@ -1414,20 +1429,6 @@ Given("I (should )see the {instrumentPrivilege} of the instrument {string} with 
     cy.get('td').contains(label).parent('tr').within(() => {
         cy.get(instrumentRights[option] + instrumentPrivilege[priv]).should(selected === 'selected' ? "be.checked" : "not.be.checked")
     })
-})
-
-
-/**
- * @module DataImport
- * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I upload a {string} format file located at {string}, by clicking the button {string}
- * @param {string} format - the format of the file that is being uploaded (e.g. csv)
- * @param {string} file_location - the location of the file being uploaded (e.g. import_files/core/filename.csv)
- * @param {string} button_label - text on the button you click to upload
- * @description Imports well-formed REDCap data import file (of specific type) to a specific project given a Project ID.
- */
-Given("I upload a {string} format file located at {string}, by clicking the button {string}", (format, file_location, button_label) => {
-        cy.upload_file(file_location, format, '')
 })
 
 
