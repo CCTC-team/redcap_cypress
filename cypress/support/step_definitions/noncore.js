@@ -4,15 +4,16 @@ const path = Cypress.config('projectRoot')
 
 import 'cypress-file-upload'
 
-// To make sure emails are deleted only once per Test Script
+// To make sure cleanup runs only once per Test Script
 let hasRunBeforeEach = false
 
 let Password = null
 
-// delete all the messages from MailHog
+// Clear edocs folder and delete all emails from MailHog
 beforeEach(() => {
     if (!hasRunBeforeEach) {
         hasRunBeforeEach = true
+        cy.task('clearEdocsFolder')
         cy.deleteAllEmails()
       }
 })
