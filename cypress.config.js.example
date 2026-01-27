@@ -22,7 +22,19 @@ module.exports = defineConfig({
           config.env = { ...config.env, ...envConfig };
 
           require('rctf/plugins/index.js')(on, config)
+
           on('task', {
+            // Task: Clear edocs folder
+            clearEdocsFolder() {
+              const edocsFolder = path.resolve(__dirname, config.env.edocs_folder)
+              if (fs.existsSync(edocsFolder)) {
+                fs.readdirSync(edocsFolder).forEach(file => {
+                  fs.rmSync(path.join(edocsFolder, file), { recursive: true, force: true })
+                })
+                return { success: true, message: `Cleared edocs folder: ${edocsFolder}` }
+              }
+              return { success: true, message: 'Edocs folder does not exist' }
+            },
             // Task 1: Unzip a file
             unzipFile({ filepath }) {
               let unzipDestination = 'cypress/downloads/unzipped' // Destination directory for unzipped files
@@ -160,11 +172,12 @@ module.exports = defineConfig({
           return config
         },
 
-        baseUrl: 'https://localhost:8443',
+        baseUrl: 'http://localhost:8080',
         stepDefinitions: 'cypress/support/step_definitions',
         specPattern: [ 'cypress/features/*.feature',
-                       'redcap_rsvc/*/[ABC]/*/*.feature',
-                       '!redcap_rsvc/*/[ABC]/*/*REDUNDANT*.feature',
+                       'redcap_rsvc/*/[ABCD]/*/*.feature',
+                       '!redcap_rsvc/*/[ABCD]/*/*REDUNDANT*.feature',
+                       '../redcap_source/modules/*/automated_tests/**/*.feature',
                        '../redcap_source/modules/*/automated-tests/**/*.feature'
                      ],
         testIsolation: false,
