@@ -24,16 +24,16 @@ module.exports = defineConfig({
           require('rctf/plugins/index.js')(on, config)
 
           on('task', {
-            // Task: Clear edocs folder
-            clearEdocsFolder() {
-              const edocsFolder = path.resolve(__dirname, config.env.edocs_folder)
-              if (fs.existsSync(edocsFolder)) {
-                fs.readdirSync(edocsFolder).forEach(file => {
-                  fs.rmSync(path.join(edocsFolder, file), { recursive: true, force: true })
+            // Task: Clear redcap_file_repository folder
+            clearFileRepo() {
+              const fileRepo = path.resolve(__dirname, config.env.file_repository)
+              if (fs.existsSync(fileRepo)) {
+                fs.readdirSync(fileRepo).forEach(file => {
+                  fs.rmSync(path.join(fileRepo, file), { recursive: true, force: true })
                 })
-                return { success: true, message: `Cleared edocs folder: ${edocsFolder}` }
+                return { success: true, message: `Cleared file repository folder: ${fileRepo}` }
               }
-              return { success: true, message: 'Edocs folder does not exist' }
+              return { success: true, message: 'File repository folder does not exist' }
             },
             // Task 1: Unzip a file
             unzipFile({ filepath }) {
@@ -61,8 +61,8 @@ module.exports = defineConfig({
             // Task 2: Checks the Local storage location for the latest downloaded PDF file
             fetchLatestDownloadLocal({ fileExtension }) {
               // Local storage location
-              const edocsPath = config.env.edocs_folder
-              const downloadsDir = path.resolve(edocsPath)
+              const fileRepo = config.env.file_repository
+              const downloadsDir = path.resolve(fileRepo)
 
               try {
                 // Read files in the directory
