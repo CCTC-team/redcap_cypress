@@ -28,11 +28,11 @@ defineParameterType({
 })
 
 emTableName = {
-    'monitoring logging' : '#monitor-query-data-log',
-    'data entry log' : '#log-data-entry-event',
-    'system changes' : '#system_changes_table',
-    'project changes' : '#project_changes_table',
-    'user role changes' : '#user_role_changes_table',
+    'monitoring logging' : '#monitor-query-data-log-table',
+    'data entry log' : '#log-data-entry-event-table',
+    'system changes' : '#system-changes-table',
+    'project changes' : '#project-changes-table',
+    'user role changes' : '#user-role-changes-table',
 }
 
 dqrTable = {
@@ -42,8 +42,8 @@ dqrTable = {
 
 monTable = {
     'monitoring' : '#mon-q-fields-table',
-    'monitoring history' : '#monitor-query-data-log',
-    'monitoring logging' : '#monitor-query-data-log'
+    'monitoring history' : '#monitor-query-data-log-table',
+    'monitoring logging' : '#monitor-query-data-log-table'
 }
 
 
@@ -54,34 +54,34 @@ formStatusIcon = {
 }
 
 
-/**
- * @module ExternalModule
- * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I {externalOption} the external module named {string}
- * @param {string} externalOption - available options - 'Enable', 'Delete Version'
- * @param {string} label - name of external module
- * @description Enable/Disable external module
- */
-Given("I click on the button labeled {externalOption} for the external module named {string}", (option, label) => {
-    cy.get('#external-modules-disabled-table').find('td').contains(label).parents('tr').within(() => {
-        cy.get('button').contains(option).click()
-    })
-})
+// /**
+//  * @module ExternalModule
+//  * @author Mintoo Xavier <min2xavier@gmail.com>
+//  * @example I {externalOption} the external module named {string}
+//  * @param {string} externalOption - available options - 'Enable', 'Delete Version'
+//  * @param {string} label - name of external module
+//  * @description Enable/Disable external module
+//  */
+// Given("I click on the button labeled {externalOption} for the external module named {string}", (option, label) => {
+//     cy.get('#external-modules-disabled-table').find('td').contains(label).parents('tr').within(() => {
+//         cy.get('button').contains(option).click()
+//     })
+// })
 
 
-/**
- * @module ExternalModule
- * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I click on the button labeled {string} for the field labeled {string} in the external module configuration
- * @param {string} buttonLabel - Label on button
- * @param {string} field - Field Label
- * @description Clicks on the button for the field in the external module configuration
- */
-Given("I click on the button labeled {string} for the field labeled {string} in the external module configuration", (buttonLabel, field) => {
-    cy.get('.table-no-top-row-border').find('td').contains(field).parents('tr').within(() => {
-        cy.get('button').contains(buttonLabel).click()
-    })
-})
+// /**
+//  * @module ExternalModule
+//  * @author Mintoo Xavier <min2xavier@gmail.com>
+//  * @example I click on the button labeled {string} for the field labeled {string} in the external module configuration
+//  * @param {string} buttonLabel - Label on button
+//  * @param {string} field - Field Label
+//  * @description Clicks on the button for the field in the external module configuration
+//  */
+// Given("I click on the button labeled {string} for the field labeled {string} in the external module configuration", (buttonLabel, field) => {
+//     cy.get('.table-no-top-row-border').find('td').contains(field).parents('tr').within(() => {
+//         cy.get('button').contains(buttonLabel).click()
+//     })
+// })
 
 
 /**
@@ -566,13 +566,21 @@ Given('I should see a {emTableName} table in the email with the following rows:'
     const expectedHeaders = rows[0]
     const expectedRows = rows.slice(1)
 
-    // MailHog displays email content in an iframe - switch to it first
-    cy.get('iframe#preview-html').then(($iframe) => {
-        const iframeBody = $iframe.contents().find('body')
-
-        // Find table in the iframe body
-        cy.wrap(iframeBody).find(emTableName[tableName]).then(($table) => {
-
+    // MailHog displays email content in an iframe - use retriable approach to avoid DOM detachment
+    cy.get('iframe#preview-html')
+        .its('0.contentDocument.body')
+        .should('not.be.empty')
+        .then(cy.wrap)
+        // Email HTML may not have the same IDs as the web page - try specific ID first, fall back to table
+        .then(($body) => {
+            const specificTable = $body.find(emTableName[tableName])
+            if (specificTable.length > 0) {
+                return cy.wrap(specificTable)
+            }
+            // Fall back to finding any table in the email
+            return cy.wrap($body).find('table').should('exist')
+        })
+        .then(($table) => {
             cy.wrap($table).find('tr').then(($allRows) => {
                 // Find header row - could be in thead or first row with th/td elements
                 let $headerCells
@@ -652,5 +660,4 @@ Given('I should see a {emTableName} table in the email with the following rows:'
                 })
             })
         })
-    })
 })

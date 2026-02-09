@@ -9,11 +9,11 @@ let hasRunBeforeEach = false
 
 let Password = null
 
-// Clear edocs folder and delete all emails from MailHog
+// Clear redcap_file_repository folder and delete all emails from MailHog
 beforeEach(() => {
     if (!hasRunBeforeEach) {
         hasRunBeforeEach = true
-        cy.task('clearEdocsFolder')
+        cy.task('clearFileRepo')
         cy.deleteAllEmails()
       }
 })
@@ -783,6 +783,54 @@ Given("I should NOT see an email with subject {string}", (subject) => {
 /**
  * @module MailHog
  * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I should see {string} in the email body
+ * @param {string} text - text to verify in the email body
+ * @description Verifies that the specified text appears in the currently opened email body in MailHog
+ */
+Given("I should see {string} in the email body", (text) => {
+    // Try HTML preview first, then fall back to plaintext
+    cy.get('iframe#preview-html').then(($iframe) => {
+        if ($iframe.length > 0 && $iframe.is(':visible')) {
+            cy.wrap($iframe)
+                .its('0.contentDocument.body')
+                .should('not.be.empty')
+                .then(cy.wrap)
+                .should('contain', text)
+        } else {
+            // Fall back to plaintext preview
+            cy.get('#preview-plaintext').should('contain', text)
+        }
+    })
+})
+
+
+// /**
+//  * @module MailHog
+//  * @author Mintoo Xavier <min2xavier@gmail.com>
+//  * @example I should NOT see {string} in the email body
+//  * @param {string} text - text that should not appear in the email body
+//  * @description Verifies that the specified text does NOT appear in the currently opened email body in MailHog
+//  */
+// Given("I should NOT see {string} in the email body", (text) => {
+//     // Try HTML preview first, then fall back to plaintext
+//     cy.get('iframe#preview-html').then(($iframe) => {
+//         if ($iframe.length > 0 && $iframe.is(':visible')) {
+//             cy.wrap($iframe)
+//                 .its('0.contentDocument.body')
+//                 .should('not.be.empty')
+//                 .then(cy.wrap)
+//                 .should('not.contain', text)
+//         } else {
+//             // Fall back to plaintext preview
+//             cy.get('#preview-plaintext').should('not.contain', text)
+//         }
+//     })
+// })
+
+
+/**
+ * @module MailHog
+ * @author Mintoo Xavier <min2xavier@gmail.com>
  * @example I open the email for user {string} with subject {string}
  * @param {string} recipient - email id of recipient
  * @param {string} subject - subject of the email
@@ -1434,16 +1482,16 @@ Given("I (should )see the {instrumentPrivilege} of the instrument {string} with 
 })
 
 
-/**
- * @module Interactions
- * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I click on the list item {string}
- * @param {string} text - list item to click
- * @description clicks on the list item
- */
-Given("I click on the list item {string}", (text) => {
-    cy.get('li').contains(text).click()
-})
+// /**
+//  * @module Interactions
+//  * @author Mintoo Xavier <min2xavier@gmail.com>
+//  * @example I click on the list item {string}
+//  * @param {string} text - list item to click
+//  * @description clicks on the list item
+//  */
+// Given("I click on the list item {string}", (text) => {
+//     cy.get('li').contains(text).click()
+// })
 
 
 /**
@@ -1712,4 +1760,49 @@ Cypress.Commands.add('get_record_status_dashboard_nonlongitudinal', (instrument,
  */
 Given("I locate the bubble for the {string} instrument for record ID {string}{cellAction}", (instrument, record_id, cell_action) => {
     cy.get_record_status_dashboard_nonlongitudinal(instrument, record_id, cell_action)
+})
+
+
+/**
+ * @module Visibility
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I should NOT see a button named "Submit"
+ * @param {string} label - the label text of the button
+ * @description Verifies that a button with the specified label either does not exist or is disabled
+ */
+Given("I should NOT see a button named {string}", (label) => {
+    cy.get('body').then(($body) => {
+        // Check for button element with text
+        const $button = $body.find(`button:contains("${label}")`)
+
+        if ($button.length > 0) {
+            // Button exists, verify it has display: none
+            cy.wrap($button).should('have.css', 'display', 'none')
+        } else {
+            // button does not exist
+            expect($button.length).to.equal(0)
+        }
+    })
+})
+
+/**
+ * @module Interactions
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I enter {string} into the embedded field labeled {string}
+ * @param {string} msg - message to enter
+ * @param {string} label - label of the embedded field
+ * @description enters text into the embedded field with the specified label
+ */
+Given("I enter {string} into the embedded field labeled {string}", (text, label) => {
+    cy.contains(label).then($el => {
+        const childNodes = $el[0].childNodes
+        for (let i = 0; i < childNodes.length; i++) {
+            if (childNodes[i].nodeType === Node.TEXT_NODE && childNodes[i].textContent.includes(label)) {
+                let next = childNodes[i].nextSibling
+                while (next && next.nodeType !== Node.ELEMENT_NODE) next = next.nextSibling
+                cy.wrap(next).find('input').clear().type(text)
+                break
+            }
+        }
+    })
 })
