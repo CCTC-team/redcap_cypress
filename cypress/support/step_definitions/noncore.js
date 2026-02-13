@@ -1190,22 +1190,22 @@ Given("I select the {dropdownType} option {drwOptions} in Data Resolution Workfl
 })
 
 
-/**
- * @module Interactions
- * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I {enterType} {string} in the comment box in {commentDrw}
- * @param {string} text - text to enter/verify
- * @description enter/verify comment in the comment box in Data Resolution Workflow/Field Comment Log
- */
-Given("I {enterType} {string} in the comment box in {commentDrw}", (enter_type, text, comdrw) => {
-    if(enter_type === "enter"){
-        cy.get('textarea#dc-comment').type(text)
-    } else if (enter_type === "clear field and enter") {
-        cy.get('textarea#dc-comment').clear().type(text)
-    } else if (enter_type === "verify"){
-        cy.get('textarea#dc-comment').invoke('val').should('include', text)
-    }
-})
+// /**
+//  * @module Interactions
+//  * @author Mintoo Xavier <min2xavier@gmail.com>
+//  * @example I {enterType} {string} in the comment box in {commentDrw}
+//  * @param {string} text - text to enter/verify
+//  * @description enter/verify comment in the comment box in Data Resolution Workflow/Field Comment Log
+//  */
+// Given("I {enterType} {string} in the comment box in {commentDrw}", (enter_type, text, comdrw) => {
+//     if(enter_type === "enter"){
+//         cy.get('textarea#dc-comment').type(text)
+//     } else if (enter_type === "clear field and enter") {
+//         cy.get('textarea#dc-comment').clear().type(text)
+//     } else if (enter_type === "verify"){
+//         cy.get('textarea#dc-comment').invoke('val').should('include', text)
+//     }
+// })
 
 
 /**
@@ -1220,16 +1220,16 @@ Given("I select the User Right named Data Resolution Workflow and choose {drwRig
 })
 
 
-/**
- * @module Interactions
- * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I select the dropdown option {string} in Data Resolution Workflow
- * @param {string} option - option to select
- * @description selects the dropdown option in Data Resolution Workflow
- */
-Given("I select the dropdown option {string} in Data Resolution Workflow", (option) => {
-    cy.get('table#newDCHistory').find('select').select(option)  
-})
+// /**
+//  * @module Interactions
+//  * @author Mintoo Xavier <min2xavier@gmail.com>
+//  * @example I select the dropdown option {string} in Data Resolution Workflow
+//  * @param {string} option - option to select
+//  * @description selects the dropdown option in Data Resolution Workflow
+//  */
+// Given("I select the dropdown option {string} in Data Resolution Workflow", (option) => {
+//     cy.get('table#newDCHistory').find('select').select(option)  
+// })
 
 
 /**
