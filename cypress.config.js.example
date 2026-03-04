@@ -172,7 +172,7 @@ module.exports = defineConfig({
           return config
         },
 
-        baseUrl: 'http://localhost:8080',
+        baseUrl: 'https://localhost:8443',
         stepDefinitions: 'cypress/support/step_definitions',
         specPattern: [ 'cypress/features/*.feature',
                        'redcap_rsvc/*/[ABCD]/*/*.feature',
