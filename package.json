@@ -5,7 +5,7 @@
     "@badeball/cypress-cucumber-preprocessor": "^24.0.0",
     "adm-zip": "^0.5.16",
     "rctf": "github:CCTC-team/rctf.git#63f39a61c8855fb843d3d0d4850d894467219f15",
-    "redcap_rsvc": "github:CCTC-team/redcap_rsvc.git#389d51b210d7b0a76116c856a59423dc956c1c35"
+    "redcap_rsvc": "github:CCTC-team/redcap_rsvc.git#642ccd32d2a82059ae7cee1125b3f156f6bfb06a"
   },
   "peerDependencies": {
     "cypress": "^15.10.0"
