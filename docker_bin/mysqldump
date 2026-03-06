@@ -1,0 +1,26 @@
+#!/bin/bash
+# Wrapper: runs mysqldump inside a Docker container.
+# Reads container name from cypress.env.json "mysql.docker_container" field.
+# Strips -h and --port flags since we connect locally inside the container.
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+CONTAINER=$(python3 -c "import json; print(json.load(open('$SCRIPT_DIR/../cypress.env.json'))['mysql']['docker_container'])")
+
+args=()
+skip_next=false
+
+for arg in "$@"; do
+    if $skip_next; then
+        skip_next=false
+        continue
+    fi
+
+    case "$arg" in
+        -h127.0.0.1|-hlocalhost|-h*)   continue ;;
+        --port=*)                       continue ;;
+        --port)                         skip_next=true; continue ;;
+        *)                              args+=("$arg") ;;
+    esac
+done
+
+docker exec -i "$CONTAINER" mysqldump "${args[@]}"
