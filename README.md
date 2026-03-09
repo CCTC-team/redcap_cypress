@@ -20,6 +20,7 @@ It provides automated Cypress tests for REDCap using BDD-style Gherkin feature f
 
 2. Copy example configuration files:
    ```
+   cd redcap_cypress
    cp cypress.config.js.example cypress.config.js
    cp cypress.env.json.example cypress.env.json
    ```
