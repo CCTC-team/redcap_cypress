@@ -661,3 +661,21 @@ Given('I should see a {emTableName} table in the email with the following rows:'
             })
         })
 })
+
+
+/**
+ * @module ConfigurationMonitor
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I trigger the cron job
+ * @description Visits the cron.php endpoint to trigger the REDCap cron job and then returns to the previous page.
+ */
+Given("I trigger the cron job", () => {
+    cy.url().then((currentUrl) => {
+        cy.request({
+            url: 'https://localhost:8443/cron.php',
+            failOnStatusCode: false
+        }).then(() => {
+            cy.visit(currentUrl)
+        })
+    })
+})
