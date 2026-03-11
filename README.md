@@ -187,8 +187,6 @@ npx cypress run
 | `redcap_rsvc:validate_features` | Validate Gherkin feature files |
 | `redcap_rsvc:single_test` | Run a single RSVC test (Configuration Check) |
 | `redcap_rsvc:all_tests` | Run all RSVC tests with recording |
-| `rctf:run_step_tests` | Run RCTF step definition tests |
-| `rctf:write_step_tests` | Open Cypress UI for RCTF step tests |
 
 ---
 
