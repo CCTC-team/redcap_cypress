@@ -21,7 +21,7 @@ beforeEach(() => {
 Cypress.Commands.add('deleteAllEmails', () => {
     cy.request({
         method: 'DELETE',
-        url: 'http://localhost:8025/api/v1/messages',
+        url: `${Cypress.config('mailHogUrl')}/api/v1/messages`,
         failOnStatusCode: false // Ignore potential errors due to no emails
       })
 })
@@ -697,12 +697,12 @@ Given("I click on the icon {downloadIcon} to download {otherExportOption}", (ico
  * @description Open MailHog
  */
 Given('I open Email', () => {
-    cy.visit("http://localhost:8025")
+    cy.visit(`${Cypress.config('mailHogUrl')}`)
 })
 
 
 Cypress.Commands.add('findEmailBySubjectAndRecipient', (subject, recipient) => {
-    cy.request('GET', 'http://localhost:8025/api/v2/messages').then((response) => {
+    cy.request('GET', `${Cypress.config('mailHogUrl')}/api/v2/messages`).then((response) => {
         expect(response.status).to.eq(200) // Ensure the request was successful
       
         // Get all messages from MailHog
@@ -726,7 +726,7 @@ Cypress.Commands.add('findEmailBySubjectAndRecipient', (subject, recipient) => {
   })
 
   Cypress.Commands.add('findEmailsByRecipient', (recipient) => {
-    cy.request('GET', 'http://localhost:8025/api/v2/messages').then((response) => {
+    cy.request('GET', `${Cypress.config('mailHogUrl')}/api/v2/messages`).then((response) => {
         expect(response.status).to.eq(200) // Ensure the request was successful
       
         // Filter emails for the specific recipient
@@ -739,7 +739,7 @@ Cypress.Commands.add('findEmailBySubjectAndRecipient', (subject, recipient) => {
   })
 
   Cypress.Commands.add('noEmailsWithSubject', (subject) => {
-    cy.request('GET', 'http://localhost:8025/api/v2/messages').then((response) => {
+    cy.request('GET', `${Cypress.config('mailHogUrl')}/api/v2/messages`).then((response) => {
         expect(response.status).to.eq(200) // Ensure the request was successful
         
         const emails = response.body.items
@@ -838,7 +838,7 @@ Given("I should see {string} in the email body", (text) => {
  */
 Given("I open the email for user {string} with subject {string}", (recipient, subject) => {
      // Visit MailHog web UI
-    cy.visit('http://localhost:8025');
+    cy.visit(`${Cypress.config('mailHogUrl')}`);
 
     // Wait for the email list to load
     cy.get('.msglist-message', { timeout: 10000 }).should('have.length.greaterThan', 0);

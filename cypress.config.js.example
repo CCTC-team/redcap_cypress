@@ -173,6 +173,7 @@ module.exports = defineConfig({
         },
 
         baseUrl: 'https://localhost:8443',
+        mailHogUrl: 'http://localhost:8025',
         stepDefinitions: 'cypress/support/step_definitions',
         specPattern: [ 'cypress/features/*.feature',
                        'redcap_rsvc/*/[ABCD]/*/*.feature',

@@ -6,7 +6,7 @@ This document describes the structure of the `redcap_cypress` repository - the C
 
 | File/Folder | Description |
 |-------------|-------------|
-| `cypress.config.js` | Cypress configuration file with custom Node tasks |
+| `cypress.config.js` | Cypress configuration file with custom Node tasks. Contains `baseUrl` (REDCap instance URL) and `mailHogUrl` (MailHog web UI URL) — update these to match your setup |
 | `cypress.config.js.example` | Example Cypress configuration (copy to `cypress.config.js`) |
 | `cypress.env.json` | Environment variables: users, MySQL connection, REDCap version |
 | `cypress.env.json.example` | Example environment variables (copy to `cypress.env.json`) |

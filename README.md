@@ -50,6 +50,17 @@ The framework resets the database to a clean installation before each feature te
 
 ## Configuration
 
+### cypress.config.js
+
+Copy `cypress.config.js.example` and update the following URLs to match your environment:
+
+| Setting | Default | Description |
+|---------|---------|-------------|
+| `baseUrl` | `https://localhost:8443` | The base URL of your REDCap instance. Update the host and port if your Docker setup differs. |
+| `mailHogUrl` | `http://localhost:8025` | The URL of the MailHog web UI. Update the host and port if your Docker setup differs. |
+
+These values are referenced throughout the test suite via `Cypress.config('baseUrl')` and `Cypress.config('mailHogUrl')`.
+
 ### cypress.env.json
 
 Copy `cypress.env.json.example` and update values for your environment:
