@@ -54,36 +54,6 @@ formStatusIcon = {
 }
 
 
-// /**
-//  * @module ExternalModule
-//  * @author Mintoo Xavier <min2xavier@gmail.com>
-//  * @example I {externalOption} the external module named {string}
-//  * @param {string} externalOption - available options - 'Enable', 'Delete Version'
-//  * @param {string} label - name of external module
-//  * @description Enable/Disable external module
-//  */
-// Given("I click on the button labeled {externalOption} for the external module named {string}", (option, label) => {
-//     cy.get('#external-modules-disabled-table').find('td').contains(label).parents('tr').within(() => {
-//         cy.get('button').contains(option).click()
-//     })
-// })
-
-
-// /**
-//  * @module ExternalModule
-//  * @author Mintoo Xavier <min2xavier@gmail.com>
-//  * @example I click on the button labeled {string} for the field labeled {string} in the external module configuration
-//  * @param {string} buttonLabel - Label on button
-//  * @param {string} field - Field Label
-//  * @description Clicks on the button for the field in the external module configuration
-//  */
-// Given("I click on the button labeled {string} for the field labeled {string} in the external module configuration", (buttonLabel, field) => {
-//     cy.get('.table-no-top-row-border').find('td').contains(field).parents('tr').within(() => {
-//         cy.get('button').contains(buttonLabel).click()
-//     })
-// })
-
-
 /**
  * @module ExternalModule
  * @author Mintoo Xavier <min2xavier@gmail.com>
@@ -161,108 +131,6 @@ Given("I should see the field labeled {string} disabled", (field_name) => {
 
 
 /**
- * @module MonitoringQR
- * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I should NOT see {string} within the data entry field labeled {string}
- * @param {string} fieldOptions - field options visible
- * @param {string} label - Field Label
- * @description verifies data entry field does not contain text
- */
-Given("I should NOT see {string} within the data entry field labeled {string}", (fieldOptions, label) => {
-    cy.get('#questiontable').find('td').contains(label).parents('tr').should('not.contain', fieldOptions)
-})
-
-
-/**
- * @module MonitoringQR
- * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I enter {string} in the column {string} for the field {string}
- * @param {string} text - text to enter
- * @param {string} col - column in monitoring table
- * @param {string} fieldLabel - field label
- * @description enters text in the input field for the specified row and column in the monitoring table
- */
-Given('I enter {string} in the column {string} for the field {string}', (text, col, fieldLabel) => {
-    cy.table_cell_by_column_and_row_label(col, fieldLabel, '#mon-q-fields-table').find('textarea').clear().type(text)
-})
-
-
-/**
- * @module MonitoringQR
- * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I should NOT see {string} in the monitoring table
- * @param {string} text - text that should not be seen in the monitoring table
- * @description verifies text is not visible in the monitoring table
- */
-Given('I should NOT see {string} in the monitoring table', (text) => {
-    cy.get('#mon-q-fields-table').should('not.contain', text)
-})
-
-
-/**
- * @module MonitoringQR
- * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I select {string} in the dropdown field in column {string} for the field {string}
- * @param {string} option - option to select
- * @param {string} col - column in monitoring table
- * @param {string} fieldLabel - field label
- * @description selects the dropdown option for the specified row and column in the monitoring table
- */
-Given('I select {string} in the dropdown field in column {string} for the field {string}', (option, col, fieldLabel) => {
-    cy.table_cell_by_column_and_row_label(col, fieldLabel, '#mon-q-fields-table').find('select').select(option)  
-})
-
-
-/**
- * @module MonitoringQR
- * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I should NOT see the {monTable} table
- * @param {string} monTable - available options: 'monitoring', 'monitoring history', 'monitoring logging'
- * @description verifies monitoring table does not exists
- */
-Given('I should NOT see the monitoring table', () => {
-    cy.get('#mon-q-fields-table').should('not.exist')
-})
-
-
-/**
- * @module MonitoringQR
- * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I click on the {string} view icon
- * @param {string} ordinal - available options: 'first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'tenth', 'eleventh', 'twelfth', 'thirteenth', 'fourteenth', 'fifteenth', 'sixteenth', 'seventeenth', 'eighteenth', 'nineteenth', 'twentieth', 'last'
- * @description clicks on the view icon in the monitoring table
- */
-Given('I click on the {string} view icon', (ordinal) => {
-    index = window.ordinalChoices[ordinal]
-    cy.get('.fa-eye').eq(index).click()
-})
-
-
-/**
- * @module MonitoringQR
- * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I should see a button labeled {string} disabled
- * @param {string} label - label on button
- * @description verifies the button is disabled
- */
-Given('I should see a button labeled {string} disabled', (label) => {
-    cy.get('input[type=button][value*="' + label +'"]').should('be.disabled')
-})
-
-
-/**
- * @module MonitoringQR
- * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I should see the monitoring status {string}
- * @param {string} label - monitoring status
- * @description verifies the monitoring status
- */
-Given('I should see the monitoring status {string}', (label) => {
-    cy.get('tr[class=labelrc]').contains(label)
-})
-
-
-/**
  * @module EmbellishFields/MonitoringQR
  * @author Mintoo Xavier <min2xavier@gmail.com>
  * @example I should see {string} within the data entry field labeled {string}
@@ -272,58 +140,6 @@ Given('I should see the monitoring status {string}', (label) => {
  */
 Given("I should see {string} within the data entry field labeled {string}", (fieldOptions, label) => {
     cy.get('#questiontable').find('td').contains(label).parents('tr').should('contain', fieldOptions)
-})
-
-
-/**
- * @module HightlightDQR
- * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I (should )see {string} in the {dqrTable}
- * @param {string} text - text to view
- * @param {string} dqrTable - available options: 'Data quality error table', 'Data quality exclusion table'
- * @description verify text is visible in the Data quality errors/exclusion table
- */
-Given('I (should )see {string} in the {dqrTable}', (text, tableName) => {
-    cy.get(dqrTable[tableName]).contains(text)
-})
-
-
-/**
- * @module HightlightDQR
- * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I should NOT see {string} in the {dqrTable}
- * @param {string} text - text to view 
- * @param {string} dqrTable - available options: 'Data quality error table', 'Data quality exclusion table'
- * @description verify text is not visible in the Data quality errors/exclusion table
- */
-Given('I should NOT see {string} in the {dqrTable}', (text, tableName) => {
-    cy.get(dqrTable[tableName]).should('not.contain', text)
-})
-
-
-/**
- * @module HightlightDQR
- * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I (should )see the field labeled {string} highlighed in red
- * @param {string} label - field label
- * @description verify field is highlighted in red
- */
-Given('I (should )see the field labeled {string} highlighed in red', (label) => {
-    cy.get('#questiontable').find('tr').contains(label).parents('tr').should('have.attr', 'style')
-        .and('include', 'border-width: 2px')
-        .and('include', 'border-color: rgb(255, 33, 0)')
-})
-
-
-/**
- * @module HightlightDQR
- * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I should NOT see the field labeled {string} highlighed in red
- * @param {string} label - field label
- * @description verify field is not highlighted in red
- */
-Given('I should NOT see the field labeled {string} highlighed in red', (label) => {
-    cy.get('#questiontable').find('tr').contains(label).parents('tr').should('not.have.attr', 'style', 'border-width: 2px; border-color: rgb(255, 33, 0);')
 })
 
 
@@ -350,59 +166,6 @@ Given('I should see {int} row(s) in the {emTableName} table', (num, tableName) =
 
         expect(rowCount).to.be.equal(num)
     })
-})
-
-
-/**
- * @module EnhaceReasonForChange
- * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I should see the field labeled {string} with a {int}px {string} right border in {string} color
- * @param {string} label - field label
- * @param {int} num - right border style in px
- * @param {string} lineType - right border style - solid/dashed
- * @param {string} color - color of right border
- * @description verify field has a right border of specified style
- */
-Given('I should see the field labeled {string} with a {int}px {string} right border in {string} color', (label, num, lineType, color) => {
-    cy.get('#questiontable').find('tr').contains(label).parents('tr').should('have.attr', 'style')
-        .and('include', 'border-right: ' + num + 'px ' + lineType + ' ' + color)
-})
-
-
-/**
- * @module EnhaceReasonForChange
- * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I should NOT see the field labeled {string} with a colored right border
- * @param {string} label - field label
- * @description verify field does not have a right border
- */
-Given('I should NOT see the field labeled {string} with a colored right border', (label) => {
-    cy.get('#questiontable').find('tr').contains(label).parents('tr').should('not.have.attr', 'style', 'border-right')
-})
-
-
-/**
- * @module EnhanceFormStatus
- * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I should see {formStatusIcon} bubble with the form status {string}
- * @param {string} formStatusIcon - form status icon - available options: 'red', 'yellow', 'green'
- * @param {string} status - form status
- * @description verifies the form status and color of bubble
- */
-Given('I should see {formStatusIcon} bubble with the form status {string}', (icon, status) => {
-    cy.get('#questiontable').find(formStatusIcon[icon]).next().contains(status)
-})
-
-
-/**
- * @module EnhanceFormStatus
- * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I should NOT see {formStatusIcon} form status bubble
- * @param {string} formStatusIcon - form status icon - available options: 'red', 'yellow', 'green'
- * @description verifies form status bubble is not visible
- */
-Given('I should NOT see {formStatusIcon} form status bubble', (icon) => {
-    cy.get('#questiontable').should('not.contain', formStatusIcon[icon])
 })
 
 
@@ -660,22 +423,4 @@ Given('I should see a {emTableName} table in the email with the following rows:'
                 })
             })
         })
-})
-
-
-/**
- * @module ConfigurationMonitor
- * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I trigger the cron job
- * @description Visits the cron.php endpoint to trigger the REDCap cron job and then returns to the previous page.
- */
-Given("I trigger the cron job", () => {
-    cy.url().then((currentUrl) => {
-        cy.request({
-            url: `${Cypress.config('baseUrl')}/cron.php`,
-            failOnStatusCode: false
-        }).then(() => {
-            cy.visit(currentUrl)
-        })
-    })
 })
