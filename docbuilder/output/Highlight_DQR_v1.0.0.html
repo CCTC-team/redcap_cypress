@@ -1,0 +1,1389 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+Document
+</title>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+<style>
+
+    * {
+        font-family: monospace, Courier;
+        word-break: keep-all;
+        table-layout: fixed;
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+
+    th, td {
+        /* border: dashed grey 1px; */
+        padding: 0.5rem 1rem;
+    }
+
+    tr:not(:last-child) td:nth-child(4) li::marker {
+            color: black;
+            font-size: 1.5rem;
+            content: '✔';
+        }
+
+    .feature-body > *, .js-file-line {
+        font-size: 12px;
+    }
+
+    .spec-script > * {
+        font-size: 14px;        
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .comments {
+        font-size: 12px;
+    }
+
+    .comment {
+        padding-bottom: 0.2rem;
+    }
+
+    .comment-edit {
+        font-size: 11px;        
+    }
+
+    .timeline {
+        font-size: 11px;
+    }
+
+    .index-good {
+        font-size: 12px;
+    }
+
+    .index-errors {
+        font-size: 11px;
+    }
+
+    .sub-header {
+        font-size: 10px;
+    }
+
+</style>
+<h2 id="highlight-dq-rules-validation-report-for-v1.0.0">Highlight DQ
+Rules Validation Report for v1.0.0</h2>
+<div class="sub-header">
+<p>Generated on 19/03/2026 12:25:09 from github project id 29 by
+min2xavier@gmail.com</p>
+</div>
+<div class="sub-header">
+<ul>
+<li>Note that currently the Project related events are not being picked
+up see See https://github.com/orgs/community/discussions/57326 The audit
+trail related to moving columns within a project are not being pulled by
+graphql</li>
+</ul>
+</div>
+<h3 id="index">Index</h3>
+<div class="index-good">
+<p><a id=index-redcap_cypress-95 href=#redcap_cypress-95>redcap_cypress-95
+| 124. Highlight DQ Rules</a></p>
+</div>
+<section
+id="the-following-features-cannot-be-retrieved-uid-title---error"
+class="index-errors">
+<h4>The following features cannot be retrieved (uid | title -&gt;
+error)</h4>
+</section>
+<p><br/></p>
+<h3 id="features">Features</h3>
+<hr />
+<div id="redcap_cypress-95">
+<strong>Feature:</strong> 124. Highlight DQ Rules
+</div>
+<hr />
+<table>
+<colgroup>
+<col style="width: 60%" />
+<col style="width: 40%" />
+</colgroup>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Id:</strong>
+I_kwDOIaOBn87ZZdVE</td>
+<td style="text-align: left;"><strong>Uid:</strong>
+redcap_cypress-95</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Author:</strong> MintooXavier</td>
+<td style="text-align: left;"><strong>Created:</strong> 20/11/2025
+13:37:34</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Assignees:</strong>
+MintooXavier</td>
+<td style="text-align: left;"><strong>Resource path:</strong>
+<a href=https://github.com//CCTC-team/redcap_cypress/issues/95 target=_blank>/CCTC-team/redcap_cypress/issues/95</a></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Milestone:</strong> |none|</td>
+<td style="text-align: left;"><strong>Labels:</strong> Gherkin ||
+Automated || External Module</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<table>
+<colgroup>
+<col style="width: 60%" />
+<col style="width: 40%" />
+</colgroup>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>State:</strong> CLOSED</td>
+<td style="text-align: left;"><strong>State reason</strong>:
+COMPLETED</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Includes created edit:</strong>
+true</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Closed:</strong> true</td>
+<td style="text-align: left;"><strong>Closed on:</strong> 13/03/2026
+15:54:50</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Editor:</strong> MintooXavier</td>
+<td style="text-align: left;"><strong>Updated on:</strong> 13/03/2026
+15:54:50</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Locked:</strong> false</td>
+<td style="text-align: left;"><strong>Participants:</strong>
+MintooXavier</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<strong>Project item body:</strong><br />
+
+<div class="feature-body">
+<p dir="auto">
+Brief description:<br> The Highlight DQ rules module provides a simple
+mechanism to highlight rules that are in error within the data entry<br>
+screens for selected user roles. Only rules that execute in real-time
+are shown.
+</p>
+<p dir="auto">
+User spec:<br>
+<a href="https://github.com/CCTC-team/highlight_dq_rules/blob/main/automated_tests/urs/User%20Requirement%20Specification.spec">https://github.com/CCTC-team/highlight_dq_rules/blob/main/automated_tests/urs/User%20Requirement%20Specification.spec</a>
+</p>
+<p dir="auto">
+Feature link:<br>
+<a href="https://github.com/CCTC-team/highlight_dq_rules/blob/main/automated_tests/E.124.100%20-%20Hightlight%20DQ%20Rules%20Configurations.feature">https://github.com/CCTC-team/highlight_dq_rules/blob/main/automated_tests/E.124.100%20-%20Hightlight%20DQ%20Rules%20Configurations.feature</a><br>
+<a href="https://github.com/CCTC-team/highlight_dq_rules/blob/main/automated_tests/E.124.200%20-%20Enable%20module%20on%20all%20projects.feature">https://github.com/CCTC-team/highlight_dq_rules/blob/main/automated_tests/E.124.200%20-%20Enable%20module%20on%20all%20projects.feature</a><br>
+<a href="https://github.com/CCTC-team/highlight_dq_rules/blob/main/automated_tests/E.124.300%20-%20Make%20module%20discoverable.feature">https://github.com/CCTC-team/highlight_dq_rules/blob/main/automated_tests/E.124.300%20-%20Make%20module%20discoverable.feature</a><br>
+<a href="https://github.com/CCTC-team/highlight_dq_rules/blob/main/automated_tests/E.124.400%20-%20Allow%20non-admins%20to%20enable%20this%20module.feature">https://github.com/CCTC-team/highlight_dq_rules/blob/main/automated_tests/E.124.400%20-%20Allow%20non-admins%20to%20enable%20this%20module.feature</a><br>
+<a href="https://github.com/CCTC-team/highlight_dq_rules/blob/main/automated_tests/E.124.500%20-%20Hide%20this%20module%20from%20non-admins.feature">https://github.com/CCTC-team/highlight_dq_rules/blob/main/automated_tests/E.124.500%20-%20Hide%20this%20module%20from%20non-admins.feature</a><br>
+<a href="https://github.com/CCTC-team/highlight_dq_rules/blob/main/automated_tests/E.124.600%20-%20REDUNDANT.feature">https://github.com/CCTC-team/highlight_dq_rules/blob/main/automated_tests/E.124.600%20-%20REDUNDANT.feature</a><br>
+<a href="https://github.com/CCTC-team/highlight_dq_rules/blob/main/automated_tests/E.124.700%20-%20Hightlight%20DQR%20in%20project.feature">https://github.com/CCTC-team/highlight_dq_rules/blob/main/automated_tests/E.124.700%20-%20Hightlight%20DQR%20in%20project.feature</a><br>
+<a href="https://github.com/CCTC-team/highlight_dq_rules/blob/main/automated_tests/E.124.800%20-%20REDUNDANT.feature">https://github.com/CCTC-team/highlight_dq_rules/blob/main/automated_tests/E.124.800%20-%20REDUNDANT.feature</a><br>
+<a href="https://github.com/CCTC-team/highlight_dq_rules/blob/main/automated_tests/E.124.900%20-%20REDUNDANT.feature">https://github.com/CCTC-team/highlight_dq_rules/blob/main/automated_tests/E.124.900%20-%20REDUNDANT.feature</a><br>
+<a href="https://github.com/CCTC-team/highlight_dq_rules/blob/main/automated_tests/E.124.1000%20-%20REDUNDANT.feature">https://github.com/CCTC-team/highlight_dq_rules/blob/main/automated_tests/E.124.1000%20-%20REDUNDANT.feature</a><br>
+<a href="https://github.com/CCTC-team/highlight_dq_rules/blob/main/automated_tests/E.124.1100%20-%20REDUNDANT.feature">https://github.com/CCTC-team/highlight_dq_rules/blob/main/automated_tests/E.124.1100%20-%20REDUNDANT.feature</a><br>
+<a href="https://github.com/CCTC-team/highlight_dq_rules/blob/main/automated_tests/E.124.1200%20-%20Exclude%20DQR%20in%20project.feature">https://github.com/CCTC-team/highlight_dq_rules/blob/main/automated_tests/E.124.1200%20-%20Exclude%20DQR%20in%20project.feature</a><br>
+<a href="https://github.com/CCTC-team/highlight_dq_rules/blob/main/automated_tests/E.124.1300%20-%20Module%20configuration%20permissions%20in%20projects.feature">https://github.com/CCTC-team/highlight_dq_rules/blob/main/automated_tests/E.124.1300%20-%20Module%20configuration%20permissions%20in%20projects.feature</a>
+</p>
+<p dir="auto">
+Pre review:
+</p>
+<ul class="contains-task-list">
+<li class="task-list-item">
+<input type="checkbox" id="" disabled="" class="task-list-item-checkbox" aria-label="Completed task" checked="">
+Script(s) targets the correct feature sufficiently
+</li>
+<li class="task-list-item">
+<input type="checkbox" id="" disabled="" class="task-list-item-checkbox" aria-label="Completed task" checked="">
+The user requirements are met
+</li>
+</ul>
+<p dir="auto">
+Post review:
+</p>
+<ul class="contains-task-list">
+<li class="task-list-item">
+<input type="checkbox" id="" disabled="" class="task-list-item-checkbox" aria-label="Completed task" checked="">
+Script(s) targets the correct feature sufficiently
+</li>
+<li class="task-list-item">
+<input type="checkbox" id="" disabled="" class="task-list-item-checkbox" aria-label="Completed task" checked="">
+Script(s) appropriately tests the feature
+</li>
+<li class="task-list-item">
+<input type="checkbox" id="" disabled="" class="task-list-item-checkbox" aria-label="Completed task" checked="">
+Script(s) are run on CCTC_REDCap_Docker
+</li>
+<li class="task-list-item">
+<input type="checkbox" id="" disabled="" class="task-list-item-checkbox" aria-label="Completed task" checked="">
+Script(s) are run on the REDCap version being validated
+</li>
+</ul>
+</div>
+<hr />
+<p><strong>User specification:</strong><br />
+</p>
+<div class="spec-script">
+<div class="line-block"><br />
+<strong>https://github.com/CCTC-team/highlight_dq_rules/blob/main/automated_tests/urs/User%20Requirement%20Specification.spec</strong><br />
+<br />
+E.124.100 - The system shall support the ability to enable/disable
+Highlight DQ Rules external module.<br />
+E.124.200 - The system shall support the ability to enable Highlight DQ
+Rules external module on all projects by default.<br />
+E.124.300 - The system shall support the ability to make Highlight DQ
+Rules external module discoverable by users.<br />
+E.124.400 - The system shall support the ability to allow non-admins to
+enable Highlight DQ Rules external module on projects.<br />
+E.124.500 - The system shall support the ability to hide Highlight DQ
+Rules external module from non-admins in the list of enabled modules on
+each project.<br />
+E.124.600 - The system shall support the ability to view the usage of
+Highlight DQ Rules external module.<br />
+E.124.700 - The system shall support the ability to view data quality
+errors in instruments based on user roles using Highlight DQ Rules
+external module.<br />
+E.124.800 - The system shall support the ability to view data quality
+errors in line with the question when the option is enabled in Highlight
+DQ Rules external module.<br />
+E.124.900 - The system shall allow only super-admins to configure the
+Highlight DQ Rules external module.<br />
+E.124.1000 - The system shall support the ability to use Highlight DQ
+Rules external module for different Arms.<br />
+E.124.1100 - The system shall support the ability to use Highlight DQ
+Rules external module for Repeating Events/Instruments.<br />
+E.124.1200 - The system shall support the ability to view excluded data
+quality rules in instruments based on user roles using Highlight DQ
+Rules external module.<br />
+E.124.1300 - The system shall support the ability to configure ‘Module
+configuration permissions in projects’ for Highlight DQ Rules external
+module.</div>
+</div>
+<p><strong>Test script:</strong><br />
+</p>
+<div class="spec-script">
+<p><strong>https://github.com/CCTC-team/highlight_dq_rules/blob/main/automated_tests/E.124.100%20-%20Hightlight%20DQ%20Rules%20Configurations.feature</strong></p>
+<p>Feature: E.124.100 - The system shall support the ability to
+enable/disable Highlight DQ Rules external module.</p>
+<p>As a REDCap end user I want to see that Highlight DQ Rules is
+functioning as expected</p>
+<p>Scenario: E.124.100 - Enable external module - Default settings Given
+I login to REDCap with the user “Test_Admin” When I click on the link
+labeled “Control Center” And I click on the link labeled “Manage” Then I
+should see “External Modules - Module Manager” And I should NOT see
+“Highlight DQ Rules - v1.0.0” When I click on the button labeled “Enable
+a module” And I wait for 2 seconds Then I should see “Available Modules”
+And I click on the button labeled “Enable” in the row labeled “Highlight
+DQ Rules” And I wait for 1 second And I click on the button labeled
+“Enable” Then I should see “Highlight DQ Rules - v1.0.0” And I
+logout</p>
+<pre><code>Given I login to REDCap with the user &quot;Test_User1&quot;
+When I create a new project named &quot;E.124.100&quot; by clicking on &quot;New Project&quot; in the menu bar, selecting &quot;Practice / Just for fun&quot; from the dropdown, choosing file &quot;fixtures/cdisc_files/Project_redcap_val_nodata.xml&quot;, and clicking the &quot;Create Project&quot; button
+#And I should NOT see a link labeled &quot;Manage&quot;
+And I logout
+
+# Disable external module in Control Center
+Given I login to REDCap with the user &quot;Test_Admin&quot;
+When I click on the link labeled &quot;Control Center&quot;
+And I click on the link labeled &quot;Manage&quot;
+And I click on the button labeled &quot;Disable&quot;
+Then I should see &quot;Disable module?&quot;
+When I click on the button labeled &quot;Disable module&quot;
+Then I should NOT see &quot;Highlight DQ Rules - v1.0.0&quot;
+And I logout
+
+# Verify no exceptions are thrown in the system
+Given I open Email
+Then I should NOT see an email with subject &quot;REDCap External Module Hook Exception - highlight_dq_rules&quot;</code></pre>
+<p><strong>https://github.com/CCTC-team/highlight_dq_rules/blob/main/automated_tests/E.124.200%20-%20Enable%20module%20on%20all%20projects.feature</strong></p>
+<p>Feature: E.124.200 - The system shall support the ability to enable
+Highlight DQ Rules external module on all projects by default.</p>
+<p>As a REDCap end user I want to see that Highlight DQ Rules is
+functioning as expected</p>
+<p>Scenario: E.124.200 - Enable module on all projects by default Given
+I login to REDCap with the user “Test_Admin” When I click on the link
+labeled “Control Center” When I click on the link labeled “Manage” Then
+I should see “External Modules - Module Manager” And I should NOT see
+“Highlight DQ Rules - v1.0.0” When I click on the button labeled “Enable
+a module” And I wait for 2 seconds Then I should see “Available Modules”
+And I click on the button labeled “Enable” in the row labeled “Highlight
+DQ Rules” And I wait for 1 second And I click on the button labeled
+“Enable” Then I should see “Highlight DQ Rules - v1.0.0” And I should
+NOT see “Enabled for All Projects”</p>
+<pre><code>When I click on the button labeled &quot;Configure&quot;
+And I check the checkbox labeled &quot;Enable module on all projects by default&quot;
+And I click on the button labeled &quot;Save&quot;
+Then I should see &quot;Highlight DQ Rules - v1.0.0&quot;
+And I should see &quot;Enabled for All Projects&quot;
+And I logout
+
+Given I login to REDCap with the user &quot;Test_User1&quot;
+When I create a new project named &quot;E.124.200&quot; by clicking on &quot;New Project&quot; in the menu bar, selecting &quot;Practice / Just for fun&quot; from the dropdown, choosing file &quot;fixtures/cdisc_files/Project_redcap_val_nodata.xml&quot;, and clicking the &quot;Create Project&quot; button
+And I click on the link labeled &quot;Manage&quot;
+Then I should see &quot;External Modules - Project Module Manager&quot;
+And I should see &quot;Highlight DQ Rules - v1.0.0&quot;
+And I should see &quot;Enabled for All Projects&quot;
+And I logout
+
+# Disable external module in Control Center
+Given I login to REDCap with the user &quot;Test_Admin&quot;
+When I click on the link labeled &quot;Control Center&quot;
+And I click on the link labeled &quot;Manage&quot;
+And I click on the button labeled &quot;Disable&quot;
+Then I should see &quot;Disable module?&quot;
+When I click on the button labeled &quot;Disable module&quot;
+Then I should NOT see &quot;Highlight DQ Rules - v1.0.0&quot;
+And I logout
+
+# Verify no exceptions are thrown in the system
+Given I open Email
+Then I should NOT see an email with subject &quot;REDCap External Module Hook Exception - highlight_dq_rules&quot;</code></pre>
+<p><strong>https://github.com/CCTC-team/highlight_dq_rules/blob/main/automated_tests/E.124.300%20-%20Make%20module%20discoverable.feature</strong></p>
+<p>Feature: E.124.300 - The system shall support the ability to make
+Highlight DQ Rules external module discoverable by users.</p>
+<p>As a REDCap end user I want to see that Highlight DQ Rules is
+functioning as expected</p>
+<p>Scenario: E.124.300 - Make module discoverable by users Given I login
+to REDCap with the user “Test_Admin” When I click on the link labeled
+“Control Center” When I click on the link labeled “Control Center” #
+EMAIL ADDRESS SET FOR REDCAP ADMIN - without it, emails are not send out
+from system When I click on the link labeled “General Configuration”
+Then I should see “General Configuration” When I enter
+“redcap@test.instance” into the input field labeled “Email Address of
+REDCap Administrator” And I click on the button labeled “Save Changes”
+Then I should see “Your system configuration values have now been
+changed”</p>
+<pre><code>When I click on the link labeled &quot;Manage&quot;
+Then I should see &quot;External Modules - Module Manager&quot;
+And I should NOT see &quot;Highlight DQ Rules - v1.0.0&quot;
+When I click on the button labeled &quot;Enable a module&quot;
+And I wait for 2 seconds
+Then I should see &quot;Available Modules&quot;
+And I click on the button labeled &quot;Enable&quot; in the row labeled &quot;Highlight DQ Rules&quot;
+And I wait for 1 second
+And I click on the button labeled &quot;Enable&quot;
+Then I should see &quot;Highlight DQ Rules - v1.0.0&quot;
+And I should NOT see &quot;Discoverable&quot;
+
+When I click on the button labeled &quot;Configure&quot;
+And I check the checkbox labeled &quot;Make module discoverable by users&quot;
+And I click on the button labeled &quot;Save&quot;
+Then I should see &quot;Highlight DQ Rules - v1.0.0&quot;
+And I should see &quot;Discoverable&quot;
+And I logout
+
+Given I login to REDCap with the user &quot;Test_User1&quot;
+When I create a new project named &quot;E.124.300&quot; by clicking on &quot;New Project&quot; in the menu bar, selecting &quot;Practice / Just for fun&quot; from the dropdown, choosing file &quot;fixtures/cdisc_files/Project_redcap_val_nodata.xml&quot;, and clicking the &quot;Create Project&quot; button
+And I click on the link labeled &quot;Manage&quot;
+Then I should see &quot;External Modules - Project Module Manager&quot;
+And I should NOT see &quot;Highlight DQ Rules - v1.0.0&quot;
+
+When I click on the button labeled &quot;View available modules&quot;
+Then I should see &quot;Highlight DQ Rules - v1.0.0&quot;
+And I should see &quot;Discoverable&quot;
+And I should NOT see &quot;Activation request is pending&quot;
+When I click on the button labeled &quot;Request Activation&quot; in the row labeled &quot;Highlight DQ Rules&quot;
+# Then I should see &quot;SUCCESS&quot;
+# And I click on the button labeled &quot;Close&quot;
+And I should NOT see &quot;Highlight DQ Rules - v1.0.0&quot;
+
+When I click on the button labeled &quot;View available modules&quot;
+Then I should see &quot;Highlight DQ Rules - v1.0.0&quot;
+And I should see &quot;Discoverable&quot;
+And I should see &quot;Activation request is pending&quot;
+And I logout
+
+# # Commenting this as HTML is not loading into iframe
+# # Hence this is done manually
+# Given I login to REDCap with the user &quot;Test_Admin&quot;
+# When I click on the link labeled &quot;Control Center&quot;
+# Then I should see a link labeled &quot;To-Do List&quot;
+
+# Given I click on the link labeled &quot;To-Do List&quot;
+# Then I should see &quot;Pending Requests&quot;
+# And I should see the &quot;Activate external module&quot; request created for the project named &quot;E.124.300&quot; within the Pending Requests table
+# When I click on the process request icon for the &quot;Activate external module&quot; request created for the project named &quot;E.124.300&quot; within the Pending Requests table
+# # HTML is not loading into iFrame
+# Then I should see &quot;Enable module &#39;Highlight DQ Rules - &#39;?&quot; in the iframe
+# And I click on the button labeled &quot;Enable&quot; in the iframe
+# And I close the iframe window
+# Then I should see the &quot;Activate external module&quot; request created for the project named &quot;E.124.300&quot; within the Completed &amp; Archived Requests table
+# And I logout
+
+# Given I login to REDCap with the user &quot;Test_User1&quot;
+# When I click on the link labeled &quot;My Projects&quot;
+# And I click on the link labeled &quot;E.124.300&quot;
+# And I click on the link labeled &quot;Manage&quot;
+# Then I should see &quot;External Modules - Project Module Manager&quot;
+# And I should see &quot;Highlight DQ Rules - v1.0.0&quot;
+# And I should see &quot;Discoverable&quot;
+# # And I logout
+
+# # Disable external module in Control Center
+# Given I login to REDCap with the user &quot;Test_Admin&quot;
+# When I click on the link labeled &quot;Control Center&quot;
+# And I click on the link labeled &quot;Manage&quot;
+# And I click on the button labeled &quot;Disable&quot;
+# Then I should see &quot;Disable module?&quot;
+# When I click on the button labeled &quot;Disable module&quot;
+# Then I should NOT see &quot;Highlight DQ Rules - v1.0.0&quot;
+# And I logout
+
+# # Verify no exceptions are thrown in the system
+# Given I open Email
+# Then I should NOT see an email with subject &quot;REDCap External Module Hook Exception - highlight_dq_rules&quot;</code></pre>
+<p><strong>https://github.com/CCTC-team/highlight_dq_rules/blob/main/automated_tests/E.124.400%20-%20Allow%20non-admins%20to%20enable%20this%20module.feature</strong></p>
+<p>Feature: E.124.400 - The system shall support the ability to allow
+non-admins to enable Highlight DQ Rules external module on projects.</p>
+<p>As a REDCap end user I want to see that Highlight DQ Rules is
+functioning as expected</p>
+<p>Scenario: E.124.400 - Allow non-admins to enable this module on
+projects Given I login to REDCap with the user “Test_Admin” When I click
+on the link labeled “Control Center” When I click on the link labeled
+“Manage” Then I should see “External Modules - Module Manager” And I
+should NOT see “Highlight DQ Rules - v1.0.0” When I click on the button
+labeled “Enable a module” And I wait for 2 seconds Then I should see
+“Available Modules” And I click on the button labeled “Enable” in the
+row labeled “Highlight DQ Rules” And I wait for 1 second And I click on
+the button labeled “Enable” Then I should see “Highlight DQ Rules -
+v1.0.0”</p>
+<pre><code>When I click on the button labeled &quot;Configure&quot;
+And I check the checkbox labeled &quot;Allow non-admins to enable this module on projects&quot;
+And I check the checkbox labeled &quot;Make module discoverable by users&quot;
+And I click on the button labeled &quot;Save&quot;
+Then I should see &quot;Highlight DQ Rules - v1.0.0&quot;
+And I logout  
+
+Given I login to REDCap with the user &quot;Test_User1&quot;
+When I create a new project named &quot;E.124.400&quot; by clicking on &quot;New Project&quot; in the menu bar, selecting &quot;Practice / Just for fun&quot; from the dropdown, choosing file &quot;fixtures/cdisc_files/Project_redcap_val_nodata.xml&quot;, and clicking the &quot;Create Project&quot; button
+And I click on the link labeled &quot;Manage&quot;
+Then I should see &quot;External Modules - Project Module Manager&quot;
+And I should NOT see &quot;Highlight DQ Rules - v1.0.0&quot;
+
+When I click on the button labeled &quot;View available modules&quot;
+Then I should see &quot;Highlight DQ Rules - v1.0.0&quot;
+And I click on the button labeled &quot;Enable&quot; in the row labeled &quot;Highlight DQ Rules - v1.0.0&quot;
+Then I should see &quot;Highlight DQ Rules - v1.0.0&quot;
+And I logout
+
+# Disable external module in Control Center
+Given I login to REDCap with the user &quot;Test_Admin&quot;
+When I click on the link labeled &quot;Control Center&quot;
+And I click on the link labeled &quot;Manage&quot;
+And I click on the button labeled &quot;Disable&quot;
+Then I should see &quot;Disable module?&quot;
+When I click on the button labeled &quot;Disable module&quot;
+Then I should NOT see &quot;Highlight DQ Rules - v1.0.0&quot;
+And I logout
+
+# Verify no exceptions are thrown in the system
+Given I open Email
+Then I should NOT see an email with subject &quot;REDCap External Module Hook Exception - highlight_dq_rules&quot;</code></pre>
+<p><strong>https://github.com/CCTC-team/highlight_dq_rules/blob/main/automated_tests/E.124.500%20-%20Hide%20this%20module%20from%20non-admins.feature</strong></p>
+<p>Feature: E.124.500 - The system shall support the ability to hide
+Highlight DQ Rules external module from non-admins in the list of
+enabled modules on each project.</p>
+<p>As a REDCap end user I want to see that Highlight DQ Rules is
+functioning as expected</p>
+<p>Scenario: E.124.500 - Hide this module from non-admins in the list of
+enabled modules on each project Given I login to REDCap with the user
+“Test_Admin” When I click on the link labeled “Control Center” When I
+click on the link labeled “Manage” Then I should see “External Modules -
+Module Manager” And I should NOT see “Highlight DQ Rules - v1.0.0” When
+I click on the button labeled “Enable a module” And I wait for 2 seconds
+Then I should see “Available Modules” And I click on the button labeled
+“Enable” in the row labeled “Highlight DQ Rules” And I wait for 1 second
+And I click on the button labeled “Enable” Then I should see “Highlight
+DQ Rules - v1.0.0”</p>
+<pre><code>When I click on the button labeled &quot;Configure&quot;
+And I check the checkbox labeled &quot;Hide this module from non-admins in the list of enabled modules on each project&quot;
+And I click on the button labeled &quot;Save&quot;
+Then I should see &quot;Highlight DQ Rules - v1.0.0&quot;
+
+When I create a new project named &quot;E.124.500&quot; by clicking on &quot;New Project&quot; in the menu bar, selecting &quot;Practice / Just for fun&quot; from the dropdown, choosing file &quot;fixtures/cdisc_files/Project_redcap_val_nodata.xml&quot;, and clicking the &quot;Create Project&quot; button
+
+# Enable external module
+And I click on the link labeled &quot;Manage&quot;
+Then I should see &quot;External Modules - Project Module Manager&quot;
+When I click on the button labeled &quot;Enable a module&quot;
+And I click on the button labeled &quot;Enable&quot; in the row labeled &quot;Highlight DQ Rules - v1.0.0&quot;
+Then I should see &quot;Highlight DQ Rules - v1.0.0&quot;
+
+# Add User Test_User1 with Project Setup &amp; Design User Rights
+When I click on the link labeled &quot;User Rights&quot;
+And I enter &quot;Test_User1&quot; into the input field labeled &quot;Add with custom rights&quot;
+And I click on the button labeled &quot;Add with custom rights&quot;
+Then I check the User Right named &quot;Project Setup &amp; Design&quot;
+And I click on the button labeled &quot;Add user&quot;
+Then I should see &quot;successfully added&quot;
+And I logout
+
+Given I login to REDCap with the user &quot;Test_User1&quot;
+When I click on the link labeled &quot;My Projects&quot;
+And I click on the link labeled &quot;E.124.500&quot;
+And I click on the link labeled &quot;Manage&quot;
+Then I should see &quot;External Modules - Project Module Manager&quot;
+And I should NOT see &quot;Highlight DQ Rules - v1.0.0&quot;
+And I logout
+
+# Disable &#39;Hide this module from non-admins in the list of enabled modules on each project&#39;
+Given I login to REDCap with the user &quot;Test_Admin&quot;
+When I click on the link labeled &quot;Control Center&quot;
+And I click on the link labeled &quot;Manage&quot;
+Then I should see &quot;Highlight DQ Rules - v1.0.0&quot;
+When I click on the button labeled &quot;Configure&quot;
+And I uncheck the checkbox labeled &quot;Hide this module from non-admins in the list of enabled modules on each project&quot;
+And I click on the button labeled &quot;Save&quot;
+Then I should see &quot;Highlight DQ Rules - v1.0.0&quot;
+And I logout
+
+Given I login to REDCap with the user &quot;Test_User1&quot;
+When I click on the link labeled &quot;My Projects&quot;
+And I click on the link labeled &quot;E.124.500&quot;
+And I click on the link labeled &quot;Manage&quot;
+Then I should see &quot;External Modules - Project Module Manager&quot;
+And I should see &quot;Highlight DQ Rules - v1.0.0&quot;
+And I logout
+
+# Enable from project - &#39;Hide this module from non-admins in the list of enabled modules on each project&#39;
+Given I login to REDCap with the user &quot;Test_Admin&quot;
+When I click on the link labeled &quot;My Projects&quot;
+And I click on the link labeled &quot;E.124.500&quot;
+And I click on the link labeled &quot;Manage&quot;
+Then I should see &quot;External Modules - Project Module Manager&quot;
+Then I should see &quot;Highlight DQ Rules - v1.0.0&quot;
+When I click on the button labeled &quot;Configure&quot;
+And I check the checkbox labeled &quot;Hide this module from non-admins in the list of enabled modules on this project&quot;
+And I select &quot;DataManager&quot; on the dropdown field labeled &quot;1. A role that can view the highlight DQ rule errors&quot;
+And I click on the button labeled &quot;Save&quot;
+Then I should see &quot;Highlight DQ Rules - v1.0.0&quot;
+And I logout
+
+Given I login to REDCap with the user &quot;Test_User1&quot;
+When I click on the link labeled &quot;My Projects&quot;
+And I click on the link labeled &quot;E.124.500&quot;
+And I click on the link labeled &quot;Manage&quot;
+Then I should see &quot;External Modules - Project Module Manager&quot;
+And I should NOT see &quot;Highlight DQ Rules - v1.0.0&quot;
+And I logout
+
+# Disable external module in Control Center
+Given I login to REDCap with the user &quot;Test_Admin&quot;
+When I click on the link labeled &quot;Control Center&quot;
+And I click on the link labeled &quot;Manage&quot;
+And I click on the button labeled &quot;Disable&quot;
+Then I should see &quot;Disable module?&quot;
+When I click on the button labeled &quot;Disable module&quot;
+Then I should NOT see &quot;Highlight DQ Rules - v1.0.0&quot;
+And I logout
+
+# Verify no exceptions are thrown in the system
+Given I open Email
+Then I should NOT see an email with subject &quot;REDCap External Module Hook Exception - highlight_dq_rules&quot;</code></pre>
+<p><strong>https://github.com/CCTC-team/highlight_dq_rules/blob/main/automated_tests/E.124.600%20-%20REDUNDANT.feature</strong></p>
+<p>Feature: E.124.600 - The system shall support the ability to view the
+usage of Highlight DQ Rules external module.</p>
+<p>This feature test is REDUNDANT and can be viewed in E.124.1300</p>
+<p><strong>https://github.com/CCTC-team/highlight_dq_rules/blob/main/automated_tests/E.124.700%20-%20Hightlight%20DQR%20in%20project.feature</strong></p>
+<p>Feature: E.124.700 - The system shall support the ability to view
+data quality errors in instruments based on user roles using Highlight
+DQ Rules external module.</p>
+<p>As a REDCap end user I want to see that Highlight DQ Rules External
+Module work as expected</p>
+<p>Scenario: Enable external Module from Control Center Given I login to
+REDCap with the user “Test_Admin” When I click on the link labeled
+“Control Center” # EMAIL ADDRESS SET FOR REDCAP ADMIN - without it,
+emails are not send out from system When I click on the link labeled
+“General Configuration” Then I should see “General Configuration” When I
+enter “redcap@test.instance” into the input field labeled “Email Address
+of REDCap Administrator” And I click on the button labeled “Save
+Changes” Then I should see “Your system configuration values have now
+been changed”</p>
+<pre><code>Given I click on the link labeled &quot;Manage&quot;
+Then I should see &quot;External Modules - Module Manager&quot;
+And I should NOT see &quot;Highlight DQ Rules - v1.0.0&quot;
+When I click on the button labeled &quot;Enable a module&quot;
+And I wait for 2 seconds
+Then I should see &quot;Available Modules&quot;
+And I click on the button labeled &quot;Enable&quot; in the row labeled &quot;Highlight DQ Rules&quot;
+And I wait for 1 second
+And I click on the button labeled &quot;Enable&quot;
+Then I should see &quot;Highlight DQ Rules - v1.0.0&quot;</code></pre>
+<p>Scenario: Enable external module in project Given I create a new
+project named “E.124.700” by clicking on “New Project” in the menu bar,
+selecting “Practice / Just for fun” from the dropdown, choosing file
+“fixtures/cdisc_files/Project_redcap_val_nodata.xml”, and clicking the
+“Create Project” button And I click on the link labeled “Manage” Then I
+should see “External Modules - Project Module Manager” When I click on
+the button labeled “Enable a module” And I click on the button labeled
+“Enable” in the row labeled “Highlight DQ Rules - v1.0.0” Then I should
+see “Highlight DQ Rules - v1.0.0”</p>
+<pre><code># Configure external Module
+Given I click on the button labeled &quot;Configure&quot;
+Then I should see &quot;Configure Module&quot;
+When I select &quot;DataManager&quot; on the dropdown field labeled &quot;1. A role that can view the highlight DQ rule errors&quot;
+And I click on the button labeled &quot;+&quot;
+When I select &quot;Monitor&quot; on the dropdown field labeled &quot;2. A role that can view the highlight DQ rule errors&quot;
+Then I click on the button labeled &quot;Save&quot;
+Then I should see &quot;Highlight DQ Rules - v1.0.0&quot;
+
+# Add User Test_User1 with &#39;Project Setup &amp; Design&#39; rights
+Given I click on the link labeled &quot;User Rights&quot;
+And I enter &quot;Test_User1&quot; into the input field labeled &quot;Add with custom rights&quot;
+And I click on the button labeled &quot;Add with custom rights&quot;
+Then I check the User Right named &quot;Project Setup &amp; Design&quot;
+Then I should see a checkbox labeled &quot;Highlight DQ Rules&quot; that is checked
+And I click on the button labeled &quot;Add user&quot;
+Then I should see &quot;successfully added&quot;
+
+# Add User Test_User2 to DataManager user role
+Given I enter &quot;Test_User2&quot; into the field with the placeholder text of &quot;Assign new user to role&quot;
+And I click on the button labeled &quot;Assign to role&quot;
+And I select &quot;DataManager&quot; on the dropdown field labeled &quot;Select Role&quot; on the role selector dropdown
+And I click on the button labeled &quot;Assign&quot;
+Then I should see &quot;Test User2&quot; within the &quot;DataManager&quot; row of the column labeled &quot;Username&quot; of the User Rights table
+
+# Add User Test_User3 to Monitor user role
+Given I enter &quot;Test_User3&quot; into the field with the placeholder text of &quot;Assign new user to role&quot;
+And I click on the button labeled &quot;Assign to role&quot;
+And I select &quot;Monitor&quot; on the dropdown field labeled &quot;Select Role&quot; on the role selector dropdown
+And I click on the button labeled &quot;Assign&quot;
+Then I should see &quot;Test User3&quot; within the &quot;Monitor&quot; row of the column labeled &quot;Username&quot; of the User Rights table
+
+# Add User Test_User4 to DataEntry user role
+Given I enter &quot;Test_User4&quot; into the field with the placeholder text of &quot;Assign new user to role&quot;
+And I click on the button labeled &quot;Assign to role&quot;
+And I select &quot;DataEntry&quot; on the dropdown field labeled &quot;Select Role&quot; on the role selector dropdown
+And I click on the button labeled &quot;Assign&quot;
+Then I should see &quot;Test User4&quot; within the &quot;DataEntry&quot; row of the column labeled &quot;Username&quot; of the User Rights table
+
+#ACTION: Import data 
+Given I click on the link labeled &quot;Data Import Tool&quot;
+And  I upload a &quot;csv&quot; format file located at &quot;fixtures/import_files/E124700_Data_Import.csv&quot;, by clicking the button near &quot;Select your CSV data file&quot; to browse for the file, and clicking the button labeled &quot;Upload File&quot; to upload the file
+And I should see &quot;Your document was uploaded successfully and is ready for review.&quot;
+And I click on the button labeled &quot;Import Data&quot;
+Then I should see &quot;Import Successful!&quot;
+And I logout</code></pre>
+<p>Scenario: E.124.1000, E.124.1100 - Highlight DQ Rules for Repeating
+Instruments in Arm 1 #VERIFY - E.124.700 - DataManager can view DQR
+Given I login to REDCap with the user “Test_User2” When I click on the
+link labeled “My Projects” And I click on the link labeled
+“E.124.700”</p>
+<pre><code>#Repeating Instrument - Instance #1
+And I click on the link labeled &quot;Record Status Dashboard&quot;
+Then I should see &quot;Record Status Dashboard (all records)&quot;
+When I click on the link labeled &quot;Arm 1&quot;
+And I click on the link labeled &quot;1&quot;
+And I click on the icon in the column labeled &quot;&quot; and the row labeled &quot;1&quot;
+
+Then I should see &quot;Data Types&quot;
+And I should see &quot;(Instance #1)&quot;
+And I should see &quot;Data quality errors for current form&quot;
+And I should see &quot;Identifier more than 8&quot; in the Data quality error table
+And I should see &quot;[identifier] &gt; 8&quot; in the Data quality error table
+And I should NOT see the field labeled &quot;Identifier&quot; highlighed in red
+When I click on the link labeled &quot;Identifier more than 8&quot;
+Then I should see &quot;Data Quality Rules&quot;
+And I should see &quot;Identifier more than 8&quot;
+And I should see &quot;[identifier] &gt; 8&quot;
+
+#Repeating Instrument - Instance #2
+And I click on the link labeled &quot;Record Status Dashboard&quot;
+Then I should see &quot;Record Status Dashboard (all records)&quot;
+And I click on the link labeled &quot;1&quot;
+And I click on the icon in the column labeled &quot;&quot; and the row labeled &quot;2&quot;
+Then I should see &quot;Data Types&quot;
+And I should see &quot;(Instance #2)&quot;
+And I should NOT see &quot;Data quality errors for current form&quot;
+And I should NOT see &quot;Identifier more than 8&quot;
+And I should NOT see &quot;[identifier] &gt; 8&quot;
+And I should NOT see the field labeled &quot;Identifier&quot; highlighed in red
+
+#Repeating Instrument - Instance #3
+And I click on the link labeled &quot;Record Status Dashboard&quot;
+Then I should see &quot;Record Status Dashboard (all records)&quot;
+And I click on the link labeled &quot;1&quot;
+And I click on the icon in the column labeled &quot;&quot; and the row labeled &quot;3&quot;
+Then I should see &quot;Data Types&quot;
+And I should see &quot;(Instance #3)&quot;
+And I should see &quot;Data quality errors for current form&quot;
+And I should see &quot;Identifier more than 8&quot; in the Data quality error table
+And I should see &quot;[identifier] &gt; 8&quot; in the Data quality error table
+And I should NOT see the field labeled &quot;Identifier&quot; highlighed in red
+And I logout
+
+#VERIFY - E.124.900 - Super-users can configure the settings
+Given I login to REDCap with the user &quot;Test_Admin&quot;
+When I click on the link labeled &quot;Manage&quot;
+And I click on the button labeled &quot;Leave without saving changes&quot;
+Then I should see &quot;External Modules - Project Module Manager&quot;
+And I click on the button labeled &quot;Configure&quot;
+Then I should see &quot;Configure Module&quot;
+And I check the checkbox labeled &quot;When checked, shows the data quality rule error in line with the question&quot;
+When I click on the button labeled &quot;Save&quot;
+Then I should see &quot;Highlight DQ Rules - v1.0.0&quot;
+And I logout</code></pre>
+<p>Scenario: E.124.1000, E.124.1100 - Highlight DQ Rules for Repeating
+Events in Arm 2 #VERIFY - E.124.700 - Monitor can view DQR Given I login
+to REDCap with the user “Test_User3” When I click on the link labeled
+“My Projects” And I click on the link labeled “E.124.700”</p>
+<pre><code>#Repeating Event - Instance #1
+And I click on the link labeled &quot;Record Status Dashboard&quot;
+Then I should see &quot;Record Status Dashboard (all records)&quot;
+And I click on the link labeled &quot;Arm 2&quot;
+And I click on the link labeled &quot;2&quot;
+When I click the bubble to select a record for the &quot;Data Types&quot; longitudinal instrument on event &quot;Event 1&quot;
+Then I should see &quot;Data Types&quot;
+And I should NOT see &quot;Data quality errors for current form&quot;
+And I should NOT see &quot;Identifier more than 8&quot;
+And I should NOT see &quot;[identifier] &gt; 8&quot;
+# VERIFY - E.124.800
+And I should NOT see the field labeled &quot;Identifier&quot; highlighed in red
+
+#Repeating Event - Instance #2
+And I click on the link labeled &quot;Record Status Dashboard&quot;
+Then I should see &quot;Record Status Dashboard (all records)&quot;
+And I click on the link labeled &quot;Arm 2&quot;
+And I click on the link labeled &quot;2&quot;
+When I click the bubble to select a record for the &quot;Data Types&quot; longitudinal instrument on event &quot;(#2)&quot;
+Then I should see &quot;Data Types&quot;
+And I should see &quot;(Instance #2)&quot;
+And I should see &quot;Data quality errors for current form&quot;
+And I should see &quot;Identifier more than 8&quot; in the Data quality error table
+And I should see &quot;[identifier] &gt; 8&quot; in the Data quality error table
+And I should see the field labeled &quot;Identifier&quot; highlighed in red
+
+#Repeating Event - Instance #3
+And I click on the link labeled &quot;Record Status Dashboard&quot;
+Then I should see &quot;Record Status Dashboard (all records)&quot;
+And I click on the link labeled &quot;Arm 2&quot;
+And I click on the link labeled &quot;2&quot;
+When I click the bubble to select a record for the &quot;Data Types&quot; longitudinal instrument on event &quot;(#3)&quot;
+Then I should see &quot;Data Types&quot;
+And I should see &quot;(Instance #3)&quot;
+And I should see &quot;Data quality errors for current form&quot;
+And I should see &quot;Identifier more than 8&quot; in the Data quality error table
+And I should see &quot;[identifier] &gt; 8&quot; in the Data quality error table
+And I should see the field labeled &quot;Identifier&quot; highlighed in red
+And I logout</code></pre>
+<p>Scenario: E.124.900 - non-Super-users cannot configure the Highlight
+DQ Rules project configurations Given I login to REDCap with the user
+“Test_User1” When I click on the link labeled “Manage” And I click on
+the button labeled “Leave without saving changes” Then I should see
+“External Modules - Project Module Manager” #And I should NOT see the
+button labeled “Disable” And I click on the button labeled “Configure”
+Then I should see “Configure Module” And I should NOT see “Hide this
+module from non-admins in the list of enabled modules on this project”
+And I should NOT see “A role that can view the highlight DQ rule errors”
+And I should NOT see “When checked, shows the data quality rule error in
+line with the question” When I click on the button labeled “Cancel” Then
+I should see “Highlight DQ Rules - v1.0.0” And I should see “Currently
+Enabled Modules”</p>
+<pre><code>Given I click on the link labeled &quot;Record Status Dashboard&quot;
+When I click on the link labeled &quot;Arm 1&quot;
+And I click on the link labeled &quot;1&quot;
+And I click on the icon in the column labeled &quot;&quot; and the row labeled &quot;1&quot;
+Then I should see &quot;Data Types&quot;
+And I should see &quot;(Instance #1)&quot;
+And I should NOT see &quot;Data quality errors for current form&quot;
+And I should NOT see &quot;Identifier more than 8&quot;
+And I should NOT see &quot;[identifier] &gt; 8&quot;
+And I should NOT see the field labeled &quot;Identifier&quot; highlighed in red
+And I logout
+
+#VERIFY - E.124.700 - DataEntry cannot view DQR
+Given I login to REDCap with the user &quot;Test_User4&quot;
+When I click on the link labeled &quot;My Projects&quot;
+And I click on the link labeled &quot;E.124.700&quot;
+
+Given I click on the link labeled &quot;Record Status Dashboard&quot;
+When I click on the link labeled &quot;Arm 1&quot;
+And I click on the link labeled &quot;1&quot;
+And I click on the icon in the column labeled &quot;&quot; and the row labeled &quot;1&quot;
+Then I should see &quot;Data Types&quot;
+And I should see &quot;(Instance #1)&quot;
+And I should NOT see &quot;Data quality errors for current form&quot;
+And I should NOT see &quot;Identifier more than 8&quot;
+And I should NOT see &quot;[identifier] &gt; 8&quot;
+And I should NOT see the field labeled &quot;Identifier&quot; highlighed in red
+And I logout</code></pre>
+<p>Scenario: E.124.100 - Disable external module # Disable external
+module in project Given I login to REDCap with the user “Test_Admin”
+When I click on the link labeled “My Projects” And I click on the link
+labeled “E.124.700” And I click on the link labeled “Manage” Then I
+should see “External Modules - Project Module Manager” And I should see
+“Highlight DQ Rules - v1.0.0” When I click on the button labeled
+“Disable” Then I should see “Disable module?” When I click on the button
+labeled “Disable module” Then I should NOT see “Highlight DQ Rules -
+v1.0.0”</p>
+<pre><code>Given I click on the link labeled &quot;Logging&quot;
+Then I should see a table header and row containing the following values in the logging table:
+  | Time / Date      | Username   | Action                                                                           | List of Data Changes OR Fields Exported                                                 |
+  | mm/dd/yyyy hh:mm | test_admin | Disable external module &quot;highlight_dq_rules_v1.0.0&quot; for project                  |                                                                                         |
+  | mm/dd/yyyy hh:mm | test_admin | Modify configuration for external module &quot;highlight_dq_rules_v1.0.0&quot; for project | highlight-dq-inline                                                                     |
+  | mm/dd/yyyy hh:mm | test_admin | Modify configuration for external module &quot;highlight_dq_rules_v1.0.0&quot; for project | reserved-hide-from-non-admins-in-project-list, user-roles-can-view, highlight-dq-inline |
+  | mm/dd/yyyy hh:mm | test_admin | Enable external module &quot;highlight_dq_rules_v1.0.0&quot; for project                   |                                                                                         |
+
+# Disable external module in Control Center
+Given I click on the link labeled &quot;Control Center&quot;
+When I click on the link labeled &quot;Manage&quot;
+And I click on the button labeled &quot;Disable&quot;
+Then I should see &quot;Disable module?&quot;
+When I click on the button labeled &quot;Disable module&quot;
+Then I should NOT see &quot;Highlight DQ Rules - v1.0.0&quot;
+
+# Not checking &#39;Delete Version&#39; for now as this is used for deleting lower versions.
+# If the entire EM is deleted REDCap throws an error
+
+Given I click on the link labeled &quot;User Activity Log&quot;
+Then I should see a table header and row containing the following values in a table:
+  | Time             | User       | Event                                                                            |
+  | mm/dd/yyyy hh:mm | test_admin | Disable external module &quot;highlight_dq_rules_v1.0.0&quot; for system                   |
+  | mm/dd/yyyy hh:mm | test_admin | Disable external module &quot;highlight_dq_rules_v1.0.0&quot; for project                  |
+  | mm/dd/yyyy hh:mm | test_admin | Modify configuration for external module &quot;highlight_dq_rules_v1.0.0&quot; for project |
+  | mm/dd/yyyy hh:mm | test_admin | Enable external module &quot;highlight_dq_rules_v1.0.0&quot; for project                   |
+  | mm/dd/yyyy hh:mm | test_admin | Enable external module &quot;highlight_dq_rules_v1.0.0&quot; for system                    |
+
+And I logout
+
+# Verify no exceptions are thrown in the system
+Given I open Email
+Then I should NOT see an email with subject &quot;REDCap External Module Hook Exception - highlight_dq_rules&quot;</code></pre>
+<p><strong>https://github.com/CCTC-team/highlight_dq_rules/blob/main/automated_tests/E.124.800%20-%20REDUNDANT.feature</strong></p>
+<p>Feature: E.124.800 - The system shall support the ability to view
+data quality errors in line with the question when the option enabled in
+Highlight DQ Rules external module.</p>
+<p>This feature test is REDUNDANT and can be viewed in E.124.700</p>
+<p><strong>https://github.com/CCTC-team/highlight_dq_rules/blob/main/automated_tests/E.124.900%20-%20REDUNDANT.feature</strong></p>
+<p>Feature: E.124.900 - The system shall allow only super-admins to
+configure the Highlight DQ Rules external module.</p>
+<p>This feature test is REDUNDANT and can be viewed in E.124.700</p>
+<p><strong>https://github.com/CCTC-team/highlight_dq_rules/blob/main/automated_tests/E.124.1000%20-%20REDUNDANT.feature</strong></p>
+<p>Feature: E.124.1000 - The system shall support the ability to use
+Highlight DQ Rules external module for different Arms.</p>
+<p>This feature test is REDUNDANT and can be viewed in E.124.700</p>
+<p><strong>https://github.com/CCTC-team/highlight_dq_rules/blob/main/automated_tests/E.124.1100%20-%20REDUNDANT.feature</strong></p>
+<p>Feature: E.124.1100 - The system shall support the ability to use
+Highlight DQ Rules external module for Repeating Events/Instruments.</p>
+<p>This feature test is REDUNDANT and can be viewed in E.124.700</p>
+<p><strong>https://github.com/CCTC-team/highlight_dq_rules/blob/main/automated_tests/E.124.1200%20-%20Exclude%20DQR%20in%20project.feature</strong></p>
+<p>Feature: E.124.1200 - The system shall support the ability to view
+excluded data quality rules in instruments based on user roles using
+Highlight DQ Rules external module.</p>
+<p>As a REDCap end user I want to see that Highlight DQ Rules External
+Module work as expected</p>
+<p>Scenario: Enable external Module from Control Center Given I login to
+REDCap with the user “Test_Admin” When I click on the link labeled
+“Control Center” # EMAIL ADDRESS SET FOR REDCAP ADMIN - without it,
+emails are not send out from system When I click on the link labeled
+“General Configuration” Then I should see “General Configuration” When I
+enter “redcap@test.instance” into the input field labeled “Email Address
+of REDCap Administrator” And I click on the button labeled “Save
+Changes” Then I should see “Your system configuration values have now
+been changed”</p>
+<pre><code>Given I click on the link labeled &quot;Manage&quot;
+Then I should see &quot;External Modules - Module Manager&quot;
+And I should NOT see &quot;Highlight DQ Rules - v1.0.0&quot;
+When I click on the button labeled &quot;Enable a module&quot;
+And I wait for 2 seconds
+Then I should see &quot;Available Modules&quot;
+And I click on the button labeled &quot;Enable&quot; in the row labeled &quot;Highlight DQ Rules&quot;
+And I wait for 1 second
+And I click on the button labeled &quot;Enable&quot;
+Then I should see &quot;Highlight DQ Rules - v1.0.0&quot;</code></pre>
+<p>Scenario: Enable external module in project Given I create a new
+project named “E.124.1200” by clicking on “New Project” in the menu bar,
+selecting “Practice / Just for fun” from the dropdown, choosing file
+“fixtures/cdisc_files/E1241200.xml”, and clicking the “Create Project”
+button</p>
+<pre><code>#ACTION: Enable the Data Resolution Workflow
+Given I click on the link labeled &quot;Setup&quot;
+And I click on the button labeled &quot;Additional customizations&quot;
+And I select &quot;Data Resolution Workflow&quot; on the dropdown field labeled &quot;Enable:&quot;
+# The below step is for v14 and above
+And I check the checkbox labeled &quot;Hide closed/verified data queries from Data Quality results (for Data Resolution Workflow only)&quot;
+Then I click on the button labeled &quot;Save&quot;
+Then I should see &quot;The Data Resolution Workflow has now been enabled!&quot;
+And I click on the button labeled &quot;Close&quot;
+
+Given I click on the link labeled &quot;Manage&quot;
+Then I should see &quot;External Modules - Project Module Manager&quot;
+When I click on the button labeled &quot;Enable a module&quot;
+And I click on the button labeled &quot;Enable&quot; in the row labeled &quot;Highlight DQ Rules - v1.0.0&quot;
+Then I should see &quot;Highlight DQ Rules - v1.0.0&quot;
+
+# Configure external Module
+Given I click on the button labeled &quot;Configure&quot;
+Then I should see &quot;Configure Module&quot;
+When I select &quot;DataManager&quot; on the dropdown field labeled &quot;1. A role that can view the highlight DQ rule errors&quot;
+And I click on the button labeled &quot;+&quot;
+When I select &quot;Monitor&quot; on the dropdown field labeled &quot;2. A role that can view the highlight DQ rule errors&quot;
+Then I click on the button labeled &quot;Save&quot;
+Then I should see &quot;Highlight DQ Rules - v1.0.0&quot;
+
+# Add User Test_User2 to DataManager user role
+Given I click on the link labeled &quot;User Rights&quot;
+When I enter &quot;Test_User2&quot; into the field with the placeholder text of &quot;Assign new user to role&quot;
+And I click on the button labeled &quot;Assign to role&quot;
+And I select &quot;DataManager&quot; on the dropdown field labeled &quot;Select Role&quot; on the role selector dropdown
+And I click on the button labeled &quot;Assign&quot;
+Then I should see &quot;Test User2&quot; within the &quot;DataManager&quot; row of the column labeled &quot;Username&quot; of the User Rights table
+And I logout</code></pre>
+<p>Scenario: Exclude DQR referencing fields from two CRFs Given I login
+to REDCap with the user “Test_User2” When I click on the link labeled
+“My Projects” And I click on the link labeled “E.124.1200” Given I click
+on the link labeled “Record Status Dashboard” Then I should see “Record
+Status Dashboard (all records)” And I locate the bubble for the “Data
+Types” instrument on event “Event 2” for record ID “1” and click on the
+bubble Then I should see “Data Types” And I should see “Data quality
+errors for current form” And I should see “Name not Name1” in the Data
+quality error table And I should see “[ptname] != ‘Name1’” in the Data
+quality error table And I should see “Names are different” in the Data
+quality error table And I should see “[event_2_arm_1][ptname_v2_v2] !=
+[event_2_arm_1][ptname]” in the Data quality error table</p>
+<pre><code>When I click on the link labeled &quot;Text Validation&quot;
+Then I should see &quot;Text Validation&quot;
+And I should see &quot;Data quality errors for current form&quot;
+And I should see &quot;Names are different&quot; in the Data quality error table
+And I should see &quot;[event_2_arm_1][ptname_v2_v2] != [event_2_arm_1][ptname]&quot; in the Data quality error table
+
+# Verify DQR
+Given I click on the link labeled &quot;Data Quality&quot;
+And I click on the button labeled &quot;All&quot;
+Then I should see a table header and rows containing the following values in a table:
+  | Rule # | Rule Name              | Rule Logic                                                  | Total Discrepancies |
+  | 1      | Identifier more than 8 | [identifier] &gt; 8                                            | 5                   |
+  | 2      | Name not Name1         | [ptname] != &#39;Name1&#39;                                         | 8                   |
+  | 3      | Names are different    | [event_2_arm_1][ptname_v2_v2] != [event_2_arm_1][ptname]    | 1                   |
+
+When I click on the link labeled &quot;view&quot; in the row labeled &quot;3&quot;
+Then I should see &quot;Rule #3: Names are different&quot;
+And I should see &quot;Discrepancies found: 1&quot;
+And I click on the button labeled &quot;comments&quot;
+When I select the radio option Verified data value in Data Resolution Workflow
+And I enter &quot;Verify DQR&quot; into the textarea field labeled &quot;Comment&quot;
+And I click on the button labeled &quot;Verified data value&quot;
+And I wait for 1 second
+Then I should NOT see &quot;Data Resolution Workflow&quot;
+And I click on the button labeled &quot;Close&quot;
+Then I should see &quot;[event_2_arm_1][ptname_v2_v2] != [event_2_arm_1][ptname]&quot;
+When I click on the button labeled &quot;Clear&quot;
+And I click on the button labeled &quot;All&quot;
+Then I should see a table header and rows containing the following values in a table:
+  | Rule # | Rule Name              | Rule Logic                                                  | Total Discrepancies |
+  | 1      | Identifier more than 8 | [identifier] &gt; 8                                            | 5                   |
+  | 2      | Name not Name1         | [ptname] != &#39;Name1&#39;                                         | 8                   |
+  | 3      | Names are different    | [event_2_arm_1][ptname_v2_v2] != [event_2_arm_1][ptname]    | 1                   |
+
+When I click on the link labeled &quot;Record Status Dashboard&quot;
+Then I should see &quot;Record Status Dashboard (all records)&quot;
+And I locate the bubble for the &quot;Data Types&quot; instrument on event &quot;Event 2&quot; for record ID &quot;1&quot; and click on the bubble
+Then I should see &quot;Data Types&quot;
+And I should see &quot;Data quality errors for current form&quot;
+And I should see &quot;Name not Name1&quot; in the Data quality error table
+And I should see &quot;[ptname] != &#39;Name1&#39;&quot; in the Data quality error table
+And I should see &quot;Data quality errors that have been excluded for the current form&quot;
+And I should see &quot;Names are different&quot; in the Data quality exclusion table
+And I should see &quot;[event_2_arm_1][ptname_v2_v2] != [event_2_arm_1][ptname]&quot; in the Data quality exclusion table
+
+When I click on the link labeled &quot;Text Validation&quot;
+Then I should see &quot;Text Validation&quot;
+And I should see &quot;Data quality errors that have been excluded for the current form&quot;
+And I should see &quot;Names are different&quot; in the Data quality exclusion table
+And I should see &quot;[event_2_arm_1][ptname_v2_v2] != [event_2_arm_1][ptname]&quot; in the Data quality exclusion table
+And I logout
+
+# Verify setting Excluded rules are not shown in a table
+Given I login to REDCap with the user &quot;Test_Admin&quot;
+When I click on the link labeled &quot;My Projects&quot;
+And I click on the link labeled &quot;E.124.1200&quot;
+Then I should see &quot;Project Home and Design&quot;
+When I click on the link labeled &quot;Manage&quot;
+Then I should see &quot;External Modules - Project Module Manager&quot;
+And I click on the button labeled &quot;Configure&quot;
+Then I should see &quot;Configure Module&quot;
+And I check the checkbox labeled &quot;When checked, the excluded rules are not shown in a table below the errored rules&quot;
+When I click on the button labeled &quot;Save&quot;
+Then I should see &quot;Highlight DQ Rules - v1.0.0&quot;
+And I logout
+
+Given I login to REDCap with the user &quot;Test_User2&quot;
+When I click on the link labeled &quot;My Projects&quot;
+And I click on the link labeled &quot;E.124.1200&quot;
+And I click on the link labeled &quot;Record Status Dashboard&quot;
+Then I should see &quot;Record Status Dashboard (all records)&quot;
+And I locate the bubble for the &quot;Data Types&quot; instrument on event &quot;Event 2&quot; for record ID &quot;1&quot; and click on the bubble
+And I should NOT see &quot;Data quality errors that have been excluded for the current form&quot;
+And I should NOT see &quot;Names are different&quot;
+And I should NOT see &quot;[event_2_arm_1][ptname_v2_v2] != [event_2_arm_1][ptname]&quot;
+And I should see &quot;Data quality errors for current form&quot;
+And I should see &quot;Name not Name1&quot; in the Data quality error table
+And I should see &quot;[ptname] != &#39;Name1&#39;&quot; in the Data quality error table
+
+When I click on the link labeled &quot;Text Validation&quot;
+Then I should see &quot;Text Validation&quot;
+And I should NOT see &quot;Data quality errors that have been excluded for the current form&quot;
+And I should NOT see &quot;Names are different&quot;
+And I should NOT see &quot;[event_2_arm_1][ptname_v2_v2] != [event_2_arm_1][ptname]&quot;
+And I logout
+
+# Excluded rules are shown in a table
+Given I login to REDCap with the user &quot;Test_Admin&quot;
+When I click on the link labeled &quot;My Projects&quot;
+And I click on the link labeled &quot;E.124.1200&quot;
+Then I should see &quot;Project Home and Design&quot;
+When I click on the link labeled &quot;Manage&quot;
+Then I should see &quot;External Modules - Project Module Manager&quot;
+And I click on the button labeled &quot;Configure&quot;
+Then I should see &quot;Configure Module&quot;
+And I uncheck the checkbox labeled &quot;When checked, the excluded rules are not shown in a table below the errored rules&quot;
+When I click on the button labeled &quot;Save&quot;
+Then I should see &quot;Highlight DQ Rules - v1.0.0&quot;
+And I logout
+
+# De-verify DQR
+Given I login to REDCap with the user &quot;Test_User2&quot;
+When I click on the link labeled &quot;My Projects&quot;
+And I click on the link labeled &quot;E.124.1200&quot;
+Given I click on the link labeled &quot;Data Quality&quot;
+And I click on the button labeled &quot;All&quot;
+Then I should see a table header and rows containing the following values in a table:
+  | Rule # | Rule Name              | Rule Logic                                                  | Total Discrepancies |
+  | 1      | Identifier more than 8 | [identifier] &gt; 8                                            | 5                   |
+  | 2      | Name not Name1         | [ptname] != &#39;Name1&#39;                                         | 8                   |
+  | 3      | Names are different    | [event_2_arm_1][ptname_v2_v2] != [event_2_arm_1][ptname]    | 1                   |
+
+When I click on the link labeled &quot;view&quot; in the row labeled &quot;3&quot;
+Then I should see &quot;Rule #3: Names are different&quot;
+And I should see &quot;1 exclusion not displayed&quot;
+And I click on the link labeled &quot;view&quot;
+And I should see &quot;Discrepancies found: 1&quot;
+And I click on the button labeled &quot;comment&quot;
+When I select the radio option De-verify data value in Data Resolution Workflow
+And I enter &quot;De-verify DQR&quot; into the textarea field labeled &quot;Comment&quot;
+And I click on the button labeled &quot;De-verify data value&quot;
+And I wait for 1 second
+Then I should NOT see &quot;Data Resolution Workflow&quot;
+And I click on the button labeled &quot;Close&quot;
+Then I should see &quot;[event_2_arm_1][ptname_v2_v2] != [event_2_arm_1][ptname]&quot;
+When I click on the button labeled &quot;Clear&quot;
+And I click on the button labeled &quot;All&quot;
+Then I should see a table header and rows containing the following values in a table:
+  | Rule # | Rule Name              | Rule Logic                                                  | Total Discrepancies |
+  | 1      | Identifier more than 8 | [identifier] &gt; 8                                            | 5                   |
+  | 2      | Name not Name1         | [ptname] != &#39;Name1&#39;                                         | 8                   |
+  | 3      | Names are different    | [event_2_arm_1][ptname_v2_v2] != [event_2_arm_1][ptname]    | 1                   |
+
+When I click on the link labeled &quot;Record Status Dashboard&quot;
+Then I should see &quot;Record Status Dashboard (all records)&quot;
+And I locate the bubble for the &quot;Data Types&quot; instrument on event &quot;Event 2&quot; for record ID &quot;1&quot; and click on the bubble
+Then I should see &quot;Data Types&quot;
+And I should see &quot;Data quality errors for current form&quot;
+And I should see &quot;Name not Name1&quot; in the Data quality error table
+And I should see &quot;[ptname] != &#39;Name1&#39;&quot; in the Data quality error table
+And I should see &quot;Names are different&quot; in the Data quality error table
+And I should see &quot;[event_2_arm_1][ptname_v2_v2] != [event_2_arm_1][ptname]&quot; in the Data quality error table
+
+When I click on the link labeled &quot;Text Validation&quot;
+Then I should see &quot;Text Validation&quot;
+And I should see &quot;Data quality errors for current form&quot;
+And I should see &quot;Names are different&quot; in the Data quality error table
+And I should see &quot;[event_2_arm_1][ptname_v2_v2] != [event_2_arm_1][ptname]&quot; in the Data quality error table</code></pre>
+<p># Re-verify DQR Given I click on the link labeled “Data Quality” And
+I click on the button labeled “All” Then I should see a table header and
+rows containing the following values in a table: | Rule # | Rule Name |
+Rule Logic | Total Discrepancies | | 1 | Identifier more than 8 |
+[identifier] &gt; 8 | 5 | | 2 | Name not Name1 | [ptname] != ‘Name1’ | 8
+| | 3 | Names are different | [event_2_arm_1][ptname_v2_v2] !=
+[event_2_arm_1][ptname] | 1 |</p>
+<pre><code>When I click on the link labeled &quot;view&quot; in the row labeled &quot;3&quot;
+Then I should see &quot;Rule #3: Names are different&quot;
+And I should see &quot;Discrepancies found: 1&quot;
+And I click on the button labeled &quot;comments&quot;
+When I select the radio option Verified data value in Data Resolution Workflow
+And I enter &quot;Re-verify DQR&quot; into the textarea field labeled &quot;Comment&quot;
+And I click on the button labeled &quot;Verified data value&quot;
+And I wait for 1 second
+Then I should NOT see &quot;Data Resolution Workflow&quot;
+And I click on the button labeled &quot;Close&quot;
+Then I should see &quot;[event_2_arm_1][ptname_v2_v2] != [event_2_arm_1][ptname]&quot;
+When I click on the button labeled &quot;Clear&quot;
+And I click on the button labeled &quot;All&quot;
+Then I should see a table header and rows containing the following values in a table:
+  | Rule # | Rule Name              | Rule Logic                                                  | Total Discrepancies |
+  | 1      | Identifier more than 8 | [identifier] &gt; 8                                            | 5                   |
+  | 2      | Name not Name1         | [ptname] != &#39;Name1&#39;                                         | 8                   |
+  | 3      | Names are different    | [event_2_arm_1][ptname_v2_v2] != [event_2_arm_1][ptname]    | 1                   |
+
+When I click on the link labeled &quot;Record Status Dashboard&quot;
+Then I should see &quot;Record Status Dashboard (all records)&quot;
+And I locate the bubble for the &quot;Data Types&quot; instrument on event &quot;Event 2&quot; for record ID &quot;1&quot; and click on the bubble
+Then I should see &quot;Data Types&quot;
+And I should see &quot;Data quality errors for current form&quot;
+And I should see &quot;Name not Name1&quot; in the Data quality error table
+And I should see &quot;[ptname] != &#39;Name1&#39;&quot; in the Data quality error table
+And I should see &quot;Data quality errors that have been excluded for the current form&quot;
+And I should see &quot;Names are different&quot; in the Data quality exclusion table
+And I should see &quot;[event_2_arm_1][ptname_v2_v2] != [event_2_arm_1][ptname]&quot; in the Data quality exclusion table
+
+When I click on the link labeled &quot;Text Validation&quot;
+Then I should see &quot;Text Validation&quot;
+And I should see &quot;Data quality errors that have been excluded for the current form&quot;
+And I should see &quot;Names are different&quot; in the Data quality exclusion table
+And I should see &quot;[event_2_arm_1][ptname_v2_v2] != [event_2_arm_1][ptname]&quot; in the Data quality exclusion table
+And I logout</code></pre>
+<p>Scenario: E.124.100 - Disable external module # Disable external
+module in project Given I login to REDCap with the user “Test_Admin”
+When I click on the link labeled “My Projects” And I click on the link
+labeled “E.124.1200” And I click on the link labeled “Manage” Then I
+should see “External Modules - Project Module Manager” And I should see
+“Highlight DQ Rules - v1.0.0” When I click on the button labeled
+“Disable” Then I should see “Disable module?” When I click on the button
+labeled “Disable module” Then I should NOT see “Highlight DQ Rules -
+v1.0.0”</p>
+<pre><code>Given I click on the link labeled &quot;Logging&quot;
+Then I should see a table header and row containing the following values in the logging table:
+  | Time / Date      | Username   | Action                                                                           | List of Data Changes OR Fields Exported                                                                                                       |
+  | mm/dd/yyyy hh:mm | test_admin | Disable external module &quot;highlight_dq_rules_v1.0.0&quot; for project                  |                                                                                                                                               |
+  | mm/dd/yyyy hh:mm | test_admin | Modify configuration for external module &quot;highlight_dq_rules_v1.0.0&quot; for project | dont-show-excluded-table                                                                                                                      |
+  | mm/dd/yyyy hh:mm | test_admin | Modify configuration for external module &quot;highlight_dq_rules_v1.0.0&quot; for project | reserved-hide-from-non-admins-in-project-list, user-roles-can-view, highlight-dq-inline, dont-show-excluded-table, dont-reset-field-data-icon |
+  | mm/dd/yyyy hh:mm | test_admin | Enable external module &quot;highlight_dq_rules_v1.0.0&quot; for project                   |                                                                                                                                               |
+
+# Disable external module in Control Center
+Given I click on the link labeled &quot;Control Center&quot;
+When I click on the link labeled &quot;Manage&quot;
+And I click on the button labeled &quot;Disable&quot;
+Then I should see &quot;Disable module?&quot;
+When I click on the button labeled &quot;Disable module&quot;
+Then I should NOT see &quot;Highlight DQ Rules - v1.0.0&quot;
+
+# Not checking &#39;Delete Version&#39; for now as this is used for deleting lower versions.
+# If the entire EM is deleted REDCap throws an error
+
+Given I click on the link labeled &quot;User Activity Log&quot;
+Then I should see a table header and row containing the following values in a table:
+  | Time             | User       | Event                                                                            |
+  | mm/dd/yyyy hh:mm | test_admin | Disable external module &quot;highlight_dq_rules_v1.0.0&quot; for system                   |
+  | mm/dd/yyyy hh:mm | test_admin | Disable external module &quot;highlight_dq_rules_v1.0.0&quot; for project                  |
+  | mm/dd/yyyy hh:mm | test_admin | Modify configuration for external module &quot;highlight_dq_rules_v1.0.0&quot; for project |
+  | mm/dd/yyyy hh:mm | test_admin | Enable external module &quot;highlight_dq_rules_v1.0.0&quot; for project                   |
+  | mm/dd/yyyy hh:mm | test_admin | Enable external module &quot;highlight_dq_rules_v1.0.0&quot; for system                    |
+
+And I logout
+
+# Verify no exceptions are thrown in the system
+Given I open Email
+Then I should NOT see an email with subject &quot;REDCap External Module Hook Exception - highlight_dq_rules&quot;</code></pre>
+<p><strong>https://github.com/CCTC-team/highlight_dq_rules/blob/main/automated_tests/E.124.1300%20-%20Module%20configuration%20permissions%20in%20projects.feature</strong></p>
+<p>Feature: E.124.1300 - The system shall support the ability to
+configure ‘Module configuration permissions in projects’ for Highlight
+DQ Rules external module.</p>
+<p>As a REDCap end user I want to see that Highlight DQ Rules is
+functioning as expected</p>
+<p>Scenario: E.124.1300 - Module configuration permissions in projects
+Given I login to REDCap with the user “Test_Admin” When I click on the
+link labeled “Control Center” When I click on the link labeled “Manage”
+Then I should see “External Modules - Module Manager” And I should NOT
+see “Highlight DQ Rules - v1.0.0” When I click on the button labeled
+“Enable a module” And I wait for 2 seconds Then I should see “Available
+Modules” And I click on the button labeled “Enable” in the row labeled
+“Highlight DQ Rules” And I wait for 1 second And I click on the button
+labeled “Enable” Then I should see “Highlight DQ Rules - v1.0.0”</p>
+<pre><code>When I click on the button labeled &quot;Configure&quot;
+Then I should see the dropdown field labeled &quot;Module configuration permissions in projects&quot; with the option &quot;Require Project Setup/Design privilege&quot; selected
+And I click on the button labeled &quot;Save&quot;
+Then I should see &quot;Highlight DQ Rules - v1.0.0&quot;
+
+When I create a new project named &quot;E.124.1300&quot; by clicking on &quot;New Project&quot; in the menu bar, selecting &quot;Practice / Just for fun&quot; from the dropdown, choosing file &quot;fixtures/cdisc_files/Project_redcap_val_nodata.xml&quot;, and clicking the &quot;Create Project&quot; button
+
+# Enable external module
+And I click on the link labeled &quot;Manage&quot;
+Then I should see &quot;External Modules - Project Module Manager&quot;
+When I click on the button labeled &quot;Enable a module&quot;
+And I click on the button labeled &quot;Enable&quot; in the row labeled &quot;Highlight DQ Rules - v1.0.0&quot;
+Then I should see &quot;Highlight DQ Rules - v1.0.0&quot;
+
+#VERIFY
+When I click on the link labeled &quot;User Rights&quot;
+And I enter &quot;Test_User1&quot; into the input field labeled &quot;Add with custom rights&quot;
+And I click on the button labeled &quot;Add with custom rights&quot;
+When I check the User Right named &quot;Project Setup &amp; Design&quot;
+Then I should see a checkbox labeled &quot;Highlight DQ Rules&quot; that is checked
+And I click on the button labeled &quot;Add user&quot;
+Then I should see &quot;successfully added&quot;
+
+# Enable - Require module-specific user privilege
+When I click on the link labeled &quot;Control Center&quot;
+And I click on the link labeled &quot;Manage&quot;
+Then I should see &quot;External Modules - Module Manager&quot;
+And I should see &quot;Highlight DQ Rules - v1.0.0&quot;
+When I click on the button labeled &quot;Configure&quot;
+And I select &quot;Require module-specific user privilege&quot; on the dropdown field labeled &quot;Module configuration permissions in projects&quot;
+And I click on the button labeled &quot;Save&quot;
+Then I should see &quot;Highlight DQ Rules - v1.0.0&quot;
+
+When I click on the link labeled &quot;My Projects&quot;
+And I click on the link labeled &quot;E.124.1300&quot;
+
+#VERIFY
+When I click on the link labeled &quot;User Rights&quot;
+And I enter &quot;Test_User2&quot; into the input field labeled &quot;Add with custom rights&quot;
+And I click on the button labeled &quot;Add with custom rights&quot;
+When I check the User Right named &quot;Project Setup &amp; Design&quot;
+Then I should see a checkbox labeled &quot;Highlight DQ Rules&quot; that is unchecked
+And I check the checkbox labeled &quot;Highlight DQ Rules&quot;
+And I click on the button labeled &quot;Add user&quot;
+Then I should see &quot;successfully added&quot;</code></pre>
+<p>Scenario: E.124.600 - View Usage of the external module When I click
+on the link labeled “Control Center” And I click on the link labeled
+“Manage” Then I should see “Highlight DQ Rules - v1.0.0” When I click on
+the button labeled “View Usage” And I should see a link labeled
+“E.124.1300” When I click on the link labeled “E.124.1300” Then I should
+see “Project Home” And I should see “E.124.1300”</p>
+<pre><code># Disable external module in Control Center
+When I click on the link labeled &quot;Control Center&quot;
+And I click on the link labeled &quot;Manage&quot;
+And I click on the button labeled &quot;Disable&quot;
+Then I should see &quot;Disable module?&quot;
+When I click on the button labeled &quot;Disable module&quot;
+Then I should NOT see &quot;Highlight DQ Rules - v1.0.0&quot;
+And I logout
+
+# Verify no exceptions are thrown in the system
+Given I open Email
+Then I should NOT see an email with subject &quot;REDCap External Module Hook Exception - highlight_dq_rules&quot;</code></pre>
+</div>
+<hr />
+<p><strong>Comments:</strong><br />
+</p>
+<div class="comments">
+<div class="comment">
+<p><strong>Comment:</strong></p>
+<p><em>Author:</em> MintooXavier <em>Updated on:</em> 13/03/2026
+15:54:50</p>
+<em>Comment body:</em>
+<p dir="auto">
+Tests successfully validated against v15.5.36
+</p>
+</div>
+</div>
+<hr />
+<p><strong>Timeline events:</strong><br />
+</p>
+<div class="timeline">
+<div class="timeline">
+<p>ASSIGNED | <em>User:</em> MintooXavier <em>Created on:</em>
+20/11/2025 13:37:34 <em>Assignee:</em> MintooXavier</p>
+<p>LABELLED | <em>User:</em> MintooXavier <em>Created on:</em>
+20/11/2025 13:37:35 <em>Label name:</em> Gherkin <em>Label
+description:</em> Uses a Gherkin syntax</p>
+<p>LABELLED | <em>User:</em> MintooXavier <em>Created on:</em>
+20/11/2025 13:37:35 <em>Label name:</em> Automated <em>Label
+description:</em></p>
+<p>ADDED TO PROJECT V2 | <em>User:</em> MintooXavier <em>Created
+on:</em> 20/11/2025 13:37:35</p>
+<p>LABELLED | <em>User:</em> MintooXavier <em>Created on:</em>
+20/11/2025 13:37:36 <em>Label name:</em> External Module <em>Label
+description:</em></p>
+<p>ADDED TO PROJECT V2 | <em>User:</em> github-project-automation
+<em>Created on:</em> 20/11/2025 13:37:36</p>
+<p>PROJECT V2 ITEM STATUS CHANGED | <em>User:</em>
+github-project-automation <em>Created on:</em> 20/11/2025 13:37:36
+<em>Previous status:</em> <em>Status:</em> To do</p>
+<p>PROJECT V2 ITEM STATUS CHANGED | <em>User:</em>
+github-project-automation <em>Created on:</em> 20/11/2025 13:37:37
+<em>Previous status:</em> <em>Status:</em> To Do</p>
+<p>PROJECT V2 ITEM STATUS CHANGED | <em>User:</em> MintooXavier
+<em>Created on:</em> 20/11/2025 14:05:39 <em>Previous status:</em> To Do
+<em>Status:</em> Reviewed and complete</p>
+<p>CLOSED | <em>User:</em> MintooXavier <em>Created on:</em> 20/11/2025
+14:16:54 <em>Closed reason:</em> COMPLETED</p>
+<p>PROJECT V2 ITEM STATUS CHANGED | <em>User:</em>
+github-project-automation <em>Created on:</em> 20/11/2025 14:16:56
+<em>Previous status:</em> Reviewed and complete <em>Status:</em> Pre
+review</p>
+<p>PROJECT V2 ITEM STATUS CHANGED | <em>User:</em>
+github-project-automation <em>Created on:</em> 20/11/2025 14:16:56
+<em>Previous status:</em> To do <em>Status:</em> Reviewed and
+complete</p>
+<p>PROJECT V2 ITEM STATUS CHANGED | <em>User:</em> MintooXavier
+<em>Created on:</em> 20/11/2025 14:17:18 <em>Previous status:</em> Pre
+review <em>Status:</em> Reviewed and complete</p>
+<p>REMOVED FROM PROJECT V2 | <em>User:</em> MintooXavier <em>Created
+on:</em> 20/11/2025 14:36:27 <em>Project title:</em> REDCap Validation
+and Verification</p>
+<p>REMOVED FROM PROJECT V2 | <em>User:</em> MintooXavier <em>Created
+on:</em> 02/12/2025 14:11:50 <em>Project title:</em> REDCap EM:
+Configuration Monitor</p>
+<p>ADDED TO PROJECT V2 | <em>User:</em> MintooXavier <em>Created
+on:</em> 02/12/2025 14:14:08</p>
+<p>PROJECT V2 ITEM STATUS CHANGED | <em>User:</em>
+github-project-automation <em>Created on:</em> 02/12/2025 14:14:11
+<em>Previous status:</em> <em>Status:</em> Reviewed and complete</p>
+<p>REMOVED FROM PROJECT V2 | <em>User:</em> MintooXavier <em>Created
+on:</em> 02/12/2025 14:15:30 <em>Project title:</em> REDCap Validation
+and Verification</p>
+<p>ADDED TO PROJECT V2 | <em>User:</em> MintooXavier <em>Created
+on:</em> 02/12/2025 14:15:30</p>
+<p>PROJECT V2 ITEM STATUS CHANGED | <em>User:</em>
+github-project-automation <em>Created on:</em> 02/12/2025 14:15:32
+<em>Previous status:</em> To Do <em>Status:</em> Pre review</p>
+<p>PROJECT V2 ITEM STATUS CHANGED | <em>User:</em>
+github-project-automation <em>Created on:</em> 02/12/2025 14:15:32
+<em>Previous status:</em> <em>Status:</em> To Do</p>
+<p>PROJECT V2 ITEM STATUS CHANGED | <em>User:</em> MintooXavier
+<em>Created on:</em> 02/12/2025 14:15:45 <em>Previous status:</em> Pre
+review <em>Status:</em> Reviewed and complete</p>
+<p>REMOVED FROM PROJECT V2 | <em>User:</em> MintooXavier <em>Created
+on:</em> 03/12/2025 10:21:58 <em>Project title:</em> REDCap EM:
+Configuration Monitor</p>
+<p>ADDED TO PROJECT V2 | <em>User:</em> MintooXavier <em>Created
+on:</em> 03/12/2025 10:21:58</p>
+<p>PROJECT V2 ITEM STATUS CHANGED | <em>User:</em>
+github-project-automation <em>Created on:</em> 03/12/2025 10:21:59
+<em>Previous status:</em> To Do <em>Status:</em> Pre review</p>
+<p>PROJECT V2 ITEM STATUS CHANGED | <em>User:</em>
+github-project-automation <em>Created on:</em> 03/12/2025 10:21:59
+<em>Previous status:</em> <em>Status:</em> To Do</p>
+<p>PROJECT V2 ITEM STATUS CHANGED | <em>User:</em> MintooXavier
+<em>Created on:</em> 03/12/2025 10:22:58 <em>Previous status:</em> Pre
+review <em>Status:</em> Tess pass</p>
+<p>PROJECT V2 ITEM STATUS CHANGED | <em>User:</em> MintooXavier
+<em>Created on:</em> 03/12/2025 10:23:04 <em>Previous status:</em> Tess
+pass <em>Status:</em> Reviewed and complete</p>
+<p>REOPENED | <em>User:</em> MintooXavier <em>Created on:</em>
+13/03/2026 15:45:31 <em>Reason:</em> REOPENED</p>
+<p>PROJECT V2 ITEM STATUS CHANGED | <em>User:</em> MintooXavier
+<em>Created on:</em> 13/03/2026 15:45:38 <em>Previous status:</em>
+Reviewed and complete <em>Status:</em> Scripting In Progress</p>
+ISSUE COMMENT | <em>User:</em> MintooXavier <em>Created on:</em>
+13/03/2026 15:54:50 <em>Issue comment body:</em>
+<p dir="auto">
+Tests successfully validated against v15.5.36
+</p>
+<p>CLOSED | <em>User:</em> MintooXavier <em>Created on:</em> 13/03/2026
+15:54:50 <em>Closed reason:</em> COMPLETED</p>
+<p>PROJECT V2 ITEM STATUS CHANGED | <em>User:</em>
+github-project-automation <em>Created on:</em> 13/03/2026 15:54:53
+<em>Previous status:</em> Scripting In Progress <em>Status:</em> Pre
+review</p>
+<p>PROJECT V2 ITEM STATUS CHANGED | <em>User:</em> MintooXavier
+<em>Created on:</em> 13/03/2026 15:54:54 <em>Previous status:</em> Pre
+review <em>Status:</em> Reviewed and complete</p>
+</div>
+</div>
+<p><br/></p>
+<p>————— feature ends —————</p>
+<p><br/></p>
+</body>
+</html>

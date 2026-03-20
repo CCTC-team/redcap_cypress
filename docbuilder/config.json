@@ -7,10 +7,10 @@
     "runAs": {
       "Case": "Html"
     },
-    "fileName": "REDCap_Validation_Report_v14.7.0.html"
+    "fileName": "REDCap_Validation_Report_v15.5.36.html"
   },
   "genOpts": 31,
-  "version": "v14.7.0",
+  "version": "v15.5.36",
   "defaultBranch": "redcap_val",
   "validUsers": [
     "MintooXavier",
@@ -24,6 +24,6 @@
   "totalExpectedCardChecks": 6,
   "featureTemplateFilePath": "feature_template.md",
   "outputTemplateFilePath": "output_template.md",
-  "outputFolderPath": "output\\",
-  "destinationFilePath": "output\\dest.md"
+  "outputFolderPath": "output/",
+  "destinationFilePath": "output/dest.md"
 }

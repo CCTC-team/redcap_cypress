@@ -1,0 +1,29 @@
+{
+    "targetSoftware": "REDCap_Data_Entry_Log",
+    "runChecks": false,
+    "runOutput" : true,
+    "runPandoc" : true,
+    "pandocArgs": {
+        "runAs": {
+            "Case": "Html"
+        },
+        "fileName": "Data_Entry_Log_v1.0.1.html"
+    },
+    "genOpts": 31,
+    "version": "v1.0.1",
+    "defaultBranch": "main",
+    "validUsers": [
+        "MintooXavier",
+        "rmh54",
+        "phillidgithub",
+        "CoreenDsouza",
+        "TanDBPRO",
+        "rukayat-yakub",
+        "LawrenceFayers"
+    ],
+    "totalExpectedCardChecks": 6,
+    "featureTemplateFilePath": "feature_template.md",
+    "outputTemplateFilePath": "output_template.md",
+    "outputFolderPath": "output/",
+    "destinationFilePath": "output/dest.md"
+}

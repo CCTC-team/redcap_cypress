@@ -1,0 +1,30 @@
+{
+    "targetSoftware": "REDCap_Highlight_DQR",
+    "targetSoftwareprojectID": 10,
+    "runChecks": false,
+    "runOutput" : true,
+    "runPandoc" : true,
+    "pandocArgs": {
+        "runAs": {
+            "Case": "Html"
+        },
+        "fileName": "Highlight_DQR_v1.0.0.html"
+    },
+    "genOpts": 31,
+    "version": "v1.0.0",
+    "defaultBranch": "main",
+    "validUsers": [
+        "MintooXavier",
+        "rmh54",
+        "phillidgithub",
+        "CoreenDsouza",
+        "TanDBPRO",
+        "rukayat-yakub",
+        "LawrenceFayers"
+    ],
+    "totalExpectedCardChecks": 6,
+    "featureTemplateFilePath": "feature_template.md",
+    "outputTemplateFilePath": "output_template.md",
+    "outputFolderPath": "output/",
+    "destinationFilePath": "output/dest.md"
+}
