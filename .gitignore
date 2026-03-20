@@ -39,3 +39,6 @@ cypress/features/Continue\ Last\ Run.feature
 /mysql
 
 mysql-cli.zip
+
+circleci-ssh-keys/
+http-server.log
