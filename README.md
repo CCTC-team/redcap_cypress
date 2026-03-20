@@ -196,6 +196,30 @@ npx cypress run
 
 ---
 
+## Test Reports (Mochawesome)
+
+Test results are automatically saved as JSON in `cypress/results/json/` after each run. To generate a combined HTML report:
+
+```bash
+npm run report
+```
+
+This creates `cypress/results/html/test-report.html` — open it in a browser to view pass/fail results, durations, and error details.
+
+To customise the report filename per run:
+
+```bash
+REPORT_NAME=v15.5.36-smoke npx cypress run --browser chrome --spec "..."
+```
+
+To clear old results before a fresh run:
+
+```bash
+npm run report:clean
+```
+
+---
+
 ## NPM Scripts Reference
 
 | Script | Description |
@@ -206,6 +230,10 @@ npx cypress run
 | `redcap_rsvc:validate_features` | Validate Gherkin feature files |
 | `redcap_rsvc:single_test` | Run a single RSVC test (Configuration Check) |
 | `redcap_rsvc:all_tests` | Run all RSVC tests with recording |
+| `report:clean` | Clear old test results |
+| `report:merge` | Merge individual JSON results into a single file |
+| `report:generate` | Generate HTML report from merged JSON |
+| `report` | Run merge + generate (produces `cypress/results/html/test-report.html`) |
 
 ---
 
@@ -218,3 +246,6 @@ npx cypress run
 | [@badeball/cypress-cucumber-preprocessor](https://github.com/badeball/cypress-cucumber-preprocessor) | Gherkin/Cucumber support for Cypress |
 | [cypress](https://www.cypress.io/) | E2E testing framework (peer dependency, `^15.10.0`) |
 | cypress-file-upload | File upload support for Cypress tests |
+| [mochawesome](https://github.com/adamgruber/mochawesome) | HTML/JSON test report generation |
+| mochawesome-merge | Merges multiple Mochawesome JSON files |
+| mochawesome-report-generator | Generates HTML reports from merged JSON |

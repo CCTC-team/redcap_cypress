@@ -13,6 +13,9 @@
   "devDependencies": {
     "cypress-file-upload": "^5.0.8",
     "del-cli": "^6",
+    "mochawesome": "^7.1.4",
+    "mochawesome-merge": "^5.1.1",
+    "mochawesome-report-generator": "^6.3.2",
     "move-cli": "^2"
   },
   "overrides": {
@@ -26,6 +29,10 @@
     "redcap_rsvc:validate_features": "npm install gherkin-parse glob-fs --no-save --silent --ignore-scripts && node validate_feature_files.js && sh validate_feature_files.sh",
     "redcap_rsvc:single_test": "CYPRESS_prettyEnabled=true npx cypress run --spec redcap_rsvc/Feature\\ Tests/A/Configuration\\ Check_1/A.1.1.0100.\\ -\\ Run\\ Configuration\\ Check.feature --browser chrome",
     "redcap_rsvc:all_tests": "CYPRESS_prettyEnabled=true npx cypress run --record --key $RECORD_KEY --parallel --group core-tests --browser chrome",
+    "report:clean": "del-cli cypress/results",
+    "report:merge": "npx mochawesome-merge cypress/results/json/*.json -o cypress/results/test-report.json",
+    "report:generate": "npx marge cypress/results/test-report.json --reportDir cypress/results/html --inline",
+    "report": "npm run report:merge && npm run report:generate && echo 'Report: cypress/results/html/test-report.html'",
     "redcap_rsvc:run_official_tests": "npm run redcap_rsvc:all_tests || true",
     "rctf:install_server": "npm install http-server --no-save --silent",
     "rctf:run_server": "npx http-server node_modules/rctf/tests/static/ -p 6060 > http-server.log 2>&1 &",
@@ -40,10 +47,10 @@
   },
   "cypress-cucumber-preprocessor": {
     "stepDefinitions": [
-                        "cypress/support/step_definitions/*",
-                        "../redcap_source/modules/*/automated_tests/step_definitions/*.js",
-                        "../redcap_source/modules/*/automated-tests/step_definitions/*.js"
-                      ]
+      "cypress/support/step_definitions/*",
+      "../redcap_source/modules/*/automated_tests/step_definitions/*.js",
+      "../redcap_source/modules/*/automated-tests/step_definitions/*.js"
+    ]
   },
   "repository": {
     "type": "git",
