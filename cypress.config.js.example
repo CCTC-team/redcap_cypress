@@ -3,7 +3,7 @@ const AdmZip = require('adm-zip')
 const fs = require('fs')
 const path = require('path')
 const crypto = require('crypto')
-const { exec } = require('child_process')
+const { execSync } = require('child_process')
 const readLine = require('readline')
 // const compareImages = require('resemblejs/compareImages')
 
@@ -32,16 +32,14 @@ module.exports = defineConfig({
           require('rctf/plugins/index.js')(on, config)
 
           on('task', {
-            // Task: Clear redcap_file_repository folder
+            // Task: Clear redcap_file_repository in Docker container
             clearFileRepo() {
-              const fileRepo = path.resolve(__dirname, config.env.file_repository)
-              if (fs.existsSync(fileRepo)) {
-                fs.readdirSync(fileRepo).forEach(file => {
-                  fs.rmSync(path.join(fileRepo, file), { recursive: true, force: true })
-                })
-                return { success: true, message: `Cleared file repository folder: ${fileRepo}` }
-              }
-              return { success: true, message: 'File repository folder does not exist' }
+              const container = 'redcap-app'
+              const fileRepo = config.env.file_repository
+
+              execSync(`docker exec ${container} find ${fileRepo} -type f -delete`, { encoding: 'utf-8' })
+
+              return null
             },
             // Task 1: Unzip a file
             unzipFile({ filepath }) {
@@ -68,32 +66,29 @@ module.exports = defineConfig({
             
             // Task 2: Checks the Local storage location for the latest downloaded PDF file
             fetchLatestDownloadLocal({ fileExtension }) {
-              // Local storage location
+              const container = 'redcap-app'
               const fileRepo = config.env.file_repository
-              const downloadsDir = path.resolve(fileRepo)
 
               try {
-                // Read files in the directory
-                const files = fs.readdirSync(downloadsDir)
-    
-                // Filter files by extension
-                const filteredFiles = files.filter(file => path.extname(file) === `.${fileExtension}`)
-    
-                // If no files are found, return an empty string
-                if (filteredFiles.length === 0) {
-                  return ''
+                // Find the latest file by modification time inside the container
+                const result = execSync(
+                  `docker exec ${container} find ${fileRepo} -name "*.${fileExtension}" -printf "%T@ %p\\n" | sort -rn | head -1`,
+                  { encoding: 'utf-8' }
+                ).trim()
+
+                if (!result) {
+                  throw new Error(`No .${fileExtension} files found in ${fileRepo}`)
                 }
-    
-                // Sort files by modification time and get the latest file
-                const latestFile = filteredFiles
-                  .map(file => ({
-                    file,
-                    mtime: fs.statSync(path.join(downloadsDir, file)).mtime,
-                  }))
-                  .sort((a, b) => b.mtime - a.mtime)[0].file
-    
-                // Return the full path to the latest file
-                return path.join(downloadsDir, latestFile)
+
+                // Extract the container file path (after the timestamp)
+                const containerFile = result.split(' ').slice(1).join(' ')
+
+                // Copy the file from the container to a temp location for readPdf
+                const tmpDir = require('os').tmpdir()
+                const localFile = path.join(tmpDir, path.basename(containerFile))
+                execSync(`docker cp ${container}:${containerFile} ${localFile}`)
+
+                return localFile
               } catch (error) {
                 throw new Error(`Error fetching latest download: ${error.message}`)
               }
@@ -196,7 +191,7 @@ module.exports = defineConfig({
             runMode: 2,
             openMode: 0
         },
-        video: false,
+        video: true,
         videoCompression: false,
         trashAssetsBeforeRuns: true,
         viewportWidth: 1600,
