@@ -1042,18 +1042,6 @@ Given("I enter {string} into the alert message", (msg) => {
 /**
  * @module Interactions
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I {savecan} the alert
- * @param {string} savecan - available options: 'Save', 'Cancel'
- * @description save/cancel the alert
- */
-Given("I {savecan} the alert", (msg) => {
-    cy.get('button').contains(savecan[msg]).scrollIntoView().click()
-})
-
-
-/**
- * @module Interactions
- * @author Mintoo Xavier <min2xavier@gmail.com>
  * @example I click on the mail icon for record {int}
  * @param {int} recordID - record ID
  * @description clicks on the mail icon for record ID
