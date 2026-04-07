@@ -73,12 +73,6 @@
 
 |SUBHEADER|
 
-<div class="sub-header">
-* Note that currently the Project related events are not being picked up see
-    See https://github.com/orgs/community/discussions/57326
-    The audit trail related to moving columns within a project are not being pulled by graphql
-</div>
-
 ### Index
 
 |INDEX|

@@ -72,13 +72,7 @@
 ## REDCap Validation Report for v15.5.36
 
 <div class="sub-header">
-Generated on 20/03/2026 10:09:58 from github project id 10 by min2xavier@gmail.com
-</div>
-
-<div class="sub-header">
-* Note that currently the Project related events are not being picked up see
-    See https://github.com/orgs/community/discussions/57326
-    The audit trail related to moving columns within a project are not being pulled by graphql
+Generated on 07/04/2026 10:32:26 from github project id 10 by min2xavier@gmail.com
 </div>
 
 ### Index
@@ -213,13 +207,13 @@ Generated on 20/03/2026 10:09:58 from github project id 10 by min2xavier@gmail.c
 ***
 
 ----------------------------------------------------------------------------------------------------------------------- -------------------------------------------------------------------------------
-**State:** OPEN                                                                                                         **State reason**: REOPENED                                                     
+**State:** CLOSED                                                                                                       **State reason**: COMPLETED                                                    
                                                                                                                                                                                                         
 **Includes created edit:** true                                                                                         
                                                                                                                                                                                                         
-**Closed:** false                                                                                                       **Closed on:** |none|                                                          
+**Closed:** true                                                                                                        **Closed on:** 25/03/2026 17:39:19                                             
                                                                                                                                                                                                         
-**Editor:** MintooXavier                                                                                                **Updated on:** 16/03/2026 13:57:53                                            
+**Editor:** MintooXavier                                                                                                **Updated on:** 25/03/2026 17:39:19                                            
                                                                                                                                                                                                         
 **Locked:** false                                                                                                       **Participants:** MintooXavier || LawrenceFayers || TanDBPRO                   
                                                                                                                                                                                                         
@@ -1273,6 +1267,16 @@ Automated the scripts:
 
 
 </div>
+
+<div class="comment">
+**Comment:**
+
+*Author:* MintooXavier *Updated on:* 25/03/2026 17:39:19
+
+*Comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+
+</div>
 </div>
 
 ***
@@ -1403,6 +1407,12 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 REOPENED | *User:* MintooXavier *Created on:* 16/03/2026 13:57:53 *Reason:* REOPENED
 
 PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 16/03/2026 13:57:56 *Previous status:* Reviewed and complete *Status:* To do
+
+ISSUE COMMENT | *User:* MintooXavier *Created on:* 25/03/2026 17:39:19 *Issue comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+CLOSED | *User:* MintooXavier *Created on:* 25/03/2026 17:39:19 *Closed reason:* COMPLETED
+
+PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 25/03/2026 17:39:21 *Previous status:* To do *Status:* Reviewed and complete
 </div>
 </div>
 
@@ -1426,20 +1436,20 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
                                                                                                                                                                                                         
 **Assignees:** MintooXavier                                                                                             **Resource path:** <a href=https://github.com//CCTC-team/redcap_cypress/issues/79 target=_blank>/CCTC-team/redcap_cypress/issues/79</a>
                                                                                                                                                                                                         
-**Milestone:** |none|                                                                                                   **Labels:** Core feature || Gherkin || Automated || PQ                         
+**Milestone:** |none|                                                                                                   **Labels:** Core feature || Gherkin || Automated                               
                                                                                                                                                                                                         
 ----------------------------------------------------------------------------------------------------------------------- -------------------------------------------------------------------------------
 
 ***
 
 ----------------------------------------------------------------------------------------------------------------------- -------------------------------------------------------------------------------
-**State:** OPEN                                                                                                         **State reason**: REOPENED                                                     
+**State:** CLOSED                                                                                                       **State reason**: COMPLETED                                                    
                                                                                                                                                                                                         
 **Includes created edit:** true                                                                                         
                                                                                                                                                                                                         
-**Closed:** false                                                                                                       **Closed on:** |none|                                                          
+**Closed:** true                                                                                                        **Closed on:** 20/03/2026 16:57:57                                             
                                                                                                                                                                                                         
-**Editor:** CoreenDsouza                                                                                                **Updated on:** 16/03/2026 14:01:26                                            
+**Editor:** CoreenDsouza                                                                                                **Updated on:** 20/03/2026 16:57:57                                            
                                                                                                                                                                                                         
 **Locked:** false                                                                                                       **Participants:** MintooXavier || CoreenDsouza                                 
                                                                                                                                                                                                         
@@ -1963,6 +1973,16 @@ B.4.27.700 - REDUNDANT - says redundant but not tested. The script should test d
 
 
 </div>
+
+<div class="comment">
+**Comment:**
+
+*Author:* MintooXavier *Updated on:* 20/03/2026 16:57:57
+
+*Comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+
+</div>
 </div>
 
 ***
@@ -2026,6 +2046,14 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 REOPENED | *User:* MintooXavier *Created on:* 16/03/2026 14:01:26 *Reason:* REOPENED
 
 PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 16/03/2026 14:01:28 *Previous status:* Reviewed and complete *Status:* To do
+
+UNLABELLED | *User:* MintooXavier *Created on:* 20/03/2026 15:26:01 *Label name:* PQ *Label description:* 
+
+ISSUE COMMENT | *User:* MintooXavier *Created on:* 20/03/2026 16:57:57 *Issue comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+CLOSED | *User:* MintooXavier *Created on:* 20/03/2026 16:57:57 *Closed reason:* COMPLETED
+
+PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 20/03/2026 16:57:59 *Previous status:* To do *Status:* Reviewed and complete
 </div>
 </div>
 
@@ -2056,13 +2084,13 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 ***
 
 ----------------------------------------------------------------------------------------------------------------------- -------------------------------------------------------------------------------
-**State:** OPEN                                                                                                         **State reason**: REOPENED                                                     
+**State:** CLOSED                                                                                                       **State reason**: COMPLETED                                                    
                                                                                                                                                                                                         
 **Includes created edit:** true                                                                                         
                                                                                                                                                                                                         
-**Closed:** false                                                                                                       **Closed on:** |none|                                                          
+**Closed:** true                                                                                                        **Closed on:** 25/03/2026 17:39:51                                             
                                                                                                                                                                                                         
-**Editor:** MintooXavier                                                                                                **Updated on:** 16/03/2026 14:05:46                                            
+**Editor:** MintooXavier                                                                                                **Updated on:** 25/03/2026 17:39:51                                            
                                                                                                                                                                                                         
 **Locked:** false                                                                                                       **Participants:** MintooXavier || LawrenceFayers || TanDBPRO                   
                                                                                                                                                                                                         
@@ -2377,6 +2405,16 @@ Review completed. Test Pass
 
 
 </div>
+
+<div class="comment">
+**Comment:**
+
+*Author:* MintooXavier *Updated on:* 25/03/2026 17:39:51
+
+*Comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+
+</div>
 </div>
 
 ***
@@ -2432,6 +2470,12 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 REOPENED | *User:* MintooXavier *Created on:* 16/03/2026 14:05:47 *Reason:* REOPENED
 
 PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 16/03/2026 14:05:49 *Previous status:* Reviewed and complete *Status:* To do
+
+ISSUE COMMENT | *User:* MintooXavier *Created on:* 25/03/2026 17:39:51 *Issue comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+CLOSED | *User:* MintooXavier *Created on:* 25/03/2026 17:39:51 *Closed reason:* COMPLETED
+
+PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 25/03/2026 17:39:53 *Previous status:* To do *Status:* Reviewed and complete
 </div>
 </div>
 
@@ -2462,13 +2506,13 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 ***
 
 ----------------------------------------------------------------------------------------------------------------------- -------------------------------------------------------------------------------
-**State:** OPEN                                                                                                         **State reason**: REOPENED                                                     
+**State:** CLOSED                                                                                                       **State reason**: COMPLETED                                                    
                                                                                                                                                                                                         
 **Includes created edit:** true                                                                                         
                                                                                                                                                                                                         
-**Closed:** false                                                                                                       **Closed on:** |none|                                                          
+**Closed:** true                                                                                                        **Closed on:** 25/03/2026 14:58:31                                             
                                                                                                                                                                                                         
-**Editor:** MintooXavier                                                                                                **Updated on:** 16/03/2026 14:06:17                                            
+**Editor:** MintooXavier                                                                                                **Updated on:** 25/03/2026 14:58:32                                            
                                                                                                                                                                                                         
 **Locked:** false                                                                                                       **Participants:** MintooXavier || rukayat-yakub || LawrenceFayers              
                                                                                                                                                                                                         
@@ -2664,6 +2708,7 @@ Feature: D.104.100 - The system shall support the ability to send a survey when 
     And I locate the bubble for the "Survey" instrument on event "Event 1" for record ID "1" and click on the bubble
     When I click on the button labeled "Survey options"
     And I click on the survey option label containing "Open survey" label
+    And I wait for 1 second
     ##VERIFY
     Then I should see "Survey"
     When I enter "1" into the data entry form field labeled "Reminder"
@@ -2762,6 +2807,7 @@ Feature: D.104.300 - The system shall support the ability to send a survey after
     And I locate the bubble for the "Survey" instrument on event "Event 1" for record ID "1" and click on the bubble
     When I click on the button labeled "Survey options"
     And I click on the survey option label containing "Open survey" label
+    And I wait for 1 second
     Then I should see "Survey"
     When I enter "1" into the data entry form field labeled "Reminder"
     And I enter "description" into the data entry form field labeled "Description"
@@ -2944,6 +2990,16 @@ Have tested this manually and it works.</p>
 
 
 </div>
+
+<div class="comment">
+**Comment:**
+
+*Author:* MintooXavier *Updated on:* 25/03/2026 14:58:31
+
+*Comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+
+</div>
 </div>
 
 ***
@@ -3040,6 +3096,12 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 REOPENED | *User:* MintooXavier *Created on:* 16/03/2026 14:06:17 *Reason:* REOPENED
 
 PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 16/03/2026 14:06:18 *Previous status:* Reviewed and complete *Status:* To do
+
+ISSUE COMMENT | *User:* MintooXavier *Created on:* 25/03/2026 14:58:31 *Issue comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+CLOSED | *User:* MintooXavier *Created on:* 25/03/2026 14:58:32 *Closed reason:* COMPLETED
+
+PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 25/03/2026 14:58:34 *Previous status:* To do *Status:* Reviewed and complete
 </div>
 </div>
 
@@ -3070,13 +3132,13 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 ***
 
 ----------------------------------------------------------------------------------------------------------------------- -------------------------------------------------------------------------------
-**State:** OPEN                                                                                                         **State reason**: REOPENED                                                     
+**State:** CLOSED                                                                                                       **State reason**: COMPLETED                                                    
                                                                                                                                                                                                         
 **Includes created edit:** true                                                                                         
                                                                                                                                                                                                         
-**Closed:** false                                                                                                       **Closed on:** |none|                                                          
+**Closed:** true                                                                                                        **Closed on:** 25/03/2026 10:22:24                                             
                                                                                                                                                                                                         
-**Editor:** MintooXavier                                                                                                **Updated on:** 16/03/2026 14:05:59                                            
+**Editor:** MintooXavier                                                                                                **Updated on:** 25/03/2026 10:22:24                                            
                                                                                                                                                                                                         
 **Locked:** false                                                                                                       **Participants:** MintooXavier || LawrenceFayers || TanDBPRO                   
                                                                                                                                                                                                         
@@ -3358,6 +3420,16 @@ in
 
 
 </div>
+
+<div class="comment">
+**Comment:**
+
+*Author:* MintooXavier *Updated on:* 25/03/2026 10:22:24
+
+*Comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+
+</div>
 </div>
 
 ***
@@ -3482,6 +3554,12 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 REOPENED | *User:* MintooXavier *Created on:* 16/03/2026 14:05:59 *Reason:* REOPENED
 
 PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 16/03/2026 14:06:03 *Previous status:* Reviewed and complete *Status:* To do
+
+ISSUE COMMENT | *User:* MintooXavier *Created on:* 25/03/2026 10:22:24 *Issue comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+CLOSED | *User:* MintooXavier *Created on:* 25/03/2026 10:22:24 *Closed reason:* COMPLETED
+
+PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 25/03/2026 10:22:25 *Previous status:* To do *Status:* Reviewed and complete
 </div>
 </div>
 
@@ -3505,20 +3583,20 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
                                                                                                                                                                                                         
 **Assignees:** MintooXavier                                                                                             **Resource path:** <a href=https://github.com//CCTC-team/redcap_cypress/issues/77 target=_blank>/CCTC-team/redcap_cypress/issues/77</a>
                                                                                                                                                                                                         
-**Milestone:** |none|                                                                                                   **Labels:** Core feature || Gherkin || Automated || PQ                         
+**Milestone:** |none|                                                                                                   **Labels:** Core feature || Gherkin || Automated                               
                                                                                                                                                                                                         
 ----------------------------------------------------------------------------------------------------------------------- -------------------------------------------------------------------------------
 
 ***
 
 ----------------------------------------------------------------------------------------------------------------------- -------------------------------------------------------------------------------
-**State:** OPEN                                                                                                         **State reason**: REOPENED                                                     
+**State:** CLOSED                                                                                                       **State reason**: COMPLETED                                                    
                                                                                                                                                                                                         
 **Includes created edit:** true                                                                                         
                                                                                                                                                                                                         
-**Closed:** false                                                                                                       **Closed on:** |none|                                                          
+**Closed:** true                                                                                                        **Closed on:** 20/03/2026 16:39:19                                             
                                                                                                                                                                                                         
-**Editor:** CoreenDsouza                                                                                                **Updated on:** 16/03/2026 14:24:20                                            
+**Editor:** CoreenDsouza                                                                                                **Updated on:** 20/03/2026 16:39:19                                            
                                                                                                                                                                                                         
 **Locked:** false                                                                                                       **Participants:** MintooXavier || CoreenDsouza                                 
                                                                                                                                                                                                         
@@ -4043,6 +4121,16 @@ Rewriting D.5.22.100 as the field names and options don't match for filters
 
 
 </div>
+
+<div class="comment">
+**Comment:**
+
+*Author:* MintooXavier *Updated on:* 20/03/2026 16:39:19
+
+*Comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+
+</div>
 </div>
 
 ***
@@ -4131,6 +4219,14 @@ REOPENED | *User:* MintooXavier *Created on:* 16/03/2026 14:06:36 *Reason:* REOP
 PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 16/03/2026 14:06:39 *Previous status:* Reviewed and complete *Status:* To do
 
 ASSIGNED | *User:* MintooXavier *Created on:* 16/03/2026 14:24:20 *Assignee:* MintooXavier
+
+UNLABELLED | *User:* MintooXavier *Created on:* 20/03/2026 15:26:11 *Label name:* PQ *Label description:* 
+
+ISSUE COMMENT | *User:* MintooXavier *Created on:* 20/03/2026 16:39:19 *Issue comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+CLOSED | *User:* MintooXavier *Created on:* 20/03/2026 16:39:19 *Closed reason:* COMPLETED
+
+PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 20/03/2026 16:39:21 *Previous status:* To do *Status:* Reviewed and complete
 </div>
 </div>
 
@@ -4161,13 +4257,13 @@ ASSIGNED | *User:* MintooXavier *Created on:* 16/03/2026 14:24:20 *Assignee:* Mi
 ***
 
 ----------------------------------------------------------------------------------------------------------------------- -------------------------------------------------------------------------------
-**State:** OPEN                                                                                                         **State reason**: REOPENED                                                     
+**State:** CLOSED                                                                                                       **State reason**: COMPLETED                                                    
                                                                                                                                                                                                         
 **Includes created edit:** true                                                                                         
                                                                                                                                                                                                         
-**Closed:** false                                                                                                       **Closed on:** |none|                                                          
+**Closed:** true                                                                                                        **Closed on:** 20/03/2026 15:24:56                                             
                                                                                                                                                                                                         
-**Editor:** CoreenDsouza                                                                                                **Updated on:** 16/03/2026 14:06:53                                            
+**Editor:** CoreenDsouza                                                                                                **Updated on:** 20/03/2026 15:24:57                                            
                                                                                                                                                                                                         
 **Locked:** false                                                                                                       **Participants:** MintooXavier || CoreenDsouza                                 
                                                                                                                                                                                                         
@@ -5478,6 +5574,16 @@ A.4.8.100 - Enable field validation
 
 
 </div>
+
+<div class="comment">
+**Comment:**
+
+*Author:* MintooXavier *Updated on:* 20/03/2026 15:24:56
+
+*Comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+
+</div>
 </div>
 
 ***
@@ -5525,6 +5631,12 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 REOPENED | *User:* MintooXavier *Created on:* 16/03/2026 14:06:53 *Reason:* REOPENED
 
 PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 16/03/2026 14:09:26 *Previous status:* Reviewed and complete *Status:* To do
+
+ISSUE COMMENT | *User:* MintooXavier *Created on:* 20/03/2026 15:24:56 *Issue comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+CLOSED | *User:* MintooXavier *Created on:* 20/03/2026 15:24:56 *Closed reason:* COMPLETED
+
+PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 20/03/2026 15:24:59 *Previous status:* To do *Status:* Reviewed and complete
 </div>
 </div>
 
@@ -8617,13 +8729,13 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 ***
 
 ----------------------------------------------------------------------------------------------------------------------- -------------------------------------------------------------------------------
-**State:** OPEN                                                                                                         **State reason**: REOPENED                                                     
+**State:** CLOSED                                                                                                       **State reason**: COMPLETED                                                    
                                                                                                                                                                                                         
 **Includes created edit:** true                                                                                         
                                                                                                                                                                                                         
-**Closed:** false                                                                                                       **Closed on:** |none|                                                          
+**Closed:** true                                                                                                        **Closed on:** 25/03/2026 10:21:48                                             
                                                                                                                                                                                                         
-**Editor:** rukayat-yakub                                                                                               **Updated on:** 16/03/2026 13:58:47                                            
+**Editor:** rukayat-yakub                                                                                               **Updated on:** 25/03/2026 10:21:49                                            
                                                                                                                                                                                                         
 **Locked:** false                                                                                                       **Participants:** MintooXavier || rukayat-yakub                                
                                                                                                                                                                                                         
@@ -9013,6 +9125,16 @@ Reviewed and Passed
 Reviewed and Passed automation
 </div>
 </div>
+
+<div class="comment">
+**Comment:**
+
+*Author:* MintooXavier *Updated on:* 25/03/2026 10:21:49
+
+*Comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+
+</div>
 </div>
 
 ***
@@ -9162,6 +9284,12 @@ CLOSED | *User:* rukayat-yakub *Created on:* 06/08/2025 12:06:17 *Closed reason:
 REOPENED | *User:* MintooXavier *Created on:* 16/03/2026 13:58:48 *Reason:* REOPENED
 
 PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 16/03/2026 13:58:50 *Previous status:* Reviewed and complete *Status:* To do
+
+ISSUE COMMENT | *User:* MintooXavier *Created on:* 25/03/2026 10:21:49 *Issue comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+CLOSED | *User:* MintooXavier *Created on:* 25/03/2026 10:21:49 *Closed reason:* COMPLETED
+
+PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 25/03/2026 10:21:51 *Previous status:* To do *Status:* Reviewed and complete
 </div>
 </div>
 
@@ -9192,13 +9320,13 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 ***
 
 ----------------------------------------------------------------------------------------------------------------------- -------------------------------------------------------------------------------
-**State:** OPEN                                                                                                         **State reason**: REOPENED                                                     
+**State:** CLOSED                                                                                                       **State reason**: COMPLETED                                                    
                                                                                                                                                                                                         
 **Includes created edit:** true                                                                                         
                                                                                                                                                                                                         
-**Closed:** false                                                                                                       **Closed on:** |none|                                                          
+**Closed:** true                                                                                                        **Closed on:** 25/03/2026 10:23:05                                             
                                                                                                                                                                                                         
-**Editor:** MintooXavier                                                                                                **Updated on:** 16/03/2026 14:02:04                                            
+**Editor:** MintooXavier                                                                                                **Updated on:** 25/03/2026 10:23:05                                            
                                                                                                                                                                                                         
 **Locked:** false                                                                                                       **Participants:** MintooXavier || rukayat-yakub || TanDBPRO                    
                                                                                                                                                                                                         
@@ -9816,6 +9944,16 @@ Reviewed and Passed
 Reviewed and Passed automation
 </div>
 </div>
+
+<div class="comment">
+**Comment:**
+
+*Author:* MintooXavier *Updated on:* 25/03/2026 10:23:05
+
+*Comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+
+</div>
 </div>
 
 ***
@@ -10155,6 +10293,12 @@ CLOSED | *User:* rukayat-yakub *Created on:* 06/08/2025 12:08:59 *Closed reason:
 REOPENED | *User:* MintooXavier *Created on:* 16/03/2026 14:02:04 *Reason:* REOPENED
 
 PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 16/03/2026 14:02:06 *Previous status:* Reviewed and complete *Status:* To do
+
+ISSUE COMMENT | *User:* MintooXavier *Created on:* 25/03/2026 10:23:05 *Issue comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+CLOSED | *User:* MintooXavier *Created on:* 25/03/2026 10:23:05 *Closed reason:* COMPLETED
+
+PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 25/03/2026 10:23:06 *Previous status:* To do *Status:* Reviewed and complete
 </div>
 </div>
 
@@ -10189,9 +10333,9 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
                                                                                                                                                                                                         
 **Includes created edit:** true                                                                                         
                                                                                                                                                                                                         
-**Closed:** true                                                                                                        **Closed on:** 16/03/2026 13:59:10                                             
+**Closed:** true                                                                                                        **Closed on:** 25/03/2026 10:29:56                                             
                                                                                                                                                                                                         
-**Editor:** MintooXavier                                                                                                **Updated on:** 16/03/2026 13:59:10                                            
+**Editor:** MintooXavier                                                                                                **Updated on:** 25/03/2026 10:29:56                                            
                                                                                                                                                                                                         
 **Locked:** false                                                                                                       **Participants:** MintooXavier || TanDBPRO                                     
                                                                                                                                                                                                         
@@ -10569,6 +10713,16 @@ in
 
 
 </div>
+
+<div class="comment">
+**Comment:**
+
+*Author:* MintooXavier *Updated on:* 25/03/2026 10:29:56
+
+*Comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+
+</div>
 </div>
 
 ***
@@ -10782,6 +10936,14 @@ REOPENED | *User:* MintooXavier *Created on:* 16/03/2026 13:59:09 *Reason:* REOP
 CLOSED | *User:* MintooXavier *Created on:* 16/03/2026 13:59:10 *Closed reason:* COMPLETED
 
 PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 16/03/2026 13:59:12 *Previous status:* Reviewed and complete *Status:* To do
+
+REOPENED | *User:* MintooXavier *Created on:* 25/03/2026 10:29:12 *Reason:* REOPENED
+
+ISSUE COMMENT | *User:* MintooXavier *Created on:* 25/03/2026 10:29:56 *Issue comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+CLOSED | *User:* MintooXavier *Created on:* 25/03/2026 10:29:56 *Closed reason:* COMPLETED
+
+PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 25/03/2026 10:29:59 *Previous status:* To do *Status:* Reviewed and complete
 </div>
 </div>
 
@@ -10812,13 +10974,13 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 ***
 
 ----------------------------------------------------------------------------------------------------------------------- -------------------------------------------------------------------------------
-**State:** OPEN                                                                                                         **State reason**: REOPENED                                                     
+**State:** CLOSED                                                                                                       **State reason**: COMPLETED                                                    
                                                                                                                                                                                                         
 **Includes created edit:** true                                                                                         
                                                                                                                                                                                                         
-**Closed:** false                                                                                                       **Closed on:** |none|                                                          
+**Closed:** true                                                                                                        **Closed on:** 25/03/2026 10:26:35                                             
                                                                                                                                                                                                         
-**Editor:** TanDBPRO                                                                                                    **Updated on:** 16/03/2026 13:59:52                                            
+**Editor:** TanDBPRO                                                                                                    **Updated on:** 25/03/2026 10:26:35                                            
                                                                                                                                                                                                         
 **Locked:** false                                                                                                       **Participants:** MintooXavier || TanDBPRO                                     
                                                                                                                                                                                                         
@@ -11544,6 +11706,16 @@ Hi Mintoo,  I have reviewed your comments and made the necessary changes. Please
 
 
 </div>
+
+<div class="comment">
+**Comment:**
+
+*Author:* MintooXavier *Updated on:* 25/03/2026 10:26:35
+
+*Comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+
+</div>
 </div>
 
 ***
@@ -12038,6 +12210,12 @@ REOPENED | *User:* MintooXavier *Created on:* 16/03/2026 13:59:52 *Reason:* REOP
 PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 16/03/2026 13:59:52 *Previous status:* To do *Status:* Reviewed and complete
 
 PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 16/03/2026 13:59:53 *Previous status:* Reviewed and complete *Status:* To do
+
+ISSUE COMMENT | *User:* MintooXavier *Created on:* 25/03/2026 10:26:35 *Issue comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+CLOSED | *User:* MintooXavier *Created on:* 25/03/2026 10:26:35 *Closed reason:* COMPLETED
+
+PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 25/03/2026 10:26:38 *Previous status:* To do *Status:* Reviewed and complete
 </div>
 </div>
 
@@ -12068,13 +12246,13 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 ***
 
 ----------------------------------------------------------------------------------------------------------------------- -------------------------------------------------------------------------------
-**State:** OPEN                                                                                                         **State reason**: REOPENED                                                     
+**State:** CLOSED                                                                                                       **State reason**: COMPLETED                                                    
                                                                                                                                                                                                         
 **Includes created edit:** true                                                                                         
                                                                                                                                                                                                         
-**Closed:** false                                                                                                       **Closed on:** |none|                                                          
+**Closed:** true                                                                                                        **Closed on:** 25/03/2026 17:45:04                                             
                                                                                                                                                                                                         
-**Editor:** MintooXavier                                                                                                **Updated on:** 16/03/2026 14:02:32                                            
+**Editor:** MintooXavier                                                                                                **Updated on:** 25/03/2026 17:45:04                                            
                                                                                                                                                                                                         
 **Locked:** false                                                                                                       **Participants:** MintooXavier || phillidgithub || TanDBPRO                    
                                                                                                                                                                                                         
@@ -13200,6 +13378,16 @@ Scripts Automated:
 
 
 </div>
+
+<div class="comment">
+**Comment:**
+
+*Author:* MintooXavier *Updated on:* 25/03/2026 17:45:04
+
+*Comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+
+</div>
 </div>
 
 ***
@@ -13624,6 +13812,12 @@ CLOSED | *User:* MintooXavier *Created on:* 23/07/2025 09:35:18 *Closed reason:*
 REOPENED | *User:* MintooXavier *Created on:* 16/03/2026 14:02:32 *Reason:* REOPENED
 
 PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 16/03/2026 14:02:34 *Previous status:* Reviewed and complete *Status:* To do
+
+ISSUE COMMENT | *User:* MintooXavier *Created on:* 25/03/2026 17:45:04 *Issue comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+CLOSED | *User:* MintooXavier *Created on:* 25/03/2026 17:45:04 *Closed reason:* COMPLETED
+
+PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 25/03/2026 17:45:07 *Previous status:* To do *Status:* Reviewed and complete
 </div>
 </div>
 
@@ -13654,13 +13848,13 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 ***
 
 ----------------------------------------------------------------------------------------------------------------------- -------------------------------------------------------------------------------
-**State:** OPEN                                                                                                         **State reason**: REOPENED                                                     
+**State:** CLOSED                                                                                                       **State reason**: COMPLETED                                                    
                                                                                                                                                                                                         
 **Includes created edit:** true                                                                                         
                                                                                                                                                                                                         
-**Closed:** false                                                                                                       **Closed on:** |none|                                                          
+**Closed:** true                                                                                                        **Closed on:** 25/03/2026 17:46:45                                             
                                                                                                                                                                                                         
-**Editor:** MintooXavier                                                                                                **Updated on:** 16/03/2026 14:01:03                                            
+**Editor:** MintooXavier                                                                                                **Updated on:** 25/03/2026 17:46:45                                            
                                                                                                                                                                                                         
 **Locked:** false                                                                                                       **Participants:** MintooXavier || TanDBPRO                                     
                                                                                                                                                                                                         
@@ -13772,6 +13966,16 @@ This feature test is REDUNDANT and can be viewed in D.129.100
 
 
 </div>
+
+<div class="comment">
+**Comment:**
+
+*Author:* MintooXavier *Updated on:* 25/03/2026 17:46:45
+
+*Comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+
+</div>
 </div>
 
 ***
@@ -13815,6 +14019,12 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 REOPENED | *User:* MintooXavier *Created on:* 16/03/2026 14:01:03 *Reason:* REOPENED
 
 PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 16/03/2026 14:01:05 *Previous status:* Reviewed and complete *Status:* To do
+
+ISSUE COMMENT | *User:* MintooXavier *Created on:* 25/03/2026 17:46:45 *Issue comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+CLOSED | *User:* MintooXavier *Created on:* 25/03/2026 17:46:45 *Closed reason:* COMPLETED
+
+PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 25/03/2026 17:46:47 *Previous status:* To do *Status:* Reviewed and complete
 </div>
 </div>
 
@@ -13845,13 +14055,13 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 ***
 
 ----------------------------------------------------------------------------------------------------------------------- -------------------------------------------------------------------------------
-**State:** OPEN                                                                                                         **State reason**: REOPENED                                                     
+**State:** CLOSED                                                                                                       **State reason**: COMPLETED                                                    
                                                                                                                                                                                                         
 **Includes created edit:** true                                                                                         
                                                                                                                                                                                                         
-**Closed:** false                                                                                                       **Closed on:** |none|                                                          
+**Closed:** true                                                                                                        **Closed on:** 02/04/2026 14:36:43                                             
                                                                                                                                                                                                         
-**Editor:** MintooXavier                                                                                                **Updated on:** 16/03/2026 14:01:11                                            
+**Editor:** MintooXavier                                                                                                **Updated on:** 02/04/2026 14:36:44                                            
                                                                                                                                                                                                         
 **Locked:** false                                                                                                       **Participants:** MintooXavier || LawrenceFayers || TanDBPRO                   
                                                                                                                                                                                                         
@@ -14062,6 +14272,7 @@ Feature: D.117.100 - The system shall support the ability to enable/disable File
     And I click on the button labeled "Close"
     Then I should see a link labeled "file1.csv (0.01 MB)"
     And I select the submit option labeled "Save & Stay" on the Data Collection Instrument
+    And I wait for 1 second
 
     # Verify file version is not saved
     Given I click on the History icon for the field labeled "File Upload"
@@ -14239,6 +14450,16 @@ Script pre-reviewed and Tests Pass
 
 
 </div>
+
+<div class="comment">
+**Comment:**
+
+*Author:* MintooXavier *Updated on:* 02/04/2026 14:36:43
+
+*Comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+
+</div>
 </div>
 
 ***
@@ -14305,6 +14526,12 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 REOPENED | *User:* MintooXavier *Created on:* 16/03/2026 14:01:11 *Reason:* REOPENED
 
 PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 16/03/2026 14:01:14 *Previous status:* Reviewed and complete *Status:* To do
+
+ISSUE COMMENT | *User:* MintooXavier *Created on:* 02/04/2026 14:36:43 *Issue comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+CLOSED | *User:* MintooXavier *Created on:* 02/04/2026 14:36:44 *Closed reason:* COMPLETED
+
+PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 02/04/2026 14:36:46 *Previous status:* To do *Status:* Reviewed and complete
 </div>
 </div>
 
@@ -14335,13 +14562,13 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 ***
 
 ----------------------------------------------------------------------------------------------------------------------- -------------------------------------------------------------------------------
-**State:** OPEN                                                                                                         **State reason**: REOPENED                                                     
+**State:** CLOSED                                                                                                       **State reason**: COMPLETED                                                    
                                                                                                                                                                                                         
 **Includes created edit:** true                                                                                         
                                                                                                                                                                                                         
-**Closed:** false                                                                                                       **Closed on:** |none|                                                          
+**Closed:** true                                                                                                        **Closed on:** 25/03/2026 17:38:37                                             
                                                                                                                                                                                                         
-**Editor:** MintooXavier                                                                                                **Updated on:** 16/03/2026 14:22:14                                            
+**Editor:** MintooXavier                                                                                                **Updated on:** 25/03/2026 17:38:37                                            
                                                                                                                                                                                                         
 **Locked:** false                                                                                                       **Participants:** MintooXavier || CoreenDsouza || TanDBPRO                     
                                                                                                                                                                                                         
@@ -14904,7 +15131,7 @@ There is a bug in this feature. During Data Import, it prompts for two reasons f
 *Author:* CoreenDsouza *Updated on:* 22/10/2024 13:59:58
 
 *Comment body:* <p dir="auto">Hi Mintoo, I thought it was a bug but I after I recreated it  with two existing records I realised the comments are at record level, and expect to have the same comment copied over for the whole record. So the when two records were updated via data import, and reason 1 was given for all rows of Record 1  and Reason 2 for all rows of Record 2, Reason1 and Reason 2 were correctly shown. It says each record here -<br>
-<a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/119594021/378871232-707b5477-2b60-4736-b39f-18bd94db08a1.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzQwMDE2NDgsIm5iZiI6MTc3NDAwMTM0OCwicGF0aCI6Ii8xMTk1OTQwMjEvMzc4ODcxMjMyLTcwN2I1NDc3LTJiNjAtNDczNi1iMzlmLTE4YmQ5NGRiMDhhMS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwMzIwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDMyMFQxMDA5MDhaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0wNWQyY2FkN2IyYWIxNGVkMDY1Yjk5NWRiZmRhNWFmMWM3MzVlMzRhN2VmZDc0YTM1MDQ1OTY0MjI0NWEwMDRkJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.mTQY99IV24eJFbaQM8dL8m32P-rUYGYAQ1IPYOWzFN0"><img src="https://private-user-images.githubusercontent.com/119594021/378871232-707b5477-2b60-4736-b39f-18bd94db08a1.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzQwMDE2NDgsIm5iZiI6MTc3NDAwMTM0OCwicGF0aCI6Ii8xMTk1OTQwMjEvMzc4ODcxMjMyLTcwN2I1NDc3LTJiNjAtNDczNi1iMzlmLTE4YmQ5NGRiMDhhMS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwMzIwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDMyMFQxMDA5MDhaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0wNWQyY2FkN2IyYWIxNGVkMDY1Yjk5NWRiZmRhNWFmMWM3MzVlMzRhN2VmZDc0YTM1MDQ1OTY0MjI0NWEwMDRkJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.mTQY99IV24eJFbaQM8dL8m32P-rUYGYAQ1IPYOWzFN0" alt="image" style="max-width: 100%;"></a>  <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/MintooXavier/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/MintooXavier">@MintooXavier</a></p>
+<a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/119594021/378871232-707b5477-2b60-4736-b39f-18bd94db08a1.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzU1NTQ1OTYsIm5iZiI6MTc3NTU1NDI5NiwicGF0aCI6Ii8xMTk1OTQwMjEvMzc4ODcxMjMyLTcwN2I1NDc3LTJiNjAtNDczNi1iMzlmLTE4YmQ5NGRiMDhhMS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwNDA3JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDQwN1QwOTMxMzZaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1jMWE1YWM1ZTliNjIxMTVkZDMxM2JhMmY1NmI2MzZlYWJhOTUyYmQ5ZjU5MzQ2ZWVhYzljMjhmZmIxYTU4NjZlJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.xxrvubSJVKvZcAz7DjIVhHuZX4QhZso1K0yZNOpy8k4"><img src="https://private-user-images.githubusercontent.com/119594021/378871232-707b5477-2b60-4736-b39f-18bd94db08a1.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzU1NTQ1OTYsIm5iZiI6MTc3NTU1NDI5NiwicGF0aCI6Ii8xMTk1OTQwMjEvMzc4ODcxMjMyLTcwN2I1NDc3LTJiNjAtNDczNi1iMzlmLTE4YmQ5NGRiMDhhMS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwNDA3JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDQwN1QwOTMxMzZaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1jMWE1YWM1ZTliNjIxMTVkZDMxM2JhMmY1NmI2MzZlYWJhOTUyYmQ5ZjU5MzQ2ZWVhYzljMjhmZmIxYTU4NjZlJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.xxrvubSJVKvZcAz7DjIVhHuZX4QhZso1K0yZNOpy8k4" alt="image" style="max-width: 100%;"></a>  <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/MintooXavier/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/MintooXavier">@MintooXavier</a></p>
 
 *Comment edits:* 
 
@@ -14995,6 +15222,16 @@ Scripts Automated:
 
 
 </div>
+
+<div class="comment">
+**Comment:**
+
+*Author:* MintooXavier *Updated on:* 25/03/2026 17:38:36
+
+*Comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+
+</div>
 </div>
 
 ***
@@ -15070,7 +15307,7 @@ LABELLED | *User:* MintooXavier *Created on:* 22/10/2024 12:41:47 *Label name:* 
 LABELLED | *User:* MintooXavier *Created on:* 22/10/2024 12:41:47 *Label name:* Gherkin *Label description:* Uses a Gherkin syntax
 
 ISSUE COMMENT | *User:* CoreenDsouza *Created on:* 22/10/2024 13:58:21 *Issue comment body:* <p dir="auto">Hi Mintoo, I thought it was a bug but I after I recreated it  with two existing records I realised the comments are at record level, and expect to have the same comment copied over for the whole record. So the when two records were updated via data import, and reason 1 was given for all rows of Record 1  and Reason 2 for all rows of Record 2, Reason1 and Reason 2 were correctly shown. It says each record here -<br>
-<a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/119594021/378871232-707b5477-2b60-4736-b39f-18bd94db08a1.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzQwMDE2NDgsIm5iZiI6MTc3NDAwMTM0OCwicGF0aCI6Ii8xMTk1OTQwMjEvMzc4ODcxMjMyLTcwN2I1NDc3LTJiNjAtNDczNi1iMzlmLTE4YmQ5NGRiMDhhMS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwMzIwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDMyMFQxMDA5MDhaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0wNWQyY2FkN2IyYWIxNGVkMDY1Yjk5NWRiZmRhNWFmMWM3MzVlMzRhN2VmZDc0YTM1MDQ1OTY0MjI0NWEwMDRkJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.mTQY99IV24eJFbaQM8dL8m32P-rUYGYAQ1IPYOWzFN0"><img src="https://private-user-images.githubusercontent.com/119594021/378871232-707b5477-2b60-4736-b39f-18bd94db08a1.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzQwMDE2NDgsIm5iZiI6MTc3NDAwMTM0OCwicGF0aCI6Ii8xMTk1OTQwMjEvMzc4ODcxMjMyLTcwN2I1NDc3LTJiNjAtNDczNi1iMzlmLTE4YmQ5NGRiMDhhMS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwMzIwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDMyMFQxMDA5MDhaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0wNWQyY2FkN2IyYWIxNGVkMDY1Yjk5NWRiZmRhNWFmMWM3MzVlMzRhN2VmZDc0YTM1MDQ1OTY0MjI0NWEwMDRkJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.mTQY99IV24eJFbaQM8dL8m32P-rUYGYAQ1IPYOWzFN0" alt="image" style="max-width: 100%;"></a>  <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/MintooXavier/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/MintooXavier">@MintooXavier</a></p>
+<a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/119594021/378871232-707b5477-2b60-4736-b39f-18bd94db08a1.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzU1NTQ1OTYsIm5iZiI6MTc3NTU1NDI5NiwicGF0aCI6Ii8xMTk1OTQwMjEvMzc4ODcxMjMyLTcwN2I1NDc3LTJiNjAtNDczNi1iMzlmLTE4YmQ5NGRiMDhhMS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwNDA3JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDQwN1QwOTMxMzZaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1jMWE1YWM1ZTliNjIxMTVkZDMxM2JhMmY1NmI2MzZlYWJhOTUyYmQ5ZjU5MzQ2ZWVhYzljMjhmZmIxYTU4NjZlJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.xxrvubSJVKvZcAz7DjIVhHuZX4QhZso1K0yZNOpy8k4"><img src="https://private-user-images.githubusercontent.com/119594021/378871232-707b5477-2b60-4736-b39f-18bd94db08a1.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzU1NTQ1OTYsIm5iZiI6MTc3NTU1NDI5NiwicGF0aCI6Ii8xMTk1OTQwMjEvMzc4ODcxMjMyLTcwN2I1NDc3LTJiNjAtNDczNi1iMzlmLTE4YmQ5NGRiMDhhMS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwNDA3JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDQwN1QwOTMxMzZaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1jMWE1YWM1ZTliNjIxMTVkZDMxM2JhMmY1NmI2MzZlYWJhOTUyYmQ5ZjU5MzQ2ZWVhYzljMjhmZmIxYTU4NjZlJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.xxrvubSJVKvZcAz7DjIVhHuZX4QhZso1K0yZNOpy8k4" alt="image" style="max-width: 100%;"></a>  <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/MintooXavier/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/MintooXavier">@MintooXavier</a></p>
 
 MENTIONED | *User:* MintooXavier *Created on:* 22/10/2024 14:00:18
 
@@ -15111,6 +15348,12 @@ REOPENED | *User:* MintooXavier *Created on:* 16/03/2026 14:00:03 *Reason:* REOP
 PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 16/03/2026 14:00:05 *Previous status:* Reviewed and complete *Status:* To do
 
 UNASSIGNED | *User:* MintooXavier *Created on:* 16/03/2026 14:22:14 *Assignee:* CoreenDsouza
+
+ISSUE COMMENT | *User:* MintooXavier *Created on:* 25/03/2026 17:38:36 *Issue comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+CLOSED | *User:* MintooXavier *Created on:* 25/03/2026 17:38:37 *Closed reason:* COMPLETED
+
+PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 25/03/2026 17:38:39 *Previous status:* To do *Status:* Reviewed and complete
 </div>
 </div>
 
@@ -15141,13 +15384,13 @@ UNASSIGNED | *User:* MintooXavier *Created on:* 16/03/2026 14:22:14 *Assignee:* 
 ***
 
 ----------------------------------------------------------------------------------------------------------------------- -------------------------------------------------------------------------------
-**State:** OPEN                                                                                                         **State reason**: REOPENED                                                     
+**State:** CLOSED                                                                                                       **State reason**: COMPLETED                                                    
                                                                                                                                                                                                         
 **Includes created edit:** true                                                                                         
                                                                                                                                                                                                         
-**Closed:** false                                                                                                       **Closed on:** |none|                                                          
+**Closed:** true                                                                                                        **Closed on:** 25/03/2026 10:23:50                                             
                                                                                                                                                                                                         
-**Editor:** MintooXavier                                                                                                **Updated on:** 16/03/2026 13:57:45                                            
+**Editor:** MintooXavier                                                                                                **Updated on:** 25/03/2026 10:23:50                                            
                                                                                                                                                                                                         
 **Locked:** false                                                                                                       **Participants:** MintooXavier || LawrenceFayers || TanDBPRO                   
                                                                                                                                                                                                         
@@ -15680,7 +15923,7 @@ in
 1. Select Yes for field labeled "Are you able to attend weekend appointments?" and save; and check options for radio field.<br>
 2. Select No for field labeled "Are you able to attend weekend appointments?" and save; and check options for radio field.<br>
 Check radio options as follows<br>
-<a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/30346020/371080920-0dd5183c-30fd-4130-83c0-cf2fe190fe39.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzQwMDE2NDgsIm5iZiI6MTc3NDAwMTM0OCwicGF0aCI6Ii8zMDM0NjAyMC8zNzEwODA5MjAtMGRkNTE4M2MtMzBmZC00MTMwLTgzYzAtY2YyZmUxOTBmZTM5LnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjAzMjAlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwMzIwVDEwMDkwOFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWRiZjEyYmE0YjA1ODFhOGM1NTk0MzdlNGYzMjdiMTYxYWUwYTgxMDdjODE1MGNkYjBjM2U1YmUyZmE2ZWE4YjImWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.9iFEkaxR9Sqi0xoMZ6_4leZxtw6t0ZlGg6RZyHpQ8Ww"><img src="https://private-user-images.githubusercontent.com/30346020/371080920-0dd5183c-30fd-4130-83c0-cf2fe190fe39.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzQwMDE2NDgsIm5iZiI6MTc3NDAwMTM0OCwicGF0aCI6Ii8zMDM0NjAyMC8zNzEwODA5MjAtMGRkNTE4M2MtMzBmZC00MTMwLTgzYzAtY2YyZmUxOTBmZTM5LnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjAzMjAlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwMzIwVDEwMDkwOFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWRiZjEyYmE0YjA1ODFhOGM1NTk0MzdlNGYzMjdiMTYxYWUwYTgxMDdjODE1MGNkYjBjM2U1YmUyZmE2ZWE4YjImWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.9iFEkaxR9Sqi0xoMZ6_4leZxtw6t0ZlGg6RZyHpQ8Ww" alt="Image" style="max-width: 100%;"></a></li>
+<a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/30346020/371080920-0dd5183c-30fd-4130-83c0-cf2fe190fe39.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzU1NTQ1OTYsIm5iZiI6MTc3NTU1NDI5NiwicGF0aCI6Ii8zMDM0NjAyMC8zNzEwODA5MjAtMGRkNTE4M2MtMzBmZC00MTMwLTgzYzAtY2YyZmUxOTBmZTM5LnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjA0MDclMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwNDA3VDA5MzEzNlomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTc4ODBmOGUzMjU3YzA3ZTkzNzNlZjljMWVjNzgzN2E5NmFkYmQxZTgyNzYzYzNmOTkzOWYyZjc2MjFhNDAyYmEmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.4jy07PPmrA6J9CYgN9nunxd6tljGFKoWqmHyznYiE-I"><img src="https://private-user-images.githubusercontent.com/30346020/371080920-0dd5183c-30fd-4130-83c0-cf2fe190fe39.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzU1NTQ1OTYsIm5iZiI6MTc3NTU1NDI5NiwicGF0aCI6Ii8zMDM0NjAyMC8zNzEwODA5MjAtMGRkNTE4M2MtMzBmZC00MTMwLTgzYzAtY2YyZmUxOTBmZTM5LnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjA0MDclMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwNDA3VDA5MzEzNlomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTc4ODBmOGUzMjU3YzA3ZTkzNzNlZjljMWVjNzgzN2E5NmFkYmQxZTgyNzYzYzNmOTkzOWYyZjc2MjFhNDAyYmEmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.4jy07PPmrA6J9CYgN9nunxd6tljGFKoWqmHyznYiE-I" alt="Image" style="max-width: 100%;"></a></li>
 </ol>
 <p dir="auto">You are right.. There is no field embedding in this.. Probably I'll split this up into 2 scripts and put a new number for field embedding..</p>
 <p dir="auto">Review completed for action tags</p>
@@ -15905,6 +16148,16 @@ I believe I have already done this on the row above but please confirm if you me
 *Author:* TanDBPRO *Updated on:* 22/07/2025 22:31:36
 
 *Comment body:* <p dir="auto">Script post criteria reviewed and passed.</p>
+
+
+</div>
+
+<div class="comment">
+**Comment:**
+
+*Author:* MintooXavier *Updated on:* 25/03/2026 10:23:50
+
+*Comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
 
 
 </div>
@@ -16234,7 +16487,7 @@ in
 1. Select Yes for field labeled "Are you able to attend weekend appointments?" and save; and check options for radio field.<br>
 2. Select No for field labeled "Are you able to attend weekend appointments?" and save; and check options for radio field.<br>
 Check radio options as follows<br>
-<a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/30346020/371080920-0dd5183c-30fd-4130-83c0-cf2fe190fe39.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzQwMDE2NDgsIm5iZiI6MTc3NDAwMTM0OCwicGF0aCI6Ii8zMDM0NjAyMC8zNzEwODA5MjAtMGRkNTE4M2MtMzBmZC00MTMwLTgzYzAtY2YyZmUxOTBmZTM5LnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjAzMjAlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwMzIwVDEwMDkwOFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWRiZjEyYmE0YjA1ODFhOGM1NTk0MzdlNGYzMjdiMTYxYWUwYTgxMDdjODE1MGNkYjBjM2U1YmUyZmE2ZWE4YjImWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.9iFEkaxR9Sqi0xoMZ6_4leZxtw6t0ZlGg6RZyHpQ8Ww"><img src="https://private-user-images.githubusercontent.com/30346020/371080920-0dd5183c-30fd-4130-83c0-cf2fe190fe39.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzQwMDE2NDgsIm5iZiI6MTc3NDAwMTM0OCwicGF0aCI6Ii8zMDM0NjAyMC8zNzEwODA5MjAtMGRkNTE4M2MtMzBmZC00MTMwLTgzYzAtY2YyZmUxOTBmZTM5LnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjAzMjAlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwMzIwVDEwMDkwOFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWRiZjEyYmE0YjA1ODFhOGM1NTk0MzdlNGYzMjdiMTYxYWUwYTgxMDdjODE1MGNkYjBjM2U1YmUyZmE2ZWE4YjImWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.9iFEkaxR9Sqi0xoMZ6_4leZxtw6t0ZlGg6RZyHpQ8Ww" alt="Image" style="max-width: 100%;"></a></li>
+<a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/30346020/371080920-0dd5183c-30fd-4130-83c0-cf2fe190fe39.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzU1NTQ1OTYsIm5iZiI6MTc3NTU1NDI5NiwicGF0aCI6Ii8zMDM0NjAyMC8zNzEwODA5MjAtMGRkNTE4M2MtMzBmZC00MTMwLTgzYzAtY2YyZmUxOTBmZTM5LnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjA0MDclMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwNDA3VDA5MzEzNlomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTc4ODBmOGUzMjU3YzA3ZTkzNzNlZjljMWVjNzgzN2E5NmFkYmQxZTgyNzYzYzNmOTkzOWYyZjc2MjFhNDAyYmEmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.4jy07PPmrA6J9CYgN9nunxd6tljGFKoWqmHyznYiE-I"><img src="https://private-user-images.githubusercontent.com/30346020/371080920-0dd5183c-30fd-4130-83c0-cf2fe190fe39.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzU1NTQ1OTYsIm5iZiI6MTc3NTU1NDI5NiwicGF0aCI6Ii8zMDM0NjAyMC8zNzEwODA5MjAtMGRkNTE4M2MtMzBmZC00MTMwLTgzYzAtY2YyZmUxOTBmZTM5LnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjA0MDclMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwNDA3VDA5MzEzNlomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTc4ODBmOGUzMjU3YzA3ZTkzNzNlZjljMWVjNzgzN2E5NmFkYmQxZTgyNzYzYzNmOTkzOWYyZjc2MjFhNDAyYmEmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.4jy07PPmrA6J9CYgN9nunxd6tljGFKoWqmHyznYiE-I" alt="Image" style="max-width: 100%;"></a></li>
 </ol>
 <p dir="auto">You are right.. There is no field embedding in this.. Probably I'll split this up into 2 scripts and put a new number for field embedding..</p>
 <p dir="auto">Review completed for action tags</p>
@@ -16313,6 +16566,12 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 REOPENED | *User:* MintooXavier *Created on:* 16/03/2026 13:57:45 *Reason:* REOPENED
 
 PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 16/03/2026 13:57:47 *Previous status:* Reviewed and complete *Status:* To do
+
+ISSUE COMMENT | *User:* MintooXavier *Created on:* 25/03/2026 10:23:50 *Issue comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+CLOSED | *User:* MintooXavier *Created on:* 25/03/2026 10:23:50 *Closed reason:* COMPLETED
+
+PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 25/03/2026 10:23:53 *Previous status:* To do *Status:* Reviewed and complete
 </div>
 </div>
 
@@ -16343,13 +16602,13 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 ***
 
 ----------------------------------------------------------------------------------------------------------------------- -------------------------------------------------------------------------------
-**State:** OPEN                                                                                                         **State reason**: REOPENED                                                     
+**State:** CLOSED                                                                                                       **State reason**: COMPLETED                                                    
                                                                                                                                                                                                         
 **Includes created edit:** true                                                                                         
                                                                                                                                                                                                         
-**Closed:** false                                                                                                       **Closed on:** |none|                                                          
+**Closed:** true                                                                                                        **Closed on:** 25/03/2026 17:45:53                                             
                                                                                                                                                                                                         
-**Editor:** MintooXavier                                                                                                **Updated on:** 16/03/2026 14:01:36                                            
+**Editor:** MintooXavier                                                                                                **Updated on:** 25/03/2026 17:45:53                                            
                                                                                                                                                                                                         
 **Locked:** false                                                                                                       **Participants:** MintooXavier || LawrenceFayers || TanDBPRO                   
                                                                                                                                                                                                         
@@ -16642,6 +16901,16 @@ Does this check every type of field embedding? Do you think we need to check whe
 
 
 </div>
+
+<div class="comment">
+**Comment:**
+
+*Author:* MintooXavier *Updated on:* 25/03/2026 17:45:53
+
+*Comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+
+</div>
 </div>
 
 ***
@@ -16719,6 +16988,12 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 REOPENED | *User:* MintooXavier *Created on:* 16/03/2026 14:01:37 *Reason:* REOPENED
 
 PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 16/03/2026 14:01:38 *Previous status:* Reviewed and complete *Status:* To do
+
+ISSUE COMMENT | *User:* MintooXavier *Created on:* 25/03/2026 17:45:53 *Issue comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+CLOSED | *User:* MintooXavier *Created on:* 25/03/2026 17:45:53 *Closed reason:* COMPLETED
+
+PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 25/03/2026 17:45:54 *Previous status:* To do *Status:* Reviewed and complete
 </div>
 </div>
 
@@ -16749,13 +17024,13 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 ***
 
 ----------------------------------------------------------------------------------------------------------------------- -------------------------------------------------------------------------------
-**State:** OPEN                                                                                                         **State reason**: REOPENED                                                     
+**State:** CLOSED                                                                                                       **State reason**: COMPLETED                                                    
                                                                                                                                                                                                         
 **Includes created edit:** true                                                                                         
                                                                                                                                                                                                         
-**Closed:** false                                                                                                       **Closed on:** |none|                                                          
+**Closed:** true                                                                                                        **Closed on:** 20/03/2026 15:24:24                                             
                                                                                                                                                                                                         
-**Editor:** CoreenDsouza                                                                                                **Updated on:** 16/03/2026 13:50:10                                            
+**Editor:** CoreenDsouza                                                                                                **Updated on:** 20/03/2026 15:24:24                                            
                                                                                                                                                                                                         
 **Locked:** false                                                                                                       **Participants:** MintooXavier || CoreenDsouza                                 
                                                                                                                                                                                                         
@@ -18828,6 +19103,7 @@ Feature: Control Center: The system shall allow users to edit survey responses t
 
         And I click on the button labeled "Survey options"
         And I click on the survey option label containing "Open survey" label
+        And I wait for 1 second
         And I clear field and enter "SURVEY RESPONSE" into the data entry form field labeled "Name"
         And I click on the button labeled "Submit"
         Then I should see "Thank you for taking the survey."
@@ -19253,6 +19529,16 @@ A.6.4.600 - Events and Arms in Production - Test not passing.
 
 
 </div>
+
+<div class="comment">
+**Comment:**
+
+*Author:* MintooXavier *Updated on:* 20/03/2026 15:24:24
+
+*Comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+
+</div>
 </div>
 
 ***
@@ -19327,6 +19613,12 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 REOPENED | *User:* MintooXavier *Created on:* 16/03/2026 13:50:10 *Reason:* REOPENED
 
 PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 16/03/2026 13:50:11 *Previous status:* Reviewed and complete *Status:* To do
+
+ISSUE COMMENT | *User:* MintooXavier *Created on:* 20/03/2026 15:24:24 *Issue comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+CLOSED | *User:* MintooXavier *Created on:* 20/03/2026 15:24:24 *Closed reason:* COMPLETED
+
+PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 20/03/2026 15:24:26 *Previous status:* To do *Status:* Reviewed and complete
 </div>
 </div>
 
@@ -19357,13 +19649,13 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 ***
 
 ----------------------------------------------------------------------------------------------------------------------- -------------------------------------------------------------------------------
-**State:** OPEN                                                                                                         **State reason**: REOPENED                                                     
+**State:** CLOSED                                                                                                       **State reason**: COMPLETED                                                    
                                                                                                                                                                                                         
 **Includes created edit:** true                                                                                         
                                                                                                                                                                                                         
-**Closed:** false                                                                                                       **Closed on:** |none|                                                          
+**Closed:** true                                                                                                        **Closed on:** 20/03/2026 14:45:23                                             
                                                                                                                                                                                                         
-**Editor:** CoreenDsouza                                                                                                **Updated on:** 16/03/2026 13:56:03                                            
+**Editor:** CoreenDsouza                                                                                                **Updated on:** 20/03/2026 14:45:23                                            
                                                                                                                                                                                                         
 **Locked:** false                                                                                                       **Participants:** MintooXavier || CoreenDsouza                                 
                                                                                                                                                                                                         
@@ -19811,8 +20103,8 @@ Scripts reviewed
 <li>After disabling ‘Modify system configuration pages’ settings, the link ‘General Configuration’ is still visible but the ‘Save Changes’ button in it is invisible.</li>
 <li>Similarly, for External Modules</li>
 <li>Checking for upgrade privileges are not easy as the upgrade messages are different .<br>
-<a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/30346020/375296813-d5a8f8ab-dbd0-48f8-9e03-d087a67c838b.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzQwMDE2NDQsIm5iZiI6MTc3NDAwMTM0NCwicGF0aCI6Ii8zMDM0NjAyMC8zNzUyOTY4MTMtZDVhOGY4YWItZGJkMC00OGY4LTllMDMtZDA4N2E2N2M4MzhiLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjAzMjAlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwMzIwVDEwMDkwNFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTBmM2ZmNTliYjhmN2NkOWRhMDgxMGQ1YTlhZGMzNjQ2ZjliZjdiYmM3MDg2MGYxNzQ2OWZmZjgyZDQ5MjU3NDYmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.XnW-LJqKZ7GIIh-8GjKi0GJKevfveOuIMSM3dr4G3tw"><img src="https://private-user-images.githubusercontent.com/30346020/375296813-d5a8f8ab-dbd0-48f8-9e03-d087a67c838b.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzQwMDE2NDQsIm5iZiI6MTc3NDAwMTM0NCwicGF0aCI6Ii8zMDM0NjAyMC8zNzUyOTY4MTMtZDVhOGY4YWItZGJkMC00OGY4LTllMDMtZDA4N2E2N2M4MzhiLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjAzMjAlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwMzIwVDEwMDkwNFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTBmM2ZmNTliYjhmN2NkOWRhMDgxMGQ1YTlhZGMzNjQ2ZjliZjdiYmM3MDg2MGYxNzQ2OWZmZjgyZDQ5MjU3NDYmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.XnW-LJqKZ7GIIh-8GjKi0GJKevfveOuIMSM3dr4G3tw" alt="Image" style="max-width: 100%;"></a><br>
-<a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/30346020/375296828-ec83ecaa-11a5-4afe-abd1-f158f6912f11.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzQwMDE2NDQsIm5iZiI6MTc3NDAwMTM0NCwicGF0aCI6Ii8zMDM0NjAyMC8zNzUyOTY4MjgtZWM4M2VjYWEtMTFhNS00YWZlLWFiZDEtZjE1OGY2OTEyZjExLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjAzMjAlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwMzIwVDEwMDkwNFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWJmYjZkMjU3Mzc3MTU4N2I2ZjYzZjU3ODBiMmYyOWZlNWUwMTg2MjU3ODBhYzQ1N2NkZWQ1NmYwMWI3MTgwMjkmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.V3IuI5pg2UwCdAu_WdhbbkxqX7n71bNVyZTxn1l1Osc"><img src="https://private-user-images.githubusercontent.com/30346020/375296828-ec83ecaa-11a5-4afe-abd1-f158f6912f11.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzQwMDE2NDQsIm5iZiI6MTc3NDAwMTM0NCwicGF0aCI6Ii8zMDM0NjAyMC8zNzUyOTY4MjgtZWM4M2VjYWEtMTFhNS00YWZlLWFiZDEtZjE1OGY2OTEyZjExLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjAzMjAlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwMzIwVDEwMDkwNFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWJmYjZkMjU3Mzc3MTU4N2I2ZjYzZjU3ODBiMmYyOWZlNWUwMTg2MjU3ODBhYzQ1N2NkZWQ1NmYwMWI3MTgwMjkmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.V3IuI5pg2UwCdAu_WdhbbkxqX7n71bNVyZTxn1l1Osc" alt="Image" style="max-width: 100%;"></a></li>
+<a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/30346020/375296813-d5a8f8ab-dbd0-48f8-9e03-d087a67c838b.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzU1NTQ1OTMsIm5iZiI6MTc3NTU1NDI5MywicGF0aCI6Ii8zMDM0NjAyMC8zNzUyOTY4MTMtZDVhOGY4YWItZGJkMC00OGY4LTllMDMtZDA4N2E2N2M4MzhiLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjA0MDclMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwNDA3VDA5MzEzM1omWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWEwNmMyYzkwN2Q1M2FlNWNkMDQwYzlkYTk1YjEwNjVmNWQ4OTQ2YTJkMjIwMzM0YTc1NGQ3ZjIzN2JiYTBiZDUmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.2HKdT8NFqho6t3jFMb6EeLb-k2pAq_ApjohG4eTa6rI"><img src="https://private-user-images.githubusercontent.com/30346020/375296813-d5a8f8ab-dbd0-48f8-9e03-d087a67c838b.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzU1NTQ1OTMsIm5iZiI6MTc3NTU1NDI5MywicGF0aCI6Ii8zMDM0NjAyMC8zNzUyOTY4MTMtZDVhOGY4YWItZGJkMC00OGY4LTllMDMtZDA4N2E2N2M4MzhiLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjA0MDclMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwNDA3VDA5MzEzM1omWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWEwNmMyYzkwN2Q1M2FlNWNkMDQwYzlkYTk1YjEwNjVmNWQ4OTQ2YTJkMjIwMzM0YTc1NGQ3ZjIzN2JiYTBiZDUmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.2HKdT8NFqho6t3jFMb6EeLb-k2pAq_ApjohG4eTa6rI" alt="Image" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/30346020/375296828-ec83ecaa-11a5-4afe-abd1-f158f6912f11.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzU1NTQ1OTMsIm5iZiI6MTc3NTU1NDI5MywicGF0aCI6Ii8zMDM0NjAyMC8zNzUyOTY4MjgtZWM4M2VjYWEtMTFhNS00YWZlLWFiZDEtZjE1OGY2OTEyZjExLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjA0MDclMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwNDA3VDA5MzEzM1omWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTliMGVkMzY5ODI4ODlkYjliYWYxNWFjMjcyODZkZjBjYTAyYTlkNDVkYjQ4MmM5ZTg5YmVkNDY4NzgwYjNiMGUmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.i1QxhoiZC-v0e6NNmjS6lD7r6tQndWdbXe9e8cUidfQ"><img src="https://private-user-images.githubusercontent.com/30346020/375296828-ec83ecaa-11a5-4afe-abd1-f158f6912f11.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzU1NTQ1OTMsIm5iZiI6MTc3NTU1NDI5MywicGF0aCI6Ii8zMDM0NjAyMC8zNzUyOTY4MjgtZWM4M2VjYWEtMTFhNS00YWZlLWFiZDEtZjE1OGY2OTEyZjExLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjA0MDclMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwNDA3VDA5MzEzM1omWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTliMGVkMzY5ODI4ODlkYjliYWYxNWFjMjcyODZkZjBjYTAyYTlkNDVkYjQ4MmM5ZTg5YmVkNDY4NzgwYjNiMGUmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.i1QxhoiZC-v0e6NNmjS6lD7r6tQndWdbXe9e8cUidfQ" alt="Image" style="max-width: 100%;"></a></li>
 </ul>
 <ol start="3" dir="auto">
 <li>A.2.3.400 - Assign Administrators and Account Managers</li>
@@ -20053,6 +20345,16 @@ All test pass
 
 
 </div>
+
+<div class="comment">
+**Comment:**
+
+*Author:* MintooXavier *Updated on:* 20/03/2026 14:45:23
+
+*Comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+
+</div>
 </div>
 
 ***
@@ -20099,8 +20401,8 @@ ISSUE COMMENT | *User:* MintooXavier *Created on:* 25/06/2024 13:59:40 *Issue co
 <li>After disabling ‘Modify system configuration pages’ settings, the link ‘General Configuration’ is still visible but the ‘Save Changes’ button in it is invisible.</li>
 <li>Similarly, for External Modules</li>
 <li>Checking for upgrade privileges are not easy as the upgrade messages are different .<br>
-<a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/30346020/375296813-d5a8f8ab-dbd0-48f8-9e03-d087a67c838b.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzQwMDE2NDQsIm5iZiI6MTc3NDAwMTM0NCwicGF0aCI6Ii8zMDM0NjAyMC8zNzUyOTY4MTMtZDVhOGY4YWItZGJkMC00OGY4LTllMDMtZDA4N2E2N2M4MzhiLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjAzMjAlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwMzIwVDEwMDkwNFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTBmM2ZmNTliYjhmN2NkOWRhMDgxMGQ1YTlhZGMzNjQ2ZjliZjdiYmM3MDg2MGYxNzQ2OWZmZjgyZDQ5MjU3NDYmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.XnW-LJqKZ7GIIh-8GjKi0GJKevfveOuIMSM3dr4G3tw"><img src="https://private-user-images.githubusercontent.com/30346020/375296813-d5a8f8ab-dbd0-48f8-9e03-d087a67c838b.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzQwMDE2NDQsIm5iZiI6MTc3NDAwMTM0NCwicGF0aCI6Ii8zMDM0NjAyMC8zNzUyOTY4MTMtZDVhOGY4YWItZGJkMC00OGY4LTllMDMtZDA4N2E2N2M4MzhiLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjAzMjAlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwMzIwVDEwMDkwNFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTBmM2ZmNTliYjhmN2NkOWRhMDgxMGQ1YTlhZGMzNjQ2ZjliZjdiYmM3MDg2MGYxNzQ2OWZmZjgyZDQ5MjU3NDYmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.XnW-LJqKZ7GIIh-8GjKi0GJKevfveOuIMSM3dr4G3tw" alt="Image" style="max-width: 100%;"></a><br>
-<a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/30346020/375296828-ec83ecaa-11a5-4afe-abd1-f158f6912f11.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzQwMDE2NDQsIm5iZiI6MTc3NDAwMTM0NCwicGF0aCI6Ii8zMDM0NjAyMC8zNzUyOTY4MjgtZWM4M2VjYWEtMTFhNS00YWZlLWFiZDEtZjE1OGY2OTEyZjExLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjAzMjAlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwMzIwVDEwMDkwNFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWJmYjZkMjU3Mzc3MTU4N2I2ZjYzZjU3ODBiMmYyOWZlNWUwMTg2MjU3ODBhYzQ1N2NkZWQ1NmYwMWI3MTgwMjkmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.V3IuI5pg2UwCdAu_WdhbbkxqX7n71bNVyZTxn1l1Osc"><img src="https://private-user-images.githubusercontent.com/30346020/375296828-ec83ecaa-11a5-4afe-abd1-f158f6912f11.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzQwMDE2NDQsIm5iZiI6MTc3NDAwMTM0NCwicGF0aCI6Ii8zMDM0NjAyMC8zNzUyOTY4MjgtZWM4M2VjYWEtMTFhNS00YWZlLWFiZDEtZjE1OGY2OTEyZjExLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjAzMjAlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwMzIwVDEwMDkwNFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWJmYjZkMjU3Mzc3MTU4N2I2ZjYzZjU3ODBiMmYyOWZlNWUwMTg2MjU3ODBhYzQ1N2NkZWQ1NmYwMWI3MTgwMjkmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.V3IuI5pg2UwCdAu_WdhbbkxqX7n71bNVyZTxn1l1Osc" alt="Image" style="max-width: 100%;"></a></li>
+<a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/30346020/375296813-d5a8f8ab-dbd0-48f8-9e03-d087a67c838b.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzU1NTQ1OTMsIm5iZiI6MTc3NTU1NDI5MywicGF0aCI6Ii8zMDM0NjAyMC8zNzUyOTY4MTMtZDVhOGY4YWItZGJkMC00OGY4LTllMDMtZDA4N2E2N2M4MzhiLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjA0MDclMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwNDA3VDA5MzEzM1omWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWEwNmMyYzkwN2Q1M2FlNWNkMDQwYzlkYTk1YjEwNjVmNWQ4OTQ2YTJkMjIwMzM0YTc1NGQ3ZjIzN2JiYTBiZDUmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.2HKdT8NFqho6t3jFMb6EeLb-k2pAq_ApjohG4eTa6rI"><img src="https://private-user-images.githubusercontent.com/30346020/375296813-d5a8f8ab-dbd0-48f8-9e03-d087a67c838b.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzU1NTQ1OTMsIm5iZiI6MTc3NTU1NDI5MywicGF0aCI6Ii8zMDM0NjAyMC8zNzUyOTY4MTMtZDVhOGY4YWItZGJkMC00OGY4LTllMDMtZDA4N2E2N2M4MzhiLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjA0MDclMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwNDA3VDA5MzEzM1omWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWEwNmMyYzkwN2Q1M2FlNWNkMDQwYzlkYTk1YjEwNjVmNWQ4OTQ2YTJkMjIwMzM0YTc1NGQ3ZjIzN2JiYTBiZDUmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.2HKdT8NFqho6t3jFMb6EeLb-k2pAq_ApjohG4eTa6rI" alt="Image" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/30346020/375296828-ec83ecaa-11a5-4afe-abd1-f158f6912f11.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzU1NTQ1OTMsIm5iZiI6MTc3NTU1NDI5MywicGF0aCI6Ii8zMDM0NjAyMC8zNzUyOTY4MjgtZWM4M2VjYWEtMTFhNS00YWZlLWFiZDEtZjE1OGY2OTEyZjExLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjA0MDclMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwNDA3VDA5MzEzM1omWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTliMGVkMzY5ODI4ODlkYjliYWYxNWFjMjcyODZkZjBjYTAyYTlkNDVkYjQ4MmM5ZTg5YmVkNDY4NzgwYjNiMGUmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.i1QxhoiZC-v0e6NNmjS6lD7r6tQndWdbXe9e8cUidfQ"><img src="https://private-user-images.githubusercontent.com/30346020/375296828-ec83ecaa-11a5-4afe-abd1-f158f6912f11.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzU1NTQ1OTMsIm5iZiI6MTc3NTU1NDI5MywicGF0aCI6Ii8zMDM0NjAyMC8zNzUyOTY4MjgtZWM4M2VjYWEtMTFhNS00YWZlLWFiZDEtZjE1OGY2OTEyZjExLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjA0MDclMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwNDA3VDA5MzEzM1omWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTliMGVkMzY5ODI4ODlkYjliYWYxNWFjMjcyODZkZjBjYTAyYTlkNDVkYjQ4MmM5ZTg5YmVkNDY4NzgwYjNiMGUmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.i1QxhoiZC-v0e6NNmjS6lD7r6tQndWdbXe9e8cUidfQ" alt="Image" style="max-width: 100%;"></a></li>
 </ul>
 <ol start="3" dir="auto">
 <li>A.2.3.400 - Assign Administrators and Account Managers</li>
@@ -20136,6 +20438,12 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 REOPENED | *User:* MintooXavier *Created on:* 16/03/2026 13:56:03 *Reason:* REOPENED
 
 PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 16/03/2026 13:56:05 *Previous status:* Reviewed and complete *Status:* To do
+
+ISSUE COMMENT | *User:* MintooXavier *Created on:* 20/03/2026 14:45:23 *Issue comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+CLOSED | *User:* MintooXavier *Created on:* 20/03/2026 14:45:23 *Closed reason:* COMPLETED
+
+PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 20/03/2026 14:45:25 *Previous status:* To do *Status:* Reviewed and complete
 </div>
 </div>
 
@@ -20166,13 +20474,13 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 ***
 
 ----------------------------------------------------------------------------------------------------------------------- -------------------------------------------------------------------------------
-**State:** OPEN                                                                                                         **State reason**: REOPENED                                                     
+**State:** CLOSED                                                                                                       **State reason**: COMPLETED                                                    
                                                                                                                                                                                                         
 **Includes created edit:** true                                                                                         
                                                                                                                                                                                                         
-**Closed:** false                                                                                                       **Closed on:** |none|                                                          
+**Closed:** true                                                                                                        **Closed on:** 20/03/2026 14:44:44                                             
                                                                                                                                                                                                         
-**Editor:** CoreenDsouza                                                                                                **Updated on:** 16/03/2026 13:59:36                                            
+**Editor:** CoreenDsouza                                                                                                **Updated on:** 20/03/2026 14:44:45                                            
                                                                                                                                                                                                         
 **Locked:** false                                                                                                       **Participants:** MintooXavier || phillidgithub || CoreenDsouza                
                                                                                                                                                                                                         
@@ -21143,6 +21451,16 @@ Tests pass</p>
 
 
 </div>
+
+<div class="comment">
+**Comment:**
+
+*Author:* MintooXavier *Updated on:* 20/03/2026 14:44:44
+
+*Comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+
+</div>
 </div>
 
 ***
@@ -21233,6 +21551,12 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 REOPENED | *User:* MintooXavier *Created on:* 16/03/2026 13:59:36 *Reason:* REOPENED
 
 PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 16/03/2026 13:59:38 *Previous status:* Reviewed and complete *Status:* To do
+
+ISSUE COMMENT | *User:* MintooXavier *Created on:* 20/03/2026 14:44:44 *Issue comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+CLOSED | *User:* MintooXavier *Created on:* 20/03/2026 14:44:45 *Closed reason:* COMPLETED
+
+PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 20/03/2026 14:44:47 *Previous status:* To do *Status:* Reviewed and complete
 </div>
 </div>
 
@@ -21269,7 +21593,7 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
                                                                                                                                                                                                         
 **Closed:** true                                                                                                        **Closed on:** 19/03/2026 16:17:06                                             
                                                                                                                                                                                                         
-**Editor:** MintooXavier                                                                                                **Updated on:** 20/03/2026 09:22:48                                            
+**Editor:** MintooXavier                                                                                                **Updated on:** 20/03/2026 14:41:59                                            
                                                                                                                                                                                                         
 **Locked:** false                                                                                                       **Participants:** MintooXavier || CoreenDsouza                                 
                                                                                                                                                                                                         
@@ -21422,70 +21746,6 @@ Feature: A.1.1.0100. Run Configuration Check test page
 
 
 </div>
-
-<div class="comment">
-**Comment:**
-
-*Author:* CoreenDsouza *Updated on:* 20/03/2026 09:22:48
-
-*Comment body:* <div class="email-fragment">Hi Mintoo,
-
-Must be another address, i'm still on!
-
-Kind regards,
-
-
-
-Coreen D’Souza | eHospital Application Analyst | Cambridge University Hospitals NHS Foundation Trust
-
-Cambridge Biomedical Campus | Hills Road | Cambridge | CB2 0QQ
-
-Tel +44 (0) 1223 254277 |  ext. 254277 |or via Microsoft Teams |  <a href="http://www.cuh.org.uk&lt;http://www.cuh.org.uk/">www.cuh.org.uk&lt;http://www.cuh.org.uk/</a>&gt;
-
-
-
-The Trust is part of the National Institute for Health Research - Cambridge Biomedical Research Centre | and a member of Cambridge University Health Partners
-
-
-
-This email is confidential, see <a href="http://www.cuh.org.uk/email_disclaimer.html&lt;http://www.cuh.org.uk/email_disclaimer.html">www.cuh.org.uk/email_disclaimer.html&lt;http://www.cuh.org.uk/email_disclaimer.html</a>&gt;
-
-Any data within this email should not be sent or faxed to a third party (including non NHS email accounts) without the author’s agreement.</div>
-<span class="email-hidden-toggle"><a href="#">…</a></span><div class="email-hidden-reply">
-<div class="email-signature-reply">________________________________
-From: Mintoo Xavier ***@***.***&gt;
-Sent: 19 March 2026 16:17
-To: CCTC-team/redcap_cypress ***@***.***&gt;
-Cc: D'SOUZA, Coreen (CAMBRIDGE UNIVERSITY HOSPITALS NHS FOUNDATION TRUST) ***@***.***&gt;; Comment ***@***.***&gt;
-Subject: Re: [CCTC-team/redcap_cypress] 1. Run Configuration Check (Issue <a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="2335432507" data-permission-text="Title is private" data-url="https://github.com/CCTC-team/redcap_cypress/issues/29" href="https://github.com/CCTC-team/redcap_cypress/issues/29">#29</a>)
-
-
-
-This message originated from outside of NHS.net Connect. Please do not click links or open attachments unless you recognise the sender and know the content is safe.
-
-[<a href="https://avatars.githubusercontent.com/u/30346020?s=20&amp;v=4]MintooXavier">https://avatars.githubusercontent.com/u/30346020?s=20&amp;v=4]MintooXavier</a> left a comment (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="2335432507" data-permission-text="Title is private" data-url="https://github.com/CCTC-team/redcap_cypress/issues/29" href="https://github.com/CCTC-team/redcap_cypress/issues/29">CCTC-team/redcap_cypress#29</a>)&lt;<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="2335432507" data-permission-text="Title is private" data-url="https://github.com/CCTC-team/redcap_cypress/issues/29" href="https://github.com/CCTC-team/redcap_cypress/issues/29#issuecomment-4091391749">#29 (comment)</a>&gt;
-
-Tests successfully validated against v15.5.36
-
-—
-Reply to this email directly, view it on GitHub&lt;<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="2335432507" data-permission-text="Title is private" data-url="https://github.com/CCTC-team/redcap_cypress/issues/29" href="https://github.com/CCTC-team/redcap_cypress/issues/29#issuecomment-4091391749">#29 (comment)</a>&gt;, or unsubscribe&lt;<a href="https://github.com/notifications/unsubscribe-auth/A4QNYJLKTUMID7P53RLQZJT4RQMRRAVCNFSM6AAAAACWTM55G2VHI2DSMVQWIX3LMV43OSLTON2WKQ3PNVWWK3TUHM2DAOJRGM4TCNZUHE">https://github.com/notifications/unsubscribe-auth/A4QNYJLKTUMID7P53RLQZJT4RQMRRAVCNFSM6AAAAACWTM55G2VHI2DSMVQWIX3LMV43OSLTON2WKQ3PNVWWK3TUHM2DAOJRGM4TCNZUHE</a>&gt;.
-You are receiving this because you commented.Message ID: ***@***.***&gt;
-
-
-************************************************************************************** ******************************
-
-This message may contain confidential information. If you are not the intended recipient please:
-i) inform the sender that you have received the message in error before deleting it; and
-ii) do not disclose, copy or distribute information in this e-mail or take any action in relation to its content (to do so is strictly prohibited and may be unlawful).
-Thank you for your co-operation.
-
-NHS.net Connect is the secure email, collaboration and directory service available for all NHS staff in England. NHS.net Connect is approved for exchanging patient data and other sensitive information with NHS.net Connect and other accredited email services.
-
-For more information and to find out how you can switch visit Joining NHS.net Connect – NHS.net Connect Support&lt;<a href="https://support.nhs.net/article-categories/joining-nhsmail/">https://support.nhs.net/article-categories/joining-nhsmail/</a>&gt;</div>
-</div>
-
-
-</div>
 </div>
 
 ***
@@ -21536,61 +21796,7 @@ CLOSED | *User:* MintooXavier *Created on:* 19/03/2026 16:17:07 *Closed reason:*
 
 PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 19/03/2026 16:17:08 *Previous status:* To do *Status:* Reviewed and complete
 
-ISSUE COMMENT | *User:* CoreenDsouza *Created on:* 20/03/2026 09:22:48 *Issue comment body:* <div class="email-fragment">Hi Mintoo,
-
-Must be another address, i'm still on!
-
-Kind regards,
-
-
-
-Coreen D’Souza | eHospital Application Analyst | Cambridge University Hospitals NHS Foundation Trust
-
-Cambridge Biomedical Campus | Hills Road | Cambridge | CB2 0QQ
-
-Tel +44 (0) 1223 254277 |  ext. 254277 |or via Microsoft Teams |  <a href="http://www.cuh.org.uk&lt;http://www.cuh.org.uk/">www.cuh.org.uk&lt;http://www.cuh.org.uk/</a>&gt;
-
-
-
-The Trust is part of the National Institute for Health Research - Cambridge Biomedical Research Centre | and a member of Cambridge University Health Partners
-
-
-
-This email is confidential, see <a href="http://www.cuh.org.uk/email_disclaimer.html&lt;http://www.cuh.org.uk/email_disclaimer.html">www.cuh.org.uk/email_disclaimer.html&lt;http://www.cuh.org.uk/email_disclaimer.html</a>&gt;
-
-Any data within this email should not be sent or faxed to a third party (including non NHS email accounts) without the author’s agreement.</div>
-<span class="email-hidden-toggle"><a href="#">…</a></span><div class="email-hidden-reply">
-<div class="email-signature-reply">________________________________
-From: Mintoo Xavier ***@***.***&gt;
-Sent: 19 March 2026 16:17
-To: CCTC-team/redcap_cypress ***@***.***&gt;
-Cc: D'SOUZA, Coreen (CAMBRIDGE UNIVERSITY HOSPITALS NHS FOUNDATION TRUST) ***@***.***&gt;; Comment ***@***.***&gt;
-Subject: Re: [CCTC-team/redcap_cypress] 1. Run Configuration Check (Issue <a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="2335432507" data-permission-text="Title is private" data-url="https://github.com/CCTC-team/redcap_cypress/issues/29" href="https://github.com/CCTC-team/redcap_cypress/issues/29">#29</a>)
-
-
-
-This message originated from outside of NHS.net Connect. Please do not click links or open attachments unless you recognise the sender and know the content is safe.
-
-[<a href="https://avatars.githubusercontent.com/u/30346020?s=20&amp;v=4]MintooXavier">https://avatars.githubusercontent.com/u/30346020?s=20&amp;v=4]MintooXavier</a> left a comment (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="2335432507" data-permission-text="Title is private" data-url="https://github.com/CCTC-team/redcap_cypress/issues/29" href="https://github.com/CCTC-team/redcap_cypress/issues/29">CCTC-team/redcap_cypress#29</a>)&lt;<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="2335432507" data-permission-text="Title is private" data-url="https://github.com/CCTC-team/redcap_cypress/issues/29" href="https://github.com/CCTC-team/redcap_cypress/issues/29#issuecomment-4091391749">#29 (comment)</a>&gt;
-
-Tests successfully validated against v15.5.36
-
-—
-Reply to this email directly, view it on GitHub&lt;<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="2335432507" data-permission-text="Title is private" data-url="https://github.com/CCTC-team/redcap_cypress/issues/29" href="https://github.com/CCTC-team/redcap_cypress/issues/29#issuecomment-4091391749">#29 (comment)</a>&gt;, or unsubscribe&lt;<a href="https://github.com/notifications/unsubscribe-auth/A4QNYJLKTUMID7P53RLQZJT4RQMRRAVCNFSM6AAAAACWTM55G2VHI2DSMVQWIX3LMV43OSLTON2WKQ3PNVWWK3TUHM2DAOJRGM4TCNZUHE">https://github.com/notifications/unsubscribe-auth/A4QNYJLKTUMID7P53RLQZJT4RQMRRAVCNFSM6AAAAACWTM55G2VHI2DSMVQWIX3LMV43OSLTON2WKQ3PNVWWK3TUHM2DAOJRGM4TCNZUHE</a>&gt;.
-You are receiving this because you commented.Message ID: ***@***.***&gt;
-
-
-************************************************************************************** ******************************
-
-This message may contain confidential information. If you are not the intended recipient please:
-i) inform the sender that you have received the message in error before deleting it; and
-ii) do not disclose, copy or distribute information in this e-mail or take any action in relation to its content (to do so is strictly prohibited and may be unlawful).
-Thank you for your co-operation.
-
-NHS.net Connect is the secure email, collaboration and directory service available for all NHS staff in England. NHS.net Connect is approved for exchanging patient data and other sensitive information with NHS.net Connect and other accredited email services.
-
-For more information and to find out how you can switch visit Joining NHS.net Connect – NHS.net Connect Support&lt;<a href="https://support.nhs.net/article-categories/joining-nhsmail/">https://support.nhs.net/article-categories/joining-nhsmail/</a>&gt;</div>
-</div>
+COMMENT DELETED | *User:* MintooXavier *Created on:* 20/03/2026 14:41:57 *Deleted comment author:* CoreenDsouza
 </div>
 </div>
 
@@ -21621,13 +21827,13 @@ For more information and to find out how you can switch visit Joining NHS.net Co
 ***
 
 ----------------------------------------------------------------------------------------------------------------------- -------------------------------------------------------------------------------
-**State:** OPEN                                                                                                         **State reason**: REOPENED                                                     
+**State:** CLOSED                                                                                                       **State reason**: COMPLETED                                                    
                                                                                                                                                                                                         
 **Includes created edit:** true                                                                                         
                                                                                                                                                                                                         
-**Closed:** false                                                                                                       **Closed on:** |none|                                                          
+**Closed:** true                                                                                                        **Closed on:** 20/03/2026 14:45:38                                             
                                                                                                                                                                                                         
-**Editor:** CoreenDsouza                                                                                                **Updated on:** 16/03/2026 13:57:09                                            
+**Editor:** CoreenDsouza                                                                                                **Updated on:** 20/03/2026 14:45:38                                            
                                                                                                                                                                                                         
 **Locked:** false                                                                                                       **Participants:** MintooXavier || CoreenDsouza                                 
                                                                                                                                                                                                         
@@ -21788,6 +21994,16 @@ Feature: A.1.5.0100. Browse Projects
 
 
 </div>
+
+<div class="comment">
+**Comment:**
+
+*Author:* MintooXavier *Updated on:* 20/03/2026 14:45:38
+
+*Comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+
+</div>
 </div>
 
 ***
@@ -21831,6 +22047,12 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 REOPENED | *User:* MintooXavier *Created on:* 16/03/2026 13:57:09 *Reason:* REOPENED
 
 PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 16/03/2026 13:57:10 *Previous status:* Reviewed and complete *Status:* To do
+
+ISSUE COMMENT | *User:* MintooXavier *Created on:* 20/03/2026 14:45:38 *Issue comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+CLOSED | *User:* MintooXavier *Created on:* 20/03/2026 14:45:38 *Closed reason:* COMPLETED
+
+PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 20/03/2026 14:45:39 *Previous status:* To do *Status:* Reviewed and complete
 </div>
 </div>
 
@@ -21861,13 +22083,13 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 ***
 
 ----------------------------------------------------------------------------------------------------------------------- -------------------------------------------------------------------------------
-**State:** OPEN                                                                                                         **State reason**: REOPENED                                                     
+**State:** CLOSED                                                                                                       **State reason**: COMPLETED                                                    
                                                                                                                                                                                                         
 **Includes created edit:** true                                                                                         
                                                                                                                                                                                                         
-**Closed:** false                                                                                                       **Closed on:** |none|                                                          
+**Closed:** true                                                                                                        **Closed on:** 25/03/2026 10:30:22                                             
                                                                                                                                                                                                         
-**Editor:** MintooXavier                                                                                                **Updated on:** 16/03/2026 13:58:40                                            
+**Editor:** MintooXavier                                                                                                **Updated on:** 25/03/2026 10:30:22                                            
                                                                                                                                                                                                         
 **Locked:** false                                                                                                       **Participants:** MintooXavier || rukayat-yakub                                
                                                                                                                                                                                                         
@@ -23710,6 +23932,16 @@ in
 
 
 </div>
+
+<div class="comment">
+**Comment:**
+
+*Author:* MintooXavier *Updated on:* 25/03/2026 10:30:22
+
+*Comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+
+</div>
 </div>
 
 ***
@@ -24819,6 +25051,12 @@ CLOSED | *User:* rukayat-yakub *Created on:* 06/08/2025 12:07:31 *Closed reason:
 REOPENED | *User:* MintooXavier *Created on:* 16/03/2026 13:58:40 *Reason:* REOPENED
 
 PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 16/03/2026 13:58:42 *Previous status:* Reviewed and complete *Status:* To do
+
+ISSUE COMMENT | *User:* MintooXavier *Created on:* 25/03/2026 10:30:22 *Issue comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+CLOSED | *User:* MintooXavier *Created on:* 25/03/2026 10:30:22 *Closed reason:* COMPLETED
+
+PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 25/03/2026 10:30:24 *Previous status:* To do *Status:* Reviewed and complete
 </div>
 </div>
 
@@ -24849,13 +25087,13 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 ***
 
 ----------------------------------------------------------------------------------------------------------------------- -------------------------------------------------------------------------------
-**State:** OPEN                                                                                                         **State reason**: REOPENED                                                     
+**State:** CLOSED                                                                                                       **State reason**: COMPLETED                                                    
                                                                                                                                                                                                         
 **Includes created edit:** true                                                                                         
                                                                                                                                                                                                         
-**Closed:** false                                                                                                       **Closed on:** |none|                                                          
+**Closed:** true                                                                                                        **Closed on:** 25/03/2026 17:43:31                                             
                                                                                                                                                                                                         
-**Editor:** MintooXavier                                                                                                **Updated on:** 16/03/2026 13:57:40                                            
+**Editor:** MintooXavier                                                                                                **Updated on:** 25/03/2026 17:43:31                                            
                                                                                                                                                                                                         
 **Locked:** false                                                                                                       **Participants:** MintooXavier || rukayat-yakub                                
                                                                                                                                                                                                         
@@ -26356,7 +26594,7 @@ in
 </li>
 <li>The numbers do not match. Could you please check</li>
 </ol>
-<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/30346020/365151485-b0514708-ff40-4ac8-9ac4-d284cef83b8e.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzQwMDE2NDQsIm5iZiI6MTc3NDAwMTM0NCwicGF0aCI6Ii8zMDM0NjAyMC8zNjUxNTE0ODUtYjA1MTQ3MDgtZmY0MC00YWM4LTlhYzQtZDI4NGNlZjgzYjhlLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjAzMjAlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwMzIwVDEwMDkwNFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPThkNTdhNmNkYzFhNTA1MjBlNTQxNDc0ZjY4MmIyYjFkZGQxZmU0MWQ3OTVlMjE2YjE1MjNjZTQ4YzYwZDgyYzImWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.AJ65yTcl2RaVEPYwlW0whg_fAVuAi3HLw0XCsGC1LLU"><img src="https://private-user-images.githubusercontent.com/30346020/365151485-b0514708-ff40-4ac8-9ac4-d284cef83b8e.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzQwMDE2NDQsIm5iZiI6MTc3NDAwMTM0NCwicGF0aCI6Ii8zMDM0NjAyMC8zNjUxNTE0ODUtYjA1MTQ3MDgtZmY0MC00YWM4LTlhYzQtZDI4NGNlZjgzYjhlLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjAzMjAlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwMzIwVDEwMDkwNFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPThkNTdhNmNkYzFhNTA1MjBlNTQxNDc0ZjY4MmIyYjFkZGQxZmU0MWQ3OTVlMjE2YjE1MjNjZTQ4YzYwZDgyYzImWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.AJ65yTcl2RaVEPYwlW0whg_fAVuAi3HLw0XCsGC1LLU" alt="Image" style="max-width: 100%;"></a></p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/30346020/365151485-b0514708-ff40-4ac8-9ac4-d284cef83b8e.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzU1NTQ1OTMsIm5iZiI6MTc3NTU1NDI5MywicGF0aCI6Ii8zMDM0NjAyMC8zNjUxNTE0ODUtYjA1MTQ3MDgtZmY0MC00YWM4LTlhYzQtZDI4NGNlZjgzYjhlLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjA0MDclMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwNDA3VDA5MzEzM1omWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTE1MzI1ODMwYjdhNjExMjAwZDczNTljOTYwNjNhZTA0NzBhOTY3ODk0OTk0YjNhYWVkN2RjMGNlY2FmNzIyZTQmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.C8Xjt61FSJqR47YBXE8QcgZolPXUA08sjvueVjl2j8g"><img src="https://private-user-images.githubusercontent.com/30346020/365151485-b0514708-ff40-4ac8-9ac4-d284cef83b8e.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzU1NTQ1OTMsIm5iZiI6MTc3NTU1NDI5MywicGF0aCI6Ii8zMDM0NjAyMC8zNjUxNTE0ODUtYjA1MTQ3MDgtZmY0MC00YWM4LTlhYzQtZDI4NGNlZjgzYjhlLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjA0MDclMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwNDA3VDA5MzEzM1omWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTE1MzI1ODMwYjdhNjExMjAwZDczNTljOTYwNjNhZTA0NzBhOTY3ODk0OTk0YjNhYWVkN2RjMGNlY2FmNzIyZTQmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.C8Xjt61FSJqR47YBXE8QcgZolPXUA08sjvueVjl2j8g" alt="Image" style="max-width: 100%;"></a></p>
 <ol start="8" dir="auto">
 <li>I can see four 6.. <div class="Box Box--condensed my-2">
 <div class="Box-header f6">
@@ -26429,7 +26667,7 @@ in
 <li>Step 5 not done in another place.</li>
 <li>Corrected Table view alighnments and indentations</li>
 <li>I have changed few steps and replaced with more appropraite ones.</li>
-<li>Step 10 not done. I have implemented this for missing value of 'Text Box' field. Not sure what the below means.<a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/30346020/372109154-088da157-fdad-4ae4-bb63-c28379e0a008.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzQwMDE2NDQsIm5iZiI6MTc3NDAwMTM0NCwicGF0aCI6Ii8zMDM0NjAyMC8zNzIxMDkxNTQtMDg4ZGExNTctZmRhZC00YWU0LWJiNjMtYzI4Mzc5ZTBhMDA4LnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjAzMjAlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwMzIwVDEwMDkwNFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPThkZmI5Y2IzYTllN2MyYjZmYzE5MjEyMzk4MTAzMTc5NDcxNjA2Y2JjNjI4NmJkNzkwMzViYWFlZmZlZDRhOWMmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.7losLCisdUS4gZXLMYte-02CkHJfEh6ivaaXQ7sxH_g"><img src="https://private-user-images.githubusercontent.com/30346020/372109154-088da157-fdad-4ae4-bb63-c28379e0a008.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzQwMDE2NDQsIm5iZiI6MTc3NDAwMTM0NCwicGF0aCI6Ii8zMDM0NjAyMC8zNzIxMDkxNTQtMDg4ZGExNTctZmRhZC00YWU0LWJiNjMtYzI4Mzc5ZTBhMDA4LnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjAzMjAlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwMzIwVDEwMDkwNFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPThkZmI5Y2IzYTllN2MyYjZmYzE5MjEyMzk4MTAzMTc5NDcxNjA2Y2JjNjI4NmJkNzkwMzViYWFlZmZlZDRhOWMmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.7losLCisdUS4gZXLMYte-02CkHJfEh6ivaaXQ7sxH_g" alt="Image" style="max-width: 100%;"></a></li>
+<li>Step 10 not done. I have implemented this for missing value of 'Text Box' field. Not sure what the below means.<a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/30346020/372109154-088da157-fdad-4ae4-bb63-c28379e0a008.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzU1NTQ1OTMsIm5iZiI6MTc3NTU1NDI5MywicGF0aCI6Ii8zMDM0NjAyMC8zNzIxMDkxNTQtMDg4ZGExNTctZmRhZC00YWU0LWJiNjMtYzI4Mzc5ZTBhMDA4LnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjA0MDclMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwNDA3VDA5MzEzM1omWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTVhZWFmOTgyYjFkYzdmOGVhYzkwY2JkMmIxZTkxNWFlMWEyNjNjYTI4NjBhYWIwZWZhNDhiMWY4MjE3NDhhMTQmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.bvSj78Dy3-tDHFTLNM6OxpYMgSZOQyAJfahFZETBZ8s"><img src="https://private-user-images.githubusercontent.com/30346020/372109154-088da157-fdad-4ae4-bb63-c28379e0a008.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzU1NTQ1OTMsIm5iZiI6MTc3NTU1NDI5MywicGF0aCI6Ii8zMDM0NjAyMC8zNzIxMDkxNTQtMDg4ZGExNTctZmRhZC00YWU0LWJiNjMtYzI4Mzc5ZTBhMDA4LnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjA0MDclMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwNDA3VDA5MzEzM1omWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTVhZWFmOTgyYjFkYzdmOGVhYzkwY2JkMmIxZTkxNWFlMWEyNjNjYTI4NjBhYWIwZWZhNDhiMWY4MjE3NDhhMTQmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.bvSj78Dy3-tDHFTLNM6OxpYMgSZOQyAJfahFZETBZ8s" alt="Image" style="max-width: 100%;"></a></li>
 </ol>
 <p dir="auto">I have made all the changes</p>
 
@@ -26519,6 +26757,16 @@ It's not needed as we are using an xml file to build the DB and we know what the
 *Author:* rukayat-yakub *Updated on:* 27/07/2025 22:36:09
 
 *Comment body:* <p dir="auto">Reviewed and Passed</p>
+
+
+</div>
+
+<div class="comment">
+**Comment:**
+
+*Author:* MintooXavier *Updated on:* 25/03/2026 17:43:31
+
+*Comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
 
 
 </div>
@@ -27397,7 +27645,7 @@ in
 </li>
 <li>The numbers do not match. Could you please check</li>
 </ol>
-<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/30346020/365151485-b0514708-ff40-4ac8-9ac4-d284cef83b8e.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzQwMDE2NDQsIm5iZiI6MTc3NDAwMTM0NCwicGF0aCI6Ii8zMDM0NjAyMC8zNjUxNTE0ODUtYjA1MTQ3MDgtZmY0MC00YWM4LTlhYzQtZDI4NGNlZjgzYjhlLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjAzMjAlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwMzIwVDEwMDkwNFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPThkNTdhNmNkYzFhNTA1MjBlNTQxNDc0ZjY4MmIyYjFkZGQxZmU0MWQ3OTVlMjE2YjE1MjNjZTQ4YzYwZDgyYzImWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.AJ65yTcl2RaVEPYwlW0whg_fAVuAi3HLw0XCsGC1LLU"><img src="https://private-user-images.githubusercontent.com/30346020/365151485-b0514708-ff40-4ac8-9ac4-d284cef83b8e.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzQwMDE2NDQsIm5iZiI6MTc3NDAwMTM0NCwicGF0aCI6Ii8zMDM0NjAyMC8zNjUxNTE0ODUtYjA1MTQ3MDgtZmY0MC00YWM4LTlhYzQtZDI4NGNlZjgzYjhlLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjAzMjAlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwMzIwVDEwMDkwNFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPThkNTdhNmNkYzFhNTA1MjBlNTQxNDc0ZjY4MmIyYjFkZGQxZmU0MWQ3OTVlMjE2YjE1MjNjZTQ4YzYwZDgyYzImWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.AJ65yTcl2RaVEPYwlW0whg_fAVuAi3HLw0XCsGC1LLU" alt="Image" style="max-width: 100%;"></a></p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/30346020/365151485-b0514708-ff40-4ac8-9ac4-d284cef83b8e.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzU1NTQ1OTMsIm5iZiI6MTc3NTU1NDI5MywicGF0aCI6Ii8zMDM0NjAyMC8zNjUxNTE0ODUtYjA1MTQ3MDgtZmY0MC00YWM4LTlhYzQtZDI4NGNlZjgzYjhlLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjA0MDclMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwNDA3VDA5MzEzM1omWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTE1MzI1ODMwYjdhNjExMjAwZDczNTljOTYwNjNhZTA0NzBhOTY3ODk0OTk0YjNhYWVkN2RjMGNlY2FmNzIyZTQmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.C8Xjt61FSJqR47YBXE8QcgZolPXUA08sjvueVjl2j8g"><img src="https://private-user-images.githubusercontent.com/30346020/365151485-b0514708-ff40-4ac8-9ac4-d284cef83b8e.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzU1NTQ1OTMsIm5iZiI6MTc3NTU1NDI5MywicGF0aCI6Ii8zMDM0NjAyMC8zNjUxNTE0ODUtYjA1MTQ3MDgtZmY0MC00YWM4LTlhYzQtZDI4NGNlZjgzYjhlLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjA0MDclMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwNDA3VDA5MzEzM1omWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTE1MzI1ODMwYjdhNjExMjAwZDczNTljOTYwNjNhZTA0NzBhOTY3ODk0OTk0YjNhYWVkN2RjMGNlY2FmNzIyZTQmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.C8Xjt61FSJqR47YBXE8QcgZolPXUA08sjvueVjl2j8g" alt="Image" style="max-width: 100%;"></a></p>
 <ol start="8" dir="auto">
 <li>I can see four 6.. <div class="Box Box--condensed my-2">
 <div class="Box-header f6">
@@ -27462,7 +27710,7 @@ ISSUE COMMENT | *User:* MintooXavier *Created on:* 30/09/2024 13:50:01 *Issue co
 <li>Step 5 not done in another place.</li>
 <li>Corrected Table view alighnments and indentations</li>
 <li>I have changed few steps and replaced with more appropraite ones.</li>
-<li>Step 10 not done. I have implemented this for missing value of 'Text Box' field. Not sure what the below means.<a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/30346020/372109154-088da157-fdad-4ae4-bb63-c28379e0a008.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzQwMDE2NDQsIm5iZiI6MTc3NDAwMTM0NCwicGF0aCI6Ii8zMDM0NjAyMC8zNzIxMDkxNTQtMDg4ZGExNTctZmRhZC00YWU0LWJiNjMtYzI4Mzc5ZTBhMDA4LnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjAzMjAlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwMzIwVDEwMDkwNFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPThkZmI5Y2IzYTllN2MyYjZmYzE5MjEyMzk4MTAzMTc5NDcxNjA2Y2JjNjI4NmJkNzkwMzViYWFlZmZlZDRhOWMmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.7losLCisdUS4gZXLMYte-02CkHJfEh6ivaaXQ7sxH_g"><img src="https://private-user-images.githubusercontent.com/30346020/372109154-088da157-fdad-4ae4-bb63-c28379e0a008.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzQwMDE2NDQsIm5iZiI6MTc3NDAwMTM0NCwicGF0aCI6Ii8zMDM0NjAyMC8zNzIxMDkxNTQtMDg4ZGExNTctZmRhZC00YWU0LWJiNjMtYzI4Mzc5ZTBhMDA4LnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjAzMjAlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwMzIwVDEwMDkwNFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPThkZmI5Y2IzYTllN2MyYjZmYzE5MjEyMzk4MTAzMTc5NDcxNjA2Y2JjNjI4NmJkNzkwMzViYWFlZmZlZDRhOWMmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.7losLCisdUS4gZXLMYte-02CkHJfEh6ivaaXQ7sxH_g" alt="Image" style="max-width: 100%;"></a></li>
+<li>Step 10 not done. I have implemented this for missing value of 'Text Box' field. Not sure what the below means.<a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/30346020/372109154-088da157-fdad-4ae4-bb63-c28379e0a008.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzU1NTQ1OTMsIm5iZiI6MTc3NTU1NDI5MywicGF0aCI6Ii8zMDM0NjAyMC8zNzIxMDkxNTQtMDg4ZGExNTctZmRhZC00YWU0LWJiNjMtYzI4Mzc5ZTBhMDA4LnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjA0MDclMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwNDA3VDA5MzEzM1omWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTVhZWFmOTgyYjFkYzdmOGVhYzkwY2JkMmIxZTkxNWFlMWEyNjNjYTI4NjBhYWIwZWZhNDhiMWY4MjE3NDhhMTQmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.bvSj78Dy3-tDHFTLNM6OxpYMgSZOQyAJfahFZETBZ8s"><img src="https://private-user-images.githubusercontent.com/30346020/372109154-088da157-fdad-4ae4-bb63-c28379e0a008.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzU1NTQ1OTMsIm5iZiI6MTc3NTU1NDI5MywicGF0aCI6Ii8zMDM0NjAyMC8zNzIxMDkxNTQtMDg4ZGExNTctZmRhZC00YWU0LWJiNjMtYzI4Mzc5ZTBhMDA4LnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjA0MDclMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwNDA3VDA5MzEzM1omWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTVhZWFmOTgyYjFkYzdmOGVhYzkwY2JkMmIxZTkxNWFlMWEyNjNjYTI4NjBhYWIwZWZhNDhiMWY4MjE3NDhhMTQmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.bvSj78Dy3-tDHFTLNM6OxpYMgSZOQyAJfahFZETBZ8s" alt="Image" style="max-width: 100%;"></a></li>
 </ol>
 <p dir="auto">I have made all the changes</p>
 
@@ -27503,6 +27751,12 @@ CLOSED | *User:* rukayat-yakub *Created on:* 06/08/2025 12:06:57 *Closed reason:
 REOPENED | *User:* MintooXavier *Created on:* 16/03/2026 13:57:40 *Reason:* REOPENED
 
 PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 16/03/2026 13:57:41 *Previous status:* Reviewed and complete *Status:* To do
+
+ISSUE COMMENT | *User:* MintooXavier *Created on:* 25/03/2026 17:43:31 *Issue comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+CLOSED | *User:* MintooXavier *Created on:* 25/03/2026 17:43:31 *Closed reason:* COMPLETED
+
+PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 25/03/2026 17:43:33 *Previous status:* To do *Status:* Reviewed and complete
 </div>
 </div>
 
@@ -27533,13 +27787,13 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 ***
 
 ----------------------------------------------------------------------------------------------------------------------- -------------------------------------------------------------------------------
-**State:** OPEN                                                                                                         **State reason**: REOPENED                                                     
+**State:** CLOSED                                                                                                       **State reason**: COMPLETED                                                    
                                                                                                                                                                                                         
 **Includes created edit:** true                                                                                         
                                                                                                                                                                                                         
-**Closed:** false                                                                                                       **Closed on:** |none|                                                          
+**Closed:** true                                                                                                        **Closed on:** 25/03/2026 10:32:37                                             
                                                                                                                                                                                                         
-**Editor:** MintooXavier                                                                                                **Updated on:** 16/03/2026 13:59:40                                            
+**Editor:** MintooXavier                                                                                                **Updated on:** 25/03/2026 10:32:37                                            
                                                                                                                                                                                                         
 **Locked:** false                                                                                                       **Participants:** MintooXavier || rukayat-yakub                                
                                                                                                                                                                                                         
@@ -28136,6 +28390,16 @@ Reviewed and Passed automation
 
 
 </div>
+
+<div class="comment">
+**Comment:**
+
+*Author:* MintooXavier *Updated on:* 25/03/2026 10:32:37
+
+*Comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+
+</div>
 </div>
 
 ***
@@ -28458,6 +28722,12 @@ CLOSED | *User:* MintooXavier *Created on:* 23/07/2025 09:33:34 *Closed reason:*
 REOPENED | *User:* MintooXavier *Created on:* 16/03/2026 13:59:40 *Reason:* REOPENED
 
 PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 16/03/2026 13:59:42 *Previous status:* Reviewed and complete *Status:* To do
+
+ISSUE COMMENT | *User:* MintooXavier *Created on:* 25/03/2026 10:32:37 *Issue comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+CLOSED | *User:* MintooXavier *Created on:* 25/03/2026 10:32:37 *Closed reason:* COMPLETED
+
+PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 25/03/2026 10:32:39 *Previous status:* To do *Status:* Reviewed and complete
 </div>
 </div>
 
@@ -28488,13 +28758,13 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 ***
 
 ----------------------------------------------------------------------------------------------------------------------- -------------------------------------------------------------------------------
-**State:** OPEN                                                                                                         **State reason**: REOPENED                                                     
+**State:** CLOSED                                                                                                       **State reason**: COMPLETED                                                    
                                                                                                                                                                                                         
 **Includes created edit:** true                                                                                         
                                                                                                                                                                                                         
-**Closed:** false                                                                                                       **Closed on:** |none|                                                          
+**Closed:** true                                                                                                        **Closed on:** 27/03/2026 10:37:27                                             
                                                                                                                                                                                                         
-**Editor:** MintooXavier                                                                                                **Updated on:** 16/03/2026 13:56:25                                            
+**Editor:** MintooXavier                                                                                                **Updated on:** 27/03/2026 10:37:27                                            
                                                                                                                                                                                                         
 **Locked:** false                                                                                                       **Participants:** MintooXavier || rukayat-yakub                                
                                                                                                                                                                                                         
@@ -28576,7 +28846,7 @@ Feature: D.102.100 - The system shall support the ability to send emails when a 
     And I enter "test_user2@example.com" into the input field labeled "Or manually enter emails"
     Then I enter "Testing Alerts and Notifications" into the alert message
     And I enter "Alerts and Notifications" into the input field labeled "Subject"
-    When I save the alert
+    When I click on the button labeled "Save"
     Then I should see "Success! New alert created"
     And I should see "Alert #1:Email Alert"
     Given I click on the link labeled "Add / Edit Records"
@@ -28617,7 +28887,7 @@ Feature: D.102.100 - The system shall support the ability to send emails when a 
     And I clear field and enter "test_user3@example.com" into the input field labeled "Or manually enter emails"
     Then I enter "Testing Editing Alerts and Notifications" into the alert message
     And I clear field and enter "Editing Alerts and Notifications" into the input field labeled "Subject"
-    When I save the alert
+    When I click on the button labeled "Save"
     Then I should see "Success! The alert was updated"
     And I should see "Alert #1:Email Alert"
     Given I click on the link labeled "Add / Edit Records"
@@ -28674,8 +28944,10 @@ Feature: D.102.100 - The system shall support the ability to send emails when a 
     And I should see "test_user3@example.com"
     And I should see "Editing Alerts and Notifications"
     And I should see "Testing Editing Alerts and Notifications"
-    When I cancel the alert
+    When I click on the button labeled "Cancel"
     Then I should see "Alert #2:Email Alert"
+    And I wait for 1 second
+
 
   Scenario: D.102.500 - Deactivate alert
     When I click on the button labeled "Options" for alert "2"
@@ -28696,6 +28968,7 @@ Feature: D.102.100 - The system shall support the ability to send emails when a 
     When I uncheck the checkbox labeled "Show 0 deactivated alert(s)"
     Then I should see "Alert #1:Email Alert"
     And I should see "Alert #2:Email Alert"
+    And I wait for 1 second
 
   Scenario: D.102.500 - Move alert
     # Edit Subject and Message for alert 2
@@ -28703,7 +28976,7 @@ Feature: D.102.100 - The system shall support the ability to send emails when a 
     Then I should see "Edit Alert #2"
     Then I enter "Testing Move Alerts and Notifications" into the alert message
     And I clear field and enter "Move Alerts and Notifications" into the input field labeled "Subject"
-    When I save the alert
+    When I click on the button labeled "Save"
     Then I should see "Success! The alert was updated."
     # Move alert 1
     Given I click on the button labeled "Options" for alert "1"
@@ -28713,15 +28986,21 @@ Feature: D.102.100 - The system shall support the ability to send emails when a 
     Then I should see "The alert was successfully moved to a new location!"
     And I should see "PLEASE NOTE that moving this alert may have caused some or all of the alerts to be re-numbered automatically. They will still retain their same alert title and unique alert ID, but their alert number (#) may have changed because alert numbers are generated on the fly based on the order of the alerts."
     And I click on the button labeled "Close"
+    And I wait for 1 second
     # VERIFY
     When I click on the button labeled "Edit" for alert "1"
+    And I wait for 1 second
     Then I should see "Edit Alert #1"
     And I should see "Move Alerts and Notifications"
-    And I cancel the alert
+    And I click on the button labeled "Cancel"
+    And I wait for 1 second
+
     When I click on the button labeled "Edit" for alert "2"
     Then I should see "Edit Alert #2"
     And I should see "Editing Alerts and Notifications"
-    And I cancel the alert
+    And I wait for 1 second
+    And I click on the button labeled "Cancel"
+    And I wait for 1 second
 
   Scenario: D.102.500 - Permanently delete alert
     Given I click on the button labeled "Options" for alert "1"
@@ -28799,6 +29078,7 @@ Feature: D.102.300 - The system shall support the ability to send emails If cond
         And I select '"Data Types" (Event 1 (Arm 1: Arm 1))' on the dropdown field for alert form name
         And I should see the dropdown field for alert form status with the option "is saved with any form status" selected
         And I click on the textarea labeled while the following logic is true for the alert
+        And I wait for 1 second
         And I clear field and enter "[textbox]='Pass'" in the textarea field labeled "Logic Editor"
         And I click on the button labeled "Update & Close Editor"
         And I check the checkbox labeled "Ensure logic is still true before sending notification?"
@@ -28808,7 +29088,7 @@ Feature: D.102.300 - The system shall support the ability to send emails If cond
         And I enter "test_user2@example.com" into the input field labeled "Or manually enter emails"
         Then I enter "Testing-Alerts-and-Notifications" into the alert message
         And I enter "Alerts-and-Notifications" into the input field labeled "Subject"
-        When I save the alert
+        When I click on the button labeled "Save"
         Then I should see "Success! New alert created"
         And I should see "Alert #1:Email-Alert"
             
@@ -29291,6 +29571,16 @@ Reviewed and Passed
 Reviewed and Passed automation
 </div>
 </div>
+
+<div class="comment">
+**Comment:**
+
+*Author:* MintooXavier *Updated on:* 27/03/2026 10:37:27
+
+*Comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+
+</div>
 </div>
 
 ***
@@ -29407,6 +29697,12 @@ CLOSED | *User:* MintooXavier *Created on:* 23/07/2025 09:37:56 *Closed reason:*
 REOPENED | *User:* MintooXavier *Created on:* 16/03/2026 13:56:25 *Reason:* REOPENED
 
 PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 16/03/2026 13:56:28 *Previous status:* Reviewed and complete *Status:* To do
+
+ISSUE COMMENT | *User:* MintooXavier *Created on:* 27/03/2026 10:37:27 *Issue comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+CLOSED | *User:* MintooXavier *Created on:* 27/03/2026 10:37:27 *Closed reason:* COMPLETED
+
+PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 27/03/2026 10:37:28 *Previous status:* To do *Status:* Reviewed and complete
 </div>
 </div>
 
@@ -29437,13 +29733,13 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 ***
 
 ----------------------------------------------------------------------------------------------------------------------- -------------------------------------------------------------------------------
-**State:** OPEN                                                                                                         **State reason**: REOPENED                                                     
+**State:** CLOSED                                                                                                       **State reason**: COMPLETED                                                    
                                                                                                                                                                                                         
 **Includes created edit:** true                                                                                         
                                                                                                                                                                                                         
-**Closed:** false                                                                                                       **Closed on:** |none|                                                          
+**Closed:** true                                                                                                        **Closed on:** 25/03/2026 10:25:22                                             
                                                                                                                                                                                                         
-**Editor:** MintooXavier                                                                                                **Updated on:** 16/03/2026 13:58:56                                            
+**Editor:** MintooXavier                                                                                                **Updated on:** 25/03/2026 10:25:22                                            
                                                                                                                                                                                                         
 **Locked:** false                                                                                                       **Participants:** MintooXavier || TanDBPRO                                     
                                                                                                                                                                                                         
@@ -30038,6 +30334,16 @@ in
 
 
 </div>
+
+<div class="comment">
+**Comment:**
+
+*Author:* MintooXavier *Updated on:* 25/03/2026 10:25:22
+
+*Comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+
+</div>
 </div>
 
 ***
@@ -30396,6 +30702,12 @@ CLOSED | *User:* MintooXavier *Created on:* 22/07/2025 12:55:19 *Closed reason:*
 REOPENED | *User:* MintooXavier *Created on:* 16/03/2026 13:58:56 *Reason:* REOPENED
 
 PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 16/03/2026 13:58:57 *Previous status:* Reviewed and complete *Status:* To do
+
+ISSUE COMMENT | *User:* MintooXavier *Created on:* 25/03/2026 10:25:22 *Issue comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+CLOSED | *User:* MintooXavier *Created on:* 25/03/2026 10:25:23 *Closed reason:* COMPLETED
+
+PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 25/03/2026 10:25:24 *Previous status:* To do *Status:* Reviewed and complete
 </div>
 </div>
 
@@ -30426,13 +30738,13 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 ***
 
 ----------------------------------------------------------------------------------------------------------------------- -------------------------------------------------------------------------------
-**State:** OPEN                                                                                                         **State reason**: REOPENED                                                     
+**State:** CLOSED                                                                                                       **State reason**: COMPLETED                                                    
                                                                                                                                                                                                         
 **Includes created edit:** true                                                                                         
                                                                                                                                                                                                         
-**Closed:** false                                                                                                       **Closed on:** |none|                                                          
+**Closed:** true                                                                                                        **Closed on:** 20/03/2026 15:27:23                                             
                                                                                                                                                                                                         
-**Editor:** CoreenDsouza                                                                                                **Updated on:** 16/03/2026 13:58:32                                            
+**Editor:** CoreenDsouza                                                                                                **Updated on:** 20/03/2026 15:27:24                                            
                                                                                                                                                                                                         
 **Locked:** false                                                                                                       **Participants:** MintooXavier || CoreenDsouza                                 
                                                                                                                                                                                                         
@@ -30800,11 +31112,13 @@ Feature: Creating a Record and Entering Data: The system shall support the abili
 
     ##ACTION: Now button
     When I click on the "Now" button for the field labeled "time HH:MM:SS"
+    And I wait for 1 second
     ##VERIFY
     Then I should see the exact time in the field labeled "time HH:MM:SS"
 
     ##ACTION: Today button
     When I click on the "Today" button for the field labeled "date YMD"
+    And I wait for 1 second
     ##VERIFY
     Then I should see today's date in the field labeled "date YMD"
 #END
@@ -31720,6 +32034,16 @@ Scripts pre-reviewed:
 
 
 </div>
+
+<div class="comment">
+**Comment:**
+
+*Author:* MintooXavier *Updated on:* 20/03/2026 15:27:23
+
+*Comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+
+</div>
 </div>
 
 ***
@@ -31786,6 +32110,12 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 REOPENED | *User:* MintooXavier *Created on:* 16/03/2026 13:58:33 *Reason:* REOPENED
 
 PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 16/03/2026 13:58:34 *Previous status:* Reviewed and complete *Status:* To do
+
+ISSUE COMMENT | *User:* MintooXavier *Created on:* 20/03/2026 15:27:23 *Issue comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+CLOSED | *User:* MintooXavier *Created on:* 20/03/2026 15:27:24 *Closed reason:* COMPLETED
+
+PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 20/03/2026 15:27:26 *Previous status:* To do *Status:* Reviewed and complete
 </div>
 </div>
 
@@ -31816,13 +32146,13 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 ***
 
 ----------------------------------------------------------------------------------------------------------------------- -------------------------------------------------------------------------------
-**State:** OPEN                                                                                                         **State reason**: REOPENED                                                     
+**State:** CLOSED                                                                                                       **State reason**: COMPLETED                                                    
                                                                                                                                                                                                         
 **Includes created edit:** true                                                                                         
                                                                                                                                                                                                         
-**Closed:** false                                                                                                       **Closed on:** |none|                                                          
+**Closed:** true                                                                                                        **Closed on:** 25/03/2026 17:38:57                                             
                                                                                                                                                                                                         
-**Editor:** MintooXavier                                                                                                **Updated on:** 16/03/2026 13:47:28                                            
+**Editor:** MintooXavier                                                                                                **Updated on:** 25/03/2026 17:38:57                                            
                                                                                                                                                                                                         
 **Locked:** false                                                                                                       **Participants:** MintooXavier || rukayat-yakub || LawrenceFayers || TanDBPRO  
                                                                                                                                                                                                         
@@ -32159,6 +32489,16 @@ Scripts modified and auotmated.
 
 
 </div>
+
+<div class="comment">
+**Comment:**
+
+*Author:* MintooXavier *Updated on:* 25/03/2026 17:38:57
+
+*Comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+
+</div>
 </div>
 
 ***
@@ -32221,6 +32561,12 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 REOPENED | *User:* MintooXavier *Created on:* 16/03/2026 13:47:28 *Reason:* REOPENED
 
 PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 16/03/2026 13:47:29 *Previous status:* Reviewed and complete *Status:* To do
+
+ISSUE COMMENT | *User:* MintooXavier *Created on:* 25/03/2026 17:38:57 *Issue comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+CLOSED | *User:* MintooXavier *Created on:* 25/03/2026 17:38:57 *Closed reason:* COMPLETED
+
+PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 25/03/2026 17:38:58 *Previous status:* To do *Status:* Reviewed and complete
 </div>
 </div>
 
@@ -32251,13 +32597,13 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 ***
 
 ----------------------------------------------------------------------------------------------------------------------- -------------------------------------------------------------------------------
-**State:** OPEN                                                                                                         **State reason**: REOPENED                                                     
+**State:** CLOSED                                                                                                       **State reason**: COMPLETED                                                    
                                                                                                                                                                                                         
 **Includes created edit:** true                                                                                         
                                                                                                                                                                                                         
-**Closed:** false                                                                                                       **Closed on:** |none|                                                          
+**Closed:** true                                                                                                        **Closed on:** 07/04/2026 09:23:05                                             
                                                                                                                                                                                                         
-**Editor:** MintooXavier                                                                                                **Updated on:** 16/03/2026 13:44:24                                            
+**Editor:** MintooXavier                                                                                                **Updated on:** 07/04/2026 09:23:05                                            
                                                                                                                                                                                                         
 **Locked:** false                                                                                                       **Participants:** MintooXavier || LawrenceFayers || TanDBPRO                   
                                                                                                                                                                                                         
@@ -32326,28 +32672,25 @@ Feature: D.3.28.0100. - Control Center: The system shall support the option to c
         # Change this path to the redcap_file_repository folder location
         And I enter "/var/www/html/redcap_file_repository/" into the input field labeled "SET LOCAL FILE STORAGE LOCATION: If using 'Local' storage option, you may set an alternative location for storage of uploaded files (otherwise it will default to 'edocs' folder)."
         Then I click on the button labeled "Save Changes"
+        And I should see "Your system configuration values have now been changed!"
 
-    Scenario: Add record to get participant signature
-        Given I create a new project named "D.3.28.0100" by clicking on "New Project" in the menu bar, selecting "Practice / Just for fun" from the dropdown, choosing file "24EConsentWithSetup.xml", and clicking the "Create Project" button
+    Scenario: Add record to get participant details into the system and verify the PDF snapshot of the survey response
+        Given I create a new project named "D.3.28.0100" by clicking on "New Project" in the menu bar, selecting "Practice / Just for fun" from the dropdown, choosing file "D3280100.xml", and clicking the "Create Project" button
         When I click on the link labeled "Add / Edit Records"
         And I click on the button labeled "Add new record for the arm selected above"
         And I click the bubble to add a record for the "Participant Consent" longitudinal instrument on event "Event 1"
         Then I should see "Adding new Record ID 1"
 
         When I select the submit option labeled "Save & Stay" on the Data Collection Instrument
-        And I click on the button labeled "Okay"
         And I click on the button labeled "Survey options"
         And I click on the survey option label containing "Open survey" label
+        And I wait for 1 second
         And I clear field and enter "FirstName" into the data entry form field labeled "First Name"
         And I clear field and enter "LastName" into the input field labeled "Last Name"
         And I clear field and enter "email@test.edu" into the input field labeled "email"
         And I click on the "Today" button for the field labeled "Date of Birth"
         And I clear field and enter "MyName" into the input field labeled "Participant's Name Typed"
 
-        When I click on the link labeled "Add signature"
-        Then I should see a dialog containing the following text: "Add signature"
-        And I draw a signature in the signature field area
-        And I click on the button labeled "Save signature"
         And I click on the button labeled "Next Page >>"
         And I check the checkbox labeled "I certify that all of my information in the document above is correct"
         And I click on the button labeled "Submit"
@@ -32358,7 +32701,7 @@ Feature: D.3.28.0100. - Control Center: The system shall support the option to c
         Given I return to the REDCap page I opened the survey from
         Then I should see the "Response was completed"
         And I should see "Survey response is read-only because it was completed via the e-Consent Framework"
-   
+
         ##VERIFY_FiRe
         When I click on the link labeled "File Repository"
         And I click on the link labeled "PDF Snapshot Archive"
@@ -32369,7 +32712,6 @@ Feature: D.3.28.0100. - Control Center: The system shall support the option to c
             | email                       | email@test.edu |
             | Date of Birth               | yyyy-mm-dd     |
             | Participant's Name Typed    | MyName         |
-            | Participant signature field |                |
 
         ##VERIFY_PDF at Specific File Location
         And I should see the following values in the PDF at the local storage
@@ -32378,7 +32720,6 @@ Feature: D.3.28.0100. - Control Center: The system shall support the option to c
             | email                       | email@test.edu |
             | Date of Birth               | yyyy-mm-dd     |
             | Participant's Name Typed    | MyName         |
-            | Participant signature field |                |
 
         And I logout
 
@@ -32840,6 +33181,16 @@ D.3.28.0400 - User Interface: The system shall ensure that files uploaded to the
 
 
 </div>
+
+<div class="comment">
+**Comment:**
+
+*Author:* MintooXavier *Updated on:* 07/04/2026 09:23:05
+
+*Comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+
+</div>
 </div>
 
 ***
@@ -32902,6 +33253,12 @@ D.3.28.0400 - User Interface: The system shall ensure that files uploaded to the
 REOPENED | *User:* MintooXavier *Created on:* 16/03/2026 13:44:24 *Reason:* REOPENED
 
 PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 16/03/2026 13:44:26 *Previous status:* Reviewed and complete *Status:* To do
+
+ISSUE COMMENT | *User:* MintooXavier *Created on:* 07/04/2026 09:23:05 *Issue comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+CLOSED | *User:* MintooXavier *Created on:* 07/04/2026 09:23:05 *Closed reason:* COMPLETED
+
+PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 07/04/2026 09:23:06 *Previous status:* To do *Status:* Reviewed and complete
 </div>
 </div>
 
@@ -32932,13 +33289,13 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 ***
 
 ----------------------------------------------------------------------------------------------------------------------- -------------------------------------------------------------------------------
-**State:** OPEN                                                                                                         **State reason**: REOPENED                                                     
+**State:** CLOSED                                                                                                       **State reason**: COMPLETED                                                    
                                                                                                                                                                                                         
 **Includes created edit:** true                                                                                         
                                                                                                                                                                                                         
-**Closed:** false                                                                                                       **Closed on:** |none|                                                          
+**Closed:** true                                                                                                        **Closed on:** 20/03/2026 15:27:07                                             
                                                                                                                                                                                                         
-**Editor:** CoreenDsouza                                                                                                **Updated on:** 16/03/2026 13:44:14                                            
+**Editor:** CoreenDsouza                                                                                                **Updated on:** 20/03/2026 15:27:07                                            
                                                                                                                                                                                                         
 **Locked:** false                                                                                                       **Participants:** MintooXavier || CoreenDsouza                                 
                                                                                                                                                                                                         
@@ -33066,6 +33423,16 @@ Feature: User Interface: The system shall support the ability to show or hide ar
 
 
 </div>
+
+<div class="comment">
+**Comment:**
+
+*Author:* MintooXavier *Updated on:* 20/03/2026 15:27:07
+
+*Comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+
+</div>
 </div>
 
 ***
@@ -33105,6 +33472,12 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 REOPENED | *User:* MintooXavier *Created on:* 16/03/2026 13:44:14 *Reason:* REOPENED
 
 PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 16/03/2026 13:44:16 *Previous status:* Reviewed and complete *Status:* To do
+
+ISSUE COMMENT | *User:* MintooXavier *Created on:* 20/03/2026 15:27:07 *Issue comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+CLOSED | *User:* MintooXavier *Created on:* 20/03/2026 15:27:07 *Closed reason:* COMPLETED
+
+PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 20/03/2026 15:27:08 *Previous status:* To do *Status:* Reviewed and complete
 </div>
 </div>
 
@@ -33135,13 +33508,13 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 ***
 
 ----------------------------------------------------------------------------------------------------------------------- -------------------------------------------------------------------------------
-**State:** OPEN                                                                                                         **State reason**: REOPENED                                                     
+**State:** CLOSED                                                                                                       **State reason**: COMPLETED                                                    
                                                                                                                                                                                                         
 **Includes created edit:** true                                                                                         
                                                                                                                                                                                                         
-**Closed:** false                                                                                                       **Closed on:** |none|                                                          
+**Closed:** true                                                                                                        **Closed on:** 20/03/2026 15:26:53                                             
                                                                                                                                                                                                         
-**Editor:** CoreenDsouza                                                                                                **Updated on:** 16/03/2026 13:47:41                                            
+**Editor:** CoreenDsouza                                                                                                **Updated on:** 20/03/2026 15:26:53                                            
                                                                                                                                                                                                         
 **Locked:** false                                                                                                       **Participants:** MintooXavier || CoreenDsouza                                 
                                                                                                                                                                                                         
@@ -33265,6 +33638,16 @@ Feature: A.2.12.0100. Security Settings- The system shall support changing the s
 
 
 </div>
+
+<div class="comment">
+**Comment:**
+
+*Author:* MintooXavier *Updated on:* 20/03/2026 15:26:53
+
+*Comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+
+</div>
 </div>
 
 ***
@@ -33304,6 +33687,12 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 REOPENED | *User:* MintooXavier *Created on:* 16/03/2026 13:47:41 *Reason:* REOPENED
 
 PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 16/03/2026 13:47:44 *Previous status:* Reviewed and complete *Status:* To do
+
+ISSUE COMMENT | *User:* MintooXavier *Created on:* 20/03/2026 15:26:53 *Issue comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+CLOSED | *User:* MintooXavier *Created on:* 20/03/2026 15:26:53 *Closed reason:* COMPLETED
+
+PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 20/03/2026 15:26:55 *Previous status:* To do *Status:* Reviewed and complete
 </div>
 </div>
 
@@ -33334,13 +33723,13 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 ***
 
 ----------------------------------------------------------------------------------------------------------------------- -------------------------------------------------------------------------------
-**State:** OPEN                                                                                                         **State reason**: REOPENED                                                     
+**State:** CLOSED                                                                                                       **State reason**: COMPLETED                                                    
                                                                                                                                                                                                         
 **Includes created edit:** true                                                                                         
                                                                                                                                                                                                         
-**Closed:** false                                                                                                       **Closed on:** |none|                                                          
+**Closed:** true                                                                                                        **Closed on:** 20/03/2026 15:26:35                                             
                                                                                                                                                                                                         
-**Editor:** CoreenDsouza                                                                                                **Updated on:** 16/03/2026 13:58:27                                            
+**Editor:** CoreenDsouza                                                                                                **Updated on:** 20/03/2026 15:26:35                                            
                                                                                                                                                                                                         
 **Locked:** false                                                                                                       **Participants:** MintooXavier || phillidgithub || CoreenDsouza                
                                                                                                                                                                                                         
@@ -33761,6 +34150,16 @@ Script for D.6.1.0400 is not implemented as its the randomization feature which 
 
 
 </div>
+
+<div class="comment">
+**Comment:**
+
+*Author:* MintooXavier *Updated on:* 20/03/2026 15:26:35
+
+*Comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+
+</div>
 </div>
 
 ***
@@ -33828,6 +34227,12 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 REOPENED | *User:* MintooXavier *Created on:* 16/03/2026 13:58:27 *Reason:* REOPENED
 
 PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 16/03/2026 13:58:29 *Previous status:* Reviewed and complete *Status:* To do
+
+ISSUE COMMENT | *User:* MintooXavier *Created on:* 20/03/2026 15:26:35 *Issue comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+CLOSED | *User:* MintooXavier *Created on:* 20/03/2026 15:26:35 *Closed reason:* COMPLETED
+
+PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 20/03/2026 15:26:37 *Previous status:* To do *Status:* Reviewed and complete
 </div>
 </div>
 
@@ -33851,20 +34256,20 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
                                                                                                                                                                                                         
 **Assignees:** MintooXavier                                                                                             **Resource path:** <a href=https://github.com//CCTC-team/redcap_cypress/issues/62 target=_blank>/CCTC-team/redcap_cypress/issues/62</a>
                                                                                                                                                                                                         
-**Milestone:** |none|                                                                                                   **Labels:** Core feature || Gherkin || Automated || PQ                         
+**Milestone:** |none|                                                                                                   **Labels:** Core feature || Gherkin || Automated                               
                                                                                                                                                                                                         
 ----------------------------------------------------------------------------------------------------------------------- -------------------------------------------------------------------------------
 
 ***
 
 ----------------------------------------------------------------------------------------------------------------------- -------------------------------------------------------------------------------
-**State:** OPEN                                                                                                         **State reason**: REOPENED                                                     
+**State:** CLOSED                                                                                                       **State reason**: COMPLETED                                                    
                                                                                                                                                                                                         
 **Includes created edit:** true                                                                                         
                                                                                                                                                                                                         
-**Closed:** false                                                                                                       **Closed on:** |none|                                                          
+**Closed:** true                                                                                                        **Closed on:** 20/03/2026 15:25:29                                             
                                                                                                                                                                                                         
-**Editor:** MintooXavier                                                                                                **Updated on:** 16/03/2026 13:47:50                                            
+**Editor:** MintooXavier                                                                                                **Updated on:** 20/03/2026 15:25:39                                            
                                                                                                                                                                                                         
 **Locked:** false                                                                                                       **Participants:** MintooXavier || phillidgithub || CoreenDsouza                
                                                                                                                                                                                                         
@@ -35080,7 +35485,7 @@ Emailed ATS and RSVC regarding the below scripts:
 *Comment body:* <p dir="auto">Script post-reviewed:<br>
 B.2.10.100 - Create Edit Delete<br>
 Test fails on the step Then I should NOT see "RenameGroup3"<br>
-<a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/115070342/348664459-8f3151ef-e6f5-456a-9905-8d73eadb5b57.PNG?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzQwMDE2NDEsIm5iZiI6MTc3NDAwMTM0MSwicGF0aCI6Ii8xMTUwNzAzNDIvMzQ4NjY0NDU5LThmMzE1MWVmLWU2ZjUtNDU2YS05OTA1LThkNzNlYWRiNWI1Ny5QTkc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwMzIwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDMyMFQxMDA5MDFaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT04MWE2ZTk0MTRhNjQ3NWY4YjA3ZDFlYmRmZjE3NmQzYmZhNGJjMmVmZjIzMjRlNjllYWU3MjJhNTJmNDdjMDEwJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.zze3C873poAd0d_VCLaq1G-qLK2HBP6KWEhljhuOMzY"><img src="https://private-user-images.githubusercontent.com/115070342/348664459-8f3151ef-e6f5-456a-9905-8d73eadb5b57.PNG?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzQwMDE2NDEsIm5iZiI6MTc3NDAwMTM0MSwicGF0aCI6Ii8xMTUwNzAzNDIvMzQ4NjY0NDU5LThmMzE1MWVmLWU2ZjUtNDU2YS05OTA1LThkNzNlYWRiNWI1Ny5QTkc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwMzIwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDMyMFQxMDA5MDFaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT04MWE2ZTk0MTRhNjQ3NWY4YjA3ZDFlYmRmZjE3NmQzYmZhNGJjMmVmZjIzMjRlNjllYWU3MjJhNTJmNDdjMDEwJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.zze3C873poAd0d_VCLaq1G-qLK2HBP6KWEhljhuOMzY" alt="Image" style="max-width: 100%;"></a></p>
+<a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/115070342/348664459-8f3151ef-e6f5-456a-9905-8d73eadb5b57.PNG?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzU1NTQ1ODksIm5iZiI6MTc3NTU1NDI4OSwicGF0aCI6Ii8xMTUwNzAzNDIvMzQ4NjY0NDU5LThmMzE1MWVmLWU2ZjUtNDU2YS05OTA1LThkNzNlYWRiNWI1Ny5QTkc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwNDA3JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDQwN1QwOTMxMjlaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1iMTg1YjBiMzJkYmVmNGUxZjFmMzRmYzZjZTJiMTM3YmJjYTE5ZGMwOTU3OTQ0OWFkMTM5MTYyYjdhM2Y0ZGZjJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.ik8VmV-tT3SXZmlGHKb5IHFQJB4F06wQgRPyHEzOxFw"><img src="https://private-user-images.githubusercontent.com/115070342/348664459-8f3151ef-e6f5-456a-9905-8d73eadb5b57.PNG?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzU1NTQ1ODksIm5iZiI6MTc3NTU1NDI4OSwicGF0aCI6Ii8xMTUwNzAzNDIvMzQ4NjY0NDU5LThmMzE1MWVmLWU2ZjUtNDU2YS05OTA1LThkNzNlYWRiNWI1Ny5QTkc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwNDA3JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDQwN1QwOTMxMjlaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1iMTg1YjBiMzJkYmVmNGUxZjFmMzRmYzZjZTJiMTM3YmJjYTE5ZGMwOTU3OTQ0OWFkMTM5MTYyYjdhM2Y0ZGZjJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.ik8VmV-tT3SXZmlGHKb5IHFQJB4F06wQgRPyHEzOxFw" alt="Image" style="max-width: 100%;"></a></p>
 <p dir="auto">Various lines within the script are duplicated</p>
 <p dir="auto">B.2.10.200 - Add Remove Users<br>
 Test passes</p>
@@ -35142,6 +35547,16 @@ Test passes</p>
 *Author:* MintooXavier *Updated on:* 23/07/2025 10:58:03
 
 *Comment body:* <p dir="auto">All scripts were executed on v14.7.0 and passed successfully.</p>
+
+
+</div>
+
+<div class="comment">
+**Comment:**
+
+*Author:* MintooXavier *Updated on:* 20/03/2026 15:25:29
+
+*Comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
 
 
 </div>
@@ -35207,7 +35622,7 @@ ASSIGNED | *User:* phillidgithub *Created on:* 15/07/2024 09:40:58 *Assignee:* p
 ISSUE COMMENT | *User:* phillidgithub *Created on:* 15/07/2024 10:39:22 *Issue comment body:* <p dir="auto">Script post-reviewed:<br>
 B.2.10.100 - Create Edit Delete<br>
 Test fails on the step Then I should NOT see "RenameGroup3"<br>
-<a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/115070342/348664459-8f3151ef-e6f5-456a-9905-8d73eadb5b57.PNG?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzQwMDE2NDEsIm5iZiI6MTc3NDAwMTM0MSwicGF0aCI6Ii8xMTUwNzAzNDIvMzQ4NjY0NDU5LThmMzE1MWVmLWU2ZjUtNDU2YS05OTA1LThkNzNlYWRiNWI1Ny5QTkc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwMzIwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDMyMFQxMDA5MDFaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT04MWE2ZTk0MTRhNjQ3NWY4YjA3ZDFlYmRmZjE3NmQzYmZhNGJjMmVmZjIzMjRlNjllYWU3MjJhNTJmNDdjMDEwJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.zze3C873poAd0d_VCLaq1G-qLK2HBP6KWEhljhuOMzY"><img src="https://private-user-images.githubusercontent.com/115070342/348664459-8f3151ef-e6f5-456a-9905-8d73eadb5b57.PNG?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzQwMDE2NDEsIm5iZiI6MTc3NDAwMTM0MSwicGF0aCI6Ii8xMTUwNzAzNDIvMzQ4NjY0NDU5LThmMzE1MWVmLWU2ZjUtNDU2YS05OTA1LThkNzNlYWRiNWI1Ny5QTkc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwMzIwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDMyMFQxMDA5MDFaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT04MWE2ZTk0MTRhNjQ3NWY4YjA3ZDFlYmRmZjE3NmQzYmZhNGJjMmVmZjIzMjRlNjllYWU3MjJhNTJmNDdjMDEwJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.zze3C873poAd0d_VCLaq1G-qLK2HBP6KWEhljhuOMzY" alt="Image" style="max-width: 100%;"></a></p>
+<a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/115070342/348664459-8f3151ef-e6f5-456a-9905-8d73eadb5b57.PNG?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzU1NTQ1ODksIm5iZiI6MTc3NTU1NDI4OSwicGF0aCI6Ii8xMTUwNzAzNDIvMzQ4NjY0NDU5LThmMzE1MWVmLWU2ZjUtNDU2YS05OTA1LThkNzNlYWRiNWI1Ny5QTkc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwNDA3JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDQwN1QwOTMxMjlaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1iMTg1YjBiMzJkYmVmNGUxZjFmMzRmYzZjZTJiMTM3YmJjYTE5ZGMwOTU3OTQ0OWFkMTM5MTYyYjdhM2Y0ZGZjJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.ik8VmV-tT3SXZmlGHKb5IHFQJB4F06wQgRPyHEzOxFw"><img src="https://private-user-images.githubusercontent.com/115070342/348664459-8f3151ef-e6f5-456a-9905-8d73eadb5b57.PNG?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzU1NTQ1ODksIm5iZiI6MTc3NTU1NDI4OSwicGF0aCI6Ii8xMTUwNzAzNDIvMzQ4NjY0NDU5LThmMzE1MWVmLWU2ZjUtNDU2YS05OTA1LThkNzNlYWRiNWI1Ny5QTkc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwNDA3JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDQwN1QwOTMxMjlaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1iMTg1YjBiMzJkYmVmNGUxZjFmMzRmYzZjZTJiMTM3YmJjYTE5ZGMwOTU3OTQ0OWFkMTM5MTYyYjdhM2Y0ZGZjJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.ik8VmV-tT3SXZmlGHKb5IHFQJB4F06wQgRPyHEzOxFw" alt="Image" style="max-width: 100%;"></a></p>
 <p dir="auto">Various lines within the script are duplicated</p>
 <p dir="auto">B.2.10.200 - Add Remove Users<br>
 Test passes</p>
@@ -35245,6 +35660,14 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 REOPENED | *User:* MintooXavier *Created on:* 16/03/2026 13:47:50 *Reason:* REOPENED
 
 PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 16/03/2026 13:47:52 *Previous status:* Reviewed and complete *Status:* To do
+
+ISSUE COMMENT | *User:* MintooXavier *Created on:* 20/03/2026 15:25:29 *Issue comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+CLOSED | *User:* MintooXavier *Created on:* 20/03/2026 15:25:29 *Closed reason:* COMPLETED
+
+PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 20/03/2026 15:25:31 *Previous status:* To do *Status:* Reviewed and complete
+
+UNLABELLED | *User:* MintooXavier *Created on:* 20/03/2026 15:25:39 *Label name:* PQ *Label description:* 
 </div>
 </div>
 
@@ -35275,13 +35698,13 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 ***
 
 ----------------------------------------------------------------------------------------------------------------------- -------------------------------------------------------------------------------
-**State:** OPEN                                                                                                         **State reason**: REOPENED                                                     
+**State:** CLOSED                                                                                                       **State reason**: COMPLETED                                                    
                                                                                                                                                                                                         
 **Includes created edit:** true                                                                                         
                                                                                                                                                                                                         
-**Closed:** false                                                                                                       **Closed on:** |none|                                                          
+**Closed:** true                                                                                                        **Closed on:** 20/03/2026 15:25:09                                             
                                                                                                                                                                                                         
-**Editor:** CoreenDsouza                                                                                                **Updated on:** 16/03/2026 13:47:56                                            
+**Editor:** CoreenDsouza                                                                                                **Updated on:** 20/03/2026 15:25:10                                            
                                                                                                                                                                                                         
 **Locked:** false                                                                                                       **Participants:** MintooXavier || CoreenDsouza                                 
                                                                                                                                                                                                         
@@ -35526,6 +35949,16 @@ Test not passed</p>
 
 
 </div>
+
+<div class="comment">
+**Comment:**
+
+*Author:* MintooXavier *Updated on:* 20/03/2026 15:25:09
+
+*Comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+
+</div>
 </div>
 
 ***
@@ -35568,6 +36001,12 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 REOPENED | *User:* MintooXavier *Created on:* 16/03/2026 13:47:56 *Reason:* REOPENED
 
 PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 16/03/2026 13:47:58 *Previous status:* Reviewed and complete *Status:* To do
+
+ISSUE COMMENT | *User:* MintooXavier *Created on:* 20/03/2026 15:25:09 *Issue comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+CLOSED | *User:* MintooXavier *Created on:* 20/03/2026 15:25:10 *Closed reason:* COMPLETED
+
+PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 20/03/2026 15:25:12 *Previous status:* To do *Status:* Reviewed and complete
 </div>
 </div>
 
@@ -35598,13 +36037,13 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 ***
 
 ----------------------------------------------------------------------------------------------------------------------- -------------------------------------------------------------------------------
-**State:** OPEN                                                                                                         **State reason**: REOPENED                                                     
+**State:** CLOSED                                                                                                       **State reason**: COMPLETED                                                    
                                                                                                                                                                                                         
 **Includes created edit:** true                                                                                         
                                                                                                                                                                                                         
-**Closed:** false                                                                                                       **Closed on:** |none|                                                          
+**Closed:** true                                                                                                        **Closed on:** 20/03/2026 15:24:46                                             
                                                                                                                                                                                                         
-**Editor:** CoreenDsouza                                                                                                **Updated on:** 16/03/2026 13:48:22                                            
+**Editor:** CoreenDsouza                                                                                                **Updated on:** 20/03/2026 15:24:46                                            
                                                                                                                                                                                                         
 **Locked:** false                                                                                                       **Participants:** MintooXavier || CoreenDsouza                                 
                                                                                                                                                                                                         
@@ -38000,6 +38439,16 @@ B.6.7.500 - Delete Instrument
 
 
 </div>
+
+<div class="comment">
+**Comment:**
+
+*Author:* MintooXavier *Updated on:* 20/03/2026 15:24:46
+
+*Comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+
+</div>
 </div>
 
 ***
@@ -38091,6 +38540,12 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 REOPENED | *User:* MintooXavier *Created on:* 16/03/2026 13:48:22 *Reason:* REOPENED
 
 PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 16/03/2026 13:48:23 *Previous status:* Reviewed and complete *Status:* To do
+
+ISSUE COMMENT | *User:* MintooXavier *Created on:* 20/03/2026 15:24:46 *Issue comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+CLOSED | *User:* MintooXavier *Created on:* 20/03/2026 15:24:46 *Closed reason:* COMPLETED
+
+PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 20/03/2026 15:24:48 *Previous status:* To do *Status:* Reviewed and complete
 </div>
 </div>
 
@@ -38121,13 +38576,13 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 ***
 
 ----------------------------------------------------------------------------------------------------------------------- -------------------------------------------------------------------------------
-**State:** OPEN                                                                                                         **State reason**: REOPENED                                                     
+**State:** CLOSED                                                                                                       **State reason**: COMPLETED                                                    
                                                                                                                                                                                                         
 **Includes created edit:** true                                                                                         
                                                                                                                                                                                                         
-**Closed:** false                                                                                                       **Closed on:** |none|                                                          
+**Closed:** true                                                                                                        **Closed on:** 20/03/2026 15:08:30                                             
                                                                                                                                                                                                         
-**Editor:** CoreenDsouza                                                                                                **Updated on:** 16/03/2026 14:32:50                                            
+**Editor:** CoreenDsouza                                                                                                **Updated on:** 20/03/2026 15:08:31                                            
                                                                                                                                                                                                         
 **Locked:** false                                                                                                       **Participants:** MintooXavier || CoreenDsouza                                 
                                                                                                                                                                                                         
@@ -39251,168 +39706,9 @@ But in the scripts, while exporting, we are checking the checkbox ‘Remove All 
 <div class="comment">
 **Comment:**
 
-*Author:* CoreenDsouza *Updated on:* 16/03/2026 13:54:59
+*Author:* MintooXavier *Updated on:* 20/03/2026 15:08:31
 
-*Comment body:* <div class="email-fragment">Hi Mintoo,
-
-think I need to come off this list!
-
-
-Kind regards,
-
-
-
-Coreen D’Souza | eHospital Application Analyst | Cambridge University Hospitals NHS Foundation Trust
-
-Cambridge Biomedical Campus | Hills Road | Cambridge | CB2 0QQ
-
-Tel +44 (0) 1223 254277 |  ext. 254277 |or via Microsoft Teams |  <a href="http://www.cuh.org.uk&lt;http://www.cuh.org.uk/">www.cuh.org.uk&lt;http://www.cuh.org.uk/</a>&gt;
-
-
-
-The Trust is part of the National Institute for Health Research - Cambridge Biomedical Research Centre | and a member of Cambridge University Health Partners
-
-
-
-This email is confidential, see <a href="http://www.cuh.org.uk/email_disclaimer.html&lt;http://www.cuh.org.uk/email_disclaimer.html">www.cuh.org.uk/email_disclaimer.html&lt;http://www.cuh.org.uk/email_disclaimer.html</a>&gt;
-
-Any data within this email should not be sent or faxed to a third party (including non NHS email accounts) without the author’s agreement.</div>
-<span class="email-hidden-toggle"><a href="#">…</a></span><div class="email-hidden-reply">
-<div class="email-signature-reply">________________________________
-From: Mintoo Xavier ***@***.***&gt;
-Sent: 16 March 2026 13:52
-To: CCTC-team/redcap_cypress ***@***.***&gt;
-Cc: D'SOUZA, Coreen (CAMBRIDGE UNIVERSITY HOSPITALS NHS FOUNDATION TRUST) ***@***.***&gt;; Comment ***@***.***&gt;
-Subject: Re: [CCTC-team/redcap_cypress] 6. Assign User Rights (Issue <a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="2335604616" data-permission-text="Title is private" data-url="https://github.com/CCTC-team/redcap_cypress/issues/34" href="https://github.com/CCTC-team/redcap_cypress/issues/34">#34</a>)
-
-
-
-This message originated from outside of NHS.net Connect. Please do not click links or open attachments unless you recognise the sender and know the content is safe.
-
-Reopened <a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="2335604616" data-permission-text="Title is private" data-url="https://github.com/CCTC-team/redcap_cypress/issues/34" href="https://github.com/CCTC-team/redcap_cypress/issues/34">#34</a>&lt;<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="2335604616" data-permission-text="Title is private" data-url="https://github.com/CCTC-team/redcap_cypress/issues/34" href="https://github.com/CCTC-team/redcap_cypress/issues/34">#34</a>&gt;.
-
-—
-Reply to this email directly, view it on GitHub&lt;<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="2335604616" data-permission-text="Title is private" data-url="https://github.com/CCTC-team/redcap_cypress/issues/34" href="https://github.com/CCTC-team/redcap_cypress/issues/34#event-23608446761">#34 (comment)</a>&gt;, or unsubscribe&lt;<a href="https://github.com/notifications/unsubscribe-auth/A4QNYJKH2K7ZZRNE7YKCGHD4RABJJAVCNFSM6AAAAACWTMYTIGVHI2DSMVQWIX3LMV45UABCJFZXG5LFIV3GK3TUJZXXI2LGNFRWC5DJN5XDWMRTGYYDQNBUGY3TMMI">https://github.com/notifications/unsubscribe-auth/A4QNYJKH2K7ZZRNE7YKCGHD4RABJJAVCNFSM6AAAAACWTMYTIGVHI2DSMVQWIX3LMV45UABCJFZXG5LFIV3GK3TUJZXXI2LGNFRWC5DJN5XDWMRTGYYDQNBUGY3TMMI</a>&gt;.
-You are receiving this because you commented.Message ID: ***@***.***&gt;
-
-
-************************************************************************************** ******************************
-
-This message may contain confidential information. If you are not the intended recipient please:
-i) inform the sender that you have received the message in error before deleting it; and
-ii) do not disclose, copy or distribute information in this e-mail or take any action in relation to its content (to do so is strictly prohibited and may be unlawful).
-Thank you for your co-operation.
-
-NHS.net Connect is the secure email, collaboration and directory service available for all NHS staff in England. NHS.net Connect is approved for exchanging patient data and other sensitive information with NHS.net Connect and other accredited email services.
-
-For more information and to find out how you can switch visit Joining NHS.net Connect – NHS.net Connect Support&lt;<a href="https://support.nhs.net/article-categories/joining-nhsmail/">https://support.nhs.net/article-categories/joining-nhsmail/</a>&gt;</div>
-</div>
-
-
-</div>
-
-<div class="comment">
-**Comment:**
-
-*Author:* CoreenDsouza *Updated on:* 16/03/2026 14:32:50
-
-*Comment body:* <div class="email-fragment">Thank you for bringing this to my attention. I’ve now taken you off the list.
-
-Hope you have settled in and enjoying your new role. 😊
-
-
-Best,
-
-Mintoo
-
-Mintoo Xavier
-
-PROGRAMMING MANAGER
-
-***@***.***
-
-
-
-CAMBRIDGE CANCER TRIALS CENTRE
-
-Cambridge University Hospitals NHS Foundation Trust
-
-Box 279 (S4) | Addenbrooke’s Hospital | Cambridge Biomedical Campus | Hills Road | Cambridge | CB2 0QQ
-
-
-
-***@***.***  +44(0)1223 216083 (General Enquiries)
-
-
-
-The Trust is part of the National Institute for Health Research - Cambridge Biomedical Research Centre | and a member of Cambridge University Health Partners
-
-This email is confidential; see <a href="http://www.cuh.org.uk/email_disclaimer.html&lt;http://www.cuh.org.uk/email_disclaimer.html">www.cuh.org.uk/email_disclaimer.html&lt;http://www.cuh.org.uk/email_disclaimer.html</a>&gt;
-
-
-
-
-
-From: D'SOUZA, Coreen (CAMBRIDGE UNIVERSITY HOSPITALS NHS FOUNDATION TRUST) ***@***.***&gt;
-Date: Monday, 16 March 2026 at 13:54
-To: CCTC-team/redcap_cypress ***@***.***&gt;, CCTC-team/redcap_cypress ***@***.***&gt;, XAVIER, Mintoo (CAMBRIDGE UNIVERSITY HOSPITALS NHS FOUNDATION TRUST) ***@***.***&gt;
-Cc: Comment ***@***.***&gt;
-Subject: Re: [CCTC-team/redcap_cypress] 6. Assign User Rights (Issue <a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="2335604616" data-permission-text="Title is private" data-url="https://github.com/CCTC-team/redcap_cypress/issues/34" href="https://github.com/CCTC-team/redcap_cypress/issues/34">#34</a>)
-
-Hi Mintoo,
-
-think I need to come off this list!
-
-
-Kind regards,
-
-
-
-Coreen D’Souza | eHospital Application Analyst | Cambridge University Hospitals NHS Foundation Trust
-
-Cambridge Biomedical Campus | Hills Road | Cambridge | CB2 0QQ
-
-Tel +44 (0) 1223 254277 |  ext. 254277 |or via Microsoft Teams |  <a href="http://www.cuh.org.uk&lt;http://www.cuh.org.uk/">www.cuh.org.uk&lt;http://www.cuh.org.uk/</a>&gt;
-
-
-
-The Trust is part of the National Institute for Health Research - Cambridge Biomedical Research Centre | and a member of Cambridge University Health Partners
-
-
-
-This email is confidential, see <a href="http://www.cuh.org.uk/email_disclaimer.html&lt;http://www.cuh.org.uk/email_disclaimer.html">www.cuh.org.uk/email_disclaimer.html&lt;http://www.cuh.org.uk/email_disclaimer.html</a>&gt;
-
-Any data within this email should not be sent or faxed to a third party (including non NHS email accounts) without the author’s agreement.</div>
-<span class="email-hidden-toggle"><a href="#">…</a></span><div class="email-hidden-reply">
-<div class="email-signature-reply">________________________________
-From: Mintoo Xavier ***@***.***&gt;
-Sent: 16 March 2026 13:52
-To: CCTC-team/redcap_cypress ***@***.***&gt;
-Cc: D'SOUZA, Coreen (CAMBRIDGE UNIVERSITY HOSPITALS NHS FOUNDATION TRUST) ***@***.***&gt;; Comment ***@***.***&gt;
-Subject: Re: [CCTC-team/redcap_cypress] 6. Assign User Rights (Issue <a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="2335604616" data-permission-text="Title is private" data-url="https://github.com/CCTC-team/redcap_cypress/issues/34" href="https://github.com/CCTC-team/redcap_cypress/issues/34">#34</a>)
-
-
-
-This message originated from outside of NHS.net Connect. Please do not click links or open attachments unless you recognise the sender and know the content is safe.
-
-Reopened <a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="2335604616" data-permission-text="Title is private" data-url="https://github.com/CCTC-team/redcap_cypress/issues/34" href="https://github.com/CCTC-team/redcap_cypress/issues/34">#34</a>&lt;<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="2335604616" data-permission-text="Title is private" data-url="https://github.com/CCTC-team/redcap_cypress/issues/34" href="https://github.com/CCTC-team/redcap_cypress/issues/34">#34</a>&gt;.
-
-—
-Reply to this email directly, view it on GitHub&lt;<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="2335604616" data-permission-text="Title is private" data-url="https://github.com/CCTC-team/redcap_cypress/issues/34" href="https://github.com/CCTC-team/redcap_cypress/issues/34#event-23608446761">#34 (comment)</a>&gt;, or unsubscribe&lt;<a href="https://github.com/notifications/unsubscribe-auth/A4QNYJKH2K7ZZRNE7YKCGHD4RABJJAVCNFSM6AAAAACWTMYTIGVHI2DSMVQWIX3LMV45UABCJFZXG5LFIV3GK3TUJZXXI2LGNFRWC5DJN5XDWMRTGYYDQNBUGY3TMMI">https://github.com/notifications/unsubscribe-auth/A4QNYJKH2K7ZZRNE7YKCGHD4RABJJAVCNFSM6AAAAACWTMYTIGVHI2DSMVQWIX3LMV45UABCJFZXG5LFIV3GK3TUJZXXI2LGNFRWC5DJN5XDWMRTGYYDQNBUGY3TMMI</a>&gt;.
-You are receiving this because you commented.
-
-
-************************************************************************************** ******************************
-
-This message may contain confidential information. If you are not the intended recipient please:
-i) inform the sender that you have received the message in error before deleting it; and
-ii) do not disclose, copy or distribute information in this e-mail or take any action in relation to its content (to do so is strictly prohibited and may be unlawful).
-Thank you for your co-operation.
-
-NHS.net Connect is the secure email, collaboration and directory service available for all NHS staff in England. NHS.net Connect is approved for exchanging patient data and other sensitive information with NHS.net Connect and other accredited email services.
-
-For more information and to find out how you can switch visit Joining NHS.net Connect – NHS.net Connect Support&lt;<a href="https://support.nhs.net/article-categories/joining-nhsmail/">https://support.nhs.net/article-categories/joining-nhsmail/</a>&gt;</div>
-</div>
+*Comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
 
 
 </div>
@@ -39488,158 +39784,15 @@ REOPENED | *User:* MintooXavier *Created on:* 16/03/2026 13:51:59 *Reason:* REOP
 
 PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 16/03/2026 13:52:00 *Previous status:* Reviewed and complete *Status:* To do
 
-ISSUE COMMENT | *User:* CoreenDsouza *Created on:* 16/03/2026 13:54:59 *Issue comment body:* <div class="email-fragment">Hi Mintoo,
+COMMENT DELETED | *User:* MintooXavier *Created on:* 20/03/2026 15:07:53 *Deleted comment author:* CoreenDsouza
 
-think I need to come off this list!
+COMMENT DELETED | *User:* MintooXavier *Created on:* 20/03/2026 15:08:09 *Deleted comment author:* CoreenDsouza
 
+ISSUE COMMENT | *User:* MintooXavier *Created on:* 20/03/2026 15:08:31 *Issue comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
 
-Kind regards,
+CLOSED | *User:* MintooXavier *Created on:* 20/03/2026 15:08:31 *Closed reason:* COMPLETED
 
-
-
-Coreen D’Souza | eHospital Application Analyst | Cambridge University Hospitals NHS Foundation Trust
-
-Cambridge Biomedical Campus | Hills Road | Cambridge | CB2 0QQ
-
-Tel +44 (0) 1223 254277 |  ext. 254277 |or via Microsoft Teams |  <a href="http://www.cuh.org.uk&lt;http://www.cuh.org.uk/">www.cuh.org.uk&lt;http://www.cuh.org.uk/</a>&gt;
-
-
-
-The Trust is part of the National Institute for Health Research - Cambridge Biomedical Research Centre | and a member of Cambridge University Health Partners
-
-
-
-This email is confidential, see <a href="http://www.cuh.org.uk/email_disclaimer.html&lt;http://www.cuh.org.uk/email_disclaimer.html">www.cuh.org.uk/email_disclaimer.html&lt;http://www.cuh.org.uk/email_disclaimer.html</a>&gt;
-
-Any data within this email should not be sent or faxed to a third party (including non NHS email accounts) without the author’s agreement.</div>
-<span class="email-hidden-toggle"><a href="#">…</a></span><div class="email-hidden-reply">
-<div class="email-signature-reply">________________________________
-From: Mintoo Xavier ***@***.***&gt;
-Sent: 16 March 2026 13:52
-To: CCTC-team/redcap_cypress ***@***.***&gt;
-Cc: D'SOUZA, Coreen (CAMBRIDGE UNIVERSITY HOSPITALS NHS FOUNDATION TRUST) ***@***.***&gt;; Comment ***@***.***&gt;
-Subject: Re: [CCTC-team/redcap_cypress] 6. Assign User Rights (Issue <a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="2335604616" data-permission-text="Title is private" data-url="https://github.com/CCTC-team/redcap_cypress/issues/34" href="https://github.com/CCTC-team/redcap_cypress/issues/34">#34</a>)
-
-
-
-This message originated from outside of NHS.net Connect. Please do not click links or open attachments unless you recognise the sender and know the content is safe.
-
-Reopened <a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="2335604616" data-permission-text="Title is private" data-url="https://github.com/CCTC-team/redcap_cypress/issues/34" href="https://github.com/CCTC-team/redcap_cypress/issues/34">#34</a>&lt;<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="2335604616" data-permission-text="Title is private" data-url="https://github.com/CCTC-team/redcap_cypress/issues/34" href="https://github.com/CCTC-team/redcap_cypress/issues/34">#34</a>&gt;.
-
-—
-Reply to this email directly, view it on GitHub&lt;<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="2335604616" data-permission-text="Title is private" data-url="https://github.com/CCTC-team/redcap_cypress/issues/34" href="https://github.com/CCTC-team/redcap_cypress/issues/34#event-23608446761">#34 (comment)</a>&gt;, or unsubscribe&lt;<a href="https://github.com/notifications/unsubscribe-auth/A4QNYJKH2K7ZZRNE7YKCGHD4RABJJAVCNFSM6AAAAACWTMYTIGVHI2DSMVQWIX3LMV45UABCJFZXG5LFIV3GK3TUJZXXI2LGNFRWC5DJN5XDWMRTGYYDQNBUGY3TMMI">https://github.com/notifications/unsubscribe-auth/A4QNYJKH2K7ZZRNE7YKCGHD4RABJJAVCNFSM6AAAAACWTMYTIGVHI2DSMVQWIX3LMV45UABCJFZXG5LFIV3GK3TUJZXXI2LGNFRWC5DJN5XDWMRTGYYDQNBUGY3TMMI</a>&gt;.
-You are receiving this because you commented.Message ID: ***@***.***&gt;
-
-
-************************************************************************************** ******************************
-
-This message may contain confidential information. If you are not the intended recipient please:
-i) inform the sender that you have received the message in error before deleting it; and
-ii) do not disclose, copy or distribute information in this e-mail or take any action in relation to its content (to do so is strictly prohibited and may be unlawful).
-Thank you for your co-operation.
-
-NHS.net Connect is the secure email, collaboration and directory service available for all NHS staff in England. NHS.net Connect is approved for exchanging patient data and other sensitive information with NHS.net Connect and other accredited email services.
-
-For more information and to find out how you can switch visit Joining NHS.net Connect – NHS.net Connect Support&lt;<a href="https://support.nhs.net/article-categories/joining-nhsmail/">https://support.nhs.net/article-categories/joining-nhsmail/</a>&gt;</div>
-</div>
-
-ISSUE COMMENT | *User:* CoreenDsouza *Created on:* 16/03/2026 14:32:50 *Issue comment body:* <div class="email-fragment">Thank you for bringing this to my attention. I’ve now taken you off the list.
-
-Hope you have settled in and enjoying your new role. 😊
-
-
-Best,
-
-Mintoo
-
-Mintoo Xavier
-
-PROGRAMMING MANAGER
-
-***@***.***
-
-
-
-CAMBRIDGE CANCER TRIALS CENTRE
-
-Cambridge University Hospitals NHS Foundation Trust
-
-Box 279 (S4) | Addenbrooke’s Hospital | Cambridge Biomedical Campus | Hills Road | Cambridge | CB2 0QQ
-
-
-
-***@***.***  +44(0)1223 216083 (General Enquiries)
-
-
-
-The Trust is part of the National Institute for Health Research - Cambridge Biomedical Research Centre | and a member of Cambridge University Health Partners
-
-This email is confidential; see <a href="http://www.cuh.org.uk/email_disclaimer.html&lt;http://www.cuh.org.uk/email_disclaimer.html">www.cuh.org.uk/email_disclaimer.html&lt;http://www.cuh.org.uk/email_disclaimer.html</a>&gt;
-
-
-
-
-
-From: D'SOUZA, Coreen (CAMBRIDGE UNIVERSITY HOSPITALS NHS FOUNDATION TRUST) ***@***.***&gt;
-Date: Monday, 16 March 2026 at 13:54
-To: CCTC-team/redcap_cypress ***@***.***&gt;, CCTC-team/redcap_cypress ***@***.***&gt;, XAVIER, Mintoo (CAMBRIDGE UNIVERSITY HOSPITALS NHS FOUNDATION TRUST) ***@***.***&gt;
-Cc: Comment ***@***.***&gt;
-Subject: Re: [CCTC-team/redcap_cypress] 6. Assign User Rights (Issue <a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="2335604616" data-permission-text="Title is private" data-url="https://github.com/CCTC-team/redcap_cypress/issues/34" href="https://github.com/CCTC-team/redcap_cypress/issues/34">#34</a>)
-
-Hi Mintoo,
-
-think I need to come off this list!
-
-
-Kind regards,
-
-
-
-Coreen D’Souza | eHospital Application Analyst | Cambridge University Hospitals NHS Foundation Trust
-
-Cambridge Biomedical Campus | Hills Road | Cambridge | CB2 0QQ
-
-Tel +44 (0) 1223 254277 |  ext. 254277 |or via Microsoft Teams |  <a href="http://www.cuh.org.uk&lt;http://www.cuh.org.uk/">www.cuh.org.uk&lt;http://www.cuh.org.uk/</a>&gt;
-
-
-
-The Trust is part of the National Institute for Health Research - Cambridge Biomedical Research Centre | and a member of Cambridge University Health Partners
-
-
-
-This email is confidential, see <a href="http://www.cuh.org.uk/email_disclaimer.html&lt;http://www.cuh.org.uk/email_disclaimer.html">www.cuh.org.uk/email_disclaimer.html&lt;http://www.cuh.org.uk/email_disclaimer.html</a>&gt;
-
-Any data within this email should not be sent or faxed to a third party (including non NHS email accounts) without the author’s agreement.</div>
-<span class="email-hidden-toggle"><a href="#">…</a></span><div class="email-hidden-reply">
-<div class="email-signature-reply">________________________________
-From: Mintoo Xavier ***@***.***&gt;
-Sent: 16 March 2026 13:52
-To: CCTC-team/redcap_cypress ***@***.***&gt;
-Cc: D'SOUZA, Coreen (CAMBRIDGE UNIVERSITY HOSPITALS NHS FOUNDATION TRUST) ***@***.***&gt;; Comment ***@***.***&gt;
-Subject: Re: [CCTC-team/redcap_cypress] 6. Assign User Rights (Issue <a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="2335604616" data-permission-text="Title is private" data-url="https://github.com/CCTC-team/redcap_cypress/issues/34" href="https://github.com/CCTC-team/redcap_cypress/issues/34">#34</a>)
-
-
-
-This message originated from outside of NHS.net Connect. Please do not click links or open attachments unless you recognise the sender and know the content is safe.
-
-Reopened <a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="2335604616" data-permission-text="Title is private" data-url="https://github.com/CCTC-team/redcap_cypress/issues/34" href="https://github.com/CCTC-team/redcap_cypress/issues/34">#34</a>&lt;<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="2335604616" data-permission-text="Title is private" data-url="https://github.com/CCTC-team/redcap_cypress/issues/34" href="https://github.com/CCTC-team/redcap_cypress/issues/34">#34</a>&gt;.
-
-—
-Reply to this email directly, view it on GitHub&lt;<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="2335604616" data-permission-text="Title is private" data-url="https://github.com/CCTC-team/redcap_cypress/issues/34" href="https://github.com/CCTC-team/redcap_cypress/issues/34#event-23608446761">#34 (comment)</a>&gt;, or unsubscribe&lt;<a href="https://github.com/notifications/unsubscribe-auth/A4QNYJKH2K7ZZRNE7YKCGHD4RABJJAVCNFSM6AAAAACWTMYTIGVHI2DSMVQWIX3LMV45UABCJFZXG5LFIV3GK3TUJZXXI2LGNFRWC5DJN5XDWMRTGYYDQNBUGY3TMMI">https://github.com/notifications/unsubscribe-auth/A4QNYJKH2K7ZZRNE7YKCGHD4RABJJAVCNFSM6AAAAACWTMYTIGVHI2DSMVQWIX3LMV45UABCJFZXG5LFIV3GK3TUJZXXI2LGNFRWC5DJN5XDWMRTGYYDQNBUGY3TMMI</a>&gt;.
-You are receiving this because you commented.
-
-
-************************************************************************************** ******************************
-
-This message may contain confidential information. If you are not the intended recipient please:
-i) inform the sender that you have received the message in error before deleting it; and
-ii) do not disclose, copy or distribute information in this e-mail or take any action in relation to its content (to do so is strictly prohibited and may be unlawful).
-Thank you for your co-operation.
-
-NHS.net Connect is the secure email, collaboration and directory service available for all NHS staff in England. NHS.net Connect is approved for exchanging patient data and other sensitive information with NHS.net Connect and other accredited email services.
-
-For more information and to find out how you can switch visit Joining NHS.net Connect – NHS.net Connect Support&lt;<a href="https://support.nhs.net/article-categories/joining-nhsmail/">https://support.nhs.net/article-categories/joining-nhsmail/</a>&gt;</div>
-</div>
+PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 20/03/2026 15:08:33 *Previous status:* To do *Status:* Reviewed and complete
 </div>
 </div>
 
@@ -45068,13 +45221,13 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 ***
 
 ----------------------------------------------------------------------------------------------------------------------- -------------------------------------------------------------------------------
-**State:** OPEN                                                                                                         **State reason**: REOPENED                                                     
+**State:** CLOSED                                                                                                       **State reason**: COMPLETED                                                    
                                                                                                                                                                                                         
 **Includes created edit:** true                                                                                         
                                                                                                                                                                                                         
-**Closed:** false                                                                                                       **Closed on:** |none|                                                          
+**Closed:** true                                                                                                        **Closed on:** 25/03/2026 15:09:31                                             
                                                                                                                                                                                                         
-**Editor:** MintooXavier                                                                                                **Updated on:** 16/03/2026 14:20:40                                            
+**Editor:** MintooXavier                                                                                                **Updated on:** 25/03/2026 15:09:31                                            
                                                                                                                                                                                                         
 **Locked:** false                                                                                                       **Participants:** MintooXavier || rukayat-yakub || CoreenDsouza                
                                                                                                                                                                                                         
@@ -45409,7 +45562,7 @@ Feature: D.106.200 - The system shall support the ability to open, close, reopen
             Given I click on the link labeled "Record Status Dashboard"
             When I locate the bubble for the "Text Validation" instrument on event "Event 1" for record ID "1" and click on the bubble
             And I click on the Comment icon for the field labeled "Email"
-            Then  I should see "Data Resolution Workflow"
+            Then I should see "Data Resolution Workflow"
             And I select the radio option Open query in Data Resolution Workflow
             And I select "Test_User2 (Test User2)" on the dropdown field labeled "Assign query to a user (optional)"
             And I select the checkboxes option Email in Data Resolution Workflow
@@ -45446,15 +45599,15 @@ Feature: D.106.200 - The system shall support the ability to open, close, reopen
             And I click on the button labeled "Close"
             And I enter "The value is correct - B.3.16.600_DataImport.csv uploaded" into the textarea field labeled "Comment"
             And I click on the button labeled "Respond to query"
+            And I wait for 2 second
             Then I should see "Data Resolution Dashboard"
-            And I wait for 1 second
             When I click on the button labeled "2 comments"
             Then I should see "Data Resolution Workflow"
             And I should see a table header and row containing the following values in a table:
                   | Date/Time        | User       | Comments and Details                                                                               | 
                   | mm/dd/yyyy hh:mm | Test_User2 | Response:Verified - Confirmed correct (no error) Uploaded file:B.3.16.600_DataImport.... (0.01 MB) Comment:“The value is correct - B.3.16.600_DataImport.csv uploaded” |
 
-            And  I click on the link labeled "B.3.16.600_DataImport.... (0.01 MB)" 
+            And I click on the link labeled "B.3.16.600_DataImport.... (0.01 MB)"
             Then the downloaded CSV with filename "B.3.16.600_DataImport.csv" has the header below
                   | record_id | redcap_survey_identifier | data_types_timestamp | ptname | textbox | radio | notesbox | identifier | identifier_2 | date_ymd | datetime_ymd_hmss | data_types_complete |
 
@@ -46634,7 +46787,7 @@ in
 </li>
 <li>Add a step to click on the button 'Cancel' else I got the below:</li>
 </ol>
-<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/30346020/361787380-0f45613a-92b1-4c62-8164-29d54267958b.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzQwMDE2MzcsIm5iZiI6MTc3NDAwMTMzNywicGF0aCI6Ii8zMDM0NjAyMC8zNjE3ODczODAtMGY0NTYxM2EtOTJiMS00YzYyLTgxNjQtMjlkNTQyNjc5NThiLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjAzMjAlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwMzIwVDEwMDg1N1omWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWI1MGE1Y2JhMGUzZjhiNjI1M2RkYzQ1Njk1NDQyZjY1ODA1MDIzODMyZWU0MTQ4ZmViYTllNDUyMmU0OGRmNDYmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.nA0MKYT_UIpc87QgbHBVvRIADzYo0AHJZuQ4QRToAHI"><img src="https://private-user-images.githubusercontent.com/30346020/361787380-0f45613a-92b1-4c62-8164-29d54267958b.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzQwMDE2MzcsIm5iZiI6MTc3NDAwMTMzNywicGF0aCI6Ii8zMDM0NjAyMC8zNjE3ODczODAtMGY0NTYxM2EtOTJiMS00YzYyLTgxNjQtMjlkNTQyNjc5NThiLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjAzMjAlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwMzIwVDEwMDg1N1omWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWI1MGE1Y2JhMGUzZjhiNjI1M2RkYzQ1Njk1NDQyZjY1ODA1MDIzODMyZWU0MTQ4ZmViYTllNDUyMmU0OGRmNDYmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.nA0MKYT_UIpc87QgbHBVvRIADzYo0AHJZuQ4QRToAHI" alt="Image" style="max-width: 100%;"></a></p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/30346020/361787380-0f45613a-92b1-4c62-8164-29d54267958b.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzU1NTQ1ODYsIm5iZiI6MTc3NTU1NDI4NiwicGF0aCI6Ii8zMDM0NjAyMC8zNjE3ODczODAtMGY0NTYxM2EtOTJiMS00YzYyLTgxNjQtMjlkNTQyNjc5NThiLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjA0MDclMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwNDA3VDA5MzEyNlomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTJjYmQ2ZmU5YjFhMzY3MGUwNDVhNjE0NTE2ZWY4MGE1M2RiMjFiYTA1ODYzYmNlYzE3OTA5MjAzMTkyOTQwZmMmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.GNGAfvHmLbqMdQF8aaNxDcYLtKJiXvt5dPZvI0yMZgw"><img src="https://private-user-images.githubusercontent.com/30346020/361787380-0f45613a-92b1-4c62-8164-29d54267958b.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzU1NTQ1ODYsIm5iZiI6MTc3NTU1NDI4NiwicGF0aCI6Ii8zMDM0NjAyMC8zNjE3ODczODAtMGY0NTYxM2EtOTJiMS00YzYyLTgxNjQtMjlkNTQyNjc5NThiLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjA0MDclMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwNDA3VDA5MzEyNlomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTJjYmQ2ZmU5YjFhMzY3MGUwNDVhNjE0NTE2ZWY4MGE1M2RiMjFiYTA1ODYzYmNlYzE3OTA5MjAzMTkyOTQwZmMmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.GNGAfvHmLbqMdQF8aaNxDcYLtKJiXvt5dPZvI0yMZgw" alt="Image" style="max-width: 100%;"></a></p>
 <ol start="14" dir="auto">
 <li>Add similar steps as above to click on links here. (Clicking My projects and record status dashboard) <div class="Box Box--condensed my-2">
 <div class="Box-header f6">
@@ -47375,7 +47528,7 @@ in
 <br>
 The only two file upload step definitions were as below, where type of file from the named folder is uploaded.</li>
 </ol>
-<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/119594021/363880994-b7703b13-dace-43b2-9e09-f056dcb97e0c.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzQwMDE2MzcsIm5iZiI6MTc3NDAwMTMzNywicGF0aCI6Ii8xMTk1OTQwMjEvMzYzODgwOTk0LWI3NzAzYjEzLWRhY2UtNDNiMi05ZTA5LWYwNTZkY2I5N2UwYy5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwMzIwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDMyMFQxMDA4NTdaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT03OWQzMTAxNDI3ZjMwMmQ0ZGM5MDQyMGExMjUyOTRjZDAwODZkZTNiMzgzNzIxOTMzNDY4OGFiNGVhMzIwZDIzJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.5aEhH06DI72wLlVnKLGN8UsQtRMwh6bT7Ff4PJP7krc"><img src="https://private-user-images.githubusercontent.com/119594021/363880994-b7703b13-dace-43b2-9e09-f056dcb97e0c.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzQwMDE2MzcsIm5iZiI6MTc3NDAwMTMzNywicGF0aCI6Ii8xMTk1OTQwMjEvMzYzODgwOTk0LWI3NzAzYjEzLWRhY2UtNDNiMi05ZTA5LWYwNTZkY2I5N2UwYy5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwMzIwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDMyMFQxMDA4NTdaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT03OWQzMTAxNDI3ZjMwMmQ0ZGM5MDQyMGExMjUyOTRjZDAwODZkZTNiMzgzNzIxOTMzNDY4OGFiNGVhMzIwZDIzJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.5aEhH06DI72wLlVnKLGN8UsQtRMwh6bT7Ff4PJP7krc" alt="Image" style="max-width: 100%;"></a></p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/119594021/363880994-b7703b13-dace-43b2-9e09-f056dcb97e0c.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzU1NTQ1ODYsIm5iZiI6MTc3NTU1NDI4NiwicGF0aCI6Ii8xMTk1OTQwMjEvMzYzODgwOTk0LWI3NzAzYjEzLWRhY2UtNDNiMi05ZTA5LWYwNTZkY2I5N2UwYy5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwNDA3JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDQwN1QwOTMxMjZaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1lYWUzMGUzMDJhNGYwNjQ3MTVhMjY2M2Y4Mjk2MjYwODM1YjBkMjA5MzMxMjRlMmM5MzkzNmM4MmE4Y2E5NWNiJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.2JOM825U3fTYLH6fpEFcHnCFuMEjX1egjp0_nkaWe_M"><img src="https://private-user-images.githubusercontent.com/119594021/363880994-b7703b13-dace-43b2-9e09-f056dcb97e0c.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzU1NTQ1ODYsIm5iZiI6MTc3NTU1NDI4NiwicGF0aCI6Ii8xMTk1OTQwMjEvMzYzODgwOTk0LWI3NzAzYjEzLWRhY2UtNDNiMi05ZTA5LWYwNTZkY2I5N2UwYy5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwNDA3JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDQwN1QwOTMxMjZaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1lYWUzMGUzMDJhNGYwNjQ3MTVhMjY2M2Y4Mjk2MjYwODM1YjBkMjA5MzMxMjRlMmM5MzkzNmM4MmE4Y2E5NWNiJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.2JOM825U3fTYLH6fpEFcHnCFuMEjX1egjp0_nkaWe_M" alt="Image" style="max-width: 100%;"></a></p>
 <p dir="auto">The rest of the corrections are done,</p>
 <p dir="auto"><a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/MintooXavier/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/MintooXavier">@MintooXavier</a></p>
 
@@ -47780,9 +47933,9 @@ D.106.600
 *Author:* CoreenDsouza *Updated on:* 23/09/2024 11:53:57
 
 *Comment body:* <p dir="auto">Please confirm,<br>
-<a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/119594021/369860677-4a7dd8a8-b626-4516-b6a5-946c5e12b1ee.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzQwMDE2MzcsIm5iZiI6MTc3NDAwMTMzNywicGF0aCI6Ii8xMTk1OTQwMjEvMzY5ODYwNjc3LTRhN2RkOGE4LWI2MjYtNDUxNi1iNmE1LTk0NmM1ZTEyYjFlZS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwMzIwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDMyMFQxMDA4NTdaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0yNDhkY2E2ZmVhYzI1YmYxMzhiMjQ4NzBjYzViMGMwODIyNGRhZWIwMDRmMzY3ZDk1ODUxMTU2NmM0MGI2Mzc5JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.jleIwUrJ4EBiyVuDHtu_YCh-ejuZEIkEEPTFZpVAMzI"><img src="https://private-user-images.githubusercontent.com/119594021/369860677-4a7dd8a8-b626-4516-b6a5-946c5e12b1ee.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzQwMDE2MzcsIm5iZiI6MTc3NDAwMTMzNywicGF0aCI6Ii8xMTk1OTQwMjEvMzY5ODYwNjc3LTRhN2RkOGE4LWI2MjYtNDUxNi1iNmE1LTk0NmM1ZTEyYjFlZS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwMzIwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDMyMFQxMDA4NTdaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0yNDhkY2E2ZmVhYzI1YmYxMzhiMjQ4NzBjYzViMGMwODIyNGRhZWIwMDRmMzY3ZDk1ODUxMTU2NmM0MGI2Mzc5JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.jleIwUrJ4EBiyVuDHtu_YCh-ejuZEIkEEPTFZpVAMzI" alt="Image" style="max-width: 100%;"></a></p>
+<a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/119594021/369860677-4a7dd8a8-b626-4516-b6a5-946c5e12b1ee.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzU1NTQ1ODYsIm5iZiI6MTc3NTU1NDI4NiwicGF0aCI6Ii8xMTk1OTQwMjEvMzY5ODYwNjc3LTRhN2RkOGE4LWI2MjYtNDUxNi1iNmE1LTk0NmM1ZTEyYjFlZS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwNDA3JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDQwN1QwOTMxMjZaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1hZjE3ZWZjODU4MjMxN2U0ZDE0MTM1ZWEzNzMwMjljNWY5MTBiNzI1MTBmNjY0OGU4N2M4Njg1NDkyYmEzYzI0JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.AVd57FF_U3ILPbmKkqzrFW5jRdooCaj7nud64MNRJZE"><img src="https://private-user-images.githubusercontent.com/119594021/369860677-4a7dd8a8-b626-4516-b6a5-946c5e12b1ee.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzU1NTQ1ODYsIm5iZiI6MTc3NTU1NDI4NiwicGF0aCI6Ii8xMTk1OTQwMjEvMzY5ODYwNjc3LTRhN2RkOGE4LWI2MjYtNDUxNi1iNmE1LTk0NmM1ZTEyYjFlZS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwNDA3JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDQwN1QwOTMxMjZaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1hZjE3ZWZjODU4MjMxN2U0ZDE0MTM1ZWEzNzMwMjljNWY5MTBiNzI1MTBmNjY0OGU4N2M4Njg1NDkyYmEzYzI0JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.AVd57FF_U3ILPbmKkqzrFW5jRdooCaj7nud64MNRJZE" alt="Image" style="max-width: 100%;"></a></p>
 <p dir="auto">The status of verify button needs to be checked for all 6 types of User rights at similar points below, of feature D.106.100<br>
-<a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/119594021/369860559-c9c1714d-8345-44b6-8ded-1d4882483253.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzQwMDE2MzcsIm5iZiI6MTc3NDAwMTMzNywicGF0aCI6Ii8xMTk1OTQwMjEvMzY5ODYwNTU5LWM5YzE3MTRkLTgzNDUtNDRiNi04ZGVkLTFkNDg4MjQ4MzI1My5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwMzIwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDMyMFQxMDA4NTdaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT00OWIyMGJjZjZiZDFiOWE2MTQ2ZDBkNmM0NmZiYmU4MDQ3NjNkYmE4NDBjOTczMjVmZDk2M2JhNmRhMzVhNzkwJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.QC39zaKqplrBMwkr5m6vqFbIS3LcghLYT7x6qDj7qV8"><img src="https://private-user-images.githubusercontent.com/119594021/369860559-c9c1714d-8345-44b6-8ded-1d4882483253.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzQwMDE2MzcsIm5iZiI6MTc3NDAwMTMzNywicGF0aCI6Ii8xMTk1OTQwMjEvMzY5ODYwNTU5LWM5YzE3MTRkLTgzNDUtNDRiNi04ZGVkLTFkNDg4MjQ4MzI1My5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwMzIwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDMyMFQxMDA4NTdaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT00OWIyMGJjZjZiZDFiOWE2MTQ2ZDBkNmM0NmZiYmU4MDQ3NjNkYmE4NDBjOTczMjVmZDk2M2JhNmRhMzVhNzkwJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.QC39zaKqplrBMwkr5m6vqFbIS3LcghLYT7x6qDj7qV8" alt="Image" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/119594021/369860559-c9c1714d-8345-44b6-8ded-1d4882483253.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzU1NTQ1ODYsIm5iZiI6MTc3NTU1NDI4NiwicGF0aCI6Ii8xMTk1OTQwMjEvMzY5ODYwNTU5LWM5YzE3MTRkLTgzNDUtNDRiNi04ZGVkLTFkNDg4MjQ4MzI1My5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwNDA3JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDQwN1QwOTMxMjZaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT03OTIyYmEyNjY5Mzk0MjM2NTVjNjUzMDYwZjdmOWU3OTRiYWI2OWQxYzk5ZWZlZGI2YmIxODIwNTQ3ZTFkYTFiJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.w7WLo3pWVymT5_6h43Qyru2p_WmJEHf9PChBwybZzV8"><img src="https://private-user-images.githubusercontent.com/119594021/369860559-c9c1714d-8345-44b6-8ded-1d4882483253.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzU1NTQ1ODYsIm5iZiI6MTc3NTU1NDI4NiwicGF0aCI6Ii8xMTk1OTQwMjEvMzY5ODYwNTU5LWM5YzE3MTRkLTgzNDUtNDRiNi04ZGVkLTFkNDg4MjQ4MzI1My5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwNDA3JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDQwN1QwOTMxMjZaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT03OTIyYmEyNjY5Mzk0MjM2NTVjNjUzMDYwZjdmOWU3OTRiYWI2OWQxYzk5ZWZlZGI2YmIxODIwNTQ3ZTFkYTFiJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.w7WLo3pWVymT5_6h43Qyru2p_WmJEHf9PChBwybZzV8" alt="Image" style="max-width: 100%;"></a><br>
 <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/MintooXavier/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/MintooXavier">@MintooXavier</a></p>
 
 
@@ -48076,6 +48229,16 @@ Scripts automated:
 *Author:* rukayat-yakub *Updated on:* 04/08/2025 13:53:18
 
 *Comment body:* <p dir="auto">Reviewed and Passed</p>
+
+
+</div>
+
+<div class="comment">
+**Comment:**
+
+*Author:* MintooXavier *Updated on:* 25/03/2026 15:09:31
+
+*Comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
 
 
 </div>
@@ -48526,7 +48689,7 @@ in
 </li>
 <li>Add a step to click on the button 'Cancel' else I got the below:</li>
 </ol>
-<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/30346020/361787380-0f45613a-92b1-4c62-8164-29d54267958b.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzQwMDE2MzcsIm5iZiI6MTc3NDAwMTMzNywicGF0aCI6Ii8zMDM0NjAyMC8zNjE3ODczODAtMGY0NTYxM2EtOTJiMS00YzYyLTgxNjQtMjlkNTQyNjc5NThiLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjAzMjAlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwMzIwVDEwMDg1N1omWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWI1MGE1Y2JhMGUzZjhiNjI1M2RkYzQ1Njk1NDQyZjY1ODA1MDIzODMyZWU0MTQ4ZmViYTllNDUyMmU0OGRmNDYmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.nA0MKYT_UIpc87QgbHBVvRIADzYo0AHJZuQ4QRToAHI"><img src="https://private-user-images.githubusercontent.com/30346020/361787380-0f45613a-92b1-4c62-8164-29d54267958b.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzQwMDE2MzcsIm5iZiI6MTc3NDAwMTMzNywicGF0aCI6Ii8zMDM0NjAyMC8zNjE3ODczODAtMGY0NTYxM2EtOTJiMS00YzYyLTgxNjQtMjlkNTQyNjc5NThiLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjAzMjAlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwMzIwVDEwMDg1N1omWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWI1MGE1Y2JhMGUzZjhiNjI1M2RkYzQ1Njk1NDQyZjY1ODA1MDIzODMyZWU0MTQ4ZmViYTllNDUyMmU0OGRmNDYmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.nA0MKYT_UIpc87QgbHBVvRIADzYo0AHJZuQ4QRToAHI" alt="Image" style="max-width: 100%;"></a></p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/30346020/361787380-0f45613a-92b1-4c62-8164-29d54267958b.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzU1NTQ1ODYsIm5iZiI6MTc3NTU1NDI4NiwicGF0aCI6Ii8zMDM0NjAyMC8zNjE3ODczODAtMGY0NTYxM2EtOTJiMS00YzYyLTgxNjQtMjlkNTQyNjc5NThiLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjA0MDclMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwNDA3VDA5MzEyNlomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTJjYmQ2ZmU5YjFhMzY3MGUwNDVhNjE0NTE2ZWY4MGE1M2RiMjFiYTA1ODYzYmNlYzE3OTA5MjAzMTkyOTQwZmMmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.GNGAfvHmLbqMdQF8aaNxDcYLtKJiXvt5dPZvI0yMZgw"><img src="https://private-user-images.githubusercontent.com/30346020/361787380-0f45613a-92b1-4c62-8164-29d54267958b.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzU1NTQ1ODYsIm5iZiI6MTc3NTU1NDI4NiwicGF0aCI6Ii8zMDM0NjAyMC8zNjE3ODczODAtMGY0NTYxM2EtOTJiMS00YzYyLTgxNjQtMjlkNTQyNjc5NThiLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjA0MDclMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwNDA3VDA5MzEyNlomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTJjYmQ2ZmU5YjFhMzY3MGUwNDVhNjE0NTE2ZWY4MGE1M2RiMjFiYTA1ODYzYmNlYzE3OTA5MjAzMTkyOTQwZmMmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.GNGAfvHmLbqMdQF8aaNxDcYLtKJiXvt5dPZvI0yMZgw" alt="Image" style="max-width: 100%;"></a></p>
 <ol start="14" dir="auto">
 <li>Add similar steps as above to click on links here. (Clicking My projects and record status dashboard) <div class="Box Box--condensed my-2">
 <div class="Box-header f6">
@@ -49098,7 +49261,7 @@ in
 <br>
 The only two file upload step definitions were as below, where type of file from the named folder is uploaded.</li>
 </ol>
-<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/119594021/363880994-b7703b13-dace-43b2-9e09-f056dcb97e0c.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzQwMDE2MzcsIm5iZiI6MTc3NDAwMTMzNywicGF0aCI6Ii8xMTk1OTQwMjEvMzYzODgwOTk0LWI3NzAzYjEzLWRhY2UtNDNiMi05ZTA5LWYwNTZkY2I5N2UwYy5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwMzIwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDMyMFQxMDA4NTdaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT03OWQzMTAxNDI3ZjMwMmQ0ZGM5MDQyMGExMjUyOTRjZDAwODZkZTNiMzgzNzIxOTMzNDY4OGFiNGVhMzIwZDIzJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.5aEhH06DI72wLlVnKLGN8UsQtRMwh6bT7Ff4PJP7krc"><img src="https://private-user-images.githubusercontent.com/119594021/363880994-b7703b13-dace-43b2-9e09-f056dcb97e0c.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzQwMDE2MzcsIm5iZiI6MTc3NDAwMTMzNywicGF0aCI6Ii8xMTk1OTQwMjEvMzYzODgwOTk0LWI3NzAzYjEzLWRhY2UtNDNiMi05ZTA5LWYwNTZkY2I5N2UwYy5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwMzIwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDMyMFQxMDA4NTdaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT03OWQzMTAxNDI3ZjMwMmQ0ZGM5MDQyMGExMjUyOTRjZDAwODZkZTNiMzgzNzIxOTMzNDY4OGFiNGVhMzIwZDIzJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.5aEhH06DI72wLlVnKLGN8UsQtRMwh6bT7Ff4PJP7krc" alt="Image" style="max-width: 100%;"></a></p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/119594021/363880994-b7703b13-dace-43b2-9e09-f056dcb97e0c.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzU1NTQ1ODYsIm5iZiI6MTc3NTU1NDI4NiwicGF0aCI6Ii8xMTk1OTQwMjEvMzYzODgwOTk0LWI3NzAzYjEzLWRhY2UtNDNiMi05ZTA5LWYwNTZkY2I5N2UwYy5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwNDA3JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDQwN1QwOTMxMjZaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1lYWUzMGUzMDJhNGYwNjQ3MTVhMjY2M2Y4Mjk2MjYwODM1YjBkMjA5MzMxMjRlMmM5MzkzNmM4MmE4Y2E5NWNiJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.2JOM825U3fTYLH6fpEFcHnCFuMEjX1egjp0_nkaWe_M"><img src="https://private-user-images.githubusercontent.com/119594021/363880994-b7703b13-dace-43b2-9e09-f056dcb97e0c.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzU1NTQ1ODYsIm5iZiI6MTc3NTU1NDI4NiwicGF0aCI6Ii8xMTk1OTQwMjEvMzYzODgwOTk0LWI3NzAzYjEzLWRhY2UtNDNiMi05ZTA5LWYwNTZkY2I5N2UwYy5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwNDA3JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDQwN1QwOTMxMjZaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1lYWUzMGUzMDJhNGYwNjQ3MTVhMjY2M2Y4Mjk2MjYwODM1YjBkMjA5MzMxMjRlMmM5MzkzNmM4MmE4Y2E5NWNiJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.2JOM825U3fTYLH6fpEFcHnCFuMEjX1egjp0_nkaWe_M" alt="Image" style="max-width: 100%;"></a></p>
 <p dir="auto">The rest of the corrections are done,</p>
 <p dir="auto"><a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/MintooXavier/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/MintooXavier">@MintooXavier</a></p>
 
@@ -49400,9 +49563,9 @@ MENTIONED | *User:* CoreenDsouza *Created on:* 19/09/2024 15:19:33
 SUBSCRIBED | *User:* CoreenDsouza *Created on:* 19/09/2024 15:19:33
 
 ISSUE COMMENT | *User:* CoreenDsouza *Created on:* 23/09/2024 11:53:57 *Issue comment body:* <p dir="auto">Please confirm,<br>
-<a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/119594021/369860677-4a7dd8a8-b626-4516-b6a5-946c5e12b1ee.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzQwMDE2MzcsIm5iZiI6MTc3NDAwMTMzNywicGF0aCI6Ii8xMTk1OTQwMjEvMzY5ODYwNjc3LTRhN2RkOGE4LWI2MjYtNDUxNi1iNmE1LTk0NmM1ZTEyYjFlZS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwMzIwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDMyMFQxMDA4NTdaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0yNDhkY2E2ZmVhYzI1YmYxMzhiMjQ4NzBjYzViMGMwODIyNGRhZWIwMDRmMzY3ZDk1ODUxMTU2NmM0MGI2Mzc5JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.jleIwUrJ4EBiyVuDHtu_YCh-ejuZEIkEEPTFZpVAMzI"><img src="https://private-user-images.githubusercontent.com/119594021/369860677-4a7dd8a8-b626-4516-b6a5-946c5e12b1ee.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzQwMDE2MzcsIm5iZiI6MTc3NDAwMTMzNywicGF0aCI6Ii8xMTk1OTQwMjEvMzY5ODYwNjc3LTRhN2RkOGE4LWI2MjYtNDUxNi1iNmE1LTk0NmM1ZTEyYjFlZS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwMzIwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDMyMFQxMDA4NTdaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0yNDhkY2E2ZmVhYzI1YmYxMzhiMjQ4NzBjYzViMGMwODIyNGRhZWIwMDRmMzY3ZDk1ODUxMTU2NmM0MGI2Mzc5JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.jleIwUrJ4EBiyVuDHtu_YCh-ejuZEIkEEPTFZpVAMzI" alt="Image" style="max-width: 100%;"></a></p>
+<a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/119594021/369860677-4a7dd8a8-b626-4516-b6a5-946c5e12b1ee.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzU1NTQ1ODYsIm5iZiI6MTc3NTU1NDI4NiwicGF0aCI6Ii8xMTk1OTQwMjEvMzY5ODYwNjc3LTRhN2RkOGE4LWI2MjYtNDUxNi1iNmE1LTk0NmM1ZTEyYjFlZS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwNDA3JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDQwN1QwOTMxMjZaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1hZjE3ZWZjODU4MjMxN2U0ZDE0MTM1ZWEzNzMwMjljNWY5MTBiNzI1MTBmNjY0OGU4N2M4Njg1NDkyYmEzYzI0JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.AVd57FF_U3ILPbmKkqzrFW5jRdooCaj7nud64MNRJZE"><img src="https://private-user-images.githubusercontent.com/119594021/369860677-4a7dd8a8-b626-4516-b6a5-946c5e12b1ee.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzU1NTQ1ODYsIm5iZiI6MTc3NTU1NDI4NiwicGF0aCI6Ii8xMTk1OTQwMjEvMzY5ODYwNjc3LTRhN2RkOGE4LWI2MjYtNDUxNi1iNmE1LTk0NmM1ZTEyYjFlZS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwNDA3JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDQwN1QwOTMxMjZaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1hZjE3ZWZjODU4MjMxN2U0ZDE0MTM1ZWEzNzMwMjljNWY5MTBiNzI1MTBmNjY0OGU4N2M4Njg1NDkyYmEzYzI0JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.AVd57FF_U3ILPbmKkqzrFW5jRdooCaj7nud64MNRJZE" alt="Image" style="max-width: 100%;"></a></p>
 <p dir="auto">The status of verify button needs to be checked for all 6 types of User rights at similar points below, of feature D.106.100<br>
-<a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/119594021/369860559-c9c1714d-8345-44b6-8ded-1d4882483253.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzQwMDE2MzcsIm5iZiI6MTc3NDAwMTMzNywicGF0aCI6Ii8xMTk1OTQwMjEvMzY5ODYwNTU5LWM5YzE3MTRkLTgzNDUtNDRiNi04ZGVkLTFkNDg4MjQ4MzI1My5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwMzIwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDMyMFQxMDA4NTdaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT00OWIyMGJjZjZiZDFiOWE2MTQ2ZDBkNmM0NmZiYmU4MDQ3NjNkYmE4NDBjOTczMjVmZDk2M2JhNmRhMzVhNzkwJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.QC39zaKqplrBMwkr5m6vqFbIS3LcghLYT7x6qDj7qV8"><img src="https://private-user-images.githubusercontent.com/119594021/369860559-c9c1714d-8345-44b6-8ded-1d4882483253.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzQwMDE2MzcsIm5iZiI6MTc3NDAwMTMzNywicGF0aCI6Ii8xMTk1OTQwMjEvMzY5ODYwNTU5LWM5YzE3MTRkLTgzNDUtNDRiNi04ZGVkLTFkNDg4MjQ4MzI1My5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwMzIwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDMyMFQxMDA4NTdaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT00OWIyMGJjZjZiZDFiOWE2MTQ2ZDBkNmM0NmZiYmU4MDQ3NjNkYmE4NDBjOTczMjVmZDk2M2JhNmRhMzVhNzkwJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.QC39zaKqplrBMwkr5m6vqFbIS3LcghLYT7x6qDj7qV8" alt="Image" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/119594021/369860559-c9c1714d-8345-44b6-8ded-1d4882483253.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzU1NTQ1ODYsIm5iZiI6MTc3NTU1NDI4NiwicGF0aCI6Ii8xMTk1OTQwMjEvMzY5ODYwNTU5LWM5YzE3MTRkLTgzNDUtNDRiNi04ZGVkLTFkNDg4MjQ4MzI1My5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwNDA3JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDQwN1QwOTMxMjZaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT03OTIyYmEyNjY5Mzk0MjM2NTVjNjUzMDYwZjdmOWU3OTRiYWI2OWQxYzk5ZWZlZGI2YmIxODIwNTQ3ZTFkYTFiJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.w7WLo3pWVymT5_6h43Qyru2p_WmJEHf9PChBwybZzV8"><img src="https://private-user-images.githubusercontent.com/119594021/369860559-c9c1714d-8345-44b6-8ded-1d4882483253.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzU1NTQ1ODYsIm5iZiI6MTc3NTU1NDI4NiwicGF0aCI6Ii8xMTk1OTQwMjEvMzY5ODYwNTU5LWM5YzE3MTRkLTgzNDUtNDRiNi04ZGVkLTFkNDg4MjQ4MzI1My5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwNDA3JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDQwN1QwOTMxMjZaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT03OTIyYmEyNjY5Mzk0MjM2NTVjNjUzMDYwZjdmOWU3OTRiYWI2OWQxYzk5ZWZlZGI2YmIxODIwNTQ3ZTFkYTFiJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.w7WLo3pWVymT5_6h43Qyru2p_WmJEHf9PChBwybZzV8" alt="Image" style="max-width: 100%;"></a><br>
 <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/MintooXavier/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/MintooXavier">@MintooXavier</a></p>
 
 MENTIONED | *User:* MintooXavier *Created on:* 23/09/2024 11:53:59
@@ -49506,6 +49669,12 @@ REOPENED | *User:* MintooXavier *Created on:* 16/03/2026 13:43:43 *Reason:* REOP
 PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 16/03/2026 13:43:44 *Previous status:* Reviewed and complete *Status:* To do
 
 UNASSIGNED | *User:* MintooXavier *Created on:* 16/03/2026 14:20:40 *Assignee:* CoreenDsouza
+
+ISSUE COMMENT | *User:* MintooXavier *Created on:* 25/03/2026 15:09:31 *Issue comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+CLOSED | *User:* MintooXavier *Created on:* 25/03/2026 15:09:31 *Closed reason:* COMPLETED
+
+PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 25/03/2026 15:09:33 *Previous status:* To do *Status:* Reviewed and complete
 </div>
 </div>
 
@@ -49536,13 +49705,13 @@ UNASSIGNED | *User:* MintooXavier *Created on:* 16/03/2026 14:20:40 *Assignee:* 
 ***
 
 ----------------------------------------------------------------------------------------------------------------------- -------------------------------------------------------------------------------
-**State:** OPEN                                                                                                         **State reason**: REOPENED                                                     
+**State:** CLOSED                                                                                                       **State reason**: COMPLETED                                                    
                                                                                                                                                                                                         
 **Includes created edit:** true                                                                                         
                                                                                                                                                                                                         
-**Closed:** false                                                                                                       **Closed on:** |none|                                                          
+**Closed:** true                                                                                                        **Closed on:** 20/03/2026 16:56:24                                             
                                                                                                                                                                                                         
-**Editor:** CoreenDsouza                                                                                                **Updated on:** 16/03/2026 13:43:50                                            
+**Editor:** CoreenDsouza                                                                                                **Updated on:** 20/03/2026 16:56:24                                            
                                                                                                                                                                                                         
 **Locked:** false                                                                                                       **Participants:** MintooXavier || CoreenDsouza                                 
                                                                                                                                                                                                         
@@ -50843,6 +51012,16 @@ Therefore, the corresponding URS is being removed from the package.
 
 
 </div>
+
+<div class="comment">
+**Comment:**
+
+*Author:* MintooXavier *Updated on:* 20/03/2026 16:56:24
+
+*Comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+
+</div>
 </div>
 
 ***
@@ -50930,6 +51109,12 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 REOPENED | *User:* MintooXavier *Created on:* 16/03/2026 13:43:50 *Reason:* REOPENED
 
 PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 16/03/2026 13:43:51 *Previous status:* Reviewed and complete *Status:* To do
+
+ISSUE COMMENT | *User:* MintooXavier *Created on:* 20/03/2026 16:56:24 *Issue comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+CLOSED | *User:* MintooXavier *Created on:* 20/03/2026 16:56:24 *Closed reason:* COMPLETED
+
+PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 20/03/2026 16:56:25 *Previous status:* To do *Status:* Reviewed and complete
 </div>
 </div>
 
@@ -50960,13 +51145,13 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 ***
 
 ----------------------------------------------------------------------------------------------------------------------- -------------------------------------------------------------------------------
-**State:** OPEN                                                                                                         **State reason**: REOPENED                                                     
+**State:** CLOSED                                                                                                       **State reason**: COMPLETED                                                    
                                                                                                                                                                                                         
 **Includes created edit:** true                                                                                         
                                                                                                                                                                                                         
-**Closed:** false                                                                                                       **Closed on:** |none|                                                          
+**Closed:** true                                                                                                        **Closed on:** 20/03/2026 16:39:51                                             
                                                                                                                                                                                                         
-**Editor:** CoreenDsouza                                                                                                **Updated on:** 16/03/2026 13:43:55                                            
+**Editor:** CoreenDsouza                                                                                                **Updated on:** 20/03/2026 16:39:51                                            
                                                                                                                                                                                                         
 **Locked:** false                                                                                                       **Participants:** MintooXavier || CoreenDsouza                                 
                                                                                                                                                                                                         
@@ -51264,6 +51449,16 @@ D.2.23.0600. - User Interface: Email Logging Module shall record outgoing emails
 
 
 </div>
+
+<div class="comment">
+**Comment:**
+
+*Author:* MintooXavier *Updated on:* 20/03/2026 16:39:51
+
+*Comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+
+</div>
 </div>
 
 ***
@@ -51315,6 +51510,12 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 REOPENED | *User:* MintooXavier *Created on:* 16/03/2026 13:43:56 *Reason:* REOPENED
 
 PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 16/03/2026 13:43:58 *Previous status:* Reviewed and complete *Status:* To do
+
+ISSUE COMMENT | *User:* MintooXavier *Created on:* 20/03/2026 16:39:51 *Issue comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+CLOSED | *User:* MintooXavier *Created on:* 20/03/2026 16:39:51 *Closed reason:* COMPLETED
+
+PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 20/03/2026 16:39:53 *Previous status:* To do *Status:* Reviewed and complete
 </div>
 </div>
 
@@ -51338,20 +51539,20 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
                                                                                                                                                                                                         
 **Assignees:** MintooXavier                                                                                             **Resource path:** <a href=https://github.com//CCTC-team/redcap_cypress/issues/76 target=_blank>/CCTC-team/redcap_cypress/issues/76</a>
                                                                                                                                                                                                         
-**Milestone:** |none|                                                                                                   **Labels:** Question || Core feature || Gherkin || Automated || PQ             
+**Milestone:** |none|                                                                                                   **Labels:** Question || Core feature || Gherkin || Automated                   
                                                                                                                                                                                                         
 ----------------------------------------------------------------------------------------------------------------------- -------------------------------------------------------------------------------
 
 ***
 
 ----------------------------------------------------------------------------------------------------------------------- -------------------------------------------------------------------------------
-**State:** OPEN                                                                                                         **State reason**: REOPENED                                                     
+**State:** CLOSED                                                                                                       **State reason**: COMPLETED                                                    
                                                                                                                                                                                                         
 **Includes created edit:** true                                                                                         
                                                                                                                                                                                                         
-**Closed:** false                                                                                                       **Closed on:** |none|                                                          
+**Closed:** true                                                                                                        **Closed on:** 20/03/2026 16:03:08                                             
                                                                                                                                                                                                         
-**Editor:** CoreenDsouza                                                                                                **Updated on:** 16/03/2026 13:56:32                                            
+**Editor:** CoreenDsouza                                                                                                **Updated on:** 20/03/2026 16:03:09                                            
                                                                                                                                                                                                         
 **Locked:** false                                                                                                       **Participants:** MintooXavier || CoreenDsouza                                 
                                                                                                                                                                                                         
@@ -51955,6 +52156,16 @@ B.5.21.400 - Export Specific Forms
 
 
 </div>
+
+<div class="comment">
+**Comment:**
+
+*Author:* MintooXavier *Updated on:* 20/03/2026 16:03:08
+
+*Comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+
+</div>
 </div>
 
 ***
@@ -52025,6 +52236,14 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 REOPENED | *User:* MintooXavier *Created on:* 16/03/2026 13:56:32 *Reason:* REOPENED
 
 PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 16/03/2026 13:56:34 *Previous status:* Reviewed and complete *Status:* To do
+
+UNLABELLED | *User:* MintooXavier *Created on:* 20/03/2026 15:25:54 *Label name:* PQ *Label description:* 
+
+ISSUE COMMENT | *User:* MintooXavier *Created on:* 20/03/2026 16:03:08 *Issue comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+CLOSED | *User:* MintooXavier *Created on:* 20/03/2026 16:03:09 *Closed reason:* COMPLETED
+
+PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 20/03/2026 16:03:10 *Previous status:* To do *Status:* Reviewed and complete
 </div>
 </div>
 
@@ -52055,13 +52274,13 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 ***
 
 ----------------------------------------------------------------------------------------------------------------------- -------------------------------------------------------------------------------
-**State:** OPEN                                                                                                         **State reason**: REOPENED                                                     
+**State:** CLOSED                                                                                                       **State reason**: COMPLETED                                                    
                                                                                                                                                                                                         
 **Includes created edit:** true                                                                                         
                                                                                                                                                                                                         
-**Closed:** false                                                                                                       **Closed on:** |none|                                                          
+**Closed:** true                                                                                                        **Closed on:** 20/03/2026 16:01:18                                             
                                                                                                                                                                                                         
-**Editor:** CoreenDsouza                                                                                                **Updated on:** 16/03/2026 13:56:36                                            
+**Editor:** CoreenDsouza                                                                                                **Updated on:** 20/03/2026 16:01:18                                            
                                                                                                                                                                                                         
 **Locked:** false                                                                                                       **Participants:** MintooXavier || phillidgithub || CoreenDsouza                
                                                                                                                                                                                                         
@@ -52792,6 +53011,16 @@ D.4.20.1000 - Draft Mode confirmation email.feature</p>
 
 
 </div>
+
+<div class="comment">
+**Comment:**
+
+*Author:* MintooXavier *Updated on:* 20/03/2026 16:01:18
+
+*Comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+
+</div>
 </div>
 
 ***
@@ -52883,6 +53112,12 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 REOPENED | *User:* MintooXavier *Created on:* 16/03/2026 13:56:37 *Reason:* REOPENED
 
 PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 16/03/2026 13:58:11 *Previous status:* Reviewed and complete *Status:* To do
+
+ISSUE COMMENT | *User:* MintooXavier *Created on:* 20/03/2026 16:01:18 *Issue comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+CLOSED | *User:* MintooXavier *Created on:* 20/03/2026 16:01:18 *Closed reason:* COMPLETED
+
+PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 20/03/2026 16:01:20 *Previous status:* To do *Status:* Reviewed and complete
 </div>
 </div>
 
@@ -52913,13 +53148,13 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 ***
 
 ----------------------------------------------------------------------------------------------------------------------- -------------------------------------------------------------------------------
-**State:** OPEN                                                                                                         **State reason**: REOPENED                                                     
+**State:** CLOSED                                                                                                       **State reason**: COMPLETED                                                    
                                                                                                                                                                                                         
 **Includes created edit:** true                                                                                         
                                                                                                                                                                                                         
-**Closed:** false                                                                                                       **Closed on:** |none|                                                          
+**Closed:** true                                                                                                        **Closed on:** 20/03/2026 16:00:48                                             
                                                                                                                                                                                                         
-**Editor:** CoreenDsouza                                                                                                **Updated on:** 16/03/2026 13:56:43                                            
+**Editor:** CoreenDsouza                                                                                                **Updated on:** 20/03/2026 16:00:49                                            
                                                                                                                                                                                                         
 **Locked:** false                                                                                                       **Participants:** MintooXavier || CoreenDsouza                                 
                                                                                                                                                                                                         
@@ -54391,6 +54626,16 @@ Rewriting this script
 
 
 </div>
+
+<div class="comment">
+**Comment:**
+
+*Author:* MintooXavier *Updated on:* 20/03/2026 16:00:48
+
+*Comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+
+</div>
 </div>
 
 ***
@@ -54498,6 +54743,12 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 REOPENED | *User:* MintooXavier *Created on:* 16/03/2026 13:56:43 *Reason:* REOPENED
 
 PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 16/03/2026 13:56:45 *Previous status:* Reviewed and complete *Status:* To do
+
+ISSUE COMMENT | *User:* MintooXavier *Created on:* 20/03/2026 16:00:48 *Issue comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+CLOSED | *User:* MintooXavier *Created on:* 20/03/2026 16:00:49 *Closed reason:* COMPLETED
+
+PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 20/03/2026 16:00:50 *Previous status:* To do *Status:* Reviewed and complete
 </div>
 </div>
 
@@ -54528,13 +54779,13 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 ***
 
 ----------------------------------------------------------------------------------------------------------------------- -------------------------------------------------------------------------------
-**State:** OPEN                                                                                                         **State reason**: REOPENED                                                     
+**State:** CLOSED                                                                                                       **State reason**: COMPLETED                                                    
                                                                                                                                                                                                         
 **Includes created edit:** true                                                                                         
                                                                                                                                                                                                         
-**Closed:** false                                                                                                       **Closed on:** |none|                                                          
+**Closed:** true                                                                                                        **Closed on:** 20/03/2026 15:41:17                                             
                                                                                                                                                                                                         
-**Editor:** CoreenDsouza                                                                                                **Updated on:** 16/03/2026 13:56:52                                            
+**Editor:** CoreenDsouza                                                                                                **Updated on:** 20/03/2026 15:41:17                                            
                                                                                                                                                                                                         
 **Locked:** false                                                                                                       **Participants:** MintooXavier || CoreenDsouza                                 
                                                                                                                                                                                                         
@@ -55912,6 +56163,16 @@ C.4.18.100 - Data Quality default rules.feature
 
 
 </div>
+
+<div class="comment">
+**Comment:**
+
+*Author:* MintooXavier *Updated on:* 20/03/2026 15:41:17
+
+*Comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+
+</div>
 </div>
 
 ***
@@ -56007,6 +56268,12 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 REOPENED | *User:* MintooXavier *Created on:* 16/03/2026 13:56:52 *Reason:* REOPENED
 
 PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 16/03/2026 13:56:54 *Previous status:* Reviewed and complete *Status:* To do
+
+ISSUE COMMENT | *User:* MintooXavier *Created on:* 20/03/2026 15:41:17 *Issue comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+CLOSED | *User:* MintooXavier *Created on:* 20/03/2026 15:41:18 *Closed reason:* COMPLETED
+
+PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 20/03/2026 15:41:19 *Previous status:* To do *Status:* Reviewed and complete
 </div>
 </div>
 
@@ -56037,13 +56304,13 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 ***
 
 ----------------------------------------------------------------------------------------------------------------------- -------------------------------------------------------------------------------
-**State:** OPEN                                                                                                         **State reason**: REOPENED                                                     
+**State:** CLOSED                                                                                                       **State reason**: COMPLETED                                                    
                                                                                                                                                                                                         
 **Includes created edit:** true                                                                                         
                                                                                                                                                                                                         
-**Closed:** false                                                                                                       **Closed on:** |none|                                                          
+**Closed:** true                                                                                                        **Closed on:** 20/03/2026 15:35:00                                             
                                                                                                                                                                                                         
-**Editor:** CoreenDsouza                                                                                                **Updated on:** 16/03/2026 13:58:21                                            
+**Editor:** CoreenDsouza                                                                                                **Updated on:** 20/03/2026 15:35:01                                            
                                                                                                                                                                                                         
 **Locked:** false                                                                                                       **Participants:** MintooXavier || CoreenDsouza                                 
                                                                                                                                                                                                         
@@ -58371,6 +58638,16 @@ All scripts were executed on v14.7.0 and passed successfully.
 
 </div>
 </div>
+
+<div class="comment">
+**Comment:**
+
+*Author:* MintooXavier *Updated on:* 20/03/2026 15:35:00
+
+*Comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+
+</div>
 </div>
 
 ***
@@ -58515,6 +58792,12 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 REOPENED | *User:* MintooXavier *Created on:* 16/03/2026 13:58:21 *Reason:* REOPENED
 
 PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 16/03/2026 13:58:22 *Previous status:* Reviewed and complete *Status:* To do
+
+ISSUE COMMENT | *User:* MintooXavier *Created on:* 20/03/2026 15:35:00 *Issue comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+CLOSED | *User:* MintooXavier *Created on:* 20/03/2026 15:35:01 *Closed reason:* COMPLETED
+
+PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 20/03/2026 15:35:02 *Previous status:* To do *Status:* Reviewed and complete
 </div>
 </div>
 
@@ -58545,13 +58828,13 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 ***
 
 ----------------------------------------------------------------------------------------------------------------------- -------------------------------------------------------------------------------
-**State:** OPEN                                                                                                         **State reason**: REOPENED                                                     
+**State:** CLOSED                                                                                                       **State reason**: COMPLETED                                                    
                                                                                                                                                                                                         
 **Includes created edit:** true                                                                                         
                                                                                                                                                                                                         
-**Closed:** false                                                                                                       **Closed on:** |none|                                                          
+**Closed:** true                                                                                                        **Closed on:** 20/03/2026 15:27:47                                             
                                                                                                                                                                                                         
-**Editor:** CoreenDsouza                                                                                                **Updated on:** 16/03/2026 13:57:03                                            
+**Editor:** CoreenDsouza                                                                                                **Updated on:** 20/03/2026 15:27:47                                            
                                                                                                                                                                                                         
 **Locked:** false                                                                                                       **Participants:** MintooXavier || CoreenDsouza                                 
                                                                                                                                                                                                         
@@ -58664,6 +58947,7 @@ Feature: User Interface: Survey Project Settings: The system shall support enabl
 
     And I click on the button labeled "Survey options"
     And I click on the survey option label containing "Open survey" label
+    And I wait for 1 second
 
     Given I clear field and enter "Name_B.3.15.0100.100" into the data entry form field labeled "Name"
     And I click on the button labeled "Submit"
@@ -59781,6 +60065,16 @@ Scripts Pre-reviewed:
 
 
 </div>
+
+<div class="comment">
+**Comment:**
+
+*Author:* MintooXavier *Updated on:* 20/03/2026 15:27:47
+
+*Comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+
+</div>
 </div>
 
 ***
@@ -59854,6 +60148,12 @@ PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:*
 REOPENED | *User:* MintooXavier *Created on:* 16/03/2026 13:57:03 *Reason:* REOPENED
 
 PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 16/03/2026 13:57:06 *Previous status:* Reviewed and complete *Status:* To do
+
+ISSUE COMMENT | *User:* MintooXavier *Created on:* 20/03/2026 15:27:47 *Issue comment body:* <p dir="auto">Tests successfully validated against v15.5.36</p>
+
+CLOSED | *User:* MintooXavier *Created on:* 20/03/2026 15:27:47 *Closed reason:* COMPLETED
+
+PROJECT V2 ITEM STATUS CHANGED | *User:* github-project-automation *Created on:* 20/03/2026 15:27:50 *Previous status:* To do *Status:* Reviewed and complete
 </div>
 </div>
 
