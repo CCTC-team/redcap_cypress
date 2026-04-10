@@ -11,7 +11,7 @@ C.3.24.0305. - User Interface: The system shall support the e-Consent Framework 
 C.3.24.0400. - User Interface: The e-Consent framework shall support automatic archiving/storage of a PDF copy of the survey response in the project's File Repository upon survey completion.
 C.3.24.0405. - User Interface: The system shall support the e-Consent Framework to automatically enable a read-only PDF Snapshot trigger that will save a PDF copy of the survey response into the project's File Repository. This functionality must include support for single forms, repeatable forms, and surveys across multiple arms in both classic and longitudinal projects.
 C.3.24.0500. - User Interface: The e-Consent framework shall support download of archived PDFs
-C.3.24.0505. - User Interface: The system shall support the e-Consent Framework to download archived PDFs from the file repository
+C.3.24.0505. - User Interface: The system shall support the e-Consent Framework to download archived PDFs from the file repository.
 C.3.24.0600. - User Interface: The e-Consent framework shall support editing of responses by users.
 C.3.24.0605. - User Interface: The system shall support the e-Consent Framework to allow editing of responses by users.
 C.3.24.0700. - User Interface: The e-Consent framework shall support a certification page at the end of the survey that displays an in-line PDF copy of their survey responses.
@@ -25,14 +25,14 @@ C.3.24.1500. - User Interface: The system shall support the e-Consent Framework 
 C.3.24.1600. - User Interface: The system shall support the e-Consent Framework to place a consent form in a descriptive field.
 C.3.24.1700. - User Interface: The system shall support the e-Consent Framework to limit user view access (i.e., DAG).
 D.3.24.1800. - User Interface: The system shall support the e-Consent Framework to display a consent form in a specific language.
-C.3.24.1900. - User Interface: The system shall support the e-Consent Framework to optionally automatically save a PDF copy of the survey response using the PDF Snapshot in a specified field
+C.3.24.1900. - User Interface: The system shall support the e-Consent Framework to optionally automatically save a PDF copy of the survey response using the PDF Snapshot in a specified field.
 C.3.24.2000. - User Interface: The system shall support the e-Consent Framework to hide or unhide active and inactive surveys.
 C.3.24.2100. - User Interface: The system shall support the e-Consent Framework to search within e-Consent framework settings.
 C.3.24.2200. - User Interface: The system shall support the creation, modification, and copying of custom triggers for PDF snapshots.
 C.3.24.2300. - User Interface: The system shall support the hide/unhide active and inactive triggers within PDF Snapshots.
 C.3.24.2400. - User Interface: The system shall support the search function within PDF snapshots.
 C.3.24.2500. - User Interface: The system shall support conditional logic integration within PDF Snapshots.
-C.3.24.2600. - User Interface: The system shall support the capture and storage of multiform/survey PDF snapshots.
+C.3.24.2600. - User Interface: The system shall support the capture and storage of multi-form/survey PDF snapshots.
 C.3.24.2700. - User Interface: The system shall support the saving PDF snapshots to specific fields and the file repository within PDF Snapshots.
 C.3.24.2800. - User Interface: The system shall support the customization of the file name for PDF snapshots.
 C.3.24.2900. - User Interface: The system shall support audit trails for e-Consent Certification and PDF Snapshot generation.

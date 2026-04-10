@@ -1,5 +1,5 @@
 B.3.16.0100. - User Interface: The system shall support the ability to download two versions of a data import template formatted as a CSV file, one to accommodate records in rows and one to accommodate records in columns.
-B.3.16.0200. - User Interface: The system shall allow data to be uploaded with the csv template to create and modify records.
+B.3.16.0205. - User Interface: The system shall allow data to be uploaded in real-time using the CSV template to create and modify records.
 B.3.16.0300. - User Interface: The system shall highlight data modifications for user confirmation.
 B.3.16.0400. - User Interface: The system shall import only valid formats for text fields with validation.
 B.3.16.0500. - User Interface: The system shall import only valid choice codes for radio buttons, dropdowns, and checkboxes.
@@ -18,4 +18,4 @@ B.3.16.1800. - User Interface: The system shall provide the ability to display r
 B.3.16.1900. - The system shall provide the ability to create a new record with updated record ID information during data import, while retaining the original record and its associated data. The old record shall remain in the system under its original name, ensuring no data is lost or overwritten.
 B.3.16.2000. - User Interface: The system shall provide the ability to require a reason when modifying records via real-time data import.
 B.3.16.2100. - User Interface: The system shall provide the ability for the user importing data to cancel the background data import
-B.3.16.2200. - User Interface: The system shall restrict users by DAGs when using the background process to import data files.
+B.3.16.2200. - User Interface: The system shall restrict users by DAG restrictions when using the background process to import data files
