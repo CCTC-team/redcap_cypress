@@ -3,7 +3,9 @@ name: Build and Push REDCap Docker Image
 on:
   push:
     branches:
-      - new_redcap_val
+      - redcap_val
+    paths:
+      - 'CCTC_REDCap_Docker/**'
   workflow_dispatch:
     inputs:
       tag:
@@ -14,7 +16,7 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}/redcap-env
-  CCTC_DOCKER_BRANCH: "MX_MAC"
+  CCTC_DOCKER_BRANCH: "redcap_val"
 
 jobs:
   build-and-push:
@@ -27,16 +29,52 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          submodules: false  # Don't need submodules for Docker build
+          ssh-key: ${{ secrets.DEPLOY_KEY }}
+
+      - name: Read config from cypress.env.json.example
+        run: |
+          REDCAP_VERSION=$(jq -r '.redcap_version' cypress.env.json.example)
+          echo "REDCAP_VERSION=${REDCAP_VERSION}" >> $GITHUB_ENV
+          echo "REDCAP_VERSION=${REDCAP_VERSION}"
 
       - name: Clone CCTC_REDCap_Docker
         env:
           GH_PAT: ${{ secrets.CCTC_TEAM_PAT }}
         run: |
-          # Clone CCTC_REDCap_Docker repository if not already present
-          if [ ! -d "CCTC_REDCap_Docker" ]; then
-            git clone --branch ${{ env.CCTC_DOCKER_BRANCH }} --depth=1 https://x-access-token:${GH_PAT}@github.com/CCTC-team/CCTC_REDCap_Docker.git
+          git clone --branch ${{ env.CCTC_DOCKER_BRANCH }} --depth=1 \
+            https://x-access-token:${GH_PAT}@github.com/CCTC-team/CCTC_REDCap_Docker.git
+          cd CCTC_REDCap_Docker && git log -1
+
+      - name: Get REDCap Source
+        env:
+          REDCAP_SSH_KEY: ${{ secrets.REDCAP_SOURCE_SSH_KEY }}
+        run: |
+          # Setup SSH for private repos
+          mkdir -p ~/.ssh
+          echo "$REDCAP_SSH_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+
+          # Determine branch/tag for REDCap version
+          if [[ "${{ env.REDCAP_VERSION }}" = "99.99.99" ]]; then
+            export BRANCH=main
+          else
+            export BRANCH=${{ env.REDCAP_VERSION }}
           fi
+
+          # Clone REDCap source into CCTC_REDCap_Docker/redcap_source/
+          cd CCTC_REDCap_Docker/redcap_source
+
+          GIT_SSH_COMMAND="ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no" \
+            git clone --depth=1 --branch=$BRANCH git@github.com:CCTC-team/redcap_source.git _clone
+          git -C _clone log -1
+
+          # Copy versioned REDCap directory out of the clone
+          cp -a _clone/redcap_v${{ env.REDCAP_VERSION }} .
+          rm -rf _clone
+
+          echo "=== redcap_source contents ==="
+          ls -la
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -63,10 +101,12 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ./CCTC_REDCap_Docker
-          file: ./CCTC_REDCap_Docker/Dockerfile
+          file: ./CCTC_REDCap_Docker/redcap_docker/Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            REDCAP_VERSION=${{ env.REDCAP_VERSION }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
           platforms: linux/amd64
