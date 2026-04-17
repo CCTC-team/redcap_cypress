@@ -137,9 +137,11 @@ jobs:
           # Generate cypress.env.json from template
           cp cypress.env.json.example cypress.env.json
 
-          # Override only the values that differ in CI
+          # Override values that differ in CI
           # mysql.path must use docker exec instead of local binary
           sed -i '/"path":/c\    "path": "docker exec -i ${{ env.DB_CONTAINER }} mysql",' cypress.env.json
+          # mysql.port is 3306 inside the container (not 3400 host-mapped port)
+          sed -i '/"port":/c\    "port": "3306",' cypress.env.json
 
           # Add CI-specific path configurations
           sed -i '/"temp_folder":/a\  "edocs_folder": "${{ github.workspace }}/CCTC_REDCap_Docker/redcap_source/edocs",' cypress.env.json
