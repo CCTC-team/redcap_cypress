@@ -47,14 +47,8 @@ jobs:
 
       - name: Get REDCap Source
         env:
-          REDCAP_SSH_KEY: ${{ secrets.REDCAP_SOURCE_SSH_KEY }}
+          GH_PAT: ${{ secrets.CCTC_TEAM_PAT }}
         run: |
-          # Setup SSH for private repos
-          mkdir -p ~/.ssh
-          echo "$REDCAP_SSH_KEY" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan github.com >> ~/.ssh/known_hosts
-
           # Determine branch/tag for REDCap version
           if [[ "${{ env.REDCAP_VERSION }}" = "99.99.99" ]]; then
             export BRANCH=main
@@ -65,13 +59,13 @@ jobs:
           # Clone REDCap source into CCTC_REDCap_Docker/redcap_source/
           cd CCTC_REDCap_Docker/redcap_source
 
-          GIT_SSH_COMMAND="ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no" \
-            git clone --depth=1 --branch=$BRANCH git@github.com:CCTC-team/redcap_source.git _clone
+          git clone --depth=1 --branch=$BRANCH \
+            https://x-access-token:${GH_PAT}@github.com/CCTC-team/redcap_source.git _clone
           git -C _clone log -1
 
-          # Copy versioned REDCap directory out of the clone
-          cp -a _clone/redcap_v${{ env.REDCAP_VERSION }} .
-          rm -rf _clone
+          # Copy all REDCap files out of the clone (top-level files + versioned directory)
+          cp -a _clone/* _clone/.* . 2>/dev/null || true
+          rm -rf _clone .git
 
           echo "=== redcap_source contents ==="
           ls -la

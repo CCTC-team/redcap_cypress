@@ -84,9 +84,9 @@ jobs:
             https://x-access-token:${GH_PAT}@github.com/CCTC-team/redcap_source.git _clone
           git -C _clone log -1
 
-          # Copy versioned REDCap directory out of the clone
-          cp -a _clone/redcap_v${{ env.REDCAP_VERSION }} .
-          rm -rf _clone
+          # Copy all REDCap files out of the clone (top-level files + versioned directory)
+          cp -a _clone/* _clone/.* . 2>/dev/null || true
+          rm -rf _clone .git
 
           echo "=== redcap_source contents ==="
           ls -la
