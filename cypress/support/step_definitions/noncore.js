@@ -1794,3 +1794,10 @@ Given("I enter {string} into the embedded field labeled {string}", (text, label)
         }
     })
 })
+
+Given("I scroll the open field dialog to the Action Tags textarea", () => {
+    cy.get('div.ui-dialog:visible label:contains("Action Tags"), div.ui-dialog:visible td:contains("Action Tags")', {timeout: 10000})
+        .filter(':visible')
+        .first()
+        .scrollIntoView()
+})

@@ -16,7 +16,8 @@
     "mochawesome": "^7.1.4",
     "mochawesome-merge": "^5.1.1",
     "mochawesome-report-generator": "^6.3.2",
-    "move-cli": "^2"
+    "move-cli": "^2",
+    "wait-on": "^8.0.5"
   },
   "overrides": {
     "glob": "9.3.5"

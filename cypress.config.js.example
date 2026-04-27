@@ -185,8 +185,8 @@ module.exports = defineConfig({
                        '../redcap_source/modules/*/automated-tests/**/*.feature'
                      ],
         testIsolation: false,
-        experimentalMemoryManagement: false,
-        numTestsKeptInMemory: 50,
+        experimentalMemoryManagement: true,
+        numTestsKeptInMemory: 5,
         retries: {
             runMode: 2,
             openMode: 0
