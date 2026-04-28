@@ -172,30 +172,15 @@ jobs:
           npm install
           npm run redcap_rsvc:install || echo "RSVC install failed or not needed"
 
-      - name: Run Cypress tests
+      - name: Run Cypress tests (rerun only failed specs on retry)
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          CYPRESS_prettyEnabled: 'true'
+          CYPRESS_BROWSER: chrome
+          CYPRESS_MAX_ATTEMPTS: '3'
         run: |
           export UID
-          if [ -n "$CYPRESS_RECORD_KEY" ]; then
-            echo "Running tests with Cypress Dashboard recording..."
-            CYPRESS_prettyEnabled=true npx cypress run \
-              --record \
-              --key $CYPRESS_RECORD_KEY \
-              --group core-tests \
-              --browser chrome \
-              --ci-build-id ${{ github.run_id }}-${{ github.run_attempt }} \
-              --reporter junit \
-              --reporter-options "mochaFile=results/test-results-[hash].xml,toConsole=true" \
-              || true
-          else
-            echo "Running tests without recording..."
-            CYPRESS_prettyEnabled=true npx cypress run \
-              --browser chrome \
-              --reporter junit \
-              --reporter-options "mochaFile=results/test-results-[hash].xml,toConsole=true" \
-              || true
-          fi
+          npm run test:retry-failed
 
       - name: Generate coverage report
         if: always()
