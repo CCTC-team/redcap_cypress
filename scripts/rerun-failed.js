@@ -29,6 +29,55 @@ function renameReports() {
   }
 }
 
+// Snapshot mtimes of report files before a run so we can identify which
+// reports were produced by *this* attempt (vs prior attempts).
+function snapshotReportMtimes() {
+  if (!fs.existsSync(REPORT_DIR)) return {}
+  const out = {}
+  for (const f of fs.readdirSync(REPORT_DIR)) {
+    if (!f.endsWith('.json')) continue
+    out[f] = fs.statSync(path.join(REPORT_DIR, f)).mtimeMs
+  }
+  return out
+}
+
+// Read mochawesome JSONs written/updated since `snapshot` and return the
+// relative spec paths that had any failures. Used as a fallback when
+// cypress.run() returns status:'failed' due to a known post-run config
+// crash but the specs themselves already wrote reports to disk.
+function readFailedSpecsFromReports(snapshot) {
+  if (!fs.existsSync(REPORT_DIR)) return []
+  const failed = []
+  for (const f of fs.readdirSync(REPORT_DIR)) {
+    if (!f.endsWith('.json')) continue
+    const fullPath = path.join(REPORT_DIR, f)
+    const mtime = fs.statSync(fullPath).mtimeMs
+    const prev = snapshot[f]
+    if (prev !== undefined && mtime <= prev) continue // not from this attempt
+    let report
+    try {
+      report = JSON.parse(fs.readFileSync(fullPath, 'utf8'))
+    } catch {
+      continue
+    }
+    if (!report.stats || report.stats.failures <= 0) continue
+    const fullFile = report.results && report.results[0] && report.results[0].fullFile
+    if (!fullFile) continue
+    failed.push(path.relative(process.cwd(), fullFile))
+  }
+  return failed
+}
+
+// rctf's plugins/index.js registers an after:run handler that drops the
+// `results` arg (calls `afterRunHandler(config)` instead of
+// `afterRunHandler(config, results)`). Inside the cucumber preprocessor
+// that becomes `'totalFailed' in undefined`, which throws *after* all
+// specs have completed and written their reports. Cypress' CLI shrugs it
+// off, but the Module API surfaces it as `{status:'failed'}`. The same
+// post-run path can also throw `Unexpected state in afterSpecHandler`.
+// Both are cosmetic: the test results are already on disk.
+const POST_RUN_COSMETIC_CRASH = /'totalFailed' in undefined|Unexpected state in afterSpecHandler/
+
 function parseArgs(argv) {
   const out = {}
   for (let i = 0; i < argv.length; i++) {
@@ -75,9 +124,17 @@ async function runSpecs(specs, attempt) {
     }
   }
 
+  const reportSnapshot = snapshotReportMtimes()
   const results = await cypress.run(opts)
 
   if (results.status === 'failed') {
+    if (POST_RUN_COSMETIC_CRASH.test(results.message || '')) {
+      console.warn('Cypress reported a post-run config crash (known rctf/cucumber issue):')
+      console.warn(`  ${(results.message || '').split('\n')[0]}`)
+      console.warn('Specs already completed; reading per-spec results from disk to determine retries.')
+      renameReports()
+      return readFailedSpecsFromReports(reportSnapshot)
+    }
     console.error('Cypress runner failed to start:', results.message)
     return null
   }
