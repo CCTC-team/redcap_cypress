@@ -11,13 +11,21 @@ env:
   CYPRESS_BRANCH: "redcap_val"
   RSVC_BRANCH: "redcap_val"
   RCTF_BRANCH: "redcap_val"
+  SHARD_TOTAL: "4"
 
 jobs:
   cypress-tests:
     runs-on: ubuntu-latest
+    timeout-minutes: 350
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3, 4]
     permissions:
       contents: read
       checks: write
+    env:
+      SHARD_INDEX: ${{ matrix.shard }}
 
     steps:
       - name: Checkout repository
@@ -172,20 +180,32 @@ jobs:
           npm install
           npm run redcap_rsvc:install || echo "RSVC install failed or not needed"
 
-      - name: Run Cypress tests (rerun only failed specs on retry)
+      - name: Discover specs for shard ${{ matrix.shard }}/${{ env.SHARD_TOTAL }}
+        id: specs
+        run: |
+          node scripts/list-specs.js shard-specs.txt
+          SPEC_COUNT=$(grep -c . shard-specs.txt || echo 0)
+          echo "spec_count=${SPEC_COUNT}" >> $GITHUB_OUTPUT
+          echo "Shard ${SHARD_INDEX}/${SHARD_TOTAL} will run ${SPEC_COUNT} specs:"
+          cat shard-specs.txt
+
+      - name: Run Cypress tests (shard ${{ matrix.shard }}/${{ env.SHARD_TOTAL }})
+        if: steps.specs.outputs.spec_count != '0'
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           CYPRESS_prettyEnabled: 'true'
           CYPRESS_BROWSER: chrome
           CYPRESS_MAX_ATTEMPTS: '3'
+          CYPRESS_GROUP_PREFIX: shard-${{ matrix.shard }}
         run: |
           export UID
-          npm run test:retry-failed
+          npm run test:retry-failed -- --spec-file shard-specs.txt
 
       - name: Generate coverage report
         if: always()
         run: |
           if docker exec redcap-app test -f /var/www/html/phpcov.phar 2>/dev/null; then
+            mkdir -p /tmp/path/coverage-report
             docker exec redcap-app sh -c "php /var/www/html/phpcov.phar merge \
               --clover /tmp/path/coverage-report/coverage.xml \
               /tmp/path/coverage" || echo "Coverage report generation failed"
@@ -193,19 +213,20 @@ jobs:
             echo "phpcov.phar not found, skipping coverage report"
           fi
 
-      - name: Publish Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v2
+      - name: Upload test result XMLs (for aggregation)
+        uses: actions/upload-artifact@v4
         if: always()
         with:
-          files: results/*.xml
-          check_name: Cypress Test Results
-          comment_title: REDCap Cypress Test Results
+          name: cypress-results-shard-${{ matrix.shard }}
+          path: results/*.xml
+          retention-days: 30
+          if-no-files-found: warn
 
       - name: Upload Cypress videos
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: cypress-videos
+          name: cypress-videos-shard-${{ matrix.shard }}
           path: cypress/videos/
           retention-days: 30
           if-no-files-found: warn
@@ -214,7 +235,7 @@ jobs:
         uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-shard-${{ matrix.shard }}
           path: cypress/screenshots/
           retention-days: 30
           if-no-files-found: warn
@@ -223,7 +244,7 @@ jobs:
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: coverage-reports
+          name: coverage-reports-shard-${{ matrix.shard }}
           path: /tmp/path/coverage-report/
           retention-days: 30
           if-no-files-found: warn
@@ -233,3 +254,32 @@ jobs:
         run: |
           cd CCTC_REDCap_Docker/redcap_docker
           docker compose down -v
+
+  publish-results:
+    needs: cypress-tests
+    if: always()
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      checks: write
+      pull-requests: write
+    steps:
+      - name: Download all shard result XMLs
+        uses: actions/download-artifact@v4
+        with:
+          pattern: cypress-results-shard-*
+          merge-multiple: true
+          path: results
+
+      - name: List collected results
+        run: |
+          echo "=== Aggregated XML files ==="
+          ls -la results/ || echo "(no results)"
+
+      - name: Publish unified Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        if: always()
+        with:
+          files: results/*.xml
+          check_name: Cypress Test Results
+          comment_title: REDCap Cypress Test Results

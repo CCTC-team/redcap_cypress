@@ -34,6 +34,7 @@ function parseArgs(argv) {
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i]
     if (a === '--spec') out.spec = argv[++i]
+    else if (a === '--spec-file') out.specFile = argv[++i]
     else if (a === '--browser') out.browser = argv[++i]
     else if (a === '--config') out.config = argv[++i]
     else if (a === '--env') out.env = argv[++i]
@@ -43,7 +44,16 @@ function parseArgs(argv) {
 }
 
 const cliArgs = parseArgs(process.argv.slice(2))
-const initialSpec = cliArgs.spec ? cliArgs.spec.split(',') : null
+
+let initialSpec = null
+if (cliArgs.specFile) {
+  initialSpec = fs.readFileSync(cliArgs.specFile, 'utf8')
+    .split('\n')
+    .map(s => s.trim())
+    .filter(Boolean)
+} else if (cliArgs.spec) {
+  initialSpec = cliArgs.spec.split(',')
+}
 
 async function runSpecs(specs, attempt) {
   const opts = {
@@ -52,12 +62,13 @@ async function runSpecs(specs, attempt) {
   if (cliArgs.config) opts.config = cliArgs.config
   if (cliArgs.configFile) opts.configFile = cliArgs.configFile
   if (cliArgs.env) opts.env = cliArgs.env
-  if (specs && specs.length) opts.spec = specs.join(',')
+  if (specs && specs.length) opts.spec = specs
 
   if (process.env.CYPRESS_RECORD_KEY) {
     opts.record = true
     opts.key = process.env.CYPRESS_RECORD_KEY
-    opts.group = `core-tests-attempt-${attempt}`
+    const groupPrefix = process.env.CYPRESS_GROUP_PREFIX || 'core-tests'
+    opts.group = `${groupPrefix}-attempt-${attempt}`
     if (process.env.GITHUB_RUN_ID) {
       const base = `${process.env.GITHUB_RUN_ID}-${process.env.GITHUB_RUN_ATTEMPT || 1}`
       opts.ciBuildId = `${base}-attempt-${attempt}`
