@@ -72,11 +72,76 @@ function readFailedSpecsFromReports(snapshot) {
 // `results` arg (calls `afterRunHandler(config)` instead of
 // `afterRunHandler(config, results)`). Inside the cucumber preprocessor
 // that becomes `'totalFailed' in undefined`, which throws *after* all
-// specs have completed and written their reports. Cypress' CLI shrugs it
-// off, but the Module API surfaces it as `{status:'failed'}`. The same
-// post-run path can also throw `Unexpected state in afterSpecHandler`.
-// Both are cosmetic: the test results are already on disk.
+// specs have completed and written their reports. Depending on how
+// Cypress catches it, this surfaces as one of:
+//   1. cypress.run() resolves with {status:'failed', message}
+//   2. cypress.run() rejects with an Error
+//   3. an unhandled promise rejection emitted by the event loop *after*
+//      cypress.run() has already resolved with normal results
+// All three are cosmetic — the test results are already on disk.
 const POST_RUN_COSMETIC_CRASH = /'totalFailed' in undefined|Unexpected state in afterSpecHandler/
+
+function isCosmeticCrash(err) {
+  const text = err && (err.message || err.stack || String(err))
+  return !!text && POST_RUN_COSMETIC_CRASH.test(text)
+}
+
+// Swallow case (3): the rejection arrives after cypress.run() resolves,
+// so try/catch can't see it. Log and keep going; the script's normal
+// pass/fail logic still runs based on disk reports.
+process.on('unhandledRejection', (reason) => {
+  if (isCosmeticCrash(reason)) {
+    console.warn('Ignoring known post-run rctf/cucumber rejection (specs already wrote reports):')
+    console.warn(`  ${(reason && (reason.message || String(reason))).split('\n')[0]}`)
+    return
+  }
+  console.error('Unhandled rejection:', reason)
+  process.exit(1)
+})
+
+// Watchdog: if no spec report is written for STALL_MS ms, assume Cypress
+// is hung (network stall to dashboard, Chrome freeze, etc.) and exit so
+// the workflow can move to artifact-upload steps instead of burning the
+// 350-min step timeout. Reports for already-completed specs remain on disk.
+let watchdogTimer = null
+let lastProgressTs = Date.now()
+
+function latestReportMtime() {
+  if (!fs.existsSync(REPORT_DIR)) return 0
+  let max = 0
+  for (const f of fs.readdirSync(REPORT_DIR)) {
+    if (!f.endsWith('.json')) continue
+    const m = fs.statSync(path.join(REPORT_DIR, f)).mtimeMs
+    if (m > max) max = m
+  }
+  return max
+}
+
+function startWatchdog() {
+  const stallMs = parseInt(process.env.CYPRESS_STALL_MS || '900000', 10) // 15 min
+  if (watchdogTimer) clearInterval(watchdogTimer)
+  lastProgressTs = Date.now()
+  let lastSeenMtime = latestReportMtime()
+  watchdogTimer = setInterval(() => {
+    const now = Date.now()
+    const m = latestReportMtime()
+    if (m > lastSeenMtime) {
+      lastSeenMtime = m
+      lastProgressTs = now
+    }
+    if (now - lastProgressTs > stallMs) {
+      console.error(`\n=== WATCHDOG: no new spec report for ${Math.round(stallMs/60000)} min — Cypress appears hung. Forcing exit so workflow can proceed to artifact upload. ===`)
+      process.exit(2)
+    }
+  }, 60000).unref() // .unref so it doesn't keep the event loop alive on its own
+}
+
+function stopWatchdog() {
+  if (watchdogTimer) {
+    clearInterval(watchdogTimer)
+    watchdogTimer = null
+  }
+}
 
 function parseArgs(argv) {
   const out = {}
@@ -113,7 +178,9 @@ async function runSpecs(specs, attempt) {
   if (cliArgs.env) opts.env = cliArgs.env
   if (specs && specs.length) opts.spec = specs
 
-  if (process.env.CYPRESS_RECORD_KEY) {
+  // Dashboard recording can stall the runner mid-run if the connection
+  // to api.cypress.io hangs. Set CYPRESS_DISABLE_RECORDING=1 to bypass.
+  if (process.env.CYPRESS_RECORD_KEY && !process.env.CYPRESS_DISABLE_RECORDING) {
     opts.record = true
     opts.key = process.env.CYPRESS_RECORD_KEY
     const groupPrefix = process.env.CYPRESS_GROUP_PREFIX || 'core-tests'
@@ -122,13 +189,32 @@ async function runSpecs(specs, attempt) {
       const base = `${process.env.GITHUB_RUN_ID}-${process.env.GITHUB_RUN_ATTEMPT || 1}`
       opts.ciBuildId = `${base}-attempt-${attempt}`
     }
+  } else if (process.env.CYPRESS_DISABLE_RECORDING) {
+    console.log('CYPRESS_DISABLE_RECORDING set — running without --record/--key.')
   }
 
   const reportSnapshot = snapshotReportMtimes()
-  const results = await cypress.run(opts)
+
+  startWatchdog()
+  // Case (1) returns {status:'failed'}; case (2) throws. Handle both.
+  let results
+  try {
+    results = await cypress.run(opts)
+  } catch (err) {
+    stopWatchdog()
+    if (isCosmeticCrash(err)) {
+      console.warn('cypress.run() rejected with a known post-run rctf/cucumber error:')
+      console.warn(`  ${(err.message || String(err)).split('\n')[0]}`)
+      console.warn('Specs already completed; reading per-spec results from disk to determine retries.')
+      renameReports()
+      return readFailedSpecsFromReports(reportSnapshot)
+    }
+    throw err
+  }
+  stopWatchdog()
 
   if (results.status === 'failed') {
-    if (POST_RUN_COSMETIC_CRASH.test(results.message || '')) {
+    if (isCosmeticCrash(results)) {
       console.warn('Cypress reported a post-run config crash (known rctf/cucumber issue):')
       console.warn(`  ${(results.message || '').split('\n')[0]}`)
       console.warn('Specs already completed; reading per-spec results from disk to determine retries.')

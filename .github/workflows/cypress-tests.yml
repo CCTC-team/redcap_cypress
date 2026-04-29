@@ -197,6 +197,13 @@ jobs:
           CYPRESS_BROWSER: chrome
           CYPRESS_MAX_ATTEMPTS: '3'
           CYPRESS_GROUP_PREFIX: shard-${{ matrix.shard }}
+          # Diagnostic: disable Cypress dashboard recording to test whether
+          # api.cypress.io stalls were causing the mid-run hang. Remove this
+          # line once recording is confirmed safe (or keep it permanently
+          # if recording is no longer needed in CI).
+          CYPRESS_DISABLE_RECORDING: '1'
+          # Watchdog: kill the run if no spec report is written for 15 min.
+          CYPRESS_STALL_MS: '900000'
         run: |
           export UID
           npm run test:retry-failed -- --spec-file shard-specs.txt
