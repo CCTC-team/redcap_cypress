@@ -180,6 +180,25 @@ jobs:
           npm install
           npm run redcap_rsvc:install || echo "RSVC install failed or not needed"
 
+      - name: Patch rctf after:run handler
+        run: |
+          # rctf's plugins/index.js calls afterRunHandler(config) without
+          # forwarding `results`, which throws inside cypress-cucumber-preprocessor
+          # ('totalFailed' in undefined) and can hang cypress.run(). Fix in place
+          # so the retry loop in scripts/rerun-failed.js never has to recover from it.
+          FILE=node_modules/rctf/plugins/index.js
+          if [ ! -f "$FILE" ]; then
+            echo "::error::$FILE missing — rctf install failed"
+            exit 1
+          fi
+          if grep -q 'afterRunHandler(config, results);' "$FILE"; then
+            echo "rctf already patched — nothing to do."
+          else
+            sed -i 's|afterRunHandler(config);|afterRunHandler(config, results);|' "$FILE"
+            echo "Patched $FILE:"
+            grep -n 'afterRunHandler' "$FILE"
+          fi
+
       - name: Discover specs for shard ${{ matrix.shard }}/${{ env.SHARD_TOTAL }}
         id: specs
         run: |
@@ -202,11 +221,36 @@ jobs:
           # line once recording is confirmed safe (or keep it permanently
           # if recording is no longer needed in CI).
           CYPRESS_DISABLE_RECORDING: '1'
-          # Watchdog: kill the run if no spec report is written for 15 min.
-          CYPRESS_STALL_MS: '900000'
+          # Tighter watchdog now that the rctf hang is patched: if no new spec
+          # report appears for 5 min, something else is wrong — fail fast
+          # rather than burning the job timeout.
+          CYPRESS_STALL_MS: '300000'
         run: |
           export UID
           npm run test:retry-failed -- --spec-file shard-specs.txt
+
+      - name: Merge mochawesome JSON reports
+        if: always()
+        run: |
+          mkdir -p results
+          if ls cypress/results/json/*.json >/dev/null 2>&1; then
+            npx --yes mochawesome-merge cypress/results/json/*.json -o results/test-report-shard-${{ matrix.shard }}.json
+            echo "Merged report:"
+            ls -la results/
+          else
+            echo "::warning::No mochawesome JSON files were produced — Cypress likely failed before any spec ran."
+          fi
+
+      - name: Upload mochawesome reports
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cypress-mochawesome-shard-${{ matrix.shard }}
+          path: |
+            cypress/results/json/*.json
+            results/test-report-shard-${{ matrix.shard }}.json
+          retention-days: 30
+          if-no-files-found: warn
 
       - name: Generate coverage report
         if: always()
@@ -219,15 +263,6 @@ jobs:
           else
             echo "phpcov.phar not found, skipping coverage report"
           fi
-
-      - name: Upload test result XMLs (for aggregation)
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: cypress-results-shard-${{ matrix.shard }}
-          path: results/*.xml
-          retention-days: 30
-          if-no-files-found: warn
 
       - name: Upload Cypress videos
         uses: actions/upload-artifact@v4
@@ -261,32 +296,3 @@ jobs:
         run: |
           cd CCTC_REDCap_Docker/redcap_docker
           docker compose down -v
-
-  publish-results:
-    needs: cypress-tests
-    if: always()
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      checks: write
-      pull-requests: write
-    steps:
-      - name: Download all shard result XMLs
-        uses: actions/download-artifact@v4
-        with:
-          pattern: cypress-results-shard-*
-          merge-multiple: true
-          path: results
-
-      - name: List collected results
-        run: |
-          echo "=== Aggregated XML files ==="
-          ls -la results/ || echo "(no results)"
-
-      - name: Publish unified Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v2
-        if: always()
-        with:
-          files: results/*.xml
-          check_name: Cypress Test Results
-          comment_title: REDCap Cypress Test Results

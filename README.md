@@ -237,6 +237,79 @@ npm run report:clean
 
 ---
 
+## GitHub Actions / CI Workflow
+
+Tests run automatically via [.github/workflows/cypress-tests.yml](.github/workflows/cypress-tests.yml).
+
+### Triggers
+
+- **Push** to the `redcap_val` branch
+- **Manual** via the Actions tab (`workflow_dispatch`)
+
+### What the workflow does
+
+1. Checks out the configured `CYPRESS_BRANCH` of this repo.
+2. Reads `redcap_version`, `mysql.docker_container`, `mysql.host`, and `mysql.port` from `cypress.env.json.example` so they aren't hardcoded in the workflow.
+3. Clones [CCTC_REDCap_Docker](https://github.com/CCTC-team/CCTC_REDCap_Docker) (`CCTC_DOCKER_BRANCH`) and pulls the matching REDCap source from [CCTC-team/redcap_source](https://github.com/CCTC-team/redcap_source) into `CCTC_REDCap_Docker/redcap_source/`.
+4. Builds the Docker image and starts the `app`, `db`, and `mailhog` services, then waits for MariaDB and HTTPS on `:8443` to come up.
+5. Generates `cypress.config.js` / `cypress.env.json` from the `.example` files, overriding `mysql.path` to `docker exec -i <container> mysql` and `mysql.port` to `3306` (in-container), and injecting `redcap_source_path` / `edocs_folder` for the runner workspace.
+6. Rewrites `package.json` to point `rctf` and `redcap_rsvc` at `CCTC-team` forks (`RCTF_BRANCH`, `RSVC_BRANCH`).
+7. Installs dependencies and runs `npm run redcap_rsvc:install`.
+8. **Patches `node_modules/rctf/plugins/index.js`** in place to fix `afterRunHandler(config)` → `afterRunHandler(config, results)` — see [rctf after:run patch](#rctf-afterrun-patch) below.
+9. **Shards specs across 4 parallel jobs** (`SHARD_TOTAL=4`) using `scripts/list-specs.js`, then runs `npm run test:retry-failed -- --spec-file shard-specs.txt` (up to `CYPRESS_MAX_ATTEMPTS=3` retries per failed spec).
+10. Generates a phpcov coverage report from the `redcap-app` container if `phpcov.phar` is present.
+11. Uploads videos (always), screenshots (on failure), and coverage as artifacts (30-day retention).
+12. Tears down the Docker stack with `docker compose down -v`.
+
+### Configurable env vars (top of the workflow)
+
+| Variable | Default | Purpose |
+|----------|---------|---------|
+| `CCTC_DOCKER_BRANCH` | `redcap_val` | Branch of `CCTC_REDCap_Docker` to clone |
+| `CYPRESS_BRANCH` | `redcap_val` | Branch of this repo to test |
+| `RSVC_BRANCH` | `redcap_val` | Branch of `redcap_rsvc` to install |
+| `RCTF_BRANCH` | `redcap_val` | Branch of `rctf` to install |
+| `SHARD_TOTAL` | `4` | Number of parallel shards (also update the `matrix.shard` list) |
+
+### Stability controls (per-job env)
+
+| Variable | Default | Purpose |
+|----------|---------|---------|
+| `CYPRESS_DISABLE_RECORDING` | `1` | Disables Cypress Cloud recording to avoid `api.cypress.io` stalls |
+| `CYPRESS_STALL_MS` | `300000` | Watchdog: kill the run if no spec report is written for 5 min (tightened now that the rctf hang is patched at install — any 5-min stall is a real bug) |
+| `CYPRESS_MAX_ATTEMPTS` | `3` | Max retry attempts per failed spec |
+| `CYPRESS_BROWSER` | `chrome` | Browser used for headless runs |
+
+### Required repository secrets
+
+| Secret | Used for |
+|--------|----------|
+| `DEPLOY_KEY` | SSH key for `actions/checkout` of this repo |
+| `CCTC_TEAM_PAT` | PAT to clone `CCTC_REDCap_Docker` and `redcap_source` over HTTPS |
+| `PROJECT_ID` | Substituted into `cypress.config.js` (replaces `PID` placeholder) |
+| `CYPRESS_RECORD_KEY` | Cypress Cloud key (currently unused while recording is disabled) |
+
+### Artifacts
+
+| Artifact | When | Path |
+|----------|------|------|
+| `cypress-mochawesome-shard-<n>` | always | per-spec JSONs from `cypress/results/json/` plus a merged `results/test-report-shard-<n>.json` |
+| `cypress-videos-shard-<n>` | always | `cypress/videos/` |
+| `cypress-screenshots-shard-<n>` | on failure | `cypress/screenshots/` |
+| `coverage-reports-shard-<n>` | always | `/tmp/path/coverage-report/` |
+
+A separate workflow, [.github/workflows/build-docker-image.yml](.github/workflows/build-docker-image.yml), builds the Docker image independently of the test run.
+
+### rctf after:run patch
+
+`rctf/plugins/index.js` registers an `after:run` handler that calls `afterRunHandler(config)` and drops the `results` argument the cucumber preprocessor expects. Inside the preprocessor that becomes `'totalFailed' in undefined`, which throws *after every spec has finished and written its report*. On the Module API path used by `scripts/rerun-failed.js`, the throw can leave Cypress' internal promise chain dangling so `await cypress.run()` never returns — symptoms are post-run hangs (every shard finishes 62/62 specs then sits idle until a watchdog or job timeout fires).
+
+**Primary fix (workflow-level).** The "Patch rctf after:run handler" step `sed`s the installed copy of `node_modules/rctf/plugins/index.js` from `afterRunHandler(config);` to `afterRunHandler(config, results);` once per CI run. Idempotent (greps for the patched form first), so it's safe if rctf upstream eventually fixes the bug. Mirrors the same step used in the [Versioning EM workflow](https://github.com/CCTC-team/versioning_v1.0.1/blob/main/.github/workflows/cypress-tests.yml).
+
+**Fallback safety net (script-level).** [scripts/rerun-failed.js](scripts/rerun-failed.js) keeps a layered defense (`isCosmeticCrash` regex, `runWithCosmeticDetection` race against an `unhandledRejection` signal, disk-fallback that reads per-spec mochawesome JSONs to determine retries) that activated this same bug pattern *before* the workflow patch existed. With the patch in place this code is inert and harmless; it remains so the script behaves safely if the patch step is ever skipped, fails silently, or the script is invoked outside the workflow.
+
+---
+
 ## Key Dependencies
 
 | Package | Purpose |
