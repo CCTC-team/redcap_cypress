@@ -86,18 +86,38 @@ function isCosmeticCrash(err) {
   return !!text && POST_RUN_COSMETIC_CRASH.test(text)
 }
 
-// Swallow case (3): the rejection arrives after cypress.run() resolves,
-// so try/catch can't see it. Log and keep going; the script's normal
-// pass/fail logic still runs based on disk reports.
+// Capture the cosmetic-crash rejection so the await loop in runSpecs()
+// can bail out. CI shards 2/3/4 of run 25113450054 showed cypress.run()
+// hangs forever (16+ min) when this rejection escapes — Cypress' internal
+// resolve chain is left dangling. Just silencing the rejection keeps the
+// process alive but doesn't unblock `await cypress.run()`.
+let cosmeticCrashSignal = null
 process.on('unhandledRejection', (reason) => {
   if (isCosmeticCrash(reason)) {
-    console.warn('Ignoring known post-run rctf/cucumber rejection (specs already wrote reports):')
+    cosmeticCrashSignal = reason
+    console.warn('Cosmetic post-run rctf/cucumber rejection detected (specs already wrote reports):')
     console.warn(`  ${(reason && (reason.message || String(reason))).split('\n')[0]}`)
     return
   }
   console.error('Unhandled rejection:', reason)
   process.exit(1)
 })
+
+// Race cypress.run() against the cosmetic-crash signal so a dangling
+// internal promise inside Cypress can't lock us up.
+function runWithCosmeticDetection(cypressPromise) {
+  cosmeticCrashSignal = null
+  let interval
+  const cosmeticPromise = new Promise(resolve => {
+    interval = setInterval(() => {
+      if (cosmeticCrashSignal) resolve({ __cosmetic: cosmeticCrashSignal })
+    }, 100)
+  })
+  return Promise.race([
+    cypressPromise.then(v => ({ __value: v }), e => ({ __error: e })),
+    cosmeticPromise,
+  ]).finally(() => clearInterval(interval))
+}
 
 // Watchdog: if no spec report is written for STALL_MS ms, assume Cypress
 // is hung (network stall to dashboard, Chrome freeze, etc.) and exit so
@@ -196,23 +216,34 @@ async function runSpecs(specs, attempt) {
   const reportSnapshot = snapshotReportMtimes()
 
   startWatchdog()
-  // Case (1) returns {status:'failed'}; case (2) throws. Handle both.
-  let results
-  try {
-    results = await cypress.run(opts)
-  } catch (err) {
-    stopWatchdog()
-    if (isCosmeticCrash(err)) {
+  const outcome = await runWithCosmeticDetection(cypress.run(opts))
+  stopWatchdog()
+
+  // Case (3): cypress.run() never resolved because rctf's broken after:run
+  // left its internal promise chain dangling. The signal handler caught
+  // the unhandled rejection; treat the run as complete and read disk.
+  if (outcome.__cosmetic) {
+    console.warn('Bypassing hung cypress.run(); reading per-spec results from disk to determine retries.')
+    renameReports()
+    return readFailedSpecsFromReports(reportSnapshot)
+  }
+
+  // Case (2): cypress.run() rejected. Cosmetic crash → disk fallback;
+  // anything else → real error.
+  if (outcome.__error) {
+    if (isCosmeticCrash(outcome.__error)) {
       console.warn('cypress.run() rejected with a known post-run rctf/cucumber error:')
-      console.warn(`  ${(err.message || String(err)).split('\n')[0]}`)
+      console.warn(`  ${(outcome.__error.message || String(outcome.__error)).split('\n')[0]}`)
       console.warn('Specs already completed; reading per-spec results from disk to determine retries.')
       renameReports()
       return readFailedSpecsFromReports(reportSnapshot)
     }
-    throw err
+    throw outcome.__error
   }
-  stopWatchdog()
 
+  // Case (1): cypress.run() resolved. Either normal results, or
+  // {status:'failed'} for a startup/run error.
+  const results = outcome.__value
   if (results.status === 'failed') {
     if (isCosmeticCrash(results)) {
       console.warn('Cypress reported a post-run config crash (known rctf/cucumber issue):')
