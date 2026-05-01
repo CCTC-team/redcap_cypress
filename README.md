@@ -1,5 +1,7 @@
 # CCTC REDCap Cypress Test Suite
 
+[![REDCap Cypress Tests](https://github.com/CCTC-team/redcap_cypress/actions/workflows/cypress-tests.yml/badge.svg)](https://github.com/CCTC-team/redcap_cypress/actions/workflows/cypress-tests.yml)
+
 This repository is a fork of [Vanderbilt's REDCap Cypress repo](https://github.com/vanderbilt-redcap/redcap_cypress) modified to use [CCTC_REDCap_Docker](https://github.com/CCTC-team/CCTC_REDCap_Docker), which mirrors CCTC production settings.
 
 It provides automated Cypress tests for REDCap using BDD-style Gherkin feature files, with both Vanderbilt's official RSVC tests and CCTC's additional validated tests.
@@ -304,7 +306,7 @@ A separate workflow, [.github/workflows/build-docker-image.yml](.github/workflow
 
 `rctf/plugins/index.js` registers an `after:run` handler that calls `afterRunHandler(config)` and drops the `results` argument the cucumber preprocessor expects. Inside the preprocessor that becomes `'totalFailed' in undefined`, which throws *after every spec has finished and written its report*. On the Module API path used by `scripts/rerun-failed.js`, the throw can leave Cypress' internal promise chain dangling so `await cypress.run()` never returns — symptoms are post-run hangs (every shard finishes 62/62 specs then sits idle until a watchdog or job timeout fires).
 
-**Primary fix (workflow-level).** The "Patch rctf after:run handler" step `sed`s the installed copy of `node_modules/rctf/plugins/index.js` from `afterRunHandler(config);` to `afterRunHandler(config, results);` once per CI run. Idempotent (greps for the patched form first), so it's safe if rctf upstream eventually fixes the bug. Mirrors the same step used in the [Versioning EM workflow](https://github.com/CCTC-team/versioning_v1.0.1/blob/main/.github/workflows/cypress-tests.yml).
+**Primary fix (workflow-level).** The "Patch rctf after:run handler" step `sed`s the installed copy of `node_modules/rctf/plugins/index.js` from `afterRunHandler(config);` to `afterRunHandler(config, results);` once per CI run. Idempotent (greps for the patched form first), so it's safe if rctf upstream eventually fixes the bug.
 
 **Fallback safety net (script-level).** [scripts/rerun-failed.js](scripts/rerun-failed.js) keeps a layered defense (`isCosmeticCrash` regex, `runWithCosmeticDetection` race against an `unhandledRejection` signal, disk-fallback that reads per-spec mochawesome JSONs to determine retries) that activated this same bug pattern *before* the workflow patch existed. With the patch in place this code is inert and harmless; it remains so the script behaves safely if the patch step is ever skipped, fails silently, or the script is invoked outside the workflow.
 

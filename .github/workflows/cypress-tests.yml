@@ -4,6 +4,11 @@ on:
   push:
     branches:
       - redcap_val
+    paths-ignore:
+      - '**/*.md'
+      - 'LICENSE'
+      - '.gitignore'
+      - 'docs/**'
   workflow_dispatch:
 
 env:
@@ -229,14 +234,15 @@ jobs:
           export UID
           npm run test:retry-failed -- --spec-file shard-specs.txt
 
-      - name: Merge mochawesome JSON reports
+      - name: Generate combined HTML report
         if: always()
         run: |
-          mkdir -p results
           if ls cypress/results/json/*.json >/dev/null 2>&1; then
-            npx --yes mochawesome-merge cypress/results/json/*.json -o results/test-report-shard-${{ matrix.shard }}.json
-            echo "Merged report:"
-            ls -la results/
+            npm run report
+            REPORT_BASENAME="CCTC_rsvc_v${{ env.REDCAP_VERSION }}-test-report"
+            mv cypress/results/test-report.json "cypress/results/${REPORT_BASENAME}.json"
+            mv cypress/results/html/test-report.html "cypress/results/html/${REPORT_BASENAME}.html"
+            echo "Renamed merged report to ${REPORT_BASENAME}.{json,html}"
           else
             echo "::warning::No mochawesome JSON files were produced — Cypress likely failed before any spec ran."
           fi
@@ -245,10 +251,11 @@ jobs:
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: cypress-mochawesome-shard-${{ matrix.shard }}
+          name: CCTC_rsvc_v${{ env.REDCAP_VERSION }}-shard-${{ matrix.shard }}-cypress-results
           path: |
             cypress/results/json/*.json
-            results/test-report-shard-${{ matrix.shard }}.json
+            cypress/results/CCTC_rsvc_v${{ env.REDCAP_VERSION }}-test-report.json
+            cypress/results/html/CCTC_rsvc_v${{ env.REDCAP_VERSION }}-test-report.html
           retention-days: 30
           if-no-files-found: warn
 
@@ -268,7 +275,7 @@ jobs:
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: cypress-videos-shard-${{ matrix.shard }}
+          name: CCTC_rsvc_v${{ env.REDCAP_VERSION }}-shard-${{ matrix.shard }}-cypress-videos
           path: cypress/videos/
           retention-days: 30
           if-no-files-found: warn
@@ -277,7 +284,7 @@ jobs:
         uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots-shard-${{ matrix.shard }}
+          name: CCTC_rsvc_v${{ env.REDCAP_VERSION }}-shard-${{ matrix.shard }}-cypress-screenshots
           path: cypress/screenshots/
           retention-days: 30
           if-no-files-found: warn
@@ -286,7 +293,7 @@ jobs:
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: coverage-reports-shard-${{ matrix.shard }}
+          name: CCTC_rsvc_v${{ env.REDCAP_VERSION }}-shard-${{ matrix.shard }}-coverage-reports
           path: /tmp/path/coverage-report/
           retention-days: 30
           if-no-files-found: warn
