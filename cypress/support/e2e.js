@@ -57,6 +57,6 @@ beforeEach(() => {
     const mysql = Cypress.env('mysql')
     const edocPath = Cypress.env('file_repository')
     cy.exec(
-        `./${mysql.path} -u${mysql.db_user} -p${mysql.db_pass} ${mysql.db_name} -e "UPDATE redcap_config SET value='${edocPath}/' WHERE field_name='edoc_path';"`
+        `${mysql.path} -u${mysql.db_user} -p${mysql.db_pass} ${mysql.db_name} -e "UPDATE redcap_config SET value='${edocPath}/' WHERE field_name='edoc_path';"`
     )
 })
