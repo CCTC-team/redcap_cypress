@@ -48,3 +48,15 @@
 // ==== END: BEFORE EACH SCENARIO BLOCK ===== //
 
 require('./commands')
+
+// rctf reseeds redcap_config.edoc_path='' from install_data.sql on every
+// feature-file bootstrap. Must use beforeEach (not before): our support file
+// loads before step definitions, so our before() would register BEFORE rctf's
+// and get wiped by rctf's reset. beforeEach always fires after all before()s.
+beforeEach(() => {
+    const mysql = Cypress.env('mysql')
+    const edocPath = Cypress.env('file_repository')
+    cy.exec(
+        `./${mysql.path} -u${mysql.db_user} -p${mysql.db_pass} ${mysql.db_name} -e "UPDATE redcap_config SET value='${edocPath}/' WHERE field_name='edoc_path';"`
+    )
+})
