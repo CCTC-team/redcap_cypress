@@ -60,3 +60,13 @@ beforeEach(() => {
         `${mysql.path} -u${mysql.db_user} -p${mysql.db_pass} ${mysql.db_name} -e "UPDATE redcap_config SET value='${edocPath}/' WHERE field_name='edoc_path';"`
     )
 })
+
+// REDCap detaches logic-suggest popups (#LSC_id_*) to <body> and positions them
+// absolutely with `collision: "fit"`. With testIsolation:false, a stale popup
+// from a prior scenario can land over the PDF Snapshot "Save to File Repository"
+// checkbox in CI rendering, breaking cy.check() actionability. Hide any visible
+// LSC popups before each check to keep the click target clear.
+Cypress.Commands.overwrite('check', (originalFn, subject, ...args) => {
+    Cypress.$('[id^="LSC_id_"]').hide()
+    return originalFn(subject, ...args)
+})
