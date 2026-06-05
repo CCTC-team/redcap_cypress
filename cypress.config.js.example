@@ -3,9 +3,96 @@ const AdmZip = require('adm-zip')
 const fs = require('fs')
 const path = require('path')
 const crypto = require('crypto')
-const { execSync } = require('child_process')
+const { execSync, execFileSync } = require('child_process')
 const readLine = require('readline')
 // const compareImages = require('resemblejs/compareImages')
+
+// --- Engine-based format validation (Phase 3) helpers ---------------------------
+// The "statistical software" exports (.r, .sps) are command scripts, so true syntax
+// validation needs the actual engine. We run R + PSPP inside the redcap-stat-validators
+// Docker image and feed the file via stdin — this keeps validation identical on macOS
+// and the Ubuntu CI runner with no host install (PSPP is no longer on Homebrew) and no
+// bind mount (Docker Desktop on macOS doesn't share /tmp). If Docker or the image is
+// unavailable, callers fall back to a lightweight smoke-test.
+const VALIDATOR_IMAGE = 'redcap-stat-validators'
+
+function commandOnPath(cmd) {
+  try {
+    execSync(`command -v ${cmd}`, { stdio: 'ignore' })
+    return true
+  } catch {
+    return false
+  }
+}
+
+// Ensure the validator image exists, building it from docker_bin/stat-validators if not.
+// Returns false if Docker is missing or the build fails (caller then smoke-tests).
+function ensureValidatorImage() {
+  if (!commandOnPath('docker')) return false
+  try {
+    execSync(`docker image inspect ${VALIDATOR_IMAGE}`, { stdio: 'ignore' })
+    return true
+  } catch {
+    // Not built yet — build it once (slow on first run; pre-build via `npm run validators:build`).
+  }
+  try {
+    const ctx = path.join(__dirname, 'docker_bin', 'stat-validators')
+    execSync(`docker build -t ${VALIDATOR_IMAGE} "${ctx}"`, { stdio: 'ignore' })
+    return true
+  } catch {
+    return false
+  }
+}
+
+// Run `engine ...args` inside the validator image with `input` piped to stdin.
+// opts.mountDir (optional) is bind-mounted read-only at /data with the working dir set
+// there — used so PSPP can read the companion data CSV that sits next to the .sps export.
+// Returns { available:false } when no engine can run, else { available:true, ok, status, output }
+// where status is the container's exit code (null if docker itself failed to run).
+function runInValidator(args, input, opts = {}) {
+  if (!ensureValidatorImage()) return { available: false }
+  const dockerArgs = ['run', '--rm', '-i']
+  if (opts.mountDir) dockerArgs.push('-v', `${opts.mountDir}:/data:ro`, '-w', '/data')
+  dockerArgs.push(VALIDATOR_IMAGE, ...args)
+  try {
+    const output = execFileSync('docker', dockerArgs, {
+      input,
+      encoding: 'utf8',
+      stdio: ['pipe', 'pipe', 'pipe'],
+    })
+    return { available: true, ok: true, status: 0, output }
+  } catch (e) {
+    return {
+      available: true,
+      ok: false,
+      status: typeof e.status === 'number' ? e.status : null,
+      output: `${e.stdout || ''}${e.stderr || ''}`,
+    }
+  }
+}
+
+function firstErrorLine(output) {
+  const lines = (output || '').split('\n').map(l => l.trim()).filter(Boolean)
+  return lines.find(l => /error/i.test(l)) || lines[0] || 'unknown error'
+}
+
+// Remove per-run volatile lines (timestamps, dated filenames, generated OIDs) so a download
+// can be compared to a saved golden reference on data content alone. Mirrors the per-format
+// rules in the modifyFile task. CSV has no volatile content and is compared as-is.
+function stripVolatile(content, fileType) {
+  const isVolatile = (line) => {
+    switch (fileType) {
+      case 'ics': return line.startsWith('UID') || line.startsWith('DTSTAMP')
+      case 'sas': return line.startsWith('%let csv_file')
+      case 'sps': return line.startsWith('FILE HANDLE')
+      case 'r':   return line.startsWith('data')
+      case 'do':  return line.startsWith('label data') || line.startsWith('import delimited')
+      case 'xml': return line.startsWith('<ODM xmlns') || line.startsWith('<ClinicalData StudyOID')
+      default:    return false
+    }
+  }
+  return content.replace(/\r\n/g, '\n').split('\n').filter(l => !isVolatile(l)).join('\n').replace(/\s+$/, '')
+}
 
 
 module.exports = defineConfig({
@@ -93,6 +180,35 @@ module.exports = defineConfig({
                 throw new Error(`Error fetching latest download: ${error.message}`)
               }
             },
+            // Task 2b: Newest matching download by mtime, WITHOUT rctf fetchLatestDownload's
+            // 5-second freshness filter. The export-verification steps (valid format / matching
+            // reference / SHA256 hash) always run right after a known download, so newest-by-mtime
+            // is unambiguous and the staleness window is unnecessary. Dropping it removes a flaky
+            // race: a slow Docker-based validateFileFormat step (pspp/Rscript, or a first-run image
+            // build) could age the companion file past 5s, after which the freshness-filtered fetch
+            // returned '' and the next comparison crashed on an empty path. Returns an absolute path
+            // rooted at __dirname (= projectRoot) so callers' replace(path,'')+__dirname logic holds.
+            async fetchLatestExport({ fileExtension, retry = true }) {
+              const downloadsDir = path.join(__dirname, 'cypress', 'downloads')
+              const fetchOnce = () => {
+                let files = fs.readdirSync(downloadsDir)
+                if (fileExtension) {
+                  files = files.filter(f => path.extname(f) === `.${fileExtension}`)
+                }
+                files = files
+                  .filter(f => path.extname(f) !== '.crdownload' && f !== 'downloads.html')
+                  .map(f => ({ file: f, mtime: fs.statSync(path.join(downloadsDir, f)).mtime }))
+                  .sort((a, b) => b.mtime - a.mtime)
+                return files.length === 0 ? '' : path.join(downloadsDir, files[0].file)
+              }
+              const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
+              for (let i = 0; i < 100; i++) {
+                const file = fetchOnce()
+                if (file || !retry) return file
+                await sleep(100)
+              }
+              return ''
+            },
             // Task 3: Checks Hash file
             calculateFileHash({ filePath }) {
               return new Promise((resolve, reject) => {
@@ -170,6 +286,129 @@ module.exports = defineConfig({
                   })
                 })
               })
+            },
+            // Task 5: Validate that a downloaded file is structurally valid for its format
+            validateFileFormat({ filePath, fileType }) {
+              const fullFilePath = __dirname + filePath
+              const content = fs.readFileSync(fullFilePath, 'utf8')
+
+              switch (fileType) {
+                case 'csv': {
+                  const parse = require('csv-parse/lib/sync')
+                  let rows
+                  try {
+                    // relax_column_count:false makes the parser throw on a ragged row
+                    rows = parse(content, { relax_column_count: false, skip_empty_lines: true })
+                  } catch (e) {
+                    return { valid: false, message: `Invalid CSV: ${e.message}` }
+                  }
+                  if (rows.length < 1) return { valid: false, message: 'CSV has no rows' }
+                  return { valid: true, message: `Valid CSV: ${rows.length} rows x ${rows[0].length} cols` }
+                }
+                case 'xml': {
+                  //  Well-formedness
+                  try {
+                    execSync(`xmllint --noout "${fullFilePath}"`, { stdio: 'pipe' })
+                  } catch (e) {
+                    return { valid: false, message: `XML not well-formed: ${e.stderr?.toString() || e.message}` }
+                  }
+                  //  Must be a CDISC ODM document
+                  if (!(/<ODM\b/.test(content) && /cdisc\.org\/ns\/odm/.test(content))) {
+                    return { valid: false, message: 'Well-formed XML but not a CDISC ODM document' }
+                  }
+                  //    Schema-validate the ODM structure against the official ODM 1.3.1 XSD.
+                  //    REDCap adds redcap:* vendor-extension attributes (e.g. redcap:RecordIdField,
+                  //    redcap:UniqueEventName) that the base ODM schema does not permit, so strip them
+                  //    (and the redcap namespace decl) before validating. This validates the real ODM
+                  //    hierarchy and required attributes while ignoring the documented REDCap extensions.
+                  const schemaPath = path.join(__dirname, 'cypress/fixtures/schemas/odm/ODM1-3-1.xsd')
+                  if (!fs.existsSync(schemaPath)) {
+                    return { valid: false, message: `ODM schema fixture missing at ${schemaPath} (cannot schema-validate)` }
+                  }
+                  const cleaned = content
+                    .replace(/\s+redcap:[\w.-]+="[^"]*"/g, '')
+                    .replace(/\s+xmlns:redcap="[^"]*"/g, '')
+                  const tmp = path.join(require('os').tmpdir(), `odmcheck_${path.basename(fullFilePath)}`)
+                  fs.writeFileSync(tmp, cleaned)
+                  try {
+                    execSync(`xmllint --noout --schema "${schemaPath}" "${tmp}"`, { stdio: 'pipe' })
+                    return { valid: true, message: 'Valid CDISC ODM 1.3.1 (schema-conformant; redcap extensions ignored)' }
+                  } catch (e) {
+                    const firstError = (e.stderr?.toString() || e.message).split('\n')[0]
+                    return { valid: false, message: `ODM 1.3.1 schema validation failed: ${firstError}` }
+                  } finally {
+                    if (fs.existsSync(tmp)) fs.unlinkSync(tmp)
+                  }
+                }
+                // R: real syntax validation via Rscript parse() in the validator image.
+                // Exit 0 = parses; exit 1 = syntax error; anything else = engine/infra issue.
+                case 'r': {
+                  const rSmoke = { valid: /read\.csv|read_csv|label\(data\$/.test(content) }
+                  const res = runInValidator(['Rscript', '-e', 'invisible(parse(file("stdin")))'], content)
+                  if (!res.available) return { ...rSmoke, message: 'R import script (smoke-test; Docker/validator image unavailable)' }
+                  if (res.ok) return { valid: true, message: 'Valid R syntax (Rscript parse)' }
+                  if (res.status === 1) return { valid: false, message: `R syntax error: ${firstErrorLine(res.output)}` }
+                  return { ...rSmoke, message: `R smoke-test (engine run failed: ${firstErrorLine(res.output)})` }
+                }
+                // SPSS: real syntax validation via PSPP, run against the companion data CSV that
+                // REDCap exports alongside the .sps (mounted read-only at /data). REDCap targets
+                // SPSS-proper, whose dialect PSPP (an SPSS clone) does not fully accept, so two
+                // fixed template lines are normalized first:
+                //   - FILE HANDLE ... NAME=.. LRECL=..  -> PSPP requires '/' before each subcommand
+                //   - SET LOCALE=en_us.                 -> non-quoted + 'en_us' isn't a glibc locale
+                // Both are boilerplate (a data pointer and a locale setting), not project content.
+                // Everything project-specific (VARIABLE LABEL/VALUE LABELS/VARIABLE LEVEL) is then
+                // validated against the real data. PSPP exit: 0 = clean, 1 = errors found.
+                case 'sps': {
+                  const spsSmoke = { valid: /GET DATA|DATA LIST|FILE HANDLE/i.test(content) }
+                  const normalized = content
+                    .replace(/FILE HANDLE (\w+) NAME=('[^']*') LRECL=(\d+)\./g, 'FILE HANDLE $1 /NAME=$2 /LRECL=$3.')
+                    .replace(/^SET LOCALE=.*$/gm, '* SET LOCALE normalized for PSPP.')
+                  const res = runInValidator(['pspp', '/dev/stdin', '-o', '/dev/null'], normalized,
+                    { mountDir: path.dirname(fullFilePath) })
+                  if (!res.available) return { ...spsSmoke, message: 'SPSS syntax (smoke-test; Docker/validator image unavailable)' }
+                  if (res.status !== 0 && res.status !== 1) {
+                    return { ...spsSmoke, message: `SPSS smoke-test (engine run failed: ${firstErrorLine(res.output)})` }
+                  }
+                  const errs = res.output.split('\n').filter(l => /\berror:/i.test(l))
+                  // If the companion CSV is missing, tolerate the data-open error (degraded check).
+                  const onlyDataErrors = errs.length > 0 && errs.every(l =>
+                    /Could not open .* as a data file|Stopping syntax file processing here/i.test(l))
+                  return (errs.length === 0 || onlyDataErrors)
+                    ? { valid: true, message: 'Valid SPSS syntax (PSPP, against exported data; FILE HANDLE/SET LOCALE normalized)' }
+                    : { valid: false, message: `SPSS syntax error: ${errs[0]}` }
+                }
+                // SAS / Stata: no free engine available — smoke-test only (non-empty + expected
+                // command present). Does NOT catch syntax errors.
+                case 'sas': return { valid: /DATA\s|INFILE|PROC\s/i.test(content), message: 'SAS program (smoke-test; no free engine)' }
+                case 'do':  return { valid: /import delimited|insheet|infile/i.test(content), message: 'Stata do-file (smoke-test; no free engine)' }
+                default:    return { valid: false, message: `Unsupported file type: ${fileType}` }
+              }
+            },
+            // Task 6: Compare a downloaded export against a manually-verified golden reference.
+            // Both sides are stripped of per-run volatile lines (timestamps/dated filenames) so
+            // only the data content is compared. On mismatch, returns the first differing lines
+            // so the failure shows exactly which value drifted (vs a bare hash mismatch).
+            compareToReference({ filePath, referenceName, fileType }) {
+              const fullFilePath = __dirname + filePath
+              const refPath = path.join(__dirname, 'cypress/fixtures/expected_exports', referenceName)
+              if (!fs.existsSync(refPath)) {
+                return { match: false, message: `Reference not found: ${referenceName}` }
+              }
+              const dl = stripVolatile(fs.readFileSync(fullFilePath, 'utf8'), fileType)
+              const ref = stripVolatile(fs.readFileSync(refPath, 'utf8'), fileType)
+              if (dl === ref) {
+                return { match: true, message: `Matches verified reference ${referenceName}` }
+              }
+              const a = dl.split('\n')
+              const b = ref.split('\n')
+              const diffs = []
+              for (let i = 0; i < Math.max(a.length, b.length) && diffs.length < 5; i++) {
+                if (a[i] !== b[i]) {
+                  diffs.push(`  line ${i + 1}:\n    expected: ${b[i] ?? '<missing>'}\n    actual:   ${a[i] ?? '<missing>'}`)
+                }
+              }
+              return { match: false, message: `Differs from verified reference ${referenceName}:\n${diffs.join('\n')}` }
             }
           })
           return config

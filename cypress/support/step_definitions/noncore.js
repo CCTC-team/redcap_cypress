@@ -1547,6 +1547,52 @@ Given("I should have the latest downloaded {string} file with SHA256 hash value 
 /**
  * @module Interactions
  * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I should have the latest downloaded {string} file in a valid format
+ * @param {string} fileType - file format (csv, xml, r, sps, sas, do)
+ * @description Validates that the latest downloaded file is structurally valid for its format.
+ *   csv and xml are validated rigorously (CSV parse + column consistency; XML well-formedness
+ *   and CDISC ODM markers). The script formats (r, sps, sas, do) are smoke-tested only
+ *   (non-empty + expected import command present) and do NOT catch syntax errors.
+ */
+Given("I should have the latest downloaded {string} file in a valid format", (fileType) => {
+    cy.task('fetchLatestExport', ({ fileExtension: fileType })).then((latest_file) => {
+        let basePath = path;
+        let filePath = latest_file.replace(basePath, '');
+
+        cy.task('validateFileFormat', { filePath, fileType }).then(result => {
+            cy.log(result.message)
+            expect(result.valid, result.message).to.be.true
+        })
+    })
+})
+
+
+/**
+ * @module Interactions
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I should have the latest downloaded {string} file matching the verified reference {string}
+ * @param {string} fileType - file format (csv, xml, r, sps, sas, do)
+ * @param {string} referenceName - reference file under cypress/fixtures/expected_exports (e.g. "D21700/DATA.csv")
+ * @description Compares the latest downloaded export against a manually-verified golden reference,
+ *   ignoring per-run volatile lines (timestamps / dated filenames). Verifies the data content is
+ *   correct, not just the format. On mismatch the log shows the first differing lines.
+ */
+Given("I should have the latest downloaded {string} file matching the verified reference {string}", (fileType, referenceName) => {
+    cy.task('fetchLatestExport', ({ fileExtension: fileType })).then((latest_file) => {
+        let basePath = path;
+        let filePath = latest_file.replace(basePath, '');
+
+        cy.task('compareToReference', { filePath, referenceName, fileType }).then(result => {
+            cy.log(result.message)
+            expect(result.match, result.message).to.be.true
+        })
+    })
+})
+
+
+/**
+ * @module Interactions
+ * @author Mintoo Xavier <min2xavier@gmail.com>
  * @example I enter {string} into the {eventOptions} for the event named {string} in the {eventSchedule} table
  * @param {string} text - text to enter
  * @param {string} eventOptions - available options - Min Offset Range, Max Offset Range, Custom Event Label
