@@ -14,8 +14,6 @@ on:
 env:
   CCTC_DOCKER_BRANCH: "redcap_val"
   CYPRESS_BRANCH: "redcap_val"
-  RSVC_BRANCH: "redcap_val"
-  RCTF_BRANCH: "redcap_val"
   SHARD_TOTAL: "4"
 
 jobs:
@@ -165,20 +163,6 @@ jobs:
           echo ""
           echo "=== cypress.env.json ==="
           cat cypress.env.json
-
-      - name: Update package.json dependencies for CCTC-team repositories
-        run: |
-          # Update rctf to use CCTC-team branch
-          sed -i 's|"rctf": "github:vanderbilt-redcap/rctf#[^"]*"|"rctf": "github:CCTC-team/rctf#${{ env.RCTF_BRANCH }}"|' package.json
-
-          # Update redcap_rsvc to use CCTC-team branch
-          sed -i 's|"redcap_rsvc": "github:vanderbilt-redcap/redcap_rsvc#[^"]*"|"redcap_rsvc": "github:CCTC-team/vanderbilt_redcap_rsvc#${{ env.RSVC_BRANCH }}"|' package.json
-
-          # Update repository URL to CCTC-team
-          sed -i 's|"url": "https://github.com/vanderbilt-redcap/redcap_cypress.git"|"url": "https://github.com/CCTC-team/redcap_cypress.git"|' package.json
-
-          echo "Updated package.json dependencies:"
-          grep -E '(rctf|redcap_rsvc|repository)' -A 1 package.json
 
       - name: Install Cypress and dependencies
         run: |

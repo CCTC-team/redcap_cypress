@@ -57,7 +57,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/vanderbilt-redcap/redcap_cypress.git"
+    "url": "https://github.com/CCTC-team/redcap_cypress.git"
   },
   "author": "Adam De Fouw",
   "license": "MIT"
