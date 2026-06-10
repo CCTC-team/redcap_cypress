@@ -166,8 +166,16 @@ jobs:
 
       - name: Install Cypress and dependencies
         run: |
-          npm install
-          npm run redcap_rsvc:install || echo "RSVC install failed or not needed"
+          # npm ci installs exactly the committed package-lock.json (deterministic,
+          # matched esbuild) instead of `npm install` + `redcap_rsvc:install`, whose
+          # `clean` deleted package-lock.json and reinstalled lockless — that drift
+          # caused esbuild's "Expected id N but got id N-1" crash at config load.
+          npm ci
+          # move_files moves redcap_rsvc out of node_modules to ./redcap_rsvc (where
+          # the specPattern finds the Feature Tests) and copies its fixtures into
+          # cypress/fixtures. Non-destructive half of redcap_rsvc:install — keeps the
+          # lockfile. Without it there are no specs to run and fixtures are missing.
+          npm run redcap_rsvc:move_files
 
       - name: Patch rctf after:run handler
         run: |
