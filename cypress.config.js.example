@@ -118,6 +118,19 @@ module.exports = defineConfig({
 
           require('rctf/plugins/index.js')(on, config)
 
+          // CI hardening: on the GitHub runner Chrome's renderer dies under the
+          // tiny default /dev/shm, producing "Still waiting to connect to Chrome,
+          // retrying". Route shared memory to disk and drop the sandbox/GPU so the
+          // remote-debugging port comes up and Cypress can attach.
+          on('before:browser:launch', (browser = {}, launchOptions) => {
+            if (browser.family === 'chromium' && browser.name !== 'electron') {
+              launchOptions.args.push('--disable-dev-shm-usage')
+              launchOptions.args.push('--no-sandbox')
+              launchOptions.args.push('--disable-gpu')
+            }
+            return launchOptions
+          })
+
           on('task', {
             // Task: Clear redcap_file_repository in Docker container
             clearFileRepo() {
