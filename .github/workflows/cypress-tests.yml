@@ -12,8 +12,7 @@ on:
   workflow_dispatch:
 
 env:
-  CCTC_DOCKER_BRANCH: "redcap_val"
-  CYPRESS_BRANCH: "redcap_val"
+  CCTC_DOCKER_REF: "v1.0.0"
   SHARD_TOTAL: "4"
 
 jobs:
@@ -35,13 +34,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           ssh-key: ${{ secrets.DEPLOY_KEY }}
-
-      - name: Checkout CYPRESS_BRANCH
-        run: |
-          echo "Checking out branch: ${{ env.CYPRESS_BRANCH }}"
-          git fetch origin ${{ env.CYPRESS_BRANCH }}
-          git checkout ${{ env.CYPRESS_BRANCH }}
-          git log -1
 
       - name: Read config from cypress.env.json.example
         run: |
@@ -73,7 +65,7 @@ jobs:
         env:
           GH_PAT: ${{ secrets.CCTC_TEAM_PAT }}
         run: |
-          git clone --branch ${{ env.CCTC_DOCKER_BRANCH }} --depth=1 \
+          git clone --branch ${{ env.CCTC_DOCKER_REF }} --depth=1 \
             https://x-access-token:${GH_PAT}@github.com/CCTC-team/CCTC_REDCap_Docker.git
           cd CCTC_REDCap_Docker && git log -1
 
