@@ -68,18 +68,18 @@ function readFailedSpecsFromReports(snapshot) {
   return failed
 }
 
-// rctf's plugins/index.js registers an after:run handler that drops the
-// `results` arg (calls `afterRunHandler(config)` instead of
-// `afterRunHandler(config, results)`). Inside the cucumber preprocessor
-// that becomes `'totalFailed' in undefined`, which throws *after* all
-// specs have completed and written their reports. Depending on how
-// Cypress catches it, this surfaces as one of:
+// rctf's afterSpecHandler can throw `Unexpected state in afterSpecHandler`
+// *after* all specs have completed and written their reports. Depending on
+// how Cypress catches it, this surfaces as one of:
 //   1. cypress.run() resolves with {status:'failed', message}
 //   2. cypress.run() rejects with an Error
 //   3. an unhandled promise rejection emitted by the event loop *after*
 //      cypress.run() has already resolved with normal results
 // All three are cosmetic — the test results are already on disk.
-const POST_RUN_COSMETIC_CRASH = /'totalFailed' in undefined|Unexpected state in afterSpecHandler/
+// (The sibling `'totalFailed' in undefined` crash from a dropped `results`
+// arg in after:run was fixed upstream in rctf cctc_v1.0.0, which forwards
+// results to afterRunHandler, so it's no longer detected here.)
+const POST_RUN_COSMETIC_CRASH = /Unexpected state in afterSpecHandler/
 
 function isCosmeticCrash(err) {
   const text = err && (err.message || err.stack || String(err))
