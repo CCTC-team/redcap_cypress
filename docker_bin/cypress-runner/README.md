@@ -41,6 +41,38 @@ Run from the `redcap_cypress` directory:
 
 Any extra args are passed straight through to `cypress run`.
 
+## CI emulation (`run-ci.sh`)
+
+`run.sh` does a plain `cypress run` over whatever `--spec` you pass. `run-ci.sh`
+instead reproduces what a push actually runs in the GitHub `cypress-tests.yml`
+workflow:
+
+* **shards** the spec set via `SHARD_INDEX`/`SHARD_TOTAL`, and
+* runs each shard through `npm run test:retry-failed` — the same wrapper CI uses
+  (reruns failed specs up to `CYPRESS_MAX_ATTEMPTS`, with the stall watchdog) —
+  with the same `CYPRESS_*` env CI sets.
+
+```sh
+./docker_bin/cypress-runner/run-ci.sh            # all 4 shards, sequential
+./docker_bin/cypress-runner/run-ci.sh 3          # only shard 3
+./docker_bin/cypress-runner/run-ci.sh 2 4        # shards 2 and 4
+SHARD_TOTAL=4 ./docker_bin/cypress-runner/run-ci.sh   # override shard count
+FORCE_NPM_CI=1 ./docker_bin/cypress-runner/run-ci.sh  # fresh dep install
+INCLUDE_MODULES=1 ./docker_bin/cypress-runner/run-ci.sh  # include EM specs
+```
+
+How it differs from CI (and why repro still holds):
+
+* Browser is chromium (vs CI's chrome) — same Blink + PDF.js engine.
+* Shards run **sequentially** against the one local REDCap stack; CI runs the 4
+  shards in parallel on isolated stacks. The retry wrapper + correct per-shard
+  spec set is what reproduces pass/fail; parallelism is only CI's speed trick.
+* Spec set is **core-only** (`redcap_rsvc` A–D + `cypress/features`) via
+  [`list-core-specs.js`](list-core-specs.js), matching CI's redcap_cypress clone
+  which has no EM modules. Your local `redcap_source/modules` would otherwise add
+  ~183 EM specs and shift the slicing. Set `INCLUDE_MODULES=1` to use the real
+  `scripts/list-specs.js` instead.
+
 ## Environment knobs
 
 | Var             | Default    | Effect                                                        |
