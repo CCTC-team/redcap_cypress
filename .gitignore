@@ -49,3 +49,6 @@ mysql-cli.zip
 
 circleci-ssh-keys/
 http-server.log
+run-logs/
+
+.verify_tmp/
