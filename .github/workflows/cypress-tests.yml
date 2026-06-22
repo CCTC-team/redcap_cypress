@@ -61,6 +61,16 @@ jobs:
           cache: 'npm'
           cache-dependency-path: package-lock.json
 
+      - name: Install xmllint (libxml2-utils)
+        # The validateFileFormat Cypress task shells out to `xmllint` on the
+        # runner host to check that exported CDISC ODM XML is well-formed and
+        # schema-conformant (e.g. spec D.21.700). ubuntu-latest does not ship
+        # the xmllint binary by default; it lives in the libxml2-utils package.
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends libxml2-utils
+          xmllint --version
+
       - name: Clone CCTC_REDCap_Docker
         env:
           GH_PAT: ${{ secrets.CCTC_TEAM_PAT }}
