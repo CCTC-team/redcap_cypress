@@ -11,6 +11,12 @@ on:
       - 'docs/**'
   workflow_dispatch:
 
+# Cancel an in-progress run (all 4 shards) when a newer commit is pushed to the
+# same ref, so stacked pushes don't each consume a full matrix of Actions minutes.
+concurrency:
+  group: cypress-${{ github.ref }}
+  cancel-in-progress: true
+
 env:
   CCTC_DOCKER_REF: "v1.0.0"
   SHARD_TOTAL: "4"
@@ -60,6 +66,17 @@ jobs:
           node-version: '20'
           cache: 'npm'
           cache-dependency-path: package-lock.json
+
+      - name: Cache Cypress binary
+        # setup-node caches npm *packages* but not the (~hundreds of MB) Cypress
+        # binary, which npm ci re-downloads every run x 4 shards. Cache it keyed on
+        # the lockfile so it's restored instead of re-downloaded.
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/Cypress
+          key: cypress-binary-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            cypress-binary-${{ runner.os }}-
 
       - name: Install xmllint (libxml2-utils)
         # The validateFileFormat Cypress task shells out to `xmllint` on the
@@ -229,7 +246,7 @@ jobs:
             cypress/results/json/*.json
             cypress/results/CCTC_rsvc_v${{ env.REDCAP_VERSION }}-test-report.json
             cypress/results/html/CCTC_rsvc_v${{ env.REDCAP_VERSION }}-test-report.html
-          retention-days: 30
+          retention-days: 7
           if-no-files-found: warn
 
       - name: Generate coverage report
@@ -250,7 +267,7 @@ jobs:
         with:
           name: CCTC_rsvc_v${{ env.REDCAP_VERSION }}-shard-${{ matrix.shard }}-cypress-screenshots
           path: cypress/screenshots/
-          retention-days: 30
+          retention-days: 7
           if-no-files-found: warn
 
       - name: Upload coverage reports
@@ -259,7 +276,7 @@ jobs:
         with:
           name: CCTC_rsvc_v${{ env.REDCAP_VERSION }}-shard-${{ matrix.shard }}-coverage-reports
           path: /tmp/path/coverage-report/
-          retention-days: 30
+          retention-days: 7
           if-no-files-found: warn
 
       - name: Cleanup

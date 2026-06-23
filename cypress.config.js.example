@@ -443,7 +443,7 @@ module.exports = defineConfig({
             runMode: 0,
             openMode: 0
         },
-        video: true,
+        video: false,
         videoCompression: false,
         trashAssetsBeforeRuns: true,
         viewportWidth: 1600,
