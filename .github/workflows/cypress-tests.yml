@@ -244,15 +244,6 @@ jobs:
             echo "phpcov.phar not found, skipping coverage report"
           fi
 
-      - name: Upload Cypress videos
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: CCTC_rsvc_v${{ env.REDCAP_VERSION }}-shard-${{ matrix.shard }}-cypress-videos
-          path: cypress/videos/
-          retention-days: 30
-          if-no-files-found: warn
-
       - name: Upload Cypress screenshots
         uses: actions/upload-artifact@v4
         if: failure()
@@ -278,10 +269,9 @@ jobs:
           docker compose down -v
 
   # Prune Actions artifact storage: keep only the N most recent workflow runs'
-  # artifacts and delete everything older. Cypress videos are large (~hundreds of
-  # MB per run across 4 shards) and were filling the org's 2 GB Actions storage
-  # quota. Runs after the test matrix so the current run's artifacts already exist
-  # and are counted among the kept runs.
+  # artifacts and delete everything older, to stay under the org's 2 GB Actions
+  # storage quota. Runs after the test matrix so the current run's artifacts
+  # already exist and are counted among the kept runs.
   prune-artifacts:
     needs: cypress-tests
     if: always()
