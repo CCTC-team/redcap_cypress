@@ -18,8 +18,9 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  CCTC_DOCKER_REF: "v1.0.0"
+  CCTC_DOCKER_REF: "v1.0.1"
   SHARD_TOTAL: "4"
+  REGISTRY: ghcr.io
 
 jobs:
   cypress-tests:
@@ -121,7 +122,14 @@ jobs:
           echo "=== redcap_source contents ==="
           ls -la
 
-      - name: Build and start Docker services
+      - name: Log in to GitHub Container Registry
+        run: |
+          # The prebuilt redcap-env image (published by CCTC_REDCap_Docker) is a private
+          # GHCR package, so authenticate before pulling. CCTC_TEAM_PAT must have
+          # read:packages scope. If the package is made public, this step can be removed.
+          echo "${{ secrets.CCTC_TEAM_PAT }}" | docker login ${{ env.REGISTRY }} -u ${{ github.actor }} --password-stdin
+
+      - name: Pull prebuilt image and start Docker services
         run: |
           cd CCTC_REDCap_Docker/redcap_docker
 
@@ -132,11 +140,13 @@ jobs:
           echo "=== .env ==="
           cat .env
 
-          # Build image (bakes redcap_source into the image)
-          docker compose build
+          # Pull the shared prebuilt REDCap image (built by CCTC_REDCap_Docker) instead of
+          # rebuilding from source per shard — every shard runs the byte-identical image,
+          # removing per-shard build time and build-variance as a flakiness source.
+          docker compose -f docker-compose.yml -f docker-compose.prebuilt.yml pull app
 
-          # Start all services
-          docker compose up -d
+          # Start all services using the pulled image
+          docker compose -f docker-compose.yml -f docker-compose.prebuilt.yml up -d
 
       - name: Wait for services to be ready
         run: |
@@ -283,7 +293,7 @@ jobs:
         if: always()
         run: |
           cd CCTC_REDCap_Docker/redcap_docker
-          docker compose down -v
+          docker compose -f docker-compose.yml -f docker-compose.prebuilt.yml down -v
 
   # Prune Actions artifact storage: keep only the N most recent workflow runs'
   # artifacts and delete everything older, to stay under the org's 2 GB Actions
