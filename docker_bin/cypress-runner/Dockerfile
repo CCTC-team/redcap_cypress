@@ -28,9 +28,18 @@ FROM cypress/included:15.10.0
 #   `docker exec`/`docker cp` against the redcap-* containers via the mounted host
 #   socket. The static binary only needs the socket — no daemon — and is more
 #   reliable than the docker.io apt package.
+# DOCKER_ARCH maps Debian's arch name to the docker static-binary arch so this
+# image builds multi-arch: arm64 for local Apple Silicon, amd64 for the GitHub
+# CI runner. (Previously hardcoded aarch64, which broke an amd64 build.)
 RUN apt-get update \
  && apt-get install -y --no-install-recommends chromium python3 curl ca-certificates libxml2-utils \
- && curl -fsSL https://download.docker.com/linux/static/stable/aarch64/docker-27.3.1.tgz \
+ && ARCH="$(dpkg --print-architecture)" \
+ && case "$ARCH" in \
+      arm64) DOCKER_ARCH=aarch64 ;; \
+      amd64) DOCKER_ARCH=x86_64 ;; \
+      *) echo "unsupported arch: $ARCH" >&2; exit 1 ;; \
+    esac \
+ && curl -fsSL "https://download.docker.com/linux/static/stable/${DOCKER_ARCH}/docker-27.3.1.tgz" \
       | tar -xz -C /tmp \
  && mv /tmp/docker/docker /usr/local/bin/docker \
  && rm -rf /tmp/docker \
