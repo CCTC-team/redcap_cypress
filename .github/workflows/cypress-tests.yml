@@ -21,6 +21,9 @@ env:
   CCTC_DOCKER_REF: "v1.0.1"
   SHARD_TOTAL: "4"
   REGISTRY: ghcr.io
+  # Pinned Cypress runner image (published by build-cypress-runner.yml). The suite
+  # runs INSIDE this container so the runtime is identical to local run.sh/run-ci.sh.
+  CYPRESS_RUNNER_IMAGE: ghcr.io/cctc-team/redcap_cypress/cypress-runner:15.10.0
 
 jobs:
   cypress-tests:
@@ -68,26 +71,9 @@ jobs:
           cache: 'npm'
           cache-dependency-path: package-lock.json
 
-      - name: Cache Cypress binary
-        # setup-node caches npm *packages* but not the (~hundreds of MB) Cypress
-        # binary, which npm ci re-downloads every run x 4 shards. Cache it keyed on
-        # the lockfile so it's restored instead of re-downloaded.
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/Cypress
-          key: cypress-binary-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            cypress-binary-${{ runner.os }}-
-
-      - name: Install xmllint (libxml2-utils)
-        # The validateFileFormat Cypress task shells out to `xmllint` on the
-        # runner host to check that exported CDISC ODM XML is well-formed and
-        # schema-conformant (e.g. spec D.21.700). ubuntu-latest does not ship
-        # the xmllint binary by default; it lives in the libxml2-utils package.
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends libxml2-utils
-          xmllint --version
+      # The Cypress binary is baked into the runner image (cypress/included), and
+      # xmllint ships in it too — so the host no longer needs the binary cache or a
+      # libxml2-utils install. The suite runs inside the container (see below).
 
       - name: Clone CCTC_REDCap_Docker
         env:
@@ -194,6 +180,11 @@ jobs:
           cat cypress.env.json
 
       - name: Install Cypress and dependencies
+        env:
+          # The host only uses node_modules for spec discovery and report generation;
+          # the suite itself runs inside the runner container, which has its own baked
+          # Cypress binary. Skip the host binary download (saves ~300 MB x 4 shards).
+          CYPRESS_INSTALL_BINARY: '0'
         run: |
           # npm ci installs exactly the committed package-lock.json (deterministic,
           # matched esbuild) instead of `npm install` + `redcap_rsvc:install`, whose
@@ -219,20 +210,37 @@ jobs:
         if: steps.specs.outputs.spec_count != '0'
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          CYPRESS_prettyEnabled: 'true'
-          CYPRESS_BROWSER: chrome
-          CYPRESS_MAX_ATTEMPTS: '3'
-          CYPRESS_GROUP_PREFIX: shard-${{ matrix.shard }}
-          # Diagnostic: disable Cypress dashboard recording to test whether
-          # api.cypress.io stalls were causing the mid-run hang. Remove this
-          # line once recording is confirmed safe (or keep it permanently
-          # if recording is no longer needed in CI).
-          CYPRESS_DISABLE_RECORDING: '1'
-          # Watchdog: if no new spec report appears for 30 min, treat as hung.
-          CYPRESS_STALL_MS: '1800000'
         run: |
-          export UID
-          npm run test:retry-failed -- --spec-file shard-specs.txt
+          # Run the suite INSIDE the pinned runner image (same image as local
+          # run.sh/run-ci.sh) so the test runtime — Node, Cypress, and a Linux
+          # chromium — is identical here and locally, removing host-vs-container
+          # runtime drift as a flakiness source. The host scaffolding above already
+          # started the REDCap stack and wrote cypress.config.js / cypress.env.json
+          # into the workspace; the container sees them via the workspace bind mount.
+          #
+          #   --network host    -> baseUrl https://localhost:8443 reaches redcap-app,
+          #                        exactly as the host-native runner did.
+          #   docker socket     -> the docker-exec mysql/file tasks work unchanged.
+          #   workspace at its   -> cypress.env.json's absolute ${{ github.workspace }}
+          #     own path            paths (redcap_source_path, edocs) resolve inside.
+          docker run --rm \
+            --network host \
+            --shm-size=2g \
+            -v /var/run/docker.sock:/var/run/docker.sock \
+            -v "${GITHUB_WORKSPACE}":"${GITHUB_WORKSPACE}" \
+            -w "${GITHUB_WORKSPACE}" \
+            -e UID="$(id -u)" \
+            -e SHARD_INDEX \
+            -e SHARD_TOTAL="${SHARD_TOTAL}" \
+            -e CYPRESS_RECORD_KEY \
+            -e CYPRESS_prettyEnabled=true \
+            -e CYPRESS_BROWSER=chromium \
+            -e CYPRESS_MAX_ATTEMPTS=3 \
+            -e CYPRESS_GROUP_PREFIX="shard-${{ matrix.shard }}" \
+            -e CYPRESS_DISABLE_RECORDING=1 \
+            -e CYPRESS_STALL_MS=1800000 \
+            "${CYPRESS_RUNNER_IMAGE}" \
+            npm run test:retry-failed -- --spec-file shard-specs.txt
 
       - name: Generate combined HTML report
         if: always()
