@@ -27,7 +27,7 @@ env:
 
 jobs:
   cypress-tests:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 350
     strategy:
       fail-fast: false
@@ -310,7 +310,7 @@ jobs:
   prune-artifacts:
     needs: cypress-tests
     if: always()
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       actions: write
     env:
