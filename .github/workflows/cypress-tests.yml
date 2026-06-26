@@ -18,7 +18,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  CCTC_DOCKER_REF: "v1.0.1"
+  CCTC_DOCKER_REF: "v1.0.2"
   SHARD_TOTAL: "4"
   REGISTRY: ghcr.io
   # Pinned Cypress runner image (published by build-cypress-runner.yml). The suite
@@ -77,7 +77,8 @@ jobs:
 
       - name: Clone CCTC_REDCap_Docker
         env:
-          GH_PAT: ${{ secrets.CCTC_TEAM_PAT }}
+          GH_PAT: ${{ secre
+          ts.CCTC_TEAM_PAT }}
         run: |
           git clone --branch ${{ env.CCTC_DOCKER_REF }} --depth=1 \
             https://x-access-token:${GH_PAT}@github.com/CCTC-team/CCTC_REDCap_Docker.git
@@ -272,9 +273,17 @@ jobs:
         run: |
           if docker exec redcap-app test -f /var/www/html/phpcov.phar 2>/dev/null; then
             mkdir -p /tmp/path/coverage-report
-            docker exec redcap-app sh -c "php /var/www/html/phpcov.phar merge \
-              --clover /tmp/path/coverage-report/coverage.xml \
-              /tmp/path/coverage" || echo "Coverage report generation failed"
+            # Merge the per-request .cov files (written by the auto_prepend recorder
+            # baked into the redcap-env image) into a single clover report INSIDE the
+            # container...
+            docker exec redcap-app sh -c "mkdir -p /tmp/path/coverage-report && \
+              php /var/www/html/phpcov.phar merge \
+                --clover /tmp/path/coverage-report/coverage.xml \
+                /tmp/path/coverage" || echo "Coverage report generation failed"
+            # ...then copy it out to the host, because the upload step reads the host
+            # path and the container's /tmp is a separate filesystem (no bind mount).
+            docker cp redcap-app:/tmp/path/coverage-report/. /tmp/path/coverage-report/ 2>/dev/null \
+              || echo "No coverage report produced to copy out"
           else
             echo "phpcov.phar not found, skipping coverage report"
           fi
@@ -342,3 +351,71 @@ jobs:
                     ;;
                 esac
               done
+
+  # Merge every shard's mochawesome JSON into ONE combined HTML report and publish it
+  # to GitHub Pages, so each run links to a single browsable report (suites, failures,
+  # embedded screenshots) instead of four per-shard downloadable zips. The shards run
+  # disjoint spec sets, so concatenating their per-spec JSON yields the full suite.
+  publish-report:
+    needs: cypress-tests
+    if: always()
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      pages: write          # publish to Pages
+      id-token: write       # OIDC token deploy-pages uses to authenticate
+    # Pages allows only one in-flight deployment; serialise (don't cancel) so
+    # overlapping runs don't clobber each other mid-deploy.
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Configure Pages
+        # enablement: true turns Pages on via the API on first run, so the repo
+        # doesn't need a manual Settings -> Pages change first.
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - name: Download every shard's mochawesome results
+        uses: actions/download-artifact@v4
+        with:
+          pattern: '*-cypress-results'   # the per-shard results artifacts only
+          merge-multiple: true           # flatten all shards into one tree
+          path: collected
+
+      - name: Merge shards into one combined HTML report
+        run: |
+          shopt -s nullglob
+          jsons=(collected/json/*.json)
+          mkdir -p site
+          if [ ${#jsons[@]} -eq 0 ]; then
+            echo "::warning::No mochawesome JSON found across shards — publishing a placeholder page."
+            printf '<!doctype html><title>No results</title><h1>No test results were produced this run.</h1>' > site/index.html
+          else
+            echo "Merging ${#jsons[@]} per-spec JSON file(s) from all shards..."
+            # Versions pinned to match package.json so the combined report renders
+            # identically to the per-shard ones.
+            npx --yes mochawesome-merge@5.1.1 collected/json/*.json -o collected/combined.json
+            npx --yes mochawesome-report-generator@6.3.2 collected/combined.json \
+              --reportDir site --reportFilename index --inline \
+              --reportTitle "REDCap Cypress — combined report" \
+              --reportPageTitle "REDCap Cypress results"
+          fi
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
