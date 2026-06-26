@@ -428,7 +428,7 @@ module.exports = defineConfig({
         },
 
         baseUrl: 'https://localhost:8443',
-        mailHogUrl: 'http://localhost:8025',
+        mailHogUrl: process.env.MAILHOG_URL || 'http://localhost:8025',
         stepDefinitions: 'cypress/support/step_definitions',
         specPattern: [ 'cypress/features/*.feature',
                        'redcap_rsvc/*/[ABCD]/*/*.feature',
@@ -448,7 +448,16 @@ module.exports = defineConfig({
         trashAssetsBeforeRuns: true,
         viewportWidth: 1600,
         viewportHeight: 1200,
-        defaultCommandTimeout: 30000,
+        // 60s (was 30s): PDF-snapshot/file-repository assertions in the eConsent
+        // specs poll for a server-generated PDF to land in the File Repository.
+        // REDCap's max_execution_time=0 means the PDF always generates eventually,
+        // so the only failure mode is the client-side wait being too short. On the
+        // 2-core GitHub runner, render+save under parallel load can exceed 30s,
+        // producing "Timed out retrying after 30000ms ... never found" failures
+        // (12 eConsent specs failed in CI while all passed locally on faster HW).
+        // Passing assertions resolve the instant their condition is met, so this
+        // only adds headroom on slow/failing waits — it does not slow green specs.
+        defaultCommandTimeout: 60000,
         responseTimeout: 20000,
         requestTimeout: 20000,
         pageLoadTimeout: 120000,
