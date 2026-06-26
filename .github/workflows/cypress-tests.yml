@@ -77,8 +77,7 @@ jobs:
 
       - name: Clone CCTC_REDCap_Docker
         env:
-          GH_PAT: ${{ secre
-          ts.CCTC_TEAM_PAT }}
+          GH_PAT: ${{ secrets.CCTC_TEAM_PAT }}
         run: |
           git clone --branch ${{ env.CCTC_DOCKER_REF }} --depth=1 \
             https://x-access-token:${GH_PAT}@github.com/CCTC-team/CCTC_REDCap_Docker.git
