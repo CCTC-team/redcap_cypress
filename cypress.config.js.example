@@ -448,16 +448,16 @@ module.exports = defineConfig({
         trashAssetsBeforeRuns: true,
         viewportWidth: 1600,
         viewportHeight: 1200,
-        // 60s (was 30s): PDF-snapshot/file-repository assertions in the eConsent
-        // specs poll for a server-generated PDF to land in the File Repository.
-        // REDCap's max_execution_time=0 means the PDF always generates eventually,
-        // so the only failure mode is the client-side wait being too short. On the
-        // 2-core GitHub runner, render+save under parallel load can exceed 30s,
-        // producing "Timed out retrying after 30000ms ... never found" failures
-        // (12 eConsent specs failed in CI while all passed locally on faster HW).
-        // Passing assertions resolve the instant their condition is met, so this
-        // only adds headroom on slow/failing waits — it does not slow green specs.
-        defaultCommandTimeout: 60000,
+        // 90s (was 30s, then 60s): PDF-snapshot/file-repository assertions in the
+        // eConsent specs poll for a server-generated PDF to land in the File
+        // Repository. REDCap's max_execution_time=0 means the PDF always generates
+        // eventually, so the only failure mode is the client-side wait being too
+        // short. On the 2-core GitHub runner, render+save under parallel load (made
+        // heavier by the pcov coverage instrumentation baked into the image) can
+        // exceed 60s; 30s failed 12 eConsent specs, 60s still left a handful. All
+        // pass locally on faster HW. Passing assertions resolve the instant their
+        // condition is met, so this only adds headroom on slow/failing waits.
+        defaultCommandTimeout: 90000,
         responseTimeout: 20000,
         requestTimeout: 20000,
         pageLoadTimeout: 120000,
