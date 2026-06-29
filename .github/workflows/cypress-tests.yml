@@ -245,6 +245,11 @@ jobs:
       - name: Generate combined HTML report
         if: always()
         run: |
+          # The suite runs inside the cypress-runner container as root, so everything
+          # it wrote under cypress/results/ is root-owned. `npm run report` runs here on
+          # the host as the non-root runner user and would hit EACCES writing the merged
+          # report into that root-owned tree. Reclaim ownership first (passwordless sudo).
+          sudo chown -R "$(id -u):$(id -g)" cypress/results 2>/dev/null || true
           if ls cypress/results/json/*.json >/dev/null 2>&1; then
             npm run report
             REPORT_BASENAME="CCTC_rsvc_v${{ env.REDCAP_VERSION }}-test-report"
