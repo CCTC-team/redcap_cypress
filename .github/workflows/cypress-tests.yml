@@ -399,13 +399,21 @@ jobs:
       - name: Merge shards into one combined HTML report
         run: |
           shopt -s nullglob
-          jsons=(collected/json/*.json)
           mkdir -p site
+          # Retried specs can leave a per-spec mochawesome JSON with two report
+          # objects concatenated into one file (invalid JSON). mochawesome-merge
+          # aborts on the first unparseable file, so drop any invalid JSON first
+          # (with a warning) rather than failing the whole combined report.
+          for f in collected/json/*.json; do
+            node -e "JSON.parse(require('fs').readFileSync(process.argv[1],'utf8'))" "$f" 2>/dev/null \
+              || { echo "::warning::Skipping unparseable mochawesome JSON: $f"; rm -f "$f"; }
+          done
+          jsons=(collected/json/*.json)
           if [ ${#jsons[@]} -eq 0 ]; then
-            echo "::warning::No mochawesome JSON found across shards — publishing a placeholder page."
+            echo "::warning::No (valid) mochawesome JSON found across shards — publishing a placeholder page."
             printf '<!doctype html><title>No results</title><h1>No test results were produced this run.</h1>' > site/index.html
           else
-            echo "Merging ${#jsons[@]} per-spec JSON file(s) from all shards..."
+            echo "Merging ${#jsons[@]} valid per-spec JSON file(s) from all shards..."
             # Versions pinned to match package.json so the combined report renders
             # identically to the per-shard ones.
             npx --yes mochawesome-merge@5.1.1 collected/json/*.json -o collected/combined.json
