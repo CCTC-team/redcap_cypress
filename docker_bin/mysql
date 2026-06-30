@@ -1,10 +1,13 @@
 #!/bin/bash
 # Wrapper: runs mysql inside a Docker container.
-# Reads container name from cypress.env.json "mysql.docker_container" field.
+# Container name comes from CYPRESS_MYSQL_CONTAINER when set, otherwise from
+# cypress.env.json "mysql.docker_container". The env override lets several
+# isolated stacks share one working tree (each runner points at its own DB);
+# when unset, behaviour is identical to before.
 # Strips -h and --port flags since we connect locally inside the container.
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-CONTAINER=$(python3 -c "import json; print(json.load(open('$SCRIPT_DIR/../cypress.env.json'))['mysql']['docker_container'])")
+CONTAINER="${CYPRESS_MYSQL_CONTAINER:-$(python3 -c "import json; print(json.load(open('$SCRIPT_DIR/../cypress.env.json'))['mysql']['docker_container'])")}"
 
 args=()
 skip_next=false
