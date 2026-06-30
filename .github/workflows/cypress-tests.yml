@@ -400,10 +400,12 @@ jobs:
         run: |
           shopt -s nullglob
           mkdir -p site
-          # Retried specs can leave a per-spec mochawesome JSON with two report
-          # objects concatenated into one file (invalid JSON). mochawesome-merge
-          # aborts on the first unparseable file, so drop any invalid JSON first
-          # (with a warning) rather than failing the whole combined report.
+          # Defense-in-depth. The retry root cause is fixed upstream in
+          # scripts/rerun-failed.js (it drops a failed spec's stale report before
+          # each retry, so retries no longer concatenate into invalid JSON). This
+          # guards the remaining cases — e.g. a spec killed by the stall watchdog
+          # can still leave a truncated/partial JSON — by skipping any unparseable
+          # file (with a warning) so one bad file can't fail the whole combined report.
           for f in collected/json/*.json; do
             node -e "JSON.parse(require('fs').readFileSync(process.argv[1],'utf8'))" "$f" 2>/dev/null \
               || { echo "::warning::Skipping unparseable mochawesome JSON: $f"; rm -f "$f"; }
