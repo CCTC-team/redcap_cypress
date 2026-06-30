@@ -29,6 +29,41 @@ function renameReports() {
   }
 }
 
+// Before re-running a failed spec, delete its stale per-spec report(s) from the
+// prior attempt. The mochawesome reporter runs with `overwrite: false`, so a
+// retry would otherwise leave the previous report on disk — either as a `_NNN`
+// duplicate or as a second report object concatenated into the same file
+// (invalid JSON). Both break `mochawesome-merge` and the HTML report. Removing
+// the old report first guarantees the retry writes exactly one clean JSON file
+// reflecting the latest attempt.
+function reportStemsForSpec(specRel) {
+  // mochawesome's `[name]` token is the spec basename sans extension, e.g.
+  // "A.2.2.0100. - Create Users". renameReports() later trims that to
+  // "A.2.2.0100". Target both forms so we catch the file whether or not a prior
+  // attempt already renamed it.
+  const base = path.basename(specRel).replace(/\.[^.]+$/, '')
+  const stems = new Set([base])
+  const trimmed = trimSpecPrefix(`${base}.json`)
+  if (trimmed) stems.add(trimmed.replace(/\.json$/, ''))
+  return stems
+}
+
+function removeReportsForSpecs(specs) {
+  if (!fs.existsSync(REPORT_DIR) || !specs || !specs.length) return
+  const targets = new Set()
+  for (const s of specs) {
+    for (const stem of reportStemsForSpec(s)) targets.add(stem)
+  }
+  for (const f of fs.readdirSync(REPORT_DIR)) {
+    if (!f.endsWith('.json')) continue
+    // Strip `.json` and any `_NNN` overwrite counter to get the bare stem.
+    const stem = f.replace(/\.json$/, '').replace(/_\d+$/, '')
+    if (targets.has(stem)) {
+      fs.rmSync(path.join(REPORT_DIR, f), { force: true })
+    }
+  }
+}
+
 // Snapshot mtimes of report files before a run so we can identify which
 // reports were produced by *this* attempt (vs prior attempts).
 function snapshotReportMtimes() {
@@ -212,6 +247,11 @@ async function runSpecs(specs, attempt) {
   } else if (process.env.CYPRESS_DISABLE_RECORDING) {
     console.log('CYPRESS_DISABLE_RECORDING set — running without --record/--key.')
   }
+
+  // On a retry, drop the failing specs' prior reports so this attempt's reports
+  // replace (rather than concatenate with / duplicate) them. Attempt 1 has no
+  // prior reports for these specs, so skip the scan.
+  if (attempt > 1 && specs && specs.length) removeReportsForSpecs(specs)
 
   const reportSnapshot = snapshotReportMtimes()
 
