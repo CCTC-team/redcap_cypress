@@ -41,7 +41,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ssh-key: ${{ secrets.DEPLOY_KEY }}
 
@@ -65,7 +65,7 @@ jobs:
           echo "  DB_PORT=${DB_PORT}"
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: '20'
           cache: 'npm'
@@ -261,7 +261,7 @@ jobs:
           fi
 
       - name: Upload mochawesome reports
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         if: always()
         with:
           name: CCTC_rsvc_v${{ env.REDCAP_VERSION }}-shard-${{ matrix.shard }}-cypress-results
@@ -293,7 +293,7 @@ jobs:
           fi
 
       - name: Upload Cypress screenshots
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         if: failure()
         with:
           name: CCTC_rsvc_v${{ env.REDCAP_VERSION }}-shard-${{ matrix.shard }}-cypress-screenshots
@@ -302,7 +302,7 @@ jobs:
           if-no-files-found: warn
 
       - name: Upload coverage reports
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         if: always()
         with:
           name: CCTC_rsvc_v${{ env.REDCAP_VERSION }}-shard-${{ matrix.shard }}-coverage-reports
@@ -378,19 +378,19 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: '20'
 
       - name: Configure Pages
         # enablement: true turns Pages on via the API on first run, so the repo
         # doesn't need a manual Settings -> Pages change first.
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
         with:
           enablement: true
 
       - name: Download every shard's mochawesome results
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           pattern: '*-cypress-results'   # the per-shard results artifacts only
           merge-multiple: true           # flatten all shards into one tree
@@ -424,10 +424,10 @@ jobs:
           fi
 
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: site
 
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
