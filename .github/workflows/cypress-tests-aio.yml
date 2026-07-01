@@ -85,6 +85,7 @@ jobs:
             --shm-size=2g \
             -v /var/run/docker.sock:/var/run/docker.sock \
             -v "${PWD}/results:/work/redcap_cypress/cypress/results" \
+            -v "${PWD}/screenshots:/work/redcap_cypress/cypress/screenshots" \
             -e SHARD_INDEX="${SHARD_INDEX}" \
             -e SHARD_TOTAL="${SHARD_TOTAL}" \
             -e CYPRESS_MYSQL_CONTAINER="${REDCAP_CONTAINER}" \
@@ -93,6 +94,7 @@ jobs:
             -e RUNNER_BROWSER=chromium \
             -e CYPRESS_MAX_ATTEMPTS=3 \
             -e CYPRESS_prettyEnabled=true \
+            -e CYPRESS_STALL_MS=1800000 \
             "${RUNNER_IMAGE}"
 
       - name: Reclaim results ownership
@@ -117,7 +119,7 @@ jobs:
         if: failure()
         with:
           name: cypress-aio-shard-${{ matrix.shard }}-screenshots
-          path: results/../screenshots/
+          path: screenshots/
           retention-days: 7
           if-no-files-found: ignore
 
