@@ -55,6 +55,40 @@ pass/fail at the end.
 
 ---
 
+## Run one External Module's tests (`EM_MODULE`)
+
+External Modules ship their **own** `automated_tests/` (e.g. Embellish Fields'
+`E.123.*` specs) inside the module folder. To run **only** that module's specs
+against the REDCap container, set `EM_MODULE` to the module's directory name:
+
+```bash
+EM_MODULE=embellish_fields_v1.0.3 docker compose run --rm cypress
+```
+
+The runner then:
+
+1. `docker cp`s the module's `automated_tests/` out of the REDCap container into
+   `/work/redcap_source/modules/<EM_MODULE>/automated_tests/` (the same
+   version-decoupled trick it uses for the install SQL), so
+   `cypress.config.js`'s module `specPattern`
+   (`../redcap_source/modules/*/automated_tests/**/*.feature`) discovers them.
+2. If the module ships its **own** step definitions
+   (`automated_tests/step_definitions/*.js`), stages them into the in-tree
+   `cypress/support/step_definitions/` (module-prefixed name) so their
+   `require('@badeball/cypress-cucumber-preprocessor')` resolves against the
+   project's `node_modules` — otherwise the specs fail to bundle. Modules with no
+   custom steps just use the baked shared framework.
+3. Runs only that module's `*.feature` specs (excluding `*REDUNDANT*`) through the
+   retry harness (`CYPRESS_MAX_ATTEMPTS`, default 3).
+
+The module must be present in the running REDCap container — baked into the AIO
+image (it lives under `redcap_source/modules/`) or bind-mounted onto the
+container's `modules/` dir. The `E.123.*` specs enable and configure the module
+themselves, so no extra setup is needed. This is exactly what the module repo's
+CI does (see the EM's `.github/workflows/cypress-tests.yml`).
+
+---
+
 ## How it reaches REDCap
 
 The framework talks to REDCap three ways, so the container needs more than an
@@ -86,6 +120,8 @@ defaults are the old `redcap-db` / `redcap-app`).
 | `CYPRESS_BASE_URL` | `https://localhost:8443` | REDCap base URL |
 | `RUNNER_BROWSER` | `chromium` | browser the suite runs in |
 | `DOCKER_SOCK` | `${HOME}/.docker/run/docker.sock` | host Docker socket path |
+| `EM_MODULE` | _(unset)_ | run only this module dir's `automated_tests` (e.g. `embellish_fields_v1.0.3`) |
+| `CYPRESS_MAX_ATTEMPTS` | `3` | retry attempts for a failing spec (shard / `EM_MODULE` modes) |
 
 ---
 

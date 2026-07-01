@@ -33,6 +33,11 @@ services:
       - CYPRESS_MYSQL_CONTAINER=${REDCAP_CONTAINER:-CCTC_REDCap_Docker}
       - CYPRESS_REDCAP_CONTAINER=${REDCAP_CONTAINER:-CCTC_REDCap_Docker}
       - RUNNER_BROWSER=${RUNNER_BROWSER:-chromium}
+      # Set EM_MODULE to a module dir name (e.g. embellish_fields_v1.0.3) to run
+      # ONLY that External Module's automated_tests instead of the full suite. The
+      # runner copies the module's automated_tests out of the REDCap container.
+      - EM_MODULE=${EM_MODULE:-}
+      - CYPRESS_MAX_ATTEMPTS=${CYPRESS_MAX_ATTEMPTS:-3}
     volumes:
       - ${DOCKER_SOCK:-${HOME}/.docker/run/docker.sock}:/var/run/docker.sock
       - ./results:/work/redcap_cypress/cypress/results

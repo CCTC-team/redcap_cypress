@@ -34,6 +34,43 @@ if [ -n "$VER" ] && [ ! -f "${SRC}/redcap_v${VER}/Resources/sql/install.sql" ]; 
 fi
 export CYPRESS_redcap_source_path="${SRC}"
 
+# Optional: run a specific External Module's own automated_tests (e.g.
+# embellish_fields_v1.0.3). The module tree is baked into — or bind-mounted onto —
+# the AIO REDCap image, so copy its automated_tests out (exactly like the SQL
+# above) into /work/redcap_source/modules/<mod>/ where cypress.config.js's module
+# specPattern (../redcap_source/modules/*/automated_tests/**/*.feature) discovers
+# them. Keeps the runner version- and module-decoupled: nothing EM-specific is baked.
+if [ -n "${EM_MODULE:-}" ]; then
+    echo "[runner] fetching automated_tests for module ${EM_MODULE} from ${REDCAP_CONTAINER}..."
+    mkdir -p "${SRC}/modules/${EM_MODULE}"
+    rm -rf "${SRC}/modules/${EM_MODULE}/automated_tests"
+    if ! docker cp "${REDCAP_CONTAINER}:/var/www/html/modules/${EM_MODULE}/automated_tests" \
+            "${SRC}/modules/${EM_MODULE}/automated_tests"; then
+        echo "[runner] ERROR: module ${EM_MODULE} has no automated_tests in ${REDCAP_CONTAINER}." >&2
+        echo "[runner] Is the module present at /var/www/html/modules/${EM_MODULE}?" >&2
+        exit 1
+    fi
+
+    # An EM may ship its OWN step definitions. The preprocessor already globs them
+    # (package.json: ../redcap_source/modules/*/automated_tests/step_definitions/*.js),
+    # but that path is OUTSIDE the project tree, so esbuild can't resolve their
+    # `require('@badeball/cypress-cucumber-preprocessor')` — Node walks up from the
+    # file's dir and never reaches /work/redcap_cypress/node_modules, so the spec
+    # fails to bundle. Move them into the in-tree shared step-def dir (also globbed)
+    # under a module-prefixed name so the require resolves AND the baked shared steps
+    # aren't clobbered; drop the out-of-tree originals so their now-duplicate,
+    # unresolvable copies aren't bundled. (Step defs that `require` a sibling file by
+    # relative path aren't supported — the current EMs only import the preprocessor.)
+    STEPDIR="${SRC}/modules/${EM_MODULE}/automated_tests/step_definitions"
+    if ls "${STEPDIR}"/*.js >/dev/null 2>&1; then
+        echo "[runner] staging ${EM_MODULE} custom step definitions into cypress/support/step_definitions/..."
+        for f in "${STEPDIR}"/*.js; do
+            cp "$f" "cypress/support/step_definitions/_em_${EM_MODULE}__$(basename "$f")"
+        done
+        rm -f "${STEPDIR}"/*.js
+    fi
+fi
+
 # rctf writes runtime scratch files here (latest_url.info, snapshots, generated
 # structure_and_data.sql). The dir is excluded from the image, so ensure it exists.
 mkdir -p test_db
@@ -67,6 +104,19 @@ if [ -n "${SHARD_INDEX:-}" ] && [ -n "${SHARD_TOTAL:-}" ]; then
 elif [ "$#" -gt 0 ]; then
     # Explicit spec(s) passed through, e.g. --spec "redcap_rsvc/.../X.feature".
     cypress run --browser "${BROWSER}" "$@"
+    RUN_EXIT=$?
+elif [ -n "${EM_MODULE:-}" ]; then
+    # External-module mode: run ONLY that module's automated_tests (excluding the
+    # REDUNDANT specs), through the same retry harness the shards use. Spec paths
+    # are project-root-relative so they match cypress.config.js's module
+    # specPattern and rerun-failed.js's r.spec.relative retry keys.
+    echo "[runner] enumerating ${EM_MODULE} specs..."
+    find "../redcap_source/modules/${EM_MODULE}/automated_tests" \
+        -type f -name '*.feature' ! -iname '*REDUNDANT*' \
+        | sort -u > em-specs.txt
+    echo "[runner] $(wc -l < em-specs.txt | tr -d ' ') spec(s) for ${EM_MODULE}:"
+    cat em-specs.txt
+    npm run test:retry-failed -- --spec-file em-specs.txt
     RUN_EXIT=$?
 else
     # Whole suite in one process.
