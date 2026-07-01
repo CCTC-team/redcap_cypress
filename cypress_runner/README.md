@@ -67,17 +67,17 @@ EM_MODULE=embellish_fields_v1.0.3 docker compose run --rm cypress
 
 The runner then:
 
-1. `docker cp`s the module's `automated_tests/` out of the REDCap container into
-   `/work/redcap_source/modules/<EM_MODULE>/automated_tests/` (the same
-   version-decoupled trick it uses for the install SQL), so
-   `cypress.config.js`'s module `specPattern`
-   (`../redcap_source/modules/*/automated_tests/**/*.feature`) discovers them.
-2. If the module ships its **own** step definitions
-   (`automated_tests/step_definitions/*.js`), stages them into the in-tree
-   `cypress/support/step_definitions/` (module-prefixed name) so their
-   `require('@badeball/cypress-cucumber-preprocessor')` resolves against the
-   project's `node_modules` — otherwise the specs fail to bundle. Modules with no
-   custom steps just use the baked shared framework.
+1. `docker cp`s the **whole module** out of the REDCap container into
+   `/work/redcap_source/modules/<EM_MODULE>/` — mirroring its real REDCap install
+   path (the same version-decoupled trick it uses for the install SQL). The
+   preprocessor finds the module's specs and step definitions in place:
+   - features → `specPattern` `../redcap_source/modules/*/automated_tests/**/*.feature`
+   - step defs → `../redcap_source/modules/*/automated_tests/step_definitions/*.js`
+2. Symlinks the project's `node_modules` up onto `redcap_source` so a module's own
+   step defs resolve their `require('@badeball/cypress-cucumber-preprocessor')` (and
+   any other dep) **in place** — that path is outside the project tree, so without
+   the symlink Node/esbuild can't resolve it and the spec fails to bundle. Modules
+   with no custom steps just use the baked shared framework.
 3. Runs only that module's `*.feature` specs (excluding `*REDUNDANT*`) through the
    retry harness (`CYPRESS_MAX_ATTEMPTS`, default 3).
 

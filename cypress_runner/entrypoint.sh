@@ -34,41 +34,37 @@ if [ -n "$VER" ] && [ ! -f "${SRC}/redcap_v${VER}/Resources/sql/install.sql" ]; 
 fi
 export CYPRESS_redcap_source_path="${SRC}"
 
-# Optional: run a specific External Module's own automated_tests (e.g.
-# embellish_fields_v1.0.3). The module tree is baked into — or bind-mounted onto —
-# the AIO REDCap image, so copy its automated_tests out (exactly like the SQL
-# above) into /work/redcap_source/modules/<mod>/ where cypress.config.js's module
-# specPattern (../redcap_source/modules/*/automated_tests/**/*.feature) discovers
-# them. Keeps the runner version- and module-decoupled: nothing EM-specific is baked.
+# Optional: run a specific External Module's own tests (e.g. embellish_fields_v1.0.3).
+# The whole module is baked into — or bind-mounted onto — the AIO REDCap image, so
+# copy the ENTIRE module dir out (exactly like the SQL above) into
+# /work/redcap_source/modules/<mod>/, mirroring its real REDCap install path. The
+# preprocessor then finds this module's specs and step definitions in place:
+#   features   : ../redcap_source/modules/*/automated_tests/**/*.feature   (specPattern)
+#   step defs  : ../redcap_source/modules/*/automated_tests/step_definitions/*.js
+# Keeps the runner version- and module-decoupled: nothing EM-specific is baked.
 if [ -n "${EM_MODULE:-}" ]; then
-    echo "[runner] fetching automated_tests for module ${EM_MODULE} from ${REDCAP_CONTAINER}..."
-    mkdir -p "${SRC}/modules/${EM_MODULE}"
-    rm -rf "${SRC}/modules/${EM_MODULE}/automated_tests"
-    if ! docker cp "${REDCAP_CONTAINER}:/var/www/html/modules/${EM_MODULE}/automated_tests" \
-            "${SRC}/modules/${EM_MODULE}/automated_tests"; then
-        echo "[runner] ERROR: module ${EM_MODULE} has no automated_tests in ${REDCAP_CONTAINER}." >&2
-        echo "[runner] Is the module present at /var/www/html/modules/${EM_MODULE}?" >&2
+    echo "[runner] fetching module ${EM_MODULE} from ${REDCAP_CONTAINER}..."
+    mkdir -p "${SRC}/modules"
+    rm -rf "${SRC}/modules/${EM_MODULE}"
+    if ! docker cp "${REDCAP_CONTAINER}:/var/www/html/modules/${EM_MODULE}" \
+            "${SRC}/modules/${EM_MODULE}"; then
+        echo "[runner] ERROR: module ${EM_MODULE} not found in ${REDCAP_CONTAINER}." >&2
+        echo "[runner] Is it installed at /var/www/html/modules/${EM_MODULE}?" >&2
+        exit 1
+    fi
+    if [ ! -d "${SRC}/modules/${EM_MODULE}/automated_tests" ]; then
+        echo "[runner] ERROR: module ${EM_MODULE} has no automated_tests/." >&2
         exit 1
     fi
 
-    # An EM may ship its OWN step definitions. The preprocessor already globs them
-    # (package.json: ../redcap_source/modules/*/automated_tests/step_definitions/*.js),
-    # but that path is OUTSIDE the project tree, so esbuild can't resolve their
-    # `require('@badeball/cypress-cucumber-preprocessor')` — Node walks up from the
-    # file's dir and never reaches /work/redcap_cypress/node_modules, so the spec
-    # fails to bundle. Move them into the in-tree shared step-def dir (also globbed)
-    # under a module-prefixed name so the require resolves AND the baked shared steps
-    # aren't clobbered; drop the out-of-tree originals so their now-duplicate,
-    # unresolvable copies aren't bundled. (Step defs that `require` a sibling file by
-    # relative path aren't supported — the current EMs only import the preprocessor.)
-    STEPDIR="${SRC}/modules/${EM_MODULE}/automated_tests/step_definitions"
-    if ls "${STEPDIR}"/*.js >/dev/null 2>&1; then
-        echo "[runner] staging ${EM_MODULE} custom step definitions into cypress/support/step_definitions/..."
-        for f in "${STEPDIR}"/*.js; do
-            cp "$f" "cypress/support/step_definitions/_em_${EM_MODULE}__$(basename "$f")"
-        done
-        rm -f "${STEPDIR}"/*.js
-    fi
+    # The module's step definitions stay at their real path (the preprocessor globs
+    # ../redcap_source/modules/*/automated_tests/step_definitions/*.js). But that path
+    # is outside the project tree, so their require('@badeball/cypress-cucumber-
+    # preprocessor') — and any other dep — can't resolve: Node/esbuild walks up from
+    # the file's dir and never reaches /work/redcap_cypress/node_modules. Symlink the
+    # project's node_modules up onto redcap_source so resolution succeeds in place,
+    # without moving or rewriting the step defs.
+    [ -e "${SRC}/node_modules" ] || ln -s /work/redcap_cypress/node_modules "${SRC}/node_modules"
 fi
 
 # rctf writes runtime scratch files here (latest_url.info, snapshots, generated
