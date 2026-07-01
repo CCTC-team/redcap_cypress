@@ -58,3 +58,8 @@ http-server.log
 run-logs/
 
 .verify_tmp/
+
+# cypress_runner/ image: local run output + host-specific env (keep the tree,
+# Dockerfile, compose, README, entrypoint, and flaky-tests.md tracked).
+cypress_runner/results/
+cypress_runner/.env
