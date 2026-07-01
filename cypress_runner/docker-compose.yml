@@ -1,0 +1,39 @@
+# Cypress runner (Image B) — runs the suite on demand against the already-running
+# all-in-one REDCap container (CCTC_REDCap_Docker).
+#
+#   # 1. Build (needs SSH forwarding to clone the private rctf/redcap_rsvc deps):
+#   docker compose build --ssh default
+#   # 2. With REDCap up (../../aio: docker compose up -d), run the suite:
+#   docker compose run --rm cypress                       # whole suite
+#   docker compose run --rm cypress --spec "redcap_rsvc/Feature Tests/.../X.feature"
+#
+# network_mode: host  -> baseUrl https://localhost:8443 reaches REDCap exactly as
+#                        its stored base_url, like CI does.
+# docker socket mount -> docker_bin/mysql + cypress.config.js tasks run
+#                        `docker exec`/`docker cp` against CCTC_REDCap_Docker.
+# DOCKER_SOCK defaults to Docker Desktop's path; override in .env if different.
+services:
+  cypress:
+    container_name: cctc-cypress-runner
+    # Local build names the image cctc/redcap-cypress:<tag>. To run a PREBUILT
+    # image from GHCR instead, set CYPRESS_IMAGE=ghcr.io/cctc-team/redcap_cypress/cypress-runner-aio:15.10.0
+    # in .env, then `docker compose pull && docker compose run --rm cypress ...`
+    # (pulls the self-contained image — no rebuild, no SSH needed).
+    image: ${CYPRESS_IMAGE:-cctc/redcap-cypress:${CYPRESS_TAG:-15.10.0}}
+    pull_policy: missing
+    build:
+      context: ..
+      dockerfile: cypress_runner/Dockerfile
+      ssh:
+        - default
+    network_mode: host
+    shm_size: 2gb
+    environment:
+      - CYPRESS_baseUrl=${CYPRESS_BASE_URL:-https://localhost:8443}
+      - CYPRESS_MYSQL_CONTAINER=${REDCAP_CONTAINER:-CCTC_REDCap_Docker}
+      - CYPRESS_REDCAP_CONTAINER=${REDCAP_CONTAINER:-CCTC_REDCap_Docker}
+      - RUNNER_BROWSER=${RUNNER_BROWSER:-chromium}
+    volumes:
+      - ${DOCKER_SOCK:-${HOME}/.docker/run/docker.sock}:/var/run/docker.sock
+      - ./results:/work/redcap_cypress/cypress/results
+    restart: "no"

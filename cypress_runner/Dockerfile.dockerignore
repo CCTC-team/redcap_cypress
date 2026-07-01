@@ -1,0 +1,28 @@
+# Image B build context = the redcap_cypress/ suite itself. Everything is baked
+# by `COPY . /work/redcap_cypress` except the heavy/host-specific bits trimmed
+# below. (BuildKit prefers this named ignore over any root .dockerignore.)
+
+# redcap_rsvc is recreated inside the image by `npm run redcap_rsvc:move_files`
+# (moved out of node_modules); the host working copy must not shadow it.
+redcap_rsvc
+
+# Host node_modules has macOS-native binaries (esbuild/cypress) -> npm ci rebuilds.
+node_modules
+.git
+
+# Test/run artifacts and host-specific output — never needed in the image.
+cypress/videos
+cypress/screenshots
+cypress/results
+results
+run-logs
+feature_tests_output
+.verify_tmp
+test_db
+
+# The runner folder's own results/output + local env (copied under cypress_runner/
+# but unused at runtime; keep the heavy/secret bits out).
+cypress_runner/results
+cypress_runner/.env
+
+**/.DS_Store

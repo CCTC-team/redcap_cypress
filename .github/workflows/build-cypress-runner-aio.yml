@@ -1,0 +1,97 @@
+name: Build and Push Cypress Runner (AIO)
+
+# Publishes the SELF-CONTAINED Cypress runner image (cypress_runner/) with the
+# redcap_rsvc specs + rctf + node_modules BAKED IN. cypress-tests.yml runs the
+# suite by spawning this image against the all-in-one REDCap container — no host
+# npm ci, no workspace bind-mount. Distinct from build-cypress-runner.yml, which
+# builds the OLD bind-mount runner (docker_bin/cypress-runner) — that one will be
+# retired once this pipeline is proven.
+#
+# The build's `npm ci` clones the private github: deps (rctf/redcap_rsvc). Locally
+# that goes over forwarded SSH; in CI we pass CCTC_TEAM_PAT as a BuildKit secret and
+# the Dockerfile routes the clone through https+token (never baked into a layer).
+#
+# amd64 only: the CI test job runs on ubuntu (amd64). arm64 (local Apple Silicon)
+# is published via CCTC_REDCap_Docker/scripts/build-and-push-ghcr.sh (multi-arch).
+# Image: ghcr.io/cctc-team/redcap_cypress/cypress-runner-aio:<tag> (+ latest, + sha).
+
+on:
+  push:
+    branches:
+      - redcap_val
+    paths:
+      - 'cypress_runner/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'cypress.config.js.example'
+      - 'scripts/**'
+      - '.github/workflows/build-cypress-runner-aio.yml'
+  workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}/cypress-runner-aio
+  # Keep in lockstep with the cypress/included base tag in cypress_runner/Dockerfile.
+  RUNNER_TAG: "15.10.0"
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata (tags, labels)
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=raw,value=${{ env.RUNNER_TAG }}
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=sha,prefix=,format=short
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: cypress_runner/Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          # Private github: deps (rctf/redcap_rsvc) are cloned by npm ci over
+          # https+token; the Dockerfile mounts this secret and never persists it.
+          secrets: |
+            gh_pat=${{ secrets.CCTC_TEAM_PAT }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          platforms: linux/amd64
+          provenance: false
+
+      - name: Image digest
+        run: echo "Image pushed with digest ${{ steps.meta.outputs.digest }}"
+
+      - name: Prune old image versions
+        uses: actions/delete-package-versions@v5
+        with:
+          package-name: 'redcap_cypress/cypress-runner-aio'
+          package-type: 'container'
+          min-versions-to-keep: 2
+          token: ${{ secrets.CCTC_TEAM_PAT }}
