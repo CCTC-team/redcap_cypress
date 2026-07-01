@@ -24,7 +24,13 @@ function renameReports() {
     if (!renamed || renamed === f) continue
     const src = path.join(REPORT_DIR, f)
     const dst = path.join(REPORT_DIR, renamed)
-    if (fs.existsSync(dst)) continue
+    // If a trimmed report for this spec already exists (a stale file from a prior
+    // retry attempt that pre-run cleanup didn't remove), the freshly written
+    // `src` is the newer result and must win. Skipping would leave BOTH on disk,
+    // so the feature appears twice in the merged HTML — the older partial attempt
+    // (failing scenario shown as pending/stripped, reads as "passed") alongside
+    // the real failure. Replace rather than skip.
+    if (fs.existsSync(dst)) fs.rmSync(dst, { force: true })
     fs.renameSync(src, dst)
   }
 }
@@ -50,17 +56,67 @@ function reportStemsForSpec(specRel) {
 
 function removeReportsForSpecs(specs) {
   if (!fs.existsSync(REPORT_DIR) || !specs || !specs.length) return
-  const targets = new Set()
+  // Match by report CONTENT (the spec path baked into each JSON), not by
+  // filename. mochawesome's `overwrite:false` counter plus renameReports() make
+  // the on-disk name an unreliable key: a stem mismatch leaves the prior
+  // attempt's report behind, it survives into the merge, and the feature shows
+  // up twice in the HTML. `results[0].fullFile` is the exact spec path, immune
+  // to renaming — so we delete every fragment whose spec is being retried.
+  const wantBasenames = new Set(specs.map(s => path.basename(s)))
+  const stemTargets = new Set()
   for (const s of specs) {
-    for (const stem of reportStemsForSpec(s)) targets.add(stem)
+    for (const stem of reportStemsForSpec(s)) stemTargets.add(stem)
   }
   for (const f of fs.readdirSync(REPORT_DIR)) {
     if (!f.endsWith('.json')) continue
-    // Strip `.json` and any `_NNN` overwrite counter to get the bare stem.
-    const stem = f.replace(/\.json$/, '').replace(/_\d+$/, '')
-    if (targets.has(stem)) {
-      fs.rmSync(path.join(REPORT_DIR, f), { force: true })
+    const full = path.join(REPORT_DIR, f)
+    let matched = false
+    try {
+      const report = JSON.parse(fs.readFileSync(full, 'utf8'))
+      const fullFile = report.results && report.results[0] && report.results[0].fullFile
+      if (fullFile && wantBasenames.has(path.basename(fullFile))) matched = true
+    } catch {
+      // Unparseable (e.g. concatenated objects from overwrite:false) — fall
+      // through to the filename-stem match so we still clean it up.
     }
+    if (!matched) {
+      // Strip `.json` and any `_NNN` overwrite counter to get the bare stem.
+      const stem = f.replace(/\.json$/, '').replace(/_\d+$/, '')
+      if (stemTargets.has(stem)) matched = true
+    }
+    if (matched) fs.rmSync(full, { force: true })
+  }
+}
+
+// Defense-in-depth after all attempts: guarantee at most one report per spec.
+// If a retry's pre-run cleanup ever misses a stale fragment, mochawesome-merge
+// concatenates both attempts and the feature appears twice in the HTML — the
+// earlier partial attempt (failing scenario stripped to pending, reads as
+// "passed") next to the real failure. Keep only the newest (final-attempt)
+// report per spec so the merged report reflects the last attempt's true outcome.
+function dedupeReportsByFullFile() {
+  if (!fs.existsSync(REPORT_DIR)) return
+  const byFullFile = new Map() // fullFile -> [{ file, mtime }]
+  for (const f of fs.readdirSync(REPORT_DIR)) {
+    if (!f.endsWith('.json')) continue
+    const full = path.join(REPORT_DIR, f)
+    let fullFile
+    try {
+      const report = JSON.parse(fs.readFileSync(full, 'utf8'))
+      fullFile = report.results && report.results[0] && report.results[0].fullFile
+    } catch {
+      continue // leave unparseable files for the merge step to surface
+    }
+    if (!fullFile) continue
+    if (!byFullFile.has(fullFile)) byFullFile.set(fullFile, [])
+    byFullFile.get(fullFile).push({ file: full, mtime: fs.statSync(full).mtimeMs })
+  }
+  for (const [fullFile, entries] of byFullFile) {
+    if (entries.length < 2) continue
+    entries.sort((a, b) => b.mtime - a.mtime) // newest (final attempt) first
+    const [keep, ...stale] = entries
+    console.warn(`Deduping ${entries.length} report fragments for ${fullFile}: keeping newest ${path.basename(keep.file)}, removing ${stale.length} stale.`)
+    for (const s of stale) fs.rmSync(s.file, { force: true })
   }
 }
 
@@ -318,6 +374,12 @@ async function main() {
     failed.forEach(s => console.log('  -', s))
     failed = await runSpecs(failed, attempt)
   }
+
+  // Collapse any duplicate per-spec reports so the merged HTML shows exactly one
+  // result per feature file — the final attempt. Without this a spec that failed
+  // every attempt can appear multiple times, its partial passing runs reading as
+  // green alongside the real failure.
+  dedupeReportsByFullFile()
 
   if (failed === null) {
     console.error('Cypress runner errored — exiting non-zero')
