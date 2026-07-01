@@ -16,7 +16,7 @@ services:
   cypress:
     container_name: cctc-cypress-runner
     # Local build names the image cctc/redcap-cypress:<tag>. To run a PREBUILT
-    # image from GHCR instead, set CYPRESS_IMAGE=ghcr.io/cctc-team/redcap-cypress:15.10.0
+    # image from GHCR instead, set CYPRESS_IMAGE=ghcr.io/cctc-team/redcap_cypress/cypress-runner-aio:15.10.0
     # in .env, then `docker compose pull && docker compose run --rm cypress ...`
     # (pulls the self-contained image — no rebuild, no SSH needed).
     image: ${CYPRESS_IMAGE:-cctc/redcap-cypress:${CYPRESS_TAG:-15.10.0}}

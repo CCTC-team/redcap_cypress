@@ -39,6 +39,15 @@ WORKDIR /work/redcap_cypress
 # /work/redcap_cypress/cypress_runner — harmless (unused at runtime).
 COPY . /work/redcap_cypress
 
+# cypress.config.js and cypress.env.json are gitignored (generated locally from
+# the .example templates). A CI build from a fresh checkout won't have them, so
+# create them from the templates when absent — makes the image self-contained.
+# DB/REDCap container names come from env at runtime (CYPRESS_MYSQL_CONTAINER /
+# CYPRESS_REDCAP_CONTAINER), so the templates' redcap-db/redcap-app defaults are
+# overridden regardless.
+RUN [ -f cypress.config.js ] || cp cypress.config.js.example cypress.config.js; \
+    [ -f cypress.env.json ]  || cp cypress.env.json.example  cypress.env.json
+
 # The DB/file tasks hardcode the 'redcap-app' container name. Make it overridable
 # so this image can target the all-in-one container (CCTC_REDCap_Docker) without
 # editing the source repo; default is unchanged so CI keeps working.
@@ -50,11 +59,22 @@ RUN sed -i "s/const container = 'redcap-app'/const container = process.env.CYPRE
 # rctf:get_step_features is NOT run -- it's only for rctf's own self-tests).
 # Use `npm ci` (never redcap_rsvc:install/clean, which deletes package-lock.json
 # and triggers the esbuild crash).
-RUN --mount=type=ssh \
-    mkdir -p -m 0700 /root/.ssh \
- && ssh-keyscan -t ed25519,rsa github.com >> /root/.ssh/known_hosts 2>/dev/null \
- && npm ci \
- && npm run redcap_rsvc:move_files
+RUN --mount=type=ssh --mount=type=secret,id=gh_pat \
+    set -eu; \
+    mkdir -p -m 0700 /root/.ssh; \
+    ssh-keyscan -t ed25519,rsa github.com >> /root/.ssh/known_hosts 2>/dev/null; \
+    # CI path: if a GitHub token secret is mounted, route the private `github:`
+    # git deps (rctf/redcap_rsvc, which npm resolves to git+ssh) through HTTPS +
+    # token. Local builds mount no secret and keep using the forwarded ssh-agent
+    # (`docker compose build --ssh default`).
+    if [ -s /run/secrets/gh_pat ]; then \
+      tok="$(cat /run/secrets/gh_pat)"; \
+      git config --global url."https://x-access-token:${tok}@github.com/".insteadOf "ssh://git@github.com/"; \
+      git config --global url."https://x-access-token:${tok}@github.com/".insteadOf "git@github.com:"; \
+    fi; \
+    npm ci; \
+    npm run redcap_rsvc:move_files; \
+    rm -f /root/.gitconfig   # never bake the token into the image layer
 
 # Defaults: target the all-in-one REDCap container + its HTTPS base URL.
 ENV CYPRESS_baseUrl=https://localhost:8443 \

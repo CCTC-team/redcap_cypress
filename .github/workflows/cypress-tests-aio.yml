@@ -1,0 +1,197 @@
+name: REDCap Cypress Tests (AIO)
+
+# NEW pipeline (two-image stack): runs the suite against the all-in-one REDCap
+# image (redcap-aio) using the self-contained cypress-runner-aio image. Each shard
+# is an independent VM that boots its OWN AIO container and runs its baked spec
+# slice with retries — no host npm ci, no workspace bind-mount, no 3-container
+# compose. Replaces the old cypress-tests.yml (redcap_docker + bind-mount runner).
+#
+# workflow_dispatch-ONLY for now: prove this green manually first, THEN flip to
+# `push: branches: [redcap_val]` and pause the old cypress-tests.yml (which
+# currently owns that push trigger) so the two don't double-run.
+#
+# Images (published by build-redcap-aio.yml + build-cypress-runner-aio.yml):
+#   ghcr.io/cctc-team/cctc_redcap_docker/redcap-aio:latest
+#   ghcr.io/cctc-team/redcap_cypress/cypress-runner-aio:latest
+# They must be built for the SAME REDCap version (the runner docker-cp's that
+# version's SQL out of the AIO container at runtime).
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: cypress-aio-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  REGISTRY: ghcr.io
+  SHARD_TOTAL: "4"
+  REDCAP_CONTAINER: CCTC_REDCap_Docker
+  AIO_IMAGE: ghcr.io/cctc-team/cctc_redcap_docker/redcap-aio:latest
+  RUNNER_IMAGE: ghcr.io/cctc-team/redcap_cypress/cypress-runner-aio:latest
+
+jobs:
+  cypress-tests:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 350
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3, 4]
+    permissions:
+      contents: read
+      packages: read
+    env:
+      SHARD_INDEX: ${{ matrix.shard }}
+
+    steps:
+      - name: Log in to GitHub Container Registry
+        run: echo "${{ secrets.CCTC_TEAM_PAT }}" | docker login "${REGISTRY}" -u ${{ github.actor }} --password-stdin
+
+      - name: Pull stack images
+        run: |
+          docker pull "${AIO_IMAGE}"
+          docker pull "${RUNNER_IMAGE}"
+
+      - name: Start all-in-one REDCap
+        run: |
+          # The AIO image is self-contained (REDCap + MariaDB + MailHog via
+          # supervisord); ENV REDCAP_VERSION is baked and every other setting
+          # defaults, so no env/compose is needed. Publish only what the runner
+          # reaches over host networking (HTTPS + MailHog UI); DB/file access is
+          # via docker exec, not a port.
+          docker run -d --name "${REDCAP_CONTAINER}" \
+            -p 8443:8443 -p 8025:8025 \
+            -v cctc_mariadb_data:/var/lib/mysql \
+            "${AIO_IMAGE}"
+
+      - name: Wait for REDCap
+        run: |
+          echo "Waiting for REDCap (first boot initialises the DB)..."
+          timeout 360 bash -c 'until curl -k -s -f https://localhost:8443 > /dev/null 2>&1; do sleep 3; done'
+          echo "REDCap is up."
+          docker ps
+
+      - name: Run Cypress shard ${{ matrix.shard }}/${{ env.SHARD_TOTAL }}
+        run: |
+          mkdir -p results
+          # The runner is self-contained: it enumerates this shard's baked spec
+          # slice (SHARD_INDEX/SHARD_TOTAL) and runs it with retries, reaching the
+          # AIO container's DB/files via the mounted docker socket and the UI over
+          # host networking. Reports land in the bind-mounted results/ dir. A
+          # non-zero exit (a failing spec) fails this shard but not the others.
+          docker run --rm \
+            --network host \
+            --shm-size=2g \
+            -v /var/run/docker.sock:/var/run/docker.sock \
+            -v "${PWD}/results:/work/redcap_cypress/cypress/results" \
+            -e SHARD_INDEX="${SHARD_INDEX}" \
+            -e SHARD_TOTAL="${SHARD_TOTAL}" \
+            -e CYPRESS_MYSQL_CONTAINER="${REDCAP_CONTAINER}" \
+            -e CYPRESS_REDCAP_CONTAINER="${REDCAP_CONTAINER}" \
+            -e CYPRESS_baseUrl="https://localhost:8443" \
+            -e RUNNER_BROWSER=chromium \
+            -e CYPRESS_MAX_ATTEMPTS=3 \
+            -e CYPRESS_prettyEnabled=true \
+            "${RUNNER_IMAGE}"
+
+      - name: Reclaim results ownership
+        if: always()
+        run: |
+          # The runner writes results as root; reclaim so upload-artifact can read.
+          sudo chown -R "$(id -u):$(id -g)" results 2>/dev/null || true
+
+      - name: Upload shard mochawesome results
+        uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: cypress-aio-shard-${{ matrix.shard }}-results
+          path: |
+            results/json/*.json
+            results/html/**
+          retention-days: 7
+          if-no-files-found: warn
+
+      - name: Upload Cypress screenshots
+        uses: actions/upload-artifact@v7
+        if: failure()
+        with:
+          name: cypress-aio-shard-${{ matrix.shard }}-screenshots
+          path: results/../screenshots/
+          retention-days: 7
+          if-no-files-found: ignore
+
+      - name: Cleanup
+        if: always()
+        run: |
+          docker rm -f "${REDCAP_CONTAINER}" 2>/dev/null || true
+          docker volume rm cctc_mariadb_data 2>/dev/null || true
+
+  # Merge every shard's mochawesome JSON into ONE combined HTML report and publish
+  # to GitHub Pages (same as the old pipeline). Shards run disjoint spec sets, so
+  # concatenating their per-spec JSON yields the full suite.
+  publish-report:
+    needs: cypress-tests
+    if: always()
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    # One Pages site per repo — serialise with any other Pages deploy (incl. the
+    # old workflow) so overlapping runs don't clobber mid-deploy.
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v6
+        with:
+          enablement: true
+
+      - name: Download every shard's results
+        uses: actions/download-artifact@v8
+        with:
+          pattern: 'cypress-aio-shard-*-results'
+          merge-multiple: true
+          path: collected
+
+      - name: Merge shards into one combined HTML report
+        run: |
+          shopt -s nullglob
+          mkdir -p site
+          # Skip any unparseable JSON (e.g. a spec killed mid-write) so one bad
+          # file can't fail the whole combined report.
+          for f in collected/json/*.json; do
+            node -e "JSON.parse(require('fs').readFileSync(process.argv[1],'utf8'))" "$f" 2>/dev/null \
+              || { echo "::warning::Skipping unparseable mochawesome JSON: $f"; rm -f "$f"; }
+          done
+          jsons=(collected/json/*.json)
+          if [ ${#jsons[@]} -eq 0 ]; then
+            echo "::warning::No valid mochawesome JSON across shards — publishing a placeholder."
+            printf '<!doctype html><title>No results</title><h1>No test results were produced this run.</h1>' > site/index.html
+          else
+            echo "Merging ${#jsons[@]} per-spec JSON file(s)..."
+            npx --yes mochawesome-merge@5.1.1 collected/json/*.json -o collected/combined.json
+            npx --yes mochawesome-report-generator@6.3.2 collected/combined.json \
+              --reportDir site --reportFilename index --inline \
+              --reportTitle "REDCap Cypress (AIO) — combined report" \
+              --reportPageTitle "REDCap Cypress (AIO) results"
+          fi
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5

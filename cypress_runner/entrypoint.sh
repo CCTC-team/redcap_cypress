@@ -5,6 +5,8 @@ set -e
 
 BASE_URL="${CYPRESS_baseUrl:-https://localhost:8443}"
 BROWSER="${RUNNER_BROWSER:-chromium}"
+# rerun-failed.js (test:retry-failed) reads the browser from CYPRESS_BROWSER.
+export CYPRESS_BROWSER="${BROWSER}"
 
 echo "[runner] target REDCap: ${BASE_URL}"
 echo "[runner] DB/file container: ${CYPRESS_MYSQL_CONTAINER:-redcap-db}"
@@ -52,8 +54,25 @@ echo "[runner] REDCap is up. Running Cypress (browser=${BROWSER})..."
 # Clean prior report, run the suite (non-fatal so we always emit a report).
 npm run report:clean >/dev/null 2>&1 || true
 set +e
-cypress run --browser "${BROWSER}" "$@"
-RUN_EXIT=$?
+if [ -n "${SHARD_INDEX:-}" ] && [ -n "${SHARD_TOTAL:-}" ]; then
+    # CI sharded mode: the specs are baked in, so this shard enumerates its own
+    # slice (list-specs.js reads SHARD_INDEX/SHARD_TOTAL) and runs it through the
+    # retry harness (test:retry-failed = scripts/rerun-failed.js, max attempts via
+    # CYPRESS_MAX_ATTEMPTS). No host-prepared workspace needed.
+    echo "[runner] shard ${SHARD_INDEX}/${SHARD_TOTAL}: enumerating baked specs..."
+    node scripts/list-specs.js shard-specs.txt
+    echo "[runner] shard ${SHARD_INDEX}/${SHARD_TOTAL}: running (retries max ${CYPRESS_MAX_ATTEMPTS:-3})..."
+    npm run test:retry-failed -- --spec-file shard-specs.txt
+    RUN_EXIT=$?
+elif [ "$#" -gt 0 ]; then
+    # Explicit spec(s) passed through, e.g. --spec "redcap_rsvc/.../X.feature".
+    cypress run --browser "${BROWSER}" "$@"
+    RUN_EXIT=$?
+else
+    # Whole suite in one process.
+    cypress run --browser "${BROWSER}"
+    RUN_EXIT=$?
+fi
 set -e
 
 echo "[runner] generating report..."
