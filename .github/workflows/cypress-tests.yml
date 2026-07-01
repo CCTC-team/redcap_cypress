@@ -1,14 +1,17 @@
 name: REDCap Cypress Tests
 
+# PAUSED 2026-07-01: superseded by cypress-tests-aio.yml (the AIO two-image stack).
+# Auto-trigger disabled so it no longer runs on push; kept dispatchable for
+# rollback. Delete once the AIO pipeline is confirmed stable.
 on:
-  push:
-    branches:
-      - redcap_val
-    paths-ignore:
-      - '**/*.md'
-      - 'LICENSE'
-      - '.gitignore'
-      - 'docs/**'
+  # push:
+  #   branches:
+  #     - redcap_val
+  #   paths-ignore:
+  #     - '**/*.md'
+  #     - 'LICENSE'
+  #     - '.gitignore'
+  #     - 'docs/**'
   workflow_dispatch:
 
 # Cancel an in-progress run (all 4 shards) when a newer commit is pushed to the

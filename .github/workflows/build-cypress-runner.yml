@@ -9,13 +9,17 @@ name: Build and Push Cypress Runner Image
 # Multi-arch: linux/amd64 (GitHub CI) + linux/arm64 (local Apple Silicon).
 # Image: ghcr.io/cctc-team/redcap_cypress/cypress-runner:15.10.0 (+ latest).
 
+# PAUSED 2026-07-01: superseded by build-cypress-runner-aio.yml (the self-contained
+# runner image). Auto-trigger disabled; kept dispatchable for rollback. The old
+# cypress-runner image remains in GHCR for local docker_bin/cypress-runner use.
+# Delete once the AIO pipeline is confirmed stable.
 on:
-  push:
-    branches:
-      - redcap_val
-    paths:
-      - 'docker_bin/cypress-runner/Dockerfile'
-      - '.github/workflows/build-cypress-runner.yml'
+  # push:
+  #   branches:
+  #     - redcap_val
+  #   paths:
+  #     - 'docker_bin/cypress-runner/Dockerfile'
+  #     - '.github/workflows/build-cypress-runner.yml'
   workflow_dispatch:
 
 env:

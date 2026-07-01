@@ -6,9 +6,8 @@ name: REDCap Cypress Tests (AIO)
 # slice with retries — no host npm ci, no workspace bind-mount, no 3-container
 # compose. Replaces the old cypress-tests.yml (redcap_docker + bind-mount runner).
 #
-# workflow_dispatch-ONLY for now: prove this green manually first, THEN flip to
-# `push: branches: [redcap_val]` and pause the old cypress-tests.yml (which
-# currently owns that push trigger) so the two don't double-run.
+# Runs on push to redcap_val (and manual dispatch). Replaces the old
+# cypress-tests.yml, whose auto-trigger is now paused so the two don't double-run.
 #
 # Images (published by build-redcap-aio.yml + build-cypress-runner-aio.yml):
 #   ghcr.io/cctc-team/cctc_redcap_docker/redcap-aio:latest
@@ -17,6 +16,14 @@ name: REDCap Cypress Tests (AIO)
 # version's SQL out of the AIO container at runtime).
 
 on:
+  push:
+    branches:
+      - redcap_val
+    paths-ignore:
+      - '**/*.md'
+      - 'LICENSE'
+      - '.gitignore'
+      - 'docs/**'
   workflow_dispatch:
 
 concurrency:
