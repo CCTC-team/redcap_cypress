@@ -11,16 +11,20 @@
 #
 # Two modes:
 #   * SEQUENTIAL (default): shards run one at a time against your already-running
-#     primary stack (redcap-app). Simple and light; the retry wrapper + correct
-#     per-shard spec set is what reproduces pass/fail. Parallelism is only CI's
-#     speed trick, so single-shard mode targets one shard fast.
+#     all-in-one REDCap container (CCTC_REDCap_Docker). Simple and light; the
+#     retry wrapper + correct per-shard spec set is what reproduces pass/fail.
+#     Parallelism is only CI's speed trick, so single-shard mode targets one
+#     shard fast. Override REDCAP_CONTAINER / MYSQL_CONTAINER to target another
+#     stack (e.g. the legacy two-image redcap-app / redcap-db).
 #   * PARALLEL=1: reproduces CI's fan-out — each shard gets its OWN isolated
 #     REDCap stack (cctc-shard-<k> on offset ports, via redcap_docker/
 #     shard-stack.sh) and its own runner, all at once. shard-runner-env.sh points
 #     each runner at its stack (baseUrl + CYPRESS_MYSQL_CONTAINER), and each
 #     shard's cypress/results is overlaid with a private dir so the shards don't
 #     race in the shared bind mount. Stacks are torn down on exit. This NEVER
-#     touches your primary stack. Heavier (N MariaDB + N Apache at once).
+#     touches your primary stack. Heavier (N MariaDB + N Apache at once). Per-shard
+#     isolation needs multiple containers, so PARALLEL still uses the two-image
+#     shard stacks regardless of REDCAP_CONTAINER (which only affects SEQUENTIAL).
 #
 # Differences from CI (unavoidable locally, and why they don't hurt repro):
 #   * Browser is chromium (the container ships it) vs CI's chrome — same Blink +
@@ -47,6 +51,14 @@ CYPRESS_DIR="$(cd "$HERE/../.." && pwd)"   # .../CCTC_REDCap_Docker/redcap_cypre
 CCTC_DIR="$(cd "$CYPRESS_DIR/.." && pwd)"  # .../CCTC_REDCap_Docker
 SOCK="$(docker context inspect --format '{{.Endpoints.docker.Host}}' | sed 's#unix://##')"
 
+# SEQUENTIAL mode targets a single shared container. The all-in-one image runs
+# REDCap + MariaDB together, so the HTTP app and the DB/file docker-exec target
+# are the same container. Override both for a multi-container stack
+# (e.g. REDCAP_CONTAINER=redcap-app MYSQL_CONTAINER=redcap-db). PARALLEL mode
+# ignores these — it manages its own per-shard two-image stacks.
+REDCAP_CONTAINER="${REDCAP_CONTAINER:-CCTC_REDCap_Docker}"
+MYSQL_CONTAINER="${MYSQL_CONTAINER:-$REDCAP_CONTAINER}"
+
 SHARD_TOTAL="${SHARD_TOTAL:-4}"
 PARALLEL="${PARALLEL:-0}"
 SHARDS="${*:-}"                     # e.g. "3" or "2 4"; empty => all 1..SHARD_TOTAL
@@ -71,9 +83,9 @@ ensure_deps() {
 }
 
 run_sequential() {
-  if ! docker ps --format '{{.Names}}' | grep -q '^redcap-app$'; then
-    echo "ERROR: redcap-app is not running. Start the stack first:" >&2
-    echo "  (cd $CCTC_DIR/redcap_docker && docker compose up -d)" >&2
+  if ! docker ps --format '{{.Names}}' | grep -q "^${REDCAP_CONTAINER}$"; then
+    echo "ERROR: $REDCAP_CONTAINER is not running. Start the AIO stack first:" >&2
+    echo "  (cd $CCTC_DIR/redcap_docker_aio && docker compose up -d)" >&2
     echo "  (or use PARALLEL=1 to spin up isolated per-shard stacks)" >&2
     exit 1
   fi
@@ -90,6 +102,8 @@ run_sequential() {
     -e INCLUDE_MODULES="${INCLUDE_MODULES:-0}" \
     -e SHARDS="$SHARDS" \
     -e SHARD_TOTAL="$SHARD_TOTAL" \
+    -e CYPRESS_REDCAP_CONTAINER="$REDCAP_CONTAINER" \
+    -e CYPRESS_MYSQL_CONTAINER="$MYSQL_CONTAINER" \
     -e CYPRESS_BROWSER=chromium \
     -e CYPRESS_MAX_ATTEMPTS=3 \
     -e CYPRESS_DISABLE_RECORDING=1 \
