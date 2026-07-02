@@ -32,7 +32,7 @@ concurrency:
 
 env:
   REGISTRY: ghcr.io
-  SHARD_TOTAL: "4"
+  SHARD_TOTAL: "8"
   REDCAP_CONTAINER: CCTC_REDCap_Docker
   AIO_IMAGE: ghcr.io/cctc-team/cctc_redcap_docker/redcap-aio:latest
   RUNNER_IMAGE: ghcr.io/cctc-team/redcap_cypress/cypress-runner-aio:latest
@@ -44,7 +44,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        shard: [1, 2, 3, 4]
+        shard: [1, 2, 3, 4, 5, 6, 7, 8]
     permissions:
       contents: read
       packages: read
