@@ -115,6 +115,9 @@ jobs:
         if: always()
         with:
           name: cypress-aio-shard-${{ matrix.shard }}-results
+          # Replace this shard's artifact on "Re-run failed jobs" (same run ID) so
+          # publish-report merges the fresh rerun JSON, not the stale failing one.
+          overwrite: true
           path: |
             results/json/*.json
             results/html/**

@@ -268,6 +268,9 @@ jobs:
         if: always()
         with:
           name: CCTC_rsvc_v${{ env.REDCAP_VERSION }}-shard-${{ matrix.shard }}-cypress-results
+          # Replace this shard's artifact on "Re-run failed jobs" (same run ID) so
+          # the combined report merges the fresh rerun JSON, not the stale failing one.
+          overwrite: true
           path: |
             cypress/results/json/*.json
             cypress/results/CCTC_rsvc_v${{ env.REDCAP_VERSION }}-test-report.json
