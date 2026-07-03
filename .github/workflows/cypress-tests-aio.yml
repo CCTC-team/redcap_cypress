@@ -6,14 +6,29 @@ name: REDCap Cypress Tests (AIO)
 # slice with retries — no host npm ci, no workspace bind-mount, no 3-container
 # compose. Replaces the old cypress-tests.yml (redcap_docker + bind-mount runner).
 #
-# Runs on push to redcap_val (and manual dispatch). Replaces the old
-# cypress-tests.yml, whose auto-trigger is now paused so the two don't double-run.
+# Runs on push to redcap_val (and manual dispatch).
 #
-# Images (published by build-redcap-aio.yml + build-cypress-runner-aio.yml):
-#   ghcr.io/cctc-team/cctc_redcap_docker/redcap-aio:latest
-#   ghcr.io/cctc-team/redcap_cypress/cypress-runner-aio:latest
-# They must be built for the SAME REDCap version (the runner docker-cp's that
-# version's SQL out of the AIO container at runtime).
+# Self-ordering build→test: the `build-runner` job builds and pushes the
+# cypress-runner-aio image from THIS commit, tagging it with the immutable
+# per-commit short SHA; the `cypress-tests` shards then `needs:` it and pull that
+# exact SHA tag (never :latest). This removes the old race where a separate build
+# workflow and this test workflow fired on the same push with no ordering, so the
+# test job's `docker pull :latest` raced ahead of the build's republish and tested
+# the STALE image — which is why a manual re-dispatch used to be needed.
+#
+# Re-run WITHOUT rebuilding: dispatch this workflow with the `runner_tag` input set
+# to an existing tag (e.g. `latest` or a 7-char commit SHA). The build-runner job
+# is then skipped and the shards test that image as-is — a fast retry of the suite
+# against an already-published runner. Leave `runner_tag` blank to build this commit.
+# (build-cypress-runner-aio.yml is retained for manual dispatch only — its push
+# trigger is disabled so it no longer double-builds against this workflow.)
+#
+# The REDCap side (redcap-aio) is built in CCTC_REDCap_Docker by build-redcap-aio.yml
+# and pulled here as :latest — it isn't rebuilt by this repo's pushes, so no race.
+#   ghcr.io/cctc-team/cctc_redcap_docker/redcap-aio:latest    (REDCap env)
+#   ghcr.io/cctc-team/redcap_cypress/cypress-runner-aio:<sha> (built below)
+# Both must target the SAME REDCap version (the runner docker-cp's that version's
+# SQL out of the AIO container at runtime).
 
 on:
   push:
@@ -25,6 +40,11 @@ on:
       - '.gitignore'
       - 'docs/**'
   workflow_dispatch:
+    inputs:
+      runner_tag:
+        description: 'Existing cypress-runner-aio tag to test against (e.g. "latest" or a 7-char SHA). Blank = build this commit first.'
+        required: false
+        default: ''
 
 concurrency:
   group: cypress-aio-${{ github.ref }}
@@ -35,10 +55,87 @@ env:
   SHARD_TOTAL: "8"
   REDCAP_CONTAINER: CCTC_REDCap_Docker
   AIO_IMAGE: ghcr.io/cctc-team/cctc_redcap_docker/redcap-aio:latest
-  RUNNER_IMAGE: ghcr.io/cctc-team/redcap_cypress/cypress-runner-aio:latest
+  # cypress-runner-aio image (lowercase — GHCR repo names must be lowercase).
+  IMAGE_NAME: cctc-team/redcap_cypress/cypress-runner-aio
+  # Keep in lockstep with the cypress/included base tag in cypress_runner/Dockerfile.
+  RUNNER_TAG: "15.10.0"
 
 jobs:
+  # Build + push the runner image from THIS commit, then hand its immutable
+  # per-commit SHA tag to the test shards via needs.outputs. Skipped when a manual
+  # dispatch pins an existing image via `runner_tag` (re-run with no rebuild).
+  build-runner:
+    if: ${{ github.event.inputs.runner_tag == '' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+      runner_image: ${{ steps.imageref.outputs.runner_image }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Compute immutable per-commit image ref
+        id: imageref
+        run: |
+          SHORT="${GITHUB_SHA::7}"
+          echo "short=${SHORT}" >> "$GITHUB_OUTPUT"
+          echo "runner_image=${REGISTRY}/${IMAGE_NAME}:${SHORT}" >> "$GITHUB_OUTPUT"
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata (tags, labels)
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=raw,value=${{ env.RUNNER_TAG }}
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=raw,value=${{ steps.imageref.outputs.short }}
+
+      - name: Build and push runner image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: cypress_runner/Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          # Private github: deps (rctf/redcap_rsvc) are cloned by npm ci over
+          # https+token; the Dockerfile mounts this secret and never persists it.
+          secrets: |
+            gh_pat=${{ secrets.CCTC_TEAM_PAT }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          platforms: linux/amd64
+          provenance: false
+
+      - name: Prune old image versions
+        uses: actions/delete-package-versions@v5
+        with:
+          package-name: 'redcap_cypress/cypress-runner-aio'
+          package-type: 'container'
+          min-versions-to-keep: 2
+          token: ${{ secrets.CCTC_TEAM_PAT }}
+
   cypress-tests:
+    needs: build-runner
+    # Run when the build succeeded (push / dispatch-without-tag) OR was skipped
+    # (dispatch pinning an existing image). Skip only if the build actually failed.
+    if: ${{ always() && needs.build-runner.result != 'failure' && needs.build-runner.result != 'cancelled' }}
     runs-on: ubuntu-24.04
     timeout-minutes: 350
     strategy:
@@ -52,6 +149,18 @@ jobs:
       SHARD_INDEX: ${{ matrix.shard }}
 
     steps:
+      - name: Resolve runner image
+        run: |
+          # A pinned tag from a manual dispatch => test it as-is (no rebuild).
+          # Otherwise use the immutable per-commit SHA image just built above.
+          if [ -n "${{ github.event.inputs.runner_tag }}" ]; then
+            RESOLVED="${REGISTRY}/${IMAGE_NAME}:${{ github.event.inputs.runner_tag }}"
+          else
+            RESOLVED="${{ needs.build-runner.outputs.runner_image }}"
+          fi
+          echo "RUNNER_IMAGE=${RESOLVED}" >> "$GITHUB_ENV"
+          echo "Runner image for this run: ${RESOLVED}"
+
       - name: Log in to GitHub Container Registry
         run: echo "${{ secrets.CCTC_TEAM_PAT }}" | docker login "${REGISTRY}" -u ${{ github.actor }} --password-stdin
 

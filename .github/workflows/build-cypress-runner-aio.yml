@@ -16,16 +16,11 @@ name: Build and Push Cypress Runner (AIO)
 # Image: ghcr.io/cctc-team/redcap_cypress/cypress-runner-aio:<tag> (+ latest, + sha).
 
 on:
-  push:
-    branches:
-      - redcap_val
-    paths:
-      - 'cypress_runner/**'
-      - 'package.json'
-      - 'package-lock.json'
-      - 'cypress.config.js.example'
-      - 'scripts/**'
-      - '.github/workflows/build-cypress-runner-aio.yml'
+  # Push trigger intentionally disabled. cypress-tests-aio.yml now builds the runner
+  # image inline (its build-runner job) on every push and tests that exact per-commit
+  # image, so building here on the same push would double-build and re-introduce the
+  # stale-:latest race. Retained for manual dispatch only — e.g. to republish
+  # :latest / :15.10.0 for local use without running the suite.
   workflow_dispatch:
 
 env:
