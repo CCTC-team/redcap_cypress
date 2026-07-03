@@ -173,26 +173,35 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           pattern: 'cypress-aio-shard-*-results'
-          merge-multiple: true
+          # Do NOT merge-multiple: the per-spec mochawesome JSON filenames are not
+          # shard-unique (reportFilename '[name]' collapses to a tiny namespace —
+          # A.json, A_001.json, ... — regenerated independently per shard), so
+          # flattening every shard into one dir makes identical basenames overwrite
+          # each other (last writer wins) and silently drops most shards from the
+          # combined report. Keeping each artifact in its own collected/<name>/
+          # subdir preserves all of them; the merge glob below spans the subdirs.
           path: collected
 
       - name: Merge shards into one combined HTML report
         run: |
-          shopt -s nullglob
+          shopt -s nullglob globstar
           mkdir -p site
+          # Each shard's results live in their own collected/<artifact-name>/json/
+          # subdir (download-artifact was NOT merge-multiple), so the same per-spec
+          # basename from different shards no longer collides.
           # Skip any unparseable JSON (e.g. a spec killed mid-write) so one bad
           # file can't fail the whole combined report.
-          for f in collected/json/*.json; do
+          for f in collected/*/json/*.json; do
             node -e "JSON.parse(require('fs').readFileSync(process.argv[1],'utf8'))" "$f" 2>/dev/null \
               || { echo "::warning::Skipping unparseable mochawesome JSON: $f"; rm -f "$f"; }
           done
-          jsons=(collected/json/*.json)
+          jsons=(collected/*/json/*.json)
           if [ ${#jsons[@]} -eq 0 ]; then
             echo "::warning::No valid mochawesome JSON across shards — publishing a placeholder."
             printf '<!doctype html><title>No results</title><h1>No test results were produced this run.</h1>' > site/index.html
           else
             echo "Merging ${#jsons[@]} per-spec JSON file(s)..."
-            npx --yes mochawesome-merge@5.1.1 collected/json/*.json -o collected/combined.json
+            npx --yes mochawesome-merge@5.1.1 collected/*/json/*.json -o collected/combined.json
             npx --yes mochawesome-report-generator@6.3.2 collected/combined.json \
               --reportDir site --reportFilename index --inline \
               --reportTitle "REDCap Cypress (AIO) — combined report" \
