@@ -1,6 +1,6 @@
 # CCTC REDCap Cypress Test Suite
 
-[![REDCap Cypress Tests](https://github.com/CCTC-team/redcap_cypress/actions/workflows/cypress-tests.yml/badge.svg)](https://github.com/CCTC-team/redcap_cypress/actions/workflows/cypress-tests.yml)
+[![REDCap Cypress Tests (AIO)](https://github.com/CCTC-team/redcap_cypress/actions/workflows/cypress-tests-aio.yml/badge.svg?branch=redcap_val)](https://github.com/CCTC-team/redcap_cypress/actions/workflows/cypress-tests-aio.yml)
 
 This repository is a fork of [Vanderbilt's REDCap Cypress repo](https://github.com/vanderbilt-redcap/redcap_cypress) modified to use [CCTC_REDCap_Docker](https://github.com/CCTC-team/CCTC_REDCap_Docker), which mirrors CCTC production settings.
 
@@ -241,63 +241,56 @@ npm run report:clean
 
 ## GitHub Actions / CI Workflow
 
-Tests run automatically via [.github/workflows/cypress-tests.yml](.github/workflows/cypress-tests.yml).
+Tests run automatically via [.github/workflows/cypress-tests-aio.yml](.github/workflows/cypress-tests-aio.yml) — the **AIO (all-in-one) two-image pipeline**. The green/red badge at the top of this README reflects the latest run of this workflow on `redcap_val`.
+
+Instead of building a 3-container `docker compose` stack and running `npm ci` on the host, each shard boots a single self-contained **redcap-aio** container (REDCap + MariaDB + MailHog via supervisord) and runs its baked spec slice inside a prebuilt **cypress-runner-aio** image (`rctf` + `redcap_rsvc` baked in). There is no host `npm ci` and no workspace bind-mount.
 
 ### Triggers
 
-- **Push** to the `redcap_val` branch
-- **Manual** via the Actions tab (`workflow_dispatch`)
+- **Push** to the `redcap_val` branch (Markdown, `LICENSE`, `.gitignore`, and `docs/**` changes are ignored)
+- **Manual** via the Actions tab (`workflow_dispatch`) — optionally pin `runner_tag` to re-test an existing runner image without rebuilding
 
 ### What the workflow does
 
-1. Checks out the commit that triggered the run (the `redcap_val` push).
-2. Reads `redcap_version`, `mysql.docker_container`, `mysql.host`, and `mysql.port` from `cypress.env.json.example` so they aren't hardcoded in the workflow.
-3. Clones [CCTC_REDCap_Docker](https://github.com/CCTC-team/CCTC_REDCap_Docker) at the `CCTC_DOCKER_REF` tag and pulls the matching REDCap source from [CCTC-team/redcap_source](https://github.com/CCTC-team/redcap_source) into `CCTC_REDCap_Docker/redcap_source/`.
-4. Builds the Docker image and starts the `app`, `db`, and `mailhog` services, then waits for MariaDB and HTTPS on `:8443` to come up.
-5. Generates `cypress.config.js` / `cypress.env.json` from the `.example` files, overriding `mysql.path` to `docker exec -i <container> mysql` and `mysql.port` to `3306` (in-container), and injecting `redcap_source_path` / `edocs_folder` for the runner workspace.
-6. Installs dependencies with `npm ci` against the committed `package-lock.json` (which pins `rctf` at `cctc_v1.0.0` and `redcap_rsvc` at `v15.5.36`), then runs `npm run redcap_rsvc:move_files` to stage RSVC fixtures into `cypress/fixtures/`.
-7. **Shards specs across 4 parallel jobs** (`SHARD_TOTAL=4`) using `scripts/list-specs.js`, then runs `npm run test:retry-failed -- --spec-file shard-specs.txt` (up to `CYPRESS_MAX_ATTEMPTS=3` retries per failed spec).
-8. Generates a phpcov coverage report from the `redcap-app` container if `phpcov.phar` is present.
-9. Uploads videos (always), screenshots (on failure), and coverage as artifacts (30-day retention).
-10. Tears down the Docker stack with `docker compose down -v`.
+1. **`build-runner`** — builds and pushes the `cypress-runner-aio` image from **this commit**, tagging it with the immutable per-commit short SHA (plus `latest` on the default branch). Private `github:` deps (`rctf`, `redcap_rsvc`) are cloned via a BuildKit SSH/token secret (`CCTC_TEAM_PAT`) that is never persisted into the image. Old image versions are pruned to the latest 2. Skipped when a manual dispatch pins an existing `runner_tag`.
+2. **`cypress-tests`** (matrix of `SHARD_TOTAL=8` shards) — each shard `needs:` the build and pulls that **exact per-commit SHA** tag (never `:latest`, avoiding the old build/test race). It pulls the `redcap-aio` image (`:latest`), boots it (`-p 8443:8443 -p 8025:8025`, volume `cctc_mariadb_data`), waits for HTTPS on `:8443`, then runs the runner container over `--network host` with the Docker socket mounted. The runner enumerates its `SHARD_INDEX/SHARD_TOTAL` spec slice and runs it with up to `CYPRESS_MAX_ATTEMPTS=3` retries, reaching the AIO container's DB/files via `docker exec`. A failing spec fails only that shard (`fail-fast: false`).
+3. **`publish-report`** — downloads every shard's mochawesome JSON (kept in per-shard subdirs to avoid basename collisions), merges them into one combined HTML report, and deploys it to **GitHub Pages**.
 
 ### Configurable env vars (top of the workflow)
 
 | Variable | Default | Purpose |
 |----------|---------|---------|
-| `CCTC_DOCKER_REF` | `v1.0.0` | Tag (or branch) of `CCTC_REDCap_Docker` to clone |
-| `SHARD_TOTAL` | `4` | Number of parallel shards (also update the `matrix.shard` list) |
+| `SHARD_TOTAL` | `8` | Number of parallel shards (also update the `matrix.shard` list) |
+| `AIO_IMAGE` | `ghcr.io/cctc-team/cctc_redcap_docker/redcap-aio:latest` | The all-in-one REDCap image under test |
+| `IMAGE_NAME` | `cctc-team/redcap_cypress/cypress-runner-aio` | GHCR repo for the runner image built by `build-runner` |
+| `RUNNER_TAG` | `15.10.0` | Kept in lockstep with the `cypress/included` base tag in `cypress_runner/Dockerfile` |
 
-The repo under test is the commit that triggered the run — there is no self-checkout step, so a push to `redcap_val` tests that push. `rctf` and `redcap_rsvc` versions are pinned in `package.json` / `package-lock.json`, not via workflow env vars.
+The `redcap-aio` and `cypress-runner-aio` images must target the **same REDCap version**. `rctf` and `redcap_rsvc` versions are pinned in `package.json` / `package-lock.json` and baked into the runner image, not set via workflow env vars.
 
-### Stability controls (per-job env)
+### Stability controls (per-run env passed to the runner)
 
 | Variable | Default | Purpose |
 |----------|---------|---------|
-| `CYPRESS_DISABLE_RECORDING` | `1` | Disables Cypress Cloud recording to avoid `api.cypress.io` stalls |
-| `CYPRESS_STALL_MS` | `300000` | Watchdog: kill the run if no spec report is written for 5 min (safe to keep tight now that the rctf after:run hang is fixed in the pinned `rctf` `cctc_v1.0.0` — any 5-min stall is a real bug) |
 | `CYPRESS_MAX_ATTEMPTS` | `3` | Max retry attempts per failed spec |
-| `CYPRESS_BROWSER` | `chrome` | Browser used for headless runs |
+| `CYPRESS_STALL_MS` | `3600000` | Watchdog: abort the run if no spec report is written for the interval |
+| `RUNNER_BROWSER` | `chromium` | Browser used for headless runs |
 
 ### Required repository secrets
 
 | Secret | Used for |
 |--------|----------|
-| `DEPLOY_KEY` | SSH key for `actions/checkout` of this repo |
-| `CCTC_TEAM_PAT` | PAT to clone `CCTC_REDCap_Docker` and `redcap_source` over HTTPS |
-| `PROJECT_ID` | Substituted into `cypress.config.js` (replaces `PID` placeholder) |
-| `CYPRESS_RECORD_KEY` | Cypress Cloud key (currently unused while recording is disabled) |
+| `CCTC_TEAM_PAT` | Cloning private `github:` deps into the runner image, GHCR login, and image-version pruning |
+| `GITHUB_TOKEN` | GHCR login for the `build-runner` push (built-in) |
 
 ### Artifacts
 
 | Artifact | When | Path |
 |----------|------|------|
-| `cypress-mochawesome-shard-<n>` | always | per-spec JSONs from `cypress/results/json/` plus a merged `results/test-report-shard-<n>.json` |
-| `cypress-videos-shard-<n>` | always | `cypress/videos/` |
-| `cypress-screenshots-shard-<n>` | on failure | `cypress/screenshots/` |
-| `coverage-reports-shard-<n>` | always | `/tmp/path/coverage-report/` |
+| `cypress-aio-shard-<n>-results` | always | per-spec mochawesome JSON (`results/json/*.json`) plus HTML (`results/html/**`) — 7-day retention |
+| `cypress-aio-shard-<n>-screenshots` | on failure | `screenshots/` — 7-day retention |
+| Combined HTML report | always | published to GitHub Pages by `publish-report` |
 
-A separate workflow, [.github/workflows/build-docker-image.yml](.github/workflows/build-docker-image.yml), builds the Docker image independently of the test run.
+A separate workflow, [.github/workflows/build-cypress-runner-aio.yml](.github/workflows/build-cypress-runner-aio.yml), can build the runner image on manual dispatch; its push trigger is disabled so it no longer double-builds against the test workflow.
 
 ---
 
