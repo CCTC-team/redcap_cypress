@@ -188,6 +188,16 @@ jobs:
           echo "REDCap is up."
           docker ps
 
+      - name: Capture REDCap version under test
+        run: |
+          mkdir -p results
+          # REDCAP_VERSION is baked into the AIO image as an ENV, so printenv
+          # returns it even though `docker run` didn't pass -e REDCAP_VERSION.
+          # publish-report reads this back to key the versioned Pages folder.
+          docker exec "${REDCAP_CONTAINER}" printenv REDCAP_VERSION \
+            | tr -d '[:space:]' > results/redcap_version.txt
+          echo "REDCap under test: $(cat results/redcap_version.txt)"
+
       - name: Run Cypress shard ${{ matrix.shard }}/${{ env.SHARD_TOTAL }}
         run: |
           mkdir -p results
@@ -230,6 +240,7 @@ jobs:
           path: |
             results/json/*.json
             results/html/**
+            results/redcap_version.txt
           retention-days: 7
           if-no-files-found: warn
 
@@ -256,7 +267,7 @@ jobs:
     if: always()
     runs-on: ubuntu-24.04
     permissions:
-      contents: read
+      contents: write   # force-push the accumulated site to the pages-store branch
       pages: write
       id-token: write
     # One Pages site per repo — serialise with any other Pages deploy (incl. the
@@ -291,10 +302,68 @@ jobs:
           # subdir preserves all of them; the merge glob below spans the subdirs.
           path: collected
 
-      - name: Merge shards into one combined HTML report
+      - name: Resolve REDCap version under test
+        id: ver
+        run: |
+          # All shards test the same AIO image, so any shard's file is authoritative.
+          v="$(cat collected/*/redcap_version.txt 2>/dev/null | head -n1 | tr -d '[:space:]')"
+          if [ -z "$v" ]; then
+            echo "::warning::No redcap_version.txt in any shard artifact; publishing under 'unknown'."
+            v="unknown"
+          fi
+          # The value becomes a path segment (site/<v>/) — reject anything that
+          # isn't a plain version token so a stray '/' or '..' can't escape site/.
+          if ! printf '%s' "$v" | grep -qE '^[0-9A-Za-z._-]+$'; then
+            echo "::warning::Resolved version '$v' has unexpected characters; using 'unknown'."
+            v="unknown"
+          fi
+          echo "redcap_version=$v" >> "$GITHUB_OUTPUT"
+          echo "Publishing report for REDCap $v"
+
+      - name: Restore accumulated site
+        run: |
+          # deploy-pages publishes only what we upload, so past versions live in a
+          # pages-store branch; pull it in and add this run's version alongside.
+          # CRITICAL: distinguish "branch absent" from "fetch failed". The later
+          # step force-pushes site/ to pages-store, so if a transient fetch failure
+          # were treated as "starting fresh" we'd overwrite pages-store with only
+          # this run's version and wipe all published history. So: if the branch
+          # EXISTS but we can't fetch it, fail the job rather than publish a
+          # truncated site.
+          mkdir -p site
+          remote="https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git"
+          if ! git ls-remote --exit-code "$remote" pages-store >/dev/null 2>&1; then
+            echo "No pages-store branch yet; starting fresh."
+          else
+            tmp="$(mktemp -d)"
+            git -C "$tmp" init -q
+            git -C "$tmp" remote add origin "$remote"
+            ok=false
+            for attempt in 1 2 3; do
+              if git -C "$tmp" fetch -q --depth=1 origin pages-store; then ok=true; break; fi
+              echo "fetch attempt $attempt failed; retrying..."; sleep 5
+            done
+            if [ "$ok" != true ]; then
+              echo "::error::pages-store exists but could not be fetched — refusing to publish (would wipe report history)."
+              exit 1
+            fi
+            git -C "$tmp" checkout -q FETCH_HEAD
+            rm -rf "$tmp/.git"
+            # No `|| true`: a partial restore must abort (set -eo pipefail is on by
+            # default) rather than let a truncated tree be force-pushed as truth.
+            cp -r "$tmp"/. site/
+            echo "Restored existing pages-store."
+          fi
+
+      - name: Merge shards into this version's HTML report
         run: |
           shopt -s nullglob globstar
-          mkdir -p site
+          VER="${{ steps.ver.outputs.redcap_version }}"
+          VDIR="site/${VER}"
+          # Rebuild this version's folder from just this run's output, so a
+          # re-run can't leave stale files behind (e.g. from an older report layout).
+          rm -rf "$VDIR"
+          mkdir -p "$VDIR"
           # Each shard's results live in their own collected/<artifact-name>/json/
           # subdir (download-artifact was NOT merge-multiple), so the same per-spec
           # basename from different shards no longer collides.
@@ -306,16 +375,51 @@ jobs:
           done
           jsons=(collected/*/json/*.json)
           if [ ${#jsons[@]} -eq 0 ]; then
-            echo "::warning::No valid mochawesome JSON across shards — publishing a placeholder."
-            printf '<!doctype html><title>No results</title><h1>No test results were produced this run.</h1>' > site/index.html
+            echo "::warning::No valid mochawesome JSON across shards — publishing a placeholder for ${VER}."
+            printf '<!doctype html><title>No results</title><h1>No test results were produced for REDCap %s.</h1>' \
+              "${VER}" > "${VDIR}/redcap_v${VER}.html"
           else
-            echo "Merging ${#jsons[@]} per-spec JSON file(s)..."
+            echo "Merging ${#jsons[@]} per-spec JSON file(s) for REDCap ${VER}..."
             npx --yes mochawesome-merge@5.1.1 collected/*/json/*.json -o collected/combined.json
             npx --yes mochawesome-report-generator@6.3.2 collected/combined.json \
-              --reportDir site --reportFilename index --inline \
-              --reportTitle "REDCap Cypress (AIO) — combined report" \
-              --reportPageTitle "REDCap Cypress (AIO) results"
+              --reportDir "${VDIR}" --reportFilename "redcap_v${VER}" --inline \
+              --reportTitle "REDCap Cypress (AIO) — redcap_v${VER}" \
+              --reportPageTitle "REDCap Cypress (AIO) redcap_v${VER}"
           fi
+          # Folder-level redirect so the bare /<ver>/ URL resolves to the versioned file.
+          printf '<!doctype html><meta charset="utf-8"><meta http-equiv="refresh" content="0; url=redcap_v%s.html">' \
+            "${VER}" > "${VDIR}/index.html"
+
+      - name: Build version index
+        run: |
+          # REDCap versions have no 'v' prefix (e.g. 15.5.36); sort -Vr orders newest first.
+          cd site
+          versions=$(find . -maxdepth 1 -type d \( -name '[0-9]*' -o -name 'unknown' \) -printf '%f\n' 2>/dev/null | sort -Vr)
+          latest=$(echo "$versions" | grep -v '^unknown$' | head -n1)
+          {
+            echo '<!doctype html><meta charset="utf-8">'
+            echo '<title>REDCap Cypress (AIO) — test reports by REDCap version</title>'
+            echo '<h1>REDCap Cypress (AIO) — combined reports by REDCap version</h1><ul>'
+            for v in $versions; do
+              tag=""; [ "$v" = "$latest" ] && tag=" (latest)"
+              echo "<li><a href=\"./${v}/redcap_v${v}.html\">${v}${tag}</a></li>"
+            done
+            echo '</ul>'
+          } > index.html
+
+      - name: Save accumulated site
+        run: |
+          # Persist the cumulative site as a single orphan commit; history is
+          # irrelevant, only the latest snapshot matters.
+          cd site
+          git init -q
+          git checkout -q -b pages-store
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Publish REDCap ${{ steps.ver.outputs.redcap_version }} report" || echo "nothing to commit"
+          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" pages-store
+          rm -rf .git   # don't ship git metadata to the Pages artifact
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v5
@@ -325,3 +429,45 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
+
+  # Housekeeping: purge old runs' artifacts (results + screenshots — 8 shards each)
+  # so Actions storage doesn't grow unbounded. Independent of the GHCR image pruning
+  # in build-runner (that prunes container images, this prunes workflow artifacts).
+  prune-artifacts:
+    needs: cypress-tests
+    if: always()
+    # Best-effort housekeeping only. A GitHub runner-acquisition hiccup or an API
+    # blip here must never mark the whole run red — the tests already passed.
+    continue-on-error: true
+    runs-on: ubuntu-24.04
+    permissions:
+      actions: write
+    env:
+      KEEP_RUNS: "2"   # keep the latest run + the one before it
+    steps:
+      - name: Delete artifacts from older runs
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          # Distinct run IDs that still have live artifacts, newest first
+          RUN_IDS=$(gh api "repos/${REPO}/actions/artifacts" --paginate \
+            --jq '.artifacts[] | select(.expired==false) | [.workflow_run.id, .created_at] | @tsv' \
+            | awk -F'\t' '{ if($2>seen[$1]) seen[$1]=$2 } END { for(r in seen) print seen[r]"\t"r }' \
+            | sort -r | awk -F'\t' '{print $2}')
+
+          KEEP_SET=$(echo "$RUN_IDS" | head -n "$KEEP_RUNS" | paste -sd, -)
+          echo "Keeping artifacts from runs: ${KEEP_SET:-<none>}"
+
+          gh api "repos/${REPO}/actions/artifacts" --paginate \
+            --jq '.artifacts[] | select(.expired==false) | [.workflow_run.id, .id, .name] | @tsv' \
+            | while IFS=$'\t' read -r runid artid name; do
+                case ",$KEEP_SET," in
+                  *",$runid,"*) ;;  # within the keep window — leave it
+                  *)
+                    echo "Deleting $name (run $runid, artifact $artid)"
+                    gh api -X DELETE "repos/${REPO}/actions/artifacts/${artid}" \
+                      && echo "  ok" || echo "  failed (continuing)"
+                    ;;
+                esac
+              done

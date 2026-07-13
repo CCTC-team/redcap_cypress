@@ -254,7 +254,8 @@ Instead of building a 3-container `docker compose` stack and running `npm ci` on
 
 1. **`build-runner`** — builds and pushes the `cypress-runner-aio` image from **this commit**, tagging it with the immutable per-commit short SHA (plus `latest` on the default branch). Private `github:` deps (`rctf`, `redcap_rsvc`) are cloned via a BuildKit SSH/token secret (`CCTC_TEAM_PAT`) that is never persisted into the image. Old image versions are pruned to the latest 2. Skipped when a manual dispatch pins an existing `runner_tag`.
 2. **`cypress-tests`** (matrix of `SHARD_TOTAL=8` shards) — each shard `needs:` the build and pulls that **exact per-commit SHA** tag (never `:latest`, avoiding the old build/test race). It pulls the `redcap-aio` image (`:latest`), boots it (`-p 8443:8443 -p 8025:8025`, volume `cctc_mariadb_data`), waits for HTTPS on `:8443`, then runs the runner container over `--network host` with the Docker socket mounted. The runner enumerates its `SHARD_INDEX/SHARD_TOTAL` spec slice and runs it with up to `CYPRESS_MAX_ATTEMPTS=3` retries, reaching the AIO container's DB/files via `docker exec`. A failing spec fails only that shard (`fail-fast: false`).
-3. **`publish-report`** — downloads every shard's mochawesome JSON (kept in per-shard subdirs to avoid basename collisions), merges them into one combined HTML report, and deploys it to **GitHub Pages**.
+3. **`publish-report`** — downloads every shard's mochawesome JSON (kept in per-shard subdirs to avoid basename collisions), resolves the **REDCap version under test** (each shard records it in `redcap_version.txt`), and merges them into a combined report. Reports are **versioned by REDCap version and preserved across runs**: the job restores the accumulated site from a `pages-store` branch, writes this run's report to `<version>/redcap_v<version>.html`, regenerates a root version index (newest first, `(latest)` marked), force-pushes the snapshot back, and deploys the whole tree to **GitHub Pages**. Browse at `https://cctc-team.github.io/redcap_cypress/`; each version's report is at `/<version>/redcap_v<version>.html` (the bare `/<version>/` URL redirects there).
+4. **`prune-artifacts`** — best-effort housekeeping (`continue-on-error`, so an API blip never reds a passing run): deletes workflow artifacts from all but the latest `KEEP_RUNS` (2) runs, so per-shard results/screenshots don't grow unbounded in Actions storage. Independent of `build-runner`'s GHCR **image** pruning.
 
 ### Configurable env vars (top of the workflow)
 
@@ -288,7 +289,7 @@ The `redcap-aio` and `cypress-runner-aio` images must target the **same REDCap v
 |----------|------|------|
 | `cypress-aio-shard-<n>-results` | always | per-spec mochawesome JSON (`results/json/*.json`) plus HTML (`results/html/**`) — 7-day retention |
 | `cypress-aio-shard-<n>-screenshots` | on failure | `screenshots/` — 7-day retention |
-| Combined HTML report | always | published to GitHub Pages by `publish-report` |
+| Versioned HTML report | always | accumulated on the `pages-store` branch and published to GitHub Pages by `publish-report` at `/<REDCap version>/redcap_v<version>.html` |
 
 A separate workflow, [.github/workflows/build-cypress-runner-aio.yml](.github/workflows/build-cypress-runner-aio.yml), can build the runner image on manual dispatch; its push trigger is disabled so it no longer double-builds against the test workflow.
 
