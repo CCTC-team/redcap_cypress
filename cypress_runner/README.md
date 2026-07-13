@@ -34,6 +34,13 @@ private `rctf` / `redcap_rsvc` GitHub dependencies. (They can't just be copied
 from the host `node_modules` — that has macOS-native binaries; the Linux image
 must install its own.)
 
+> **Publishing this image (native arm64 / multi-arch).** CI (`build-cypress-runner-aio.yml`)
+> publishes **`linux/amd64`** only. To publish multi-arch (`amd64` + native `arm64`)
+> manifests of this runner image **and** the REDCap AIO image together, run
+> [`scripts/build-and-push-ghcr.sh`](../../scripts/build-and-push-ghcr.sh) from the
+> parent `CCTC_REDCap_Docker` repo (`RUNNER_ONLY=1` for just this image). It builds
+> the runner from `cypress_runner/Dockerfile` and pushes to the same GHCR path CI uses.
+
 ---
 
 ## Run the suite
