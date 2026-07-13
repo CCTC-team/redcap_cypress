@@ -116,6 +116,13 @@ module.exports = defineConfig({
           const envConfig = JSON.parse(fs.readFileSync('cypress.env.json', 'utf8'));
           config.env = { ...config.env, ...envConfig };
 
+          // AIO runs REDCap + MySQL in ONE container, so the app/file docker-exec
+          // tasks target the same container as the DB. CI sets CYPRESS_REDCAP_CONTAINER
+          // in the workflow env (which wins); locally it falls back to the single
+          // source of truth, mysql.docker_container in cypress.env.json.
+          process.env.CYPRESS_REDCAP_CONTAINER =
+            process.env.CYPRESS_REDCAP_CONTAINER || config.env.mysql?.docker_container || 'CCTC_REDCap_Docker'
+
           require('rctf/plugins/index.js')(on, config)
 
           // CI hardening: on the GitHub runner Chrome's renderer dies under the
@@ -134,7 +141,7 @@ module.exports = defineConfig({
           on('task', {
             // Task: Clear redcap_file_repository in Docker container
             clearFileRepo() {
-              const container = 'redcap-app'
+              const container = process.env.CYPRESS_REDCAP_CONTAINER
               const fileRepo = config.env.file_repository
 
               execSync(`docker exec ${container} find ${fileRepo} -type f -delete`, { encoding: 'utf-8' })
@@ -166,7 +173,7 @@ module.exports = defineConfig({
             
             // Task 2: Checks the Local storage location for the latest downloaded PDF file
             fetchLatestDownloadLocal({ fileExtension }) {
-              const container = 'redcap-app'
+              const container = process.env.CYPRESS_REDCAP_CONTAINER
               const fileRepo = config.env.file_repository
 
               try {

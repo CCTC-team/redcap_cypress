@@ -46,7 +46,9 @@
     "rctf:official_tests": "npm run rctf:get_step_features && CYPRESS_VIDEO=false CYPRESS_prettyEnabled=true CYPRESS_baseUrl=http://localhost:6060 npx cypress run --env testMode=true --config specPattern=./cypress/features/tests/*/*.spec.feature --record --key $RECORD_KEY --group rctf-tests --browser chrome",
     "rctf:write_step_tests": "npm run rctf:get_step_features && CYPRESS_baseUrl=http://localhost:6060 npx cypress open --env testMode=true --config specPattern=./cypress/features/tests/*/*.spec.feature",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "test:retry-failed": "node scripts/rerun-failed.js"
+    "test:retry-failed": "node scripts/rerun-failed.js",
+    "test:local": "scripts/run-local.sh",
+    "open:local": "CYPRESS_CMD=open scripts/run-local.sh"
   },
   "cypress-cucumber-preprocessor": {
     "stepDefinitions": [

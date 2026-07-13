@@ -182,19 +182,73 @@ When installing a specific version, ensure the release tag exists:
 
 ## Running Tests
 
-### Interactive Mode (Cypress UI)
+Both paths run against a running **all-in-one (AIO)** REDCap container ([`../redcap_docker_aio/`](../redcap_docker_aio/)) — start it first, either way:
 
-```
-npx cypress open
+```bash
+cd ../redcap_docker_aio && docker compose up -d
 ```
 
-Select specs from the Cypress window to run them interactively.
+Then pick how to run the suite:
 
-### Headless Mode
+| | **Local Cypress** (host binary) | **AIO runner image** (`cypress-runner-aio`) |
+|---|---|---|
+| Working dir | `redcap_cypress/` | `redcap_cypress/cypress_runner/` |
+| Whole suite | `npm run test:local` | `docker compose run --rm cypress` |
+| One spec | `npm run test:local -- --spec "redcap_rsvc/Feature Tests/.../X.feature"` | `docker compose run --rm cypress --spec "redcap_rsvc/Feature Tests/.../X.feature"` |
+| Interactive GUI | `npm run open:local` | ❌ not supported (headless image — see below) |
+| First-time setup | Cypress already in `node_modules` + host cache | Build once (`docker compose build --ssh default`, needs SSH agent) **or** pull the prebuilt image |
 
+### Local Cypress (host binary)
+
+Run against the AIO container with the `:local` npm scripts:
+
+```bash
+# from redcap_cypress/
+npm run test:local                       # whole suite (headless)
+
+npm run test:local -- --spec \
+  "redcap_rsvc/Feature Tests/C/Randomization_30/C.3.30.0200. - Randomization project enable.feature"
+
+npm run open:local                       # interactive GUI Test Runner
 ```
-npx cypress run
+
+These call [`scripts/run-local.sh`](scripts/run-local.sh), whose **essential** job is to **unset `ELECTRON_RUN_AS_NODE`** before launching Cypress. VSCode / Claude Code (both Electron apps) export that var into their integrated terminals, which makes Cypress's own Electron binary boot as plain Node and reject its GUI flags (`bad option: --no-sandbox`). It can only be fixed in the shell **before** Cypress starts — *not* in `cypress.config.js`, because Electron reads it at process launch, before any config runs. (The wrapper also fails fast if the AIO container isn't up.)
+
+**Container targeting is automatic** — `cypress.config.js` resolves the target container from `cypress.env.json` (`mysql.docker_container`, currently `CCTC_REDCap_Docker`), with a CI-set `CYPRESS_REDCAP_CONTAINER` taking precedence. You don't need the wrapper for that; it's only the `ELECTRON_RUN_AS_NODE` issue that requires it.
+
+**Raw `npx cypress open` / `run` also work** — but only from a shell where `ELECTRON_RUN_AS_NODE` isn't set (a plain Terminal.app / iTerm). Check with `echo $ELECTRON_RUN_AS_NODE` (empty = fine; `1` = use the `:local` scripts, or prefix `env -u ELECTRON_RUN_AS_NODE`). The `:local` scripts work in **both** kinds of shell, so they're the reliable default.
+
+Local Cypress uses your host binary (`~/Library/Caches/Cypress/15.10.0`) against your live working-tree specs; Docker is touched only for `docker exec` into the AIO container. Any extra Cypress args pass straight through.
+
+### AIO runner image (`cypress-runner-aio`)
+
+Mirrors CI: Cypress + `rctf` + `redcap_rsvc` **baked into the image**, reaching the AIO container over `--network host` + the mounted Docker socket. Config comes from [`cypress_runner/docker-compose.yml`](cypress_runner/docker-compose.yml) (defaults `REDCAP_CONTAINER=CCTC_REDCap_Docker`, `baseUrl=https://localhost:8443`).
+
+```bash
+cd cypress_runner
+cp .env.example .env
+
+# build once — forwards your ssh-agent to clone the private rctf / redcap_rsvc deps
+docker compose build --ssh default
+
+docker compose run --rm cypress          # whole suite (report → cypress_runner/results/)
+docker compose run --rm cypress --spec \
+  "redcap_rsvc/Feature Tests/C/Randomization_30/C.3.30.0200. - Randomization project enable.feature"
 ```
+
+**Run the prebuilt image instead of building** (no SSH, no rebuild) — set in `cypress_runner/.env`:
+
+```bash
+CYPRESS_IMAGE=ghcr.io/cctc-team/redcap_cypress/cypress-runner-aio:15.10.0
+```
+
+then `docker compose pull && docker compose run --rm cypress [--spec ...]`.
+
+To run only one External Module's tests, set `EM_MODULE=<module_dir>`. Full details, config, and the `EM_MODULE` flow: [`cypress_runner/README.md`](cypress_runner/README.md).
+
+**No interactive `open` with the image.** The runner is built `FROM cypress/included:15.10.0` — a headless image whose entrypoint is a run-only script that passes extra args straight to `cypress run`. `cypress open` needs a GUI/display (no X11/VNC is wired, and it's impractical on Docker Desktop for macOS). For interactive work use the local path.
+
+> **macOS caveat:** `network_mode: host` behaves differently on Docker Desktop for Mac than on CI's Linux. If `https://localhost:8443` isn't reachable from inside the runner on your machine, use the **local Cypress** path (reliable on macOS). CI runs the image on Linux, where host networking works natively.
 
 ---
 
@@ -211,7 +265,7 @@ This creates `cypress/results/html/test-report.html` — open it in a browser to
 To customise the report filename per run:
 
 ```bash
-REPORT_NAME=v15.5.36-smoke npx cypress run --browser chrome --spec "..."
+REPORT_NAME=v15.5.36-smoke npm run test:local -- --browser chrome --spec "..."
 ```
 
 To clear old results before a fresh run:
