@@ -311,6 +311,12 @@ jobs:
             echo "::warning::No redcap_version.txt in any shard artifact; publishing under 'unknown'."
             v="unknown"
           fi
+          # The value becomes a path segment (site/<v>/) — reject anything that
+          # isn't a plain version token so a stray '/' or '..' can't escape site/.
+          if ! printf '%s' "$v" | grep -qE '^[0-9A-Za-z._-]+$'; then
+            echo "::warning::Resolved version '$v' has unexpected characters; using 'unknown'."
+            v="unknown"
+          fi
           echo "redcap_version=$v" >> "$GITHUB_OUTPUT"
           echo "Publishing report for REDCap $v"
 
@@ -318,17 +324,35 @@ jobs:
         run: |
           # deploy-pages publishes only what we upload, so past versions live in a
           # pages-store branch; pull it in and add this run's version alongside.
+          # CRITICAL: distinguish "branch absent" from "fetch failed". The later
+          # step force-pushes site/ to pages-store, so if a transient fetch failure
+          # were treated as "starting fresh" we'd overwrite pages-store with only
+          # this run's version and wipe all published history. So: if the branch
+          # EXISTS but we can't fetch it, fail the job rather than publish a
+          # truncated site.
           mkdir -p site
-          tmp="$(mktemp -d)"
-          git -C "$tmp" init -q
-          git -C "$tmp" remote add origin "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git"
-          if git -C "$tmp" fetch -q --depth=1 origin pages-store 2>/dev/null; then
+          remote="https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git"
+          if ! git ls-remote --exit-code "$remote" pages-store >/dev/null 2>&1; then
+            echo "No pages-store branch yet; starting fresh."
+          else
+            tmp="$(mktemp -d)"
+            git -C "$tmp" init -q
+            git -C "$tmp" remote add origin "$remote"
+            ok=false
+            for attempt in 1 2 3; do
+              if git -C "$tmp" fetch -q --depth=1 origin pages-store; then ok=true; break; fi
+              echo "fetch attempt $attempt failed; retrying..."; sleep 5
+            done
+            if [ "$ok" != true ]; then
+              echo "::error::pages-store exists but could not be fetched — refusing to publish (would wipe report history)."
+              exit 1
+            fi
             git -C "$tmp" checkout -q FETCH_HEAD
             rm -rf "$tmp/.git"
-            cp -r "$tmp"/. site/ 2>/dev/null || true
+            # No `|| true`: a partial restore must abort (set -eo pipefail is on by
+            # default) rather than let a truncated tree be force-pushed as truth.
+            cp -r "$tmp"/. site/
             echo "Restored existing pages-store."
-          else
-            echo "No pages-store yet; starting fresh."
           fi
 
       - name: Merge shards into this version's HTML report
@@ -336,6 +360,9 @@ jobs:
           shopt -s nullglob globstar
           VER="${{ steps.ver.outputs.redcap_version }}"
           VDIR="site/${VER}"
+          # Rebuild this version's folder from just this run's output, so a
+          # re-run can't leave stale files behind (e.g. from an older report layout).
+          rm -rf "$VDIR"
           mkdir -p "$VDIR"
           # Each shard's results live in their own collected/<artifact-name>/json/
           # subdir (download-artifact was NOT merge-multiple), so the same per-spec
