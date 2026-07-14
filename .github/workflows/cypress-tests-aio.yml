@@ -306,7 +306,11 @@ jobs:
         id: ver
         run: |
           # All shards test the same AIO image, so any shard's file is authoritative.
-          v="$(cat collected/*/redcap_version.txt 2>/dev/null | head -n1 | tr -d '[:space:]')"
+          # Read exactly ONE file: the shard files have their trailing newline
+          # stripped at write time, so `cat`-ing all of them would glue the
+          # per-shard versions into one run-on token (15.5.3615.5.36...).
+          f="$(ls collected/*/redcap_version.txt 2>/dev/null | head -n1)"
+          v="$( [ -n "$f" ] && tr -d '[:space:]' < "$f" )"
           if [ -z "$v" ]; then
             echo "::warning::No redcap_version.txt in any shard artifact; publishing under 'unknown'."
             v="unknown"
