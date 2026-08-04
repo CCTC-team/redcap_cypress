@@ -24,7 +24,7 @@ defineParameterType({
 
 defineParameterType({
     name: 'emTableName',
-    regexp: /monitoring logging|data entry log|system changes|project changes|user role changes/
+    regexp: /monitoring logging|data entry log|system changes|project changes|user role changes|external modules logs/
 })
 
 emTableName = {
@@ -33,6 +33,7 @@ emTableName = {
     'system changes' : '#system-changes-table',
     'project changes' : '#project-changes-table',
     'user role changes' : '#user-role-changes-table',
+    'external modules logs' : '#external-module-logs-wrapper table[id^="DataTables_Table_"]'
 }
 
 dqrTable = {
@@ -148,7 +149,7 @@ Given("I should see {string} within the data entry field labeled {string}", (fie
  * @author Mintoo Xavier <min2xavier@gmail.com>
  * @example I should see {int} row(s) in the {emTableName} table
  * @param {int} num - number of row(s)
- * @param {string} emTableName - available options: 'monitoring logging', 'data entry log', 'system changes', 'project changes', 'user role changes'
+ * @param {string} emTableName - available options: 'monitoring logging', 'data entry log', 'system changes', 'project changes', 'user role changes', 'external modules logs'
  * @description verifies the table contains the specified number of row(s)
  */
 Given('I should see {int} row(s) in the {emTableName} table', (num, tableName) => {
@@ -317,7 +318,7 @@ Given('I should see a table header and rows with rowspan containing the followin
  * @module MailHog
  * @author Mintoo Xavier <min2xavier@gmail.com>
  * @example I should see a {emTableName} table in the email with the following rows:
- * @param {string} emTableName - available options: 'monitoring logging', 'data entry log', 'system changes', 'project changes', 'user role changes'
+ * @param {string} emTableName - available options: 'monitoring logging', 'data entry log', 'system changes', 'project changes', 'user role changes', 'external modules logs'
  * @param {DataTable} dataTable - Gherkin DataTable with headers and rows
  * @description Verifies a plain HTML table in emails (e.g., MailHog) contains the specified headers and rows.
  * Supports date/time patterns like mm/dd/yyyy hh:mm.
