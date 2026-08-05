@@ -270,6 +270,7 @@ jobs:
       contents: write   # force-push the accumulated site to the pages-store branch
       pages: write
       id-token: write
+      actions: write    # delete the previous attempt's github-pages artifact on a re-run
     # One Pages site per repo — serialise with any other Pages deploy (incl. the
     # old workflow) so overlapping runs don't clobber mid-deploy.
     concurrency:
@@ -424,6 +425,35 @@ jobs:
           git commit -q -m "Publish REDCap ${{ steps.ver.outputs.redcap_version }} report" || echo "nothing to commit"
           git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" pages-store
           rm -rf .git   # don't ship git metadata to the Pages artifact
+
+      # Artifacts are scoped to the RUN, not the attempt, so a partial re-run
+      # (e.g. `gh run rerun --job <shard-id>`) re-runs this job while attempt N-1's
+      # 'github-pages' artifact is still attached. upload-pages-artifact would then
+      # add a second one and deploy-pages hard-fails with "Multiple artifacts named
+      # github-pages were unexpectedly found for this workflow run. Artifact count
+      # is 2." The name is fixed by deploy-pages, so drop the stale copies first.
+      - name: Drop stale github-pages artifact from earlier attempts
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          RUN_ID: ${{ github.run_id }}
+        run: |
+          # Best-effort: an API blip here must not fail an otherwise-fine publish
+          # (on attempt 1 there is nothing to clean up anyway). Worst case the
+          # deploy below fails on duplicates exactly as it did before this step.
+          if ! ids=$(gh api "repos/${REPO}/actions/runs/${RUN_ID}/artifacts" --paginate \
+                       --jq '.artifacts[] | select(.name == "github-pages") | .id'); then
+            echo "::warning::Could not list artifacts for run ${RUN_ID}; skipping stale-artifact cleanup."
+            ids=""
+          fi
+          if [ -z "$ids" ]; then
+            echo "No pre-existing github-pages artifact for run ${RUN_ID}."
+          fi
+          for id in $ids; do
+            echo "Deleting stale github-pages artifact ${id}"
+            gh api -X DELETE "repos/${REPO}/actions/artifacts/${id}" \
+              || echo "::warning::Could not delete artifact ${id}; the deploy below may fail on duplicates."
+          done
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v5
