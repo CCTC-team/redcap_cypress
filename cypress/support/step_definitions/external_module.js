@@ -1,4 +1,3 @@
-//Add any of your own step definitions here
 const { Given, defineParameterType } = require('@badeball/cypress-cucumber-preprocessor')
 
 

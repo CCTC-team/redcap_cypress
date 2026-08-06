@@ -1,4 +1,3 @@
-//Add any of your own step definitions here
 const { Given, defineParameterType } = require('@badeball/cypress-cucumber-preprocessor')
 const path = Cypress.config('projectRoot')
 
@@ -590,23 +589,6 @@ Given("I (should )see a checkbox labeled {addcustomization} that is {check} in a
 
 
 /**
- * @module Interactions
- * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I {clickType} the checkbox labeled {addcustomization} in additional customizations
- * @param {string} addcustomization - available options: "Enable the Data History popup for all data collection instruments", "Enable the File Version History for 'File Upload' fields", "Prevent branching logic from hiding fields that have values"
- * @param {string} clickType - available options: 'click on', 'check', 'uncheck'
- * @description checks/unchecks the checkbox field in additional customizations
- */
-Given("I {clickType} the checkbox labeled {addcustomization} in additional customizations", (checktype, label) => {
-    cy.get('td').contains(label).parents('tr').within(() => {
-        if (checktype === "check")
-            cy.get('input[type=checkbox]').scrollIntoView().check()
-        else
-            cy.get('input[type=checkbox]').scrollIntoView().uncheck()
-    })
-})
-
-/**
  * @module DataImport
  * @author Mintoo Xavier <min2xavier@gmail.com>
  * @param {string} format - the format of the file that is being uploaded (e.g. csv)
@@ -619,23 +601,10 @@ Given("I upload a {string} format file located at {string}, by clicking the butt
     const filePath = 'cypress/fixtures/' + file_location
 
     // Attach file to the hidden input first
-    cy.get('input[type=file]').selectFile(filePath, { force: true })
+    cy.get('input[type=file]').selectFile(filePath)
     // Then click the submit/OK button
     cy.get(`button.ok-button:contains("${button_label}"), input[type=submit][value*="${button_label}"], button:contains("${button_label}")`).first().click()
 })
-
-// /**
-//  * @module Interactions
-//  * @author Mintoo Xavier <min2xavier@gmail.com>
-//  * @example I click on the textarea labeled {string}
-//  * @param {string} label - the label associated with the textarea field
-//  * @description Clicks on the textarea field with given label
-//  */
-// Given("I click on the textarea labeled {string}", (label) => {
-//     cy.contains(label).then(($label) => {
-//         cy.wrap($label).parent().find('textarea').click()
-//     })
-// })
 
 
 /**
@@ -802,30 +771,6 @@ Given("I should see {string} in the email body", (text) => {
         }
     })
 })
-
-
-// /**
-//  * @module MailHog
-//  * @author Mintoo Xavier <min2xavier@gmail.com>
-//  * @example I should NOT see {string} in the email body
-//  * @param {string} text - text that should not appear in the email body
-//  * @description Verifies that the specified text does NOT appear in the currently opened email body in MailHog
-//  */
-// Given("I should NOT see {string} in the email body", (text) => {
-//     // Try HTML preview first, then fall back to plaintext
-//     cy.get('iframe#preview-html').then(($iframe) => {
-//         if ($iframe.length > 0 && $iframe.is(':visible')) {
-//             cy.wrap($iframe)
-//                 .its('0.contentDocument.body')
-//                 .should('not.be.empty')
-//                 .then(cy.wrap)
-//                 .should('not.contain', text)
-//         } else {
-//             // Fall back to plaintext preview
-//             cy.get('#preview-plaintext').should('not.contain', text)
-//         }
-//     })
-// })
 
 
 /**
@@ -1164,7 +1109,6 @@ Given("I add the missing code {string}", (text) => {
 })
 
 
-
 /**
  * @module Interactions
  * @author Mintoo Xavier <min2xavier@gmail.com>
@@ -1176,24 +1120,6 @@ Given("I add the missing code {string}", (text) => {
 Given("I select the {dropdownType} option {drwOptions} in Data Resolution Workflow", (type, option) => {
     cy.get(drwOptions[option]).click()
 })
-
-
-// /**
-//  * @module Interactions
-//  * @author Mintoo Xavier <min2xavier@gmail.com>
-//  * @example I {enterType} {string} in the comment box in {commentDrw}
-//  * @param {string} text - text to enter/verify
-//  * @description enter/verify comment in the comment box in Data Resolution Workflow/Field Comment Log
-//  */
-// Given("I {enterType} {string} in the comment box in {commentDrw}", (enter_type, text, comdrw) => {
-//     if(enter_type === "enter"){
-//         cy.get('textarea#dc-comment').type(text)
-//     } else if (enter_type === "clear field and enter") {
-//         cy.get('textarea#dc-comment').clear().type(text)
-//     } else if (enter_type === "verify"){
-//         cy.get('textarea#dc-comment').invoke('val').should('include', text)
-//     }
-// })
 
 
 /**
@@ -1208,18 +1134,6 @@ Given("I select the User Right named Data Resolution Workflow and choose {drwRig
 })
 
 
-// /**
-//  * @module Interactions
-//  * @author Mintoo Xavier <min2xavier@gmail.com>
-//  * @example I select the dropdown option {string} in Data Resolution Workflow
-//  * @param {string} option - option to select
-//  * @description selects the dropdown option in Data Resolution Workflow
-//  */
-// Given("I select the dropdown option {string} in Data Resolution Workflow", (option) => {
-//     cy.get('table#newDCHistory').find('select').select(option)  
-// })
-
-
 /**
  * @module Interactions
  * @author Mintoo Xavier <min2xavier@gmail.com>
@@ -1232,21 +1146,6 @@ Given("I select the User Right named Data Resolution Workflow and choose {drwRig
 Given("I select the option {string} from the dropdown field for {resolveType} in {commentDrw}", (option, type, comdrw) => {
     cy.get('.ftitle').find(resolveType[type]).select(option)  
 })
-
-
-// /**
-//  * @module Interactions
-//  * @author Mintoo Xavier <min2xavier@gmail.com>
-//  * @example I click on the {string} icon for the Comment {string}
-//  * @param {string} icon - icon to click
-//  * @param {string} comment - comment
-//  * @description clicks on the icon of the comment
-//  */
-// Given("I click on the {string} icon for the Comment {string}", (icon, comment) => {
-//     cy.get('td').contains(comment).parents('tr').within(() => {
-//         cy.get(window.onlineDesignerFieldIcons[icon]).click()
-//     })
-// })
 
 
 /**
@@ -1470,18 +1369,6 @@ Given("I (should )see the {instrumentPrivilege} of the instrument {string} with 
 })
 
 
-// /**
-//  * @module Interactions
-//  * @author Mintoo Xavier <min2xavier@gmail.com>
-//  * @example I click on the list item {string}
-//  * @param {string} text - list item to click
-//  * @description clicks on the list item
-//  */
-// Given("I click on the list item {string}", (text) => {
-//     cy.get('li').contains(text).click()
-// })
-
-
 /**
  * @module Interactions
  * @author Mintoo Xavier <min2xavier@gmail.com>
@@ -1606,7 +1493,7 @@ Given("I enter {string} into the {eventOptions} for the event named {string} in 
         object = 'td:contains("' + eventName + '")'
     
     cy.get(eventSchedule[tableName]).find(object).parents('tr').within(() => {
-        cy.get(eventOptions[option]).clear({force: true}).type(text, {force: true})
+        cy.get(eventOptions[option]).clear().type(text)
     })
 })
 
@@ -1633,7 +1520,7 @@ Given("I click on the button labeled {string} to add an Ad Hoc Event", (text) =>
     })
   
     // Simulate clicking the button that opens the calendar popup
-    cy.get('#btn_newCalEv').click({force: true})
+    cy.get('#btn_newCalEv').click()
     cy.url().should('include', 'calendar_popup.php')
 })
 
