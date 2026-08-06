@@ -4,7 +4,7 @@
   "dependencies": {
     "@badeball/cypress-cucumber-preprocessor": "^24.0.0",
     "adm-zip": "^0.5.16",
-    "rctf": "github:CCTC-team/rctf#cctc_v1.0.8",
+    "rctf": "github:CCTC-team/rctf#7ca47f4468bf1bbb6607cb0bbede52faf5cb6b74",
     "redcap_rsvc": "github:CCTC-team/redcap_rsvc#cctc_v1.0.5"
   },
   "peerDependencies": {
