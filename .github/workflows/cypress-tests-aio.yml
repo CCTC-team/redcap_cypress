@@ -166,8 +166,34 @@ jobs:
 
       - name: Pull stack images
         run: |
-          docker pull "${AIO_IMAGE}"
-          docker pull "${RUNNER_IMAGE}"
+          # All 8 shards log in as the same account and pull the same multi-GB AIO
+          # image within seconds of each other, which trips GHCR's secondary rate
+          # limit: the pull starts, layers download, then the registry 403s
+          # mid-transfer ("You have exceeded a secondary rate limit"). Stagger the
+          # starts so the shards don't arrive as one burst, and retry with backoff
+          # so a throttled shard recovers instead of failing the whole matrix.
+          sleep $(( (SHARD_INDEX - 1) * 15 ))
+
+          pull_with_retry() {
+            image="$1"
+            attempt=1
+            while [ "$attempt" -le 5 ]; do
+              if docker pull "$image"; then
+                return 0
+              fi
+              if [ "$attempt" -eq 5 ]; then
+                echo "::error::giving up on $image after 5 attempts"
+                return 1
+              fi
+              wait=$(( 30 * attempt + SHARD_INDEX * 5 ))
+              echo "pull of $image failed (attempt ${attempt}/5); retrying in ${wait}s"
+              sleep "$wait"
+              attempt=$(( attempt + 1 ))
+            done
+          }
+
+          pull_with_retry "${AIO_IMAGE}"
+          pull_with_retry "${RUNNER_IMAGE}"
 
       - name: Start all-in-one REDCap
         run: |
