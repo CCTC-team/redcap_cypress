@@ -148,6 +148,74 @@ module.exports = defineConfig({
 
               return null
             },
+            // Task: Report where a project's uploaded files physically live inside the REDCap
+            // container. "Organize the stored files into subfolders by REDCap project ID?"
+            // (Control Center > File Upload Settings > Local Server File Storage) is a
+            // backend-only setting: the UI looks identical either way, so the only way to
+            // verify it is to look at the container's filesystem. Files::getLocalStorageSubfolder()
+            // resolves every read/write to either EDOC_PATH<stored_name> (subfolders off) or
+            // EDOC_PATH<local_storage_subfolder>/<stored_name> (subfolders on), so this returns
+            // the project's redcap_projects.local_storage_subfolder column alongside the real
+            // on-disk directory of each of its undeleted edocs.
+            edocStorageLayout({ projectTitle }) {
+              const container = process.env.CYPRESS_REDCAP_CONTAINER
+              const { db_name, db_user, db_pass } = config.env.mysql
+
+              // Single-quote for the container's /bin/sh
+              const sq = (str) => `'` + String(str).replaceAll(`'`, `'\\''`) + `'`
+              // -N -s gives bare tab-separated rows with no header/box drawing. Only the
+              // trailing newline is stripped - trimming the whole output would eat the tab
+              // that terminates a row whose last column is empty, losing that column.
+              const query = (sql) => execSync(
+                `docker exec ${container} mysql -u${db_user} -p${db_pass} -N -s ${db_name} -e ${sq(sql)} 2>/dev/null`,
+                { encoding: 'utf-8' }
+              ).replace(/\n+$/, '')
+              const rows = (sql) => query(sql).split('\n').filter(line => line !== '').map(line => line.split('\t'))
+              const scalar = (sql) => (rows(sql)[0] || [''])[0].trim()
+
+              const escape = (str) => String(str).replaceAll(`\\`, `\\\\`).replaceAll(`'`, `\\'`)
+
+              // Most recently created project with this title, so a re-run picks the current one
+              const project = rows(`
+                SELECT project_id, COALESCE(local_storage_subfolder, '') FROM redcap_projects
+                WHERE app_title = '${escape(projectTitle)}' ORDER BY project_id DESC LIMIT 1
+              `)[0]
+              if (!project) throw new Error(`No project titled "${projectTitle}" found in redcap_projects`)
+              const [projectId, subfolderColumn] = project
+
+              // Mirrors System.php: blank edoc_path falls back to <parent of docroot>/edocs/
+              const configuredPath = scalar(`SELECT COALESCE(value, '') FROM redcap_config WHERE field_name = 'edoc_path'`)
+              const edocPath = configuredPath === ''
+                ? '/var/www/html/edocs/'
+                : configuredPath.replace(/\/?$/, '/')
+
+              // One listing of the whole storage tree, keyed by basename. Paths come back
+              // relative to EDOC_PATH, so a root-level file gives '' and a subfoldered one 'pid<id>'.
+              const listing = execSync(
+                `docker exec ${container} sh -c ${sq(`cd ${edocPath} && find . -type f`)}`,
+                { encoding: 'utf-8' }
+              )
+              // Null-prototype so an unlucky stored_name cannot collide with Object.prototype keys
+              const directoryOf = Object.create(null)
+              listing.trim().split('\n').filter(Boolean).forEach(line => {
+                const relative = line.replace(/^\.\//, '')
+                const slash = relative.lastIndexOf('/')
+                directoryOf[slash === -1 ? relative : relative.substring(slash + 1)] =
+                  slash === -1 ? '' : relative.substring(0, slash)
+              })
+
+              const files = rows(`
+                SELECT stored_name, doc_name FROM redcap_edocs_metadata
+                WHERE project_id = ${parseInt(projectId, 10)} AND delete_date IS NULL
+              `).map(([storedName, docName]) => ({
+                storedName,
+                docName,
+                // null (rather than '') when the file is not on disk at all
+                directory: storedName in directoryOf ? directoryOf[storedName] : null,
+              }))
+
+              return { projectId: parseInt(projectId, 10), subfolderColumn, edocPath, files }
+            },
             // Task 1: Unzip a file
             unzipFile({ filepath }) {
               let unzipDestination = 'cypress/downloads/unzipped' // Destination directory for unzipped files

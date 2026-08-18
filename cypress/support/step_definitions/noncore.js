@@ -1734,3 +1734,75 @@ Given("I scroll the open field dialog to the Action Tags textarea", () => {
         .first()
         .scrollIntoView()
 })
+
+defineParameterType({
+    name: 'edocStorageLocation',
+    regexp: /main file storage folder|project ID subfolder/
+})
+
+/**
+ * @module ControlCenter
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example the uploaded files for the project named "D.21.800.100" should be stored in the main file storage folder
+ * @param {string} project_name - the title of the project whose stored files are checked
+ * @param {string} location - "main file storage folder" or "project ID subfolder"
+ * @description Verifies the backend folder structure of a project's uploaded files. Nothing in
+ * the REDCap UI reveals whether an edoc was written to EDOC_PATH<stored_name> or to
+ * EDOC_PATH<pid#>/<stored_name>, so this reads the container's filesystem (via the
+ * edocStorageLayout task) and asserts every one of the project's undeleted edocs sits in the
+ * expected directory. It also asserts redcap_projects.local_storage_subfolder agrees, since
+ * that column is what Files::getLocalStorageSubfolder() consults on every download/export -
+ * a disagreement between the column and the disk is exactly what orphans a file.
+ */
+Given("the uploaded files for the project named {string} should be stored in the {edocStorageLocation}", (project_name, location) => {
+    cy.task('edocStorageLayout', { projectTitle: project_name }).then((layout) => {
+        const expectedDirectory = location === 'project ID subfolder' ? `pid${layout.projectId}` : ''
+
+        expect(layout.files.length,
+            `undeleted edocs recorded for project "${project_name}" (pid ${layout.projectId})`).to.be.greaterThan(0)
+
+        expect(layout.subfolderColumn,
+            `redcap_projects.local_storage_subfolder for project "${project_name}"`).to.eq(expectedDirectory)
+
+        layout.files.forEach((file) => {
+            expect(file.directory,
+                `directory of "${file.docName}" (stored as ${file.storedName}) under ${layout.edocPath}`
+            ).to.eq(expectedDirectory)
+        })
+    })
+})
+
+
+/**
+ * @module Download
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I should see a downloaded file named "Files_D21800100_yyyy-mm-dd_hhmm.zip" within 30 seconds
+ * @param {string} filenamePattern - the expected filename; date format strings match any date/time
+ * @param {int} seconds - how long to keep polling for the file to appear
+ * @description Polling variant of rctf's "I should see a downloaded file named {string}".
+ * That step calls fetch_timestamped_file exactly once - it builds the filename for the current
+ * minute and the minute before, checks both, and gives up - so a download that has not landed
+ * yet fails hard rather than being waited for. Server-generated downloads (the ZIP of uploaded
+ * files, statistical exports) can outlast the fixed "I wait for 1 second" that usually precedes
+ * the assertion, which showed up as an intermittent "A file matching the specified filename
+ * pattern could not be found". Retrying costs nothing when the file is already there, and
+ * because fetch_timestamped_file recomputes the timestamp on each attempt a minute rollover
+ * mid-wait is handled too.
+ */
+Given("I should see a downloaded file named {string} within {int} seconds", (filenamePattern, seconds) => {
+    const deadline = Date.now() + (seconds * 1000)
+
+    const attempt = () => cy.fetch_timestamped_file(filenamePattern).then((filename) => {
+        if (filename !== '') return filename
+
+        if (Date.now() > deadline) {
+            throw new Error(
+                `A file matching "${filenamePattern}" did not appear in cypress/downloads within ${seconds} seconds`
+            )
+        }
+
+        return cy.wait(500, { log: false }).then(attempt)
+    })
+
+    attempt()
+})
