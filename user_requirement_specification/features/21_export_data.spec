@@ -5,3 +5,4 @@ B.5.21.0400. - User Interface: The system shall support the ability to select sp
 B.5.21.0500. - User Interface: The system shall have the following data de-identification options: Known Identifiers | Ability to remove all known identifier fields | Ability to Hash the Study ID | Free Form Text | Remove unvalidated text fields | Remove notes box fields | Date Fields | Remove all Date Fields | Shift all dates by value between 0 and 364 days | Also shift all survey completion timestamps by value between 0 and 364 days
 B.5.21.0600. - User Interface: The system shall support the ability to restrict users from exporting data.
 D.21.700 - Verify the exported file formats (CSV, SPSS, SAS, R, STATA, CDISC ODM XML) for valid format and correct data against verified references.
+D.21.800 - The system shall support the option to organize stored files into subfolders by REDCap project ID
