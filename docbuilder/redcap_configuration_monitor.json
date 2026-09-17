@@ -7,10 +7,10 @@
         "runAs": {
             "Case": "Html"
         },
-        "fileName": "Configuration_Monitor_v1.0.0.html"
+        "fileName": "Configuration_Monitor_v1.1.0.html"
     },
     "genOpts": 31,
-    "version": "v1.0.0",
+    "version": "v1.1.0",
     "defaultBranch": "main",
     "validUsers": [
         "MintooXavier",

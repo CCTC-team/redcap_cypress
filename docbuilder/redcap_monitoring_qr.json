@@ -8,10 +8,10 @@
         "runAs": {
             "Case": "Html"
         },
-        "fileName": "Monitoring_QR_v1.0.1.html"
+        "fileName": "Monitoring_QR_v1.1.1.html"
     },
     "genOpts": 31,
-    "version": "v1.0.1",
+    "version": "v1.1.1",
     "defaultBranch": "main",
     "validUsers": [
         "MintooXavier",
