@@ -12,3 +12,6 @@ C.4.18.1100. - User Interface: The system shall support validating the unique ev
 C.4.18.1200. - User Interface: The system shall support removal of exclusion of discrepancies.
 C.4.18.1300. - User Interface: The system shall support limiting rule viewing to a Data Access Group.
 C.4.18.1400. - User Interface: The system shall support limiting a rule viewing that references a field to only users with access rights.
+C.4.18.1600. - User Interface: The system shall support configurable user privileges for the Data Resolution Workflow (DRW).
+C.4.18.1700. - User Interface: The system shall support data query lifecycle activities (e.g., opening, responding, verification, and closing) within the Data Resolution Workflow (DRW).
+C.4.18.1800. - User Interface: The system shall support opening and management of data queries from Data Quality discrepancy results within the Data Resolution Workflow (DRW).

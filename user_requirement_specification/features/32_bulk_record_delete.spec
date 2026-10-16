@@ -1,0 +1,2 @@
+A.3.32.0100. - The system shall allow REDCap administrators to enable or disable the Bulk Record Delete feature at the system level in the Control Center.
+B.3.32.0200. - The system shall support Bulk Delete functionality, allowing users to delete entire records or instrument-level data for multiple records within the Bulk Delete interface.

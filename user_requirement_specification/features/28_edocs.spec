@@ -1,1 +1,9 @@
 D.3.28.0100. - Control Center: The system shall support the option to configure the storage location for uploaded documents.
+A.3.28.0200. - Control Center: The system shall allow administrators to configure the File Repository, including upload permissions, file size and storage limits, and public link sharing (tested in A.3.26.0100.100).
+A.3.28.0300. - Control Center: The system shall allow administrators to configure the availability and maximum file size of ‘File Upload’ fields used in forms and surveys.
+A.3.28.0400. - Control Center: The system shall allow administrators to configure upload behavior for Send-It, including enabling/disabling the feature and enforcing file size limits.
+A.3.28.0500. - Control Center: The system shall allow administrators to configure upload behavior for general attachments used in Descriptive fields and Data Resolution Workflow (DRW).
+A.3.28.0900. - The system shall store files uploaded via the Send-It module in the configured file storage location (local or external) based on the Control Center settings.
+C.3.28.1400. - User Interface: The system shall provide a project-level additional customization option to enable the File Upload field enhancement for password-verified uploads
+C.3.28.1500. - User Interface: The system shall provide a project-level additional customization option to enable the Record Locking PDF confirmation & automatic external file storage
+A.3.28.1600. - Control Center: The system shall enforce the Restricted Upload File Types setting by validating the true (MIME) file type of uploaded files, regardless of the file's extension.

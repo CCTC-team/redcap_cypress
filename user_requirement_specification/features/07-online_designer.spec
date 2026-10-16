@@ -18,3 +18,6 @@ B.6.7.1700. - Field Creation: The system shall support marking a data entry fiel
 B.6.7.1800. - Field Creation: The system shall support marking a data entry field as required.
 B.6.7.1900. - Field Creation: The system shall support the ability to add, edit, copy, move and delete data collection fields.
 B.6.7.2000. - Field Creation: The system shall support the creation and spliting matrix of fields.
+B.6.7.2100. - Field Creation: The system shall support the creation of Enhanced Signature fields to allow users to capture electronic signatures using typed or handwritten signatures.
+B.6.7.2200. - The system shall require unique variable names made only of lowercase letters, numbers, and underscores and beginning with a letter.
+B.6.7.2300. - User Interface – Online Designer - Field Creation: The system shall allow administrators only to create Dynamic SQL Fields using the Online Designer.

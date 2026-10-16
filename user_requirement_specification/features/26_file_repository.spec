@@ -6,3 +6,4 @@ C.3.26.0500. - User Interface: The system shall limit folder deletion to empty f
 D.3.26.0600. - User Interface: The system shall support file retention rules for the Recycle Bin. Includes 30 Day file retention of deleted files | 30 Day file restore
 D.3.26.0800. - User Interface: The system shall support sharing of files via Send-IT.
 C.3.26.1000. - User Interface: The system shall allow administrator-only File Repository folders.
+C.3.26.1100. - Project Settings – File Repository: The system shall allow authorized users to override the system-defined maximum File Repository upload file size for an individual project to support project-specific file upload requirements.
