@@ -48,7 +48,7 @@ classification.
   survey-options path (see `eConsent-flakiness-findings.md`). Needs a spec/timing
   fix, not just a retry.
 
-## `D/Additional Customizations_113/D.113.200 - Data History Popup.feature`
+## `D/Additional Customizations_113/D.113.0200. - Data History Popup.feature`
 
 - **Symptom:** `AssertionError: Timed out retrying after 20000ms: Expected to find
   element: table…:contains("Date/Time"):contains("of"):contains("Change")…`, but
@@ -61,7 +61,7 @@ classification.
   isolated rerun) — the data-history popup table does not render within the 20 s
   wait in this AIO environment. Needs a longer wait / spec fix, not just a retry.
 
-## `D/Additional Customizations_113/D.113.300 - Branching Logic Hiding Fields.feature`
+## `D/Additional Customizations_113/D.113.0300. - Branching Logic Hiding Fields.feature`
 
 - **Symptom:** `CypressError: cy.type() failed because the page updated as a result
   of this command … subject is no longer attached to the DOM`.

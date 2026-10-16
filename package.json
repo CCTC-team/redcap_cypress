@@ -4,13 +4,14 @@
   "dependencies": {
     "@badeball/cypress-cucumber-preprocessor": "^24.0.0",
     "adm-zip": "^0.5.16",
-    "rctf": "github:CCTC-team/rctf#cctc_v1.0.9",
-    "redcap_rsvc": "github:CCTC-team/redcap_rsvc#cctc_v1.0.6"
+    "rctf": "github:CCTC-team/rctf#cctc_v1.0.10",
+    "redcap_rsvc": "github:CCTC-team/redcap_rsvc#cctc_v1.0.7"
   },
   "peerDependencies": {
     "cypress": "^15.10.0"
   },
   "devDependencies": {
+    "cypress-axe": "^1.7.0",
     "cypress-file-upload": "^5.0.8",
     "del-cli": "^6",
     "mochawesome": "^7.1.4",
@@ -20,15 +21,15 @@
     "wait-on": "^8.0.5"
   },
   "overrides": {
-    "glob": "9.3.5"
+    "glob": "9.3.5",
+    "esbuild": "0.28.1"
   },
   "scripts": {
     "about-these-scripts": "These scripts are intended for a cloud environment, and do not currently make sense for local development where redcap_rsvc is a git checkout rather than a copy from node_modules.",
     "clean": "npm install && del-cli node_modules redcap_rsvc package-lock.json && npm install",
-    "redcap_rsvc:install": "npm run clean && npm run redcap_rsvc:move_files",
+    "redcap_rsvc:install": "npm run redcap_rsvc:move_files",
     "redcap_rsvc:move_files": "del-cli cypress/fixtures/cdisc_files && del-cli cypress/fixtures/dictionaries && del-cli cypress/fixtures/import_files && move-cli node_modules/redcap_rsvc redcap_rsvc && cp -a redcap_rsvc/Files/* cypress/fixtures/",
-    "redcap_rsvc:validate_features": "npm install gherkin-parse glob-fs --no-save --silent --ignore-scripts && node validate_feature_files.js && sh validate_feature_files.sh",
-    "redcap_rsvc:single_test": "CYPRESS_prettyEnabled=true npx cypress run --spec redcap_rsvc/Feature\\ Tests/A/Configuration\\ Check_1/A.1.1.0100.\\ -\\ Run\\ Configuration\\ Check.feature --browser chrome",
+    "redcap_rsvc:single_test": "CYPRESS_prettyEnabled=true npx cypress run --spec 'redcap_rsvc/Feature Tests/A/Configuration Check_1/A.1.1.0100. - Run Configuration Check.feature' --browser chrome",
     "redcap_rsvc:all_tests": "CYPRESS_prettyEnabled=true npx cypress run --record --key $RECORD_KEY --parallel --group core-tests --browser chrome",
     "validators:build": "docker build -t redcap-stat-validators docker_bin/stat-validators",
     "report:clean": "del-cli cypress/results",
@@ -52,7 +53,7 @@
   },
   "cypress-cucumber-preprocessor": {
     "stepDefinitions": [
-      "cypress/support/step_definitions/*",
+      "cypress/support/step_definitions/**",
       "../redcap_source/modules/*/automated_tests/step_definitions/*.js",
       "../redcap_source/modules/*/automated-tests/step_definitions/*.js"
     ]
