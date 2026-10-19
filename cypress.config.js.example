@@ -382,7 +382,7 @@ module.exports = defineConfig({
 
               switch (fileType) {
                 case 'csv': {
-                  const parse = require('csv-parse/lib/sync')
+                  const { parse } = require('csv-parse/sync')
                   let rows
                   try {
                     // relax_column_count:false makes the parser throw on a ragged row
