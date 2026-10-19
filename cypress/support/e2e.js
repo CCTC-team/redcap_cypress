@@ -47,6 +47,7 @@
 // })
 // ==== END: BEFORE EACH SCENARIO BLOCK ===== //
 
+import 'cypress-axe'
 require('./commands')
 
 // rctf reseeds redcap_config.edoc_path='' from install_data.sql on every

@@ -153,9 +153,7 @@ SSH keys for CircleCI CI/CD integration (deploy keys for various repos).
 | File | Description |
 |------|-------------|
 | `CoreTestWorkflow.png` | Core test workflow diagram |
-| `GherkinStepBuilder.png` | Gherkin step builder screenshot |
 | `REDCapCypressTestEnvironment.png` | Test environment diagram |
-| `RSVCFeatureTestExample.png` | RSVC feature test example |
 | `test-environment.png` | Test environment overview |
 | `thumbnail.png` | Repository thumbnail |
 

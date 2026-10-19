@@ -9,3 +9,4 @@ C.2.19.0800. - User Interface: The Record Locking Customization module shall pro
 C.2.19.0900. - User Interface: The system shall support the ability to limit access to the Record Locking Customization module through user rights.
 C.2.19.1200. - User Interface: The system shall allow a user to provide their 6-digit PIN once per session for File Upload field enhancement
 C.2.19.1400. - User Interface: The system shall provide a project-level additional customization option to enable the Record Locking PDF confirmation & automatic external file storage
+C.2.19.1500. - User Interface: The system shall support exporting and importing Record Locking Customization settings as part of a Project XML file.

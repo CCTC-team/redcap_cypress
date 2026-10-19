@@ -10,3 +10,4 @@ B.3.14.0900. - Renaming a Record: The system shall allow users to rename a recor
 B.3.14.1000. - The system shall allow users to delete all data on the current form of a given record from the Record Home Page.
 B.3.14.1100. - The system shall allow users to delete all data in an event for a given record from the Record Home Page.
 B.3.14.1200. - The system shall allow users to delete a record from the Record Home Page.
+B.3.14.1300. - User Interface: Add/Edit Records: The system shall support retaining user preferences for record search, navigation, and arm selection.

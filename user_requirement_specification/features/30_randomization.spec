@@ -16,3 +16,4 @@ C.3.30.1500. - User Interface: The system shall support blinded and open randomi
 C.3.30.1600. - User Interface: The system shall ensure users with randomization dashboard rights can view the randomization dashboard.	
 C.3.30.1700. - Project Interface Administrator Access: The system shall support administrator-only access to the randomization module's View Allocation Table page.
 C.3.30.1800. - Project Interface Administrator Access: The system shall support the administrator role's ability to perform the following actions with specifying the reason on the randomization module allocation table: perform edit target field, edit target allocation, manual randomization, and make sequence unavailable.
+C.3.30.1900. - User Interface: The system shall ensure that users with appropriate User Rights privileges can export from the randomization dashboard page.

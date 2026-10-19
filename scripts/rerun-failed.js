@@ -315,8 +315,8 @@ async function runSpecs(specs, attempt) {
   const outcome = await runWithCosmeticDetection(cypress.run(opts))
   stopWatchdog()
 
-  // Case (3): cypress.run() never resolved because rctf's broken after:run
-  // left its internal promise chain dangling. The signal handler caught
+  // Case (3): cypress.run() never resolved because the post-run
+  // afterSpecHandler crash left its internal promise chain dangling. The signal handler caught
   // the unhandled rejection; treat the run as complete and read disk.
   if (outcome.__cosmetic) {
     console.warn('Bypassing hung cypress.run(); reading per-spec results from disk to determine retries.')
