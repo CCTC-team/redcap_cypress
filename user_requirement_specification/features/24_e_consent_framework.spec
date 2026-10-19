@@ -16,7 +16,6 @@ C.3.24.1400. - User Interface: The system shall support the e-Consent Framework 
 C.3.24.1500. - User Interface: The system shall support the e-Consent Framework for version control for forms, ensuring that new unique versions can be created, managed, and presented to participants as required. Historical versions shall be maintained for audit and compliance purposes.
 C.3.24.1600. - User Interface: The system shall support the e-Consent Framework to place a consent form in a descriptive field.
 C.3.24.1700. - User Interface: The system shall support the e-Consent Framework to limit user view access (i.e., DAG).
-D.3.24.1800. - User Interface: The system shall support the e-Consent Framework to display a consent form in a specific language.
 C.3.24.1900. - User Interface: The system shall support the e-Consent Framework to optionally automatically save a PDF copy of the survey response using the PDF Snapshot in a specified field.
 C.3.24.2000. - User Interface: The system shall support the e-Consent Framework to hide or unhide active and inactive surveys.
 C.3.24.2100. - User Interface: The system shall support the e-Consent Framework to search within e-Consent framework settings.
@@ -28,4 +27,3 @@ C.3.24.2600. - User Interface: The system shall support the capture and storage 
 C.3.24.2700. - User Interface: The system shall support the saving PDF snapshots to specific fields and the file repository within PDF Snapshots.
 C.3.24.2800. - User Interface: The system shall support the customization of the file name for PDF snapshots.
 C.3.24.2900. - User Interface: The system shall support audit trails for e-Consent Certification and PDF Snapshot generation.
-D.3.24.3100. - Project Settings: The system shall support the storing of non-e-Consent governed PDF Snapshots on the External Storage server if a snapshot contains at least one completed e-Consent response

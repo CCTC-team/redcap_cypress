@@ -3,7 +3,6 @@ B.3.15.0200. - User Interface: Survey Project Settings: The system shall support
 B.3.15.0300. - User Interface – Survey Settings: The system shall allow users to designate any email-validated text field within the project as the survey-specific email invitation field.
 B.3.15.0400. - User Interface – Open Survey Workflow: The system shall allow users to launch the survey associated with an existing participant record using the Log out + Open Survey or Open Survey options.
 B.3.15.0500. - User Interface – Open Survey Workflow: The system shall warn users before saving a data entry form after the user launches the same record’s survey using the Open Survey option, allowing the user to leave without saving or remain on the form.
-D.3.15.0600. - User Interface: Survey Distribution: The system shall allow creation of a participant list manually where each survey is assigned a unique survey link when the survey is in the first instrument position.
 D.3.15.0700. - User Interface: The system shall support the ability for a participant to enter data in a data collection instrument enabled and distributed as a survey.
 B.3.15.0800. - User Interface: The system shall allow submitted survey responses to be changed by a user who has edit survey responses rights.
 B.3.15.0900. - User Interface: The system shall support the following statuses for surveys: (Incomplete (no data saved) | Partial Survey Response | Completed Survey Response)
