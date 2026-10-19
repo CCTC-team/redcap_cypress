@@ -1151,14 +1151,15 @@ Given("I select the option {string} from the dropdown field for {resolveType} in
 /**
  * @module Interactions
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I should NOT see {string} icon for the Comment {string}
- * @param {string} icon - icon to verify
+ * @example I {shouldOrShouldNot} see {string} icon for the Comment {string}
+ * @param {string} shouldOrShouldNot - available options: 'should', 'should NOT'
+ * @param {string} icon - icon image name to verify, e.g. 'pencil' or 'cross'
  * @param {string} comment - comment
- * @description verifies the icon of the comment
+ * @description verifies the icon of the comment in the Field Comment Log
  */
-Given("I should NOT see {string} icon for the Comment {string}", (icon, comment) => {
+Given("I {shouldOrShouldNot} see {string} icon for the Comment {string}", (shouldOrShouldNot, icon, comment) => {
     cy.get('td').contains(comment).parents('tr').within(() => {
-        cy.get(window.onlineDesignerFieldIcons[icon]).should('not.exist')
+        cy.get(`img[src*="${icon}"]`).should(shouldOrShouldNot === 'should NOT' ? 'not.exist' : 'exist')
     })
 })
 
