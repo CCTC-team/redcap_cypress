@@ -96,16 +96,6 @@ defineParameterType({
 })
 
 defineParameterType({
-    name: 'instrumentRights',
-    regexp: /No Access|Read Only|View & Edit|De-Identified|Remove All Identifier Fields|Full Data Set/
-})
-
-defineParameterType({
-    name: 'instrumentPrivilege',
-    regexp: /Data Viewing Rights|Data Export Rights/
-})
-
-defineParameterType({
     name: 'downloadIcon',
     regexp: /PDF|Compact PDF|REDCap XML|ZIP/
 })
@@ -182,20 +172,6 @@ downloadIcon = {
     'Compact PDF' : `img[src*=download_pdf_compact]`,
     'REDCap XML' : `img[src*=download_xml_project]`,
     'ZIP' : `img[src*=download_zip]`
-}
-
-instrumentPrivilege = {
-    'Data Viewing Rights' : `[name^=form-]`,
-    'Data Export Rights' : `[name^=export-form]`
-}
-
-instrumentRights = {
-    'No Access' : `input[type=radio][value=0]`,
-    'Read Only' : `input[type=radio][value=2]`,
-    'View & Edit' : `input[type=radio][value=1]`,
-    'De-Identified' : `input[type=radio][value=2]`,
-    'Remove All Identifier Fields' : `input[type=radio][value=3]`,
-    'Full Data Set' : `input[type=radio][value=1]`
 }
 
 sendInvReminder = {
@@ -1356,21 +1332,6 @@ Given('I create a new project named {string} by clicking on "New Project" in the
 
 
 /**
- * @module Visibility
- * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I (should )see the {instrumentPrivilege} of the instrument {string} with option {instrumentRights} {select}
- * @param {string} addcustomization - available options: "Enable the Data History popup for all data collection instruments", "Enable the File Version History for 'File Upload' fields", "Prevent branching logic from hiding fields that have values"
- * @param {string} check - available options: 'checked', 'unchecked'
- * @description Verifies the instruments rights of the instrument
- */
-Given("I (should )see the {instrumentPrivilege} of the instrument {string} with option {instrumentRights} {select}", (priv, label, option, selected) => {
-    cy.get('td').contains(label).parent('tr').within(() => {
-        cy.get(instrumentRights[option] + instrumentPrivilege[priv]).should(selected === 'selected' ? "be.checked" : "not.be.checked")
-    })
-})
-
-
-/**
  * @module Interactions
  * @author Mintoo Xavier <min2xavier@gmail.com>
  * @example I enter {string} into the {reportFilterOption} for Filter {int}
@@ -1514,16 +1475,32 @@ Given("I click on the button labeled {string} to add an Ad Hoc Event", (text) =>
     
     // Stub the window open method to prevent from opening new window
     cy.window().then((win) => {
-        
-        cy.stub(win, 'open').callsFake((url) => {
-            cy.visit(url)
-        })
+        // Remove a stub left by an earlier step on this window, or cy.stub() throws "already wrapped"
+        if (win.open.restore) win.open.restore()
+        cy.stub(win, 'open').as('calendarPopup')
     })
-  
-    // Simulate clicking the button that opens the calendar popup
+
+    // Simulate clicking the button that opens the calendar popup, then visit the URL it tried to open
     cy.get('#btn_newCalEv').click()
+    cy.get('@calendarPopup').should('have.been.called').then((stub) => {
+        visitCalendarPopup(stub.firstCall.args[0])
+    })
     cy.url().should('include', 'calendar_popup.php')
 })
+
+
+/**
+ * Visits a calendar popup in the current tab instead of the new window REDCap opens it in.
+ * The popup calls window.opener.location.reload() after saving, which throws when there is no opener
+ * and leaves jQuery's active request count above zero, so give it a stand-in opener.
+ */
+function visitCalendarPopup(url) {
+    cy.visit(url, {
+        onBeforeLoad(win) {
+            win.opener = { location: { reload() {} } }
+        }
+    })
+}
 
 
 /**
@@ -1560,17 +1537,23 @@ Given("I click on the {calendarEvent} icon for the event named {string} in the S
 
              // Stub the window open method (which ia called by popupCal function) to prevent from opening new window
             cy.window().then((win) => {
-                
-                cy.stub(win, 'open').callsFake((url) => {
-                    cy.visit(url)
-                })
+                // Remove a stub left by an earlier step on this window, or cy.stub() throws "already wrapped"
+                if (win.open.restore) win.open.restore()
+                cy.stub(win, 'open').as('calendarPopup')
             })
-  
+
             // Simulate clicking the image that opens the calendar popup
             cy.get(calendarEvent[icon]).click()
-            cy.url().should('include', 'calendar_popup.php')
         }
     })
+
+    // Visit the URL the View icon tried to open in a new window (outside within(), which is scoped to the row)
+    if (icon == 'View') {
+        cy.get('@calendarPopup').should('have.been.called').then((stub) => {
+            visitCalendarPopup(stub.firstCall.args[0])
+        })
+        cy.url().should('include', 'calendar_popup.php')
+    }
 })
 
 
