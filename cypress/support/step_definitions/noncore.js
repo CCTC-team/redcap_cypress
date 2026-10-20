@@ -238,6 +238,26 @@ drwRights = {
 
 
 /**
+ * @module Login
+ * @author Mintoo Xavier <min2xavier@gmail.com>
+ * @example I login to REDCap with the user {string} in a new browser session
+ * @param {string} user - the user to log in as (as specified in the cypress.env.json file)
+ * @description Logs in as another user without logging out the current one. Only the browser
+ * cookies are cleared, so the current user's REDCap session stays active (as if they were still
+ * working on another computer), e.g. to check simultaneous-user locking.
+ */
+Given("I login to REDCap with the user {string} in a new browser session", (user) => {
+    cy.clearCookies()
+    cy.visit('/')
+    cy.set_user_type(user).then(() => {
+        cy.getLabeledElement('input', 'Username').type(window.user_info.get_current_user())
+        cy.getLabeledElement('input', 'Password').type(window.user_info.get_current_pass())
+        cy.getLabeledElement('button', 'Log In').click()
+    })
+})
+
+
+/**
  * @module Interactions
  * @author Mintoo Xavier <min2xavier@gmail.com>
  * @example I select the radio option {string} for ASI
