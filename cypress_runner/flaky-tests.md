@@ -72,6 +72,26 @@ classification.
   re-rendered mid-`cy.type()` (detached-DOM). Passed on the isolated rerun; a
   retry/`.should()` re-query in the step would make it deterministic.
 
+## `C/e-Consent framework_24/C.3.24.0805. - eConsent repeat.feature`
+
+- **Test:** `add instance 1 for record with consent framework in Arm 1 Event Three (repeatable instance)`
+- **Symptom:** `AssertionError: Timed out retrying after 30000ms: survey URL passed to surveyOpen(): expected undefined to be a string`.
+  The screenshot shows REDCap's "NOTE: Some fields are required!" dialog (Okay /
+  Ignore…) still open over the form, so "Open survey" never reached rctf's
+  `surveyOpen()` stub.
+- **Observed (2026-10-20, CI, REDCap 17.5.6):** failed in run #35, passed in runs
+  #32 and #34. Passed locally 35/35 on the AIO the same day.
+- **Likely cause:** `Save & Stay` on the empty instance raises the required-field
+  dialog. `I dismiss the "Okay" confirmation dialog if it appears` (rctf
+  `step_definitions/survey.js`) polls up to 20 s and clicks it, but here the
+  dialog was still open afterwards. Either the click hit an "Okay" that was
+  mid-transition, or the dialog appeared after 20 s. One screenshot can't tell
+  which. The same pattern appears 6 times in this feature and in 19 eConsent
+  features.
+- **Classification:** **flaky (CI only so far).**
+- **If it recurs:** harden the rctf step to confirm the dialog has closed after
+  clicking, and click again if it hasn't.
+
 ## Environmental note: memory pressure on 8 GB / 4 GB Docker
 
 Not a per-spec flake, but the common cause of slow/timeout failures here: on the

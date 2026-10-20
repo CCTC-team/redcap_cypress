@@ -78,19 +78,40 @@ Copy `cypress.env.json.example` and update values for your environment:
 ```json
 {
   "users": {
-    "standard": { "user": "test_user", "pass": "Testing123" },
-    "admin": { "user": "test_admin", "pass": "Testing123" },
-    "Test_Admin": { "user": "Test_Admin", "pass": "Testing123" },
-    "Test_User1": { "user": "Test_User1", "pass": "Testing123" },
-    "Test_User2": { "user": "Test_User2", "pass": "Testing123" },
-    "Test_User3": { "user": "Test_User3", "pass": "Testing123" },
-    "Test_User4": { "user": "Test_User4", "pass": "Testing123" }
+    "standard": {
+      "user": "test_user",
+      "pass": "Testing123"
+    },
+    "admin": {
+      "user": "test_admin",
+      "pass": "Testing123"
+    },
+    "Test_Admin": {
+      "user": "Test_Admin",
+      "pass": "Testing123"
+    },
+    "Test_User1": {
+      "user": "Test_User1",
+      "pass": "Testing123"
+    },
+    "Test_User2": {
+      "user": "Test_User2",
+      "pass": "Testing123"
+    },
+    "Test_User3": {
+      "user": "Test_User3",
+      "pass": "Testing123"
+    },
+    "Test_User4": {
+      "user": "Test_User4",
+      "pass": "Testing123"
+    }
   },
-  "redcap_version": "15.5.36",
+  "redcap_version": "17.5.6",
   "language": "English",
   "redcap_hooks_path": "/var/www/html/hook_functions.php",
-  "temp_folder": "../redcap_source/temp",
-  "file_repository": "../redcap_source/redcap_file_repository",
+  "temp_folder": "/var/www/html/temp",
+  "file_repository": "/var/www/html/redcap_file_repository",
   "mysql": {
     "host": "127.0.0.1",
     "path": "docker_bin/mysql",
@@ -98,7 +119,7 @@ Copy `cypress.env.json.example` and update values for your environment:
     "db_name": "redcap",
     "db_user": "root",
     "db_pass": "root",
-    "docker_container": "redcap-db"
+    "docker_container": "CCTC_REDCap_Docker"
   },
   "timezone_override": "Europe/London",
   "bootstrap_settings": {
@@ -106,8 +127,10 @@ Copy `cypress.env.json.example` and update values for your environment:
     "hooks": false,
     "modules": false,
     "plugins": false,
-    "projects": false
-  }
+    "projects" : false
+  },
+  "redcap_plus_subscription_key": "",
+  "skip_redcap_plus_tests": true
 }
 ```
 
@@ -121,6 +144,8 @@ Copy `cypress.env.json.example` and update values for your environment:
 | `temp_folder` | Path to the REDCap temp folder. |
 | `file_repository` | Path to the REDCap file repository. |
 | `timezone_override` | Timezone override for tests (e.g., `Europe/London`). |
+| `redcap_plus_subscription_key` | REDCap+ subscription key for upstream REDCap+ steps. Empty for CCTC. |
+| `skip_redcap_plus_tests` | `true` skips upstream steps that need a REDCap+ subscription. CCTC has none, so keep it `true`. |
 
 ### mysql
 
@@ -132,7 +157,7 @@ Copy `cypress.env.json.example` and update values for your environment:
 | `db_name` | Database name (default: `redcap`). |
 | `db_user` | Database user (default: `root`). |
 | `db_pass` | Database password (default: `root`). |
-| `docker_container` | Name of the MySQL Docker container (default: `redcap-db`). |
+| `docker_container` | Name of the Docker container running MariaDB (default: `CCTC_REDCap_Docker`, the AIO container). |
 
 ### bootstrap_settings
 
@@ -158,6 +183,31 @@ Before the test suite runs, the appropriate tables for your specified REDCap ver
 - `redcap_version` set in `cypress.env.json` matching an available version
 
 The seed data includes both an **admin user** and a **standard user**. Which user you log in as depends on the feature being tested.
+
+---
+
+## Upstream Sync
+
+`redcap_val` tracks Vanderbilt's upstream repos through periodic merges. Each sync lands as one merge commit, so `git log --first-parent redcap_val` shows it as a single step.
+
+| Repo | Last synced upstream commit | CCTC tag |
+|------|-----------------------------|----------|
+| `rctf` (`main`) | `f20fb24` (2026-10-12) | `cctc_v1.0.13` |
+| `redcap_rsvc` (`staging`) | `3f0a4546` (2026-10-12) | `cctc_v1.0.11` |
+| `redcap_cypress` (`master`) | `346e3460` (2026-10-16) | `cctc_v1.1.1` |
+
+The 2026-10-16 sync also moved the suite to **REDCap 17.5.6**. The tags above include the follow-up fixes for 17.x. `.circleci/` was kept deleted (CCTC runs CI on GitHub Actions).
+
+### Table matching in the synced rctf
+
+The synced rctf compares tables more strictly than older CCTC versions. Features written for the old word-by-word matching may need updating:
+
+- Each column is matched as one whole string, so use REDCap's exact text, including hyphens, case, quotes and commas.
+- Logging rows are checked in page order (newest first).
+- A blank first cell means "continuation of the previous row". A blank first header cell is rejected.
+- Header columns must be in page order. You can leave columns out, but not reorder them.
+- For a data-only row, use `I should see a table rows containing the following values in a table:`, not the header-and-rows step.
+- REDCap 17 shows lowercase usernames in some places, e.g. the Data Resolution Workflow and Resolve Issues pages.
 
 ---
 
@@ -265,7 +315,7 @@ This creates `cypress/results/html/test-report.html` — open it in a browser to
 To customise the report filename per run:
 
 ```bash
-REPORT_NAME=v15.5.36-smoke npm run test:local -- --browser chrome --spec "..."
+REPORT_NAME=v17.5.6-smoke npm run test:local -- --browser chrome --spec "..."
 ```
 
 To clear old results before a fresh run:
