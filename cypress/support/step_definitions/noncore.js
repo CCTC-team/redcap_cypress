@@ -931,21 +931,6 @@ Given("I select the radio option {string} for {alert}", (option, alert) => {
 
 
 /**
- * @module Visibility
- * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I should see the radio option {string} for {alert} selected
- * @param {string} option - option selected
- * @param {string} alert - available options: 'How will this alert be triggered', 'When to send the alert', 'Send it how many times', 'Alert Type'
- * @description verifies the radio option is selected for alert option
- */
-Given("I should see the radio option {string} for {alert} selected", (option, alert) => {
-    cy.get('td').contains(alert).parents('tr').within(() => {
-        cy.get('label').contains(option).parent().find('input').should('be.checked')
-    })
-})
-
-
-/**
  * @module Interactions
  * @author Mintoo Xavier <min2xavier@gmail.com>
  * @example I enter {string} into the alert message
@@ -1358,37 +1343,6 @@ Given("I enter {string} into the {reportFilterOption} for Filter {int}", (text, 
 Given("I select the {operatorValue} {string} for Filter {int}", (option, text, num) => {
     cy.get('#create_report_table').find('td').contains('Filter ' + num).parents('tr').within(() => {
         cy.get(operatorValue[option]).select(text)
-    })
-})
-
-
-/**
- * @module Interactions
- * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I should have the latest downloaded {string} file with SHA256 hash value {string}
- * @param {string} fileType - file format
- * @param {string} hashValue - hash value
- * @description verifies the hash value of the file
- */
-Given("I should have the latest downloaded {string} file with SHA256 hash value {string}", (fileType, hashValue) => {
-    cy.task('fetchLatestDownload', ({fileExtension: fileType})).then((latest_file) => {
-        let basePath = path;
-        let filePath = latest_file.replace(basePath, '');
-
-        // sas, sps, r, do files contain the corresponding csv file names within the files 
-        // csv filename is of the format filename_yyyy-mm-dd_hhmm.csv
-        // xml file contains filename and timestamp
-        // ics file contains UID and timestamp
-        // This causes the hash value to differ each time hence removing the csv file name from the file
-    
-        if (fileType != 'csv')
-            cy.task('modifyFile', { filePath, fileType }).then(result => {
-                cy.log(result)
-            })
-
-        cy.task('calculateFileHash', { filePath }).then(hash => {
-            expect(hash).to.equal(hashValue);
-          })
     })
 })
 

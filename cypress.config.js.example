@@ -2,9 +2,7 @@ const { defineConfig } = require("cypress")
 const AdmZip = require('adm-zip')
 const fs = require('fs')
 const path = require('path')
-const crypto = require('crypto')
 const { execSync, execFileSync } = require('child_process')
-const readLine = require('readline')
 // const compareImages = require('resemblejs/compareImages')
 
 // --- Engine-based format validation (Phase 3) helpers ---------------------------
@@ -77,8 +75,8 @@ function firstErrorLine(output) {
 }
 
 // Remove per-run volatile lines (timestamps, dated filenames, generated OIDs) so a download
-// can be compared to a saved golden reference on data content alone. Mirrors the per-format
-// rules in the modifyFile task. CSV has no volatile content and is compared as-is.
+// can be compared to a saved golden reference on data content alone. CSV has no volatile
+// content and is compared as-is.
 function stripVolatile(content, fileType) {
   const isVolatile = (line) => {
     switch (fileType) {
@@ -270,7 +268,7 @@ module.exports = defineConfig({
             },
             // Task 2b: Newest matching download by mtime, WITHOUT rctf fetchLatestDownload's
             // 5-second freshness filter. The export-verification steps (valid format / matching
-            // reference / SHA256 hash) always run right after a known download, so newest-by-mtime
+            // reference) always run right after a known download, so newest-by-mtime
             // is unambiguous and the staleness window is unnecessary. Dropping it removes a flaky
             // race: a slow Docker-based validateFileFormat step (pspp/Rscript, or a first-run image
             // build) could age the companion file past 5s, after which the freshness-filtered fetch
@@ -297,85 +295,7 @@ module.exports = defineConfig({
               }
               return ''
             },
-            // Task 3: Checks Hash file
-            calculateFileHash({ filePath }) {
-              return new Promise((resolve, reject) => {
-                const algorithm = 'sha256'
-                const hash = crypto.createHash(algorithm)
-                const fullFilePath = __dirname + filePath
-                const stream = fs.createReadStream(fullFilePath)
-    
-                stream.on('data', chunk => hash.update(chunk))
-                stream.on('end', () => resolve(hash.digest('hex')))
-                stream.on('error', reject)
-              })
-            },
-            // Task 4: Delete lines from the file as it contains timestamp or ID
-            modifyFile({ filePath, fileType }) {
-              return new Promise((resolve, reject) => {
-                const fullFilePath = __dirname + filePath
-                const tempFilePath = fullFilePath + '.tmp'
-                const readStream = fs.createReadStream(fullFilePath, 'utf8')
-                const writeStream = fs.createWriteStream(tempFilePath, 'utf8')
-
-                const rl = readLine.createInterface({
-                  input: readStream,
-                  crlfDelay: Infinity
-                })
-
-                readStream.on('error', (err) => {
-                  return reject(`Error reading file: ${err.message}`)
-                })
-
-                writeStream.on('error', (err) => {
-                  return reject(`Error writing file: ${err.message}`)
-                })
-
-                rl.on('line', (line) => {
-                  let keep = true
-
-                  switch (fileType) {
-                    case 'ics':
-                      if (line.startsWith('UID') || line.startsWith('DTSTAMP')) keep = false
-                      break
-                    case 'sas':
-                      if (line.startsWith('%let csv_file')) keep = false
-                      break
-                    case 'sps':
-                      if (line.startsWith('FILE HANDLE')) keep = false
-                      break
-                    case 'r':
-                      if (line.startsWith('data')) keep = false
-                      break
-                    case 'do':
-                      if (line.startsWith('label data') || line.startsWith('import delimited')) keep = false
-                      break
-                    case 'xml':
-                      if (line.startsWith('<ODM xmlns') || line.startsWith('<ClinicalData StudyOID')) keep = false
-                      break
-                    default:
-                      return reject(`Unsupported file type: ${fileType}`)
-                  }
-
-                  if (keep) {
-                    writeStream.write(line + '\n')
-                  }
-                })
-
-                rl.on('close', () => {
-                  writeStream.end()
-
-                  writeStream.on('finish', () => {
-                    // Replace original file with modified one
-                    fs.rename(tempFilePath, fullFilePath, (err) => {
-                      if (err) return reject(`Error renaming temp file: ${err.message}`)
-                      resolve('File updated successfully')
-                    })
-                  })
-                })
-              })
-            },
-            // Task 5: Validate that a downloaded file is structurally valid for its format
+            // Task 3: Validate that a downloaded file is structurally valid for its format
             validateFileFormat({ filePath, fileType }) {
               const fullFilePath = __dirname + filePath
               const content = fs.readFileSync(fullFilePath, 'utf8')
@@ -473,7 +393,7 @@ module.exports = defineConfig({
                 default:    return { valid: false, message: `Unsupported file type: ${fileType}` }
               }
             },
-            // Task 6: Compare a downloaded export against a manually-verified golden reference.
+            // Task 4: Compare a downloaded export against a manually-verified golden reference.
             // Both sides are stripped of per-run volatile lines (timestamps/dated filenames) so
             // only the data content is compared. On mismatch, returns the first differing lines
             // so the failure shows exactly which value drifted (vs a bare hash mismatch).
