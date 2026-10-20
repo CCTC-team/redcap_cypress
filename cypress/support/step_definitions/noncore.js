@@ -931,21 +931,6 @@ Given("I select the radio option {string} for {alert}", (option, alert) => {
 
 
 /**
- * @module Visibility
- * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I should see the radio option {string} for {alert} selected
- * @param {string} option - option selected
- * @param {string} alert - available options: 'How will this alert be triggered', 'When to send the alert', 'Send it how many times', 'Alert Type'
- * @description verifies the radio option is selected for alert option
- */
-Given("I should see the radio option {string} for {alert} selected", (option, alert) => {
-    cy.get('td').contains(alert).parents('tr').within(() => {
-        cy.get('label').contains(option).parent().find('input').should('be.checked')
-    })
-})
-
-
-/**
  * @module Interactions
  * @author Mintoo Xavier <min2xavier@gmail.com>
  * @example I enter {string} into the alert message
