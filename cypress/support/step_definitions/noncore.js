@@ -1350,37 +1350,6 @@ Given("I select the {operatorValue} {string} for Filter {int}", (option, text, n
 /**
  * @module Interactions
  * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I should have the latest downloaded {string} file with SHA256 hash value {string}
- * @param {string} fileType - file format
- * @param {string} hashValue - hash value
- * @description verifies the hash value of the file
- */
-Given("I should have the latest downloaded {string} file with SHA256 hash value {string}", (fileType, hashValue) => {
-    cy.task('fetchLatestDownload', ({fileExtension: fileType})).then((latest_file) => {
-        let basePath = path;
-        let filePath = latest_file.replace(basePath, '');
-
-        // sas, sps, r, do files contain the corresponding csv file names within the files 
-        // csv filename is of the format filename_yyyy-mm-dd_hhmm.csv
-        // xml file contains filename and timestamp
-        // ics file contains UID and timestamp
-        // This causes the hash value to differ each time hence removing the csv file name from the file
-    
-        if (fileType != 'csv')
-            cy.task('modifyFile', { filePath, fileType }).then(result => {
-                cy.log(result)
-            })
-
-        cy.task('calculateFileHash', { filePath }).then(hash => {
-            expect(hash).to.equal(hashValue);
-          })
-    })
-})
-
-
-/**
- * @module Interactions
- * @author Mintoo Xavier <min2xavier@gmail.com>
  * @example I should have the latest downloaded {string} file in a valid format
  * @param {string} fileType - file format (csv, xml, r, sps, sas, do)
  * @description Validates that the latest downloaded file is structurally valid for its format.
