@@ -377,7 +377,7 @@ The `redcap-aio` and `cypress-runner-aio` images must target the **same REDCap v
 | Variable | Default | Purpose |
 |----------|---------|---------|
 | `CYPRESS_MAX_ATTEMPTS` | `3` | Max retry attempts per failed spec |
-| `CYPRESS_STALL_MS` | `3600000` | Watchdog: abort the run if no spec report is written for the interval |
+| `CYPRESS_STALL_MS` | `3600000` | Watchdog: if Cypress prints nothing for the interval (no scenario finishes, no report is written), the stuck attempt is killed. The frozen spec, and any specs after it that never ran, are retried in the next attempt. A spec that stalls on every attempt fails the run and is listed as stalled. A single scenario longer than the interval counts as a stall, so keep it above the longest scenario. |
 | `RUNNER_BROWSER` | `chromium` | Browser used for headless runs |
 
 ### Required repository secrets

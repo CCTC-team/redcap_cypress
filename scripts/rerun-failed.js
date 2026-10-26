@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 const cypress = require('cypress')
+const { spawn } = require('child_process')
 const fs = require('fs')
+const os = require('os')
 const path = require('path')
 
 const MAX_ATTEMPTS = parseInt(process.env.CYPRESS_MAX_ATTEMPTS || '3', 10)
@@ -122,26 +124,25 @@ function dedupeReportsByFullFile() {
 
 // Snapshot mtimes of report files before a run so we can identify which
 // reports were produced by *this* attempt (vs prior attempts).
-function snapshotReportMtimes() {
-  if (!fs.existsSync(REPORT_DIR)) return {}
+function snapshotReportMtimes(dir = REPORT_DIR) {
+  if (!fs.existsSync(dir)) return {}
   const out = {}
-  for (const f of fs.readdirSync(REPORT_DIR)) {
+  for (const f of fs.readdirSync(dir)) {
     if (!f.endsWith('.json')) continue
-    out[f] = fs.statSync(path.join(REPORT_DIR, f)).mtimeMs
+    out[f] = fs.statSync(path.join(dir, f)).mtimeMs
   }
   return out
 }
 
-// Read mochawesome JSONs written/updated since `snapshot` and return the
-// relative spec paths that had any failures. Used as a fallback when
-// cypress.run() returns status:'failed' due to a known post-run config
-// crash but the specs themselves already wrote reports to disk.
-function readFailedSpecsFromReports(snapshot) {
-  if (!fs.existsSync(REPORT_DIR)) return []
-  const failed = []
-  for (const f of fs.readdirSync(REPORT_DIR)) {
+// Read mochawesome JSONs written/updated since `snapshot` and return
+// `{ fullFile, failures }` for each. Unchanged files are from a prior attempt
+// and unparseable ones can't be attributed to a spec, so both are skipped.
+function collectFreshReports(snapshot, dir = REPORT_DIR) {
+  if (!fs.existsSync(dir)) return []
+  const fresh = []
+  for (const f of fs.readdirSync(dir)) {
     if (!f.endsWith('.json')) continue
-    const fullPath = path.join(REPORT_DIR, f)
+    const fullPath = path.join(dir, f)
     const mtime = fs.statSync(fullPath).mtimeMs
     const prev = snapshot[f]
     if (prev !== undefined && mtime <= prev) continue // not from this attempt
@@ -151,12 +152,38 @@ function readFailedSpecsFromReports(snapshot) {
     } catch {
       continue
     }
-    if (!report.stats || report.stats.failures <= 0) continue
     const fullFile = report.results && report.results[0] && report.results[0].fullFile
     if (!fullFile) continue
-    failed.push(path.relative(process.cwd(), fullFile))
+    fresh.push({ fullFile, failures: (report.stats && report.stats.failures) || 0 })
   }
-  return failed
+  return fresh
+}
+
+// Decide which of an attempt's specs need another run: those whose fresh
+// report has failures, plus those with no fresh report at all (the spec was
+// frozen when the attempt ended, or never got to run). Specs are matched to
+// reports by basename because `fullFile` is absolute while the spec list may
+// be relative; the spec paths are returned as given so they can be passed
+// straight back to Cypress.
+function specsToRetry(attemptSpecs, freshReports) {
+  const failuresByBasename = new Map()
+  for (const r of freshReports) {
+    const base = path.basename(r.fullFile)
+    failuresByBasename.set(base, (failuresByBasename.get(base) || 0) + r.failures)
+  }
+  return attemptSpecs.filter(s => {
+    const failures = failuresByBasename.get(path.basename(s))
+    return failures === undefined || failures > 0
+  })
+}
+
+// Relative spec paths with failures in reports written since `snapshot`.
+// Used as a fallback when cypress.run() returns status:'failed' due to a known
+// post-run config crash but the specs themselves already wrote reports to disk.
+function readFailedSpecsFromReports(snapshot) {
+  return collectFreshReports(snapshot)
+    .filter(r => r.failures > 0)
+    .map(r => path.relative(process.cwd(), r.fullFile))
 }
 
 // rctf's afterSpecHandler can throw `Unexpected state in afterSpecHandler`
@@ -183,7 +210,7 @@ function isCosmeticCrash(err) {
 // resolve chain is left dangling. Just silencing the rejection keeps the
 // process alive but doesn't unblock `await cypress.run()`.
 let cosmeticCrashSignal = null
-process.on('unhandledRejection', (reason) => {
+function onUnhandledRejection(reason) {
   if (isCosmeticCrash(reason)) {
     cosmeticCrashSignal = reason
     console.warn('Cosmetic post-run rctf/cucumber rejection detected (specs already wrote reports):')
@@ -192,7 +219,7 @@ process.on('unhandledRejection', (reason) => {
   }
   console.error('Unhandled rejection:', reason)
   process.exit(1)
-})
+}
 
 // Race cypress.run() against the cosmetic-crash signal so a dangling
 // internal promise inside Cypress can't lock us up.
@@ -210,13 +237,6 @@ function runWithCosmeticDetection(cypressPromise) {
   ]).finally(() => clearInterval(interval))
 }
 
-// Watchdog: if no spec report is written for STALL_MS ms, assume Cypress
-// is hung (network stall to dashboard, Chrome freeze, etc.) and exit so
-// the workflow can move to artifact-upload steps instead of burning the
-// 350-min step timeout. Reports for already-completed specs remain on disk.
-let watchdogTimer = null
-let lastProgressTs = Date.now()
-
 function latestReportMtime() {
   if (!fs.existsSync(REPORT_DIR)) return 0
   let max = 0
@@ -228,30 +248,33 @@ function latestReportMtime() {
   return max
 }
 
-function startWatchdog() {
-  const stallMs = parseInt(process.env.CYPRESS_STALL_MS || '900000', 10) // 15 min
-  if (watchdogTimer) clearInterval(watchdogTimer)
-  lastProgressTs = Date.now()
-  let lastSeenMtime = latestReportMtime()
-  watchdogTimer = setInterval(() => {
-    const now = Date.now()
-    const m = latestReportMtime()
-    if (m > lastSeenMtime) {
-      lastSeenMtime = m
-      lastProgressTs = now
-    }
-    if (now - lastProgressTs > stallMs) {
-      console.error(`\n=== WATCHDOG: no new spec report for ${Math.round(stallMs/60000)} min — Cypress appears hung. Forcing exit so workflow can proceed to artifact upload. ===`)
-      process.exit(2)
-    }
-  }, 60000).unref() // .unref so it doesn't keep the event loop alive on its own
+// Cypress announces each spec as it starts, e.g.
+//   "  Running:  A.2.2.0100. - Create Users.feature          (1 of 3)"
+// Returns the spec name from such a line, or null for any other line.
+function parseRunningSpec(line) {
+  const m = line.replace(/\x1b\[[0-9;]*m/g, '').match(/Running:\s+(.+?)\s+\(\d+ of \d+\)\s*$/)
+  return m ? m[1] : null
 }
 
-function stopWatchdog() {
-  if (watchdogTimer) {
-    clearInterval(watchdogTimer)
-    watchdogTimer = null
-  }
+// After an attempt is killed, split its specs that wrote no report into the
+// one that froze and the ones that never got to start. The frozen spec is the
+// one Cypress last announced; if that can't be matched, the first spec in the
+// list without a report is the best guess.
+function classifyStall(attemptSpecs, freshReports, runningSpec) {
+  const reported = new Set(freshReports.map(r => path.basename(r.fullFile)))
+  const missing = attemptSpecs.filter(s => !reported.has(path.basename(s)))
+  let frozen = runningSpec
+    ? missing.find(s => path.basename(s) === path.basename(runningSpec))
+    : undefined
+  if (!frozen) frozen = missing[0]
+  return { frozen: frozen || null, neverRan: missing.filter(s => s !== frozen) }
+}
+
+// Specs from the attempt that Cypress didn't report on at all. Matched by
+// basename because Cypress reports paths relative to the project root.
+function specsMissingFromRun(attemptSpecs, ranSpecs) {
+  const ran = new Set(ranSpecs.map(s => path.basename(s)))
+  return attemptSpecs.filter(s => !ran.has(path.basename(s)))
 }
 
 function parseArgs(argv) {
@@ -264,20 +287,24 @@ function parseArgs(argv) {
     else if (a === '--config') out.config = argv[++i]
     else if (a === '--env') out.env = argv[++i]
     else if (a === '--config-file') out.configFile = argv[++i]
+    else if (a === '--attempt-worker') out.attemptWorker = true
+    else if (a === '--attempt') out.attempt = parseInt(argv[++i], 10)
+    else if (a === '--result-file') out.resultFile = argv[++i]
   }
   return out
 }
 
 const cliArgs = parseArgs(process.argv.slice(2))
 
-let initialSpec = null
-if (cliArgs.specFile) {
-  initialSpec = fs.readFileSync(cliArgs.specFile, 'utf8')
-    .split('\n')
-    .map(s => s.trim())
-    .filter(Boolean)
-} else if (cliArgs.spec) {
-  initialSpec = cliArgs.spec.split(',')
+function readInitialSpec() {
+  if (cliArgs.specFile) {
+    return fs.readFileSync(cliArgs.specFile, 'utf8')
+      .split('\n')
+      .map(s => s.trim())
+      .filter(Boolean)
+  }
+  if (cliArgs.spec) return cliArgs.spec.split(',')
+  return null
 }
 
 async function runSpecs(specs, attempt) {
@@ -311,9 +338,12 @@ async function runSpecs(specs, attempt) {
 
   const reportSnapshot = snapshotReportMtimes()
 
-  startWatchdog()
   const outcome = await runWithCosmeticDetection(cypress.run(opts))
-  stopWatchdog()
+
+  // Returns { failed, ran }: the specs to retry, and every spec Cypress
+  // reported on (null when results had to be read from disk instead), or
+  // null when the runner failed to start.
+  const fromDisk = () => ({ failed: readFailedSpecsFromReports(reportSnapshot), ran: null })
 
   // Case (3): cypress.run() never resolved because the post-run
   // afterSpecHandler crash left its internal promise chain dangling. The signal handler caught
@@ -321,7 +351,7 @@ async function runSpecs(specs, attempt) {
   if (outcome.__cosmetic) {
     console.warn('Bypassing hung cypress.run(); reading per-spec results from disk to determine retries.')
     renameReports()
-    return readFailedSpecsFromReports(reportSnapshot)
+    return fromDisk()
   }
 
   // Case (2): cypress.run() rejected. Cosmetic crash → disk fallback;
@@ -332,7 +362,7 @@ async function runSpecs(specs, attempt) {
       console.warn(`  ${(outcome.__error.message || String(outcome.__error)).split('\n')[0]}`)
       console.warn('Specs already completed; reading per-spec results from disk to determine retries.')
       renameReports()
-      return readFailedSpecsFromReports(reportSnapshot)
+      return fromDisk()
     }
     throw outcome.__error
   }
@@ -346,7 +376,7 @@ async function runSpecs(specs, attempt) {
       console.warn(`  ${(results.message || '').split('\n')[0]}`)
       console.warn('Specs already completed; reading per-spec results from disk to determine retries.')
       renameReports()
-      return readFailedSpecsFromReports(reportSnapshot)
+      return fromDisk()
     }
     console.error('Cypress runner failed to start:', results.message)
     return null
@@ -354,25 +384,195 @@ async function runSpecs(specs, attempt) {
 
   renameReports()
 
-  return results.runs
-    .filter(r => (r.stats && r.stats.failures > 0) || r.error)
-    .map(r => r.spec.relative)
+  return {
+    failed: results.runs
+      .filter(r => (r.stats && r.stats.failures > 0) || r.error)
+      .map(r => r.spec.relative),
+    ran: results.runs.map(r => r.spec.relative),
+  }
+}
+
+// Worker mode: run one attempt's cypress.run() and hand the outcome back to
+// the parent through --result-file. The parent owns the retry loop and the
+// watchdog, so a frozen run can be killed without ending the whole job.
+async function workerMain() {
+  process.on('unhandledRejection', onUnhandledRejection)
+  const outcome = await runSpecs(readInitialSpec(), cliArgs.attempt)
+  const result = outcome ? { status: 'ok', ...outcome } : { status: 'startup-error' }
+  fs.writeFileSync(cliArgs.resultFile, JSON.stringify(result))
+  process.exit(0)
+}
+
+const STALL_MS = parseInt(process.env.CYPRESS_STALL_MS || '900000', 10) // 15 min
+const STALL_LABEL = STALL_MS >= 60000 ? `${Math.round(STALL_MS / 60000)} min` : `${Math.round(STALL_MS / 1000)} s`
+
+// The worker currently running an attempt, so a SIGTERM/SIGINT to this
+// process can take its whole process group down too.
+let activeWorker = null
+
+// The worker is started detached, so it leads its own process group holding
+// Cypress, the browser and Xvfb. Killing the group (negative pid) stops all
+// of them at once. ESRCH just means the group is already gone. After the worker
+// has exited, macOS reports EPERM for a group left holding only zombies, so the
+// post-exit sweep passes `afterExit` to treat that as gone too.
+function killWorkerGroup(child, afterExit = false) {
+  if (!child || !child.pid) return
+  try {
+    process.kill(-child.pid, 'SIGKILL')
+  } catch (err) {
+    if (err.code === 'ESRCH' || (afterExit && err.code === 'EPERM')) return
+    console.warn(`Could not kill attempt worker group ${child.pid}: ${err.message}`)
+  }
+}
+
+// Run one attempt in a worker process, watching for a stall. Progress is any
+// output from the worker or a newly written report, so a long spec that is
+// still printing steps is never mistaken for a frozen one. Resolves to
+// { failed, stall }: `failed` is null if the runner itself errored, and
+// `stall` is { frozen, neverRan } when the attempt was killed.
+function runAttempt(specs, attempt) {
+  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'rerun-failed-'))
+  const resultFile = path.join(tmpDir, 'result.json')
+  const args = [__filename, '--attempt-worker', '--attempt', String(attempt), '--result-file', resultFile]
+  if (specs) {
+    const specFile = path.join(tmpDir, 'specs.txt')
+    fs.writeFileSync(specFile, specs.join('\n') + '\n')
+    args.push('--spec-file', specFile)
+  }
+  if (cliArgs.browser) args.push('--browser', cliArgs.browser)
+  if (cliArgs.config) args.push('--config', cliArgs.config)
+  if (cliArgs.env) args.push('--env', cliArgs.env)
+  if (cliArgs.configFile) args.push('--config-file', cliArgs.configFile)
+
+  // Output is piped (so it can be watched), which would make Cypress drop its
+  // colours in an interactive terminal.
+  const env = { ...process.env }
+  if (process.stdout.isTTY && env.FORCE_COLOR === undefined) env.FORCE_COLOR = '1'
+
+  const snapshot = snapshotReportMtimes()
+
+  return new Promise(resolve => {
+    const child = spawn(process.execPath, args, { detached: true, stdio: ['ignore', 'pipe', 'pipe'], env })
+    activeWorker = child
+
+    let lastProgressTs = Date.now()
+    let lastSeenMtime = latestReportMtime()
+    let runningSpec = null
+    let partialLine = ''
+    let stalled = false
+
+    child.stdout.on('data', chunk => {
+      process.stdout.write(chunk)
+      lastProgressTs = Date.now()
+      const lines = (partialLine + chunk.toString()).split('\n')
+      partialLine = lines.pop()
+      for (const line of lines) {
+        const spec = parseRunningSpec(line)
+        if (spec) runningSpec = spec
+      }
+    })
+    child.stderr.on('data', chunk => {
+      process.stderr.write(chunk)
+      lastProgressTs = Date.now()
+    })
+
+    const watchdog = setInterval(() => {
+      const now = Date.now()
+      const m = latestReportMtime()
+      if (m > lastSeenMtime) {
+        lastSeenMtime = m
+        lastProgressTs = now
+      }
+      if (!stalled && now - lastProgressTs > STALL_MS) {
+        stalled = true
+        console.error(`\n=== WATCHDOG: attempt ${attempt} stalled (no Cypress output for ${STALL_LABEL}) — killing it and retrying ===`)
+        killWorkerGroup(child)
+      }
+    }, Math.min(60000, Math.max(1000, Math.floor(STALL_MS / 4))))
+
+    const finish = outcome => {
+      clearInterval(watchdog)
+      activeWorker = null
+      fs.rmSync(tmpDir, { recursive: true, force: true })
+      resolve(outcome)
+    }
+
+    child.on('error', err => {
+      console.error('Could not start the attempt worker:', err.message)
+      finish({ failed: null, stall: null })
+    })
+
+    child.on('exit', (code, signal) => {
+      // Sweep up anything the worker left behind (a browser that outlived
+      // cypress.run(), say) before the next attempt starts.
+      killWorkerGroup(child, true)
+
+      if (stalled) {
+        if (!specs) {
+          console.error('No explicit spec list, so the specs that did not run cannot be retried. Exiting.')
+          fs.rmSync(tmpDir, { recursive: true, force: true })
+          process.exit(2)
+        }
+        const fresh = collectFreshReports(snapshot)
+        renameReports()
+        const stall = classifyStall(specs, fresh, runningSpec)
+        if (stall.frozen) console.error(`  stalled: ${stall.frozen}`)
+        if (stall.neverRan.length) console.error(`  never ran: ${stall.neverRan.length} spec(s) after it`)
+        finish({ failed: specsToRetry(specs, fresh), stall })
+        return
+      }
+
+      let result = null
+      try {
+        result = JSON.parse(fs.readFileSync(resultFile, 'utf8'))
+      } catch {
+        console.error(`Attempt worker exited (${signal || `code ${code}`}) without a result.`)
+        finish({ failed: null, stall: null })
+        return
+      }
+      if (result.status !== 'ok') {
+        finish({ failed: null, stall: null })
+        return
+      }
+
+      // Cypress's own results decide pass/fail. A spec in the list that it
+      // never reported on at all still needs another run.
+      const failed = [...result.failed]
+      if (specs && result.ran) {
+        const already = new Set(failed.map(s => path.basename(s)))
+        for (const s of specsMissingFromRun(specs, result.ran)) {
+          if (!already.has(path.basename(s))) failed.push(s)
+        }
+      }
+      finish({ failed, stall: null })
+    })
+  })
 }
 
 async function main() {
+  // The worker runs in its own process group, so a Ctrl-C or a cancelled CI
+  // job never reaches it directly; take it down before exiting.
+  for (const signal of ['SIGTERM', 'SIGINT']) {
+    process.on(signal, () => {
+      killWorkerGroup(activeWorker)
+      process.exit(signal === 'SIGINT' ? 130 : 143)
+    })
+  }
+
+  const initialSpec = readInitialSpec()
   let attempt = 1
   if (initialSpec) {
     console.log(`\n=== Attempt ${attempt}: running ${initialSpec.length} spec(s) matching --spec ===`)
   } else {
     console.log(`\n=== Attempt ${attempt}: running all specs ===`)
   }
-  let failed = await runSpecs(initialSpec, attempt)
+  let { failed, stall } = await runAttempt(initialSpec, attempt)
 
   while (failed && failed.length > 0 && attempt < MAX_ATTEMPTS) {
     attempt++
     console.log(`\n=== Attempt ${attempt}: rerunning ${failed.length} failed spec(s) ===`)
     failed.forEach(s => console.log('  -', s))
-    failed = await runSpecs(failed, attempt)
+    ;({ failed, stall } = await runAttempt(failed, attempt))
   }
 
   // Collapse any duplicate per-spec reports so the merged HTML shows exactly one
@@ -389,6 +589,15 @@ async function main() {
   if (failed.length > 0) {
     console.error(`\n${failed.length} spec(s) still failing after ${attempt} attempt(s):`)
     failed.forEach(s => console.error('  -', s))
+    if (stall) {
+      // The last attempt was killed: separate the spec that froze from the
+      // specs it blocked, which may well be fine and just need a re-run.
+      if (stall.frozen) console.error(`of which stalled (no Cypress output for ${STALL_LABEL}):\n  - ${stall.frozen}`)
+      if (stall.neverRan.length) {
+        console.error('of which never ran (blocked by the stalled spec):')
+        stall.neverRan.forEach(s => console.error('  -', s))
+      }
+    }
     process.exit(1)
   }
 
@@ -396,7 +605,20 @@ async function main() {
   process.exit(0)
 }
 
-main().catch(err => {
-  console.error('Unexpected error:', err)
-  process.exit(1)
-})
+if (require.main === module) {
+  const entry = cliArgs.attemptWorker ? workerMain : main
+  entry().catch(err => {
+    console.error('Unexpected error:', err)
+    process.exit(1)
+  })
+}
+
+module.exports = {
+  specsToRetry,
+  collectFreshReports,
+  snapshotReportMtimes,
+  trimSpecPrefix,
+  parseRunningSpec,
+  classifyStall,
+  specsMissingFromRun,
+}
