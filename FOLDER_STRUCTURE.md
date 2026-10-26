@@ -201,7 +201,7 @@ SSH keys for CircleCI CI/CD integration (deploy keys for various repos).
 | Package | Version | Purpose |
 |---------|---------|---------|
 | **rctf** | `CCTC-team/rctf#cctc_v1.0.13` | REDCap Cypress Test Framework (core step definitions) |
-| **redcap_rsvc** | `CCTC-team/redcap_rsvc#cctc_v1.0.13` | RSVC automated feature tests |
+| **redcap_rsvc** | `CCTC-team/redcap_rsvc#cctc_v1.0.14` | RSVC automated feature tests |
 | **@badeball/cypress-cucumber-preprocessor** | `^24.0.0` | Gherkin/Cucumber support for Cypress |
 | **adm-zip** | `^0.5.16` | ZIP file handling for test operations |
 
