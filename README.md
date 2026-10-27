@@ -192,7 +192,7 @@ The seed data includes both an **admin user** and a **standard user**. Which use
 
 | Repo | Last synced upstream commit | CCTC tag |
 |------|-----------------------------|----------|
-| `rctf` (`main`) | `f20fb24` (2026-10-12) | `cctc_v1.0.13` |
+| `rctf` (`main`) | `f20fb24` (2026-10-12) | `cctc_v1.0.14` |
 | `redcap_rsvc` (`staging`) | `3f0a4546` (2026-10-12) | `cctc_v1.0.17` |
 | `redcap_cypress` (`master`) | `346e3460` (2026-10-16) | `cctc_v1.1.1` |
 
