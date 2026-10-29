@@ -192,11 +192,13 @@ The seed data includes both an **admin user** and a **standard user**. Which use
 
 | Repo | Last synced upstream commit | CCTC tag |
 |------|-----------------------------|----------|
-| `rctf` (`main`) | `f20fb24` (2026-10-12) | `cctc_v1.0.14` |
-| `redcap_rsvc` (`staging`) | `3f0a4546` (2026-10-12) | `cctc_v1.0.17` |
+| `rctf` (`main`) | `11c34bc` (2026-10-26) | `cctc_v1.0.15` |
+| `redcap_rsvc` (`staging`) | `c5737c7e` (2026-10-27) | `cctc_v1.0.18` |
 | `redcap_cypress` (`master`) | `346e3460` (2026-10-16) | `cctc_v1.1.1` |
 
 The 2026-10-16 sync also moved the suite to **REDCap 17.5.6**. The tags above include the follow-up fixes for 17.x. `.circleci/` was kept deleted (CCTC runs CI on GitHub Actions).
+
+The 2026-10-29 sync of `rctf` and `redcap_rsvc` brought upstream's fixes for **REDCap 17.5.7** and the new Data Resolution Workflow features C.4.18.1500 and C.4.18.1900–2400. `redcap_cypress` was not synced that time: upstream `master` only had pin bumps, a `.circleci` tweak and lockfile updates.
 
 ### Table matching in the synced rctf
 
