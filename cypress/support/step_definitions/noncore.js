@@ -1554,12 +1554,14 @@ Given("I select {string} on the {dropdownOption} dropdown field", (text, option)
 Given("I click on the link labeled {string} in the View Calendar Event", (text) => {
     cy.contains('a', text) // Find the link by its visible text
       .then(($link) => {
-        // Extract the URL fragment from the onclick handler
+        // Extract the URL fragment from the onclick handler.
+        // Form links use a single-quoted string; since 17.5.7 the Schedule and
+        // Record Home links use a JSON-encoded double-quoted string (\/ and & escapes).
         const onclickContent = $link.attr('onclick');
-        const match = onclickContent.match(/window\.opener\.location\.href\s*=\s*'(.*?)'/);
+        const match = onclickContent.match(/window\.opener\.location\.href\s*=\s*(?:'(.*?)'|("(?:[^"\\]|\\.)*"))/);
 
         if (match) {
-          const relativeUrl = match[1]; // Extracted relative URL
+          const relativeUrl = match[1] !== undefined ? match[1] : JSON.parse(match[2]); // Extracted relative URL
           const fullUrl = `${Cypress.config('baseUrl')}${relativeUrl}`; // Prepend baseUrl
 
           // Visit the full URL directly
