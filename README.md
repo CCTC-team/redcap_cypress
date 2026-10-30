@@ -107,7 +107,7 @@ Copy `cypress.env.json.example` and update values for your environment:
       "pass": "Testing123"
     }
   },
-  "redcap_version": "17.5.7",
+  "redcap_version": "17.5.8",
   "language": "English",
   "redcap_hooks_path": "/var/www/html/hook_functions.php",
   "temp_folder": "/var/www/html/temp",
@@ -317,7 +317,7 @@ This creates `cypress/results/html/test-report.html` — open it in a browser to
 To customise the report filename per run:
 
 ```bash
-REPORT_NAME=v17.5.7-smoke npm run test:local -- --browser chrome --spec "..."
+REPORT_NAME=v17.5.8-smoke npm run test:local -- --browser chrome --spec "..."
 ```
 
 To clear old results before a fresh run:
