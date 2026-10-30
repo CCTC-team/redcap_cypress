@@ -51,11 +51,6 @@ defineParameterType({
 })
 
 defineParameterType({
-    name: 'fieldIcons',
-    regexp: /History|Missing Code|Comment|Show Field|Exclamation|Tick|Small Tick|Small Exclamation/
-})
-
-defineParameterType({
     name: 'drwOptions',
     regexp: /Verified data value|De-verify data value|Open query|Close the query|Reply with response|Send back for further attention|Email|REDCap Messenger|/
 })
@@ -193,17 +188,6 @@ resolveType = {
     'Record' : `select[id=choose_record]`,
     'Field' : `select[id=choose_field]`,
     'User' : `select[id=choose_user]`
-}
-
-fieldIcons = {
-    'History' : `img[src*=history]`,
-    'Missing Code': `img[src*=missing]`,
-    'Comment': `img[src*=balloon]`,
-    'Show Field' : `i[id*=showfield]`,
-    'Exclamation': `img[src*=exclamation_red]`,
-    'Tick': `img[src*=tick_circle]`,
-    'Small Tick': `img[src*=balloon_tick]`,
-    'Small Exclamation': `img[src*=balloon_exclamation]`
 }
 
 drwOptions = {
@@ -1002,51 +986,6 @@ Given("I click on the button labeled {string} for alert {string}", (label, num) 
  */
 Given("I click on the textarea labeled while the following logic is true for the alert", () => {
     cy.get('textarea#alert-condition').click()
-})
-
-
-/**
- * @module Visibility
- * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I should see a(n) {fieldIcons} icon for the field labeled {string}
- * @param {string} icon - icon to verify - available options: 'History', 'Missing Code', 'Comment', 'Show Field'
- * @param {string} label - field label
- * @description verifies the field contains the icon
- */
-Given("I should see a(n) {fieldIcons} icon for the field labeled {string}", (icon, label) => {
-    cy.get('td').contains(label).parents('tr').within(() => {
-        cy.get(fieldIcons[icon])
-    })
-})
-
-
-/**
- * @module Visibility
- * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I should NOT see a(n) {fieldIcons} icon for the field labeled {string}
- * @param {string} icon - icon to verify - available options: 'History', 'Missing Code', 'Comment', 'Show Field'
- * @param {string} label - field label
- * @description verifies the field does not contains the icon
- */
-Given("I should NOT see a(n) {fieldIcons} icon for the field labeled {string}", (icon, label) => {
-    cy.get('td').contains(label).parents('tr').within(() => {
-        cy.get(fieldIcons[icon]).should('not.exist')
-    })    
-})
-
-
-/**
- * @module Interactions
- * @author Mintoo Xavier <min2xavier@gmail.com>
- * @example I click on the {fieldIcons} icon for the field labeled {string}
- * @param {string} icon - icon to click - available options: 'History', 'Missing Code', 'Comment', 'Show Field'
- * @param {string} label - field label
- * @description clicks on the icon for the field
- */
-Given("I click on the {fieldIcons} icon for the field labeled {string}", (icon, label) => {
-    cy.get('td').contains(label).parents('tr').within(() => {
-        cy.get(fieldIcons[icon]).click()
-    })
 })
 
 
