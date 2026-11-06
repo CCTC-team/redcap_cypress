@@ -193,7 +193,7 @@ The seed data includes both an **admin user** and a **standard user**. Which use
 | Repo | Last synced upstream commit | CCTC tag |
 |------|-----------------------------|----------|
 | `rctf` (`main`) | `11c34bc` (2026-10-26) | `cctc_v1.0.17` |
-| `redcap_rsvc` (`staging`) | `c5737c7e` (2026-10-27) | `cctc_v1.0.20` |
+| `redcap_rsvc` (`staging`) | `8b96d344` (2026-11-04) | `cctc_v1.0.21` |
 | `redcap_cypress` (`master`) | `346e3460` (2026-10-16) | `cctc_v1.1.1` |
 
 The 2026-10-16 sync also moved the suite to **REDCap 17.5.6**. The tags above include the follow-up fixes for 17.x. `.circleci/` was kept deleted (CCTC runs CI on GitHub Actions).
@@ -203,6 +203,8 @@ The 2026-10-29 sync of `rctf` and `redcap_rsvc` brought upstream's fixes for **R
 `rctf` `cctc_v1.0.17` and `redcap_rsvc` `cctc_v1.0.19` (2026-10-30) add CCTC fixes for **REDCap 17.5.7/17.5.8**. They also move the field icon steps in D.106, D.113 and D.117 to Vanderbilt's `I ... icon labeled "X" in the row labeled "Y"` step, with DRW query status checked in the popup. The CCTC `{fieldIcons}` steps were removed from `noncore.js`.
 
 `redcap_rsvc` `cctc_v1.0.20` (2026-11-02) trims D.106 to what Vanderbilt's C.4.18.1500–2400 DRW features don't cover. D.106.0100 keeps only verify/de-verify rights per privilege level. D.106.0200 drops the email check and the status/field/user filters and export, and keeps Messenger, attachment download, send back, reopen and the event/DAG filters.
+
+`redcap_rsvc` `cctc_v1.0.21` (2026-11-06) syncs Vanderbilt `staging` to `8b96d344`. It adds B.5.21.0800 (Export All Records as PDF) and keeps A.6.4.0600 at 25 logging rows rather than upstream's 35, because 25 passes on REDCap 17.5.9.
 
 ### Table matching in the synced rctf
 
