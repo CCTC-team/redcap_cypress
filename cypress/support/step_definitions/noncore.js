@@ -1311,10 +1311,15 @@ Given("I select the {operatorValue} {string} for Filter {int}", (option, text, n
  * @author Mintoo Xavier <min2xavier@gmail.com>
  * @example I should have the latest downloaded {string} file in a valid format
  * @param {string} fileType - file format (csv, xml, r, sps, sas, do)
- * @description Validates that the latest downloaded file is structurally valid for its format.
- *   csv and xml are validated rigorously (CSV parse + column consistency; XML well-formedness
- *   and CDISC ODM markers). The script formats (r, sps, sas, do) are smoke-tested only
- *   (non-empty + expected import command present) and do NOT catch syntax errors.
+ * @description Validates that the latest downloaded file is structurally valid for its format
+ *   (format only; data content is checked by the "matching the verified reference" step).
+ *   - csv: parsed with csv-parse; fails on ragged rows or an empty file.
+ *   - xml: xmllint well-formedness + CDISC ODM check, then schema-validated against the
+ *     ODM 1.3.1 XSD (cypress/fixtures/schemas/odm) with redcap:* extensions stripped.
+ *   - r: syntax-checked with Rscript parse() in the redcap-stat-validators Docker image.
+ *   - sps: syntax-checked with PSPP in the same image, against the companion data CSV.
+ *   - sas, do: smoke-tested only (expected import command present); syntax errors NOT caught.
+ *   If Docker/the validator image is unavailable, r and sps fall back to the smoke-test.
  */
 Given("I should have the latest downloaded {string} file in a valid format", (fileType) => {
     cy.task('fetchLatestExport', ({ fileExtension: fileType })).then((latest_file) => {
