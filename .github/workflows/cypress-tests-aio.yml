@@ -292,7 +292,8 @@ jobs:
   # concatenating their per-spec JSON yields the full suite.
   publish-report:
     needs: cypress-tests
-    if: always()
+    # TEST BRANCH ONLY: never publish a test-branch run over the redcap_val report.
+    if: ${{ always() && github.ref == 'refs/heads/redcap_val' }}
     runs-on: ubuntu-24.04
     permissions:
       contents: write   # force-push the accumulated site to the pages-store branch

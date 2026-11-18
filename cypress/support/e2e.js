@@ -62,6 +62,19 @@ beforeEach(() => {
     )
 })
 
+// EXPERIMENT (test/stub-pdfjs-viewer): REDCap >= 15.5.36 always renders inline
+// PDFs (e-Consent) through the PDF.js viewer iframe. In headless CI Chromium the
+// browser intermittently stalls on the next navigation away from that page (no
+// request reaches Apache). Serve a stub page in place of the viewer so the iframe
+// still loads (cy.frameLoaded passes) but PDF.js never runs.
+beforeEach(() => {
+    cy.intercept('GET', /\/Resources\/PDFJS\/web\/viewer\.html/, {
+        statusCode: 200,
+        headers: { 'content-type': 'text/html' },
+        body: '<!doctype html><html><body>PDF viewer stubbed in tests</body></html>',
+    })
+})
+
 // REDCap detaches logic-suggest popups (#LSC_id_*) to <body> and positions them
 // absolutely with `collision: "fit"`. With testIsolation:false, a stale popup
 // from a prior scenario can land over the PDF Snapshot "Save to File Repository"
