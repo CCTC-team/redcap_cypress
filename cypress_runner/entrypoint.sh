@@ -40,7 +40,8 @@ export CYPRESS_redcap_source_path="${SRC}"
 # /work/redcap_source/modules/<mod>/, mirroring its real REDCap install path. The
 # preprocessor then finds this module's specs and step definitions in place:
 #   features   : ../redcap_source/modules/*/automated_tests/**/*.feature   (specPattern)
-#   step defs  : ../redcap_source/modules/*/automated_tests/step_definitions/*.js
+#   step defs  : ../[filepart]/step_definitions/**  (only the running feature's own
+#                module, so EMs can each carry a copy of a shared step)
 # Keeps the runner version- and module-decoupled: nothing EM-specific is baked.
 if [ -n "${EM_MODULE:-}" ]; then
     echo "[runner] fetching module ${EM_MODULE} from ${REDCAP_CONTAINER}..."
