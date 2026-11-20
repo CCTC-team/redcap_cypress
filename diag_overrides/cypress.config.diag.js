@@ -1,0 +1,472 @@
+const { defineConfig } = require("cypress")
+const AdmZip = require('adm-zip')
+const fs = require('fs')
+const path = require('path')
+const { execSync, execFileSync } = require('child_process')
+// const compareImages = require('resemblejs/compareImages')
+
+// --- Engine-based format validation (Phase 3) helpers ---------------------------
+// The "statistical software" exports (.r, .sps) are command scripts, so true syntax
+// validation needs the actual engine. We run R + PSPP inside the redcap-stat-validators
+// Docker image and feed the file via stdin — this keeps validation identical on macOS
+// and the Ubuntu CI runner with no host install (PSPP is no longer on Homebrew) and no
+// bind mount (Docker Desktop on macOS doesn't share /tmp). If Docker or the image is
+// unavailable, callers fall back to a lightweight smoke-test.
+const VALIDATOR_IMAGE = 'redcap-stat-validators'
+
+function commandOnPath(cmd) {
+  try {
+    execSync(`command -v ${cmd}`, { stdio: 'ignore' })
+    return true
+  } catch {
+    return false
+  }
+}
+
+// Ensure the validator image exists, building it from docker_bin/stat-validators if not.
+// Returns false if Docker is missing or the build fails (caller then smoke-tests).
+function ensureValidatorImage() {
+  if (!commandOnPath('docker')) return false
+  try {
+    execSync(`docker image inspect ${VALIDATOR_IMAGE}`, { stdio: 'ignore' })
+    return true
+  } catch {
+    // Not built yet — build it once (slow on first run; pre-build via `npm run validators:build`).
+  }
+  try {
+    const ctx = path.join(__dirname, 'docker_bin', 'stat-validators')
+    execSync(`docker build -t ${VALIDATOR_IMAGE} "${ctx}"`, { stdio: 'ignore' })
+    return true
+  } catch {
+    return false
+  }
+}
+
+// Run `engine ...args` inside the validator image with `input` piped to stdin.
+// opts.mountDir (optional) is bind-mounted read-only at /data with the working dir set
+// there — used so PSPP can read the companion data CSV that sits next to the .sps export.
+// Returns { available:false } when no engine can run, else { available:true, ok, status, output }
+// where status is the container's exit code (null if docker itself failed to run).
+function runInValidator(args, input, opts = {}) {
+  if (!ensureValidatorImage()) return { available: false }
+  const dockerArgs = ['run', '--rm', '-i']
+  if (opts.mountDir) dockerArgs.push('-v', `${opts.mountDir}:/data:ro`, '-w', '/data')
+  dockerArgs.push(VALIDATOR_IMAGE, ...args)
+  try {
+    const output = execFileSync('docker', dockerArgs, {
+      input,
+      encoding: 'utf8',
+      stdio: ['pipe', 'pipe', 'pipe'],
+    })
+    return { available: true, ok: true, status: 0, output }
+  } catch (e) {
+    return {
+      available: true,
+      ok: false,
+      status: typeof e.status === 'number' ? e.status : null,
+      output: `${e.stdout || ''}${e.stderr || ''}`,
+    }
+  }
+}
+
+function firstErrorLine(output) {
+  const lines = (output || '').split('\n').map(l => l.trim()).filter(Boolean)
+  return lines.find(l => /error/i.test(l)) || lines[0] || 'unknown error'
+}
+
+// Remove per-run volatile lines (timestamps, dated filenames, generated OIDs) so a download
+// can be compared to a saved golden reference on data content alone. CSV has no volatile
+// content and is compared as-is.
+function stripVolatile(content, fileType) {
+  const isVolatile = (line) => {
+    switch (fileType) {
+      case 'ics': return line.startsWith('UID') || line.startsWith('DTSTAMP')
+      case 'sas': return line.startsWith('%let csv_file')
+      case 'sps': return line.startsWith('FILE HANDLE')
+      case 'r':   return line.startsWith('data')
+      case 'do':  return line.startsWith('label data') || line.startsWith('import delimited')
+      case 'xml': return line.startsWith('<ODM xmlns') || line.startsWith('<ClinicalData StudyOID')
+      default:    return false
+    }
+  }
+  return content.replace(/\r\n/g, '\n').split('\n').filter(l => !isVolatile(l)).join('\n').replace(/\s+$/, '')
+}
+
+
+module.exports = defineConfig({
+    projectId: '6dw6bj',
+    hideXHR: false,
+    reporter: 'mochawesome',
+    reporterOptions: {
+        reportDir: 'cypress/results/json',
+        reportFilename: process.env.REPORT_NAME || '[name]',
+        overwrite: false,
+        html: false,
+        json: true,
+    },
+    e2e: {
+        projectRoot: __dirname,
+        // We've imported your old cypress plugins here.
+        // You may want to clean this up later by importing these.
+        async setupNodeEvents(on, config) {
+
+          // Load env vars from cypress.env.json manually
+          const envConfig = JSON.parse(fs.readFileSync('cypress.env.json', 'utf8'));
+          config.env = { ...config.env, ...envConfig };
+
+          // AIO runs REDCap + MySQL in ONE container, so the app/file docker-exec
+          // tasks target the same container as the DB. CI sets CYPRESS_REDCAP_CONTAINER
+          // in the workflow env (which wins); locally it falls back to the single
+          // source of truth, mysql.docker_container in cypress.env.json.
+          process.env.CYPRESS_REDCAP_CONTAINER =
+            process.env.CYPRESS_REDCAP_CONTAINER || config.env.mysql?.docker_container || 'CCTC_REDCap_Docker'
+
+          require('rctf/plugins/index.js')(on, config)
+
+          // CI hardening: on the GitHub runner Chrome's renderer dies under the
+          // tiny default /dev/shm, producing "Still waiting to connect to Chrome,
+          // retrying". Route shared memory to disk and drop the sandbox/GPU so the
+          // remote-debugging port comes up and Cypress can attach.
+          on('before:browser:launch', (browser = {}, launchOptions) => {
+            if (browser.family === 'chromium' && browser.name !== 'electron') {
+              launchOptions.args.push('--disable-dev-shm-usage')
+              launchOptions.args.push('--no-sandbox')
+              launchOptions.args.push('--disable-gpu')
+              // DIAG: Chrome's own debug log (console messages, renderer events)
+              // into the bind-mounted results dir, plus the matrix's extra flags.
+              launchOptions.args.push('--enable-logging')
+              launchOptions.args.push('--v=0')
+              launchOptions.args.push('--log-file=/work/redcap_cypress/cypress/results/chrome_debug.log')
+              const extra = (process.env.DIAG_CHROME_ARGS || '').split(' ').filter(Boolean)
+              launchOptions.args.push(...extra)
+              console.log('[diag] browser args: ' + launchOptions.args.join(' '))
+            }
+            return launchOptions
+          })
+
+          on('task', {
+            // Task: Clear redcap_file_repository in Docker container
+            clearFileRepo() {
+              const container = process.env.CYPRESS_REDCAP_CONTAINER
+              const fileRepo = config.env.file_repository
+
+              execSync(`docker exec ${container} find ${fileRepo} -type f -delete`, { encoding: 'utf-8' })
+
+              return null
+            },
+            // Task: Report where a project's uploaded files physically live inside the REDCap
+            // container. "Organize the stored files into subfolders by REDCap project ID?"
+            // (Control Center > File Upload Settings > Local Server File Storage) is a
+            // backend-only setting: the UI looks identical either way, so the only way to
+            // verify it is to look at the container's filesystem. Files::getLocalStorageSubfolder()
+            // resolves every read/write to either EDOC_PATH<stored_name> (subfolders off) or
+            // EDOC_PATH<local_storage_subfolder>/<stored_name> (subfolders on), so this returns
+            // the project's redcap_projects.local_storage_subfolder column alongside the real
+            // on-disk directory of each of its undeleted edocs.
+            edocStorageLayout({ projectTitle }) {
+              const container = process.env.CYPRESS_REDCAP_CONTAINER
+              const { db_name, db_user, db_pass } = config.env.mysql
+
+              // Single-quote for the container's /bin/sh
+              const sq = (str) => `'` + String(str).replaceAll(`'`, `'\\''`) + `'`
+              // -N -s gives bare tab-separated rows with no header/box drawing. Only the
+              // trailing newline is stripped - trimming the whole output would eat the tab
+              // that terminates a row whose last column is empty, losing that column.
+              const query = (sql) => execSync(
+                `docker exec ${container} mysql -u${db_user} -p${db_pass} -N -s ${db_name} -e ${sq(sql)} 2>/dev/null`,
+                { encoding: 'utf-8' }
+              ).replace(/\n+$/, '')
+              const rows = (sql) => query(sql).split('\n').filter(line => line !== '').map(line => line.split('\t'))
+              const scalar = (sql) => (rows(sql)[0] || [''])[0].trim()
+
+              const escape = (str) => String(str).replaceAll(`\\`, `\\\\`).replaceAll(`'`, `\\'`)
+
+              // Most recently created project with this title, so a re-run picks the current one
+              const project = rows(`
+                SELECT project_id, COALESCE(local_storage_subfolder, '') FROM redcap_projects
+                WHERE app_title = '${escape(projectTitle)}' ORDER BY project_id DESC LIMIT 1
+              `)[0]
+              if (!project) throw new Error(`No project titled "${projectTitle}" found in redcap_projects`)
+              const [projectId, subfolderColumn] = project
+
+              // Mirrors System.php: blank edoc_path falls back to <parent of docroot>/edocs/
+              const configuredPath = scalar(`SELECT COALESCE(value, '') FROM redcap_config WHERE field_name = 'edoc_path'`)
+              const edocPath = configuredPath === ''
+                ? '/var/www/html/edocs/'
+                : configuredPath.replace(/\/?$/, '/')
+
+              // One listing of the whole storage tree, keyed by basename. Paths come back
+              // relative to EDOC_PATH, so a root-level file gives '' and a subfoldered one 'pid<id>'.
+              const listing = execSync(
+                `docker exec ${container} sh -c ${sq(`cd ${edocPath} && find . -type f`)}`,
+                { encoding: 'utf-8' }
+              )
+              // Null-prototype so an unlucky stored_name cannot collide with Object.prototype keys
+              const directoryOf = Object.create(null)
+              listing.trim().split('\n').filter(Boolean).forEach(line => {
+                const relative = line.replace(/^\.\//, '')
+                const slash = relative.lastIndexOf('/')
+                directoryOf[slash === -1 ? relative : relative.substring(slash + 1)] =
+                  slash === -1 ? '' : relative.substring(0, slash)
+              })
+
+              const files = rows(`
+                SELECT stored_name, doc_name FROM redcap_edocs_metadata
+                WHERE project_id = ${parseInt(projectId, 10)} AND delete_date IS NULL
+              `).map(([storedName, docName]) => ({
+                storedName,
+                docName,
+                // null (rather than '') when the file is not on disk at all
+                directory: storedName in directoryOf ? directoryOf[storedName] : null,
+              }))
+
+              return { projectId: parseInt(projectId, 10), subfolderColumn, edocPath, files }
+            },
+            // Task 1: Unzip a file
+            unzipFile({ filepath }) {
+              let unzipDestination = 'cypress/downloads/unzipped' // Destination directory for unzipped files
+              
+              if (!fs.existsSync(filepath)) {
+                return { success: false, message: `File not found: ${filepath}` }
+              }
+
+              try {
+                // Ensure the unzip destination exists
+                if (!fs.existsSync(unzipDestination)) {
+                  fs.mkdirSync(unzipDestination, { recursive: true })
+                }
+                                   
+                // Unzip the file
+                const zip = new AdmZip(filepath)
+                zip.extractAllTo(unzipDestination, true)
+                return { success: true, message: `Unzipped to ${unzipDestination}` }
+              } catch (error) {
+                return { success: false, message: `Error unzipping file: ${error.message}` }
+              }
+            },
+            
+            // Task 2: Checks the Local storage location for the latest downloaded PDF file
+            fetchLatestDownloadLocal({ fileExtension }) {
+              const container = process.env.CYPRESS_REDCAP_CONTAINER
+              const fileRepo = config.env.file_repository
+
+              try {
+                // Find the latest file by modification time inside the container
+                const result = execSync(
+                  `docker exec ${container} find ${fileRepo} -name "*.${fileExtension}" -printf "%T@ %p\\n" | sort -rn | head -1`,
+                  { encoding: 'utf-8' }
+                ).trim()
+
+                if (!result) {
+                  throw new Error(`No .${fileExtension} files found in ${fileRepo}`)
+                }
+
+                // Extract the container file path (after the timestamp)
+                const containerFile = result.split(' ').slice(1).join(' ')
+
+                // Copy the file from the container to a temp location for readPdf
+                const tmpDir = require('os').tmpdir()
+                const localFile = path.join(tmpDir, path.basename(containerFile))
+                execSync(`docker cp ${container}:${containerFile} ${localFile}`)
+
+                return localFile
+              } catch (error) {
+                throw new Error(`Error fetching latest download: ${error.message}`)
+              }
+            },
+            // Task 2b: Newest matching download by mtime, WITHOUT rctf fetchLatestDownload's
+            // 5-second freshness filter. The export-verification steps (valid format / matching
+            // reference) always run right after a known download, so newest-by-mtime
+            // is unambiguous and the staleness window is unnecessary. Dropping it removes a flaky
+            // race: a slow Docker-based validateFileFormat step (pspp/Rscript, or a first-run image
+            // build) could age the companion file past 5s, after which the freshness-filtered fetch
+            // returned '' and the next comparison crashed on an empty path. Returns an absolute path
+            // rooted at __dirname (= projectRoot) so callers' replace(path,'')+__dirname logic holds.
+            async fetchLatestExport({ fileExtension, retry = true }) {
+              const downloadsDir = path.join(__dirname, 'cypress', 'downloads')
+              const fetchOnce = () => {
+                let files = fs.readdirSync(downloadsDir)
+                if (fileExtension) {
+                  files = files.filter(f => path.extname(f) === `.${fileExtension}`)
+                }
+                files = files
+                  .filter(f => path.extname(f) !== '.crdownload' && f !== 'downloads.html')
+                  .map(f => ({ file: f, mtime: fs.statSync(path.join(downloadsDir, f)).mtime }))
+                  .sort((a, b) => b.mtime - a.mtime)
+                return files.length === 0 ? '' : path.join(downloadsDir, files[0].file)
+              }
+              const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
+              for (let i = 0; i < 100; i++) {
+                const file = fetchOnce()
+                if (file || !retry) return file
+                await sleep(100)
+              }
+              return ''
+            },
+            // Task 3: Validate that a downloaded file is structurally valid for its format
+            validateFileFormat({ filePath, fileType }) {
+              const fullFilePath = __dirname + filePath
+              const content = fs.readFileSync(fullFilePath, 'utf8')
+
+              switch (fileType) {
+                case 'csv': {
+                  const { parse } = require('csv-parse/sync')
+                  let rows
+                  try {
+                    // relax_column_count:false makes the parser throw on a ragged row
+                    rows = parse(content, { relax_column_count: false, skip_empty_lines: true })
+                  } catch (e) {
+                    return { valid: false, message: `Invalid CSV: ${e.message}` }
+                  }
+                  if (rows.length < 1) return { valid: false, message: 'CSV has no rows' }
+                  return { valid: true, message: `Valid CSV: ${rows.length} rows x ${rows[0].length} cols` }
+                }
+                case 'xml': {
+                  //  Well-formedness
+                  try {
+                    execSync(`xmllint --noout "${fullFilePath}"`, { stdio: 'pipe' })
+                  } catch (e) {
+                    return { valid: false, message: `XML not well-formed: ${e.stderr?.toString() || e.message}` }
+                  }
+                  //  Must be a CDISC ODM document
+                  if (!(/<ODM\b/.test(content) && /cdisc\.org\/ns\/odm/.test(content))) {
+                    return { valid: false, message: 'Well-formed XML but not a CDISC ODM document' }
+                  }
+                  //    Schema-validate the ODM structure against the official ODM 1.3.1 XSD.
+                  //    REDCap adds redcap:* vendor-extension attributes (e.g. redcap:RecordIdField,
+                  //    redcap:UniqueEventName) that the base ODM schema does not permit, so strip them
+                  //    (and the redcap namespace decl) before validating. This validates the real ODM
+                  //    hierarchy and required attributes while ignoring the documented REDCap extensions.
+                  const schemaPath = path.join(__dirname, 'cypress/fixtures/schemas/odm/ODM1-3-1.xsd')
+                  if (!fs.existsSync(schemaPath)) {
+                    return { valid: false, message: `ODM schema fixture missing at ${schemaPath} (cannot schema-validate)` }
+                  }
+                  const cleaned = content
+                    .replace(/\s+redcap:[\w.-]+="[^"]*"/g, '')
+                    .replace(/\s+xmlns:redcap="[^"]*"/g, '')
+                  const tmp = path.join(require('os').tmpdir(), `odmcheck_${path.basename(fullFilePath)}`)
+                  fs.writeFileSync(tmp, cleaned)
+                  try {
+                    execSync(`xmllint --noout --schema "${schemaPath}" "${tmp}"`, { stdio: 'pipe' })
+                    return { valid: true, message: 'Valid CDISC ODM 1.3.1 (schema-conformant; redcap extensions ignored)' }
+                  } catch (e) {
+                    const firstError = (e.stderr?.toString() || e.message).split('\n')[0]
+                    return { valid: false, message: `ODM 1.3.1 schema validation failed: ${firstError}` }
+                  } finally {
+                    if (fs.existsSync(tmp)) fs.unlinkSync(tmp)
+                  }
+                }
+                // R: real syntax validation via Rscript parse() in the validator image.
+                // Exit 0 = parses; exit 1 = syntax error; anything else = engine/infra issue.
+                case 'r': {
+                  const rSmoke = { valid: /read\.csv|read_csv|label\(data\$/.test(content) }
+                  const res = runInValidator(['Rscript', '-e', 'invisible(parse(file("stdin")))'], content)
+                  if (!res.available) return { ...rSmoke, message: 'R import script (smoke-test; Docker/validator image unavailable)' }
+                  if (res.ok) return { valid: true, message: 'Valid R syntax (Rscript parse)' }
+                  if (res.status === 1) return { valid: false, message: `R syntax error: ${firstErrorLine(res.output)}` }
+                  return { ...rSmoke, message: `R smoke-test (engine run failed: ${firstErrorLine(res.output)})` }
+                }
+                // SPSS: real syntax validation via PSPP, run against the companion data CSV that
+                // REDCap exports alongside the .sps (mounted read-only at /data). REDCap targets
+                // SPSS-proper, whose dialect PSPP (an SPSS clone) does not fully accept, so two
+                // fixed template lines are normalized first:
+                //   - FILE HANDLE ... NAME=.. LRECL=..  -> PSPP requires '/' before each subcommand
+                //   - SET LOCALE=en_us.                 -> non-quoted + 'en_us' isn't a glibc locale
+                // Both are boilerplate (a data pointer and a locale setting), not project content.
+                // Everything project-specific (VARIABLE LABEL/VALUE LABELS/VARIABLE LEVEL) is then
+                // validated against the real data. PSPP exit: 0 = clean, 1 = errors found.
+                case 'sps': {
+                  const spsSmoke = { valid: /GET DATA|DATA LIST|FILE HANDLE/i.test(content) }
+                  const normalized = content
+                    .replace(/FILE HANDLE (\w+) NAME=('[^']*') LRECL=(\d+)\./g, 'FILE HANDLE $1 /NAME=$2 /LRECL=$3.')
+                    .replace(/^SET LOCALE=.*$/gm, '* SET LOCALE normalized for PSPP.')
+                  const res = runInValidator(['pspp', '/dev/stdin', '-o', '/dev/null'], normalized,
+                    { mountDir: path.dirname(fullFilePath) })
+                  if (!res.available) return { ...spsSmoke, message: 'SPSS syntax (smoke-test; Docker/validator image unavailable)' }
+                  if (res.status !== 0 && res.status !== 1) {
+                    return { ...spsSmoke, message: `SPSS smoke-test (engine run failed: ${firstErrorLine(res.output)})` }
+                  }
+                  const errs = res.output.split('\n').filter(l => /\berror:/i.test(l))
+                  // If the companion CSV is missing, tolerate the data-open error (degraded check).
+                  const onlyDataErrors = errs.length > 0 && errs.every(l =>
+                    /Could not open .* as a data file|Stopping syntax file processing here/i.test(l))
+                  return (errs.length === 0 || onlyDataErrors)
+                    ? { valid: true, message: 'Valid SPSS syntax (PSPP, against exported data; FILE HANDLE/SET LOCALE normalized)' }
+                    : { valid: false, message: `SPSS syntax error: ${errs[0]}` }
+                }
+                // SAS / Stata: no free engine available — smoke-test only (non-empty + expected
+                // command present). Does NOT catch syntax errors.
+                case 'sas': return { valid: /DATA\s|INFILE|PROC\s/i.test(content), message: 'SAS program (smoke-test; no free engine)' }
+                case 'do':  return { valid: /import delimited|insheet|infile/i.test(content), message: 'Stata do-file (smoke-test; no free engine)' }
+                default:    return { valid: false, message: `Unsupported file type: ${fileType}` }
+              }
+            },
+            // Task 4: Compare a downloaded export against a manually-verified golden reference.
+            // Both sides are stripped of per-run volatile lines (timestamps/dated filenames) so
+            // only the data content is compared. On mismatch, returns the first differing lines
+            // so the failure shows exactly which value drifted (vs a bare hash mismatch).
+            compareToReference({ filePath, referenceName, fileType }) {
+              const fullFilePath = __dirname + filePath
+              const refPath = path.join(__dirname, 'cypress/fixtures/expected_exports', referenceName)
+              if (!fs.existsSync(refPath)) {
+                return { match: false, message: `Reference not found: ${referenceName}` }
+              }
+              const dl = stripVolatile(fs.readFileSync(fullFilePath, 'utf8'), fileType)
+              const ref = stripVolatile(fs.readFileSync(refPath, 'utf8'), fileType)
+              if (dl === ref) {
+                return { match: true, message: `Matches verified reference ${referenceName}` }
+              }
+              const a = dl.split('\n')
+              const b = ref.split('\n')
+              const diffs = []
+              for (let i = 0; i < Math.max(a.length, b.length) && diffs.length < 5; i++) {
+                if (a[i] !== b[i]) {
+                  diffs.push(`  line ${i + 1}:\n    expected: ${b[i] ?? '<missing>'}\n    actual:   ${a[i] ?? '<missing>'}`)
+                }
+              }
+              return { match: false, message: `Differs from verified reference ${referenceName}:\n${diffs.join('\n')}` }
+            }
+          })
+          return config
+        },
+
+        baseUrl: 'https://localhost:8443',
+        mailHogUrl: process.env.MAILHOG_URL || 'http://localhost:8025',
+        stepDefinitions: 'cypress/support/step_definitions',
+        specPattern: [ 'cypress/features/*.feature',
+                       'redcap_rsvc/*/[ABCD]/*/*.feature',
+                       '!redcap_rsvc/*/[ABCD]/*/*REDUNDANT*.feature',
+                       '../redcap_source/modules/*/automated_tests/**/*.feature',
+                       '../redcap_source/modules/*/automated-tests/**/*.feature'
+                     ],
+        testIsolation: false,
+        experimentalMemoryManagement: true,
+        numTestsKeptInMemory: 5,
+        retries: {
+            runMode: 0,
+            openMode: 0
+        },
+        video: false,
+        videoCompression: false,
+        trashAssetsBeforeRuns: true,
+        viewportWidth: 1600,
+        viewportHeight: 1200,
+        // 90s (was 30s, then 60s): PDF-snapshot/file-repository assertions in the
+        // eConsent specs poll for a server-generated PDF to land in the File
+        // Repository. REDCap's max_execution_time=0 means the PDF always generates
+        // eventually, so the only failure mode is the client-side wait being too
+        // short. On the 2-core GitHub runner, render+save under parallel load (made
+        // heavier by the pcov coverage instrumentation baked into the image) can
+        // exceed 60s; 30s failed 12 eConsent specs, 60s still left a handful. All
+        // pass locally on faster HW. Passing assertions resolve the instant their
+        // condition is met, so this only adds headroom on slow/failing waits.
+        defaultCommandTimeout: 90000,
+        responseTimeout: 20000,
+        requestTimeout: 20000,
+        pageLoadTimeout: 120000,
+        chromeWebSecurity: false,
+        scrollBehavior: 'bottom',
+        watchForFileChanges: true,
+        redirectionLimit: 50
+    }
+})

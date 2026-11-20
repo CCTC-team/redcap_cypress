@@ -105,7 +105,7 @@ jobs:
             -v /var/run/docker.sock:/var/run/docker.sock \
             -v "${PWD}/results:/work/redcap_cypress/cypress/results" \
             -v "${PWD}/screenshots:/work/redcap_cypress/cypress/screenshots" \
-            -v "${PWD}/diag_overrides/cypress.config.js:/work/redcap_cypress/cypress.config.js:ro" \
+            -v "${PWD}/diag_overrides/cypress.config.diag.js:/work/redcap_cypress/cypress.config.js:ro" \
             -e DIAG_CHROME_ARGS="${{ matrix.args }}" \
             -e CYPRESS_MYSQL_CONTAINER="${REDCAP_CONTAINER}" \
             -e CYPRESS_REDCAP_CONTAINER="${REDCAP_CONTAINER}" \
