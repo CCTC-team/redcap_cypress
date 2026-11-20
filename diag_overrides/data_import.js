@@ -1,0 +1,257 @@
+//#############################################################################
+//# Commands       A B C D E F G H I J K L M N O P Q R S T U V W X Y Z        #
+//#############################################################################
+
+Cypress.Commands.add('create_cdisc_project', (project_name, project_type, cdisc_file, button_label = 'Create Project') => {
+    //Run through the steps to import the project via CDISC ODM
+    cy.get('a:visible:contains("New Project")').click()
+    cy.get('input#app_title').type(project_name)
+    cy.get('select#purpose').select(project_type)
+    cy.get('input#project_template_radio2').click()
+
+    if(isExternalModuleFeature()){
+        cdisc_file = getFilePathForCurrentFeature(cdisc_file)
+    }
+    else{
+        cdisc_file = "cdisc_files/" + cdisc_file
+    }
+
+    cy.upload_file(cdisc_file, 'xml', 'input[name="odm"]')
+    cy.get('button').contains(button_label).click().then(() => {
+        let pid = null;
+        cy.url().should((url) => {
+            return url
+        })
+    })
+})
+
+Cypress.Commands.add('import_data_file', (fixture_file,pid) => {
+    let admin_user
+    let current_token = null;
+    cy.env(['users']).then(limitedEnv => {
+        admin_user = limitedEnv['users']['admin']['user']
+
+        let current_user_type = window.user_info.get_previous_user_type()
+        if(current_user_type !== 'admin'){
+            cy.set_user_type('admin')
+            cy.fetch_login()
+        }
+
+        return cy.add_api_user_to_project(admin_user, pid)
+    }).then(($response) => {
+
+        if($response.hasOwnProperty('token')){
+
+            current_token = $response['token']
+
+            cy.fixture(`import_files/${fixture_file}`).then(import_data => {
+
+                cy.request({
+                    method: 'POST',
+                    url: '/api/',
+                    headers: {
+                        "Accept":"application/json",
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    body: {
+                        token: current_token,
+                        content: 'record',
+                        format: 'csv',
+                        type: 'flat',
+                        data: import_data,
+                        dateFormat: 'MDY',
+                        returnFormat: 'json'
+                    },
+                    timeout: 50000
+                }).should(($a) => {
+                    expect($a.status).to.equal(200)
+                })
+
+            })
+
+        } else {
+
+            cy.request({ url: '/redcap_v' +
+                    Cypress.exposeRCTF('redcap_version') +
+                    '/ControlCenter/user_api_ajax.php?action=createToken&api_username=' +
+                    admin_user +
+                    '&api_pid=' +
+                    pid +
+                    '&api_export=1&api_import=1&mobile_app=0&api_send_email=0'}).should(($token) => {
+
+                expect($token.body).to.contain('token has been created')
+                expect($token.body).to.contain(admin_user)
+
+                cy.request({ url: '/redcap_v' +
+                        Cypress.exposeRCTF('redcap_version') +
+                        '/ControlCenter/user_api_ajax.php?action=viewToken&api_username=' + admin_user + '&api_pid=' + pid}).then(($super_token) => {
+
+                    current_token = Cypress.$($super_token.body).children('div')[0].innerText
+
+                    cy.fixture(`import_files/${fixture_file}`).then(import_data => {
+
+                        cy.request({
+                            method: 'POST',
+                            url: '/api/',
+                            headers: {
+                                "Accept":"application/json",
+                                "Content-Type": "application/x-www-form-urlencoded"
+                            },
+                            body: {
+                                token: current_token,
+                                content: 'record',
+                                format: 'csv',
+                                type: 'flat',
+                                data: import_data,
+                                dateFormat: 'MDY',
+                                returnFormat: 'json'
+                            },
+                            timeout: 50000
+                        }).should(($a) => {
+                            expect($a.status).to.equal(200)
+                        })
+
+                    })
+                })
+            })
+
+        }
+
+        if(current_user_type !== 'admin'){
+            cy.set_user_type(current_user_type)
+            cy.fetch_login()
+        }
+    })
+})
+
+Cypress.Commands.add('read_directory', (dir) => {
+    cy.task('readDirectory', (dir)).then((files) => {
+        return files
+    })
+})
+
+Cypress.Commands.add('upload_file', (fileName, fileType = ' ', selector = '', button_label = '', nearest_text = '') => {
+    let label_selector = `:has(${selector})`
+    let upload_selector = 'input[type=file]'
+    let upload_element = ''
+    let submit_button_selector = `input[type=submit][value*="${button_label}"]:visible,:button:contains("${button_label}"):visible`
+
+    if(nearest_text === 'Choose File' && !Cypress.$('body')[0].innerText.includes(nearest_text)){
+        // We're looking for the default "Choose File" text rendered by the browser but not actually present in the DOM.         
+        nearest_text = ''
+        selector = 'input[type=file]'
+        label_selector = null
+    }
+
+    if(nearest_text.length > 0) label_selector = `:contains("${nearest_text}"):has(${upload_selector}):visible`
+
+    if(fileName.startsWith('downloads/')){
+        fileName = "../" + fileName
+    }
+
+    const filePath = 'cypress/fixtures/' + fileName
+    
+    // Special case for C.3.31.2800
+    if(nearest_text === 'Import' && Cypress.$('#cdp-mapping-container').length > 0){
+        cy.getLabeledElement('button', nearest_text).then(button => {
+            upload_element = cy.wrap(button.closest('details').find('input[type=file]'))
+            console.log('upload_element', upload_element)
+            upload_element.selectFile(filePath, {force: true})
+        })
+
+        return
+    }
+    else if(
+        // Special cases for B.2.33.2800.
+        (
+            nearest_text === 'Upload ACGs (CSV)'
+            && Cypress.$('#ACG-import-export').length > 0
+        )
+        ||
+        (
+            nearest_text === 'Upload user assignments (CSV)'
+            && Cypress.$('#ACG-import-export-user-assn').length > 0
+        )
+    ){
+        cy.window().then((win) => {
+            const ACG = win.eval('ACG')
+            ACG.importCsv = eval('(' + ACG.importCsv.toString().replace('fileInput.click()', 'ACG.fileInput = fileInput') + ')')
+            cy.getLabeledElement('link', nearest_text).click()
+
+            /**
+             * There is a race condition where Cypress may move on to the next step
+             * before the click action finishes executing. To avoid intermittent failures,
+             * explicitly wait for ACG.fileInput to be set.
+             */
+            cy.wait(100).then(() => {
+                // This must be inside a "then" to ensure that "cy.wrap(ACG.fileInput)" is executed after it is set.
+                cy.wrap(ACG.fileInput).selectFile(filePath, {force: true})
+            })
+        })
+
+        return
+    }
+
+    cy.top_layer(label_selector).within(() => {
+        if(nearest_text.length > 0) {
+            upload_element = cy.getLabeledElement('input', nearest_text)
+        } else {
+            upload_element = cy.get(selector).filterMatches()
+        }
+
+        upload_element.selectFile(filePath)
+        
+        if(button_label !== '') {
+            upload_element.closestIncludingChildren(submit_button_selector).click()
+        }
+    })
+})
+
+Cypress.Commands.add('file_repo_upload', (fileNames, expectSuccess = true) => {
+    const id = 'input#file-repository-file-input'
+    const count_of_files = fileNames.length
+
+    for(let i = 0; i < count_of_files; i++){
+        cy.intercept({
+            method: 'POST',
+            url: '/redcap_v' + Cypress.exposeRCTF('redcap_version') + "/*FileRepositoryController:upload*"
+        }).as(`file_repo_upload_${i}`)
+    }
+
+    //Make sure the page is not loading
+    if(Cypress.$('#file-repository-table_processing:visible').length){
+        cy.get('#file-repository-table_processing').should('have.css', 'display', 'none')
+    }
+
+    let selected_files = []
+
+    //Look for all files
+    fileNames.forEach((file, index) => {
+        /**
+         * We used to use aliases from cy.fixture() here,
+         * but that failed when uploading the same file multiple times.
+         */
+        selected_files.push('cypress/fixtures/' + file)
+    })
+
+    //Select the Fixture within the Upload Input Button - no need to do anything else because JavaScript automatically fired within REDCap
+    cy.get(id).then(($id) => {
+
+        cy.wrap($id).selectFile(selected_files, {force: true}).then(() => {
+            for(let i = 0; i < count_of_files; i++){
+                if(expectSuccess){
+                    cy.wait(`@file_repo_upload_${i}`)
+                }
+
+                if (Cypress.$('.toast.fade.show').length) {
+                    cy.get('.toast.fade.show').should('be.visible').then(() => {
+                        if (Cypress.$('#file-repository-space-usage-loading:visible').length) {
+                            cy.get('#file-repository-space-usage-loading').should('have.css', 'visibility', 'hidden')
+                        }
+                    })
+                }
+            }
+        })
+
+    })
+})

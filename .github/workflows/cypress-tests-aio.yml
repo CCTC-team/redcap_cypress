@@ -11,6 +11,9 @@ name: REDCap Cypress Tests (AIO)
 #   2. Do failing jobs correlate with runner hardware (CPU model / cores / RAM)?
 #   3. Do the stalled requests reach Apache at all (AIO container logs)?
 #
+# RUN 2: rctf commands/data_import.js reverted to 5c179ca (pre Survey-Settings
+# CSV change, the green run's rctf) by bind-mounting it over the baked copy.
+#
 # No image build/push, no report publish, no artifact pruning: it reuses the
 # already-published runner image for redcap_val 3e7193c.
 
@@ -38,12 +41,15 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        browser: [chromium, chrome]
-        rep: [1, 2, 3, 4]
+        browser: [chromium]
+        rep: [1, 2, 3, 4, 5, 6]
     permissions:
       contents: read
       packages: read
     steps:
+      - name: Checkout (for the rctf override file)
+        uses: actions/checkout@v5
+
       - name: Runner hardware and Docker
         run: |
           echo "CPU: $(grep -m1 'model name' /proc/cpuinfo | cut -d: -f2)"
@@ -75,6 +81,7 @@ jobs:
             -v /var/run/docker.sock:/var/run/docker.sock \
             -v "${PWD}/results:/work/redcap_cypress/cypress/results" \
             -v "${PWD}/screenshots:/work/redcap_cypress/cypress/screenshots" \
+            -v "${PWD}/diag_overrides/data_import.js:/work/redcap_cypress/node_modules/rctf/commands/data_import.js:ro" \
             -e CYPRESS_MYSQL_CONTAINER="${REDCAP_CONTAINER}" \
             -e CYPRESS_REDCAP_CONTAINER="${REDCAP_CONTAINER}" \
             -e CYPRESS_baseUrl="https://localhost:8443" \
