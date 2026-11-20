@@ -121,9 +121,9 @@ Output directory for feature test execution results.
 
 Database test files and seed data.
 
-### `/user_requirement_specification`
+### User Requirement Specification (moved)
 
-User Requirement Specification documents mapping features to test coverage.
+The User Requirement Specification now lives in [redcap_rsvc `URS/`](https://github.com/CCTC-team/redcap_rsvc/tree/redcap_val/URS), next to the feature files it specifies.
 
 ### `/docs`
 
