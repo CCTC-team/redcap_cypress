@@ -14,6 +14,15 @@ name: REDCap Cypress Tests (AIO)
 # RUN 2: rctf commands/data_import.js reverted to 5c179ca (pre Survey-Settings
 # CSV change, the green run's rctf) by bind-mounting it over the baked copy.
 #
+# RUN 3 (2c): rctf ruled out. Failure tracks the GitHub runner image variant
+# (.37x stalls since 11-18 PM, .127/.133 never). This run captures Chrome's own
+# debug log (console + renderer events) and tries Chromium flag variants:
+#   base     - logging only
+#   jitless  - V8 without JIT (host CPU-feature / JIT hang theory)
+#   noswrast - --disable-software-rasterizer (software rendering hang theory)
+#   noisol   - no site isolation (iframe in its own renderer process theory)
+# Only jobs on a .37x runner image are informative; image version is logged.
+#
 # No image build/push, no report publish, no artifact pruning: it reuses the
 # already-published runner image for redcap_val 3e7193c.
 
@@ -41,18 +50,34 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        browser: [chromium]
-        rep: [1, 2, 3, 4, 5, 6]
+        variant: [base, jitless, noswrast, noisol]
+        rep: [1, 2, 3]
+        include:
+          - variant: base
+            idx: 0
+            args: ""
+          - variant: jitless
+            idx: 1
+            args: "--js-flags=--jitless"
+          - variant: noswrast
+            idx: 2
+            args: "--disable-software-rasterizer"
+          - variant: noisol
+            idx: 3
+            args: "--disable-site-isolation-trials --disable-features=IsolateOrigins,site-per-process"
     permissions:
       contents: read
       packages: read
     steps:
-      - name: Checkout (for the rctf override file)
+      - name: Checkout (for the diag override files)
         uses: actions/checkout@v5
 
       - name: Runner hardware and Docker
         run: |
+          echo "RUNNER_IMAGE_VERSION: ${ImageVersion:-unknown}"
           echo "CPU: $(grep -m1 'model name' /proc/cpuinfo | cut -d: -f2)"
+          mkdir -p diag; grep -m1 '^flags' /proc/cpuinfo | tr ' ' '\n' | sort > diag/cpu_flags.txt
+          echo "cpu flags: $(wc -l < diag/cpu_flags.txt)"
           echo "cores: $(nproc)"; free -m; uname -r
           docker version --format 'docker server {{.Server.Version}}'
 
@@ -62,8 +87,7 @@ jobs:
       - name: Pull stack images
         run: |
           # Stagger to avoid GHCR's secondary rate limit (8 jobs, same account).
-          off=0; [ "${{ matrix.browser }}" = "chrome" ] && off=60
-          sleep $(( (${{ matrix.rep }} - 1) * 15 + off ))
+          sleep $(( ((${{ matrix.rep }} - 1) * 4 + ${{ matrix.idx }}) * 15 ))
           for img in "${AIO_IMAGE}" "${RUNNER_IMAGE}"; do
             for a in 1 2 3 4 5; do docker pull -q "$img" && break; sleep $((30 * a)); done
           done
@@ -74,18 +98,19 @@ jobs:
             -v cctc_mariadb_data:/var/lib/mysql "${AIO_IMAGE}"
           timeout 360 bash -c 'until curl -k -s -f https://localhost:8443 > /dev/null 2>&1; do sleep 3; done'
 
-      - name: Run specs in ${{ matrix.browser }}
+      - name: Run specs (chromium, ${{ matrix.variant }})
         run: |
           mkdir -p results screenshots
           docker run --rm --network host --shm-size=2g \
             -v /var/run/docker.sock:/var/run/docker.sock \
             -v "${PWD}/results:/work/redcap_cypress/cypress/results" \
             -v "${PWD}/screenshots:/work/redcap_cypress/cypress/screenshots" \
-            -v "${PWD}/diag_overrides/data_import.js:/work/redcap_cypress/node_modules/rctf/commands/data_import.js:ro" \
+            -v "${PWD}/diag_overrides/cypress.config.js:/work/redcap_cypress/cypress.config.js:ro" \
+            -e DIAG_CHROME_ARGS="${{ matrix.args }}" \
             -e CYPRESS_MYSQL_CONTAINER="${REDCAP_CONTAINER}" \
             -e CYPRESS_REDCAP_CONTAINER="${REDCAP_CONTAINER}" \
             -e CYPRESS_baseUrl="https://localhost:8443" \
-            -e RUNNER_BROWSER=${{ matrix.browser }} \
+            -e RUNNER_BROWSER=chromium \
             -e CYPRESS_prettyEnabled=true \
             "${RUNNER_IMAGE}" --spec "${SPECS}"
 
@@ -93,6 +118,7 @@ jobs:
         if: always()
         run: |
           mkdir -p diag
+          cp results/chrome_debug.log diag/ 2>/dev/null || true
           docker logs -t "${REDCAP_CONTAINER}" > diag/redcap-container.log 2>&1 || true
           sudo chown -R "$(id -u):$(id -g)" results screenshots 2>/dev/null || true
 
@@ -100,7 +126,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v7
         with:
-          name: diag-${{ matrix.browser }}-${{ matrix.rep }}
+          name: diag-${{ matrix.variant }}-${{ matrix.rep }}
           path: |
             diag/
             screenshots/
