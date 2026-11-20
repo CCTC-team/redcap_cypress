@@ -11,3 +11,4 @@ B.3.15.1100. - User Interface: Survey Project Settings: The system shall support
 B.3.15.1200. - User Interface: Survey Project Settings: The system shall delete all survey-related information and functions including survey link, return codes and date/time stamp when disabling survey functionality. Saved data will remain unaffected.
 B.3.15.1300. - User Interface: Survey distribution: The system shall allow creation of a public survey link when the survey is in the first instrument position.
 D.3.15.1400. - User Interface: Survey distribution: The system shall allow creation of a designated email field.
+D.15.1500. - User Interface: Survey Settings: The system shall support downloading the Survey Settings of all surveys in a project as a CSV file, and uploading a CSV file to add or modify Survey Settings, rejecting the whole upload when any value is invalid.
