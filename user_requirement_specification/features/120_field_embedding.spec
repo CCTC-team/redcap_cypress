@@ -1,1 +1,0 @@
-D.120.0100. - The system shall support the ability to use Embedded Fields in data entry forms for better user-friendly form designs. 

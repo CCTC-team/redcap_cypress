@@ -39,7 +39,6 @@ on:
       - 'LICENSE'
       - '.gitignore'
       - 'docs/**'
-      - 'user_requirement_specification/**'
       - 'docbuilder/**'
   workflow_dispatch:
     inputs:
