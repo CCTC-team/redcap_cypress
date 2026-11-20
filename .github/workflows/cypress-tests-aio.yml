@@ -1,534 +1,101 @@
 name: REDCap Cypress Tests (AIO)
 
-# NEW pipeline (two-image stack): runs the suite against the all-in-one REDCap
-# image (redcap-aio) using the self-contained cypress-runner-aio image. Each shard
-# is an independent VM that boots its OWN AIO container and runs its baked spec
-# slice with retries — no host npm ci, no workspace bind-mount, no 3-container
-# compose. Replaces the old cypress-tests.yml (redcap_docker + bind-mount runner).
+# DIAGNOSTIC BRANCH ONLY (test/econsent-pageload-diag) — never merge.
 #
-# Runs on push to redcap_val (and manual dispatch).
+# Since 2026-11-18 PM, eConsent specs (and D.3.28.0100) time out with "Your page
+# did not fire its `load` event within 120000ms" on the first navigation after a
+# page that embeds REDCap's inline PDF.js viewer, on SOME shards only, while the
+# REDCap image, runner image, Cypress and Chromium build are unchanged from the
+# last green run. This run answers:
+#   1. Does Google Chrome (bundled in cypress/included) avoid it vs Chromium?
+#   2. Do failing jobs correlate with runner hardware (CPU model / cores / RAM)?
+#   3. Do the stalled requests reach Apache at all (AIO container logs)?
 #
-# Self-ordering build→test: the `build-runner` job builds and pushes the
-# cypress-runner-aio image from THIS commit, tagging it with the immutable
-# per-commit short SHA; the `cypress-tests` shards then `needs:` it and pull that
-# exact SHA tag (never :latest). This removes the old race where a separate build
-# workflow and this test workflow fired on the same push with no ordering, so the
-# test job's `docker pull :latest` raced ahead of the build's republish and tested
-# the STALE image — which is why a manual re-dispatch used to be needed.
-#
-# Re-run WITHOUT rebuilding: dispatch this workflow with the `runner_tag` input set
-# to an existing tag (e.g. `latest` or a 7-char commit SHA). The build-runner job
-# is then skipped and the shards test that image as-is — a fast retry of the suite
-# against an already-published runner. Leave `runner_tag` blank to build this commit.
-# (build-cypress-runner-aio.yml is retained for manual dispatch only — its push
-# trigger is disabled so it no longer double-builds against this workflow.)
-#
-# The REDCap side (redcap-aio) is built in CCTC_REDCap_Docker by build-redcap-aio.yml
-# and pulled here as :latest — it isn't rebuilt by this repo's pushes, so no race.
-#   ghcr.io/cctc-team/cctc_redcap_docker/redcap-aio:latest    (REDCap env)
-#   ghcr.io/cctc-team/redcap_cypress/cypress-runner-aio:<sha> (built below)
-# Both must target the SAME REDCap version (the runner docker-cp's that version's
-# SQL out of the AIO container at runtime).
+# No image build/push, no report publish, no artifact pruning: it reuses the
+# already-published runner image for redcap_val 3e7193c.
 
 on:
   push:
     branches:
-      - redcap_val
-    paths-ignore:
-      - '**/*.md'
-      - 'LICENSE'
-      - '.gitignore'
-      - 'docs/**'
-      - 'docbuilder/**'
-  workflow_dispatch:
-    inputs:
-      runner_tag:
-        description: 'Existing cypress-runner-aio tag to test against (e.g. "latest" or a 7-char SHA). Blank = build this commit first.'
-        required: false
-        default: ''
+      - test/econsent-pageload-diag
 
 concurrency:
-  group: cypress-aio-${{ github.ref }}
+  group: cypress-aio-diag-${{ github.ref }}
   cancel-in-progress: true
 
 env:
   REGISTRY: ghcr.io
-  SHARD_TOTAL: "8"
   REDCAP_CONTAINER: CCTC_REDCap_Docker
   AIO_IMAGE: ghcr.io/cctc-team/cctc_redcap_docker/redcap-aio:latest
-  # cypress-runner-aio image (lowercase — GHCR repo names must be lowercase).
-  IMAGE_NAME: cctc-team/redcap_cypress/cypress-runner-aio
-  # Keep in lockstep with the cypress/included base tag in cypress_runner/Dockerfile.
-  RUNNER_TAG: "15.10.0"
+  RUNNER_IMAGE: ghcr.io/cctc-team/redcap_cypress/cypress-runner-aio:3e7193c
+  SPECS: >-
+    redcap_rsvc/Feature Tests/C/e-Consent framework_24/C.3.24.0405. - eConsent goverend snapshot.feature,redcap_rsvc/Feature Tests/C/e-Consent framework_24/C.3.24.0705. - eConsent Certification Page.feature,redcap_rsvc/Feature Tests/C/e-Consent framework_24/C.3.24.1500. - eConsent version control.feature,redcap_rsvc/Feature Tests/C/e-Consent framework_24/C.3.24.2000. - eConsent display.feature,redcap_rsvc/Feature Tests/C/e-Consent framework_24/C.3.24.2500. - PDF conditional logic.feature,redcap_rsvc/Feature Tests/C/e-Consent framework_24/C.3.24.2800. - PDF filename.feature,redcap_rsvc/Feature Tests/D/eDocs_28/D.3.28.0100. - Storage location for uploaded documents.feature
 
 jobs:
-  # Build + push the runner image from THIS commit, then hand its immutable
-  # per-commit SHA tag to the test shards via needs.outputs. Skipped when a manual
-  # dispatch pins an existing image via `runner_tag` (re-run with no rebuild).
-  build-runner:
-    if: ${{ github.event.inputs.runner_tag == '' }}
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-    outputs:
-      runner_image: ${{ steps.imageref.outputs.runner_image }}
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v5
-
-      - name: Compute immutable per-commit image ref
-        id: imageref
-        run: |
-          SHORT="${GITHUB_SHA::7}"
-          echo "short=${SHORT}" >> "$GITHUB_OUTPUT"
-          echo "runner_image=${REGISTRY}/${IMAGE_NAME}:${SHORT}" >> "$GITHUB_OUTPUT"
-
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Log in to GitHub Container Registry
-        uses: docker/login-action@v3
-        with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Extract metadata (tags, labels)
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-          tags: |
-            type=raw,value=${{ env.RUNNER_TAG }}
-            type=raw,value=latest,enable={{is_default_branch}}
-            type=raw,value=${{ steps.imageref.outputs.short }}
-
-      - name: Build and push runner image
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          file: cypress_runner/Dockerfile
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-          # Private github: deps (rctf/redcap_rsvc) are cloned by npm ci over
-          # https+token; the Dockerfile mounts this secret and never persists it.
-          secrets: |
-            gh_pat=${{ secrets.CCTC_TEAM_PAT }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-          platforms: linux/amd64
-          provenance: false
-
-      - name: Prune old image versions
-        uses: actions/delete-package-versions@v5
-        with:
-          package-name: 'redcap_cypress/cypress-runner-aio'
-          package-type: 'container'
-          min-versions-to-keep: 2
-          token: ${{ secrets.CCTC_TEAM_PAT }}
-
-  cypress-tests:
-    needs: build-runner
-    # Run when the build succeeded (push / dispatch-without-tag) OR was skipped
-    # (dispatch pinning an existing image). Skip only if the build actually failed.
-    if: ${{ always() && needs.build-runner.result != 'failure' && needs.build-runner.result != 'cancelled' }}
+  diag:
     runs-on: ubuntu-24.04
-    timeout-minutes: 350
+    timeout-minutes: 90
     strategy:
       fail-fast: false
       matrix:
-        shard: [1, 2, 3, 4, 5, 6, 7, 8]
+        browser: [chromium, chrome]
+        rep: [1, 2, 3, 4]
     permissions:
       contents: read
       packages: read
-    env:
-      SHARD_INDEX: ${{ matrix.shard }}
-
     steps:
-      - name: Resolve runner image
+      - name: Runner hardware and Docker
         run: |
-          # A pinned tag from a manual dispatch => test it as-is (no rebuild).
-          # Otherwise use the immutable per-commit SHA image just built above.
-          if [ -n "${{ github.event.inputs.runner_tag }}" ]; then
-            RESOLVED="${REGISTRY}/${IMAGE_NAME}:${{ github.event.inputs.runner_tag }}"
-          else
-            RESOLVED="${{ needs.build-runner.outputs.runner_image }}"
-          fi
-          echo "RUNNER_IMAGE=${RESOLVED}" >> "$GITHUB_ENV"
-          echo "Runner image for this run: ${RESOLVED}"
+          echo "CPU: $(grep -m1 'model name' /proc/cpuinfo | cut -d: -f2)"
+          echo "cores: $(nproc)"; free -m; uname -r
+          docker version --format 'docker server {{.Server.Version}}'
 
       - name: Log in to GitHub Container Registry
         run: echo "${{ secrets.CCTC_TEAM_PAT }}" | docker login "${REGISTRY}" -u ${{ github.actor }} --password-stdin
 
       - name: Pull stack images
         run: |
-          # All 8 shards log in as the same account and pull the same multi-GB AIO
-          # image within seconds of each other, which trips GHCR's secondary rate
-          # limit: the pull starts, layers download, then the registry 403s
-          # mid-transfer ("You have exceeded a secondary rate limit"). Stagger the
-          # starts so the shards don't arrive as one burst, and retry with backoff
-          # so a throttled shard recovers instead of failing the whole matrix.
-          sleep $(( (SHARD_INDEX - 1) * 15 ))
-
-          pull_with_retry() {
-            image="$1"
-            attempt=1
-            while [ "$attempt" -le 5 ]; do
-              if docker pull "$image"; then
-                return 0
-              fi
-              if [ "$attempt" -eq 5 ]; then
-                echo "::error::giving up on $image after 5 attempts"
-                return 1
-              fi
-              wait=$(( 30 * attempt + SHARD_INDEX * 5 ))
-              echo "pull of $image failed (attempt ${attempt}/5); retrying in ${wait}s"
-              sleep "$wait"
-              attempt=$(( attempt + 1 ))
-            done
-          }
-
-          pull_with_retry "${AIO_IMAGE}"
-          pull_with_retry "${RUNNER_IMAGE}"
+          # Stagger to avoid GHCR's secondary rate limit (8 jobs, same account).
+          off=0; [ "${{ matrix.browser }}" = "chrome" ] && off=60
+          sleep $(( (${{ matrix.rep }} - 1) * 15 + off ))
+          for img in "${AIO_IMAGE}" "${RUNNER_IMAGE}"; do
+            for a in 1 2 3 4 5; do docker pull -q "$img" && break; sleep $((30 * a)); done
+          done
 
       - name: Start all-in-one REDCap
         run: |
-          # The AIO image is self-contained (REDCap + MariaDB + MailHog via
-          # supervisord); ENV REDCAP_VERSION is baked and every other setting
-          # defaults, so no env/compose is needed. Publish only what the runner
-          # reaches over host networking (HTTPS + MailHog UI); DB/file access is
-          # via docker exec, not a port.
-          docker run -d --name "${REDCAP_CONTAINER}" \
-            -p 8443:8443 -p 8025:8025 \
-            -v cctc_mariadb_data:/var/lib/mysql \
-            "${AIO_IMAGE}"
-
-      - name: Wait for REDCap
-        run: |
-          echo "Waiting for REDCap (first boot initialises the DB)..."
+          docker run -d --name "${REDCAP_CONTAINER}" -p 8443:8443 -p 8025:8025 \
+            -v cctc_mariadb_data:/var/lib/mysql "${AIO_IMAGE}"
           timeout 360 bash -c 'until curl -k -s -f https://localhost:8443 > /dev/null 2>&1; do sleep 3; done'
-          echo "REDCap is up."
-          docker ps
 
-      - name: Capture REDCap version under test
+      - name: Run specs in ${{ matrix.browser }}
         run: |
-          mkdir -p results
-          # REDCAP_VERSION is baked into the AIO image as an ENV, so printenv
-          # returns it even though `docker run` didn't pass -e REDCAP_VERSION.
-          # publish-report reads this back to key the versioned Pages folder.
-          docker exec "${REDCAP_CONTAINER}" printenv REDCAP_VERSION \
-            | tr -d '[:space:]' > results/redcap_version.txt
-          echo "REDCap under test: $(cat results/redcap_version.txt)"
-
-      - name: Run Cypress shard ${{ matrix.shard }}/${{ env.SHARD_TOTAL }}
-        run: |
-          mkdir -p results
-          # The runner is self-contained: it enumerates this shard's baked spec
-          # slice (SHARD_INDEX/SHARD_TOTAL) and runs it with retries, reaching the
-          # AIO container's DB/files via the mounted docker socket and the UI over
-          # host networking. Reports land in the bind-mounted results/ dir. A
-          # non-zero exit (a failing spec) fails this shard but not the others.
-          docker run --rm \
-            --network host \
-            --shm-size=2g \
+          mkdir -p results screenshots
+          docker run --rm --network host --shm-size=2g \
             -v /var/run/docker.sock:/var/run/docker.sock \
             -v "${PWD}/results:/work/redcap_cypress/cypress/results" \
             -v "${PWD}/screenshots:/work/redcap_cypress/cypress/screenshots" \
-            -e SHARD_INDEX="${SHARD_INDEX}" \
-            -e SHARD_TOTAL="${SHARD_TOTAL}" \
             -e CYPRESS_MYSQL_CONTAINER="${REDCAP_CONTAINER}" \
             -e CYPRESS_REDCAP_CONTAINER="${REDCAP_CONTAINER}" \
             -e CYPRESS_baseUrl="https://localhost:8443" \
-            -e RUNNER_BROWSER=chromium \
-            -e CYPRESS_MAX_ATTEMPTS=3 \
+            -e RUNNER_BROWSER=${{ matrix.browser }} \
             -e CYPRESS_prettyEnabled=true \
-            -e CYPRESS_STALL_MS=3600000 \
-            "${RUNNER_IMAGE}"
+            "${RUNNER_IMAGE}" --spec "${SPECS}"
 
-      - name: Reclaim results ownership
+      - name: Save REDCap container logs (Apache access/error)
         if: always()
         run: |
-          # The runner writes results as root; reclaim so upload-artifact can read.
-          sudo chown -R "$(id -u):$(id -g)" results 2>/dev/null || true
+          mkdir -p diag
+          docker logs -t "${REDCAP_CONTAINER}" > diag/redcap-container.log 2>&1 || true
+          sudo chown -R "$(id -u):$(id -g)" results screenshots 2>/dev/null || true
 
-      - name: Upload shard mochawesome results
-        uses: actions/upload-artifact@v7
+      - name: Upload diagnostics
         if: always()
-        with:
-          name: cypress-aio-shard-${{ matrix.shard }}-results
-          # Replace this shard's artifact on "Re-run failed jobs" (same run ID) so
-          # publish-report merges the fresh rerun JSON, not the stale failing one.
-          overwrite: true
-          path: |
-            results/json/*.json
-            results/html/**
-            results/redcap_version.txt
-          retention-days: 7
-          if-no-files-found: warn
-
-      - name: Upload Cypress screenshots
         uses: actions/upload-artifact@v7
-        if: failure()
         with:
-          name: cypress-aio-shard-${{ matrix.shard }}-screenshots
-          path: screenshots/
+          name: diag-${{ matrix.browser }}-${{ matrix.rep }}
+          path: |
+            diag/
+            screenshots/
           retention-days: 7
           if-no-files-found: ignore
-
-      - name: Cleanup
-        if: always()
-        run: |
-          docker rm -f "${REDCAP_CONTAINER}" 2>/dev/null || true
-          docker volume rm cctc_mariadb_data 2>/dev/null || true
-
-  # Merge every shard's mochawesome JSON into ONE combined HTML report and publish
-  # to GitHub Pages (same as the old pipeline). Shards run disjoint spec sets, so
-  # concatenating their per-spec JSON yields the full suite.
-  publish-report:
-    needs: cypress-tests
-    if: always()
-    runs-on: ubuntu-24.04
-    permissions:
-      contents: write   # force-push the accumulated site to the pages-store branch
-      pages: write
-      id-token: write
-      actions: write    # delete the previous attempt's github-pages artifact on a re-run
-    # One Pages site per repo — serialise with any other Pages deploy (incl. the
-    # old workflow) so overlapping runs don't clobber mid-deploy.
-    concurrency:
-      group: pages
-      cancel-in-progress: false
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Setup Node.js
-        uses: actions/setup-node@v5
-        with:
-          node-version: '20'
-
-      - name: Configure Pages
-        uses: actions/configure-pages@v6
-        with:
-          enablement: true
-
-      - name: Download every shard's results
-        uses: actions/download-artifact@v8
-        with:
-          pattern: 'cypress-aio-shard-*-results'
-          # Do NOT merge-multiple: the per-spec mochawesome JSON filenames are not
-          # shard-unique (reportFilename '[name]' collapses to a tiny namespace —
-          # A.json, A_001.json, ... — regenerated independently per shard), so
-          # flattening every shard into one dir makes identical basenames overwrite
-          # each other (last writer wins) and silently drops most shards from the
-          # combined report. Keeping each artifact in its own collected/<name>/
-          # subdir preserves all of them; the merge glob below spans the subdirs.
-          path: collected
-
-      - name: Resolve REDCap version under test
-        id: ver
-        run: |
-          # All shards test the same AIO image, so any shard's file is authoritative.
-          # Read exactly ONE file: the shard files have their trailing newline
-          # stripped at write time, so `cat`-ing all of them would glue the
-          # per-shard versions into one run-on token (15.5.3615.5.36...).
-          f="$(ls collected/*/redcap_version.txt 2>/dev/null | head -n1)"
-          v="$( [ -n "$f" ] && tr -d '[:space:]' < "$f" )"
-          if [ -z "$v" ]; then
-            echo "::warning::No redcap_version.txt in any shard artifact; publishing under 'unknown'."
-            v="unknown"
-          fi
-          # The value becomes a path segment (site/<v>/) — reject anything that
-          # isn't a plain version token so a stray '/' or '..' can't escape site/.
-          if ! printf '%s' "$v" | grep -qE '^[0-9A-Za-z._-]+$'; then
-            echo "::warning::Resolved version '$v' has unexpected characters; using 'unknown'."
-            v="unknown"
-          fi
-          echo "redcap_version=$v" >> "$GITHUB_OUTPUT"
-          echo "Publishing report for REDCap $v"
-
-      - name: Restore accumulated site
-        run: |
-          # deploy-pages publishes only what we upload, so past versions live in a
-          # pages-store branch; pull it in and add this run's version alongside.
-          # CRITICAL: distinguish "branch absent" from "fetch failed". The later
-          # step force-pushes site/ to pages-store, so if a transient fetch failure
-          # were treated as "starting fresh" we'd overwrite pages-store with only
-          # this run's version and wipe all published history. So: if the branch
-          # EXISTS but we can't fetch it, fail the job rather than publish a
-          # truncated site.
-          mkdir -p site
-          remote="https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git"
-          if ! git ls-remote --exit-code "$remote" pages-store >/dev/null 2>&1; then
-            echo "No pages-store branch yet; starting fresh."
-          else
-            tmp="$(mktemp -d)"
-            git -C "$tmp" init -q
-            git -C "$tmp" remote add origin "$remote"
-            ok=false
-            for attempt in 1 2 3; do
-              if git -C "$tmp" fetch -q --depth=1 origin pages-store; then ok=true; break; fi
-              echo "fetch attempt $attempt failed; retrying..."; sleep 5
-            done
-            if [ "$ok" != true ]; then
-              echo "::error::pages-store exists but could not be fetched — refusing to publish (would wipe report history)."
-              exit 1
-            fi
-            git -C "$tmp" checkout -q FETCH_HEAD
-            rm -rf "$tmp/.git"
-            # No `|| true`: a partial restore must abort (set -eo pipefail is on by
-            # default) rather than let a truncated tree be force-pushed as truth.
-            cp -r "$tmp"/. site/
-            echo "Restored existing pages-store."
-          fi
-
-      - name: Merge shards into this version's HTML report
-        run: |
-          shopt -s nullglob globstar
-          VER="${{ steps.ver.outputs.redcap_version }}"
-          VDIR="site/${VER}"
-          # Rebuild this version's folder from just this run's output, so a
-          # re-run can't leave stale files behind (e.g. from an older report layout).
-          rm -rf "$VDIR"
-          mkdir -p "$VDIR"
-          # Each shard's results live in their own collected/<artifact-name>/json/
-          # subdir (download-artifact was NOT merge-multiple), so the same per-spec
-          # basename from different shards no longer collides.
-          # Skip any unparseable JSON (e.g. a spec killed mid-write) so one bad
-          # file can't fail the whole combined report.
-          for f in collected/*/json/*.json; do
-            node -e "JSON.parse(require('fs').readFileSync(process.argv[1],'utf8'))" "$f" 2>/dev/null \
-              || { echo "::warning::Skipping unparseable mochawesome JSON: $f"; rm -f "$f"; }
-          done
-          jsons=(collected/*/json/*.json)
-          if [ ${#jsons[@]} -eq 0 ]; then
-            echo "::warning::No valid mochawesome JSON across shards — publishing a placeholder for ${VER}."
-            printf '<!doctype html><title>No results</title><h1>No test results were produced for REDCap %s.</h1>' \
-              "${VER}" > "${VDIR}/redcap_v${VER}.html"
-          else
-            echo "Merging ${#jsons[@]} per-spec JSON file(s) for REDCap ${VER}..."
-            npx --yes mochawesome-merge@5.1.1 collected/*/json/*.json -o collected/combined.json
-            npx --yes mochawesome-report-generator@6.3.2 collected/combined.json \
-              --reportDir "${VDIR}" --reportFilename "redcap_v${VER}" --inline \
-              --reportTitle "REDCap Cypress (AIO) — redcap_v${VER}" \
-              --reportPageTitle "REDCap Cypress (AIO) redcap_v${VER}"
-          fi
-          # Folder-level redirect so the bare /<ver>/ URL resolves to the versioned file.
-          printf '<!doctype html><meta charset="utf-8"><meta http-equiv="refresh" content="0; url=redcap_v%s.html">' \
-            "${VER}" > "${VDIR}/index.html"
-
-      - name: Build version index
-        run: |
-          # REDCap versions have no 'v' prefix (e.g. 15.5.36); sort -Vr orders newest first.
-          cd site
-          versions=$(find . -maxdepth 1 -type d \( -name '[0-9]*' -o -name 'unknown' \) -printf '%f\n' 2>/dev/null | sort -Vr)
-          latest=$(echo "$versions" | grep -v '^unknown$' | head -n1)
-          {
-            echo '<!doctype html><meta charset="utf-8">'
-            echo '<title>REDCap Cypress (AIO) — test reports by REDCap version</title>'
-            echo '<h1>REDCap Cypress (AIO) — combined reports by REDCap version</h1><ul>'
-            for v in $versions; do
-              tag=""; [ "$v" = "$latest" ] && tag=" (latest)"
-              echo "<li><a href=\"./${v}/redcap_v${v}.html\">${v}${tag}</a></li>"
-            done
-            echo '</ul>'
-          } > index.html
-
-      - name: Save accumulated site
-        run: |
-          # Persist the cumulative site as a single orphan commit; history is
-          # irrelevant, only the latest snapshot matters.
-          cd site
-          git init -q
-          git checkout -q -b pages-store
-          git config user.name  "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -A
-          git commit -q -m "Publish REDCap ${{ steps.ver.outputs.redcap_version }} report" || echo "nothing to commit"
-          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" pages-store
-          rm -rf .git   # don't ship git metadata to the Pages artifact
-
-      # Artifacts are scoped to the RUN, not the attempt, so a partial re-run
-      # (e.g. `gh run rerun --job <shard-id>`) re-runs this job while attempt N-1's
-      # 'github-pages' artifact is still attached. upload-pages-artifact would then
-      # add a second one and deploy-pages hard-fails with "Multiple artifacts named
-      # github-pages were unexpectedly found for this workflow run. Artifact count
-      # is 2." The name is fixed by deploy-pages, so drop the stale copies first.
-      - name: Drop stale github-pages artifact from earlier attempts
-        env:
-          GH_TOKEN: ${{ github.token }}
-          REPO: ${{ github.repository }}
-          RUN_ID: ${{ github.run_id }}
-        run: |
-          # Best-effort: an API blip here must not fail an otherwise-fine publish
-          # (on attempt 1 there is nothing to clean up anyway). Worst case the
-          # deploy below fails on duplicates exactly as it did before this step.
-          if ! ids=$(gh api "repos/${REPO}/actions/runs/${RUN_ID}/artifacts" --paginate \
-                       --jq '.artifacts[] | select(.name == "github-pages") | .id'); then
-            echo "::warning::Could not list artifacts for run ${RUN_ID}; skipping stale-artifact cleanup."
-            ids=""
-          fi
-          if [ -z "$ids" ]; then
-            echo "No pre-existing github-pages artifact for run ${RUN_ID}."
-          fi
-          for id in $ids; do
-            echo "Deleting stale github-pages artifact ${id}"
-            gh api -X DELETE "repos/${REPO}/actions/artifacts/${id}" \
-              || echo "::warning::Could not delete artifact ${id}; the deploy below may fail on duplicates."
-          done
-
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v5
-        with:
-          path: site
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v5
-
-  # Housekeeping: purge old runs' artifacts (results + screenshots — 8 shards each)
-  # so Actions storage doesn't grow unbounded. Independent of the GHCR image pruning
-  # in build-runner (that prunes container images, this prunes workflow artifacts).
-  prune-artifacts:
-    needs: cypress-tests
-    if: always()
-    # Best-effort housekeeping only. A GitHub runner-acquisition hiccup or an API
-    # blip here must never mark the whole run red — the tests already passed.
-    continue-on-error: true
-    runs-on: ubuntu-24.04
-    permissions:
-      actions: write
-    env:
-      KEEP_RUNS: "2"   # keep the latest run + the one before it
-    steps:
-      - name: Delete artifacts from older runs
-        env:
-          GH_TOKEN: ${{ github.token }}
-          REPO: ${{ github.repository }}
-        run: |
-          # Distinct run IDs that still have live artifacts, newest first
-          RUN_IDS=$(gh api "repos/${REPO}/actions/artifacts" --paginate \
-            --jq '.artifacts[] | select(.expired==false) | [.workflow_run.id, .created_at] | @tsv' \
-            | awk -F'\t' '{ if($2>seen[$1]) seen[$1]=$2 } END { for(r in seen) print seen[r]"\t"r }' \
-            | sort -r | awk -F'\t' '{print $2}')
-
-          KEEP_SET=$(echo "$RUN_IDS" | head -n "$KEEP_RUNS" | paste -sd, -)
-          echo "Keeping artifacts from runs: ${KEEP_SET:-<none>}"
-
-          gh api "repos/${REPO}/actions/artifacts" --paginate \
-            --jq '.artifacts[] | select(.expired==false) | [.workflow_run.id, .id, .name] | @tsv' \
-            | while IFS=$'\t' read -r runid artid name; do
-                case ",$KEEP_SET," in
-                  *",$runid,"*) ;;  # within the keep window — leave it
-                  *)
-                    echo "Deleting $name (run $runid, artifact $artid)"
-                    gh api -X DELETE "repos/${REPO}/actions/artifacts/${artid}" \
-                      && echo "  ok" || echo "  failed (continuing)"
-                    ;;
-                esac
-              done
