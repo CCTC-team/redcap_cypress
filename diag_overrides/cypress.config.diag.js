@@ -137,6 +137,9 @@ module.exports = defineConfig({
               launchOptions.args.push('--enable-logging')
               launchOptions.args.push('--v=0')
               launchOptions.args.push('--log-file=/work/redcap_cypress/cypress/results/chrome_debug.log')
+              // DIAG run 4: Chrome net log (socket pools, per-host queueing).
+              launchOptions.args.push('--log-net-log=/work/redcap_cypress/cypress/results/netlog.json')
+              launchOptions.args.push('--net-log-capture-mode=Default')
               const extra = (process.env.DIAG_CHROME_ARGS || '').split(' ').filter(Boolean)
               launchOptions.args.push(...extra)
               console.log('[diag] browser args: ' + launchOptions.args.join(' '))

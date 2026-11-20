@@ -22,6 +22,18 @@ name: REDCap Cypress Tests (AIO)
 #   noswrast - --disable-software-rasterizer (software rendering hang theory)
 #   noisol   - no site isolation (iframe in its own renderer process theory)
 # Only jobs on a .37x runner image are informative; image version is logged.
+#   RESULT: no flag helped; Chrome log silent for the 120s.
+#
+# RUN 4: the split is really CLOUD: Azure-hosted runners stall (26/26 since
+# 11-18 PM), AWS-hosted never (39/39). Hypothesis: PDF.js's cancelled requests
+# leave Chrome's 6 per-host connection slots held, so the next navigation
+# queues forever inside the browser (Apache sees nothing). This run captures:
+#   - Chrome net log (netlog.json): socket pool / queueing state
+#   - host `ss` snapshots every 5s (host network: browser<->Cypress proxy and
+#     proxy<->Apache connections are both visible)
+# and tests the workaround:
+#   base     - logging only
+#   noiframe - blank+remove iframes on window:before:unload (support override)
 #
 # No image build/push, no report publish, no artifact pruning: it reuses the
 # already-published runner image for redcap_val 3e7193c.
@@ -50,21 +62,15 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        variant: [base, jitless, noswrast, noisol]
-        rep: [1, 2, 3]
+        variant: [base, noiframe]
+        rep: [1, 2, 3, 4, 5, 6]
         include:
           - variant: base
             idx: 0
-            args: ""
-          - variant: jitless
+            noiframe: ""
+          - variant: noiframe
             idx: 1
-            args: "--js-flags=--jitless"
-          - variant: noswrast
-            idx: 2
-            args: "--disable-software-rasterizer"
-          - variant: noisol
-            idx: 3
-            args: "--disable-site-isolation-trials --disable-features=IsolateOrigins,site-per-process"
+            noiframe: "1"
     permissions:
       contents: read
       packages: read
@@ -87,7 +93,7 @@ jobs:
       - name: Pull stack images
         run: |
           # Stagger to avoid GHCR's secondary rate limit (8 jobs, same account).
-          sleep $(( ((${{ matrix.rep }} - 1) * 4 + ${{ matrix.idx }}) * 15 ))
+          sleep $(( ((${{ matrix.rep }} - 1) * 2 + ${{ matrix.idx }}) * 15 ))
           for img in "${AIO_IMAGE}" "${RUNNER_IMAGE}"; do
             for a in 1 2 3 4 5; do docker pull -q "$img" && break; sleep $((30 * a)); done
           done
@@ -98,6 +104,15 @@ jobs:
             -v cctc_mariadb_data:/var/lib/mysql "${AIO_IMAGE}"
           timeout 360 bash -c 'until curl -k -s -f https://localhost:8443 > /dev/null 2>&1; do sleep 3; done'
 
+      - name: Start host connection snapshots (every 5s)
+        run: |
+          mkdir -p diag
+          nohup bash -c 'while true; do
+            echo "=== $(date -u +%H:%M:%S)"
+            sudo ss -tanpo "( dst 127.0.0.1 or dst [::1] or src 127.0.0.1 or src [::1] )" | grep -v TIME-WAIT
+            sleep 5
+          done' > diag/ss.log 2>&1 &
+
       - name: Run specs (chromium, ${{ matrix.variant }})
         run: |
           mkdir -p results screenshots
@@ -106,7 +121,8 @@ jobs:
             -v "${PWD}/results:/work/redcap_cypress/cypress/results" \
             -v "${PWD}/screenshots:/work/redcap_cypress/cypress/screenshots" \
             -v "${PWD}/diag_overrides/cypress.config.diag.js:/work/redcap_cypress/cypress.config.js:ro" \
-            -e DIAG_CHROME_ARGS="${{ matrix.args }}" \
+            -v "${PWD}/diag_overrides/e2e.diag.js:/work/redcap_cypress/cypress/support/e2e.js:ro" \
+            -e CYPRESS_DIAG_NOIFRAME="${{ matrix.noiframe }}" \
             -e CYPRESS_MYSQL_CONTAINER="${REDCAP_CONTAINER}" \
             -e CYPRESS_REDCAP_CONTAINER="${REDCAP_CONTAINER}" \
             -e CYPRESS_baseUrl="https://localhost:8443" \
@@ -119,6 +135,7 @@ jobs:
         run: |
           mkdir -p diag
           cp results/chrome_debug.log diag/ 2>/dev/null || true
+          [ -f results/netlog.json ] && gzip -c results/netlog.json > diag/netlog.json.gz || true
           docker logs -t "${REDCAP_CONTAINER}" > diag/redcap-container.log 2>&1 || true
           sudo chown -R "$(id -u):$(id -g)" results screenshots 2>/dev/null || true
 
